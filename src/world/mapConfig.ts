@@ -1,7 +1,7 @@
 import { Vector3 } from "three";
 import type { RectBounds } from "../utils/math";
 
-export type MapRoomType = "hub" | "mcp" | "review" | "social";
+export type MapRoomType = "hub" | "mcp" | "review" | "social" | "lab" | "outdoor";
 export type DoorSide = "north" | "south" | "east" | "west";
 
 export interface RoomAnchors {
@@ -23,6 +23,11 @@ export interface MapRoomConfig {
   position: { x: number; z: number };
   size: { width: number; depth: number };
   accentColor: string;
+  secondaryAccentColor?: string;
+  strategicAccentColor?: string;
+  subtitle?: string;
+  connectedTo?: string[];
+  interactionPoint?: boolean;
   type: MapRoomType;
   npcId?: string;
   doorSides: DoorSide[];
@@ -83,7 +88,7 @@ export const MAP_ROOMS: MapRoomConfig[] = [
     accentColor: "#F2C94C",
     type: "mcp",
     npcId: "brand-brain",
-    doorSides: ["south"],
+    doorSides: ["south", "east"],
     desk: {
       position: new Vector3(0, 0, -11.15),
       rotationY: Math.PI
@@ -133,6 +138,30 @@ export const MAP_ROOMS: MapRoomConfig[] = [
       deskLabel: new Vector3(10.45, 1.15, 1.65),
       panel: new Vector3(8.2, 2.02, 1.15),
       npcNameplate: new Vector3(10, 2.45, 0)
+    }
+  },
+  {
+    id: "smart-lab",
+    name: "Smart Lab",
+    subtitle: "Brand × Design Intelligence",
+    type: "lab",
+    position: { x: 6.5, z: -10 },
+    size: { width: 6, depth: 4 },
+    accentColor: "#66E6FF",
+    secondaryAccentColor: "#27AE60",
+    strategicAccentColor: "#F2C94C",
+    connectedTo: ["brand-brain", "design"],
+    interactionPoint: true,
+    doorSides: ["west", "east"],
+    desk: {
+      position: new Vector3(6.5, 0, -10),
+      rotationY: 0
+    },
+    anchors: {
+      roomLabel: new Vector3(6.5, 2.9, -11.8),
+      deskLabel: new Vector3(6.5, 1.15, -10),
+      panel: new Vector3(5.5, 2.05, -10),
+      npcNameplate: new Vector3(6.5, 2.45, -10)
     }
   },
   {
@@ -261,6 +290,18 @@ export const MAP_CORRIDORS: CorridorConfig[] = [
     railings: false
   },
   {
+    id: "lab-connector",
+    position: { x: 7, z: -5.5 },
+    size: { width: 7, depth: 5 },
+    railings: false
+  },
+  {
+    id: "lab-patio",
+    position: { x: 12, z: -7.5 },
+    size: { width: 5, depth: 9 },
+    railings: false
+  },
+  {
     id: "southwest-connector-narration",
     position: { x: -7.2, z: 7.5 },
     size: { width: 2.8, depth: 1.9 },
@@ -286,26 +327,56 @@ export const MAP_CORRIDORS: CorridorConfig[] = [
   },
   {
     id: "meeting-exterior-airlock",
-    position: { x: 0, z: 18.9 },
-    size: { width: 4, depth: 3.2 },
+    position: { x: 0, z: 19.0 },
+    size: { width: 4, depth: 3 },
     railings: false
   },
   {
     id: "exterior-south-path",
     position: { x: 0, z: 23.5 },
-    size: { width: 14, depth: 7 },
+    size: { width: 14, depth: 8 },
+    railings: false
+  },
+  {
+    id: "garden-connector-path",
+    position: { x: 7.25, z: 21.0 },
+    size: { width: 4.5, depth: 9 },
+    railings: false
+  },
+  {
+    id: "lower-central-walkway",
+    position: { x: 11.5, z: 15.75 },
+    size: { width: 4, depth: 8.5 },
+    railings: false
+  },
+  {
+    id: "right-mcp-connector",
+    position: { x: 13.0, z: 7.25 },
+    size: { width: 4, depth: 8.5 },
+    railings: false
+  },
+  {
+    id: "right-outer-walkway",
+    position: { x: 15.5, z: -1.0 },
+    size: { width: 5, depth: 8.0 },
     railings: false
   },
   {
     id: "exterior-west-path",
-    position: { x: -8.5, z: 21.7 },
-    size: { width: 14, depth: 4 },
+    position: { x: -8.5, z: 21.5 },
+    size: { width: 13, depth: 4 },
     railings: false
   },
   {
     id: "futuristic-garden-pad",
     position: { x: -15.5, z: 23.5 },
-    size: { width: 8, depth: 6 },
+    size: { width: 9, depth: 6 },
+    railings: false
+  },
+  {
+    id: "orbit-garden",
+    position: { x: 12.5, z: 23.5 },
+    size: { width: 11, depth: 7 },
     railings: false
   }
 ];

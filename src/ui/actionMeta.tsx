@@ -17,7 +17,15 @@ import {
   Send,
   ShieldCheck,
   Sparkles,
-  Stamp
+  Stamp,
+  Search,
+  FileSignature,
+  FlaskConical,
+  Images,
+  ListTodo,
+  Lightbulb,
+  BarChart,
+  Home
 } from "lucide-react";
 import type { ActionId } from "../domain/mcpActions";
 
@@ -47,7 +55,16 @@ const ACTION_META: Record<ActionId, ActionMeta> = {
   "review-current-post": { icon: Eye, shortLabel: "Revisar" },
   "approve-content": { icon: CheckCheck, shortLabel: "Aprovar" },
   "export-package": { icon: Package, shortLabel: "Exportar" },
-  "mark-ready-to-publish": { icon: Stamp, shortLabel: "Publicar" }
+  "mark-ready-to-publish": { icon: Stamp, shortLabel: "Publicar" },
+  "inspect-visual-system": { icon: Search, shortLabel: "Inspecionar" },
+  "validate-brand-consistency": { icon: FileSignature, shortLabel: "Validar" },
+  "test-design-prompt": { icon: FlaskConical, shortLabel: "Testar" },
+  "review-image-inputs": { icon: Images, shortLabel: "Imagens" },
+  "send-to-design-mcp": { icon: Send, shortLabel: "Enviar" },
+  "review-active-missions": { icon: ListTodo, shortLabel: "Missões" },
+  "open-inspiration-notes": { icon: Lightbulb, shortLabel: "Notas" },
+  "check-deck-progress": { icon: BarChart, shortLabel: "Progresso" },
+  "return-to-orbit-hub": { icon: Home, shortLabel: "Orbit Hub" }
 };
 
 export function getActionMeta(actionId: ActionId): ActionMeta {

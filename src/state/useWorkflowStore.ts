@@ -64,6 +64,11 @@ const delay = (ms: number) =>
   });
 
 const initialTasks = (): WorkflowTask[] => [
+  {
+    id: "register-first-client",
+    label: "Cadastre seu primeiro cliente no Deck de Estratégia.",
+    status: "idle"
+  },
   { id: "talk-brand-brain", label: "Falar com o Brand Brain MCP", status: "idle" },
   { id: "generate-brief", label: "Gerar briefing editorial", status: "idle" },
   { id: "send-to-design", label: "Enviar para o MCP de Design", status: "idle" },

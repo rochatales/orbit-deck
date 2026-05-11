@@ -205,11 +205,11 @@ export function createDoorFrame(width = 1.8, height = 2.45) {
   const group = new Group();
   const pillarMaterial = createMaterial("#FBFEFF", 0.66, 0.04);
 
-  const left = new Mesh(new BoxGeometry(0.24, height, 0.28), pillarMaterial);
+  const left = new Mesh(new BoxGeometry(0.24, height, 0.32), pillarMaterial);
   left.position.set(-width / 2, height / 2, 0);
   const right = left.clone();
   right.position.x = width / 2;
-  const top = new Mesh(new BoxGeometry(width + 0.24, 0.26, 0.28), pillarMaterial);
+  const top = new Mesh(new BoxGeometry(width + 0.24, 0.26, 0.32), pillarMaterial);
   top.position.set(0, height + 0.02, 0);
 
   group.add(left, right, top);

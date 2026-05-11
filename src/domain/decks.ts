@@ -75,6 +75,17 @@ export function getDeckAgentIds(deck: DeckDefinition): NpcId[] {
   return [deck.primaryNpcId, ...deck.alliedNpcIds.filter((id) => id !== deck.primaryNpcId)];
 }
 
+/**
+ * Retorna o deck "home" de um NPC — aquele em que ele é o agente principal.
+ * Cada NPC tem exatamente um deck-home na configuração atual.
+ */
+export function getAgentHomeDeckId(npcId: NpcId): DeckId | null {
+  for (const deck of Object.values(DECK_REGISTRY)) {
+    if (deck.primaryNpcId === npcId) return deck.id;
+  }
+  return null;
+}
+
 const TOOL_LABELS: Record<ToolId, { label: string; description: string }> = {
   "google-drive": {
     label: "Google Drive",

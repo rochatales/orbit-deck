@@ -36,13 +36,30 @@ export type DeckConnectionMap = Record<DeckId, Partial<Record<ToolId, ToolConnec
 interface PlayerJourneyState {
   stage: JourneyStage;
   profile: PlayerProfile | null;
+  /**
+   * Decks que o player adicionou à sua estação. Determina quais agentes
+   * ficam ativos no gameplay (os de decks fora desse conjunto seguem em demo).
+   */
+  activatedDeckIds: DeckId[];
+  /**
+   * Deck atualmente em foco — usado:
+   *  - na orbital para preview do painel direito,
+   *  - in-game para indicar com qual deck o player está interagindo.
+   * Não controla mais o roteamento (ativação ≠ foco).
+   */
   selectedDeckId: DeckId | null;
   connections: DeckConnectionMap;
 
   // Transições de estágio.
   goToStage: (stage: JourneyStage) => void;
   loginAs: (input: { displayName: string; color: string }) => void;
-  selectDeck: (deckId: DeckId) => void;
+  /** Foca um deck (preview/contexto) sem alterar o roteamento. */
+  focusDeck: (deckId: DeckId | null) => void;
+  /** Adiciona/remove um deck da estação. */
+  toggleDeckActivation: (deckId: DeckId) => void;
+  /** Atalho: garante ativação. */
+  activateDeck: (deckId: DeckId) => void;
+  isDeckActivated: (deckId: DeckId) => boolean;
   enterWorkspace: () => void;
   resetJourney: () => void;
   signOut: () => void;
@@ -90,6 +107,7 @@ export const usePlayerJourneyStore = create<PlayerJourneyState>()(
     (set, get) => ({
       stage: DEFAULT_JOURNEY_STAGE,
       profile: null,
+      activatedDeckIds: [],
       selectedDeckId: null,
       connections: emptyConnections,
 
@@ -112,20 +130,34 @@ export const usePlayerJourneyStore = create<PlayerJourneyState>()(
         });
       },
 
-      selectDeck: (deckId) =>
-        set({
-          selectedDeckId: deckId,
-          stage: "deck-connection"
+      focusDeck: (deckId) => set({ selectedDeckId: deckId }),
+
+      toggleDeckActivation: (deckId) =>
+        set((state) => {
+          const activated = state.activatedDeckIds.includes(deckId)
+            ? state.activatedDeckIds.filter((id) => id !== deckId)
+            : [...state.activatedDeckIds, deckId];
+          return { activatedDeckIds: activated };
         }),
 
+      activateDeck: (deckId) =>
+        set((state) =>
+          state.activatedDeckIds.includes(deckId)
+            ? state
+            : { activatedDeckIds: [...state.activatedDeckIds, deckId] }
+        ),
+
+      isDeckActivated: (deckId) => get().activatedDeckIds.includes(deckId),
+
       enterWorkspace: () => {
-        const { selectedDeckId, profile } = get();
+        const { activatedDeckIds, profile } = get();
         if (!profile) {
           // Sem profile, força login — nunca cair direto no mundo.
           set({ stage: "login" });
           return;
         }
-        if (!selectedDeckId) {
+        if (activatedDeckIds.length === 0) {
+          // Nenhum deck adicionado → fica na seleção (nunca cair vazio no mundo).
           set({ stage: "deck-selection" });
           return;
         }
@@ -142,6 +174,7 @@ export const usePlayerJourneyStore = create<PlayerJourneyState>()(
         set({
           stage: "login",
           profile: null,
+          activatedDeckIds: [],
           selectedDeckId: null,
           connections: emptyConnections
         }),
@@ -205,6 +238,7 @@ export const usePlayerJourneyStore = create<PlayerJourneyState>()(
       // assim o player nunca é jogado de volta na cena 3D sem passar pelo fluxo.
       partialize: (state) => ({
         profile: state.profile,
+        activatedDeckIds: state.activatedDeckIds,
         selectedDeckId: state.selectedDeckId,
         connections: state.connections
       }),

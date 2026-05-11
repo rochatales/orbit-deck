@@ -11,6 +11,7 @@ export interface MCPConfig {
   interactionRadius: number;
   dialogue: string;
   actions: NpcAction[];
+  isEnvironmentNode?: boolean;
 }
 
 export const MCP_NPCS: MCPConfig[] = Object.values(NPC_CHARACTER_ASSET_CONFIG).map((config) => ({
@@ -22,5 +23,6 @@ export const MCP_NPCS: MCPConfig[] = Object.values(NPC_CHARACTER_ASSET_CONFIG).m
   position: config.position ?? { x: 0, y: 0, z: 0 },
   interactionRadius: config.interactionRadius,
   dialogue: config.dialogue ?? "",
-  actions: config.actions ?? []
+  actions: config.actions ?? [],
+  isEnvironmentNode: config.isEnvironmentNode ?? false
 }));

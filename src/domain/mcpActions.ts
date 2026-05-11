@@ -1,4 +1,4 @@
-export type NpcId = "brand-brain" | "editorial" | "narration" | "design" | "output-review";
+export type NpcId = "brand-brain" | "editorial" | "narration" | "design" | "output-review" | "smart-lab" | "orbit-garden";
 
 export type ActionId =
   | "view-brand-rules"
@@ -21,7 +21,16 @@ export type ActionId =
   | "review-current-post"
   | "approve-content"
   | "export-package"
-  | "mark-ready-to-publish";
+  | "mark-ready-to-publish"
+  | "inspect-visual-system"
+  | "validate-brand-consistency"
+  | "test-design-prompt"
+  | "review-image-inputs"
+  | "send-to-design-mcp"
+  | "review-active-missions"
+  | "open-inspiration-notes"
+  | "check-deck-progress"
+  | "return-to-orbit-hub";
 
 export type WorkflowTaskId = "talk-brand-brain" | "generate-brief" | "send-to-design" | "review-output";
 
@@ -59,7 +68,16 @@ const ACTION_DEFINITIONS: Record<ActionId, ActionDefinition> = {
   "review-current-post": { label: "Revisar Post Atual", shortLabel: "REVISAR" },
   "approve-content": { label: "Aprovar Conteúdo", shortLabel: "APROVAR" },
   "export-package": { label: "Exportar Pacote", shortLabel: "EXPORTAR" },
-  "mark-ready-to-publish": { label: "Marcar como Pronto para Publicar", shortLabel: "PRONTO" }
+  "mark-ready-to-publish": { label: "Marcar como Pronto para Publicar", shortLabel: "PRONTO" },
+  "inspect-visual-system": { label: "Inspecionar Sistema Visual", shortLabel: "INSPECIONAR" },
+  "validate-brand-consistency": { label: "Validar Consistência da Marca", shortLabel: "VALIDAR" },
+  "test-design-prompt": { label: "Testar Prompt de Design", shortLabel: "TESTAR" },
+  "review-image-inputs": { label: "Revisar Entradas de Imagem", shortLabel: "REVISAR IMAGENS" },
+  "send-to-design-mcp": { label: "Enviar para MCP de Design", shortLabel: "ENV. DESIGN" },
+  "review-active-missions": { label: "Revisar Missões Ativas", shortLabel: "MISSÕES" },
+  "open-inspiration-notes": { label: "Abrir Notas de Inspiração", shortLabel: "NOTAS" },
+  "check-deck-progress": { label: "Checar Progresso do Deck", shortLabel: "PROGRESSO" },
+  "return-to-orbit-hub": { label: "Retornar ao Orbit Hub", shortLabel: "RETORNAR" }
 };
 
 const NPC_ACTION_IDS: Record<NpcId, ActionId[]> = {
@@ -88,7 +106,20 @@ const NPC_ACTION_IDS: Record<NpcId, ActionId[]> = {
     "assemble-carousel-layout",
     "prepare-image-prompt"
   ],
-  "output-review": ["review-current-post", "approve-content", "export-package", "mark-ready-to-publish"]
+  "output-review": ["review-current-post", "approve-content", "export-package", "mark-ready-to-publish"],
+  "smart-lab": [
+    "inspect-visual-system",
+    "validate-brand-consistency",
+    "test-design-prompt",
+    "review-image-inputs",
+    "send-to-design-mcp"
+  ],
+  "orbit-garden": [
+    "review-active-missions",
+    "open-inspiration-notes",
+    "check-deck-progress",
+    "return-to-orbit-hub"
+  ]
 };
 
 const ACTIONS_BY_NPC: Record<NpcId, NpcAction[]> = Object.fromEntries(

@@ -6,8 +6,8 @@ import {
   usePlayerJourneyStore
 } from "../state/usePlayerJourneyStore";
 
-const WELCOME_HEADLINE = "Bem-vindo a sua estação criativa.";
-const WELCOME_SUBTITLE = "Escolha um deck para começar.";
+const WELCOME_HEADLINE = "Bem-vindo ao Orbit Deck.";
+const WELCOME_SUBTITLE = "Escolha o seu nome para começar.";
 
 export function LoginScreen() {
   const loginAs = usePlayerJourneyStore((state) => state.loginAs);
@@ -42,57 +42,57 @@ export function LoginScreen() {
             <span className="brand-mark-dot" style={{ background: color }} />
           </span>
           <span className="brand-mark-text">
-            <span className="brand-mark-name">MCP Office</span>
-            <span className="brand-mark-tagline">estação criativa</span>
+            <span className="brand-mark-name">Orbit Deck</span>
+            <span className="brand-mark-tagline">Estação Criativa</span>
           </span>
         </header>
 
         <div className="login-grid">
           <section className="login-hero">
-            <p className="journey-kicker">Etapa 1 · Configuração inicial</p>
+            <p className="journey-kicker">Configuração inicial</p>
             <h1 className="login-hero-title">{WELCOME_HEADLINE}</h1>
             <p className="login-hero-subtitle">{WELCOME_SUBTITLE}</p>
 
             <ol className="login-stepper" aria-label="Etapas da jornada">
               <li className="login-step login-step-active">
                 <span className="login-step-index">1</span>
-                <span className="login-step-label">Configurar player</span>
+                <span className="login-step-label">Configure a estação</span>
               </li>
               <li className="login-step">
                 <span className="login-step-index">2</span>
-                <span className="login-step-label">Escolher deck</span>
+                <span className="login-step-label">Adicione Decks</span>
               </li>
               <li className="login-step">
                 <span className="login-step-index">3</span>
-                <span className="login-step-label">Conectar ferramentas</span>
+                <span className="login-step-label">Conecte ferramentas</span>
               </li>
               <li className="login-step">
                 <span className="login-step-index">4</span>
-                <span className="login-step-label">Entrar no escritório</span>
+                <span className="login-step-label">Navegue pelo escritório</span>
               </li>
             </ol>
           </section>
 
           <section className="journey-card login-form-card" aria-labelledby="login-form-title">
             <h2 id="login-form-title" className="login-form-title">
-              {isReturning ? `Continuar como ${existingProfile?.displayName}?` : "Configure seu player"}
+              {isReturning ? `Continuar como ${existingProfile?.displayName}?` : "Configurar estação"}
             </h2>
             <p className="login-form-hint">
               {isReturning
                 ? "Os dados desta sessão ficaram salvos neste dispositivo. Ajuste o que precisar e siga em frente."
-                : "Defina seu nome e cor antes de seguir para a seleção de deck."}
+                : "Defina um nome e selecione a cor do seu avatar."}
             </p>
 
             <form className="journey-form" onSubmit={handleSubmit} noValidate>
               <label className="journey-field">
-                <span className="journey-field-label">Como devemos te chamar?</span>
+                <span className="journey-field-label">Como devemos chamar sua estação?</span>
                 <input
                   type="text"
                   className={`journey-input${showNameError ? " journey-input-invalid" : ""}`}
                   value={displayName}
                   onChange={(event) => setDisplayName(event.target.value)}
                   onBlur={() => setTouched(true)}
-                  placeholder="Ex: Tales"
+                  placeholder="Ex: Agencia X"
                   autoFocus
                   maxLength={PLAYER_NAME_MAX_LENGTH}
                   aria-invalid={showNameError}

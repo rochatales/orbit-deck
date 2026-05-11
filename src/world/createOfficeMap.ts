@@ -88,6 +88,22 @@ const ROOM_WALL_HEIGHT = 2.7;
 const ROOM_WALL_THICKNESS = 0.28;
 const GLASS_HEIGHT = 2.16;
 const TILE_SIZE = 1;
+const INDOOR_WALKING_TILE_COLOR = "#e7e0d6";
+const INDOOR_WALKING_TILE_INSET_COLOR = "#f4eee4";
+const OUTDOOR_WALKING_TILE_COLOR = "#9a6950";
+const OUTDOOR_WALKING_TILE_INSET_COLOR = "#c48d6f";
+const GARDEN_WALKING_TILE_COLOR = "#6d7f68";
+const GARDEN_WALKING_TILE_INSET_COLOR = "#c6d5c0";
+const OUTDOOR_PATH_IDS = new Set([
+  "lab-patio",
+  "exterior-south-path",
+  "garden-connector-path",
+  "lower-central-walkway",
+  "right-mcp-connector",
+  "right-outer-walkway",
+  "exterior-west-path",
+  "orbit-garden"
+]);
 
 export function createOfficeMap(mcpConfigs: MCPConfig[]): OfficeWorld {
   const group = new Group();
@@ -102,6 +118,8 @@ export function createOfficeMap(mcpConfigs: MCPConfig[]): OfficeWorld {
     const roomGroup =
       room.type === "hub"
         ? createCentralHub(room, obstacles, doors, instancedAssets)
+        : room.type === "lab"
+        ? createLabRoom(room, obstacles, doors, instancedAssets)
         : createMCPRoom(room, mcpConfigs, obstacles, doors, instancedAssets);
     group.add(roomGroup);
     walkableAreas.push(createFloorPatchBounds(room.position.x, room.position.z, room.size.width, room.size.depth));
@@ -114,12 +132,9 @@ export function createOfficeMap(mcpConfigs: MCPConfig[]): OfficeWorld {
 
   addSharedLighting(group);
   addSharedDecor(instancedAssets);
-  group.add(createExteriorLandmarks());
+  group.add(createExteriorLandmarks(instancedAssets, obstacles, doors));
   addInstancedAssetsToGroup(group, instancedAssets);
 
-  // The meeting beacon is mounted as an R3F component (so it can react to
-  // store state), but its physical footprint must live in the obstacles list
-  // so OfficeColliders generates a Rapier cuboid that blocks the player.
   addObstacleRect(
     obstacles,
     MEETING_BEACON_POSITION.x,
@@ -127,6 +142,19 @@ export function createOfficeMap(mcpConfigs: MCPConfig[]): OfficeWorld {
     MEETING_BEACON_HALF_SIZE,
     MEETING_BEACON_HALF_SIZE
   );
+
+  // Make instanced assets solid by adding them to the obstacles array
+  instancedAssets.chairs.forEach((chair) => {
+    addObstacleRect(obstacles, chair.x, chair.z, 0.22, 0.22);
+  });
+  instancedAssets.plants.forEach((plant) => {
+    addObstacleRect(obstacles, plant.x, plant.z, 0.2, 0.2);
+  });
+  instancedAssets.decorNodes.forEach((entries) => {
+    entries.forEach((node) => {
+      addObstacleRect(obstacles, node.x, node.z, 0.15, 0.15);
+    });
+  });
 
   return {
     group,
@@ -226,14 +254,50 @@ export function createMCPRoom(
   return group;
 }
 
+export function createLabRoom(
+  room: MapRoomConfig,
+  obstacles: RectBounds[],
+  doors: AutomaticDoorInstance[],
+  instancedAssets: InstancedWorldAssets
+) {
+  const group = new Group();
+  const accentColor = room.accentColor;
+
+  group.add(createRoomShell(room, obstacles, doors, instancedAssets));
+
+  const roomLabel = createRoomLabel(room.name, accentColor);
+  roomLabel.position.copy(room.anchors.roomLabel);
+  group.add(roomLabel);
+
+  const desk = createDesk(accentColor, {
+    wide: false,
+    screens: 2
+  });
+  desk.position.copy(room.desk.position);
+  desk.rotation.y = room.desk.rotationY;
+  group.add(desk);
+  addDeskObstacle(obstacles, room.desk.position, room.desk.rotationY, false);
+
+  const accentLight = new PointLight(accentColor, 6, 7.5, 2);
+  accentLight.position.set(room.position.x, 2.2, room.position.z);
+  group.add(accentLight);
+
+  const labConsole = createSideConsole(accentColor);
+  labConsole.position.set(room.position.x + 1.5, 0, room.position.z - 1.5);
+  group.add(labConsole);
+  addObstacleRect(obstacles, room.position.x + 1.5, room.position.z - 1.5, 0.55, 0.25);
+
+  const styleMatrix = createScreen(1.98, 1.16, accentColor);
+  styleMatrix.rotation.y = 0;
+  styleMatrix.position.set(room.position.x, 1.88, room.position.z - room.size.depth / 2 + 0.22);
+  group.add(styleMatrix);
+
+  return group;
+}
+
 export function createCorridor(corridor: CorridorConfig, obstacles: RectBounds[], instancedAssets: InstancedWorldAssets) {
   const group = new Group();
-  const floorColor =
-    corridor.id === "exterior-south-path" || corridor.id === "exterior-west-path"
-      ? "#9a6950"
-      : corridor.id === "futuristic-garden-pad"
-        ? "#6d7f68"
-        : "#e3ddd4";
+  const floorColor = getCorridorFloorColor(corridor.id);
 
   addFloorPatch(
     instancedAssets,
@@ -298,7 +362,7 @@ function createRoomShell(
     room.position.z,
     room.size.width,
     room.size.depth,
-    room.type === "hub" ? "#e7dfd4" : "#ebe4da"
+    INDOOR_WALKING_TILE_COLOR
   );
   const walls = buildRoomWalls(room);
   walls.forEach(({ kind, entry, obstacle }) => {
@@ -313,6 +377,11 @@ function createRoomShell(
   });
 
   room.doorSides.forEach((doorSide) => {
+    // Prevent duplicate door meshes between brand-brain and smart-lab
+    if (room.id === "brand-brain" && doorSide === "east") {
+      return;
+    }
+
     const width = doorSide === "east" || doorSide === "west" ? 1.5 : 1.8;
     const doorFrame = createDoorFrame(width);
     const doorPosition = getDoorFramePosition(room, doorSide);
@@ -383,7 +452,7 @@ function decorateRoom(
     strategyTable.position.set(room.position.x - 1.95, 0, room.position.z + 1.05);
     strategyTable.rotation.y = Math.PI / 2;
     group.add(strategyTable);
-    addObstacleRect(obstacles, room.position.x - 1.95, room.position.z + 1.05, 0.7, 0.55);
+    addObstacleRect(obstacles, room.position.x - 1.95, room.position.z + 1.05, 0.55, 0.25);
 
     pushColorEntry(instancedAssets.decorNodes, accentColor, { x: room.position.x - 2.4, z: room.position.z - 1.4, scale: 0.95 });
     pushColorEntry(instancedAssets.decorNodes, accentColor, { x: room.position.x + 2.25, z: room.position.z - 1.2, scale: 1.05 });
@@ -402,7 +471,7 @@ function decorateRoom(
     const notesConsole = createSideConsole(accentColor);
     notesConsole.position.set(room.position.x + 1.8, 0, room.position.z + 1.25);
     group.add(notesConsole);
-    addObstacleRect(obstacles, room.position.x + 1.8, room.position.z + 1.25, 0.7, 0.55);
+    addObstacleRect(obstacles, room.position.x + 1.8, room.position.z + 1.25, 0.55, 0.25);
 
     pushColorEntry(instancedAssets.decorNodes, accentColor, { x: room.position.x - 2.3, z: room.position.z + 1.2, scale: 0.92 });
     pushColorEntry(instancedAssets.decorNodes, accentColor, { x: room.position.x + 2.25, z: room.position.z - 1.25, scale: 1 });
@@ -421,10 +490,7 @@ function decorateRoom(
     const paletteStand = createPaletteStand(accentColor);
     paletteStand.position.set(room.position.x - 1.7, 0, room.position.z + 1.4);
     group.add(paletteStand);
-    addObstacleRect(obstacles, room.position.x - 1.7, room.position.z + 1.4, 0.7, 0.55);
-
-    pushColorEntry(instancedAssets.decorNodes, accentColor, { x: room.position.x - 2.2, z: room.position.z - 1.2, scale: 0.94 });
-    pushColorEntry(instancedAssets.decorNodes, accentColor, { x: room.position.x + 2.3, z: room.position.z - 1.3, scale: 1.08 });
+    addObstacleRect(obstacles, room.position.x - 1.7, room.position.z + 1.4, 0.55, 0.25);
   }
 
   if (room.id === "narration") {
@@ -436,7 +502,7 @@ function decorateRoom(
     const micBooth = createMicBooth(accentColor);
     micBooth.position.set(room.position.x + 1.45, 0, room.position.z + 0.65);
     group.add(micBooth);
-    addObstacleRect(obstacles, room.position.x + 1.45, room.position.z + 0.65, 0.65, 0.65);
+    addObstacleRect(obstacles, room.position.x + 1.45, room.position.z + 0.65, 0.45, 0.45);
 
     const acoustic = createAcousticPanels(accentColor);
     acoustic.position.set(room.position.x - 2.5, 1.42, room.position.z);
@@ -455,12 +521,12 @@ function decorateRoom(
     const checklistConsole = createChecklistConsole();
     checklistConsole.position.set(room.position.x - 1.75, 0, room.position.z + 0.95);
     group.add(checklistConsole);
-    addObstacleRect(obstacles, room.position.x - 1.75, room.position.z + 0.95, 0.78, 0.58);
+    addObstacleRect(obstacles, room.position.x - 1.75, room.position.z + 0.95, 0.65, 0.35);
 
     const packageTerminal = createSideConsole("#daf4ff");
     packageTerminal.position.set(room.position.x + 1.8, 0, room.position.z + 1.1);
     group.add(packageTerminal);
-    addObstacleRect(obstacles, room.position.x + 1.8, room.position.z + 1.1, 0.72, 0.55);
+    addObstacleRect(obstacles, room.position.x + 1.8, room.position.z + 1.1, 0.6, 0.25);
 
     pushColorEntry(instancedAssets.decorNodes, "#c8f0ff", { x: room.position.x - 2.05, z: room.position.z - 0.95, scale: 0.95 });
     pushColorEntry(instancedAssets.decorNodes, "#c8f0ff", { x: room.position.x + 2.05, z: room.position.z - 0.95, scale: 0.95 });
@@ -478,25 +544,51 @@ function decorateRoom(
   }
 
   if (room.id === "coffee-nook") {
-    const menuScreen = createScreen(1.32, 0.76, accentColor);
-    menuScreen.rotation.y = Math.PI / 2;
-    menuScreen.position.set(room.position.x - room.size.width / 2 + 0.18, 1.72, room.position.z - 0.78);
-    group.add(menuScreen);
+    // New clean desk attached to the North (top-right) wall
+    const deskGroup = new Group();
 
-    const coffeeBar = createCoffeeBar(accentColor);
-    coffeeBar.position.set(room.position.x - 0.1, 0, room.position.z + 0.95);
-    coffeeBar.rotation.y = Math.PI;
-    group.add(coffeeBar);
-    addObstacleRect(obstacles, room.position.x - 0.1, room.position.z + 0.95, 1.05, 0.42);
+    const body = new Mesh(
+      new BoxGeometry(3.2, 0.86, 0.6),
+      new MeshStandardMaterial({ color: "#f0e7db", roughness: 0.72, metalness: 0.04, flatShading: true })
+    );
+    body.position.y = 0.43;
+    body.castShadow = true;
+    body.receiveShadow = true;
+    deskGroup.add(body);
 
-    pushColorEntry(instancedAssets.decorNodes, accentColor, { x: room.position.x - 1.1, z: room.position.z - 0.9, scale: 0.82 });
-    pushColorEntry(instancedAssets.decorNodes, accentColor, { x: room.position.x + 1.05, z: room.position.z - 0.7, scale: 0.88 });
+    const top = new Mesh(
+      new BoxGeometry(3.24, 0.04, 0.64),
+      new MeshStandardMaterial({ color: "#d8dde5", roughness: 0.5, metalness: 0.1, flatShading: true })
+    );
+    top.position.y = 0.88;
+    top.castShadow = true;
+    top.receiveShadow = true;
+    deskGroup.add(top);
+
+    const accent = new Mesh(
+      new BoxGeometry(3.2, 0.06, 0.04),
+      new MeshStandardMaterial({ color: accentColor, roughness: 0.4, metalness: 0.3, flatShading: true })
+    );
+    accent.position.set(0, 0.8, 0.3);
+    deskGroup.add(accent);
+
+    deskGroup.position.set(room.position.x, 0, room.position.z - 1.56);
+    group.add(deskGroup);
+
+    addObstacleRect(obstacles, room.position.x, room.position.z - 1.56, 1.6, 0.3);
   }
 
-  instancedAssets.plants.push(
-    { x: room.position.x - room.size.width / 2 + 0.82, z: room.position.z + room.size.depth / 2 - 0.82 },
-    { x: room.position.x + room.size.width / 2 - 0.82, z: room.position.z - room.size.depth / 2 + 0.92 }
-  );
+  if (room.id === "coffee-nook") {
+    instancedAssets.plants.push({
+      x: room.position.x + room.size.width / 2 - 0.82,
+      z: room.position.z + room.size.depth / 2 - 0.82
+    });
+  } else {
+    instancedAssets.plants.push(
+      { x: room.position.x - room.size.width / 2 + 0.82, z: room.position.z + room.size.depth / 2 - 0.82 },
+      { x: room.position.x + room.size.width / 2 - 0.82, z: room.position.z - room.size.depth / 2 + 0.92 }
+    );
+  }
 }
 
 function buildRoomWalls(room: MapRoomConfig) {
@@ -647,8 +739,7 @@ function addSharedDecor(instancedAssets: InstancedWorldAssets) {
 
 function addInstancedAssetsToGroup(group: Group, instancedAssets: InstancedWorldAssets) {
   instancedAssets.floorTiles.forEach((entries, color) => {
-    const insetColor = color === "#e3ddd4" ? "#f2fbff" : "#f7fbff";
-    group.add(createInstancedFloorTiles(entries, color, insetColor));
+    group.add(createInstancedFloorTiles(entries, color, getFloorInsetColor(color)));
   });
 
   if (instancedAssets.wallPanels.length > 0) {
@@ -699,6 +790,30 @@ function createInstancedAssetBuckets(): InstancedWorldAssets {
     plants: [],
     decorNodes: new Map()
   };
+}
+
+function getCorridorFloorColor(corridorId: string) {
+  if (corridorId === "futuristic-garden-pad") {
+    return GARDEN_WALKING_TILE_COLOR;
+  }
+
+  if (OUTDOOR_PATH_IDS.has(corridorId)) {
+    return OUTDOOR_WALKING_TILE_COLOR;
+  }
+
+  return INDOOR_WALKING_TILE_COLOR;
+}
+
+function getFloorInsetColor(color: string) {
+  if (color === GARDEN_WALKING_TILE_COLOR) {
+    return GARDEN_WALKING_TILE_INSET_COLOR;
+  }
+
+  if (color === OUTDOOR_WALKING_TILE_COLOR) {
+    return OUTDOOR_WALKING_TILE_INSET_COLOR;
+  }
+
+  return INDOOR_WALKING_TILE_INSET_COLOR;
 }
 
 // 0.5mm per patch — invisible at game scale (~1cm worst case across all
@@ -793,8 +908,8 @@ function createWalkableRect(x: number, z: number, width: number, depth: number, 
 }
 
 function addDeskObstacle(obstacles: RectBounds[], deskPosition: Vector3, rotationY: number, wide: boolean) {
-  const halfWidth = wide ? 1.9 : 1.28;
-  const halfDepth = 0.92;
+  const halfWidth = wide ? 1.7 : 1.1;
+  const halfDepth = 0.55;
   const rotatedQuarterTurn = Math.abs(Math.sin(rotationY)) > 0.5;
 
   addObstacleRect(
@@ -854,7 +969,7 @@ function createDioramaBase() {
   return group;
 }
 
-function createExteriorLandmarks() {
+function createExteriorLandmarks(instancedAssets: InstancedWorldAssets, obstacles: RectBounds[], doors: AutomaticDoorInstance[]) {
   const group = new Group();
 
   const exteriorPad = new Mesh(
@@ -873,6 +988,120 @@ function createExteriorLandmarks() {
   const garden = createFuturisticGarden();
   garden.position.set(-15.2, 0, 23.4);
   group.add(garden);
+
+  const orbitGarden = createOrbitGarden(instancedAssets, obstacles, doors);
+  orbitGarden.position.set(12.5, 0, 23.5);
+  group.add(orbitGarden);
+
+  return group;
+}
+
+function createOrbitGarden(instancedAssets: InstancedWorldAssets, obstacles: RectBounds[], doors: AutomaticDoorInstance[]) {
+  const group = new Group();
+
+  const base = new Mesh(
+    new PlaneGeometry(9.6, 6.6),
+    new MeshStandardMaterial({
+      color: "#6d7f68", // Green tile base
+      roughness: 0.96,
+      metalness: 0.02,
+      flatShading: true,
+      polygonOffset: true,
+      polygonOffsetFactor: -1,
+      polygonOffsetUnits: -1
+    })
+  );
+  base.rotation.x = -Math.PI / 2;
+  base.position.y = 0.01;
+  group.add(base);
+
+  // Glass walls
+  // North Wall (Solid)
+  instancedAssets.glassPanels.push({ x: 12.5, z: 20.08, rotationY: 0, length: 9.76 });
+  addObstacleRect(obstacles, 12.5, 20.08, 4.88, 0.08);
+
+  // South Wall (Solid)
+  instancedAssets.glassPanels.push({ x: 12.5, z: 26.92, rotationY: 0, length: 9.76 });
+  addObstacleRect(obstacles, 12.5, 26.92, 4.88, 0.08);
+
+  // East Wall (Solid)
+  instancedAssets.glassPanels.push({ x: 17.42, z: 23.5, rotationY: Math.PI / 2, length: 6.76 });
+  addObstacleRect(obstacles, 17.42, 23.5, 0.08, 3.38);
+
+  // West Wall (with Door at z=21 to 24)
+  // Top segment: z=20.12 to 21 (length 0.88, center z=20.56)
+  instancedAssets.glassPanels.push({ x: 7.58, z: 20.56, rotationY: Math.PI / 2, length: 0.88 });
+  addObstacleRect(obstacles, 7.58, 20.56, 0.08, 0.44);
+  // Bottom segment: z=24 to 26.88 (length 2.88, center z=25.44)
+  instancedAssets.glassPanels.push({ x: 7.58, z: 25.44, rotationY: Math.PI / 2, length: 2.88 });
+  addObstacleRect(obstacles, 7.58, 25.44, 0.08, 1.44);
+
+  // Garden Node Double Doors (width 3.0)
+  // Gap is world z=21 to 24 (local z=-2.5 to 0.5) => center local z=-1.0
+  // West wall world x=7.58 (local x=-4.92)
+  const doorWidth = 3.0;
+  const doorFrame = createDoorFrame(doorWidth);
+  const doorPosition = new Vector3(-4.92, 0, -1.0);
+  doorFrame.position.copy(doorPosition);
+  doorFrame.rotation.y = Math.PI / 2;
+  group.add(doorFrame);
+
+  const autoDoor = createAutomaticDoor(doorWidth, 2.18, "#6d7f68", {
+    hasWindow: true
+  });
+  autoDoor.group.position.copy(doorPosition);
+  autoDoor.group.rotation.y = Math.PI / 2;
+  group.add(autoDoor.group);
+
+  const anchor = new Object3D();
+  // Ensure anchor world position aligns perfectly with orbitGarden position (offset applied manually for updateAutomaticDoors)
+  anchor.position.copy(doorPosition);
+  group.add(anchor);
+
+  doors.push({
+    root: autoDoor.group,
+    leftPanel: autoDoor.leftPanel,
+    rightPanel: autoDoor.rightPanel,
+    lightBar: autoDoor.lightBar,
+    anchor,
+    width: doorWidth,
+    side: "west",
+    openAmount: 0
+  });
+
+  const table = new Mesh(
+    new CylinderGeometry(0.8, 0.8, 0.72, 16),
+    new MeshStandardMaterial({ color: "#f0f0f0", roughness: 0.8, metalness: 0.1, flatShading: true })
+  );
+  table.position.set(0, 0.36, 0);
+  group.add(table);
+
+  const benchA = new Mesh(
+    new BoxGeometry(1.6, 0.45, 0.4),
+    new MeshStandardMaterial({ color: "#e0e0e0", roughness: 0.9, metalness: 0.0, flatShading: true })
+  );
+  benchA.position.set(0, 0.225, 1.5);
+  group.add(benchA);
+
+  const benchB = benchA.clone();
+  benchB.position.set(0, 0.225, -1.5);
+  group.add(benchB);
+
+  // Garden Lamps
+  const lampMaterial = new MeshStandardMaterial({ color: "#bcefe2", emissive: new Color("#8cefd7").multiplyScalar(0.4), roughness: 0.34, metalness: 0.1 });
+  const lampA = new Mesh(new CylinderGeometry(0.1, 0.1, 1.2, 8), lampMaterial);
+  lampA.position.set(-3.5, 0.6, -2.5);
+  group.add(lampA);
+
+  const lampB = lampA.clone();
+  lampB.position.set(3.5, 0.6, 2.5);
+  group.add(lampB);
+
+  const beaconLeft = new PointLight("#86ffd8", 2.0, 5, 2);
+  beaconLeft.position.set(-3.5, 1.2, -2.5);
+  const beaconRight = new PointLight("#86ffd8", 2.0, 5, 2);
+  beaconRight.position.set(3.5, 1.2, 2.5);
+  group.add(beaconLeft, beaconRight);
 
   return group;
 }

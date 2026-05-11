@@ -12,7 +12,9 @@ export type CharacterFallbackType =
   | "editorial"
   | "narration"
   | "design"
-  | "output-review";
+  | "output-review"
+  | "smart-lab"
+  | "orbit-garden";
 
 export interface CharacterAssetConfig {
   id: string;
@@ -29,6 +31,7 @@ export interface CharacterAssetConfig {
   actions?: NpcAction[];
   zoneName?: string;
   position?: { x: number; y: number; z: number };
+  isEnvironmentNode?: boolean;
 }
 
 export const PLAYER_CHARACTER_ASSET: CharacterAssetConfig = {
@@ -143,6 +146,40 @@ export const NPC_CHARACTER_ASSET_CONFIG: Record<
     dialogue:
       "Revise tudo antes de publicar. Aqui você organiza legendas finais, visuais, roteiros e pacotes de posts prontos para exportação.",
     actions: getNpcActions("output-review")
+  },
+  "smart-lab": {
+    id: "smart-lab",
+    name: "Smart Lab Console",
+    zoneName: "Smart Lab",
+    role: "Inteligência de Design × Marca",
+    assetPath: "",
+    scale: 0,
+    positionOffset: [0, 0, 0],
+    rotationOffset: [0, 0, 0],
+    accentColor: "#66E6FF",
+    fallbackType: "smart-lab",
+    interactionRadius: 2.5,
+    position: { x: 5.5, y: 0, z: -10 },
+    dialogue: "Smart Lab: Eu testo a consistência visual, a qualidade do prompt e o alinhamento com a marca antes que os ativos passem para a produção.",
+    actions: getNpcActions("smart-lab"),
+    isEnvironmentNode: true
+  },
+  "orbit-garden": {
+    id: "orbit-garden",
+    name: "Garden Node",
+    zoneName: "Orbit Garden",
+    role: "Zona de Descanso Criativo",
+    assetPath: "",
+    scale: 0,
+    positionOffset: [0, 0, 0],
+    rotationOffset: [0, 0, 0],
+    accentColor: "#6d7f68",
+    fallbackType: "orbit-garden",
+    interactionRadius: 3,
+    position: { x: 12.5, y: 0, z: 23.5 },
+    dialogue: "Garden Node: Um espaço calmo para revisar ideias, fluxo de missões e direção criativa.",
+    actions: getNpcActions("orbit-garden"),
+    isEnvironmentNode: true
   }
 };
 
