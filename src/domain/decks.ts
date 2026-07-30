@@ -125,7 +125,7 @@ function tool(
 export const DECK_REGISTRY: Record<DeckId, DeckDefinition> = {
   "brand-brain": {
     id: "brand-brain",
-    name: "Brand Brain Deck",
+    name: "Brain Deck",
     tagline: "A fonte única de verdade da marca.",
     description:
       "Centraliza regras de marca, tom de voz, restrições visuais e ativos canônicos para todos os outros decks consumirem.",

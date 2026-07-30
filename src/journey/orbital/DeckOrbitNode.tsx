@@ -1,5 +1,4 @@
-import { Check } from "lucide-react";
-import type { CSSProperties, KeyboardEvent } from "react";
+import type { CSSProperties } from "react";
 import type { DeckDefinition } from "../../domain/decks";
 import { getDeckIcon } from "../deckIcons";
 
@@ -11,7 +10,6 @@ interface DeckOrbitNodeProps {
   /** Foi adicionado à estação do player (acende o ícone). */
   activated: boolean;
   onFocus: () => void;
-  onToggle?: () => void;
 }
 
 /**
@@ -29,22 +27,14 @@ export function DeckOrbitNode({
   position,
   focused,
   activated,
-  onFocus,
-  onToggle
+  onFocus
 }: DeckOrbitNodeProps) {
   const Icon = getDeckIcon(deck.iconId);
 
-  const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
-    if (event.key === "Enter" && focused && onToggle) {
-      event.preventDefault();
-      onToggle();
-    }
-  };
-
   const className = [
     "orbit-node",
-    focused ? "orbit-node-focused" : "",
-    activated ? "orbit-node-activated" : "orbit-node-dimmed"
+    focused ? "orbit-node-selected" : "",
+    activated ? "orbit-node-activated" : "orbit-node-discovered"
   ]
     .filter(Boolean)
     .join(" ");
@@ -64,8 +54,7 @@ export function DeckOrbitNode({
       onClick={onFocus}
       onMouseEnter={onFocus}
       onFocus={onFocus}
-      onKeyDown={handleKeyDown}
-      aria-label={`Estação ${deck.name}${activated ? " (ativa)" : ""}`}
+      aria-label={`Estação ${deck.name}${activated ? " ativa" : " inativa"}`}
       aria-pressed={focused}
     >
       <span className="orbit-node-base" aria-hidden="true" />
@@ -73,12 +62,12 @@ export function DeckOrbitNode({
       <span className="orbit-node-platform" aria-hidden="true">
         <Icon size={22} aria-hidden="true" />
       </span>
-      {activated ? (
-        <span className="orbit-node-check" aria-hidden="true">
-          <Check size={11} strokeWidth={3} />
+      <span className="orbit-node-label">
+        <span className="orbit-node-name">{deck.name}</span>
+        <span className={`orbit-node-state${activated ? " orbit-node-state-active" : ""}`}>
+          {activated ? "ATIVA" : "INATIVA"}
         </span>
-      ) : null}
-      <span className="orbit-node-label">{deck.name}</span>
+      </span>
     </button>
   );
 }

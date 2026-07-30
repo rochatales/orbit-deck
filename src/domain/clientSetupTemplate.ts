@@ -38,12 +38,38 @@ export interface ClientSetupAnswers {
   segment: ClientSegmentId;
   goal: string;
   audience: string;
+  monthlyEditorialVolume: number;
+  postTypes: ClientPostType[];
   toneAdjectives: string[];
   toneAvoid: string[];
   pillars: string[];
   cta: string;
   outputSlug: string;
+  /**
+   * Paleta de cores da marca. Cada entrada é uma string de cor (hex preferencial,
+   * mas aceita qualquer CSS color). Pelo menos 1 cor obrigatória — usada pelo
+   * Design MCP para gerar layouts coerentes.
+   */
+  palette: string[];
+  /**
+   * Logo do cliente em data URL (base64). Opcional na MVP — quando ausente,
+   * o briefing exibe um placeholder textual `[ LOGO: {displayName} ]`.
+   */
+  logoDataUrl: string | null;
 }
+
+export type ClientPostType = "static" | "carousel" | "video";
+
+export interface ClientPostTypeOption {
+  id: ClientPostType;
+  label: string;
+}
+
+export const CLIENT_POST_TYPES: ClientPostTypeOption[] = [
+  { id: "static", label: "Estático" },
+  { id: "carousel", label: "Carrossel" },
+  { id: "video", label: "Vídeo" }
+];
 
 interface SegmentDefaults {
   safetyRulesMd: string;
@@ -204,6 +230,12 @@ export function isClientSetupValid(answers: Partial<ClientSetupAnswers>): answer
       answers.goal.trim().length >= 4 &&
       answers.audience &&
       answers.audience.trim().length >= 4 &&
+      typeof answers.monthlyEditorialVolume === "number" &&
+      Number.isFinite(answers.monthlyEditorialVolume) &&
+      answers.monthlyEditorialVolume >= 1 &&
+      answers.monthlyEditorialVolume <= 120 &&
+      answers.postTypes &&
+      answers.postTypes.length >= 1 &&
       answers.toneAdjectives &&
       answers.toneAdjectives.length >= 2 &&
       answers.toneAvoid &&
@@ -213,8 +245,34 @@ export function isClientSetupValid(answers: Partial<ClientSetupAnswers>): answer
       answers.cta &&
       answers.cta.trim().length >= 8 &&
       answers.outputSlug &&
-      /^[a-z0-9-]+$/.test(answers.outputSlug)
+      /^[a-z0-9-]+$/.test(answers.outputSlug) &&
+      answers.palette &&
+      answers.palette.length >= 1 &&
+      // logoDataUrl is optional — accept null/undefined explicitly.
+      (answers.logoDataUrl === null ||
+        answers.logoDataUrl === undefined ||
+        typeof answers.logoDataUrl === "string")
   );
+}
+
+/**
+ * Aceita qualquer hex de 3 ou 6 dígitos com `#` opcional, ou qualquer
+ * CSS color keyword. Não validamos cores fora-de-hex para deixar o
+ * usuário colar `rgb(...)` ou nomes (`gold`) se quiser.
+ */
+export function normalizePaletteValue(input: string): string | null {
+  const value = input.trim();
+  if (!value) return null;
+  // hex sem #
+  if (/^[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/.test(value)) {
+    return `#${value.toLowerCase()}`;
+  }
+  // hex com #
+  if (/^#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/.test(value)) {
+    return value.toLowerCase();
+  }
+  // qualquer outra coisa: passa adiante (deixa o navegador validar via inputmode)
+  return value;
 }
 
 export function suggestOutputSlug(displayName: string): string {
@@ -234,11 +292,21 @@ export function generateRulesMd(answers: ClientSetupAnswers): string {
   const seg = defaultsFor(answers.segment);
   const segmentLabel =
     CLIENT_SEGMENTS.find((s) => s.id === answers.segment)?.label ?? answers.segment;
+  const postTypeLabels = answers.postTypes
+    .map((type) => CLIENT_POST_TYPES.find((option) => option.id === type)?.label ?? type)
+    .join(", ");
 
   const tonePositive = answers.toneAdjectives.map((t) => `- ${t}`).join("\n");
   const toneAvoid = answers.toneAvoid.map((t) => `- ${t}`).join("\n");
   const pillars = answers.pillars.map((p, i) => `${i + 1}. ${p}`).join("\n");
   const tonePhrase = answers.toneAdjectives.join(", ").toLowerCase();
+  const paletteMd = answers.palette.length
+    ? answers.palette.map((c) => `- \`${c}\``).join("\n")
+    : "- (sem paleta declarada — usar identidade padrão)";
+  const hasLogo = typeof answers.logoDataUrl === "string" && answers.logoDataUrl.length > 0;
+  const logoNoteMd = hasLogo
+    ? `- Logo enviado pelo player e salvo localmente no \`Brand Brain\` (\`logos/${answers.outputSlug}/${answers.outputSlug}-logo\`).`
+    : `- Logo ainda não enviado. Use o placeholder \`[ LOGO: ${answers.displayName} ]\` até subir a arte oficial.`;
 
   return `# ${answers.displayName} - Editorial Rules
 
@@ -253,6 +321,8 @@ Use these rules together with the master prompt.
 - Segment: ${segmentLabel}
 - Main communication goal: ${answers.goal}
 - Audience: ${answers.audience}
+- Monthly editorial volume: ${answers.monthlyEditorialVolume} posts / month
+- Preferred post types: ${postTypeLabels}
 
 ---
 
@@ -283,6 +353,12 @@ ${seg.safetyRulesMd}
 ## 5) Visual style rules
 
 ${seg.visualHintMd}
+
+### Brand palette
+
+Use these brand colors consistently across all visual assets:
+
+${paletteMd}
 
 ---
 
@@ -317,6 +393,11 @@ Every caption must end with this exact CTA:
 ## 7) Recommended monthly mix
 
 ${seg.monthlyMixMd}
+
+Operational monthly planning for this client:
+
+- Target volume: **${answers.monthlyEditorialVolume} posts per month**
+- Priority formats: **${postTypeLabels}**
 
 For every 4-post monthly editorial:
 
@@ -368,6 +449,7 @@ Exemplos:
 
 ## 12) Logo and document header
 
+${logoNoteMd}
 - O arquivo de logo fica em: \`logos/${answers.outputSlug}/\`
 - Nome padrão do arquivo: \`${answers.outputSlug}-logo.png\`
 - Manter também uma versão para fundo escuro (se existir).

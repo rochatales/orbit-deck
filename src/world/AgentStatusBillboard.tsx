@@ -17,18 +17,14 @@ interface AgentStatusBillboardProps {
   highlighted: boolean;
 }
 
-const PANEL_WIDTH = 1.9;
-const PANEL_HEIGHT = 0.5;
+const PANEL_WIDTH = 1.75;
+const PANEL_HEIGHT = 0.28;
 
 /**
  * Painel 3D, em billboard, mostrando o estado de runtime do agente.
  *
- * Sempre virado para a câmera. Exibe:
- *  - barra de cor superior no tom do estado
- *  - bolinha + label do estado
- *  - frase curta com o motivo
- *
- * Estados `busy` e `error` ganham um pulso suave para destacar urgência.
+ * Sempre virado para a câmera. Exibe apenas o label de estado, com
+ * destaque de cor e tipografia mais forte para leitura rápida.
  */
 export function AgentStatusBillboard({
   position,
@@ -69,33 +65,21 @@ export function AgentStatusBillboard({
         <meshBasicMaterial color={meta.color} transparent opacity={0.95} depthWrite={false} />
       </mesh>
       {/* Bolinha de estado à esquerda */}
-      <mesh ref={dotRef} position={[-PANEL_WIDTH / 2 + 0.16, 0.06, 0.01]}>
+      <mesh ref={dotRef} position={[-PANEL_WIDTH / 2 + 0.16, 0, 0.01]}>
         <circleGeometry args={[0.06, 24]} />
         <meshBasicMaterial color={meta.color} transparent opacity={0.95} depthWrite={false} />
       </mesh>
       {/* Label uppercase do estado */}
       <Text
-        position={[-PANEL_WIDTH / 2 + 0.28, 0.06, 0.02]}
-        fontSize={0.1}
+        position={[-PANEL_WIDTH / 2 + 0.28, 0, 0.02]}
+        fontSize={0.135}
         color={meta.color}
         anchorX="left"
         anchorY="middle"
-        letterSpacing={0.08}
+        letterSpacing={0.04}
         maxWidth={PANEL_WIDTH - 0.4}
       >
         {meta.label.toUpperCase()}
-      </Text>
-      {/* Motivo da disponibilidade */}
-      <Text
-        position={[-PANEL_WIDTH / 2 + 0.16, -0.12, 0.02]}
-        fontSize={0.07}
-        color="#cdd5e0"
-        anchorX="left"
-        anchorY="middle"
-        maxWidth={PANEL_WIDTH - 0.32}
-        lineHeight={1.15}
-      >
-        {info.reason}
       </Text>
     </Billboard>
   );

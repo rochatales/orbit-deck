@@ -22,6 +22,7 @@ export function MCPCharacter({ npc, index }: MCPCharacterProps) {
   const playerPosition = useGameStore((state) => state.playerPosition);
   const activeNpcId = useDialogueStore((state) => state.activeNpcId);
   const isDialogOpen = useDialogueStore((state) => state.isOpen);
+  const isWizardOpen = useClientSetupStore((state) => state.isWizardOpen);
   const runCompleted = useWorkflowStore((state) => state.runCompleted);
   const pulseVersion = useWorkflowStore((state) => state.npcPulseVersion[npc.id] ?? 0);
 
@@ -80,7 +81,7 @@ export function MCPCharacter({ npc, index }: MCPCharacterProps) {
       <InteractionRadius
         position={[npc.position.x, 0, npc.position.z]}
         visible={highlighted}
-        interactive={nearbyNpcId === npc.id && !isDialogOpen}
+        interactive={nearbyNpcId === npc.id && !isDialogOpen && !isWizardOpen}
       />
     </>
   );

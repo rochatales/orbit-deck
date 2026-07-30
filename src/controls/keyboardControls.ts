@@ -5,7 +5,8 @@ export enum GameControl {
   Backward = "backward",
   Leftward = "leftward",
   Rightward = "rightward",
-  Interact = "interact"
+  Interact = "interact",
+  Run = "run"
 }
 
 export const KEYBOARD_CONTROLS_MAP: KeyboardControlsEntry<GameControl>[] = [
@@ -13,5 +14,6 @@ export const KEYBOARD_CONTROLS_MAP: KeyboardControlsEntry<GameControl>[] = [
   { name: GameControl.Backward, keys: ["KeyS", "ArrowDown"] },
   { name: GameControl.Leftward, keys: ["KeyA", "ArrowLeft"] },
   { name: GameControl.Rightward, keys: ["KeyD", "ArrowRight"] },
-  { name: GameControl.Interact, keys: ["KeyE"] }
+  { name: GameControl.Interact, keys: ["KeyE"] },
+  { name: GameControl.Run, keys: ["ShiftLeft", "ShiftRight"] }
 ];

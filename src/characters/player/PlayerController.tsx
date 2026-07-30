@@ -153,7 +153,9 @@ export function PlayerController({
       inputRef.current.lerp(new Vector2(0, 0), MathUtils.clamp(dt * 16, 0, 1));
     }
 
-    const desiredSpeed = enabled && inputRef.current.lengthSq() > 0.001 ? PLAYER_MOVEMENT.speed : 0;
+    const isRunning = enabled && keys[GameControl.Run];
+    const maxMoveSpeed = PLAYER_MOVEMENT.speed * (isRunning ? PLAYER_MOVEMENT.runMultiplier : 1);
+    const desiredSpeed = enabled && inputRef.current.lengthSq() > 0.001 ? maxMoveSpeed : 0;
 
     camera.getWorldDirection(moveForward.current);
     moveForward.current.y = 0;
@@ -174,7 +176,7 @@ export function PlayerController({
     velocityRef.current.z = damp(velocityRef.current.z, desiredDirection.z * desiredSpeed, smoothing, dt);
 
     const planarSpeed = Math.hypot(velocityRef.current.x, velocityRef.current.z);
-    const speedAlpha = MathUtils.clamp(planarSpeed / PLAYER_MOVEMENT.speed, 0, 1);
+    const speedAlpha = MathUtils.clamp(planarSpeed / (PLAYER_MOVEMENT.speed * PLAYER_MOVEMENT.runMultiplier), 0, 1);
     const desiredTranslation = constrainToWalkableAreas(
       translation.x,
       translation.z,

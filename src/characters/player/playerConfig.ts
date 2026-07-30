@@ -15,6 +15,7 @@ export const PLAYER_COLORS = {
 
 export const PLAYER_MOVEMENT = {
   speed: 3.2,
+  runMultiplier: 1.75,
   acceleration: 10,
   deceleration: 14,
   rotationLerp: 0.18,

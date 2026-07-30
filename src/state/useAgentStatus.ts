@@ -88,18 +88,9 @@ export function deriveAgentStatus(input: DeriveInput): AgentRuntimeInfo {
     };
   }
 
-  // 5. Faltam ferramentas obrigatórias → waiting_connection
-  const missing = requiredTools.filter((t) => deckConnections[t.id] !== "connected");
-  if (missing.length > 0) {
-    const first = missing[0];
-    const extra = missing.length > 1 ? ` e mais ${missing.length - 1}` : "";
-    return {
-      state: "waiting_connection",
-      reason: `Aguardando autorização de ${first.label}${extra}.`
-    };
-  }
-
-  // 6. Caso contrário → active
+  // 5. No gameplay atual, ativar o deck na estação já deve deixar o NPC
+  // operacional. Mantemos apenas os estados de bloqueio real acima
+  // (busy / offline / error).
   return { state: "active", reason: "Pronto. O agente pode receber missões." };
 }
 

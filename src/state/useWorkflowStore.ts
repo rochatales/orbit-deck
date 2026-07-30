@@ -1,7 +1,9 @@
 import { create } from "zustand";
 import type { ClientProfile } from "../domain/clientProfiles";
+import { generateEditorialBrief } from "../domain/editorialBrief";
 import { getWorkflowTaskIdForAction, type ActionId, type NpcAction, type NpcId } from "../domain/mcpActions";
 import { MCP_NPCS } from "../npcs/mcpData";
+import { useClientSetupStore, type MissionStage } from "./useClientSetupStore";
 
 export type WorkflowTaskStatus = "idle" | "active" | "completed";
 export type WorkflowNotificationPhase = "pending" | "running" | "complete" | "error";
@@ -53,7 +55,7 @@ const COMPLETE_DISMISS_DELAY_MS = 2400;
 const ERROR_DISMISS_DELAY_MS = 3200;
 const initialNpcPulseVersion = Object.fromEntries(MCP_NPCS.map((npc) => [npc.id, 0])) as Record<string, number>;
 let notificationSequence = 0;
-const SPACE_NAME = "Roki Media";
+const DEFAULT_LOCATION = "Sala Principal";
 const WORKFLOW_NAME = "Sistema Editorial para Instagram";
 
 const notificationTimers = new Map<string, number>();
@@ -64,11 +66,6 @@ const delay = (ms: number) =>
   });
 
 const initialTasks = (): WorkflowTask[] => [
-  {
-    id: "register-first-client",
-    label: "Cadastre seu primeiro cliente no Deck de Estratégia.",
-    status: "idle"
-  },
   { id: "talk-brand-brain", label: "Falar com o Brand Brain MCP", status: "idle" },
   { id: "generate-brief", label: "Gerar briefing editorial", status: "idle" },
   { id: "send-to-design", label: "Enviar para o MCP de Design", status: "idle" },
@@ -99,8 +96,58 @@ function getClientScopedActionKey(npcId: NpcId, actionId: ActionId, clientSlug?:
   return `${npcId}:${actionId}:${clientSlug ?? "no-client"}`;
 }
 
+/**
+ * Mapeia (NPC, ação) para o avanço de etapa da missão criativa do cliente.
+ *
+ *  - editorial / generate-editorial-brief → `designing` (gera o briefing
+ *    localmente antes de avançar; tratado fora desta tabela).
+ *  - editorial / send-brief-to-design     → `reviewing`
+ *  - design   / assemble-carousel-layout  → `reviewing`
+ *  - design   / prepare-image-prompt      → `reviewing`
+ *  - output-review / export-package        → `published`
+ *  - output-review / mark-ready-to-publish → `published`
+ *
+ * Qualquer outra combinação retorna `null` — não move a missão.
+ */
+function getMissionEffectForAction(npcId: NpcId, actionId: ActionId): MissionStage | null {
+  if (npcId === "editorial" && actionId === "send-brief-to-design") return "reviewing";
+  if (npcId === "design" && actionId === "assemble-carousel-layout") return "reviewing";
+  if (npcId === "design" && actionId === "prepare-image-prompt") return "reviewing";
+  if (npcId === "output-review" && actionId === "export-package") return "published";
+  if (npcId === "output-review" && actionId === "mark-ready-to-publish") return "published";
+  return null;
+}
+
+/**
+ * Aplica os efeitos de missão associados à conclusão de uma ação:
+ *  1. Para "Gerar Briefing Editorial", gera o briefing local a partir do
+ *     `CustomClientRecord` e chama `recordBriefForClient` (que também
+ *     avança a missão para `designing`).
+ *  2. Para as ações mapeadas em `getMissionEffectForAction`, chama
+ *     `setMissionStage` na etapa alvo.
+ */
+function applyMissionEffects(npcId: NpcId, actionId: ActionId, clientSlug: string) {
+  const clientStore = useClientSetupStore.getState();
+  const record = clientStore.customClients.find((c) => c.slug === clientSlug);
+  if (!record) return;
+
+  if (npcId === "editorial" && actionId === "generate-editorial-brief") {
+    const brief = generateEditorialBrief({
+      clientSlug: record.slug,
+      clientDisplayName: record.displayName,
+      answers: record.answers
+    });
+    clientStore.recordBriefForClient(record.slug, brief);
+    return;
+  }
+
+  const target = getMissionEffectForAction(npcId, actionId);
+  if (!target) return;
+  clientStore.setMissionStage(record.slug, target);
+}
+
 export const useWorkflowStore = create<WorkflowState>((set, get) => ({
-  location: SPACE_NAME,
+  location: DEFAULT_LOCATION,
   workflowStatus: WORKFLOW_NAME,
   interactionHint: "Caminhe até uma mesa MCP para inspecionar o fluxo.",
   tasks: initialTasks(),
@@ -114,12 +161,12 @@ export const useWorkflowStore = create<WorkflowState>((set, get) => ({
     notificationTimers.clear();
 
     set({
-      location: SPACE_NAME,
+      location: DEFAULT_LOCATION,
       workflowStatus: WORKFLOW_NAME,
       interactionHint: "Caminhe até uma mesa MCP para inspecionar o fluxo.",
       tasks: initialTasks(),
       logEntries: [
-        `${SPACE_NAME} iniciado. Visite cada mesa para inspecionar o fluxo.`,
+        `${DEFAULT_LOCATION} iniciada. Visite cada mesa para inspecionar o fluxo.`,
         "Use WASD ou as setas para andar. Pressione E perto de um MCP para abrir o console."
       ],
       notifications: [],
@@ -140,7 +187,7 @@ export const useWorkflowStore = create<WorkflowState>((set, get) => ({
     const notification: WorkflowNotification = {
       id,
       npcId: "system",
-      npcName: SPACE_NAME,
+      npcName: DEFAULT_LOCATION,
       actionId: null,
       accentColor: SYSTEM_NOTIFICATION_ACCENT,
       phase,
@@ -241,6 +288,11 @@ export const useWorkflowStore = create<WorkflowState>((set, get) => ({
       await delay(getActionDurationMs(action.id));
 
       const progress = taskId ? get().completeTask(taskId) : { justCompletedRun: false };
+
+      // Avança a missão criativa do cliente quando a ação concluída
+      // bate com um dos checkpoints do pipeline editorial. Também é aqui
+      // que o briefing real é gerado a partir do rules.md do cliente.
+      applyMissionEffects(npcId, action.id, client.slug);
 
       set((state) => ({
         activeActionKeys: state.activeActionKeys.filter((key) => key !== actionKey),

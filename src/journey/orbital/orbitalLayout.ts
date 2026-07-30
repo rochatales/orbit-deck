@@ -13,23 +13,24 @@ export interface OrbitalNodePosition {
 }
 
 export const ORBITAL_LAYOUT: Record<DeckId, OrbitalNodePosition> = {
-  "brand-brain": { angleDeg: 315, ringIndex: 3 },   // upper-left
-  editorial: { angleDeg: 225, ringIndex: 4 },       // lower-left
-  design: { angleDeg: 45, ringIndex: 2 },           // upper-right
-  narration: { angleDeg: 180, ringIndex: 1 },       // lower-center
+  "brand-brain": { angleDeg: 315, ringIndex: 1 },   // upper-left
+  editorial: { angleDeg: 225, ringIndex: 2 },       // lower-left
+  design: { angleDeg: 45, ringIndex: 3 },           // upper-right
+  narration: { angleDeg: 180, ringIndex: 4 },       // lower-center
   "social-media": { angleDeg: 135, ringIndex: 5 }   // lower-right
 };
 
 /**
- * Ordem de ciclo para navegação por teclado.
- * Definida no sentido horário começando pelo NW.
+ * Ordem de ciclo para navegação por teclado e fallback de preview.
+ * Mantida na mesma progressão radial definida para o mapa: do anel
+ * mais próximo ao mais distante.
  */
 export const ORBITAL_CYCLE_ORDER: DeckId[] = [
   "brand-brain",
+  "editorial",
   "design",
-  "social-media",
   "narration",
-  "editorial"
+  "social-media"
 ];
 
 /** Raios de cada anel como fração do raio máximo do contêiner. */

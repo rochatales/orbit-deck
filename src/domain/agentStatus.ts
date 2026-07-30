@@ -38,7 +38,7 @@ export interface AgentStateMeta {
 
 export const AGENT_STATE_META: Record<AgentRuntimeState, AgentStateMeta> = {
   demo: {
-    label: "Demo",
+    label: "Inativo",
     color: "#94a3b8",
     description: "Disponível em outros decks. Não está vinculado ao modo atual."
   },

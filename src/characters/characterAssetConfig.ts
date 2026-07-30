@@ -60,7 +60,7 @@ export const NPC_CHARACTER_ASSET_CONFIG: Record<
   "brand-brain": {
     id: "brand-brain",
     name: "EDEN",
-    zoneName: "Deck de Estratégia",
+    zoneName: "Mente das Marcas",
     role: "Fonte única de verdade para regras de marca, tom, estilo e restrições.",
     assetPath: brandBrainAsset,
     scale: 1.3,
@@ -149,7 +149,7 @@ export const NPC_CHARACTER_ASSET_CONFIG: Record<
   },
   "smart-lab": {
     id: "smart-lab",
-    name: "Smart Lab Console",
+    name: "Console",
     zoneName: "Smart Lab",
     role: "Inteligência de Design × Marca",
     assetPath: "",

@@ -1,4 +1,4 @@
-import { Check, Plus, Sparkles, X } from "lucide-react";
+import { Check, MapPinned, Power, Sparkles } from "lucide-react";
 import type { CSSProperties } from "react";
 import { NPC_CHARACTER_ASSET_CONFIG } from "../../characters/characterAssetConfig";
 import type { DeckDefinition } from "../../domain/decks";
@@ -7,7 +7,6 @@ import { getDeckIcon } from "../deckIcons";
 interface SelectedDeckPanelProps {
   deck: DeckDefinition;
   activated: boolean;
-  onToggle: () => void;
 }
 
 /**
@@ -17,9 +16,9 @@ interface SelectedDeckPanelProps {
  *   Brand Brain → EDEN, Editorial → MISTER, Design → MAX,
  *   Narration → NARA, Social Media → ASTRA.
  *
- * O CTA principal é Adicionar/Remover (toggle de ativação).
+ * O rodapé informa se a estação já foi ligada no gameplay.
  */
-export function SelectedDeckPanel({ deck, activated, onToggle }: SelectedDeckPanelProps) {
+export function SelectedDeckPanel({ deck, activated }: SelectedDeckPanelProps) {
   const Icon = getDeckIcon(deck.iconId);
   const primaryConfig =
     NPC_CHARACTER_ASSET_CONFIG[deck.primaryNpcId as keyof typeof NPC_CHARACTER_ASSET_CONFIG];
@@ -60,26 +59,15 @@ export function SelectedDeckPanel({ deck, activated, onToggle }: SelectedDeckPan
         <h3 className="orbit-panel-section-title">Agente</h3>
         <div className="orbit-panel-agent-card">
           <span className="orbit-panel-agent-dot" aria-hidden="true" />
-          <div className="orbit-panel-agent-info">
-            <p className="orbit-panel-agent-name">
+          <p className="orbit-panel-agent-line">
+            <span className="orbit-panel-agent-name">
               {primaryConfig?.name ?? deck.primaryNpcId}
-            </p>
-            <p className="orbit-panel-agent-zone">
+            </span>
+            <span className="orbit-panel-agent-zone">
               {primaryConfig?.zoneName ?? ""}
-            </p>
-          </div>
+            </span>
+          </p>
         </div>
-      </section>
-
-      <section className="orbit-panel-section">
-        <h3 className="orbit-panel-section-title">Ferramentas necessárias</h3>
-        <ul className="orbit-panel-tools">
-          {deck.tools.map((toolItem) => (
-            <li key={toolItem.id} className="orbit-panel-tool">
-              {toolItem.label}
-            </li>
-          ))}
-        </ul>
       </section>
 
       <section className="orbit-panel-section">
@@ -94,21 +82,25 @@ export function SelectedDeckPanel({ deck, activated, onToggle }: SelectedDeckPan
       </section>
 
       <footer className="orbit-panel-footer">
-        <button
-          type="button"
-          className={`orbit-panel-cta${activated ? " orbit-panel-cta-secondary" : ""}`}
-          onClick={onToggle}
-        >
-          {activated ? (
-            <>
-              <X size={14} /> Remover da estação
-            </>
-          ) : (
-            <>
-              <Plus size={14} strokeWidth={3} /> Adicionar à estação
-            </>
-          )}
-        </button>
+        <div className={`orbit-panel-status-card${activated ? " orbit-panel-status-card-active" : ""}`}>
+          <span className="orbit-panel-status-icon" aria-hidden="true">
+            {activated ? <Check size={16} strokeWidth={3} /> : <Power size={16} />}
+          </span>
+          <div className="orbit-panel-status-body">
+            <p className="orbit-panel-status-title">
+              {activated ? "Estação ativa" : "Estação inativa"}
+            </p>
+            <p className="orbit-panel-status-copy">
+              {activated
+                ? `Agente ${primaryConfig?.name ?? deck.primaryNpcId} disponível em ${primaryConfig?.zoneName ?? "sua estação"}.`
+                : `Esta estação ainda não foi ligada. Procure ${primaryConfig?.name ?? deck.primaryNpcId} no escritório para ativar.`}
+            </p>
+            <p className="orbit-panel-footer-note">
+              <MapPinned size={13} />
+              {primaryConfig?.zoneName ?? "Localização não mapeada"}
+            </p>
+          </div>
+        </div>
       </footer>
     </aside>
   );

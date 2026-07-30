@@ -1,4 +1,5 @@
 import { DECK_LIST, DECK_REGISTRY, type DeckId } from "../../domain/decks";
+import { ArrowRight, X } from "lucide-react";
 import { DeckOrbitNode } from "./DeckOrbitNode";
 import { OrbitCore } from "./OrbitCore";
 import { OrbitRing } from "./OrbitRing";
@@ -11,8 +12,11 @@ import {
 interface OrbitDeckSelectorProps {
   focusedDeckId: DeckId;
   activatedDeckIds: DeckId[];
+  stationName: string;
+  primaryLabel: string;
+  onPrimaryAction: () => void;
+  entering?: boolean;
   onFocus: (id: DeckId) => void;
-  onToggle: (id: DeckId) => void;
 }
 
 /**
@@ -23,11 +27,15 @@ interface OrbitDeckSelectorProps {
 export function OrbitDeckSelector({
   focusedDeckId,
   activatedDeckIds,
-  onFocus,
-  onToggle
+  stationName,
+  primaryLabel,
+  onPrimaryAction,
+  entering = false,
+  onFocus
 }: OrbitDeckSelectorProps) {
   const focusedLayout = ORBITAL_LAYOUT[focusedDeckId];
   const focusedAccent = DECK_REGISTRY[focusedDeckId].accentColor;
+  const focusedDeckActivated = activatedDeckIds.includes(focusedDeckId);
 
   return (
     <div
@@ -39,12 +47,21 @@ export function OrbitDeckSelector({
         <OrbitRing
           key={ringIndex}
           sizePercent={ORBITAL_RING_RADII[ringIndex] * 200}
-          active={ringIndex === focusedLayout.ringIndex}
+          active={focusedDeckActivated && ringIndex === focusedLayout.ringIndex}
           accentColor={focusedAccent}
         />
       ))}
 
-      <OrbitCore />
+      <OrbitCore stationName={stationName} />
+      <button
+        type="button"
+        className={`orbit-core-action${entering ? " orbit-core-action-entering" : ""}`}
+        onClick={onPrimaryAction}
+        disabled={entering}
+      >
+        {primaryLabel}
+        {primaryLabel === "Fechar mapa" ? <X size={14} /> : <ArrowRight size={14} />}
+      </button>
 
       {DECK_LIST.map((deck) => (
         <DeckOrbitNode
@@ -54,7 +71,6 @@ export function OrbitDeckSelector({
           focused={deck.id === focusedDeckId}
           activated={activatedDeckIds.includes(deck.id)}
           onFocus={() => onFocus(deck.id)}
-          onToggle={() => onToggle(deck.id)}
         />
       ))}
     </div>

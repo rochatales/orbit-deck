@@ -5,6 +5,7 @@ import Fastify from "fastify";
 import cors from "@fastify/cors";
 import { clientsRoutes } from "./routes/clients.js";
 import { mcpActionsRoutes } from "./routes/mcpActions.js";
+import { smartLabRoutes } from "./routes/smartLab.js";
 
 const PORT = 3001;
 const HOST = "127.0.0.1";
@@ -28,6 +29,7 @@ async function bootstrap() {
   // ── Routes ──
   await app.register(clientsRoutes);
   await app.register(mcpActionsRoutes);
+  await app.register(smartLabRoutes);
 
   // ── Health check ──
   app.get("/api/health", async () => ({
@@ -45,6 +47,7 @@ async function bootstrap() {
     console.log("    GET  /api/clients");
     console.log("    GET  /api/clients/:slug");
     console.log("    POST /api/mcp/:npcId/actions/:actionId");
+    console.log("    POST /api/smart-lab/chat");
     console.log("");
   } catch (err) {
     app.log.error(err);

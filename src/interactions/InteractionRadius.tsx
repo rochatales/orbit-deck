@@ -18,8 +18,10 @@ export function InteractionRadius({ position, visible, interactive }: Interactio
         <meshStandardMaterial color="#bfefff" transparent opacity={0.32} />
       </mesh>
       {interactive ? (
-        <Html center position={[0, 2.15, 0]} distanceFactor={10}>
-          <div className="world-prompt">Press E to interact</div>
+        <Html center position={[0, 2.15, 0]} distanceFactor={10} zIndexRange={[10, 0]}>
+          <div className="world-prompt" aria-hidden="true">
+            Press E to interact
+          </div>
         </Html>
       ) : null}
     </group>

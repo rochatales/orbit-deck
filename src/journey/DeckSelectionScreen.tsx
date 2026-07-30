@@ -1,5 +1,4 @@
-import { ArrowRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { DECK_REGISTRY, type DeckId } from "../domain/decks";
 import { usePlayerJourneyStore } from "../state/usePlayerJourneyStore";
 import { OrbitDeckSelector } from "./orbital/OrbitDeckSelector";
@@ -9,35 +8,81 @@ import { ORBITAL_CYCLE_ORDER, cycleSelectedDeck } from "./orbital/orbitalLayout"
 
 const DEFAULT_PREVIEW_DECK: DeckId = ORBITAL_CYCLE_ORDER[0];
 
+interface DeckSelectionScreenProps {
+  mode?: "stage" | "overlay";
+  onRequestClose?: () => void;
+}
+
 /**
- * Etapa 2 — seleção orbital de decks (multi-add).
+ * Etapa 2 — mapa orbital de referência.
  *
- * O player adiciona/remove decks à sua estação clicando em "Adicionar".
- * Quando ao menos um deck está ativo, o botão "Entrar na estação" libera
- * a entrada no escritório. Em gameplay, decks ainda inativos podem ser
- * ativados ao interagir com o agente correspondente.
+ * A tela não ativa mais decks diretamente: ela apresenta as estações,
+ * mostra o status de cada uma e leva o player para o escritório, onde
+ * a ativação acontece ao interagir com o agente principal.
  */
-export function DeckSelectionScreen() {
+export function DeckSelectionScreen({
+  mode = "stage",
+  onRequestClose
+}: DeckSelectionScreenProps) {
   const profile = usePlayerJourneyStore((state) => state.profile);
   const activatedDeckIds = usePlayerJourneyStore((state) => state.activatedDeckIds);
-  const toggleDeckActivation = usePlayerJourneyStore((state) => state.toggleDeckActivation);
   const enterWorkspace = usePlayerJourneyStore((state) => state.enterWorkspace);
   const signOut = usePlayerJourneyStore((state) => state.signOut);
-  const persistedFocus = usePlayerJourneyStore((state) => state.selectedDeckId);
+  const selectedDeckId = usePlayerJourneyStore((state) => state.selectedDeckId);
+  const focusDeck = usePlayerJourneyStore((state) => state.focusDeck);
+  const firstTimeOrbitalShown = usePlayerJourneyStore((state) => state.firstTimeOrbitalShown);
+  const markOrbitalIntroSeen = usePlayerJourneyStore((state) => state.markOrbitalIntroSeen);
 
-  const [focusedDeckId, setFocusedDeckId] = useState<DeckId>(
-    persistedFocus ?? activatedDeckIds[0] ?? DEFAULT_PREVIEW_DECK
-  );
-
+  const focusedDeckId = selectedDeckId ?? activatedDeckIds[0] ?? DEFAULT_PREVIEW_DECK;
+  const isOverlay = mode === "overlay";
   const greetingName = profile?.displayName ?? "Operator";
+  const stationName = profile?.displayName?.trim() || "Sua Estacao";
   const focusedDeck = DECK_REGISTRY[focusedDeckId];
   const focusedActivated = activatedDeckIds.includes(focusedDeckId);
-  const activatedCount = activatedDeckIds.length;
-  const canEnter = activatedCount >= 1;
+  const [isEntering, setIsEntering] = useState(false);
+  const enterTimerRef = useRef<number | null>(null);
 
-  // Atalhos de teclado:
-  // ←/→ ciclam o foco · Enter toggla ativação · Esc faz signOut
-  // Espaço também toggla. Após ≥1 deck ativo, "G" entra direto.
+  useEffect(() => {
+    if (!selectedDeckId) {
+      focusDeck(focusedDeckId);
+    }
+  }, [focusDeck, focusedDeckId, selectedDeckId]);
+
+  useEffect(() => {
+    return () => {
+      if (enterTimerRef.current !== null) {
+        window.clearTimeout(enterTimerRef.current);
+      }
+    };
+  }, []);
+
+  const handlePrimaryAction = () => {
+    if (isEntering) {
+      return;
+    }
+
+    setIsEntering(true);
+
+    if (!firstTimeOrbitalShown && !isOverlay) {
+      markOrbitalIntroSeen();
+    }
+    enterTimerRef.current = window.setTimeout(() => {
+      if (isOverlay) {
+        onRequestClose?.();
+        return;
+      }
+      enterWorkspace();
+    }, 850);
+  };
+
+  const handleEscape = () => {
+    if (isOverlay) {
+      onRequestClose?.();
+      return;
+    }
+    signOut();
+  };
+
   useEffect(() => {
     const handler = (event: KeyboardEvent) => {
       if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) {
@@ -45,42 +90,63 @@ export function DeckSelectionScreen() {
       }
       if (event.key === "ArrowRight" || event.key === "ArrowDown") {
         event.preventDefault();
-        setFocusedDeckId((current) => cycleSelectedDeck(current, 1));
+        focusDeck(cycleSelectedDeck(focusedDeckId, 1));
       } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
         event.preventDefault();
-        setFocusedDeckId((current) => cycleSelectedDeck(current, -1));
-      } else if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        toggleDeckActivation(focusedDeckId);
+        focusDeck(cycleSelectedDeck(focusedDeckId, -1));
       } else if (event.key === "Escape") {
         event.preventDefault();
-        signOut();
-      } else if ((event.key === "g" || event.key === "G") && canEnter) {
-        event.preventDefault();
-        enterWorkspace();
+        handleEscape();
       }
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [focusedDeckId, toggleDeckActivation, signOut, enterWorkspace, canEnter]);
+  }, [focusDeck, focusedDeckId, isOverlay, onRequestClose, signOut]);
+
+  const kicker = isOverlay
+    ? "MAPA ORBITAL · REFERÊNCIA"
+    : "ETAPA 2 · MAPA ORBITAL";
+  const title = isOverlay
+    ? "Mapa orbital."
+    : !firstTimeOrbitalShown
+    ? "Bem-vindo ao mapa orbital."
+    : `Olá, ${greetingName}.`;
+  const subtitle = isOverlay
+    ? "Consulte as estações e acompanhe o progresso ao vivo."
+    : !firstTimeOrbitalShown
+    ? "Cinco estações esperam — ative cada uma no escritório."
+    : "As estações ganham vida quando você encontra seus agentes no escritório.";
+  const helper = isOverlay
+    ? "As estações ativas aparecem com a cor de cada deck. As inativas seguem como descoberta até você chegar ao agente correspondente."
+    : "Este mapa apresenta as estações disponíveis. Nenhum deck é ativado aqui: a ligação acontece dentro do escritório, ao se aproximar de cada agente.";
+  const footerHint = "Os decks são ativados no escritório, ao se aproximar do agente responsável.";
+  const primaryLabel = "ENTRAR";
 
   return (
-    <div className="journey-stage journey-stage-decks orbit-stage">
+    <div
+      className={`journey-stage journey-stage-decks orbit-stage${isOverlay ? " orbit-stage-overlay-panel" : ""}${isEntering ? " orbit-stage-entering" : ""}`}
+    >
       <OrbitStarfield />
+      {!isOverlay && isEntering ? (
+        <div className="orbit-enter-transition" aria-hidden="true">
+          <span className="orbit-enter-vignette" />
+          <span className="orbit-enter-bloom" />
+        </div>
+      ) : null}
 
       <header className="orbit-header">
         <div>
-          <p className="orbit-kicker">ETAPA 2 · MODO OPERACIONAL</p>
-          <h1 className="orbit-title">Olá, {greetingName}.</h1>
-          <p className="orbit-subtitle">Escolha uma órbita para iniciar.</p>
-          <p className="orbit-helper">
-            Cada deck é uma estação operacional com seus próprios agentes e ferramentas.
-            Adicione um ou mais decks para começar — você pode ativar outros depois,
-            interagindo com os agentes no gameplay.
-          </p>
+          <p className="orbit-kicker">{kicker}</p>
+          <h1 className="orbit-title">{title}</h1>
+          <p className="orbit-subtitle">{subtitle}</p>
+          <p className="orbit-helper">{helper}</p>
         </div>
-        <button type="button" className="orbit-ghost-button" onClick={signOut}>
-          Sair
+        <button
+          type="button"
+          className="orbit-ghost-button"
+          onClick={isOverlay ? onRequestClose : signOut}
+        >
+          {isOverlay ? "Fechar" : "Sair"}
         </button>
       </header>
 
@@ -88,37 +154,20 @@ export function DeckSelectionScreen() {
         <OrbitDeckSelector
           focusedDeckId={focusedDeckId}
           activatedDeckIds={activatedDeckIds}
-          onFocus={setFocusedDeckId}
-          onToggle={toggleDeckActivation}
+          stationName={stationName}
+          primaryLabel={primaryLabel}
+          onPrimaryAction={handlePrimaryAction}
+          entering={isEntering}
+          onFocus={focusDeck}
         />
         <SelectedDeckPanel
           deck={focusedDeck}
           activated={focusedActivated}
-          onToggle={() => toggleDeckActivation(focusedDeckId)}
         />
       </div>
 
       <footer className="orbit-footer">
-        <p className="orbit-hint">
-          {activatedCount === 0
-            ? "Selecione uma estação orbital e clique em Adicionar para começar."
-            : activatedCount === 1
-            ? "1 deck na estação. Adicione mais ou entre quando quiser."
-            : `${activatedCount} decks na estação. Pronto para entrar.`}
-        </p>
-        <button
-          type="button"
-          className="orbit-enter-button"
-          onClick={enterWorkspace}
-          disabled={!canEnter}
-          title={
-            canEnter
-              ? "Entrar na estação com os decks selecionados"
-              : "Adicione ao menos um deck para liberar a entrada"
-          }
-        >
-          Entrar na estação <ArrowRight size={14} />
-        </button>
+        <p className="orbit-hint">{footerHint}</p>
       </footer>
     </div>
   );

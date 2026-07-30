@@ -82,7 +82,7 @@ export const MAP_ROOMS: MapRoomConfig[] = [
   },
   {
     id: "brand-brain",
-    name: "Deck de Estratégia",
+    name: "Mente das Marcas",
     position: { x: 0, z: -10 },
     size: { width: 7, depth: 6 },
     accentColor: "#F2C94C",
@@ -383,4 +383,60 @@ export const MAP_CORRIDORS: CorridorConfig[] = [
 
 export function getRoomByNpcId(npcId: string) {
   return MAP_ROOMS.find((room) => room.npcId === npcId);
+}
+
+const EXTERIOR_CORRIDOR_IDS = new Set([
+  "lab-patio",
+  "meeting-exterior-airlock",
+  "exterior-south-path",
+  "garden-connector-path",
+  "lower-central-walkway",
+  "right-mcp-connector",
+  "right-outer-walkway",
+  "exterior-west-path",
+  "futuristic-garden-pad",
+  "orbit-garden"
+]);
+
+function isPositionInsideRoom(x: number, z: number, room: MapRoomConfig) {
+  const halfWidth = room.size.width / 2;
+  const halfDepth = room.size.depth / 2;
+  return (
+    x >= room.position.x - halfWidth &&
+    x <= room.position.x + halfWidth &&
+    z >= room.position.z - halfDepth &&
+    z <= room.position.z + halfDepth
+  );
+}
+
+function isPositionInsideCorridor(x: number, z: number, corridor: CorridorConfig) {
+  const halfWidth = corridor.size.width / 2;
+  const halfDepth = corridor.size.depth / 2;
+  return (
+    x >= corridor.position.x - halfWidth &&
+    x <= corridor.position.x + halfWidth &&
+    z >= corridor.position.z - halfDepth &&
+    z <= corridor.position.z + halfDepth
+  );
+}
+
+function getRoomHudLabel(room: MapRoomConfig): string {
+  if (room.id === "central-hub") return "Sala Principal";
+  if (room.id === "meeting-suite") return "Sala de Reuniao";
+  return room.name;
+}
+
+export function getLocationLabelByPosition(x: number, z: number): string {
+  const room = MAP_ROOMS.find((entry) => isPositionInsideRoom(x, z, entry));
+  if (room) return getRoomHudLabel(room);
+
+  const corridor = MAP_CORRIDORS.find((entry) => isPositionInsideCorridor(x, z, entry));
+  if (corridor) {
+    if (corridor.id === "orbit-garden") {
+      return "Jardim Espacial";
+    }
+    return EXTERIOR_CORRIDOR_IDS.has(corridor.id) ? "Area externa" : "Corredor";
+  }
+
+  return "Sala Principal";
 }

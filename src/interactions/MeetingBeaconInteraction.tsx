@@ -1,7 +1,5 @@
-import { useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
-import { GameControl } from "../controls/keyboardControls";
 import { useDialogueStore } from "../state/useDialogueStore";
 import { useGameStore } from "../state/useGameStore";
 import { useMeetingStore } from "../state/useMeetingStore";
@@ -35,8 +33,6 @@ export function MeetingBeaconInteraction({
   const isMeetingActive = useMeetingStore((state) => state.isMeetingActive);
   const setPlayerNearBeacon = useMeetingStore((state) => state.setPlayerNearBeacon);
   const toggleMeeting = useMeetingStore((state) => state.toggleMeeting);
-
-  const [subscribeKeys] = useKeyboardControls<GameControl>();
   const inRangeRef = useRef(false);
 
   useFrame(() => {
@@ -60,24 +56,22 @@ export function MeetingBeaconInteraction({
   });
 
   useEffect(() => {
-    const unsubscribe = subscribeKeys(
-      (state) => state[GameControl.Interact],
-      (pressed) => {
-        if (!pressed || isPaused || isDialogOpen) {
-          return;
-        }
-        if (!inRangeRef.current) {
-          return;
-        }
-        // Defer to NPC dialogue if the player is near both.
-        if (nearbyNpcId) {
-          return;
-        }
-        toggleMeeting();
+    const handleInteractKey = (event: KeyboardEvent) => {
+      if (event.repeat || event.code !== "KeyE") {
+        return;
       }
-    );
-    return () => unsubscribe();
-  }, [isDialogOpen, isPaused, nearbyNpcId, subscribeKeys, toggleMeeting]);
+      if (isPaused || isDialogOpen) {
+        return;
+      }
+      if (!inRangeRef.current || nearbyNpcId) {
+        return;
+      }
+      toggleMeeting();
+    };
+
+    window.addEventListener("keydown", handleInteractKey);
+    return () => window.removeEventListener("keydown", handleInteractKey);
+  }, [isDialogOpen, isPaused, nearbyNpcId, toggleMeeting]);
 
   // Clear the proximity flag when this component unmounts.
   useEffect(() => {

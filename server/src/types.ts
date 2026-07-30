@@ -58,5 +58,5 @@ export interface McpActionResponse {
   clientSlug: string;
   message: string;
   durationMs: number;
-  data?: Record<string, unknown>;
+  data?: unknown;
 }

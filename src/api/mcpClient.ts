@@ -16,6 +16,28 @@ export interface McpActionResponse {
   durationMs: number;
 }
 
+export interface SmartLabConversationMessage {
+  role: "user" | "assistant";
+  content: string;
+}
+
+export interface SmartLabChatRequest {
+  clientSlug: string;
+  clientDisplayName: string;
+  segment: string;
+  currentRulesMd: string;
+  userMessage: string;
+  conversation: SmartLabConversationMessage[];
+}
+
+export interface SmartLabChatResponse {
+  ok: boolean;
+  clientSlug: string;
+  reply: string;
+  updatedRulesMd: string;
+  model: string;
+}
+
 async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
   const response = await fetch(`${API_BASE}${path}`, {
     headers: { "Content-Type": "application/json" },
@@ -54,6 +76,15 @@ export async function postMcpAction(
       body: JSON.stringify({ clientSlug }),
     }
   );
+}
+
+export async function postSmartLabChat(
+  payload: SmartLabChatRequest
+): Promise<SmartLabChatResponse> {
+  return apiFetch<SmartLabChatResponse>("/api/smart-lab/chat", {
+    method: "POST",
+    body: JSON.stringify(payload)
+  });
 }
 
 // ─── Health ───

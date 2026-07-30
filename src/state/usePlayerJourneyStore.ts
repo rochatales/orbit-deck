@@ -37,7 +37,7 @@ interface PlayerJourneyState {
   stage: JourneyStage;
   profile: PlayerProfile | null;
   /**
-   * Decks que o player adicionou à sua estação. Determina quais agentes
+   * Decks já ativados no escritório. Determina quais agentes
    * ficam ativos no gameplay (os de decks fora desse conjunto seguem em demo).
    */
   activatedDeckIds: DeckId[];
@@ -48,6 +48,8 @@ interface PlayerJourneyState {
    * Não controla mais o roteamento (ativação ≠ foco).
    */
   selectedDeckId: DeckId | null;
+  firstTimeOrbitalShown: boolean;
+  isOrbitalMapOpen: boolean;
   connections: DeckConnectionMap;
 
   // Transições de estágio.
@@ -55,11 +57,12 @@ interface PlayerJourneyState {
   loginAs: (input: { displayName: string; color: string }) => void;
   /** Foca um deck (preview/contexto) sem alterar o roteamento. */
   focusDeck: (deckId: DeckId | null) => void;
-  /** Adiciona/remove um deck da estação. */
-  toggleDeckActivation: (deckId: DeckId) => void;
   /** Atalho: garante ativação. */
   activateDeck: (deckId: DeckId) => void;
   isDeckActivated: (deckId: DeckId) => boolean;
+  openOrbitalMap: () => void;
+  closeOrbitalMap: () => void;
+  markOrbitalIntroSeen: () => void;
   enterWorkspace: () => void;
   resetJourney: () => void;
   signOut: () => void;
@@ -109,6 +112,8 @@ export const usePlayerJourneyStore = create<PlayerJourneyState>()(
       profile: null,
       activatedDeckIds: [],
       selectedDeckId: null,
+      firstTimeOrbitalShown: false,
+      isOrbitalMapOpen: false,
       connections: emptyConnections,
 
       goToStage: (stage) => set({ stage }),
@@ -132,14 +137,6 @@ export const usePlayerJourneyStore = create<PlayerJourneyState>()(
 
       focusDeck: (deckId) => set({ selectedDeckId: deckId }),
 
-      toggleDeckActivation: (deckId) =>
-        set((state) => {
-          const activated = state.activatedDeckIds.includes(deckId)
-            ? state.activatedDeckIds.filter((id) => id !== deckId)
-            : [...state.activatedDeckIds, deckId];
-          return { activatedDeckIds: activated };
-        }),
-
       activateDeck: (deckId) =>
         set((state) =>
           state.activatedDeckIds.includes(deckId)
@@ -149,25 +146,30 @@ export const usePlayerJourneyStore = create<PlayerJourneyState>()(
 
       isDeckActivated: (deckId) => get().activatedDeckIds.includes(deckId),
 
+      openOrbitalMap: () => set({ isOrbitalMapOpen: true }),
+
+      closeOrbitalMap: () => set({ isOrbitalMapOpen: false }),
+
+      markOrbitalIntroSeen: () => set({ firstTimeOrbitalShown: true }),
+
       enterWorkspace: () => {
-        const { activatedDeckIds, profile } = get();
+        const { profile } = get();
         if (!profile) {
           // Sem profile, força login — nunca cair direto no mundo.
           set({ stage: "login" });
           return;
         }
-        if (activatedDeckIds.length === 0) {
-          // Nenhum deck adicionado → fica na seleção (nunca cair vazio no mundo).
-          set({ stage: "deck-selection" });
-          return;
-        }
-        set({ stage: "workspace" });
+        set({
+          stage: "workspace",
+          isOrbitalMapOpen: false
+        });
       },
 
       resetJourney: () =>
         set({
           stage: "deck-selection",
-          selectedDeckId: null
+          selectedDeckId: null,
+          isOrbitalMapOpen: false
         }),
 
       signOut: () =>
@@ -176,6 +178,8 @@ export const usePlayerJourneyStore = create<PlayerJourneyState>()(
           profile: null,
           activatedDeckIds: [],
           selectedDeckId: null,
+          firstTimeOrbitalShown: false,
+          isOrbitalMapOpen: false,
           connections: emptyConnections
         }),
 
@@ -240,6 +244,7 @@ export const usePlayerJourneyStore = create<PlayerJourneyState>()(
         profile: state.profile,
         activatedDeckIds: state.activatedDeckIds,
         selectedDeckId: state.selectedDeckId,
+        firstTimeOrbitalShown: state.firstTimeOrbitalShown,
         connections: state.connections
       }),
       onRehydrateStorage: () => (rehydrated, error) => {
