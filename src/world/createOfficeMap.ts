@@ -12,7 +12,7 @@ import {
   Vector3
 } from "three";
 import type { RectBounds } from "../utils/math";
-import type { MCPConfig } from "../npcs/mcpData";
+import type { NpcConfig } from "../game/config";
 import { damp } from "../utils/math";
 import {
   createHologramPanel,
@@ -38,8 +38,6 @@ import {
 import {
   MAP_CORRIDORS,
   MAP_ROOMS,
-  MEETING_BEACON_HALF_SIZE,
-  MEETING_BEACON_POSITION,
   OFFICE_MAP_BOUNDS,
   type CorridorConfig,
   type DoorSide,
@@ -99,13 +97,13 @@ const OUTDOOR_PATH_IDS = new Set([
   "exterior-south-path",
   "garden-connector-path",
   "lower-central-walkway",
-  "right-mcp-connector",
+  "right-station-connector",
   "right-outer-walkway",
   "exterior-west-path",
   "orbit-garden"
 ]);
 
-export function createOfficeMap(mcpConfigs: MCPConfig[]): OfficeWorld {
+export function createOfficeMap(npcConfigs: NpcConfig[]): OfficeWorld {
   const group = new Group();
   const obstacles: RectBounds[] = [];
   const walkableAreas: RectBounds[] = [];
@@ -120,7 +118,7 @@ export function createOfficeMap(mcpConfigs: MCPConfig[]): OfficeWorld {
         ? createCentralHub(room, obstacles, doors, instancedAssets)
         : room.type === "lab"
         ? createLabRoom(room, obstacles, doors, instancedAssets)
-        : createMCPRoom(room, mcpConfigs, obstacles, doors, instancedAssets);
+        : createStationRoom(room, npcConfigs, obstacles, doors, instancedAssets);
     group.add(roomGroup);
     walkableAreas.push(createFloorPatchBounds(room.position.x, room.position.z, room.size.width, room.size.depth));
   });
@@ -134,14 +132,6 @@ export function createOfficeMap(mcpConfigs: MCPConfig[]): OfficeWorld {
   addSharedDecor(instancedAssets);
   group.add(createExteriorLandmarks(instancedAssets, obstacles, doors));
   addInstancedAssetsToGroup(group, instancedAssets);
-
-  addObstacleRect(
-    obstacles,
-    MEETING_BEACON_POSITION.x,
-    MEETING_BEACON_POSITION.z,
-    MEETING_BEACON_HALF_SIZE,
-    MEETING_BEACON_HALF_SIZE
-  );
 
   // Make instanced assets solid by adding them to the obstacles array
   instancedAssets.chairs.forEach((chair) => {
@@ -201,15 +191,15 @@ export function createCentralHub(
   return group;
 }
 
-export function createMCPRoom(
+export function createStationRoom(
   room: MapRoomConfig,
-  mcpConfigs: MCPConfig[],
+  npcConfigs: NpcConfig[],
   obstacles: RectBounds[],
   doors: AutomaticDoorInstance[],
   instancedAssets: InstancedWorldAssets
 ) {
   const group = new Group();
-  const npc = mcpConfigs.find((entry) => entry.id === room.npcId);
+  const npc = npcConfigs.find((entry) => entry.id === room.npcId);
   const accentColor = npc?.color ?? room.accentColor;
 
   group.add(createRoomShell(room, obstacles, doors, instancedAssets));

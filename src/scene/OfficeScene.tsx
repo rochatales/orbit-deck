@@ -1,44 +1,38 @@
-import { useMemo } from "react";
-import { MCPCharacter } from "../characters/MCPCharacter";
-import { Player } from "../characters/Player";
-import { InteractionManager } from "../interactions/InteractionManager";
-import { MeetingBeaconInteraction } from "../interactions/MeetingBeaconInteraction";
-import { MCP_NPCS } from "../npcs/mcpData";
-import { CameraRig } from "./CameraRig";
-import { Lighting } from "./Lighting";
-import { PhysicsWorld } from "../physics/PhysicsWorld";
-import { DialogueModal } from "../ui/DialogueModal";
-import { MeetingBeacon } from "../world/MeetingBeacon";
-import { OfficeMap } from "../world/OfficeMap";
-import { createOfficeMap } from "../world/createOfficeMap";
-import { MEETING_BEACON_POSITION } from "../world/mapConfig";
-
-const BEACON_VISUAL_POSITION: [number, number, number] = [
-  MEETING_BEACON_POSITION.x,
-  0,
-  MEETING_BEACON_POSITION.z
-];
-
-export function OfficeScene() {
-  const officeWorld = useMemo(() => createOfficeMap(MCP_NPCS), []);
-
-  return (
-    <>
-      <color attach="background" args={["#ebe2d5"]} />
-      <fog attach="fog" args={["#efe6da", 26, 54]} />
-      <Lighting />
-      <CameraRig />
-      <PhysicsWorld officeWorld={officeWorld} npcs={MCP_NPCS}>
-        <OfficeMap officeWorld={officeWorld} />
-        <Player officeWorld={officeWorld} />
-      </PhysicsWorld>
-      {MCP_NPCS.map((npc, index) => (
-        <MCPCharacter key={npc.id} npc={npc} index={index} />
-      ))}
-      <MeetingBeacon position={BEACON_VISUAL_POSITION} />
-      <DialogueModal />
-      <InteractionManager npcs={MCP_NPCS} />
-      <MeetingBeaconInteraction position={MEETING_BEACON_POSITION} />
-    </>
-  );
+import { PlayerAim } from '../characters/player/PlayerAim';
+import { CombatScene } from '../combat/CombatScene';
+import { GLBCharacter } from '../characters/GLBCharacter';
+import { EDEN_CHARACTER_ASSET } from '../characters/characterAssetConfig';
+import { Player } from '../characters/player/Player';
+import { EDEN } from '../game/config';
+import { Spacecraft } from '../game/Spacecraft';
+import { useExpeditionStore } from '../state/useExpeditionStore';
+import { CameraRig } from './CameraRig';
+import { Lighting } from './Lighting';
+import { PhysicsWorld } from '../physics/PhysicsWorld';
+import { OfficeMap } from '../world/OfficeMap';
+import type { OfficeWorld } from '../world/createOfficeMap';
+import type { MapId } from '../game/session';
+export function OfficeScene({ world, map }: {
+    world: OfficeWorld;
+    map: MapId;
+}) {
+    const spawn = useExpeditionStore(s => s.spawn), revision = useExpeditionStore(s => s.session.revision);
+    const a = EDEN_CHARACTER_ASSET;
+    return <>
+    <color attach="background" args={[map === 'mars' ? '#b4927a' : '#788382']}/>
+    <fog attach="fog" args={[map === 'mars' ? '#b4927a' : '#788382', 45, 100]}/>
+    <Lighting />
+    <CameraRig key={revision} bounds={world.bounds} spawn={spawn}/>
+    <PlayerAim key={revision}/>
+    <PhysicsWorld officeWorld={world}>
+      <OfficeMap officeWorld={world}/>
+      <Player key={revision} officeWorld={world} spawn={spawn}/>
+    </PhysicsWorld>
+    {map === 'shanghai' && <CombatScene world={world}/>}
+    <Spacecraft map={map}/>
+    {map === 'mars' && <group position={[EDEN.position.x, 0, EDEN.position.z]}>
+      <GLBCharacter {...a} animationState="idle"/>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.03, 0]}><ringGeometry args={[1, 1.1, 32]}/><meshBasicMaterial color="#f2c94c"/></mesh>
+    </group>}
+  </>;
 }

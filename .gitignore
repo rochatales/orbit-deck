@@ -5,3 +5,6 @@ dist/
 *.log
 .env
 .env.*
+
+archive/**/node_modules/
+archive/**/dist/

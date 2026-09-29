@@ -1,62 +1,34 @@
-import { Color, Group, MeshBasicMaterial } from "three";
-import { Text } from "troika-three-text";
-
-const FONT_URL =
-  "https://raw.githubusercontent.com/google/fonts/main/ofl/manrope/Manrope%5Bwght%5D.ttf";
-
+import { CanvasTexture, Group, Mesh, MeshBasicMaterial, PlaneGeometry, SRGBColorSpace } from 'three';
 export interface TroikaLabelOptions {
-  text: string;
-  fontSize: number;
-  color?: string;
-  maxWidth?: number;
-  anchorX?: "left" | "center" | "right" | string;
-  anchorY?: "top" | "middle" | "bottom" | "top-cap" | "bottom-baseline" | string;
-  outlineWidth?: number;
-  outlineColor?: string;
-  outlineOpacity?: number;
-  letterSpacing?: number;
+    text: string;
+    fontSize: number;
+    color?: string;
+    maxWidth?: number;
+    anchorX?: string;
+    anchorY?: string;
+    outlineWidth?: number;
+    outlineColor?: string;
+    outlineOpacity?: number;
+    letterSpacing?: number;
 }
-
+/** Local canvas lettering avoids requesting fonts from an external service. */
 export class TroikaLabel3D extends Group {
-  readonly textMesh: Text;
-
-  constructor(options: TroikaLabelOptions) {
-    super();
-
-    this.textMesh = new Text();
-    this.textMesh.text = options.text;
-    this.textMesh.font = FONT_URL;
-    this.textMesh.fontSize = options.fontSize;
-    this.textMesh.color = options.color ?? "#f8fbff";
-    this.textMesh.anchorX = options.anchorX ?? "center";
-    this.textMesh.anchorY = options.anchorY ?? "middle";
-    this.textMesh.maxWidth = options.maxWidth;
-    this.textMesh.letterSpacing = options.letterSpacing ?? 0.004;
-    this.textMesh.fillOpacity = 1;
-    this.textMesh.outlineWidth = options.outlineWidth ?? 0.01;
-    this.textMesh.outlineColor = options.outlineColor ?? "#0d1420";
-    this.textMesh.outlineOpacity = options.outlineOpacity ?? 0.65;
-    this.textMesh.depthOffset = -1;
-    this.textMesh.material = new MeshBasicMaterial({ color: new Color(options.color ?? "#f8fbff") });
-    this.textMesh.sync();
-
-    this.add(this.textMesh);
-  }
-
-  setText(text: string) {
-    if (this.textMesh.text === text) {
-      return;
+    constructor(options: TroikaLabelOptions) {
+        super();
+        const canvas = document.createElement('canvas');
+        canvas.width = 768;
+        canvas.height = 128;
+        const context = canvas.getContext('2d');
+        if (!context)
+            return;
+        context.font = 'bold 42px sans-serif';
+        context.textAlign = 'center';
+        context.textBaseline = 'middle';
+        context.fillStyle = options.color ?? '#ffffff';
+        context.fillText(options.text, 384, 64, 740);
+        const texture = new CanvasTexture(canvas);
+        texture.colorSpace = SRGBColorSpace;
+        const mesh = new Mesh(new PlaneGeometry(options.maxWidth ?? 2.5, (options.maxWidth ?? 2.5) / 6), new MeshBasicMaterial({ map: texture, transparent: true, depthWrite: false }));
+        this.add(mesh);
     }
-    this.textMesh.text = text;
-    this.textMesh.sync();
-  }
-
-  setColor(color: string) {
-    this.textMesh.color = color;
-    this.textMesh.sync();
-  }
-
-  dispose() {
-    this.textMesh.dispose();
-  }
 }

@@ -1,0 +1,133 @@
+path,bytes,sha256,category,runtime_evidence
+Game_logic.jpg,444865,0b2f8c0fa35b245c972c36ccec9d0281b6a90c07b976486d15f7af48e98f8104,reference_or_iteration,Not established; do not delete based solely on this classification
+IMG_5132.jpg,1201857,3c4ac5dc96ad5081363d8796459c11c7b45d48604a62ba3b156a0cd63343fc94,reference_or_iteration,Not established; do not delete based solely on this classification
+IMG_5133.jpg,648088,bb0b20b9cdc675807153d93dd90a0095d6a600b0e585426aec06dbf271e355c4,reference_or_iteration,Not established; do not delete based solely on this classification
+MainPlayer.blend,12353580,ed43c1ebeb334ecaef4390364e521145bb5a1743f65f15052a4f9b1977311c88,blender_source_iteration,Not established; do not delete based solely on this classification
+MainPlayer_repaired.blend,12869544,ad19ea20c2d14ce7f689828214f58b99ba76674dcd107830f45a3f9f701df2e4,blender_source_iteration,Not established; do not delete based solely on this classification
+MainPlayer_repaired_v2.blend,7099019,5a4e072bf79d214dc5f4346cb5ed438910cf5357e5366fd198ff25346742a3c1,blender_source_iteration,Not established; do not delete based solely on this classification
+MainPlayer_v3.blend,597626,c283ba26ff90322e697103cfee50dd441034612e2529ab8675b16619401ab210,blender_source_iteration,Not established; do not delete based solely on this classification
+MainPlayer_v4.blend,607473,4ec56211978f6e500af3153ef8ee460751f95fa8b664f1815e4beec8be8ee2f7,blender_source_iteration,Not established; do not delete based solely on this classification
+MainPlayer_v5.blend,552714,e0f28bf6092814cec8b7c252733a02a7e0f27d047f6cca59998f77b61df194d2,blender_source_iteration,Not established; do not delete based solely on this classification
+MainPlayer_v5.blend1,536414,89c60a38cc597b4c5c4aceb0a10b16079e0e03ed343a4effa14050df234839c5,blender_source_iteration,Not established; do not delete based solely on this classification
+MainPlayer_v6.blend,490704,f3b501799eb3c6404e841d0201a836959c7f218d1ff33f502241cfaf7498c8f7,blender_source_iteration,Not established; do not delete based solely on this classification
+MainPlayer_v7.blend,597015,58a4b08a6e8e92ccef0d709c312a604ee8091f7b838a7cc79310056a15d63c61,blender_source_iteration,Not established; do not delete based solely on this classification
+MainPlayer_v7.blend1,611884,dff660f21161b8a31d08b937cca72d0644614ed8c75201ad65d05cac6681d088,blender_source_iteration,Not established; do not delete based solely on this classification
+MainPlayer_v8.blend,611229,719600ef32065f6a3e82fa68d362d504c72d5e7fb2c171becb4e64e2852947c7,blender_source_iteration,Not established; do not delete based solely on this classification
+MainPlayer_v9.blend,609778,6b69b02aaa74d315ffd210f8981e23daf74183e5bc0fcf8a75fba8083093431c,blender_source_iteration,Not established; do not delete based solely on this classification
+blender/fbx_for_mixamo/_preview_player.png,350064,ea3db76d9ec11e8f3cb70d3dd48c2c944d9e7c11de89ac7c3cf7423469bce825,production_source,"FBX, preview or source; not a runtime export"
+blender/fbx_for_mixamo/brand-brain.fbx,22399228,cc5cffbfb203752ae7a3e40426a146533ec11366c792f7e7aeb401bb9813e3f1,production_source,"FBX, preview or source; not a runtime export"
+blender/fbx_for_mixamo/designer.fbx,22907772,ea0bcfe622a3c6f6545cf70e7e39e9259bab47e36ee3fcf419a4a83a6f566233,production_source,"FBX, preview or source; not a runtime export"
+blender/fbx_for_mixamo/editorial.fbx,24119564,97544062c5b281dc5adaeabbe7394c695c87220c1b801ed55c53472ac377f6d1,production_source,"FBX, preview or source; not a runtime export"
+blender/fbx_for_mixamo/narration.fbx,23078204,e85bfcf6f2634b5a7ab08ce3d719705cf39c296988ccb8e1b7702b504a04f021,production_source,"FBX, preview or source; not a runtime export"
+blender/fbx_for_mixamo/player.fbx,24010140,2248487a7aa6abd626583001fbe728e432a61d2054a16f720e10a8550b5f5989,production_source,"FBX, preview or source; not a runtime export"
+blender/fbx_for_mixamo/social-media.fbx,24182748,599b832281ae00f0dd159d298a790630e03d5a817ba00c5883f88454373e2324,production_source,"FBX, preview or source; not a runtime export"
+blender/rigged/_preview_fall.png,127527,391dc2447263ab1bb236b3017b19d8413e9c85af922d79030e798010099418f2,production_source,"FBX, preview or source; not a runtime export"
+blender/rigged/_preview_idle.png,171253,903e21a7711c6119c67363788cbe648622ec0b46706f85e7f1bd9d84f5b7883b,production_source,"FBX, preview or source; not a runtime export"
+blender/rigged/_preview_run.png,136874,7e4fea29ed2d06f21f844142640c0c4d67d92f66fccb057f797b3145bdb74127,production_source,"FBX, preview or source; not a runtime export"
+blender/rigged/_preview_talk.png,170870,1f764b317ef42bde5e83e071ea8d58d538b6b3e532888e78e647d51473791886,production_source,"FBX, preview or source; not a runtime export"
+blender/rigged/narration-rigged-Talking.fbx,26704080,2a909d404777a21dfd0ef5098f308108413434790e0ad4b3039f2245ca479965,production_source,"FBX, preview or source; not a runtime export"
+blender/rigged/narration-rigged-idle.fbx,26666864,bab09f386618bf8dd13dbf05f296ceb0410146de04ee7cac789c9e64e9c2a851,production_source,"FBX, preview or source; not a runtime export"
+blender/rigged/narration-rigged-sitting.fbx,28704480,0d4d409c782579acd62c998fe8a3220e5e12a6ebe305cddde0c79fabf2368115,production_source,"FBX, preview or source; not a runtime export"
+blender/rigged/narration-rigged-startwalking.fbx,26469568,03c3f175d691c3221e7469b90990811de83a31f4c5b790c3e47c08283a19ede6,production_source,"FBX, preview or source; not a runtime export"
+blender/rigged/narration-rigged-stopwalking.fbx,26449056,2c5423c29be4f0f2c7145497717e7404582afbf1e45a8b4149b98aa11335df51,production_source,"FBX, preview or source; not a runtime export"
+blender/rigged/narration-rigged-walking.fbx,26441744,bf5d95603273a7092ba4eaf7a264930909610cc25c7f64a44c15675cd03673d2,production_source,"FBX, preview or source; not a runtime export"
+blender/rigged/player-rigged-Breathing-Idle.fbx,27185008,96a352ab2ea9afecc283575dc93110501580f34e7a59909fdc209b9f112f9fe0,production_source,"FBX, preview or source; not a runtime export"
+blender/rigged/player-rigged-Slow-Run.fbx,26692080,b210477bba4d76625d0af0e366c32cecbd7f7a505d51da197c0f0e653b85c62e,production_source,"FBX, preview or source; not a runtime export"
+blender/rigged/player-rigged-fallflat.fbx,26818768,aa8b2cb2d91b2a30a3b4f69e96fe994984fb15b2724a10300f19eb15281b77ff,production_source,"FBX, preview or source; not a runtime export"
+blender/rigged/player-rigged-talking.fbx,26901856,73c1e6d6d103f0409ccaec1f12d044e8954ae9fdb1af229de085ca50bdfcb38d,production_source,"FBX, preview or source; not a runtime export"
+blender/rigged/player.fbx,26638353,d77307f3bbfab15c6fff7b74ff89fc86ddf94dd51732f92aa37c98cd83d32d1c,production_source,"FBX, preview or source; not a runtime export"
+mainplayer-recon-34.png,605821,66d7405ff5b1c4db3c735614e9f9ceffdb8e448850732be13c5a3c0c426dc400,reference_or_iteration,Not established; do not delete based solely on this classification
+mainplayer-recon-back.png,556726,7473768e4383c84adb29d759e3650843385b5ffc5c4f7f2ddcb30823bdd4aaa3,reference_or_iteration,Not established; do not delete based solely on this classification
+mainplayer-recon-front.png,623018,4391e409f3a7dc43eac5ec105df330547076f0678fc2fb3117cf8a82a7a97671,reference_or_iteration,Not established; do not delete based solely on this classification
+mainplayer-recon-front2.png,584586,7e0efa75384510b17159b9f5f251d33ad65b5f5f41299160ab8f25ee74fe714c,reference_or_iteration,Not established; do not delete based solely on this classification
+mainplayer-recon-helmet.png,506786,e6b11bc4830e839f65bc4a34a1c5f3c995557d061297e0ad779de9419284970a,reference_or_iteration,Not established; do not delete based solely on this classification
+mainplayer-recon-leftarm.png,638897,af6df6fb151ab4fdac3f3114bcc04f8d973a6307057251926bdaea46d5f0b26f,reference_or_iteration,Not established; do not delete based solely on this classification
+mainplayer-recon-side2-right.png,568208,6a8ab0ef55f3b74f8bbcf6aa42ceb1be5a73ab286110670523458d93c2a55730,reference_or_iteration,Not established; do not delete based solely on this classification
+mainplayer-recon-side2.png,596588,d8df043aca0b0d23313f9b30f9e4961f68a469cc34d8d84dfee8eafd0daa57ff,reference_or_iteration,Not established; do not delete based solely on this classification
+mainplayer-v2-34.png,541450,d3613b360aef589011c9fa58d53a686b7c0f025bca0b666bda9b7d27c595fad0,reference_or_iteration,Not established; do not delete based solely on this classification
+mainplayer-v2-back.png,503582,ca0f43baa52c0f01c0bc8151c7c5695b1b556f8508940b4217db1f5aaf8be6e2,reference_or_iteration,Not established; do not delete based solely on this classification
+mainplayer-v2-front.png,589227,b412944b01e5437427789196b85098c2938a765949801eeb72963de0a0c7a1d0,reference_or_iteration,Not established; do not delete based solely on this classification
+model-6881898e21f70654329774b08d639ae3.zip,44200208,0c1a64391b9dd57275ae91b7778fe51d18da15a36d3a9b866a297f3bdf2ecebf,reference_or_iteration,Not established; do not delete based solely on this classification
+player-chibi-hero.png,560425,5aa3dda4073f898a817fec3a587ebd7e300c061fe2fbd2a5fea6137acb84308e,reference_or_iteration,Not established; do not delete based solely on this classification
+player-chibi-preview-v1.png,239316,5385d402259316961067e06298adf92abd132ddfb302fe60d557158129bec7ce,reference_or_iteration,Not established; do not delete based solely on this classification
+player-chibi-preview-v2.png,251707,0aee55d8da2db1830ca529e7f0d1a1724fba82c0cccbb9dbcc75c3534287250f,reference_or_iteration,Not established; do not delete based solely on this classification
+player-chibi-v3-front.png,657266,12a9d54b74f9eff5da7f81dab36a09b863dcbc829ddefe810711c1c3d765d35f,reference_or_iteration,Not established; do not delete based solely on this classification
+player-chibi-v3-hero.png,579984,179559223821271caff3704bce58fb42657bf5052a9457d83db4e8faf8cd91d2,reference_or_iteration,Not established; do not delete based solely on this classification
+player-chibi-v4-front.png,1484763,40ff3707e0d069b23d5d33d7bacddeacd586daeba4480def183ee49877b072f0,reference_or_iteration,Not established; do not delete based solely on this classification
+player-chibi-v4-hero.png,1494430,d20c178eeabfb78251cae53a77102a4eb66d8199814f0e2c72911ce8bba12875,reference_or_iteration,Not established; do not delete based solely on this classification
+player-chibi-v5-hero.png,1508084,2eaba282d9519a4775d5aaa5e06d066a218eb7b452c2b60c07ac8ba30888cdf1,reference_or_iteration,Not established; do not delete based solely on this classification
+player-chibi-v6-hero.png,2040581,d6b5a09e244b9a01baa1a751de85410b34f2b05ec62b506b9de59eded4340bd7,reference_or_iteration,Not established; do not delete based solely on this classification
+player-chibi-v8-back.png,1991783,987a5044c2ce437b507fde4aa03db7983ab6ee000039d8657f0e2f0e9477a5c6,reference_or_iteration,Not established; do not delete based solely on this classification
+player-chibi-v8-front.png,1979066,f7b4627be5fd708f022fe97c292c103d788558869edeb33c1f71c429874510b7,reference_or_iteration,Not established; do not delete based solely on this classification
+player-chibi-v8-hero.png,1998532,817f499a40c9e4be5d70fa83919c008fc5f2457f1681895993a785c171410e20,reference_or_iteration,Not established; do not delete based solely on this classification
+player-chibi-v9-back.png,1715685,1ef39fcccc753e2a7565397e4af05e54df59bb6601f8bcdcf035559cc524dce9,reference_or_iteration,Not established; do not delete based solely on this classification
+player-chibi-v9-front.png,1711911,f0dbd174e834a46e01e0cec6d63379773a342b8437e3ee81885f065224222b1a,reference_or_iteration,Not established; do not delete based solely on this classification
+player-chibi-v9-hero.png,1740598,ac7434ad7423ead956e532ce5699f498bcc785d557cf79e18054a89e74720900,reference_or_iteration,Not established; do not delete based solely on this classification
+player-chibi-v9-side.png,1735169,c3a21ea94cea05b8237e270070188cac6c5c68ee10256b2c7eeac41d162f68ef,reference_or_iteration,Not established; do not delete based solely on this classification
+player-chibi.blend,182547,eb967840770568f319d6bc035d0792955a87f7239d7a3b2b1d7576115b0f8f63,blender_source_iteration,Not established; do not delete based solely on this classification
+player-main-transformed.glb,1879260,0d994c076e69ec00ef0139327abeb24495587b0627de6fb74b82d9ddfe53bee6,reference_or_iteration,Not established; do not delete based solely on this classification
+player.blend,27041521,f10a9d4f21e7db9c7dc2a05ea6f6c3dd455d58c905981c566a7710c4213cb710,blender_source_iteration,Not established; do not delete based solely on this classification
+player.blend1,27041531,b4b2a6bce834912f91bf0dfa69b46a13bf0a7ce1e40b0a8cd5987c8560cf7bca,blender_source_iteration,Not established; do not delete based solely on this classification
+public/art/interaction/eden/background.png,1227758,9806cd3ffbc4285103e9156da818f85c180c0fb335ff5f8b3734b959d05f81e5,public_asset,Included in distribution; usage must be checked per file
+public/art/interaction/eden/eden.png,772822,f4a7756ef2e3240f412e02d5397c3cdaaa204dae86c3225bc033b4337989835d,public_asset,Included in distribution; usage must be checked per file
+public/art/interaction/eden/player.png,625995,b47509a38f167359d4d99b33f0c71cd448777ecea2241edc33edf19fefb44f7d,public_asset,Included in distribution; usage must be checked per file
+public/art/interaction/mister/background.png,1722546,b15e341eae91f7555accc57b2caf7af318e616beddaa64abc9c66ab73e8627f6,public_asset,Included in distribution; usage must be checked per file
+public/art/interaction/mister/mister.png,928164,211c9cf94ec67fdd6a968504683ceafcbe4458b0baa8e62a24185f628dcef63d,public_asset,Included in distribution; usage must be checked per file
+public/art/interaction/mister/player.png,625995,b47509a38f167359d4d99b33f0c71cd448777ecea2241edc33edf19fefb44f7d,public_asset,Included in distribution; usage must be checked per file
+public/assets/fonts/Roboto-msdf.png,224407,541bf0b90615d56a9b3a0eab065dbc4f7254ef6f7ba9dc340ba3bf70c8cf2d4e,public_asset,Included in distribution; usage must be checked per file
+recon-X-minus.png,612629,447b94da635b7383479ef308f06c585330447b51cec438b945befec17661c069,reference_or_iteration,Not established; do not delete based solely on this classification
+recon-X-plus.png,545602,79cbae4f61dede0d73748c5bd272eaee858fcce78e3d69252716779aa2c35e05,reference_or_iteration,Not established; do not delete based solely on this classification
+recon-Y-minus.png,566833,ef3e82449a941486fb1ddc8b9c205d00de728a6baef8b1f28ff1fbcf57bd8dad,reference_or_iteration,Not established; do not delete based solely on this classification
+recon-Y-plus.png,578432,afd31bc6ed6147b36853461db38e80f41d8d9b82ed399f6fb5a2d12e74d441b8,reference_or_iteration,Not established; do not delete based solely on this classification
+recon-front-clean.png,594021,e122b163b4818cbc0bd413835ad2616f1dc0adcc90c2f47aee067ebffb9dac19,reference_or_iteration,Not established; do not delete based solely on this classification
+recon-front-close.png,1105328,6287c326ba5fd67c45bd9077c35ab994ae312c7099375919bc14969c90c09150,reference_or_iteration,Not established; do not delete based solely on this classification
+recon-minus-Y.png,555456,ba43c9ce8d3ccd0895968eaccef070a582f7a72644d8a86851d7481adebe1cf6,reference_or_iteration,Not established; do not delete based solely on this classification
+recon-plus-Y.png,615678,d82d3a0151dc8e02e402658d78e5b006ca80ddf1a2a2f3f882380ec8c841ced5,reference_or_iteration,Not established; do not delete based solely on this classification
+recon-top-down.png,436847,b6aea3eb8427e3ef9df80a3a66b0ad70c35d849200ed1a38ef3b7977a5ca8a80,reference_or_iteration,Not established; do not delete based solely on this classification
+social-media-transformed.glb,1719308,8fced7c6dc9f689fdd5274974a556ddea9e148de48e9e2c16f6ffbe03db3fc7c,reference_or_iteration,Not established; do not delete based solely on this classification
+src/assets/characters/npcs/brand-brain.glb,20737332,f7c029965f00564a56988caecf4ddd649df6cef3697a768215ee36073e713792,runtime_export,characterAssetConfig.ts static import
+src/assets/characters/npcs/designer.glb,21287020,0474e91b44ce35d73853d79ba4a4d0ede227b3f4f6752a079bf43aa7abf390d4,runtime_export,characterAssetConfig.ts static import
+src/assets/characters/npcs/editorial.glb,22511300,a87ad52d7094e6971c6a7409938f50d55bc8c22d57c9ee9ff88a5f8e3bf6211f,runtime_export,characterAssetConfig.ts static import
+src/assets/characters/npcs/narration.glb,30738128,08ee964735c030420090a2121990455b156299a6d3c212ba0dcaff18cb67541a,runtime_export,characterAssetConfig.ts static import
+src/assets/characters/npcs/narration.glb.bak,21908524,e0c0565b47abb3545df9a67278d6cceeb62167a484c6582ea4127a1bc55f9331,backup_export,Not established; do not delete based solely on this classification
+src/assets/characters/npcs/social-media.glb,22597260,455149048d91069db8ff495a558c31c7fe2b6d1a6fd8339bef0dbb0d44d64744,runtime_export,characterAssetConfig.ts static import
+src/assets/characters/player/player-main.glb,30684376,e44fd1a83c7699625101e78cdb7a01f718e6d36ed778dd47603ce8b7fbb4738b,runtime_export,characterAssetConfig.ts static import
+src/assets/characters/player/player-main.glb.bak,30712616,eb51ba1a842d6aa16804582a8d3b0b8f6a552ff811ee73b75297f7a50897e66b,backup_export,Not established; do not delete based solely on this classification
+v3-34.png,534672,64e4db8cf14c89cf5727999eeb1c045ccaee3ebc3414382eff57b4efeb03aaa0,reference_or_iteration,Not established; do not delete based solely on this classification
+v3-back.png,504688,d9225c925f3bd8f2b91debc23f2f162ecadc67dbb24ef4a65c9548915ddd2b5b,reference_or_iteration,Not established; do not delete based solely on this classification
+v3-front.png,554893,dfe39e5901a690147072a5d378a823f81da628934ca2cb51d6b91df1f56143ac,reference_or_iteration,Not established; do not delete based solely on this classification
+v4-34-lit.png,650455,1199633f8f59dbdb6834faff16d5d68aaeca67a04edcd0555ddcf5c101f64846,reference_or_iteration,Not established; do not delete based solely on this classification
+v4-34.png,592359,cabc740dbdae9d9e333a84372491cddfc3a872431e0e3e3102347343fdd226aa,reference_or_iteration,Not established; do not delete based solely on this classification
+v4-back-lit.png,730992,f4344616c54922bd6b7500d0c12207f9e9ce6b9d64033ecc86021f5f705df6cc,reference_or_iteration,Not established; do not delete based solely on this classification
+v4-back.png,610441,68a88e45b0e921638c244a4445f312372cf62c126861cd3ac420035e4e42e0b0,reference_or_iteration,Not established; do not delete based solely on this classification
+v4-front-lit.png,671591,9bbed7bab08a824c75904a0cf6c5200ce6ead722bcf215be6ba6ef5ba8b1a5b4,reference_or_iteration,Not established; do not delete based solely on this classification
+v4-front.png,594957,d348ea8a31ed9ffcd1b8233306f86d06d8a7d4af4429cdb1315a833c61ca1226,reference_or_iteration,Not established; do not delete based solely on this classification
+v4-side-lit.png,727688,6b1fd8315623d819b2f957ac92eb9607c3d0791d4089fd41633a55012d651fd6,reference_or_iteration,Not established; do not delete based solely on this classification
+v4-side.png,589120,a9e3be16a9bb00d5d3efc7a8f054ea0fa6b8b96591e4c840fce8bdd643a388c0,reference_or_iteration,Not established; do not delete based solely on this classification
+v5-34-lit.png,805022,9657a487e448dcfe8fa2b68da4ef11bfc1f568da0a189c84dc5cecd4c27095c4,reference_or_iteration,Not established; do not delete based solely on this classification
+v5-34.png,725085,a139f45f6a6f3d04fd5208e0233a1be6145c767102668041e1cf650f9fa2c29f,reference_or_iteration,Not established; do not delete based solely on this classification
+v5-back-lit.png,884416,e74809230855104afe38a9b443849f52aa9a1966c7bbbccd1cc2e1daed016efb,reference_or_iteration,Not established; do not delete based solely on this classification
+v5-back.png,743354,7f7d1029f15bafeaf245a2a3036874cbefcdc2a74e2a6749476d8c2b87f2213c,reference_or_iteration,Not established; do not delete based solely on this classification
+v5-front-lit.png,822519,b7f176c11d549963c3ab0d001bad572e78b5e718a8d9c7c40109e326a8c308f3,reference_or_iteration,Not established; do not delete based solely on this classification
+v5-front.png,724770,4de556897c893d9f1106d9e8742379ab1e9047a78d963edb7e9ac2347e83b679,reference_or_iteration,Not established; do not delete based solely on this classification
+v5-helmet-lit.png,913992,7a70f86db8d645e7cbb1d0a005ccad7e751f4b2d94b7d7355394afaa9509eb81,reference_or_iteration,Not established; do not delete based solely on this classification
+v5-helmet.png,974504,3cd940237f44921a064d6604cc98b85ab433f5413db57d6caf78ab481f45e7c7,reference_or_iteration,Not established; do not delete based solely on this classification
+v5-side-lit.png,896108,f0932a8bce7d31880439a9280dad6bc7ecbd9891894145cf688eb4f6a0db1a09,reference_or_iteration,Not established; do not delete based solely on this classification
+v5-side.png,733534,6129a0ff88f7e83a6447df5d6b1ca58794b1c80d6760193de81b0d1256c038e7,reference_or_iteration,Not established; do not delete based solely on this classification
+v6-34.png,805770,6541b59cfb594ff972caa759c7a077be303fb64553c1b5263c701051876853ca,reference_or_iteration,Not established; do not delete based solely on this classification
+v6-back.png,887105,d80789ee834cac7f3f115968809be8bfe6a344c6878327b3989a5dae64b59834,reference_or_iteration,Not established; do not delete based solely on this classification
+v6-back34.png,926947,e4077303fd201934ddebe254306571519528d7cd56e0ebf9680ffe18df7f961a,reference_or_iteration,Not established; do not delete based solely on this classification
+v6-front.png,822848,8d6424b30490126e02aa7a25d91a143f99b761ec88fc0b51b7a2fd4665ac2a89,reference_or_iteration,Not established; do not delete based solely on this classification
+v6-side.png,909180,feeff13db9e45bfb4d2cb9f02bb676818ecbb1dbb5ea11f70c210ce0b3315584,reference_or_iteration,Not established; do not delete based solely on this classification
+v7-34.png,776530,e43ffe95325512f8f17a574e406de58fba7de7c7025b34a0fef2ee972c6e2e19,reference_or_iteration,Not established; do not delete based solely on this classification
+v7-back.png,880573,18c0ba5cc2966078094723375b3a7d649d151ae7b8bf18f449be93f88b1a6758,reference_or_iteration,Not established; do not delete based solely on this classification
+v7-front.png,798608,b64b90596dd64809808ecf68014978eb8b9694242b3c7b1ed39dccf582f6f1b0,reference_or_iteration,Not established; do not delete based solely on this classification
+v7-side.png,874889,d0331e172b5cd8d724ec8bb83135bee2d944df2a8bedb7aae2b2d1c8e5eff32d,reference_or_iteration,Not established; do not delete based solely on this classification
+v8-34.png,774320,8b33652240f9bc5ec6ae57acf0817b6309112b97bb0e115c9807458a5f10f223,reference_or_iteration,Not established; do not delete based solely on this classification
+v8-back.png,873551,66569ca5ff40d7db3befc11d22dcb73e9de1dd1fb044aeaa58dd3fb9cc7d9112,reference_or_iteration,Not established; do not delete based solely on this classification
+v8-back34.png,882084,3df47a67d4500c287358a12eeecb214c2dff010f5275f8865167b66e5c624d78,reference_or_iteration,Not established; do not delete based solely on this classification
+v8-front.png,796022,729130fbee9c8da739ccc4d6c6051ce82057284bd6419740bfdcb759ec3a35fc,reference_or_iteration,Not established; do not delete based solely on this classification
+v8-helmet.png,696448,f0ca9a599dd090480556a09b01e989d1d16a0844b72b9ec9328c50a10480da26,reference_or_iteration,Not established; do not delete based solely on this classification
+v9-34.png,641341,22ce081ed4826bf775bc4d820a5277c46569aa4cd8be3cf5b9e5f255a414d51b,reference_or_iteration,Not established; do not delete based solely on this classification
+v9-back.png,667369,618fb970ebcfd15bcd21432bc13deb314e8eed8cbee09d6af711380fd5916ae6,reference_or_iteration,Not established; do not delete based solely on this classification
+v9-front.png,658044,ea3593ac5fea6557b5cba19da59a396f96461c1469149f175aa84f4e653bcd95,reference_or_iteration,Not established; do not delete based solely on this classification

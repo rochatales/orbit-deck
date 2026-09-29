@@ -1,3 +1,4 @@
+import { useSimulationBlocked } from "../game/simulationGate";
 import { useAnimations, useGLTF } from "@react-three/drei";
 import { Suspense, useEffect, useMemo, useRef } from "react";
 import { Component, type ErrorInfo, type ReactNode } from "react";
@@ -208,10 +209,21 @@ function GLBCharacterContent({
 }: Omit<GLBCharacterProps, "fallbackType" | "fallbackLabel">) {
   const gltf = useGLTF(assetPath);
   const prepared = useMemo(() => prepareScene(gltf.scene, accentColor), [accentColor, gltf.scene]);
+  useEffect(() => () => {
+    const materials = new Set<Material>();
+    prepared.scene.traverse(object => {
+      if (object instanceof Mesh) {
+        for (const material of Array.isArray(object.material) ? object.material : [object.material]) materials.add(material);
+      }
+    });
+    materials.forEach(material => material.dispose());
+  }, [prepared]);
   // Drive the AnimationMixer against the cloned scene root so each character
   // instance has its own mixer/actions and clips play independently.
   const animationRootRef = useRef<Group>(null);
   const { actions, mixer } = useAnimations(gltf.animations, animationRootRef);
+  const paused = useSimulationBlocked();
+  useEffect(() => { mixer.timeScale = paused ? 0 : 1; }, [mixer, paused]);
 
   useEffect(() => {
     if (!inspectedAssets.has(assetPath)) {

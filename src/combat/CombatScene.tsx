@@ -1,0 +1,109 @@
+import { useExpeditionStore } from '../state/useExpeditionStore';
+import { useEffect, useMemo, useRef } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
+import { Group, Mesh, MeshStandardMaterial, Vector3 } from 'three';
+import type { OfficeWorld } from '../world/createOfficeMap';
+import { useGameStore } from '../state/useGameStore';
+import { combatRuntime, useCombatStore } from '../state/useCombatStore';
+import { simulationBlocked } from '../game/simulationGate';
+import { CombatSimulation } from './simulation';
+import { COMBAT } from './config';
+export function CombatScene({ world }: {
+    world: OfficeWorld;
+}) {
+    const run = useCombatStore(s => s.run);
+    const simulation = useMemo(() => new CombatSimulation(world, useCombatStore.getState().encounterSize), [world, run]);
+    const { gl } = useThree();
+    const robots = useRef<(Group | null)[]>([]), tracers = useRef<(Mesh | null)[]>([]), reticle = useRef<Mesh>(null);
+    const input = useRef({ firing: false, tap: false, reload: false }), clock = useRef(0);
+    const axis = useMemo(() => new Vector3(0, 1, 0), []), direction = useMemo(() => new Vector3(), []);
+    useEffect(() => {
+        combatRuntime.simulation = simulation;
+        clock.current = 0;
+        useCombatStore.getState().publish(simulation.snapshot);
+        return () => { if (combatRuntime.simulation === simulation)
+            combatRuntime.simulation = null; };
+    }, [simulation]);
+    useEffect(() => {
+        const canvas = gl.domElement;
+        const down = (e: PointerEvent) => { if (e.button === 0 && !simulationBlocked()) {
+            input.current.firing = true;
+            input.current.tap = true;
+        } };
+        const up = () => { input.current.firing = false; };
+        const clear = () => { up(); input.current.tap = false; input.current.reload = false; };
+        const key = (e: KeyboardEvent) => { if (e.code === 'KeyR' && !e.repeat && !simulationBlocked() && !(e.target instanceof HTMLInputElement) && !(e.target instanceof HTMLSelectElement) && !(e.target instanceof HTMLTextAreaElement)) {
+            e.preventDefault();
+            input.current.reload = true;
+        } };
+        const unsubscribeGame = useGameStore.subscribe(() => { if (simulationBlocked())
+            clear(); });
+        // Dialogues and boarding also cancel a held trigger immediately.
+        const unsubscribeExpedition = useExpeditionStore.subscribe(() => { if (simulationBlocked())
+            clear(); });
+        canvas.addEventListener('pointerdown', down);
+        canvas.addEventListener('pointerleave', clear);
+        window.addEventListener('pointerup', up);
+        window.addEventListener('pointercancel', clear);
+        window.addEventListener('blur', clear);
+        window.addEventListener('keydown', key);
+        return () => { clear(); unsubscribeGame(); unsubscribeExpedition(); canvas.removeEventListener('pointerdown', down); canvas.removeEventListener('pointerleave', clear); window.removeEventListener('pointerup', up); window.removeEventListener('pointercancel', clear); window.removeEventListener('blur', clear); window.removeEventListener('keydown', key); };
+    }, [gl]);
+    useFrame((_, delta) => {
+        const blocked = simulationBlocked(), p = useGameStore.getState().playerPosition;
+        if (blocked) {
+            input.current.firing = false;
+            input.current.tap = false;
+            input.current.reload = false;
+            clock.current = 0;
+        }
+        else {
+            clock.current += Math.min(delta, 0.1);
+            while (clock.current >= COMBAT.fixedStep) {
+                simulation.step(COMBAT.fixedStep, { player: p, aim: combatRuntime.aim, firing: (input.current.firing || input.current.tap) && combatRuntime.aimValid, reload: input.current.reload });
+                input.current.tap = false;
+                input.current.reload = false;
+                clock.current -= COMBAT.fixedStep;
+            }
+            useCombatStore.getState().publish(simulation.snapshot);
+        }
+        simulation.robots.forEach((r, i) => {
+            const mesh = robots.current[i];
+            if (!mesh)
+                return;
+            mesh.visible = r.hp > 0;
+            mesh.position.set(r.x, 0, r.z);
+            mesh.rotation.y = r.angle;
+            const body = mesh.children[0] as Mesh;
+            (body.material as MeshStandardMaterial).emissive.set(r.flash > 0 ? '#ffffff' : '#000000');
+        });
+        tracers.current.forEach((mesh, i) => {
+            if (!mesh)
+                return;
+            const shot = simulation.shots[i];
+            mesh.visible = !!shot;
+            if (shot) {
+                direction.set(shot.to.x - shot.from.x, 0, shot.to.z - shot.from.z);
+                const length = direction.length();
+                mesh.position.set((shot.from.x + shot.to.x) / 2, 0.9, (shot.from.z + shot.to.z) / 2);
+                mesh.scale.set(1, length, 1);
+                mesh.quaternion.setFromUnitVectors(axis, direction.normalize());
+            }
+        });
+        if (reticle.current) {
+            reticle.current.visible = !blocked && combatRuntime.aimValid;
+            reticle.current.position.set(combatRuntime.aim.x, 0.91, combatRuntime.aim.z);
+        }
+    });
+    return <>
+    {simulation.robots.map((r, i) => <group key={`${run}-${r.id}`} ref={g => { robots.current[i] = g; }}>
+      <mesh position={[0, 0.8, 0]} castShadow><boxGeometry args={[0.65, 0.85, 0.45]}/><meshStandardMaterial color="#a85740"/></mesh>
+      <mesh position={[0, 1.4, 0]} castShadow><boxGeometry args={[0.5, 0.35, 0.4]}/><meshStandardMaterial color="#343d45"/></mesh>
+      <mesh position={[0, 1.43, 0.215]}><boxGeometry args={[0.35, 0.09, 0.04]}/><meshBasicMaterial color="#ff453a"/></mesh>
+      {[-0.21, 0.21].map(x => <mesh key={x} position={[x, 0.25, 0]}><boxGeometry args={[0.2, 0.5, 0.3]}/><meshStandardMaterial color="#3b454d"/></mesh>)}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.025, 0]}><ringGeometry args={[0.43, 0.48, 20]}/><meshBasicMaterial color="#ff6753"/></mesh>
+    </group>)}
+    {[0, 1, 2].map(i => <mesh key={i} visible={false} ref={m => { tracers.current[i] = m; }}><cylinderGeometry args={[0.028, 0.028, 1, 5]}/><meshBasicMaterial color="#fff7a0"/></mesh>)}
+    <mesh ref={reticle} rotation={[-Math.PI / 2, 0, 0]} visible={false}><ringGeometry args={[0.2, 0.27, 24]}/><meshBasicMaterial color="#71f4ff" depthTest={false}/></mesh>
+  </>;
+}

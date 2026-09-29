@@ -1,4 +1,4 @@
-import { Text } from "@react-three/drei";
+
 import { useMemo } from "react";
 import { Group, MeshStandardMaterial } from "three";
 import { PLAYER_COLORS } from "../player/playerConfig";
@@ -12,25 +12,8 @@ interface FallbackCharacterProps {
   label?: string;
 }
 
-function FallbackLabel({ accentColor, label = "Fallback GLB" }: { accentColor: string; label?: string }) {
-  return (
-    <group position={[0, 2.12, 0]}>
-      <mesh position={[0, 0, -0.01]}>
-        <planeGeometry args={[0.74, 0.18]} />
-        <meshStandardMaterial color="#122032" transparent opacity={0.92} />
-      </mesh>
-      <Text
-        color={accentColor}
-        fontSize={0.08}
-        anchorX="center"
-        anchorY="middle"
-        outlineWidth={0.01}
-        outlineColor="#08111b"
-      >
-        {label}
-      </Text>
-    </group>
-  );
+function FallbackLabel({ accentColor }: { accentColor: string; label?: string }) {
+  return <mesh position={[0,2.1,0]}><sphereGeometry args={[0.06,8,8]}/><meshBasicMaterial color={accentColor}/></mesh>;
 }
 
 function PlayerFallbackBody() {

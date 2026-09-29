@@ -1,7 +1,6 @@
-import { BallCollider, CuboidCollider, RigidBody } from "@react-three/rapier";
+import { CuboidCollider, RigidBody } from "@react-three/rapier";
 import { useMemo } from "react";
-import { PLAYER_MOVEMENT, PLAYER_PHYSICS } from "../characters/player/playerConfig";
-import type { MCPConfig } from "../npcs/mcpData";
+import { PLAYER_PHYSICS } from "../characters/player/playerConfig";
 import type { OfficeWorld } from "../world/createOfficeMap";
 
 interface ColliderEntry {
@@ -70,22 +69,5 @@ export function OfficeColliders({ officeWorld }: { officeWorld: OfficeWorld }) {
         />
       ))}
     </RigidBody>
-  );
-}
-
-export function NpcInteractionSensors({ npcs }: { npcs: MCPConfig[] }) {
-  return (
-    <>
-      {npcs.map((npc) => (
-        <RigidBody
-          key={`sensor-${npc.id}`}
-          type="fixed"
-          colliders={false}
-          position={[npc.position.x, 0.8, npc.position.z]}
-        >
-          <BallCollider args={[npc.interactionRadius ?? PLAYER_MOVEMENT.interactionRadius]} sensor />
-        </RigidBody>
-      ))}
-    </>
   );
 }

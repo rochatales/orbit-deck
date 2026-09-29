@@ -1,3 +1,4 @@
+import { useExpeditionStore } from "../../state/useExpeditionStore";
 import { useRef, useState, type MutableRefObject } from "react";
 import { Group, type Object3D } from "three";
 import { GLBCharacter, type GLBActionMap } from "../GLBCharacter";
@@ -10,6 +11,7 @@ interface PlayerModelProps {
 }
 
 export function PlayerModel({ motionRef }: PlayerModelProps) {
+  const color = useExpeditionStore(s=>s.profile?.color ?? PLAYER_CHARACTER_ASSET.accentColor);
   const rootRef = useRef<Group>(null);
   const visualRef = useRef<Group>(null);
   const glbSceneRef = useRef<Object3D | null>(null);
@@ -26,7 +28,7 @@ export function PlayerModel({ motionRef }: PlayerModelProps) {
           positionOffset={PLAYER_CHARACTER_ASSET.positionOffset}
           rotationOffset={PLAYER_CHARACTER_ASSET.rotationOffset}
           name={PLAYER_CHARACTER_ASSET.name}
-          accentColor={PLAYER_CHARACTER_ASSET.accentColor}
+          accentColor={color}
           animationState={motionRef.current.animationState}
           fallbackType={PLAYER_CHARACTER_ASSET.fallbackType}
           fallbackLabel="Player Fallback"

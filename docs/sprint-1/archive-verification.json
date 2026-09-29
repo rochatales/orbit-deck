@@ -1,0 +1,466 @@
+[
+  {
+    "path": "server/package-lock.json",
+    "matches_original": true
+  },
+  {
+    "path": "server/package.json",
+    "matches_original": true
+  },
+  {
+    "path": "server/tsconfig.json",
+    "matches_original": true
+  },
+  {
+    "path": "server/src/types.ts",
+    "matches_original": true
+  },
+  {
+    "path": "server/src/index.ts",
+    "matches_original": true
+  },
+  {
+    "path": "server/src/routes/clients.ts",
+    "matches_original": true
+  },
+  {
+    "path": "server/src/routes/mcpActions.ts",
+    "matches_original": true
+  },
+  {
+    "path": "server/src/routes/smartLab.ts",
+    "matches_original": true
+  },
+  {
+    "path": "server/src/services/clientDiscovery.ts",
+    "matches_original": true
+  },
+  {
+    "path": "server/src/services/smartLabService.ts",
+    "matches_original": true
+  },
+  {
+    "path": "server/src/services/brandBrainService.ts",
+    "matches_original": true
+  },
+  {
+    "path": "server/src/services/editorialService.ts",
+    "matches_original": true
+  },
+  {
+    "path": "server/src/services/mcpRouter.ts",
+    "matches_original": true
+  },
+  {
+    "path": "public/art/interaction/mister/mister.png",
+    "matches_original": true
+  },
+  {
+    "path": "public/art/interaction/mister/background.png",
+    "matches_original": true
+  },
+  {
+    "path": "public/art/interaction/mister/player.png",
+    "matches_original": true
+  },
+  {
+    "path": "src/main.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/ui3d/WorkflowScreen3D.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/ui3d/panelMesh.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/ui3d/UI3DManager.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/ui3d/DeskLabel3D.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/ui3d/MCPPanel3D.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/ui3d/FloatingNameplate3D.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/ui3d/StatusBadge3D.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/ui3d/theme.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/ui3d/InteractionLabel3D.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/ui3d/ActionButton3D.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/ui/SmartLabOverlay.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/ui/UIManager.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/ui/HUD.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/ui/styles.css",
+    "matches_original": true
+  },
+  {
+    "path": "src/ui/DialogueModal.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/ui/NotificationStack.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/ui/FloatingNameplate.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/ui/ActionButton.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/ui/actionMeta.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/ui/PlayerConfigPanel.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/ui/WorkflowStatusLog.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/ui/TaskPanel.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/interactions/InteractionManager.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/interactions/InteractionManagerLegacy.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/interactions/InteractionRadius.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/interactions/MeetingBeaconInteraction.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/interactions/brandBrain/BrandBrainInteractionScene.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/interactions/brandBrain/BrandBrainRegistrationPanel.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/interactions/brandBrain/brandBrainRegistrationFlow.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/interactions/scene/DevPixelGrid.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/interactions/scene/TextureLoadBanner.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/interactions/scene/PixelDialogueBubble.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/interactions/scene/SceneErrorBoundary.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/interactions/scene/PixelPortrait.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/interactions/scene/InteractionPixelStage.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/interactions/scene/usePixelFontReady.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/interactions/scene/InteractionSceneShell.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/interactions/scene/usePixelTalkCycle.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/interactions/scene/pixelSceneTextures.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/interactions/scene/usePixelTexture.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/npcs/NPCManager.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/npcs/mcpData.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/npcs/createNPC.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/world/MeetingBeacon.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/world/SpeechBubble3D.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/world/createFurniture.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/world/AgentStatusBillboard.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/world/Furniture.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/world/createOffice.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/world/HolographicPanels.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/state/useDialogueStore.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/state/useClientSessionStore.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/state/useClientSetupStore.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/state/useWorkflowStore.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/state/useAgentStatus.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/state/useMeetingStore.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/state/usePlayerJourneyStore.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/journey/deckIcons.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/journey/toolIcons.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/journey/JourneyRouter.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/journey/DeckSelectionScreen.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/journey/OrbitalMapOverlay.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/journey/DeckConnectionScreen.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/journey/LoginScreen.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/journey/orbital/orbitalLayout.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/journey/orbital/SelectedDeckPanel.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/journey/orbital/DeckOrbitNode.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/journey/orbital/OrbitRing.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/journey/orbital/OrbitCore.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/journey/orbital/OrbitStarfield.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/journey/orbital/OrbitDeckSelector.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/api/mcpClient.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/scene/lights.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/scene/camera.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/scene/createScene.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/characters/CharacterInteractionState.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/characters/MCPCharacter.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/characters/Player.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/characters/CharacterAccessories.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/characters/CharacterAnimator.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/characters/npcs/MCPNpcModel.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/characters/npcs/NpcAnimationController.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/characters/player/PlayerAnimationController.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/characters/player/playerAnimationConfig.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/characters/player/PlayerAnimations.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/assets/characters/npcs/narration.glb.bak",
+    "matches_original": true
+  },
+  {
+    "path": "src/assets/characters/npcs/narration.glb",
+    "matches_original": true
+  },
+  {
+    "path": "src/assets/characters/npcs/social-media.glb",
+    "matches_original": true
+  },
+  {
+    "path": "src/assets/characters/npcs/editorial.glb",
+    "matches_original": true
+  },
+  {
+    "path": "src/assets/characters/npcs/designer.glb",
+    "matches_original": true
+  },
+  {
+    "path": "src/domain/decks.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/domain/editorialBrief.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/domain/smartLabMetrics.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/domain/mcpActions.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/domain/clientProfiles.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/domain/clientSetupTemplate.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/domain/agentStatus.ts",
+    "matches_original": true
+  },
+  {
+    "path": "src/onboarding/ClientSetupWizard.tsx",
+    "matches_original": true
+  },
+  {
+    "path": "src/player/PlayerController.ts",
+    "matches_original": true
+  }
+]

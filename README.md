@@ -1,110 +1,63 @@
-# MCP Office
+# Horda Survivor
 
-MCP Office is a playable prototype for a new interface paradigm: an AI
-workplace experienced as a navigable low-poly sci-fi headquarters instead of
-a text dashboard. The office is the dashboard, the NPCs are the agents, the
-player is the operator, and the editorial workflow becomes gameplay.
+Protótipo local de exploração e combate: a humanidade vive em Marte e envia um explorador às ruínas da Terra. EDEN orienta a viagem pelo rádio.
 
-The runtime is React + Vite + TypeScript on top of Three.js with
-`@react-three/fiber`, `@react-three/drei`, `@react-three/rapier`, zustand,
-`lucide-react`, `framer-motion`, `troika-three-text`, and `three-mesh-ui`.
+## Estado atual — Sprint 2
 
-## Run locally
+- Hub marciano com EDEN e deck físico de lançamento ao sul.
+- Embarque e desembarque independentes da partida.
+- Viagem Marte → Shanghai → Marte, com retorno ao mesmo deck.
+- Shanghai em blockout, com ruas, obstáculos e marcadores de futuros recursos.
+- Identidade e briefing salvos localmente; viagens não são persistidas. Reabrir retorna ao hub.
+- Sem backend, cadastro de clientes ou serviços MCP.
 
-```bash
-npm install
-npm run dev
+Combate manual disponível em encontros de 1, 3 ou 5 robôs, com vida, munição finita, recarga e reinício após morte. Ondas, defesas automáticas, loot e fabricação entram nos próximos sprints. O retorno de Shanghai é livre nesta etapa de exploração e não concede recompensas.
+
+## Executar
+
+Usar as dependências do lockfile do projeto (pnpm). Com dependências instaladas:
+
+```sh
+npm run dev -- --host 127.0.0.1 --port 5178
 ```
 
-The backend lives under `server/` and is started separately when needed:
+Abrir http://127.0.0.1:5178/. Para validar:
 
-```bash
-npm run dev:server
+```sh
+npm test
+npm run build
+npm run preview -- --host 127.0.0.1 --port 4173
 ```
 
-## Controls
+## Controles e percurso
 
-- `WASD` or arrow keys: move the player
-- `E`: interact with the nearest MCP NPC (also triggers first-time
-  activation balloons)
-- `ESC`: close the active dialogue or console
-- `M`: open the orbital map overlay from inside the workspace
-- Mouse wheel or `+` / `-`: zoom the orthographic camera
-- `Q` / `R`: rotate the camera around the office
+- W/↑ avança na direção em que o personagem olha; S/↓ recua; A/D ou ←/→ deslocam para os lados dele. Shift: correr.
+- Mouse orienta o personagem em Marte e Shanghai. Q/C muda apenas a câmera.
+- Mouse: mirar; botão esquerdo: atirar (segure para disparos contínuos). R: recarregar.
+- Q/C: girar câmera.
+- Roda do mouse sobre o cenário ou +/−: zoom.
+- E: conversar, embarcar ou desembarcar; Escape: fechar conversa/pausar.
+- Na cabine, usar **Decolar para Shanghai** ou **Retornar a Marte**. Entrar na nave não dispara a viagem.
 
-## Player journey
+Encontre EDEN ao norte do hub. Para o deck, siga ao sul através do complexo e da passagem externa. A nave fica na nova plataforma além do jardim. No retorno, desembarque no deck e caminhe de volta à colônia.
 
-```
-Login → Orbital deck map → Workspace (office)
-       ↳ in-world activation of each station when the player meets its agent
-       ↳ Editorial activation seeds the four-step mission
-       ↳ Smart Lab console provides diagnostics + brand-rules chat
-       ↳ Mission ends at Astra (review) → marked `published`
-```
+## Testes
 
-State is split across zustand stores under `src/state/`:
-`usePlayerJourneyStore`, `useGameStore`, `useDialogueStore`,
-`useWorkflowStore`, `useClientSetupStore`, `useClientSessionStore`,
-`useAgentStatus`, `useMeetingStore`.
+Roteiro de validação manual: [Sprint 2](docs/sprint-2/VALIDACAO_MANUAL.md).
 
-## Source layout
+`npm test` cobre combate, cadência, recarga, morte, pausa, perseguição, colisão dos tiros e as regras de viagem, migração de perfil, falhas de save, distância de interação e caminhos transitáveis dos mapas considerando obstáculos e raio do jogador.
 
-```
-src/
-  app/                App.tsx, GameCanvas.tsx
-  scene/              OfficeScene, CameraRig, Lighting
-  world/              OfficeMap, Room, Furniture, HolographicPanels, MeetingBeacon
-  characters/         MCPCharacter, Player (GLB) + procedural animators
-  physics/            PhysicsWorld, PlayerPhysicsBody, colliders (Rapier)
-  interactions/       InteractionManager, InteractionRadius, MeetingBeaconInteraction
-  journey/            LoginScreen, DeckSelectionScreen, OrbitalMapOverlay, orbital/*
-  onboarding/         ClientSetupWizard (EDEN)
-  ui/                 HUD, DialogueModal (+ SmartLabConsole), TaskPanel,
-                      WorkflowStatusLog, NotificationStack, PlayerConfigPanel,
-                      SmartLabOverlay
-  state/              zustand stores
-  domain/             decks, mcpActions, clientProfiles, clientSetupTemplate,
-                      editorialBrief, smartLabMetrics, agentStatus
-  api/                mcpClient.ts (local API client)
-server/               Fastify + TypeScript local server for clients + Smart Lab
-```
+A página de desenvolvimento `/tests/browser-smoke.html` é uma fixture de QA fora do build de produção: prepara posições junto de EDEN/deck, mantém uma tecla pressionada por um segundo para verificar movimento e mede intervalos de requestAnimationFrame. Também oferece encontros com mira assistida por eventos de ponteiro e testes de pausa/foco. Não representa aprovação humana da jogabilidade, percurso manual completo ou benchmark de GPU. Usar outra porta/origem para isolar seu save de teste.
 
-A small number of legacy vanilla-TS modules from the pre-React prototype
-(`src/npcs/`, `src/world/createOffice.ts`, `src/world/createOfficeMap.ts`,
-`src/scene/{camera,lights,createScene}.ts`, `src/ui3d/*`,
-`src/interactions/InteractionManagerLegacy.ts`) remain in the repo but are
-not on the active runtime path. They will be removed during the next code
-cleanup pass.
+## Código e preservação
 
-## The cast
+- `src/combat/`: simulação, navegação, rifle, robôs e HUD.
+- `src/game/`: regras, configuração e geração de mapas.
+- `src/state/useExpeditionStore.ts`: sessão local e save versionado.
+- `src/npcs/scripts/eden.ts`: texto local de EDEN.
+- `archive/mcp-office/`: backend, fontes e assets inativos do produto anterior. Não integra o runtime.
+- `docs/sprint-0/`: baseline e instruções de preservação.
+- `docs/sprint-1/`: relatório, inventário do arquivo e evidências.
+- `docs/sprint-2/`: implementação e checklist de validação manual.
 
-| Deck | Agent | Slot | Accent |
-|---|---|---|---|
-| Strategy | **Eden** (Brand Brain) | `brand-brain` | `#F2C94C` |
-| Editorial | **Mister** | `editorial` | `#2F80ED` |
-| Design | **Max** | `design` | `#27AE60` |
-| Narration | **Nara** | `narration` | `#9B51E0` |
-| Review / Social | **Astra** | `output-review` | `#00C2FF` |
-
-## Documentation
-
-All design documentation lives in [`docs/`](./docs/):
-
-- **[Roadmap](docs/ROADMAP.md)** — current status, milestones M1–M5, open product questions, definition of done
-- **[Game Design](docs/GAME_DESIGN.md)** — identity, core loop, decision ownership, design principles
-- **[Story and Narrative](docs/STORY_AND_NARRATIVE.md)** — world premise, agent personalities, onboarding beats, mission archetypes
-- **[Art Direction](docs/ART_DIRECTION.md)** — palette, materials, lighting, UI surface, iconography
-- **[Map and Environment](docs/MAP_AND_ENVIRONMENT.md)** — room graph, Smart Lab, Orbit Garden, architecture rules
-- **[Characters](docs/CHARACTERS.md)** — player and NPC anatomy, animation, GLB pipeline, polish checklist
-
-The original vision essay is at [`MCP_GAME_VISION.md`](./MCP_GAME_VISION.md).
-
-## Integration hooks
-
-The current action buttons are a mix of placeholder dispatch and real local
-API calls. The integration surface for replacing placeholders with real MCP
-orchestration is `src/state/useWorkflowStore.ts` (action dispatch + task
-progression) and `src/api/mcpClient.ts` (HTTP boundary with the local
-server). See `ROADMAP.md` milestone **M3 · Editorial MCP as the real game
-start** for the contract that Editorial briefing endpoints will need to
-satisfy.
+O snapshot recuperável do Sprint 0 está documentado em `docs/sprint-0/RELATORIO.md`. A arte original de produção permanece preservada; somente exports inativos foram arquivados.

@@ -1,13 +1,15 @@
 import { useKeyboardControls } from "@react-three/drei";
-import { useFrame, useThree } from "@react-three/fiber";
+import { useFrame } from "@react-three/fiber";
 import { useBeforePhysicsStep, useRapier, type RapierCollider, type RapierRigidBody } from "@react-three/rapier";
 import { useEffect, useMemo, useRef, type MutableRefObject } from "react";
 import { MathUtils, Quaternion, Vector2, Vector3 } from "three";
+import { relativeMovement } from "./relativeMovement";
+import { combatRuntime } from "../../state/useCombatStore";
+import { simulationBlocked } from "../../game/simulationGate";
 import { GameControl } from "../../controls/keyboardControls";
-import { MCP_NPCS } from "../../npcs/mcpData";
-import { useDialogueStore } from "../../state/useDialogueStore";
+import { EDEN } from "../../game/config";
+import { useExpeditionStore } from "../../state/useExpeditionStore";
 import { useGameStore } from "../../state/useGameStore";
-import { useWorkflowStore } from "../../state/useWorkflowStore";
 import { clamp, damp, dampAngle, type RectBounds } from "../../utils/math";
 import type { OfficeWorld } from "../../world/createOfficeMap";
 import {
@@ -16,7 +18,6 @@ import {
   PLAYER_PHYSICS,
   type PlayerMotionState
 } from "./playerConfig";
-import { PLAYER_ANIMATION } from "./playerAnimationConfig";
 
 interface PlayerControllerProps {
   rigidBodyRef: MutableRefObject<RapierRigidBody | null>;
@@ -75,7 +76,7 @@ function constrainToWalkableAreas(
 }
 
 function getInteractionFacingAngle(x: number, z: number, activeNpcId: string | null) {
-  const npc = MCP_NPCS.find((entry) => entry.id === activeNpcId);
+  const npc = activeNpcId === "eden" ? EDEN : null;
   if (!npc) {
     return null;
   }
@@ -89,25 +90,20 @@ export function PlayerController({
   officeWorld,
   motionRef
 }: PlayerControllerProps) {
-  const camera = useThree((state) => state.camera);
   const { world } = useRapier();
   const setPlayerPosition = useGameStore((state) => state.setPlayerPosition);
   const isPaused = useGameStore((state) => state.isPaused);
-  const isDialogOpen = useDialogueStore((state) => state.isOpen);
-  const activeNpcId = useDialogueStore((state) => state.activeNpcId);
-  const activeActionCount = useWorkflowStore((state) => state.activeActionKeys.length);
+  const isDialogOpen = useExpeditionStore((state) => state.panel !== null);
+  const activeNpcId = useExpeditionStore((state) => state.panel === "eden" ? "eden" : null);
   const [, getKeys] = useKeyboardControls<GameControl>();
   const controllerRef = useRef<ReturnType<typeof world.createCharacterController> | null>(null);
   const inputRef = useRef(new Vector2());
   const targetInputRef = useRef(new Vector2());
   const velocityRef = useRef(new Vector3());
   const movementRef = useRef(new Vector3());
-  const moveForward = useRef(new Vector3());
-  const moveRight = useRef(new Vector3());
   const upAxis = useMemo(() => new Vector3(0, 1, 0), []);
   const facingAngleRef = useRef(0);
   const rotationQuaternion = useRef(new Quaternion());
-  const previousActionCount = useRef(0);
 
   useEffect(() => {
     const controller = world.createCharacterController(PLAYER_PHYSICS.controllerOffset);
@@ -125,11 +121,13 @@ export function PlayerController({
   }, [world]);
 
   useEffect(() => {
-    if (activeActionCount > previousActionCount.current) {
-      motionRef.current.actionTriggerUntil = performance.now() * 0.001 + PLAYER_ANIMATION.actionTriggerDuration;
+    if (isPaused || isDialogOpen) {
+      inputRef.current.set(0, 0);
+      velocityRef.current.set(0, 0, 0);
+      motionRef.current.animationState = 'idle';
+      motionRef.current.planarSpeed = 0;
     }
-    previousActionCount.current = activeActionCount;
-  }, [activeActionCount, motionRef]);
+  }, [isPaused, isDialogOpen, motionRef]);
 
   useBeforePhysicsStep((stepWorld) => {
     const body = rigidBodyRef.current;
@@ -140,8 +138,9 @@ export function PlayerController({
     }
 
     const dt = stepWorld.integrationParameters.dt;
+    if (simulationBlocked()) { inputRef.current.set(0, 0); velocityRef.current.set(0, 0, 0); return; }
     const translation = body.translation();
-    const enabled = !isPaused && !isDialogOpen;
+    const enabled = !simulationBlocked();
     const keys = getKeys();
     targetInputRef.current.set(
       (keys[GameControl.Rightward] ? 1 : 0) - (keys[GameControl.Leftward] ? 1 : 0),
@@ -157,19 +156,10 @@ export function PlayerController({
     const maxMoveSpeed = PLAYER_MOVEMENT.speed * (isRunning ? PLAYER_MOVEMENT.runMultiplier : 1);
     const desiredSpeed = enabled && inputRef.current.lengthSq() > 0.001 ? maxMoveSpeed : 0;
 
-    camera.getWorldDirection(moveForward.current);
-    moveForward.current.y = 0;
-    moveForward.current.normalize();
-    moveRight.current.crossVectors(moveForward.current, upAxis).normalize();
-
-    const desiredDirection = movementRef.current
-      .copy(moveRight.current)
-      .multiplyScalar(inputRef.current.x)
-      .addScaledVector(moveForward.current, inputRef.current.y);
-
-    if (desiredDirection.lengthSq() > 1) {
-      desiredDirection.normalize();
-    }
+    // Use the current visual facing, never the camera or movement velocity.
+    // Strafing/backpedalling must not feed back into facing and create a turn loop.
+    const relative = relativeMovement(facingAngleRef.current, inputRef.current.x, inputRef.current.y);
+    const desiredDirection = movementRef.current.set(relative.x, 0, relative.z);
 
     const smoothing = desiredSpeed > 0 ? PLAYER_MOVEMENT.acceleration : PLAYER_MOVEMENT.deceleration;
     velocityRef.current.x = damp(velocityRef.current.x, desiredDirection.x * desiredSpeed, smoothing, dt);
@@ -208,7 +198,9 @@ export function PlayerController({
 
     const interactionAngle = isDialogOpen ? getInteractionFacingAngle(translation.x, translation.z, activeNpcId) : null;
     const moveAngle = planarSpeed > 0.001 ? Math.atan2(velocityRef.current.x, velocityRef.current.z) : facingAngleRef.current;
-    const targetAngle = interactionAngle ?? moveAngle;
+    const aimAngle = combatRuntime.aimValid
+      ? Math.atan2(combatRuntime.aim.x - translation.x, combatRuntime.aim.z - translation.z) : null;
+    const targetAngle = interactionAngle ?? aimAngle ?? facingAngleRef.current;
     const rotationAlpha = 1 - Math.pow(1 - PLAYER_MOVEMENT.rotationLerp, dt * 60);
     facingAngleRef.current =
       planarSpeed > 0.001 || interactionAngle !== null

@@ -1,0 +1,22 @@
+[
+  {
+    "path": "AGENTS.md",
+    "source_sha256": "c76a7eccb5acfa75a0c8724951888ef229b918518e54c3259ced32c6559ec5cf",
+    "copy_sha256": "c76a7eccb5acfa75a0c8724951888ef229b918518e54c3259ced32c6559ec5cf"
+  },
+  {
+    "path": "CLAUDE.md",
+    "source_sha256": "7331cf193cd45ec2e5f5ef1fa45baa57614c1242bcbcb9fc915ed905d7586448",
+    "copy_sha256": "7331cf193cd45ec2e5f5ef1fa45baa57614c1242bcbcb9fc915ed905d7586448"
+  },
+  {
+    "path": "docs/AI_WORKFLOW.md",
+    "source_sha256": "a2b2bd1e95ec11cd94e74b2dca20f94bd477644653fae7e4c1f2d5b4fb374e66",
+    "copy_sha256": "a2b2bd1e95ec11cd94e74b2dca20f94bd477644653fae7e4c1f2d5b4fb374e66"
+  },
+  {
+    "path": "docs/SPRINT_STATUS.md",
+    "source_sha256": "900d759a7e1a97f9b5a93a2cb060386dd1b042a99d8f72406c650d68f005cf95",
+    "copy_sha256": "900d759a7e1a97f9b5a93a2cb060386dd1b042a99d8f72406c650d68f005cf95"
+  }
+]

@@ -1,13 +1,13 @@
 {
-  "name": "mcp-office",
+  "name": "horda-survivor",
   "private": true,
   "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:server": "cd server && npm run dev",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node --test tests/*.test.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^9.122.0",

@@ -1,7 +1,7 @@
 import { Vector3 } from "three";
 import type { RectBounds } from "../utils/math";
 
-export type MapRoomType = "hub" | "mcp" | "review" | "social" | "lab" | "outdoor";
+export type MapRoomType = "hub" | "station" | "review" | "social" | "lab" | "outdoor";
 export type DoorSide = "north" | "south" | "east" | "west";
 
 export interface RoomAnchors {
@@ -49,16 +49,8 @@ export const OFFICE_MAP_BOUNDS: RectBounds = {
   minX: -22,
   maxX: 22,
   minZ: -15,
-  maxZ: 27
+  maxZ: 39
 };
-
-// Meeting beacon — interactive lamp inside the meeting suite that toggles the
-// MCP gathering. Shared between createOfficeMap (collider) and OfficeScene
-// (visual + interaction). Half-size of 0.18 matches the cylinder base radius.
-export const MEETING_BEACON_POSITION = { x: -2.8, z: 12.75 };
-export const MEETING_BEACON_HALF_SIZE = 0.22;
-
-export const WORKFLOW_SCREEN_POSITION = new Vector3(0, 2.35, 1.9);
 
 export const MAP_ROOMS: MapRoomConfig[] = [
   {
@@ -82,12 +74,12 @@ export const MAP_ROOMS: MapRoomConfig[] = [
   },
   {
     id: "brand-brain",
-    name: "Mente das Marcas",
+    name: "EDEN · Orientação",
     position: { x: 0, z: -10 },
     size: { width: 7, depth: 6 },
     accentColor: "#F2C94C",
-    type: "mcp",
-    npcId: "brand-brain",
+    type: "station",
+    npcId: "eden",
     doorSides: ["south", "east"],
     desk: {
       position: new Vector3(0, 0, -11.15),
@@ -102,11 +94,11 @@ export const MAP_ROOMS: MapRoomConfig[] = [
   },
   {
     id: "editorial",
-    name: "Direção Editorial",
+    name: "Arquivo",
     position: { x: -10, z: 0 },
     size: { width: 7, depth: 6 },
     accentColor: "#2F80ED",
-    type: "mcp",
+    type: "station",
     npcId: "editorial",
     doorSides: ["east"],
     desk: {
@@ -122,11 +114,11 @@ export const MAP_ROOMS: MapRoomConfig[] = [
   },
   {
     id: "design",
-    name: "Estúdio de Design",
+    name: "Oficina",
     position: { x: 10, z: 0 },
     size: { width: 7, depth: 6 },
     accentColor: "#27AE60",
-    type: "mcp",
+    type: "station",
     npcId: "design",
     doorSides: ["west"],
     desk: {
@@ -142,7 +134,7 @@ export const MAP_ROOMS: MapRoomConfig[] = [
   },
   {
     id: "smart-lab",
-    name: "Smart Lab",
+    name: "Laboratório",
     subtitle: "Brand × Design Intelligence",
     type: "lab",
     position: { x: 6.5, z: -10 },
@@ -166,11 +158,11 @@ export const MAP_ROOMS: MapRoomConfig[] = [
   },
   {
     id: "narration",
-    name: "Cabine de Narração",
+    name: "Comunicações",
     position: { x: -8, z: 9 },
     size: { width: 6, depth: 5 },
     accentColor: "#9B51E0",
-    type: "mcp",
+    type: "station",
     npcId: "narration",
     doorSides: ["north"],
     desk: {
@@ -186,7 +178,7 @@ export const MAP_ROOMS: MapRoomConfig[] = [
   },
   {
     id: "output-review",
-    name: "Console de Revisão",
+    name: "Depósito",
     position: { x: 8, z: 9 },
     size: { width: 6, depth: 5 },
     accentColor: "#F5F5F5",
@@ -350,7 +342,7 @@ export const MAP_CORRIDORS: CorridorConfig[] = [
     railings: false
   },
   {
-    id: "right-mcp-connector",
+    id: "right-station-connector",
     position: { x: 13.0, z: 7.25 },
     size: { width: 4, depth: 8.5 },
     railings: false
@@ -391,7 +383,7 @@ const EXTERIOR_CORRIDOR_IDS = new Set([
   "exterior-south-path",
   "garden-connector-path",
   "lower-central-walkway",
-  "right-mcp-connector",
+  "right-station-connector",
   "right-outer-walkway",
   "exterior-west-path",
   "futuristic-garden-pad",
@@ -421,7 +413,7 @@ function isPositionInsideCorridor(x: number, z: number, corridor: CorridorConfig
 }
 
 function getRoomHudLabel(room: MapRoomConfig): string {
-  if (room.id === "central-hub") return "Sala Principal";
+  if (room.id === "central-hub") return "Colônia de Marte";
   if (room.id === "meeting-suite") return "Sala de Reuniao";
   return room.name;
 }
@@ -438,5 +430,5 @@ export function getLocationLabelByPosition(x: number, z: number): string {
     return EXTERIOR_CORRIDOR_IDS.has(corridor.id) ? "Area externa" : "Corredor";
   }
 
-  return "Sala Principal";
+  return "Colônia de Marte";
 }

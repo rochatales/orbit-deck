@@ -1,148 +1,59 @@
-import { OrthographicCamera } from "@react-three/drei";
-import { useFrame, useThree } from "@react-three/fiber";
-import { useEffect, useRef } from "react";
-import { OrthographicCamera as ThreeOrthographicCamera, Vector3 } from "three";
-import { useGameStore } from "../state/useGameStore";
-import { damp, dampAngle } from "../utils/math";
-import { OFFICE_MAP_BOUNDS } from "../world/mapConfig";
-
-const CAMERA_HEIGHT = 13;
-const CAMERA_RADIUS = Math.sqrt(13 * 13 + 13 * 13);
-const MAP_WIDTH = OFFICE_MAP_BOUNDS.maxX - OFFICE_MAP_BOUNDS.minX;
-const MAP_DEPTH = OFFICE_MAP_BOUNDS.maxZ - OFFICE_MAP_BOUNDS.minZ;
-const MAP_SCREEN_WIDTH = Math.max(43, MAP_WIDTH * 0.82 + MAP_DEPTH * 0.62);
-const MAP_SCREEN_HEIGHT = Math.max(28, MAP_DEPTH * 0.54 + 11);
-const CAMERA_LOOK_AHEAD = 0.9;
-const CAMERA_TARGET_Y = 0.55;
-
-function computeFitZoom(viewportWidth: number, viewportHeight: number) {
-  return Math.min(viewportWidth / MAP_SCREEN_WIDTH, viewportHeight / MAP_SCREEN_HEIGHT);
-}
-
-export function CameraRig() {
-  const cameraRef = useRef<ThreeOrthographicCamera>(null);
-  const pressedKeys = useRef(new Set<string>());
-  const rotation = useRef(Math.PI / 4);
-  const desiredPosition = useRef(new Vector3());
-  const target = useRef(new Vector3());
-  const smoothedTarget = useRef(new Vector3());
-  const hasInitialised = useRef(false);
-  const size = useThree((state) => state.size);
-  const playerPosition = useGameStore((state) => state.playerPosition);
-  const previousPlayerPosition = useRef(new Vector3(playerPosition.x, playerPosition.y, playerPosition.z));
-  const targetZoom = useGameStore((state) => state.targetZoom);
-  const targetRotation = useGameStore((state) => state.targetRotation);
-  const adjustZoom = useGameStore((state) => state.adjustZoom);
-  const setZoom = useGameStore((state) => state.setZoom);
-  const setZoomBounds = useGameStore((state) => state.setZoomBounds);
-  const rotateCamera = useGameStore((state) => state.rotateCamera);
-
-  // Use the fit zoom as the farthest allowed zoom-out so the camera never
-  // reveals more empty terrain than the intended presentation frame.
-  useEffect(() => {
-    const fitZoom = computeFitZoom(size.width, size.height);
-    const zoomOutFloor = fitZoom;
-    const zoomInCeiling = Math.max(fitZoom * 3.25, fitZoom + 8);
-    setZoomBounds(zoomOutFloor, zoomInCeiling);
-    if (!hasInitialised.current) {
-      setZoom(fitZoom);
-      smoothedTarget.current.set(playerPosition.x, CAMERA_TARGET_Y, playerPosition.z);
-      target.current.copy(smoothedTarget.current);
-      previousPlayerPosition.current.set(playerPosition.x, playerPosition.y, playerPosition.z);
-      if (cameraRef.current) {
-        cameraRef.current.zoom = fitZoom;
-        cameraRef.current.updateProjectionMatrix();
-      }
-      hasInitialised.current = true;
-    }
-  }, [playerPosition.x, playerPosition.y, playerPosition.z, setZoom, setZoomBounds, size.width, size.height]);
-
-  useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (["KeyQ", "KeyR", "Equal", "NumpadAdd", "Minus", "NumpadSubtract"].includes(event.code)) {
-        pressedKeys.current.add(event.code);
-      }
-    };
-
-    const onKeyUp = (event: KeyboardEvent) => {
-      pressedKeys.current.delete(event.code);
-    };
-
-    const onWheel = (event: WheelEvent) => {
-      event.preventDefault();
-      const fitZoom = computeFitZoom(size.width, size.height);
-      // Scale the step relative to fit zoom so it feels proportional at any viewport
-      const step = fitZoom * 0.08;
-      adjustZoom(Math.sign(event.deltaY) * -step);
-    };
-
-    window.addEventListener("keydown", onKeyDown);
-    window.addEventListener("keyup", onKeyUp);
-    window.addEventListener("wheel", onWheel, { passive: false });
-
-    return () => {
-      window.removeEventListener("keydown", onKeyDown);
-      window.removeEventListener("keyup", onKeyUp);
-      window.removeEventListener("wheel", onWheel);
-    };
-  }, [adjustZoom, size.width, size.height]);
-
-  useFrame((_, delta) => {
-    if (!cameraRef.current) {
-      return;
-    }
-
-    if (pressedKeys.current.has("KeyQ")) {
-      rotateCamera(delta * 1.75);
-    }
-    if (pressedKeys.current.has("KeyR")) {
-      rotateCamera(-delta * 1.75);
-    }
-    if (pressedKeys.current.has("Equal") || pressedKeys.current.has("NumpadAdd")) {
-      adjustZoom(delta * 0.9);
-    }
-    if (pressedKeys.current.has("Minus") || pressedKeys.current.has("NumpadSubtract")) {
-      adjustZoom(-delta * 0.9);
-    }
-
-    rotation.current = dampAngle(rotation.current, targetRotation, 8, delta);
-    cameraRef.current.zoom = damp(cameraRef.current.zoom, targetZoom, 8, delta);
-    cameraRef.current.updateProjectionMatrix();
-
-    const lookAheadX = playerPosition.x - previousPlayerPosition.current.x;
-    const lookAheadZ = playerPosition.z - previousPlayerPosition.current.z;
-    previousPlayerPosition.current.set(playerPosition.x, playerPosition.y, playerPosition.z);
-
-    target.current.set(
-      playerPosition.x + lookAheadX * CAMERA_LOOK_AHEAD,
-      CAMERA_TARGET_Y,
-      playerPosition.z + lookAheadZ * CAMERA_LOOK_AHEAD
-    );
-    smoothedTarget.current.x = damp(smoothedTarget.current.x, target.current.x, 6.5, delta);
-    smoothedTarget.current.y = damp(smoothedTarget.current.y, target.current.y, 6.5, delta);
-    smoothedTarget.current.z = damp(smoothedTarget.current.z, target.current.z, 6.5, delta);
-    desiredPosition.current.set(
-      smoothedTarget.current.x + Math.cos(rotation.current) * CAMERA_RADIUS,
-      smoothedTarget.current.y + CAMERA_HEIGHT,
-      smoothedTarget.current.z + Math.sin(rotation.current) * CAMERA_RADIUS
-    );
-
-    cameraRef.current.position.x = damp(cameraRef.current.position.x, desiredPosition.current.x, 5.6, delta);
-    cameraRef.current.position.y = damp(cameraRef.current.position.y, desiredPosition.current.y, 5.6, delta);
-    cameraRef.current.position.z = damp(cameraRef.current.position.z, desiredPosition.current.z, 5.6, delta);
-    cameraRef.current.lookAt(smoothedTarget.current);
-  });
-
-  const initialZoom = computeFitZoom(size.width, size.height);
-
-  return (
-    <OrthographicCamera
-      ref={cameraRef}
-      makeDefault
-      position={[Math.cos(Math.PI / 4) * CAMERA_RADIUS, CAMERA_HEIGHT, Math.sin(Math.PI / 4) * CAMERA_RADIUS]}
-      zoom={initialZoom}
-      near={0.1}
-      far={100}
-    />
-  );
+import { simulationBlocked } from '../game/simulationGate';
+import { useExpeditionStore } from '../state/useExpeditionStore';
+import { OrthographicCamera } from '@react-three/drei';
+import { useFrame, useThree } from '@react-three/fiber';
+import { useEffect, useRef } from 'react';
+import { OrthographicCamera as Camera, Vector3 } from 'three';
+import { useGameStore } from '../state/useGameStore';
+import { damp, dampAngle, type RectBounds } from '../utils/math';
+import type { Point } from '../game/config';
+export function CameraRig({ bounds, spawn }: {
+    bounds: RectBounds;
+    spawn: Point;
+}) {
+    const ref = useRef<Camera>(null), keys = useRef(new Set<string>());
+    const target = useRef(new Vector3(spawn.x, 0.55, spawn.z));
+    const angle = useRef(Math.PI / 4);
+    const size = useThree(s => s.size);
+    const fit = Math.min(size.width / Math.max(35, (bounds.maxX - bounds.minX) * 0.8), size.height / Math.max(26, (bounds.maxZ - bounds.minZ) * 0.65));
+    useEffect(() => { useGameStore.setState({ targetRotation: Math.PI / 4 }); useGameStore.getState().setZoomBounds(fit, fit * 3.25); useGameStore.getState().setZoom(fit * 1.6); }, [fit]);
+    useEffect(() => {
+        const down = (e: KeyboardEvent) => { if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement)
+            return; if (!simulationBlocked()) keys.current.add(e.code); };
+        const up = (e: KeyboardEvent) => { keys.current.delete(e.code); };
+        const clear = () => keys.current.clear();
+        const wheel = (e: WheelEvent) => { if (simulationBlocked() || !(e.target instanceof HTMLCanvasElement))
+            return; e.preventDefault(); useGameStore.getState().adjustZoom(-Math.sign(e.deltaY) * fit * 0.1); };
+        const offGame = useGameStore.subscribe(() => { if(simulationBlocked()) clear(); });
+        const offExpedition = useExpeditionStore.subscribe(() => { if(simulationBlocked()) clear(); });
+        window.addEventListener('keydown', down);
+        window.addEventListener('keyup', up);
+        window.addEventListener('blur', clear);
+        window.addEventListener('wheel', wheel, { passive: false });
+        return () => { offGame(); offExpedition(); window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); window.removeEventListener('blur', clear); window.removeEventListener('wheel', wheel); };
+    }, [fit]);
+    useFrame((_, delta) => {
+        const c = ref.current;
+        if (!c)
+            return;
+        const dt = Math.min(delta, 0.05), s = useGameStore.getState();
+        if (!simulationBlocked()) {
+            if (keys.current.has('KeyQ'))
+                s.rotateCamera(dt * 1.75);
+            if (keys.current.has('KeyC'))
+                s.rotateCamera(-dt * 1.75);
+            if (keys.current.has('Equal'))
+                s.adjustZoom(dt * fit);
+            if (keys.current.has('Minus'))
+                s.adjustZoom(-dt * fit);
+        }
+        angle.current = dampAngle(angle.current, s.targetRotation, 8, dt);
+        c.zoom = damp(c.zoom, s.targetZoom, 8, dt);
+        c.updateProjectionMatrix();
+        target.current.x = damp(target.current.x, s.playerPosition.x, 6.5, dt);
+        target.current.z = damp(target.current.z, s.playerPosition.z, 6.5, dt);
+        c.position.set(target.current.x + Math.cos(angle.current) * 18.38, 13.55, target.current.z + Math.sin(angle.current) * 18.38);
+        c.lookAt(target.current);
+    });
+    return <OrthographicCamera ref={ref} makeDefault position={[spawn.x + 13, 13.55, spawn.z + 13]} zoom={fit * 1.6} near={0.1} far={160}/>;
 }
