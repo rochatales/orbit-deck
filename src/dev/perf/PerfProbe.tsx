@@ -1,57 +1,36 @@
 /**
  * S2.9 — instrumentação opcional de desenvolvimento. Só é carregada com `?perf`
  * (ver GameCanvas). Mede sem alterar gameplay, câmera, física ou o renderer:
- * - PerfProbe (dentro do Canvas) lê renderer.info e registra o primeiro frame;
- * - PerfPanel (fora do Canvas) coleta intervalos de rAF num laço próprio,
- *   observa Long Animation Frames, mostra o painel e expõe window.__hordaPerf.
- * Todos os coletores, listeners e a API global são removidos ao desmontar.
+ * - PerfProbe (dentro do Canvas) lê renderer.info e acompanha a prontidão da cena;
+ * - PerfPanel (fora do Canvas) liga a sessão de medição às APIs do navegador,
+ *   mostra o painel e expõe window.__hordaPerf.
+ * A lógica fica em perfMetrics.ts (testada em Node); aqui só há a ligação com o runtime.
  */
 import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useRef, useState } from 'react';
-import type { WebGLRenderer } from 'three';
+import type { Object3D, WebGLRenderer } from 'three';
+import { EDEN_CHARACTER_ASSET, PLAYER_CHARACTER_ASSET } from '../../characters/characterAssetConfig';
 import { useExpeditionStore } from '../../state/useExpeditionStore';
 import { useGameStore } from '../../state/useGameStore';
 import {
-  buildReport, buildSampleResult, formatBytes, formatValue, pushBounded, readHeapMemory,
-  summarizeIntervals, summarizeNavigation, summarizeResources,
-  type MeasurementContext, type PerfReport, type RendererCounters, type SampleResult, type SceneEvent
+  COUNTER_SAMPLE_EVERY_MS, LIVE_WINDOW, buildReport, createPerfSession, createPerfShared, createSceneTracker,
+  formatBytes, formatValue, offerCounters, readHeapMemory, summarizeIntervals, summarizeNavigation, summarizeResources,
+  type MeasurementContext, type PerfReport, type PerfSession, type PerfSessionApi, type RendererCounters, type SampleResult
 } from './perfMetrics';
 
-const LIVE_WINDOW = 240;
-const MAX_SAMPLE_INTERVALS = 4000;
-const MAX_SAMPLE_COUNTERS = 200;
-const MAX_LOAF_ENTRIES = 200;
-const MAX_SCENE_EVENTS = 30;
-const MAX_SAMPLES = 10;
-const COUNTER_SAMPLE_EVERY_MS = 100;
 const PANEL_REFRESH_MS = 500;
-const DEFAULT_SAMPLE_MS = 10_000;
-
-interface ActiveSample {
-  startedAtMs: number;
-  requestedMs: number;
-  map: string | null;
-  intervals: number[];
-  counters: RendererCounters[];
-  loafDurations: number[];
-  hidden: boolean;
-  paused: boolean;
-  lastCounterAtMs: number;
-  finish: (interruptedReason?: string) => void;
-}
 
 /** Estado limitado, compartilhado entre sonda e painel e mantido entre trocas de mapa. */
-const shared = {
-  gl: null as WebGLRenderer | null,
-  latest: null as RendererCounters | null,
-  sceneEvents: [] as SceneEvent[],
-  samples: [] as SampleResult[],
-  mapLoadingStartedAtMs: null as number | null,
-  active: null as ActiveSample | null
-};
+const shared = createPerfShared();
+let activeGl: WebGLRenderer | null = null;
 
-function recordSceneEvent(event: SceneEvent) {
-  pushBounded(shared.sceneEvents, event, MAX_SCENE_EVENTS);
+/** Personagens GLB cujo conteúdo carregado (grupo nomeado) indica cena completa, por mapa. */
+function expectedCharacterNames(map: string): string[] {
+  return map === 'mars' ? [PLAYER_CHARACTER_ASSET.name, EDEN_CHARACTER_ASSET.name] : [PLAYER_CHARACTER_ASSET.name];
+}
+
+function allPresent(scene: Object3D, names: string[]) {
+  return names.every(name => scene.getObjectByName(name) !== undefined);
 }
 
 function readCounters(gl: WebGLRenderer, now: number): RendererCounters {
@@ -69,34 +48,35 @@ function readCounters(gl: WebGLRenderer, now: number): RendererCounters {
 
 export function PerfProbe({ map }: { map: string }) {
   const gl = useThree(state => state.gl);
-  const mountedAtRef = useRef(0);
-  const firstFrameRef = useRef(false);
+  const scene = useThree(state => state.scene);
+  const trackerRef = useRef<ReturnType<typeof createSceneTracker> | null>(null);
+  const lastAssetCheckRef = useRef(-Infinity);
+  const assetsPresentRef = useRef(false);
 
   useEffect(() => {
-    mountedAtRef.current = performance.now();
-    firstFrameRef.current = false;
-    shared.gl = gl;
-    recordSceneEvent({ kind: 'canvas-mounted', map, atMs: mountedAtRef.current, durationMs: null });
+    activeGl = gl;
+    assetsPresentRef.current = false;
+    lastAssetCheckRef.current = -Infinity;
+    trackerRef.current = createSceneTracker(shared, map, performance.now(), useExpeditionStore.getState().ready);
     return () => {
-      if (shared.gl === gl) { shared.gl = null; shared.latest = null; }
+      trackerRef.current = null;
+      if (activeGl === gl) { activeGl = null; shared.latest = null; }
     };
   }, [gl, map]);
 
   // Prioridade padrão: não assume o laço de renderização do R3F.
   useFrame(() => {
     const now = performance.now();
-    // renderer.info reflete o render do frame anterior (reset automático no início de cada render).
+    // renderer.info reflete o render do frame anterior (o reset automático ocorre em cada render).
     const counters = readCounters(gl, now);
-    shared.latest = counters;
-    if (!firstFrameRef.current) {
-      firstFrameRef.current = true;
-      recordSceneEvent({ kind: 'first-frame', map, atMs: now, durationMs: now - mountedAtRef.current });
+    offerCounters(shared, counters);
+    const tracker = trackerRef.current;
+    if (!tracker || tracker.done) return;
+    if (!assetsPresentRef.current && now - lastAssetCheckRef.current >= COUNTER_SAMPLE_EVERY_MS) {
+      lastAssetCheckRef.current = now;
+      assetsPresentRef.current = allPresent(scene, expectedCharacterNames(map));
     }
-    const active = shared.active;
-    if (active && now - active.lastCounterAtMs >= COUNTER_SAMPLE_EVERY_MS && active.counters.length < MAX_SAMPLE_COUNTERS) {
-      active.lastCounterAtMs = now;
-      active.counters.push(counters);
-    }
+    tracker.onFrame(now, counters.drawCalls, assetsPresentRef.current);
   });
 
   return null;
@@ -121,7 +101,7 @@ function readGpuRenderer(gl: WebGLRenderer | null): string | null {
 }
 
 function readContext(): MeasurementContext {
-  const gl = shared.gl;
+  const gl = activeGl;
   const nav = navigator as Navigator & { deviceMemory?: number; userAgentData?: { brands?: Array<{ brand: string; version: string }> } };
   const canvas = gl?.domElement;
   return {
@@ -159,13 +139,41 @@ function buildFullReport(): PerfReport {
   });
 }
 
-interface HordaPerfApi {
-  sample: (ms?: number) => Promise<SampleResult>;
+interface HordaPerfApi extends PerfSessionApi {
   report: () => PerfReport;
 }
 
 declare global {
   interface Window { __hordaPerf?: HordaPerfApi }
+}
+
+function browserDeps() {
+  return {
+    now: () => performance.now(),
+    requestFrame: (callback: (time: number) => void) => requestAnimationFrame(callback),
+    cancelFrame: (id: number) => cancelAnimationFrame(id),
+    isHidden: () => document.hidden,
+    onVisibilityChange(listener: () => void) {
+      document.addEventListener('visibilitychange', listener);
+      return () => document.removeEventListener('visibilitychange', listener);
+    },
+    observeLongFrames(listener: (entries: Array<{ startTime: number; duration: number }>) => void) {
+      const supported = typeof PerformanceObserver !== 'undefined' && (PerformanceObserver.supportedEntryTypes ?? []).includes('long-animation-frame');
+      if (!supported) return null;
+      const observer = new PerformanceObserver(list => listener(list.getEntries()));
+      observer.observe({ type: 'long-animation-frame', buffered: false });
+      return () => observer.disconnect();
+    },
+    isPaused: () => useGameStore.getState().isPaused,
+    onPausedChange: (listener: (paused: boolean) => void) =>
+      useGameStore.subscribe((state, prev) => { if (state.isPaused !== prev.isPaused) listener(state.isPaused); }),
+    onReadyChange: (listener: (prevReady: boolean, ready: boolean, loadingMap: string | null, currentMap: string | null) => void) =>
+      useExpeditionStore.subscribe((state, prev) => {
+        if (state.ready !== prev.ready) listener(prev.ready, state.ready, state.session.destination ?? state.session.map, state.session.map);
+      }),
+    setGlobalApi: (api: PerfSessionApi) => { window.__hordaPerf = { ...api, report: buildFullReport }; },
+    clearGlobalApi: (api: PerfSessionApi) => { if (window.__hordaPerf?.sample === api.sample) delete window.__hordaPerf; }
+  };
 }
 
 interface LiveView {
@@ -187,91 +195,14 @@ export function PerfPanel({ map }: { map: string }) {
   const [view, setView] = useState<LiveView | null>(null);
   const [open, setOpen] = useState(true);
   const [message, setMessage] = useState<string | null>(null);
-  const startSampleRef = useRef<(ms?: number) => Promise<SampleResult>>();
+  const sessionRef = useRef<PerfSession | null>(null);
 
   useEffect(() => {
-    const live = new Float64Array(LIVE_WINDOW);
-    let liveCount = 0, liveIndex = 0, previous = performance.now(), frame = 0, stopped = false;
-
-    const tick = (now: number) => {
-      if (stopped) return;
-      const interval = now - previous;
-      previous = now;
-      live[liveIndex] = interval;
-      liveIndex = (liveIndex + 1) % LIVE_WINDOW;
-      liveCount = Math.min(liveCount + 1, LIVE_WINDOW);
-      const active = shared.active;
-      if (active) {
-        if (active.intervals.length < MAX_SAMPLE_INTERVALS) active.intervals.push(interval);
-        if (now - active.startedAtMs >= active.requestedMs) active.finish();
-      }
-      frame = requestAnimationFrame(tick);
-    };
-    frame = requestAnimationFrame(tick);
-
-    const loafSupported = typeof PerformanceObserver !== 'undefined' && (PerformanceObserver.supportedEntryTypes ?? []).includes('long-animation-frame');
-    let observer: PerformanceObserver | null = null;
-    if (loafSupported) {
-      observer = new PerformanceObserver(list => {
-        const active = shared.active;
-        if (!active) return;
-        for (const entry of list.getEntries()) {
-          if (entry.startTime >= active.startedAtMs && active.loafDurations.length < MAX_LOAF_ENTRIES) active.loafDurations.push(entry.duration);
-        }
-      });
-      observer.observe({ type: 'long-animation-frame', buffered: false });
-    }
-
-    const onVisibility = () => {
-      if (document.hidden && shared.active) { shared.active.hidden = true; shared.active.finish(); }
-    };
-    document.addEventListener('visibilitychange', onVisibility);
-
-    const unsubscribeGame = useGameStore.subscribe(state => {
-      if (state.isPaused && shared.active) shared.active.paused = true;
-    });
-    const unsubscribeExpedition = useExpeditionStore.subscribe((state, prev) => {
-      const now = performance.now();
-      if (prev.ready && !state.ready) {
-        shared.mapLoadingStartedAtMs = now;
-        recordSceneEvent({ kind: 'map-loading', map: state.session.destination ?? state.session.map, atMs: now, durationMs: null });
-      } else if (!prev.ready && state.ready) {
-        const started = shared.mapLoadingStartedAtMs;
-        shared.mapLoadingStartedAtMs = null;
-        recordSceneEvent({ kind: 'scene-ready', map: state.session.map, atMs: now, durationMs: started === null ? null : now - started });
-      }
-    });
-
-    const startSample = (ms = DEFAULT_SAMPLE_MS) => new Promise<SampleResult>(resolve => {
-      if (shared.active) shared.active.finish('Substituída por uma nova amostra.');
-      const requestedMs = Number.isFinite(ms) && ms > 0 ? Math.min(ms, 60_000) : DEFAULT_SAMPLE_MS;
-      const startedAtMs = performance.now();
-      const active: ActiveSample = {
-        startedAtMs, requestedMs, map, intervals: [], counters: [], loafDurations: [],
-        hidden: document.hidden, paused: useGameStore.getState().isPaused, lastCounterAtMs: 0,
-        finish: (interruptedReason?: string) => {
-          if (shared.active !== active) return;
-          shared.active = null;
-          const result = buildSampleResult({
-            startedAtMs, requestedMs, elapsedMs: performance.now() - startedAtMs, map,
-            intervals: active.intervals, hiddenDuringSample: active.hidden, pausedDuringSample: active.paused,
-            interruptedReason: interruptedReason ?? null,
-            loafSupported, loafDurations: active.loafDurations, counters: active.counters
-          });
-          pushBounded(shared.samples, result, MAX_SAMPLES);
-          resolve(result);
-        }
-      };
-      shared.active = active;
-      if (active.hidden) active.finish();
-    });
-    startSampleRef.current = startSample;
-
-    window.__hordaPerf = { sample: startSample, report: buildFullReport };
+    const session = createPerfSession(shared, browserDeps(), map);
+    sessionRef.current = session;
 
     const refresh = () => {
-      const intervals = Array.from(live.subarray(0, liveCount));
-      const summary = summarizeIntervals(intervals);
+      const summary = summarizeIntervals(session.liveIntervals());
       const latest = shared.latest;
       const heap = readHeap();
       setView({
@@ -284,8 +215,8 @@ export function PerfPanel({ map }: { map: string }) {
         textures: latest ? String(latest.textures) : 'indisponível',
         counterAge: latest ? formatValue(performance.now() - latest.sampledAtMs, 'ms', 0) : 'indisponível',
         heap: heap ? formatBytes(heap.usedBytes) : 'indisponível',
-        dpr: `${formatValue(window.devicePixelRatio, '', 2)} / renderer ${formatValue(shared.gl?.getPixelRatio(), '', 2)}`,
-        sampling: shared.active !== null,
+        dpr: `${formatValue(window.devicePixelRatio, '', 2)} / renderer ${formatValue(activeGl?.getPixelRatio(), '', 2)}`,
+        sampling: session.isSampling(),
         lastSample: shared.samples[shared.samples.length - 1] ?? null
       });
     };
@@ -293,24 +224,18 @@ export function PerfPanel({ map }: { map: string }) {
     const timer = window.setInterval(refresh, PANEL_REFRESH_MS);
 
     return () => {
-      stopped = true;
-      cancelAnimationFrame(frame);
       window.clearInterval(timer);
-      observer?.disconnect();
-      document.removeEventListener('visibilitychange', onVisibility);
-      unsubscribeGame();
-      unsubscribeExpedition();
-      shared.active?.finish('Interrompida: o canvas foi desmontado (troca de mapa ou saída).');
-      if (window.__hordaPerf?.sample === startSample) delete window.__hordaPerf;
-      startSampleRef.current = undefined;
+      session.dispose();
+      if (sessionRef.current === session) sessionRef.current = null;
     };
   }, [map]);
 
   const runSample = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.currentTarget.blur();
+    const session = sessionRef.current;
+    if (!session) return;
     setMessage('Amostrando 10 s… mantenha a aba visível.');
-    const result = await startSampleRef.current?.();
-    if (!result) return;
+    const result = await session.sample();
     setMessage(result.status === 'valid' ? 'Amostra concluída.' : `Amostra inválida: ${result.invalidReason}`);
   };
 
