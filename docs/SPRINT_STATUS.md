@@ -46,7 +46,7 @@ qual a worktree parte e contra o qual a revisão compara.
 
 | Tarefa | Base | Branch | Arquivos principais | Implementa | Revisa | Estado |
 |---|---|---|---|---|---|---|
-| S2.9 Instrumentação de medição | a fixar na atribuição | — | — | — | — | 🔲 |
+| S2.9 Instrumentação de medição | `2bb1f2bab525776b97f8e76126ebe3adffd65aa7` | `claude/s2.9-instrumentacao` | `src/dev/perf/*`, `src/app/GameCanvas.tsx`, `tests/perf-metrics.test.mjs`, `docs/handoffs/s2.9.md` | Claude | Codex | ◐ Revisado `2d25d42`; correções R1–R3 solicitadas, sem integração |
 | S2.10 Posição transitória do player | a definir | — | — | — | — | 🔲 |
 | S2.11 Interpolação com passo fixo | a definir | — | — | — | — | 🔲 |
 | S2.12 Ajustes de controle do autor | a definir | — | — | — | — | 🔲 Aguarda feedback do autor |
@@ -62,3 +62,5 @@ rodam em sequência, não em paralelo.
   Nenhum código alterado.
 
 - 29/09/2026 · codex · consolidação local `a40dac41e463`: 20 testes e build passaram; 116 arquivos arquivados verificados; 93 artes soltas preservadas e excluídas. Quatro documentos do Claude incorporados por cópia revisada. Sem push, PR, merge ou tarefas iniciadas. Relatório: [consolidação](./consolidacao/RELATORIO.md).
+
+- 29/09/2026 · codex · revisão S2.9 (`2d25d42`): 26 testes/build/diff-check passaram; três correções de precisão das medições solicitadas. [Revisão detalhada](./reviews/s2.9.md). O piloto integrado permanece com 20 testes; os 26 pertencem à branch da tarefa.
