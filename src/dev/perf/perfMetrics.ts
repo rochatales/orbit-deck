@@ -378,6 +378,8 @@ interface ActiveSample {
   countersCapacity: number;
   countersSaturated: boolean;
   lastCounterAtMs: number;
+  /** Primeiro frame da amostra; `null` até ele ocorrer. Referência própria, independente do laço ao vivo. */
+  lastFrameAtMs: number | null;
   loafCount: number;
   loafMaxMs: number | null;
   hidden: boolean;
@@ -490,8 +492,14 @@ export function createPerfSession(shared: PerfShared, deps: PerfSessionDeps, map
     liveCount = Math.min(liveCount + 1, LIVE_WINDOW);
     const active = shared.active;
     if (active) {
-      if (active.intervalCount < active.intervals.length) active.intervals[active.intervalCount++] = interval;
-      else active.intervalsSaturated = true;
+      // Só intervalos completos entre dois frames da própria amostra. O intervalo que atravessa
+      // o início (desde o frame anterior ao clique) é descartado: pode conter espera anterior.
+      if (active.lastFrameAtMs !== null) {
+        const sampleInterval = time - active.lastFrameAtMs;
+        if (active.intervalCount < active.intervals.length) active.intervals[active.intervalCount++] = sampleInterval;
+        else active.intervalsSaturated = true;
+      }
+      active.lastFrameAtMs = time;
       if (time - active.startedAtMs >= active.requestedMs) active.finish();
     }
     if (!disposed) frame = deps.requestFrame(tick);
@@ -532,7 +540,7 @@ export function createPerfSession(shared: PerfShared, deps: PerfSessionDeps, map
     const active: ActiveSample = {
       startedAtMs, requestedMs, map,
       intervals: new Float64Array(capacity.intervals), intervalCount: 0, intervalsSaturated: false,
-      counters: [], countersCapacity: capacity.counters, countersSaturated: false, lastCounterAtMs: -Infinity,
+      counters: [], countersCapacity: capacity.counters, countersSaturated: false, lastCounterAtMs: -Infinity, lastFrameAtMs: null,
       loafCount: 0, loafMaxMs: null,
       hidden: deps.isHidden(), paused: deps.isPaused(),
       finish: (interruptedReason?: string) => {

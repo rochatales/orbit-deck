@@ -111,7 +111,7 @@ test('S2.9: capacidade cobre a duração pedida e saturação invalida explicita
  return Promise.resolve().then(()=>{
   assert.equal(result.status,'valid','240 Hz durante 60 s não satura');
   assert.equal(result.coverage.intervalsSaturated,false);
-  assert.ok(result.coverage.intervalsCollected>=60000/4.2-1);
+  assert.ok(result.coverage.intervalsCollected>=60000/4.2-2);
   assert.ok(result.renderer.samples>=590);
   const saturated=perf.buildSampleResult({startedAtMs:0,requestedMs:1000,elapsedMs:1000,map:'mars',intervals:[16],hiddenDuringSample:false,pausedDuringSample:false,loafSupported:false,loafCount:0,loafMaxMs:null,counters:[],
    coverage:{...noCoverage,intervalsSaturated:true}});
@@ -175,13 +175,36 @@ test('S2.9: troca de mapa durante amostra invalida, resolve a Promise, limpa col
  const done=await next;
  assert.equal(done.status,'valid');
  assert.equal(done.map,'shanghai');
- assert.equal(done.coverage.intervalsCollected,7,'intervalos contados uma vez, sem laço duplicado');
+ assert.equal(done.coverage.intervalsCollected,6,'7 frames → 6 intervalos, contados uma vez, sem laço duplicado');
  assert.equal(shared.samples.length,2);
  const late=await first.sample(100);
  assert.equal(late.status,'invalid','sessão encerrada não coleta');
  assert.equal(shared.samples.length,2,'amostra de sessão encerrada não entra no histórico');
  second.dispose();
  assert.equal(env.listeners(),0);
+});
+
+test('S2.9: espera antes do clique não contamina a amostra (R4)', async () => {
+ const env=fakeEnv();
+ const shared=perf.createPerfShared();
+ const session=perf.createPerfSession(shared,env.deps,'mars');
+ env.frame(16);                    // frame em t=16
+ env.t=10000;                      // longo intervalo sem frames antes do clique
+ const pending=session.sample(100);
+ for(let i=0;i<7;i++)env.frame(16);
+ const result=await pending;
+ assert.equal(result.status,'valid');
+ assert.equal(result.coverage.intervalsCollected,6,'primeiro intervalo (atravessa o início) descartado');
+ assert.equal(result.rafIntervals.max,16);
+ assert.equal(result.rafIntervals.p95,16);
+ assert.equal(result.rafIntervals.rafOver33,0);
+ assert.equal(result.rafIntervals.rafOver50,0);
+ // Intervalos longos dentro da janela continuam contados.
+ const slow=session.sample(200);
+ env.frame(16);env.frame(80);env.frame(16);env.frame(100);
+ const slowResult=await slow;
+ assert.deepEqual([slowResult.rafIntervals.count,slowResult.rafIntervals.max,slowResult.rafIntervals.rafOver50],[3,100,2]);
+ session.dispose();
 });
 
 test('S2.9: aba oculta durante amostra encerra na hora com motivo', async () => {
