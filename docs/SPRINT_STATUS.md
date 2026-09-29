@@ -33,10 +33,11 @@ Legenda: 🔲 não iniciado · ◐ em andamento/parcial · ✅ implementado ·
 | Campo | Valor |
 |---|---|
 | Branch de integração | `rochatales/horda-survivor` |
-| Último commit | `99ab0d7` (referência do Sprint 0) |
-| Situação | ⛔ Trabalho dos Sprints 1–2 ainda **não commitado** na branch |
-| Ação necessária | Consolidar esse trabalho num commit na branch de integração, com seleção explícita de arquivos (sem `git add .`), sem apagar nem mover artes soltas. Registrar aqui o hash. Só depois se criam worktrees de tarefa a partir desse commit |
-| Commit-base | _a registrar após a consolidação_ |
+| Commit de consolidação do piloto | `a40dac41e4637156140e304454f6b4f3afdc2ba0` |
+| Situação | ✅ Piloto e documentos de colaboração consolidados localmente; sem push ou merge |
+| Próxima ação | Atribuir uma tarefa, fixando o SHA da ponta da branch de integração; essa ponta inclui o piloto e o registro posterior deste quadro |
+| Commit-base do conteúdo do piloto | `a40dac41e4637156140e304454f6b4f3afdc2ba0` |
+| Referência para nova tarefa | `rochatales/horda-survivor`; resolver `git rev-parse rochatales/horda-survivor` e registrar o SHA imutável na linha da tarefa antes de criar a worktree |
 
 ## Tarefas
 
@@ -45,7 +46,7 @@ qual a worktree parte e contra o qual a revisão compara.
 
 | Tarefa | Base | Branch | Arquivos principais | Implementa | Revisa | Estado |
 |---|---|---|---|---|---|---|
-| S2.9 Instrumentação de medição | a definir após consolidação | — | — | — | — | 🔲 |
+| S2.9 Instrumentação de medição | a fixar na atribuição | — | — | — | — | 🔲 |
 | S2.10 Posição transitória do player | a definir | — | — | — | — | 🔲 |
 | S2.11 Interpolação com passo fixo | a definir | — | — | — | — | 🔲 |
 | S2.12 Ajustes de controle do autor | a definir | — | — | — | — | 🔲 Aguarda feedback do autor |
@@ -59,3 +60,5 @@ rodam em sequência, não em paralelo.
 - 29/09/2026 · claude · documentos de colaboração alinhados ao Horda
   Survivor (`AGENTS.md`, `CLAUDE.md`, `docs/AI_WORKFLOW.md`, este quadro).
   Nenhum código alterado.
+
+- 29/09/2026 · codex · consolidação local `a40dac41e463`: 20 testes e build passaram; 116 arquivos arquivados verificados; 93 artes soltas preservadas e excluídas. Quatro documentos do Claude incorporados por cópia revisada. Sem push, PR, merge ou tarefas iniciadas. Relatório: [consolidação](./consolidacao/RELATORIO.md).
