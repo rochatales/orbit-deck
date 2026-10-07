@@ -10,6 +10,7 @@ import { GameControl } from "../../controls/keyboardControls";
 import { EDEN } from "../../game/config";
 import { useExpeditionStore } from "../../state/useExpeditionStore";
 import { useGameStore } from "../../state/useGameStore";
+import { publishPlayerFrame } from "../../state/playerTransient";
 import { clamp, damp, dampAngle, type RectBounds } from "../../utils/math";
 import type { OfficeWorld } from "../../world/createOfficeMap";
 import {
@@ -91,7 +92,6 @@ export function PlayerController({
   motionRef
 }: PlayerControllerProps) {
   const { world } = useRapier();
-  const setPlayerPosition = useGameStore((state) => state.setPlayerPosition);
   const isPaused = useGameStore((state) => state.isPaused);
   const isDialogOpen = useExpeditionStore((state) => state.panel !== null);
   const activeNpcId = useExpeditionStore((state) => state.panel === "eden" ? "eden" : null);
@@ -232,12 +232,9 @@ export function PlayerController({
       return;
     }
 
+    // Posição frequente fora do React; a store só recebe a mudança de condição de interação.
     const translation = body.translation();
-    setPlayerPosition({
-      x: translation.x,
-      y: motionRef.current.visualBob,
-      z: translation.z
-    });
+    publishPlayerFrame(translation.x, motionRef.current.visualBob, translation.z, useExpeditionStore.getState().session.map);
   });
 
   return null;

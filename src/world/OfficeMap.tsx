@@ -1,7 +1,8 @@
 import { useFrame } from "@react-three/fiber";
+import { useMemo } from "react";
 import { Vector3 } from "three";
 import type { OfficeWorld } from "./createOfficeMap";
-import { useGameStore } from "../state/useGameStore";
+import { playerPosition } from "../state/playerTransient";
 import { Room } from "./Room";
 
 interface OfficeMapProps {
@@ -9,8 +10,8 @@ interface OfficeMapProps {
 }
 
 export function OfficeMap({ officeWorld }: OfficeMapProps) {
-  const playerPosition = useGameStore((state) => state.playerPosition);
-  const worldVector = new Vector3();
+  // Lê a posição mutável por frame: o mapa não re-renderiza quando o player anda.
+  const worldVector = useMemo(() => new Vector3(), []);
 
   useFrame((_, delta) => {
     worldVector.set(playerPosition.x, playerPosition.y, playerPosition.z);

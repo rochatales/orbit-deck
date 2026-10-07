@@ -5,6 +5,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import { OrthographicCamera as Camera, Vector3 } from 'three';
 import { useGameStore } from '../state/useGameStore';
+import { playerPosition } from '../state/playerTransient';
 import { damp, dampAngle, type RectBounds } from '../utils/math';
 import type { Point } from '../game/config';
 export function CameraRig({ bounds, spawn }: {
@@ -50,8 +51,8 @@ export function CameraRig({ bounds, spawn }: {
         angle.current = dampAngle(angle.current, s.targetRotation, 8, dt);
         c.zoom = damp(c.zoom, s.targetZoom, 8, dt);
         c.updateProjectionMatrix();
-        target.current.x = damp(target.current.x, s.playerPosition.x, 6.5, dt);
-        target.current.z = damp(target.current.z, s.playerPosition.z, 6.5, dt);
+        target.current.x = damp(target.current.x, playerPosition.x, 6.5, dt);
+        target.current.z = damp(target.current.z, playerPosition.z, 6.5, dt);
         c.position.set(target.current.x + Math.cos(angle.current) * 18.38, 13.55, target.current.z + Math.sin(angle.current) * 18.38);
         c.lookAt(target.current);
     });
