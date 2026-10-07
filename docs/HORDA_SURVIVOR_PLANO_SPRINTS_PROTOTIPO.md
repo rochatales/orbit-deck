@@ -1,10 +1,12 @@
 # Horda Survivor — Sprints do protótipo Shanghai
 
-Criado em 28/09/2026; atualizado em 29/09/2026. Status: Sprint 1 implementado; núcleo do Sprint 2 implementado, com validação do autor e complemento de qualidade pendentes. Sprint 0 mantém a pendência de baseline registrada em seu relatório.
+Criado em 28/09/2026; atualizado em 30/09/2026. Status: Sprint 1 implementado; núcleo do Sprint 2 implementado, com validação do autor e complemento de qualidade pendentes. Sprint 0 mantém a pendência de baseline registrada em seu relatório.
 
 Referência: [Auditoria e decisões de design](HORDA_SURVIVOR_AUDITORIA_E_PLANO.md). Este plano recorta a primeira entrega: sair do hub em Marte, concluir Shanghai, recuperar recursos, retornar e construir a primeira grande máquina no laboratório.
 
 Revisão técnica incorporada: [Melhorias selecionadas para Horda Survivor](GAMEPLAY_REVIEW_HORDA_SURVIVOR.md). A numeração deste plano é a referência do novo projeto; a revisão do MCP Office não substitui estes sprints.
+
+Planejamento de UI incorporado em 30/09/2026: [Plano de ação e referências visuais](sprint-6/PLANO_UI.md). Define EDEN Holographic para menus/expedição e Mars Colony Clean para recursos/laboratório, detalha S6.6, acrescenta S6.14–S6.18 e S7.11. Implementação e aprovação visual pendentes; preserva a sequência funcional até o Sprint 5.
 
 ## 1. Resultado esperado e ordem de prioridade
 
@@ -222,7 +224,7 @@ Objetivo: transformar volumes provisórios em elementos reconhecíveis sem alter
 - [ ] S6.3 Compor Shanghai em ruínas com elementos urbanos reconhecíveis e rotas claras; evitar coberturas que ocultem inimigos/coletáveis da câmera.
 - [ ] S6.4 Ajustar animações de movimento, disparo, dano, morte e investida. Manter antecipação de ataques e diferenciação de categorias.
 - [ ] S6.5 Adaptar a apresentação do laboratório marciano e tornar a instalação da máquina um momento visual destacado.
-- [ ] S6.6 Refinar HUD e mensagens de rádio usando tipografia e contraste legíveis; manter sinais além de cor para objetivos e perigos.
+- [ ] S6.6 Refinar HUD e mensagens de rádio no estilo EDEN Holographic, após S6.14 e as interfaces funcionais dos Sprints 3–4: vida, pente/reserva explícitos, ondas, defesas, objetivo e interação. Manter centro de combate livre, rádio único por prioridade, sinais além de cor e alerta abaixo de 30% de vida. Valores reais, contraste e efeitos reduzidos conforme o [plano de UI](sprint-6/PLANO_UI.md).
 - [ ] S6.7 Organizar fontes/exportações e otimizar geometria antes da texturização. Colisores continuam simples e separados da arte.
 
 - [ ] S6.8 Preparar pipeline de assets apenas para o elenco ativo: explorador, EDEN quando sua apresentação exigir e três categorias de inimigos. Otimizar topologia preservando silhueta, UV, rig e clipes; validar articulações antes de trocar os arquivos ativos. Modelos originais permanecem preservados.
@@ -232,7 +234,15 @@ Objetivo: transformar volumes provisórios em elementos reconhecíveis sem alter
 - [ ] S6.12 Provar kit modular e exportação de um trecho pequeno de Shanghai ou do deck, com convenções de colisão, spawn e interação (`COL_*`, `SPAWN_*`, `INTERACT_*`). Comparar rotas com o cenário atual antes de substituir áreas. Layout funcional é a referência; não reescrever todo o mapa nem eliminar `walkableAreas` sem colisores equivalentes.
 - [ ] S6.13 Construir narrativa ambiental do novo universo: ruínas urbanas, exploração e vestígios da guerra na Terra; sobrevivência, laboratório e infraestrutura em Marte. Props não alteram cobertura ou ocultam alvos por acidente. Usar marcos visuais para nave, laboratório e rotas.
 
-Saída: elementos reconhecíveis com materiais simples, combate legível e percurso sem regressão. Comparar câmera, colisões e desempenho ao sprint 5. Revisão visual com o autor define a base da texturização.
+- [ ] S6.14 Definir tokens, fontes locais licenciadas e componentes mínimos com variantes EDEN Holographic e Mars Colony Clean. Cobrir estados de interação, foco, carregamento, vazio, erro e sucesso; medir contraste e oferecer efeitos reduzidos. Usar os dois guias visuais preservados no [plano de UI](sprint-6/PLANO_UI.md).
+- [ ] S6.15 Atualizar entrada, perfil, continuar, pausa/controles e configurações com o estilo EDEN, após S6.14. Entrada leva ao hub; partida permanece na nave. Preservar save e acesso por teclado, restaurar foco/pausa e exibir somente configurações funcionais.
+- [ ] S6.16 Atualizar briefing, cabine, inventário temporário, carregamento/erro, resultado e derrota/retry no estilo EDEN, após S6.6, S6.15 e Sprint 4. Distinguir ondas concluídas, carga pronta e carga salva; bloquear input do canvas sob modais e preservar extração única.
+- [ ] S6.17 Aplicar Mars Colony Clean ao depósito, resumo da última carga confirmada e laboratório, após S6.16 e S5.1–S5.5. Mostrar materiais, receita, faltantes e máquina instalada reais; fabricação continua na interação física do laboratório. Energia, população, pesquisa, estufa e construção livre permanecem no backlog.
+- [ ] S6.18 Validar as telas de S6.6/S6.14–S6.17 em desktop, teclado, zoom de 200% e efeitos reduzidos; testar foco, pausa, input, save e três ciclos de missão/retorno. Remover informações internas de sprint da UI final e manter QA em modo de desenvolvimento. Registrar roteiro e revisão visual do autor sem substituir playtest por screenshots.
+
+Sequência de UI: S6.14 → S6.15 → S6.6 → S6.16 → S6.17 → S6.18. A numeração existente é preservada. A implementação segue a entrada do Sprint 6 após S5.8; o detalhamento antecipado não aprova a jogabilidade nem inicia a atualização de telas.
+
+Saída: elementos reconhecíveis com materiais simples, combate legível, interfaces EDEN/Mars coerentes e percurso sem regressão. Comparar câmera, colisões e desempenho ao sprint 5. Revisão visual com o autor define a base da texturização.
 
 ## 11. Sprint 7 — Texturas, materiais e entrega
 
@@ -249,6 +259,8 @@ Objetivo: finalizar a apresentação do protótipo sem prejudicar resposta e car
 - [ ] S7.8 Avaliar AO/iluminação baked da geometria estática e reduzir luzes/sombras caras com comparação visual do autor. Criar presets baixo/padrão/alto e limitar DPR; configuração padrão deve manter leitura de combate. Bloom/AO em pós-processamento somente opcionais e com custo medido.
 - [ ] S7.9 Refinar áudio e efeitos do combate/ambiente, com limites de vozes/partículas, volume/mute e opção de reduzir efeitos/tremor. Qualquer shake é discreto e desligável; hit-stop só entra após teste específico de timers e resposta, sem alterar o relógio de recarga/ondas por acidente.
 - [ ] S7.10 Registrar orçamento real por asset e cena a partir das medições. Referências iniciais, não garantias: 8–20 mil triângulos por humanoide principal, texturas até 1024² quando suficientes e menos de 20 MB no carregamento inicial. Ajustar exceções pela qualidade na câmera e pelo dispositivo; carregar destinos sob demanda. Avaliar LFS para fontes grandes novas, sem reescrever histórico existente.
+
+- [ ] S7.11 Finalizar acabamento de UI após S6.18, S7.5 e S7.8–S7.9: glow, scanlines decorativas e transições opcionais, sem deslocar texto/mira ou prejudicar contraste. Comparar custo com efeitos ligados/desligados, respeitar redução de movimento e preset baixo; registrar revisão visual final do autor.
 
 Saída: protótipo visualmente revisado e funcional até a máquina construída. A entrega é local/testável; publicação externa não faz parte deste plano.
 
