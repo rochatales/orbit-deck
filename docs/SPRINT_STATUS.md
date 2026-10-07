@@ -16,14 +16,14 @@
 |---|---|---|
 | 0 · Preservação e baseline | ◐ Preparação concluída | S0.4 parcial: movimento contínuo, diálogo de EDEN e medição de frames sem validação manual |
 | 1 · Base local e viagem Marte–Shanghai | ✅ Implementado (S1.1–S1.10) | — |
-| 2 · Movimento, tiro e sobrevivência | ◐ Núcleo implementado (S2.1–S2.8) | Validação visual do autor ([roteiro](./sprint-2/VALIDACAO_MANUAL.md)); S2.9 entregue na branch, aguarda medições e merge; S2.10–S2.12 |
+| 2 · Movimento, tiro e sobrevivência | ◐ Núcleo implementado (S2.1–S2.8) | Validação visual do autor ([roteiro](./sprint-2/VALIDACAO_MANUAL.md)); S2.9 integrada, medições do autor pendentes; S2.10 em implementação; S2.11–S2.12 |
 | 3 · Ondas, categorias e dispositivos | 🔲 Não iniciado | Depende da validação do Sprint 2 |
 | 4 · Loot, orientação e retorno | 🔲 Não iniciado | — |
 | 5 · Construção da máquina | 🔲 Não iniciado | — |
 | 6 · Estética dos elementos | 🔲 Não iniciado | UI planejada: S6.6 e S6.14–S6.18; implementação depende do ciclo funcional/playtest do Sprint 5 |
 | 7 · Texturas, materiais e entrega | 🔲 Não iniciado | Acabamento de UI planejado em S7.11 |
 
-Testes automatizados: **20** (`npm test`) na branch de integração, registrados no relatório do Sprint 2. A branch da S2.9 tem 31 (20 + 11 da instrumentação), que passam a valer após o merge.
+Testes automatizados: **31** (`npm test`) na branch de integração após o merge da S2.9 (20 do relatório do Sprint 2 + 11 da instrumentação).
 
 Legenda: 🔲 não iniciado · ◐ em andamento/parcial · ✅ implementado ·
 ⛔ bloqueado · ⏸ estacionado. "Implementado" não significa aprovado pelo autor.
@@ -46,8 +46,8 @@ qual a worktree parte e contra o qual a revisão compara.
 
 | Tarefa | Base | Branch | Arquivos principais | Implementa | Revisa | Estado |
 |---|---|---|---|---|---|---|
-| S2.9 Instrumentação de medição | `2bb1f2bab525776b97f8e76126ebe3adffd65aa7` | `claude/s2.9-instrumentacao` | `src/dev/perf/*`, `src/app/GameCanvas.tsx`, `tests/perf-metrics.test.mjs`, `docs/handoffs/s2.9.md` | Claude | Codex | ◐ Correção R4 entregue em `0495d3f` e confirmada na revisão do Codex; 31 testes, build e diff-check verdes (reverificados em 07/10/2026 na ponta `c46f972`). Validação manual parcial: medições e JSON A/B do autor pendentes ([handoff](./handoffs/s2.9.md)). Integração pendente, sem merge |
-| S2.10 Posição transitória do player | A fixar: ponta de `rochatales/horda-survivor` **após o merge da S2.9** (deve conter `0495d3f`) | `claude/s2.10-posicao-transitoria` (não criada) | `src/state/useGameStore.ts`, novo `src/state/playerTransient.ts`, `src/state/useExpeditionStore.ts`, `src/characters/player/PlayerController.tsx`, `src/characters/player/PlayerAim.tsx`, `src/scene/CameraRig.tsx`, `src/world/OfficeMap.tsx`, `src/combat/CombatScene.tsx`, `src/app/App.tsx`, testes, `docs/handoffs/s2.10.md` | Claude | Codex | ⛔ Aguarda merge da S2.9; proposta e critérios no [handoff da S2.9](./handoffs/s2.9.md) |
+| S2.9 Instrumentação de medição | `2bb1f2bab525776b97f8e76126ebe3adffd65aa7` | `claude/s2.9-instrumentacao` | `src/dev/perf/*`, `src/app/GameCanvas.tsx`, `tests/perf-metrics.test.mjs`, `docs/handoffs/s2.9.md` | Claude | Codex | ◐ **Integrada** em `ab9afc4` (merge `--no-ff` de `claude/s2.9-instrumentacao`, autor, 07/10/2026). R4 entregue em `0495d3f` e confirmada pelo Codex; 31 testes, build e diff-check verdes. Validação manual parcial: medições e JSON A/B do autor pendentes ([handoff](./handoffs/s2.9.md)) |
+| S2.10 Posição transitória do player | `ab9afc43c4a7fb38375d45c86b305646c1f2f8ae` (`rochatales/horda-survivor`, merge da S2.9) | `claude/s2.10-posicao-transitoria` | `src/state/useGameStore.ts`, novo `src/state/playerTransient.ts`, `src/state/useExpeditionStore.ts`, `src/characters/player/PlayerController.tsx`, `src/characters/player/PlayerAim.tsx`, `src/scene/CameraRig.tsx`, `src/world/OfficeMap.tsx`, `src/combat/CombatScene.tsx`, `src/app/App.tsx`, testes, `docs/handoffs/s2.10.md` | Claude | Codex | ◐ Em implementação; S6.5 estacionada e fora da base |
 | S2.11 Interpolação com passo fixo | a definir | — | — | — | — | 🔲 |
 | S2.12 Ajustes de controle do autor | a definir | — | — | — | — | 🔲 Depois da S2.10. Escopo decidido pelo autor em 30/09/2026: coerência entre arma, traçador e colisão em três etapas revisáveis — disparo horizontal a partir do cano, plano de mira na altura do cano e checagem centro→cano; colisão com altura (`maxY`, robôs 0–1,575 m); caixas marrons sólidas e navegação ([handoff da S2.9](./handoffs/s2.9.md)) |
 | S6.5 Prévia isolada do laboratório v003 | `7f2e60b36fb4ab95d07133b425cb25a11ea99a81` (`rochatales/horda-survivor`) | `rochatales/s6.5-lab-preview` | `src/app/App.tsx`, `src/app/GameCanvas.tsx`, `src/scene/`, `src/world/createOfficeMap.ts`, `src/assets/colony-preview-lab-v003.*`, `tests/lab-preview.test.mjs`, `docs/handoffs/s6.5-lab-preview.md` | Codex | Autor | ⏸ Estacionada por decisão do autor (07/10/2026): branch e worktree preservadas em `ee2213e`, sem integração nem descarte; fora da base da S2.10. Ao retomar, migrar seu leitor de posição (`LabPreview.tsx`) para a fonte da S2.10 e coordenar `App.tsx`/`GameCanvas.tsx`/`src/scene/` |
@@ -65,6 +65,8 @@ arquivos principais. S2.10 e S2.11 tocam câmera, controller e física, então
 rodam em sequência, não em paralelo.
 
 ## Log
+
+- 07/10/2026 · claude · a pedido do autor: S2.9 registrada como integrada em `ab9afc4` (merge feito pelo autor), com validação manual parcial. S2.10 atribuída com base `ab9afc43c4a7`, branch `claude/s2.10-posicao-transitoria`; Claude implementa, Codex revisa. S6.5 segue estacionada. Sem push.
 
 - 07/10/2026 · claude · a pedido do autor, consolidação documental na integração: quadro e plano (planejamento de UI), revisão R4 da S2.9, handoff S6.6 e plano de UI. S2.9 com R4 entregue e verificada, validação manual parcial e merge pendente; S2.10 registrada e bloqueada até o merge; S6.5 estacionada e fora da base da S2.10. Imagens de referência de UI e demais artes não rastreadas preservadas fora do commit. Sem merge, push ou código.
 
