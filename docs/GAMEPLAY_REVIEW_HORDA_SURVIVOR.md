@@ -16,7 +16,7 @@ A autorização atual é incorporar ao planejamento o que melhora o novo jogo, p
 | --- | --- | --- |
 | Posição por frame / renders | Concluir migração dos consumidores ativos para dados mutáveis e medir o resultado. Não recriar consumidores MCP removidos | S2.9–S2.10 |
 | Jitter de física/câmera | Experimento comparável com interpolação e passo fixo, adotado conforme evidência técnica e teste do autor | S2.11 |
-| Sensação do movimento | Priorizar o controle aprovado: avanço, recuo e laterais relativos ao olhar; registrar ajustes de aceleração/parada | S2.12 |
+| Sensação do movimento | Priorizar o controle definido pelo autor (07/10/2026): W corre e S recua na direção do cursor, sem deslocamento lateral; registrar ajustes de aceleração/parada | S2.12 |
 | Feedback de combate | Sons e sinais visuais de tiro, recarga, dano, investida e dispositivos, com pausa, mute e limites de recursos | S3.10–S3.11 |
 | Navegação de inimigos | Evoluir a grade existente e testar barreiras; navmesh só com necessidade demonstrada | S3.12; backlog |
 | Pontos de interesse | Recursos obrigatórios, nave e laboratório claramente reconhecíveis, sem depender só de cor | S4.10 |

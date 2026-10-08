@@ -63,9 +63,11 @@ aprovação de jogabilidade nem benchmark de GPU.
    fora de renders React. A UI recebe só mudanças relevantes.
 2. Não alocar objetos dentro de `useFrame`/passo de simulação.
 3. Colisão e tiro usam colisores simples; a malha dos GLBs nunca é colisor.
-4. Preservar os contratos aprovados: movimento relativo ao olhar
-   (W avança, S recua, A/D laterais), Q/C gira a câmera, R recarrega, E
-   interage, Escape fecha/pausa.
+4. Preservar os contratos aprovados. Movimento pela mira (atualizado pelo
+   autor em 07/10/2026; implementação na S2.12): W corre na direção do
+   cursor; S recua mantendo o personagem voltado ao cursor; A/D não deslocam
+   lateralmente; W + S juntos neutralizam o movimento. Q/C gira a câmera, R
+   recarrega, E interage, Escape fecha/pausa.
 5. Não reintroduzir módulos, stores ou dependências do MCP Office.
 6. Não apagar nem mover assets-fonte, backups ou arquivos não rastreados
    do autor. Nada de limpeza destrutiva ou reescrita de histórico.

@@ -1,6 +1,6 @@
 # Horda Survivor — Sprints do protótipo Shanghai
 
-Criado em 28/09/2026; atualizado em 30/09/2026. Status: Sprint 1 implementado; núcleo do Sprint 2 implementado, com validação do autor e complemento de qualidade pendentes. Sprint 0 mantém a pendência de baseline registrada em seu relatório.
+Criado em 28/09/2026; atualizado em 07/10/2026. Status: Sprint 1 implementado; núcleo do Sprint 2 implementado, com validação do autor e complemento de qualidade pendentes. Sprint 0 mantém a pendência de baseline registrada em seu relatório.
 
 Referência: [Auditoria e decisões de design](HORDA_SURVIVOR_AUDITORIA_E_PLANO.md). Este plano recorta a primeira entrega: sair do hub em Marte, concluir Shanghai, recuperar recursos, retornar e construir a primeira grande máquina no laboratório.
 
@@ -43,7 +43,7 @@ Sprints são pacotes de entrega, sem duração de calendário presumida. Cada um
 ### Defaults propostos para começar, sem bloquear o protótipo
 
 - Single-player em navegador desktop, teclado e mouse; manter a câmera de base e a mira projetada no plano de altura do rifle. A referência Metal Slug orienta ritmo/tiro, sem presumir mudança para câmera lateral.
-- W/↑ avança na direção do olhar, S/↓ recua, A/D ou ←/→ deslocam para os lados do personagem; mouse orienta em Marte e Shanghai, Q/C gira somente a câmera; botão esquerdo para atirar, R para recarregar, E para interagir, 1/2 para selecionar defesa, clique para posicionar e Escape para cancelar posicionamento/pausar conforme o contexto. Disparo e implantação são modos mutuamente exclusivos.
+- Movimento pela mira (contrato atualizado pelo autor em 07/10/2026, implementação na S2.12; antes: W avança, S recua, A/D laterais): W/↑ corre na direção do cursor, S/↓ recua mantendo o personagem voltado ao cursor, A/D não deslocam e W + S neutralizam; mouse orienta em Marte e Shanghai, Q/C gira somente a câmera; botão esquerdo para atirar, R para recarregar, E para interagir, 1/2 para selecionar defesa, clique para posicionar e Escape para cancelar posicionamento/pausar conforme o contexto. Disparo e implantação são modos mutuamente exclusivos.
 - Rifle simples com dano instantâneo por raycast, bloqueado por paredes; traçador visual. Dano, cadência, carregador e reserva em configuração, calibrados no sprint 2.
 - Materiais de inimigos coletados por proximidade; depósitos, placas, nave e laboratório por interação. Pilhas de material até 30, quatro espaços iniciais.
 - Sem cura ativa no primeiro teste: HP e dano ajustados para uma missão curta; reavaliar após playtest. Sem stamina.
@@ -133,7 +133,7 @@ Saída: abrir o jogo, entrar no hub, falar com EDEN, caminhar ao deck, entrar/sa
 
 Objetivo: validar a sensação básica de combate antes de criar a horda completa.
 
-- [x] S2.1 Orientar pelo mouse em Marte e Shanghai. Movimento relativo ao olhar: W avança, S recua, A/D deslocam lateralmente; deslocamento não gira o personagem automaticamente. Câmera não redefine a frente.
+- [x] S2.1 Orientar pelo mouse em Marte e Shanghai. Movimento relativo ao olhar: W avança, S recua, A/D deslocam lateralmente; deslocamento não gira o personagem automaticamente. Câmera não redefine a frente. *Contrato de movimento substituído pela S2.12 (autor, 07/10/2026): A/D deixam de deslocar; ver regra 4 do `AGENTS.md`.*
 - [x] S2.2 Implementar rifle, recarga, munição finita e acerto em inimigos/obstáculos. Definir máscaras de colisão para evitar tiros atravessando cenário ou acertando o próprio jogador.
 - [x] S2.3 Implementar HP, dano, intervalo mínimo entre danos de contato, morte e reinício.
 - [x] S2.4 Criar robô simples com perseguição e ataque. Para o mapa pequeno, usar navegação sobre área transitável e obstáculos; não apenas vetor direto até o player.
@@ -149,7 +149,10 @@ Executar mudanças pequenas após receber o teste do autor, preservando a config
 - [ ] S2.9 Instrumentar medição opcional de desenvolvimento: tempo de frame p50/p95, frames longos, draw calls, triângulos, carregamento e memória disponível. Registrar dispositivo, resolução, DPR, navegador e limite da medição; requestAnimationFrame não é tempo de GPU. Iniciar com os dados nativos do renderer e browser, sem exigir biblioteca nova.
 - [ ] S2.10 Concluir a separação da posição frequente do player em estado mutável; migrar consumidores ativos (câmera, mapa, combate e proximidade) e publicar na UI apenas mudanças relevantes. Medir renders com profiler e verificar embarque, interação, mira, morte e retry. Não reintroduzir módulos MCP arquivados.
 - [ ] S2.11 Investigar jitter com passo fixo: comparar interpolação visual do Rapier com a configuração atual, mantendo o passo da simulação. Câmera acompanha a posição visual interpolada; tiros e colisões mantêm referência coerente. Adotar só após teste do autor em telas disponíveis; não trocar para timestep variável como correção automática.
-- [ ] S2.12 Registrar e corrigir problemas de controle apontados pelo autor: mira, avanço/recuo/laterais, diagonais, aceleração/parada e câmera. Preservar o contrato de movimento relativo ao olhar e não misturar esta entrega com animações finais.
+- [ ] S2.12 Registrar e corrigir problemas de controle apontados pelo autor (escopo ampliado pelo autor em 07/10/2026; S2.12 não se restringe à arma):
+  - **A · Movimento pela mira e Explorador r6.** Novo contrato: W corre na direção do cursor; S recua mantendo o personagem voltado ao cursor, sem girar 180°; A/D não deslocam; W + S neutralizam; sem W/S, parado e orientado pelo cursor. A mesma direção horizontal de mira orienta corpo e deslocamento; cursor muito perto mantém a última direção válida. Velocidades de corrida e recuo separadas e ajustáveis, recuo mais lento. Q/C, R, E e Escape preservados; bloqueios de menus, diálogos e transições conferidos; instruções e HUD atualizadas. Integrar o candidato da S6.8 (Explorador r6 com clipe Backward) como asset separado, com opção de desenvolvimento para comparar com o personagem atual no mesmo ponto, câmera e luz, sem duplicar personagem ou colisores; prévia de teste começa com a r6. Estados Idle, Run e Backward com transições curtas; reprodução ajustada à velocidade efetiva (0,80 m/s é a referência do Backward, não a velocidade final), contato dos pés conferido contra o deslocamento real no jogo e locomoção parada contra parede. Materiais por asset em `GLBCharacter`, sem `flatShading` indiscriminado; escala, colisores e mapas inalterados. A pose de mira da r6 segue experimental.
+  - **B · Coerência entre arma, traçador e colisão.** Três etapas revisáveis decididas em 30/09/2026 ([handoff da S2.9](handoffs/s2.9.md)): origem, mira e traçador; colisão com altura; caixas sólidas e navegação. Depois da parte A.
+  - Não misturar com animações finais de combate. Qualidade visual e jogabilidade são aprovadas só pelo autor.
 
 Aceite do complemento: testes e build passam, nenhum comando/colisão regride e medições comparáveis ficam registradas. A ausência de tela 120/144 Hz é uma limitação explícita, não motivo para declarar essa validação concluída. Instrumentação pode entrar sem mudar gameplay; correções de fluidez dependem da evidência coletada.
 
@@ -307,7 +310,7 @@ Meta provisória de desempenho: 60 FPS no equipamento de referência registrado 
 | Alteração | Verificação | Sprint |
 | --- | --- | --- |
 | Posição mutável/interpolação | Proximidade, mira, nave e câmera coerentes; nenhum render da árvore por posição de frame | 2 |
-| Movimento relativo ao olhar | W/S/A/D e diagonais em vários ângulos; Q/C não redefine o olhar; sem giro involuntário | 2 |
+| Movimento pela mira | W corre e S recua na direção do cursor, em vários ângulos; A/D não deslocam; W + S neutralizam; cursor perto do personagem sem tremor; Q/C não redefine a mira; sem giro involuntário | 2 |
 | Áudio e efeitos | Mute, pausa, retry e troca de mapa sem sons/efeitos persistentes ou eventos duplicados | 3–7 |
 | Novo modelo/otimização | Rig e clipes preservados, cor funciona, pivô/escala/mira e colisão coerentes | 6–7 |
 | Trecho de mapa autorado | Mesmas rotas acessíveis, spawns válidos e cobertura coerente com o visual | 6 |
