@@ -1,0 +1,1288 @@
+[
+ {
+  "rep": 0,
+  "build": "S2.9",
+  "commit": "ab9afc4",
+  "cenario": "M1",
+  "visibilidade": "visible",
+  "status": "valid",
+  "motivos": null,
+  "avisos": [],
+  "raf": {
+   "count": 1200,
+   "p50": 8.300000000000182,
+   "p95": 9.199999999999818,
+   "max": 10.5,
+   "mean": 8.336833333333328,
+   "rafOver33": 0,
+   "rafOver50": 0
+  },
+  "loaf": {
+   "supported": true,
+   "count": 0,
+   "maxDurationMs": null
+  },
+  "renderer": {
+   "samples": 97,
+   "firstSampledAtMs": 3121.800000190735,
+   "lastSampledAtMs": 13100.900000095367,
+   "drawCalls": {
+    "min": 343,
+    "max": 343,
+    "mean": 343
+   },
+   "triangles": {
+    "min": 613958,
+    "max": 613958,
+    "mean": 613958
+   }
+  },
+  "cobertura": {
+   "intervalsCollected": 1200,
+   "intervalsCapacity": 5016,
+   "intervalsSaturated": false,
+   "countersCollected": 97,
+   "countersCapacity": 116,
+   "countersSaturated": false
+  },
+  "commits": {
+   "1": 20,
+   "2": 1201
+  },
+  "hud_depois": "",
+  "erros": [],
+  "contexto": null
+ },
+ {
+  "rep": 0,
+  "build": "S2.10",
+  "commit": "f28b6bb",
+  "cenario": "M1",
+  "visibilidade": "visible",
+  "status": "valid",
+  "motivos": null,
+  "avisos": [],
+  "raf": {
+   "count": 1201,
+   "p50": 8.300000000000182,
+   "p95": 9.100000000000364,
+   "max": 9.400000000000546,
+   "mean": 8.329891756869264,
+   "rafOver33": 0,
+   "rafOver50": 0
+  },
+  "loaf": {
+   "supported": true,
+   "count": 0,
+   "maxDurationMs": null
+  },
+  "renderer": {
+   "samples": 96,
+   "firstSampledAtMs": 3126.199999809265,
+   "lastSampledAtMs": 13063.699999809265,
+   "drawCalls": {
+    "min": 343,
+    "max": 343,
+    "mean": 343
+   },
+   "triangles": {
+    "min": 613958,
+    "max": 613958,
+    "mean": 613958
+   }
+  },
+  "cobertura": {
+   "intervalsCollected": 1201,
+   "intervalsCapacity": 5016,
+   "intervalsSaturated": false,
+   "countersCollected": 96,
+   "countersCapacity": 116,
+   "countersSaturated": false
+  },
+  "commits": {
+   "1": 20,
+   "2": 0
+  },
+  "hud_depois": "",
+  "erros": [],
+  "contexto": null
+ },
+ {
+  "rep": 0,
+  "build": "S2.9",
+  "commit": "ab9afc4",
+  "cenario": "M2",
+  "visibilidade": "visible",
+  "status": "valid",
+  "motivos": null,
+  "avisos": [],
+  "raf": {
+   "count": 1201,
+   "p50": 8.300000000000182,
+   "p95": 9.100000000000364,
+   "max": 9.400000000000546,
+   "mean": 8.32980849292256,
+   "rafOver33": 0,
+   "rafOver50": 0
+  },
+  "loaf": {
+   "supported": true,
+   "count": 0,
+   "maxDurationMs": null
+  },
+  "renderer": {
+   "samples": 97,
+   "firstSampledAtMs": 3127.7999997138977,
+   "lastSampledAtMs": 13056.89999961853,
+   "drawCalls": {
+    "min": 343,
+    "max": 348,
+    "mean": 345.4226804123711
+   },
+   "triangles": {
+    "min": 613958,
+    "max": 614038,
+    "mean": 614004.5979381443
+   }
+  },
+  "cobertura": {
+   "intervalsCollected": 1201,
+   "intervalsCapacity": 5016,
+   "intervalsSaturated": false,
+   "countersCollected": 97,
+   "countersCapacity": 116,
+   "countersSaturated": false
+  },
+  "commits": {
+   "1": 20,
+   "2": 1200
+  },
+  "hud_depois": "",
+  "erros": [],
+  "contexto": null
+ },
+ {
+  "rep": 0,
+  "build": "S2.10",
+  "commit": "f28b6bb",
+  "cenario": "M2",
+  "visibilidade": "visible",
+  "status": "valid",
+  "motivos": null,
+  "avisos": [],
+  "raf": {
+   "count": 1201,
+   "p50": 8.300000000000182,
+   "p95": 9.199999999998909,
+   "max": 9.5,
+   "mean": 8.330557868442954,
+   "rafOver33": 0,
+   "rafOver50": 0
+  },
+  "loaf": {
+   "supported": true,
+   "count": 0,
+   "maxDurationMs": null
+  },
+  "renderer": {
+   "samples": 97,
+   "firstSampledAtMs": 3129,
+   "lastSampledAtMs": 13066.700000286102,
+   "drawCalls": {
+    "min": 343,
+    "max": 348,
+    "mean": 345.4845360824742
+   },
+   "triangles": {
+    "min": 613958,
+    "max": 614038,
+    "mean": 614005.649484536
+   }
+  },
+  "cobertura": {
+   "intervalsCollected": 1201,
+   "intervalsCapacity": 5016,
+   "intervalsSaturated": false,
+   "countersCollected": 97,
+   "countersCapacity": 116,
+   "countersSaturated": false
+  },
+  "commits": {
+   "1": 20,
+   "2": 0
+  },
+  "hud_depois": "",
+  "erros": [],
+  "contexto": null
+ },
+ {
+  "rep": 0,
+  "build": "S2.9",
+  "commit": "ab9afc4",
+  "cenario": "S1",
+  "visibilidade": "visible",
+  "status": "valid",
+  "motivos": null,
+  "avisos": [],
+  "raf": {
+   "count": 1201,
+   "p50": 8.30000000000291,
+   "p95": 9.200000000000728,
+   "max": 9.400000000001455,
+   "mean": 8.322980849292255,
+   "rafOver33": 0,
+   "rafOver50": 0
+  },
+  "loaf": {
+   "supported": true,
+   "count": 0,
+   "maxDurationMs": null
+  },
+  "renderer": {
+   "samples": 96,
+   "firstSampledAtMs": 23881.89999961853,
+   "lastSampledAtMs": 33869.2999997139,
+   "drawCalls": {
+    "min": 28,
+    "max": 30,
+    "mean": 29.375
+   },
+   "triangles": {
+    "min": 290706,
+    "max": 290730,
+    "mean": 290722.5
+   }
+  },
+  "cobertura": {
+   "intervalsCollected": 1201,
+   "intervalsCapacity": 5016,
+   "intervalsSaturated": false,
+   "countersCollected": 96,
+   "countersCapacity": 116,
+   "countersSaturated": false
+  },
+  "commits": {
+   "1": 25,
+   "2": 1208
+  },
+  "hud_antes": "VIDA 100 / 100RIFLE · 2 / 96Mouse: mirar e atirar · R: recarregarRobôs neutralizados: 1 / 1",
+  "hud_depois": "VIDA 100 / 100RIFLE · 2 / 96Mouse: mirar e atirar · R: recarregarRobôs neutralizados: 1 / 1",
+  "erros": [],
+  "contexto": null
+ },
+ {
+  "rep": 0,
+  "build": "S2.10",
+  "commit": "f28b6bb",
+  "cenario": "S1",
+  "visibilidade": "visible",
+  "status": "valid",
+  "motivos": null,
+  "avisos": [],
+  "raf": {
+   "count": 1202,
+   "p50": 8.299999999999272,
+   "p95": 9.200000000000728,
+   "max": 9.400000000001455,
+   "mean": 8.319217970049918,
+   "rafOver33": 0,
+   "rafOver50": 0
+  },
+  "loaf": {
+   "supported": true,
+   "count": 0,
+   "maxDurationMs": null
+  },
+  "renderer": {
+   "samples": 96,
+   "firstSampledAtMs": 23854.5,
+   "lastSampledAtMs": 33813.2000002861,
+   "drawCalls": {
+    "min": 28,
+    "max": 30,
+    "mean": 29.375
+   },
+   "triangles": {
+    "min": 290706,
+    "max": 290730,
+    "mean": 290722.5
+   }
+  },
+  "cobertura": {
+   "intervalsCollected": 1202,
+   "intervalsCapacity": 5016,
+   "intervalsSaturated": false,
+   "countersCollected": 96,
+   "countersCapacity": 116,
+   "countersSaturated": false
+  },
+  "commits": {
+   "1": 25,
+   "2": 5
+  },
+  "hud_antes": "VIDA 100 / 100RIFLE · 2 / 96Mouse: mirar e atirar · R: recarregarRobôs neutralizados: 1 / 1",
+  "hud_depois": "VIDA 100 / 100RIFLE · 2 / 96Mouse: mirar e atirar · R: recarregarRobôs neutralizados: 1 / 1",
+  "erros": [],
+  "contexto": null
+ },
+ {
+  "rep": 0,
+  "build": "S2.9",
+  "commit": "ab9afc4",
+  "cenario": "S2",
+  "visibilidade": "visible",
+  "status": "valid",
+  "motivos": null,
+  "avisos": [],
+  "raf": {
+   "count": 1201,
+   "p50": 8.299999999999272,
+   "p95": 9.100000000002183,
+   "max": 9.400000000001455,
+   "mean": 8.326228143213987,
+   "rafOver33": 0,
+   "rafOver50": 0
+  },
+  "loaf": {
+   "supported": true,
+   "count": 0,
+   "maxDurationMs": null
+  },
+  "renderer": {
+   "samples": 96,
+   "firstSampledAtMs": 18649.800000190735,
+   "lastSampledAtMs": 28624.300000190735,
+   "drawCalls": {
+    "min": 41,
+    "max": 61,
+    "mean": 52.333333333333336
+   },
+   "triangles": {
+    "min": 290918,
+    "max": 291250,
+    "mean": 291106.4583333333
+   }
+  },
+  "cobertura": {
+   "intervalsCollected": 1201,
+   "intervalsCapacity": 5016,
+   "intervalsSaturated": false,
+   "countersCollected": 96,
+   "countersCapacity": 116,
+   "countersSaturated": false
+  },
+  "commits": {
+   "1": 87,
+   "2": 1205
+  },
+  "hud_depois": "VIDA 25 / 100RIFLE · 6 / 72Mouse: mirar e atirar · R: recarregarRobôs neutralizados: 3 / 5",
+  "erros": [],
+  "contexto": null
+ },
+ {
+  "rep": 0,
+  "build": "S2.10",
+  "commit": "f28b6bb",
+  "cenario": "S2",
+  "visibilidade": "visible",
+  "status": "valid",
+  "motivos": null,
+  "avisos": [],
+  "raf": {
+   "count": 1203,
+   "p50": 8.299999999999272,
+   "p95": 9.100000000002183,
+   "max": 9.400000000001455,
+   "mean": 8.315211970074811,
+   "rafOver33": 0,
+   "rafOver50": 0
+  },
+  "loaf": {
+   "supported": true,
+   "count": 0,
+   "maxDurationMs": null
+  },
+  "renderer": {
+   "samples": 96,
+   "firstSampledAtMs": 18639.60000038147,
+   "lastSampledAtMs": 28585.300000190735,
+   "drawCalls": {
+    "min": 41,
+    "max": 61,
+    "mean": 52.229166666666664
+   },
+   "triangles": {
+    "min": 290918,
+    "max": 291250,
+    "mean": 291104.875
+   }
+  },
+  "cobertura": {
+   "intervalsCollected": 1203,
+   "intervalsCapacity": 5016,
+   "intervalsSaturated": false,
+   "countersCollected": 96,
+   "countersCapacity": 116,
+   "countersSaturated": false
+  },
+  "commits": {
+   "1": 87,
+   "2": 5
+  },
+  "hud_depois": "VIDA 25 / 100RIFLE · 6 / 72Mouse: mirar e atirar · R: recarregarRobôs neutralizados: 3 / 5",
+  "erros": [],
+  "contexto": null
+ },
+ {
+  "rep": 1,
+  "build": "S2.10",
+  "commit": "f28b6bb",
+  "cenario": "M1",
+  "visibilidade": "visible",
+  "status": "valid",
+  "motivos": null,
+  "avisos": [],
+  "raf": {
+   "count": 1200,
+   "p50": 8.300000000000182,
+   "p95": 9.199999999998909,
+   "max": 12.5,
+   "mean": 8.33291666666666,
+   "rafOver33": 0,
+   "rafOver50": 0
+  },
+  "loaf": {
+   "supported": true,
+   "count": 0,
+   "maxDurationMs": null
+  },
+  "renderer": {
+   "samples": 96,
+   "firstSampledAtMs": 3134.2000002861023,
+   "lastSampledAtMs": 13109.300000190735,
+   "drawCalls": {
+    "min": 343,
+    "max": 343,
+    "mean": 343
+   },
+   "triangles": {
+    "min": 613958,
+    "max": 613958,
+    "mean": 613958
+   }
+  },
+  "cobertura": {
+   "intervalsCollected": 1200,
+   "intervalsCapacity": 5016,
+   "intervalsSaturated": false,
+   "countersCollected": 96,
+   "countersCapacity": 116,
+   "countersSaturated": false
+  },
+  "commits": {
+   "1": 20,
+   "2": 0
+  },
+  "hud_depois": "",
+  "erros": []
+ },
+ {
+  "rep": 1,
+  "build": "S2.9",
+  "commit": "ab9afc4",
+  "cenario": "M1",
+  "visibilidade": "visible",
+  "status": "valid",
+  "motivos": null,
+  "avisos": [],
+  "raf": {
+   "count": 1201,
+   "p50": 8.300000000000182,
+   "p95": 9.100000000000364,
+   "max": 9.400000000001455,
+   "mean": 8.329975020815981,
+   "rafOver33": 0,
+   "rafOver50": 0
+  },
+  "loaf": {
+   "supported": true,
+   "count": 0,
+   "maxDurationMs": null
+  },
+  "renderer": {
+   "samples": 97,
+   "firstSampledAtMs": 3129.800000190735,
+   "lastSampledAtMs": 13117.400000095367,
+   "drawCalls": {
+    "min": 343,
+    "max": 343,
+    "mean": 343
+   },
+   "triangles": {
+    "min": 613958,
+    "max": 613958,
+    "mean": 613958
+   }
+  },
+  "cobertura": {
+   "intervalsCollected": 1201,
+   "intervalsCapacity": 5016,
+   "intervalsSaturated": false,
+   "countersCollected": 97,
+   "countersCapacity": 116,
+   "countersSaturated": false
+  },
+  "commits": {
+   "1": 20,
+   "2": 1202
+  },
+  "hud_depois": "",
+  "erros": []
+ },
+ {
+  "rep": 1,
+  "build": "S2.10",
+  "commit": "f28b6bb",
+  "cenario": "M2",
+  "visibilidade": "visible",
+  "status": "valid",
+  "motivos": null,
+  "avisos": [],
+  "raf": {
+   "count": 1200,
+   "p50": 8.300000000000182,
+   "p95": 9,
+   "max": 9.399999999999636,
+   "mean": 8.332583333333368,
+   "rafOver33": 0,
+   "rafOver50": 0
+  },
+  "loaf": {
+   "supported": true,
+   "count": 0,
+   "maxDurationMs": null
+  },
+  "renderer": {
+   "samples": 96,
+   "firstSampledAtMs": 3125.800000190735,
+   "lastSampledAtMs": 13034.099999904633,
+   "drawCalls": {
+    "min": 343,
+    "max": 348,
+    "mean": 345.4791666666667
+   },
+   "triangles": {
+    "min": 613958,
+    "max": 614038,
+    "mean": 614005.4583333334
+   }
+  },
+  "cobertura": {
+   "intervalsCollected": 1200,
+   "intervalsCapacity": 5016,
+   "intervalsSaturated": false,
+   "countersCollected": 96,
+   "countersCapacity": 116,
+   "countersSaturated": false
+  },
+  "commits": {
+   "1": 20,
+   "2": 0
+  },
+  "hud_depois": "",
+  "erros": []
+ },
+ {
+  "rep": 1,
+  "build": "S2.9",
+  "commit": "ab9afc4",
+  "cenario": "M2",
+  "visibilidade": "visible",
+  "status": "valid",
+  "motivos": null,
+  "avisos": [],
+  "raf": {
+   "count": 1201,
+   "p50": 8.300000000000182,
+   "p95": 9.100000000000364,
+   "max": 9.400000000000546,
+   "mean": 8.326311407160704,
+   "rafOver33": 0,
+   "rafOver50": 0
+  },
+  "loaf": {
+   "supported": true,
+   "count": 0,
+   "maxDurationMs": null
+  },
+  "renderer": {
+   "samples": 97,
+   "firstSampledAtMs": 3126.300000190735,
+   "lastSampledAtMs": 13076.699999809265,
+   "drawCalls": {
+    "min": 343,
+    "max": 348,
+    "mean": 345.4845360824742
+   },
+   "triangles": {
+    "min": 613958,
+    "max": 614038,
+    "mean": 614005.8556701031
+   }
+  },
+  "cobertura": {
+   "intervalsCollected": 1201,
+   "intervalsCapacity": 5016,
+   "intervalsSaturated": false,
+   "countersCollected": 97,
+   "countersCapacity": 116,
+   "countersSaturated": false
+  },
+  "commits": {
+   "1": 20,
+   "2": 1198
+  },
+  "hud_depois": "",
+  "erros": []
+ },
+ {
+  "rep": 1,
+  "build": "S2.10",
+  "commit": "f28b6bb",
+  "cenario": "S1",
+  "visibilidade": "visible",
+  "status": "valid",
+  "motivos": null,
+  "avisos": [],
+  "raf": {
+   "count": 1203,
+   "p50": 8.299999999999272,
+   "p95": 9.200000000000728,
+   "max": 9.400000000001455,
+   "mean": 8.315461346633413,
+   "rafOver33": 0,
+   "rafOver50": 0
+  },
+  "loaf": {
+   "supported": true,
+   "count": 0,
+   "maxDurationMs": null
+  },
+  "renderer": {
+   "samples": 96,
+   "firstSampledAtMs": 23841.400000095367,
+   "lastSampledAtMs": 33804.2000002861,
+   "drawCalls": {
+    "min": 28,
+    "max": 30,
+    "mean": 29.385416666666668
+   },
+   "triangles": {
+    "min": 290706,
+    "max": 290730,
+    "mean": 290722.625
+   }
+  },
+  "cobertura": {
+   "intervalsCollected": 1203,
+   "intervalsCapacity": 5016,
+   "intervalsSaturated": false,
+   "countersCollected": 96,
+   "countersCapacity": 116,
+   "countersSaturated": false
+  },
+  "commits": {
+   "1": 26,
+   "2": 5
+  },
+  "hud_antes": "VIDA 100 / 100RIFLE · 2 / 96Mouse: mirar e atirar · R: recarregarRobôs neutralizados: 1 / 1",
+  "hud_depois": "VIDA 100 / 100RIFLE · 2 / 96Mouse: mirar e atirar · R: recarregarRobôs neutralizados: 1 / 1",
+  "erros": []
+ },
+ {
+  "rep": 1,
+  "build": "S2.9",
+  "commit": "ab9afc4",
+  "cenario": "S1",
+  "visibilidade": "visible",
+  "status": "valid",
+  "motivos": null,
+  "avisos": [],
+  "raf": {
+   "count": 1201,
+   "p50": 8.299999999999272,
+   "p95": 9.200000000000728,
+   "max": 9.400000000001455,
+   "mean": 8.326228143213985,
+   "rafOver33": 0,
+   "rafOver50": 0
+  },
+  "loaf": {
+   "supported": true,
+   "count": 0,
+   "maxDurationMs": null
+  },
+  "renderer": {
+   "samples": 96,
+   "firstSampledAtMs": 23858.5,
+   "lastSampledAtMs": 33783.90000009537,
+   "drawCalls": {
+    "min": 28,
+    "max": 30,
+    "mean": 29.375
+   },
+   "triangles": {
+    "min": 290706,
+    "max": 290730,
+    "mean": 290722.5
+   }
+  },
+  "cobertura": {
+   "intervalsCollected": 1201,
+   "intervalsCapacity": 5016,
+   "intervalsSaturated": false,
+   "countersCollected": 96,
+   "countersCapacity": 116,
+   "countersSaturated": false
+  },
+  "commits": {
+   "1": 25,
+   "2": 1207
+  },
+  "hud_antes": "VIDA 100 / 100RIFLE · 2 / 96Mouse: mirar e atirar · R: recarregarRobôs neutralizados: 1 / 1",
+  "hud_depois": "VIDA 100 / 100RIFLE · 2 / 96Mouse: mirar e atirar · R: recarregarRobôs neutralizados: 1 / 1",
+  "erros": []
+ },
+ {
+  "rep": 1,
+  "build": "S2.10",
+  "commit": "f28b6bb",
+  "cenario": "S2",
+  "visibilidade": "visible",
+  "status": "valid",
+  "motivos": null,
+  "avisos": [],
+  "raf": {
+   "count": 1204,
+   "p50": 8.299999999999272,
+   "p95": 9.19999999999709,
+   "max": 9.400000000001455,
+   "mean": 8.308222591362124,
+   "rafOver33": 0,
+   "rafOver50": 0
+  },
+  "loaf": {
+   "supported": true,
+   "count": 0,
+   "maxDurationMs": null
+  },
+  "renderer": {
+   "samples": 95,
+   "firstSampledAtMs": 18647.099999904633,
+   "lastSampledAtMs": 28542.400000095367,
+   "drawCalls": {
+    "min": 41,
+    "max": 61,
+    "mean": 52.33684210526316
+   },
+   "triangles": {
+    "min": 290918,
+    "max": 291250,
+    "mean": 291106.54736842104
+   }
+  },
+  "cobertura": {
+   "intervalsCollected": 1204,
+   "intervalsCapacity": 5016,
+   "intervalsSaturated": false,
+   "countersCollected": 95,
+   "countersCapacity": 116,
+   "countersSaturated": false
+  },
+  "commits": {
+   "1": 87,
+   "2": 5
+  },
+  "hud_depois": "VIDA 25 / 100RIFLE · 6 / 72Mouse: mirar e atirar · R: recarregarRobôs neutralizados: 3 / 5",
+  "erros": []
+ },
+ {
+  "rep": 1,
+  "build": "S2.9",
+  "commit": "ab9afc4",
+  "cenario": "S2",
+  "visibilidade": "visible",
+  "status": "valid",
+  "motivos": null,
+  "avisos": [],
+  "raf": {
+   "count": 1201,
+   "p50": 8.299999999999272,
+   "p95": 9.200000000000728,
+   "max": 9.400000000001455,
+   "mean": 8.326644462947547,
+   "rafOver33": 0,
+   "rafOver50": 0
+  },
+  "loaf": {
+   "supported": true,
+   "count": 0,
+   "maxDurationMs": null
+  },
+  "renderer": {
+   "samples": 97,
+   "firstSampledAtMs": 18640.299999713898,
+   "lastSampledAtMs": 28633.400000095367,
+   "drawCalls": {
+    "min": 41,
+    "max": 61,
+    "mean": 52.29896907216495
+   },
+   "triangles": {
+    "min": 290918,
+    "max": 291250,
+    "mean": 291106.0412371134
+   }
+  },
+  "cobertura": {
+   "intervalsCollected": 1201,
+   "intervalsCapacity": 5016,
+   "intervalsSaturated": false,
+   "countersCollected": 97,
+   "countersCapacity": 116,
+   "countersSaturated": false
+  },
+  "commits": {
+   "1": 86,
+   "2": 1205
+  },
+  "hud_depois": "VIDA 25 / 100RIFLE · 6 / 72Mouse: mirar e atirar · R: recarregarRobôs neutralizados: 3 / 5",
+  "erros": []
+ },
+ {
+  "rep": 2,
+  "build": "S2.9",
+  "commit": "ab9afc4",
+  "cenario": "M1",
+  "visibilidade": "visible",
+  "status": "valid",
+  "motivos": null,
+  "avisos": [],
+  "raf": {
+   "count": 1200,
+   "p50": 8.300000000000182,
+   "p95": 9.199999999999818,
+   "max": 10.100000000000364,
+   "mean": 8.333249999999987,
+   "rafOver33": 0,
+   "rafOver50": 0
+  },
+  "loaf": {
+   "supported": true,
+   "count": 0,
+   "maxDurationMs": null
+  },
+  "renderer": {
+   "samples": 97,
+   "firstSampledAtMs": 3131.699999809265,
+   "lastSampledAtMs": 13123.5,
+   "drawCalls": {
+    "min": 343,
+    "max": 343,
+    "mean": 343
+   },
+   "triangles": {
+    "min": 613958,
+    "max": 613958,
+    "mean": 613958
+   }
+  },
+  "cobertura": {
+   "intervalsCollected": 1200,
+   "intervalsCapacity": 5016,
+   "intervalsSaturated": false,
+   "countersCollected": 97,
+   "countersCapacity": 116,
+   "countersSaturated": false
+  },
+  "commits": {
+   "1": 20,
+   "2": 1201
+  },
+  "hud_depois": "",
+  "erros": []
+ },
+ {
+  "rep": 2,
+  "build": "S2.10",
+  "commit": "f28b6bb",
+  "cenario": "M1",
+  "visibilidade": "visible",
+  "status": "valid",
+  "motivos": null,
+  "avisos": [],
+  "raf": {
+   "count": 1200,
+   "p50": 8.300000000000182,
+   "p95": 9.100000000000364,
+   "max": 9.400000000001455,
+   "mean": 8.333333333333314,
+   "rafOver33": 0,
+   "rafOver50": 0
+  },
+  "loaf": {
+   "supported": true,
+   "count": 0,
+   "maxDurationMs": null
+  },
+  "renderer": {
+   "samples": 97,
+   "firstSampledAtMs": 3124.5999999046326,
+   "lastSampledAtMs": 13107.900000095367,
+   "drawCalls": {
+    "min": 343,
+    "max": 343,
+    "mean": 343
+   },
+   "triangles": {
+    "min": 613958,
+    "max": 613958,
+    "mean": 613958
+   }
+  },
+  "cobertura": {
+   "intervalsCollected": 1200,
+   "intervalsCapacity": 5016,
+   "intervalsSaturated": false,
+   "countersCollected": 97,
+   "countersCapacity": 116,
+   "countersSaturated": false
+  },
+  "commits": {
+   "1": 20,
+   "2": 0
+  },
+  "hud_depois": "",
+  "erros": []
+ },
+ {
+  "rep": 2,
+  "build": "S2.9",
+  "commit": "ab9afc4",
+  "cenario": "M2",
+  "visibilidade": "visible",
+  "status": "valid",
+  "motivos": null,
+  "avisos": [],
+  "raf": {
+   "count": 1200,
+   "p50": 8.300000000000182,
+   "p95": 9.100000000000364,
+   "max": 9.400000000001455,
+   "mean": 8.333249999999994,
+   "rafOver33": 0,
+   "rafOver50": 0
+  },
+  "loaf": {
+   "supported": true,
+   "count": 0,
+   "maxDurationMs": null
+  },
+  "renderer": {
+   "samples": 97,
+   "firstSampledAtMs": 3123.6000003814697,
+   "lastSampledAtMs": 13073.10000038147,
+   "drawCalls": {
+    "min": 343,
+    "max": 348,
+    "mean": 345.4845360824742
+   },
+   "triangles": {
+    "min": 613958,
+    "max": 614038,
+    "mean": 614005.4432989691
+   }
+  },
+  "cobertura": {
+   "intervalsCollected": 1200,
+   "intervalsCapacity": 5016,
+   "intervalsSaturated": false,
+   "countersCollected": 97,
+   "countersCapacity": 116,
+   "countersSaturated": false
+  },
+  "commits": {
+   "1": 20,
+   "2": 1198
+  },
+  "hud_depois": "",
+  "erros": []
+ },
+ {
+  "rep": 2,
+  "build": "S2.10",
+  "commit": "f28b6bb",
+  "cenario": "M2",
+  "visibilidade": "visible",
+  "status": "valid",
+  "motivos": null,
+  "avisos": [],
+  "raf": {
+   "count": 1202,
+   "p50": 8.300000000000182,
+   "p95": 9.100000000000364,
+   "max": 9.5,
+   "mean": 8.319384359400987,
+   "rafOver33": 0,
+   "rafOver50": 0
+  },
+  "loaf": {
+   "supported": true,
+   "count": 0,
+   "maxDurationMs": null
+  },
+  "renderer": {
+   "samples": 96,
+   "firstSampledAtMs": 3125.8999996185303,
+   "lastSampledAtMs": 13042.099999904633,
+   "drawCalls": {
+    "min": 343,
+    "max": 348,
+    "mean": 345.4791666666667
+   },
+   "triangles": {
+    "min": 613958,
+    "max": 614038,
+    "mean": 614005.6666666666
+   }
+  },
+  "cobertura": {
+   "intervalsCollected": 1202,
+   "intervalsCapacity": 5016,
+   "intervalsSaturated": false,
+   "countersCollected": 96,
+   "countersCapacity": 116,
+   "countersSaturated": false
+  },
+  "commits": {
+   "1": 20,
+   "2": 0
+  },
+  "hud_depois": "",
+  "erros": []
+ },
+ {
+  "rep": 2,
+  "build": "S2.9",
+  "commit": "ab9afc4",
+  "cenario": "S1",
+  "visibilidade": "visible",
+  "status": "valid",
+  "motivos": null,
+  "avisos": [],
+  "raf": {
+   "count": 1201,
+   "p50": 8.299999999999272,
+   "p95": 9.200000000000728,
+   "max": 9.400000000001455,
+   "mean": 8.326394671107414,
+   "rafOver33": 0,
+   "rafOver50": 0
+  },
+  "loaf": {
+   "supported": true,
+   "count": 0,
+   "maxDurationMs": null
+  },
+  "renderer": {
+   "samples": 96,
+   "firstSampledAtMs": 23857.900000095367,
+   "lastSampledAtMs": 33792.699999809265,
+   "drawCalls": {
+    "min": 28,
+    "max": 30,
+    "mean": 29.375
+   },
+   "triangles": {
+    "min": 290706,
+    "max": 290730,
+    "mean": 290722.5
+   }
+  },
+  "cobertura": {
+   "intervalsCollected": 1201,
+   "intervalsCapacity": 5016,
+   "intervalsSaturated": false,
+   "countersCollected": 96,
+   "countersCapacity": 116,
+   "countersSaturated": false
+  },
+  "commits": {
+   "1": 26,
+   "2": 1206
+  },
+  "hud_antes": "VIDA 100 / 100RIFLE · 2 / 96Mouse: mirar e atirar · R: recarregarRobôs neutralizados: 1 / 1",
+  "hud_depois": "VIDA 100 / 100RIFLE · 2 / 96Mouse: mirar e atirar · R: recarregarRobôs neutralizados: 1 / 1",
+  "erros": []
+ },
+ {
+  "rep": 2,
+  "build": "S2.10",
+  "commit": "f28b6bb",
+  "cenario": "S1",
+  "visibilidade": "visible",
+  "status": "valid",
+  "motivos": null,
+  "avisos": [],
+  "raf": {
+   "count": 1200,
+   "p50": 8.299999999999272,
+   "p95": 9.200000000000728,
+   "max": 9.599999999998545,
+   "mean": 8.333166666666664,
+   "rafOver33": 0,
+   "rafOver50": 0
+  },
+  "loaf": {
+   "supported": true,
+   "count": 0,
+   "maxDurationMs": null
+  },
+  "renderer": {
+   "samples": 96,
+   "firstSampledAtMs": 23870.199999809265,
+   "lastSampledAtMs": 33829.90000009537,
+   "drawCalls": {
+    "min": 28,
+    "max": 30,
+    "mean": 29.375
+   },
+   "triangles": {
+    "min": 290706,
+    "max": 290730,
+    "mean": 290722.5
+   }
+  },
+  "cobertura": {
+   "intervalsCollected": 1200,
+   "intervalsCapacity": 5016,
+   "intervalsSaturated": false,
+   "countersCollected": 96,
+   "countersCapacity": 116,
+   "countersSaturated": false
+  },
+  "commits": {
+   "1": 25,
+   "2": 5
+  },
+  "hud_antes": "VIDA 100 / 100RIFLE · 2 / 96Mouse: mirar e atirar · R: recarregarRobôs neutralizados: 1 / 1",
+  "hud_depois": "VIDA 100 / 100RIFLE · 2 / 96Mouse: mirar e atirar · R: recarregarRobôs neutralizados: 1 / 1",
+  "erros": []
+ },
+ {
+  "rep": 2,
+  "build": "S2.9",
+  "commit": "ab9afc4",
+  "cenario": "S2",
+  "visibilidade": "visible",
+  "status": "valid",
+  "motivos": null,
+  "avisos": [],
+  "raf": {
+   "count": 1202,
+   "p50": 8.299999999999272,
+   "p95": 9.200000000000728,
+   "max": 9.400000000001455,
+   "mean": 8.322961730449252,
+   "rafOver33": 0,
+   "rafOver50": 0
+  },
+  "loaf": {
+   "supported": true,
+   "count": 0,
+   "maxDurationMs": null
+  },
+  "renderer": {
+   "samples": 96,
+   "firstSampledAtMs": 18639.900000095367,
+   "lastSampledAtMs": 28585.900000095367,
+   "drawCalls": {
+    "min": 41,
+    "max": 61,
+    "mean": 52.270833333333336
+   },
+   "triangles": {
+    "min": 290918,
+    "max": 291250,
+    "mean": 291105.4166666667
+   }
+  },
+  "cobertura": {
+   "intervalsCollected": 1202,
+   "intervalsCapacity": 5016,
+   "intervalsSaturated": false,
+   "countersCollected": 96,
+   "countersCapacity": 116,
+   "countersSaturated": false
+  },
+  "commits": {
+   "1": 87,
+   "2": 1205
+  },
+  "hud_depois": "VIDA 25 / 100RIFLE · 6 / 72Mouse: mirar e atirar · R: recarregarRobôs neutralizados: 3 / 5",
+  "erros": []
+ },
+ {
+  "rep": 2,
+  "build": "S2.10",
+  "commit": "f28b6bb",
+  "cenario": "S2",
+  "visibilidade": "visible",
+  "status": "valid",
+  "motivos": null,
+  "avisos": [],
+  "raf": {
+   "count": 1201,
+   "p50": 8.299999999999272,
+   "p95": 9.200000000000728,
+   "max": 9.400000000001455,
+   "mean": 8.326144879267279,
+   "rafOver33": 0,
+   "rafOver50": 0
+  },
+  "loaf": {
+   "supported": true,
+   "count": 0,
+   "maxDurationMs": null
+  },
+  "renderer": {
+   "samples": 96,
+   "firstSampledAtMs": 18643.699999809265,
+   "lastSampledAtMs": 28552.699999809265,
+   "drawCalls": {
+    "min": 41,
+    "max": 61,
+    "mean": 52.333333333333336
+   },
+   "triangles": {
+    "min": 290918,
+    "max": 291250,
+    "mean": 291106.625
+   }
+  },
+  "cobertura": {
+   "intervalsCollected": 1201,
+   "intervalsCapacity": 5016,
+   "intervalsSaturated": false,
+   "countersCollected": 96,
+   "countersCapacity": 116,
+   "countersSaturated": false
+  },
+  "commits": {
+   "1": 87,
+   "2": 5
+  },
+  "hud_depois": "VIDA 25 / 100RIFLE · 6 / 72Mouse: mirar e atirar · R: recarregarRobôs neutralizados: 3 / 5",
+  "erros": []
+ }
+]
