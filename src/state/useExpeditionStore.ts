@@ -1,7 +1,9 @@
 import { create } from 'zustand';
 import { INITIAL_SESSION, migrateProfile, parseSave, transition, type HubSave, type Profile, type Session, type SessionEvent } from '../game/session';
-import { EDEN, INITIAL_POSITION, MAPS, near, type Point } from '../game/config';
+import { INITIAL_POSITION, MAPS, type Point } from '../game/config';
+import type { MapId } from '../game/session';
 import { useGameStore } from './useGameStore';
+import { isNearEden, isNearShip, placePlayer } from './playerTransient';
 import { useCombatStore } from './useCombatStore';
 const SAVE_KEY = 'horda-survivor:hub:v1';
 function load(): HubSave {
@@ -16,6 +18,11 @@ function load(): HubSave {
     }
 }
 const saved = load();
+/** Reposiciona a fonte mutável e publica a proximidade do novo ponto no mesmo passo. */
+function respawn(spawn: Point, map: MapId) {
+    placePlayer(spawn);
+    useGameStore.setState({ isPaused: false, nearEden: isNearEden(map), nearShip: isNearShip(map) });
+}
 interface ExpeditionState {
     profile: Profile | null;
     briefingSeen: boolean;
@@ -55,7 +62,7 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
     },
     openEden: () => {
         const s = get();
-        if (!s.ready || s.session.map !== 'mars' || s.session.phase !== 'walking' || useGameStore.getState().isPaused || !near(useGameStore.getState().playerPosition, EDEN.position, EDEN.interactionRadius))
+        if (!s.ready || s.session.map !== 'mars' || s.session.phase !== 'walking' || useGameStore.getState().isPaused || !isNearEden(s.session.map))
             return;
         set({ panel: 'eden', briefingSeen: true, saveError: save(s.profile, true) });
     },
@@ -65,7 +72,7 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
         const s = get();
         if (['board', 'exit', 'depart'].includes(event) && (!s.ready || useGameStore.getState().isPaused || (s.session.map === 'shanghai' && useCombatStore.getState().dead)))
             return;
-        if (event === 'board' && (s.panel || !near(useGameStore.getState().playerPosition, MAPS[s.session.map].exit, 2.7)))
+        if (event === 'board' && (s.panel || !isNearShip(s.session.map)))
             return;
         const session = transition(s.session, event);
         if (session === s.session)
@@ -76,7 +83,7 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
             spawn = MAPS[session.map].ship;
         if (event === 'exit')
             spawn = MAPS[session.map].exit;
-        useGameStore.setState({ playerPosition: spawn, isPaused: false });
+        respawn(spawn, session.map);
         set({ session, spawn, panel: session.phase === 'walking' ? null : 'ship', error: null, ready: event === 'depart' ? false : s.ready });
     },
     restartMission: () => {
@@ -84,7 +91,7 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
         if (s.session.map !== 'shanghai' || !s.ready || s.session.phase !== 'walking') return;
         useCombatStore.getState().restart();
         const spawn = MAPS.shanghai.exit;
-        useGameStore.setState({ playerPosition: spawn, isPaused: false });
+        respawn(spawn, 'shanghai');
         set({ spawn, panel: null, session: { ...s.session, revision: s.session.revision + 1 }, radio: 'Nova tentativa. Mova-se, mire com o mouse e use R para recarregar.' });
     },
     setReady: (ready) => set({ ready }), setError: (error) => set({ error }), setRadio: (radio) => set({ radio })

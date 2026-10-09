@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { GameCanvas } from './GameCanvas';
 import { useExpeditionStore } from '../state/useExpeditionStore';
 import { useGameStore } from '../state/useGameStore';
-import { EDEN, MAPS, near } from '../game/config';
+import { MAPS } from '../game/config';
+import { isNearEden } from '../state/playerTransient';
 import { EDEN_BRIEFING, SHANGHAI_BRIEFING } from '../npcs/scripts/eden';
 import { disposeWorld } from '../game/worldUtils';
 import type { OfficeWorld } from '../world/createOfficeMap';
@@ -61,8 +62,9 @@ function Runtime() {
     useEffect(() => () => { if (world)
         disposeWorld(world.data); }, [world]);
     const dead = useCombatStore(state => state.dead);
-    const canEden = useGameStore(g => s.session.map === 'mars' && near(g.playerPosition, EDEN.position, EDEN.interactionRadius));
-    const canBoard = useGameStore(g => near(g.playerPosition, MAPS[s.session.map].exit, 2.7));
+    // Proximidade publicada só quando a condição muda (ver PlayerController).
+    const canEden = useGameStore(g => g.nearEden);
+    const canBoard = useGameStore(g => g.nearShip);
     useEffect(() => {
         const key = (e: KeyboardEvent) => {
             if (e.repeat || e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement)
@@ -81,7 +83,7 @@ function Runtime() {
                     state.send('exit');
                 else if (state.panel === 'eden')
                     state.closePanel();
-                else if (state.session.map === 'mars' && near(useGameStore.getState().playerPosition, EDEN.position, EDEN.interactionRadius))
+                else if (isNearEden(state.session.map))
                     state.openEden();
                 else
                     state.send('board');

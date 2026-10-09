@@ -4,9 +4,10 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { Group, Mesh, MeshStandardMaterial, Vector3 } from 'three';
 import type { OfficeWorld } from '../world/createOfficeMap';
 import { useGameStore } from '../state/useGameStore';
+import { playerPosition } from '../state/playerTransient';
 import { combatRuntime, useCombatStore } from '../state/useCombatStore';
 import { simulationBlocked } from '../game/simulationGate';
-import { CombatSimulation } from './simulation';
+import { CombatSimulation, type CombatInput } from './simulation';
 import { COMBAT } from './config';
 export function CombatScene({ world }: {
     world: OfficeWorld;
@@ -16,6 +17,8 @@ export function CombatScene({ world }: {
     const { gl } = useThree();
     const robots = useRef<(Group | null)[]>([]), tracers = useRef<(Mesh | null)[]>([]), reticle = useRef<Mesh>(null);
     const input = useRef({ firing: false, tap: false, reload: false }), clock = useRef(0);
+    // Entrada do passo reutilizada: a simulação copia a posição ao registrar disparos e rotas.
+    const stepInput = useMemo<CombatInput>(() => ({ player: playerPosition, aim: combatRuntime.aim, firing: false, reload: false }), []);
     const axis = useMemo(() => new Vector3(0, 1, 0), []), direction = useMemo(() => new Vector3(), []);
     useEffect(() => {
         combatRuntime.simulation = simulation;
@@ -50,7 +53,7 @@ export function CombatScene({ world }: {
         return () => { clear(); unsubscribeGame(); unsubscribeExpedition(); canvas.removeEventListener('pointerdown', down); canvas.removeEventListener('pointerleave', clear); window.removeEventListener('pointerup', up); window.removeEventListener('pointercancel', clear); window.removeEventListener('blur', clear); window.removeEventListener('keydown', key); };
     }, [gl]);
     useFrame((_, delta) => {
-        const blocked = simulationBlocked(), p = useGameStore.getState().playerPosition;
+        const blocked = simulationBlocked();
         if (blocked) {
             input.current.firing = false;
             input.current.tap = false;
@@ -60,7 +63,10 @@ export function CombatScene({ world }: {
         else {
             clock.current += Math.min(delta, 0.1);
             while (clock.current >= COMBAT.fixedStep) {
-                simulation.step(COMBAT.fixedStep, { player: p, aim: combatRuntime.aim, firing: (input.current.firing || input.current.tap) && combatRuntime.aimValid, reload: input.current.reload });
+                stepInput.aim = combatRuntime.aim;
+                stepInput.firing = (input.current.firing || input.current.tap) && combatRuntime.aimValid;
+                stepInput.reload = input.current.reload;
+                simulation.step(COMBAT.fixedStep, stepInput);
                 input.current.tap = false;
                 input.current.reload = false;
                 clock.current -= COMBAT.fixedStep;

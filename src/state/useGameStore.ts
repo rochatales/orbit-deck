@@ -1,13 +1,12 @@
 import { create } from "zustand";
 
-export interface WorldPosition {
-  x: number;
-  y: number;
-  z: number;
-}
-
 interface GameState {
-  playerPosition: WorldPosition;
+  /**
+   * Condição de interação publicada para a UI. A posição frequente do player fica
+   * em `playerTransient.ts`, fora desta store; aqui só entram as mudanças de condição.
+   */
+  nearEden: boolean;
+  nearShip: boolean;
   nearbyNpcId: string | null;
   targetZoom: number;
   minZoom: number;
@@ -18,7 +17,8 @@ interface GameState {
   controlsOpen: boolean;
   /** Painel de configuração do player (nome, cor do avatar). */
   configOpen: boolean;
-  setPlayerPosition: (position: WorldPosition) => void;
+  /** Publica a proximidade; não notifica assinantes quando nada mudou. */
+  setProximity: (nearEden: boolean, nearShip: boolean) => void;
   setNearbyNpcId: (npcId: string | null) => void;
   adjustZoom: (delta: number) => void;
   setZoom: (zoom: number) => void;
@@ -33,8 +33,9 @@ interface GameState {
 const DEFAULT_MIN_ZOOM = 0.3;
 const DEFAULT_MAX_ZOOM = 120;
 
-export const useGameStore = create<GameState>((set) => ({
-  playerPosition: { x: 0, y: 0, z: 0.8 },
+export const useGameStore = create<GameState>((set, get) => ({
+  nearEden: false,
+  nearShip: false,
   nearbyNpcId: null,
   targetZoom: 14,
   minZoom: DEFAULT_MIN_ZOOM,
@@ -43,7 +44,10 @@ export const useGameStore = create<GameState>((set) => ({
   isPaused: false,
   controlsOpen: false,
   configOpen: false,
-  setPlayerPosition: (position) => set({ playerPosition: position }),
+  setProximity: (nearEden, nearShip) => {
+    const state = get();
+    if (state.nearEden !== nearEden || state.nearShip !== nearShip) set({ nearEden, nearShip });
+  },
   setNearbyNpcId: (npcId) => set({ nearbyNpcId: npcId }),
   adjustZoom: (delta) =>
     set((state) => ({

@@ -6,6 +6,7 @@ import { createRoot } from 'react-dom/client';
 import { App } from '../src/app/App';
 import { useExpeditionStore as expedition } from '../src/state/useExpeditionStore';
 import { useGameStore as game } from '../src/state/useGameStore';
+import { placePlayer, playerPosition } from '../src/state/playerTransient';
 import { EDEN, MAPS } from '../src/game/config';
 import '../src/styles/global.css';
 function QA() {
@@ -15,16 +16,17 @@ function QA() {
         if (!s.ready || s.session.map !== 'mars')
             return;
         const point = where === 'eden' ? { ...EDEN.position, z: -8 } : MAPS.mars.exit;
-        game.setState({ playerPosition: point, isPaused: false });
+        placePlayer(point);
+        game.setState({ isPaused: false });
         expedition.setState({ spawn: point, panel: null, session: { ...s.session, phase: 'walking', destination: null, revision: s.session.revision + 1 } });
     }
     async function movement() {
-        const before = { ...game.getState().playerPosition };
+        const before = { ...playerPosition };
         window.dispatchEvent(new KeyboardEvent('keydown', { key: 's', code: 'KeyS', bubbles: true }));
         await new Promise(r => setTimeout(r, 1000));
         window.dispatchEvent(new KeyboardEvent('keyup', { key: 's', code: 'KeyS', bubbles: true }));
         await new Promise(r => setTimeout(r, 300));
-        const after = game.getState().playerPosition;
+        const after = playerPosition;
         setResult('Deslocamento em 1s: ' + Math.hypot(after.x - before.x, after.z - before.z).toFixed(2) + ' m');
     }
     async function sample() {
@@ -42,7 +44,7 @@ function QA() {
     // Assisted input: project live targets with the documented camera rig; no damage/HP writes.
     function pointerAt(x:number,z:number,down=false) {
         const canvas=document.querySelector('canvas')!;const r=canvas.getBoundingClientRect();
-        const state=game.getState(),p=state.playerPosition,a=state.targetRotation;
+        const state=game.getState(),p=playerPosition,a=state.targetRotation;
         const camera=new OrthographicCamera(-r.width/2,r.width/2,r.height/2,-r.height/2,.1,160);
         camera.zoom=state.targetZoom;camera.position.set(p.x+Math.cos(a)*18.38,13.55,p.z+Math.sin(a)*18.38);
         camera.lookAt(p.x,.55,p.z);camera.updateProjectionMatrix();camera.updateMatrixWorld();
@@ -59,7 +61,7 @@ function QA() {
         await new Promise<void>(resolve=>{function frame(){
             const sim=combatRuntime.simulation;
             if(!sim||sim.dead||sim.cleared||performance.now()-start>25000){resolve();return;}
-            const p=game.getState().playerPosition;
+            const p=playerPosition;
             const target=sim.robots.filter(r=>r.hp>0).sort((a,b)=>Math.hypot(a.x-p.x,a.z-p.z)-Math.hypot(b.x-p.x,b.z-p.z))[0];
             if(target){pointerAt(target.x,target.z,!held);held=true;}
             if(sim.ammo===0)window.dispatchEvent(new KeyboardEvent('keydown',{code:'KeyR',bubbles:true}));
@@ -74,9 +76,9 @@ function QA() {
         pointerAt(0,-10,true);await delay(250);window.dispatchEvent(new PointerEvent('pointerup',{button:0}));
         window.dispatchEvent(new KeyboardEvent('keydown',{code:'KeyR',bubbles:true}));await delay(250);
         game.setState({isPaused:true});const sim=combatRuntime.simulation!;
-        const before=JSON.stringify({snapshot:sim.snapshot,time:sim.elapsed,reload:sim.reloadLeft,robots:sim.robots,shots:sim.shots,player:game.getState().playerPosition});
+        const before=JSON.stringify({snapshot:sim.snapshot,time:sim.elapsed,reload:sim.reloadLeft,robots:sim.robots,shots:sim.shots,player:playerPosition});
         await delay(1200);
-        const after=JSON.stringify({snapshot:sim.snapshot,time:sim.elapsed,reload:sim.reloadLeft,robots:sim.robots,shots:sim.shots,player:game.getState().playerPosition});
+        const after=JSON.stringify({snapshot:sim.snapshot,time:sim.elapsed,reload:sim.reloadLeft,robots:sim.robots,shots:sim.shots,player:playerPosition});
         game.setState({isPaused:false});await delay(1600);
         setResult(`Pausa com recarga: ${before===after?'PASSOU':'FALHOU'} | pente após retomar ${sim.ammo} | reserva ${sim.reserve}`);
     }
@@ -84,15 +86,15 @@ function QA() {
         if(expedition.getState().session.map!=='shanghai')return;
         expedition.getState().restartMission();await delay(600);
         window.dispatchEvent(new KeyboardEvent('keydown',{code:'KeyW',key:'w',bubbles:true}));
-        pointerAt(0,-3,true);const start={...game.getState().playerPosition};
+        pointerAt(0,-3,true);const start={...playerPosition};
         await delay(1000);
         window.dispatchEvent(new Event('blur'));await delay(100);
-        const stop={...game.getState().playerPosition},paused=game.getState().isPaused,sim=combatRuntime.simulation!;
+        const stop={...playerPosition},paused=game.getState().isPaused,sim=combatRuntime.simulation!;
         const frozen=JSON.stringify({time:sim.elapsed,robots:sim.robots,ammo:sim.ammo,player:stop});
         await delay(700);
-        const unchanged=frozen===JSON.stringify({time:sim.elapsed,robots:sim.robots,ammo:sim.ammo,player:game.getState().playerPosition});
+        const unchanged=frozen===JSON.stringify({time:sim.elapsed,robots:sim.robots,ammo:sim.ammo,player:playerPosition});
         const ammo=sim.ammo;game.setState({isPaused:false});await delay(400);
-        const still=Math.hypot(game.getState().playerPosition.x-stop.x,game.getState().playerPosition.z-stop.z)<.02;
+        const still=Math.hypot(playerPosition.x-stop.x,playerPosition.z-stop.z)<.02;
         game.setState({isPaused:true});
         setResult(`Foco: ${paused&&unchanged&&still&&sim.ammo===ammo?'PASSOU':'FALHOU'} | movimento com mira ${Math.hypot(stop.x-start.x,stop.z-start.z).toFixed(2)} m | pausa ${paused} | sem input preso ${still&&sim.ammo===ammo}`);
     }

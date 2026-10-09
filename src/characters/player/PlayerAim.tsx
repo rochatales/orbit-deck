@@ -4,6 +4,7 @@ import { Plane, Raycaster, Vector2, Vector3 } from 'three';
 import { combatRuntime } from '../../state/useCombatStore';
 import { useGameStore } from '../../state/useGameStore';
 import { useExpeditionStore } from '../../state/useExpeditionStore';
+import { playerPosition } from '../../state/playerTransient';
 import { simulationBlocked } from '../../game/simulationGate';
 
 /** Shared mouse-facing in both hub and combat; firing remains Shanghai-only. */
@@ -43,8 +44,7 @@ export function PlayerAim() {
     if (simulationBlocked() || !inside.current) { combatRuntime.aimValid = false; return; }
     ray.setFromCamera(pointer.current, camera);
     if (ray.ray.intersectPlane(plane, point)) {
-      const player = useGameStore.getState().playerPosition;
-      if (Math.hypot(point.x - player.x, point.z - player.z) > 0.1) {
+      if (Math.hypot(point.x - playerPosition.x, point.z - playerPosition.z) > 0.1) {
         combatRuntime.aim.x = point.x;
         combatRuntime.aim.z = point.z;
         combatRuntime.aimValid = true;
