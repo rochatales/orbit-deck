@@ -23,6 +23,7 @@ export type GLBCharacterAnimationState =
   | "interacting"
   | "actionTriggered"
   | "falling"
+  | "backward"
   | "highlighted"
   | "completed";
 
@@ -38,6 +39,8 @@ interface GLBCharacterProps {
   animationState?: GLBCharacterAnimationState;
   fallbackType: CharacterFallbackType;
   fallbackLabel?: string;
+  /** Ver `CharacterAssetConfig.materialProfile`; padrão 'estilizado' (comportamento anterior). */
+  materialProfile?: "estilizado" | "preservar";
   onSceneReady?: (scene: Object3D) => void;
   onAnimationsReady?: (actions: GLBActionMap, mixer: AnimationMixer) => void;
 }
@@ -153,7 +156,7 @@ function polishMaterial(material: MeshStandardMaterial, accentColor: Color, viso
   material.needsUpdate = true;
 }
 
-function prepareScene(scene: Object3D, accentColor: string): PreparedScene {
+function prepareScene(scene: Object3D, accentColor: string, materialProfile: "estilizado" | "preservar"): PreparedScene {
   const cloned = clone(scene);
   const visorMaterials: MeshStandardMaterial[] = [];
   const techMaterials: MeshStandardMaterial[] = [];
@@ -170,7 +173,9 @@ function prepareScene(scene: Object3D, accentColor: string): PreparedScene {
     const sourceMaterials = Array.isArray(child.material) ? child.material : [child.material];
     const polishedMaterials = sourceMaterials.map((sourceMaterial) => {
       const standardMaterial = toStandardMaterial(sourceMaterial);
-      polishMaterial(standardMaterial, accent, visorMaterials, techMaterials);
+      // 'preservar': cor, normal map e ORM já vêm bakeados; normais suaves do asset,
+      // vidro sem segundo escurecimento nem transparência. Só o clone por instância.
+      if (materialProfile === "estilizado") polishMaterial(standardMaterial, accent, visorMaterials, techMaterials);
       return standardMaterial;
     });
 
@@ -187,7 +192,7 @@ function getAnimationBlend(animationState: GLBCharacterAnimationState) {
   if (animationState === "interacting" || animationState === "highlighted") {
     return 0.72;
   }
-  if (animationState === "walking") {
+  if (animationState === "walking" || animationState === "backward") {
     return 0.46;
   }
   if (animationState === "falling") {
@@ -204,11 +209,12 @@ function GLBCharacterContent({
   name,
   accentColor,
   animationState = "idle",
+  materialProfile = "estilizado",
   onSceneReady,
   onAnimationsReady
 }: Omit<GLBCharacterProps, "fallbackType" | "fallbackLabel">) {
   const gltf = useGLTF(assetPath);
-  const prepared = useMemo(() => prepareScene(gltf.scene, accentColor), [accentColor, gltf.scene]);
+  const prepared = useMemo(() => prepareScene(gltf.scene, accentColor, materialProfile), [accentColor, gltf.scene, materialProfile]);
   useEffect(() => () => {
     const materials = new Set<Material>();
     prepared.scene.traverse(object => {
@@ -274,6 +280,7 @@ export function GLBCharacter({
   animationState = "idle",
   fallbackType,
   fallbackLabel,
+  materialProfile,
   onSceneReady,
   onAnimationsReady
 }: GLBCharacterProps) {
@@ -290,6 +297,7 @@ export function GLBCharacter({
           name={name}
           accentColor={accentColor}
           animationState={animationState}
+          materialProfile={materialProfile}
           onSceneReady={onSceneReady}
           onAnimationsReady={onAnimationsReady}
         />

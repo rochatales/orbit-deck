@@ -1,0 +1,200 @@
+{
+ "url": "http://127.0.0.1:5193/",
+ "erros": [],
+ "resultados": [
+  {
+   "nome": "inicio",
+   "x": 0,
+   "z": 0.800000011920929,
+   "st": "idle",
+   "v": 0,
+   "f": 0,
+   "ativo": [
+    "Idle@1.00"
+   ]
+  },
+  {
+   "nome": "mira +z parado",
+   "x": 0,
+   "z": 0.800000011920929,
+   "st": "idle",
+   "v": 0,
+   "f": 0.06373835955184037,
+   "ativo": [
+    "Idle@1.00"
+   ]
+  },
+  {
+   "nome": "W 1,2 s (mira +z)",
+   "x": 0.3016212284564972,
+   "z": 5.514391899108887,
+   "st": "walking",
+   "v": 4.199978248750581,
+   "f": 0.06389674758560983,
+   "ativo": [
+    "Run@2.62"
+   ]
+  },
+  {
+   "nome": "soltou W",
+   "x": 0.5494878888130188,
+   "z": 12.079200744628906,
+   "st": "idle",
+   "v": 0,
+   "f": 0.06401783321322801,
+   "ativo": [
+    "Idle@1.00"
+   ]
+  },
+  {
+   "nome": "S 1,2 s (mira +z)",
+   "x": 0.4601968824863434,
+   "z": 10.725526809692383,
+   "st": "backward",
+   "v": 1.199994185137207,
+   "f": 0.0639011162437283,
+   "ativo": [
+    "Backward@1.50"
+   ]
+  },
+  {
+   "nome": "soltou S",
+   "x": 0.3391270339488983,
+   "z": 8.833314895629883,
+   "st": "idle",
+   "v": 0,
+   "f": 0.06389674469663784,
+   "ativo": [
+    "Idle@1.00"
+   ]
+  },
+  {
+   "nome": "W+S 1 s",
+   "x": 0.3391270339488983,
+   "z": 8.833314895629883,
+   "st": "idle",
+   "v": 0,
+   "f": 0.06389674369722559,
+   "ativo": [
+    "Idle@1.00"
+   ]
+  },
+  {
+   "nome": "A e D 0,7 s cada",
+   "x": 0.3391270339488983,
+   "z": 8.833314895629883,
+   "st": "idle",
+   "v": 0,
+   "f": 0.0638967436947934,
+   "ativo": [
+    "Idle@1.00"
+   ]
+  },
+  {
+   "nome": "após alternância rápida",
+   "x": 0.5155864357948303,
+   "z": 11.591188430786133,
+   "st": "idle",
+   "v": 0.0008930491559959662,
+   "f": 0.06389674003632935,
+   "ativo": [
+    "Idle@1.00"
+   ],
+   "sequencia": [
+    "walking",
+    "backward",
+    "walking",
+    "backward",
+    "walking",
+    "backward",
+    "walking",
+    "backward"
+   ]
+  },
+  {
+   "nome": "coerência deslocamento × orientação ao girar o cursor",
+   "W_cos_min": 0.9859880891637854,
+   "S_cos_max": -0.9960264786276203,
+   "amostras": 33
+  },
+  {
+   "nome": "cursor sobre o personagem (S)",
+   "variacao_orientacao_rad": 0.0021121348839343093
+  },
+  {
+   "nome": "W após girar a câmera (Q)",
+   "cos_desloc_orientacao": 0.9982192294239983
+  },
+  {
+   "nome": "S contra a parede 1,5 s",
+   "x": -0.10954292118549347,
+   "z": 0.7300999760627747,
+   "st": "idle",
+   "v": 0.07837457729013865,
+   "f": 0.06533898732476964,
+   "ativo": [
+    "Idle@1.00"
+   ]
+  },
+  {
+   "nome": "retomada W após parede",
+   "x": 0.05107070878148079,
+   "z": 3.227701187133789,
+   "st": "walking",
+   "v": 4.195690606417584,
+   "f": 0.06392056836872123,
+   "ativo": [
+    "Run@2.62"
+   ]
+  },
+  {
+   "nome": "pausa com W",
+   "deslocamento_m": 0,
+   "estado": "idle",
+   "pausa": true
+  }
+ ],
+ "pes": {
+  "run": {
+   "quadros": 182,
+   "janelas_apoio": 3,
+   "corpo_m_s": 4.2,
+   "pe_apoio_mediana_m_s": 4.136,
+   "pe_apoio_p90_m_s": 5.207,
+   "deslize_relativo_mediana": 0.985,
+   "tolerante": {
+    "janelas": 27,
+    "pe_mediana_m_s": 2.273,
+    "deslize_relativo": 0.541
+   },
+   "estados": [
+    "walking"
+   ]
+  },
+  "backward": {
+   "quadros": 183,
+   "janelas_apoio": 129,
+   "corpo_m_s": 1.2,
+   "pe_apoio_mediana_m_s": 0.008,
+   "pe_apoio_p90_m_s": 0.393,
+   "deslize_relativo_mediana": 0.007,
+   "tolerante": {
+    "janelas": 176,
+    "pe_mediana_m_s": 0.01,
+    "deslize_relativo": 0.008
+   },
+   "estados": [
+    "backward"
+   ]
+  }
+ },
+ "checagens": {
+  "W_desloca_na_mira": true,
+  "S_recua_oposto": true,
+  "S_mantem_orientacao": true,
+  "WS_parado": true,
+  "AD_parado": true,
+  "parede_idle": true,
+  "retomada": true
+ }
+}

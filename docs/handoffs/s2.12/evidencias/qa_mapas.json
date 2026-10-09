@@ -1,0 +1,77 @@
+{
+ "erros": [],
+ "rota": [
+  {
+   "x": 0.02,
+   "z": 13.82,
+   "st": "idle",
+   "v": 0.01
+  },
+  {
+   "x": 2.65,
+   "z": 13.78,
+   "st": "idle",
+   "v": 0.03
+  },
+  {
+   "x": 2.57,
+   "z": 16.7,
+   "st": "idle",
+   "v": 0.03
+  },
+  {
+   "x": 0.18,
+   "z": 16.75,
+   "st": "idle",
+   "v": 0.03
+  },
+  {
+   "x": 0.3,
+   "z": 28.64,
+   "st": "idle",
+   "v": 0.03
+  }
+ ],
+ "aviso_deck": "E · Entrar na aeronave",
+ "cabine": true,
+ "mov_bloqueado_na_cabine": true,
+ "shanghai_inicio": {
+  "x": 0,
+  "z": 9.5,
+  "st": "idle",
+  "v": 0
+ },
+ "combate": {
+  "atirando_W": {
+   "x": 0.13,
+   "z": 6.88,
+   "st": "walking",
+   "v": 4.2
+  },
+  "atirando_S": {
+   "x": 0.11,
+   "z": 7.35,
+   "st": "backward",
+   "v": 1.2
+  },
+  "hud_apos_recarga": "DA 100 / 100RIFLE · 24 / 88Mouse: mirar e atirar · R: recarregarRobôs neutralizados: 1 / 1",
+  "hud_durante_recarga": "VIDA 100 / 100RIFLE · 16 / 96Recarregando…Robôs neutralizado"
+ },
+ "aviso_volta_nave": "E · Entrar na aeronave",
+ "marte_depois_da_volta": {
+  "titulo": "Marte · Colônia humana",
+  "antes": {
+   "x": 0,
+   "z": 29.5,
+   "st": "idle",
+   "v": 0
+  },
+  "W": {
+   "x": 0.06,
+   "z": 27.3,
+   "st": "walking",
+   "v": 4.19
+  }
+ },
+ "selo": "PRÉVIA DE TESTE · PERSONAGEMExplorador r7 (S6.8 · 4c0ecfd)Clipes: Backward, Fall, Idle, Run, TalkComparar com o personagem atual"
+}

@@ -14,7 +14,7 @@ Abrir http://127.0.0.1:5178/. Se a aba estava aberta, atualizar. Usar a página 
 
 | Teste | Ação | Resultado esperado |
 | --- | --- | --- |
-| Movimento e mira | Orientar com o mouse, usar W/S e A/D; repetir olhando em outra direção e girar a câmera com Q/C | W avança na direção do olhar; S recua; A/D deslocam para os lados do personagem sem girá-lo sozinhos; Shift corre |
+| Movimento pela mira (contrato da S2.12) | Mirar com o mouse e usar W, S, W + S e A/D; repetir mirando em outra direção, movendo o cursor durante o movimento e girando a câmera com Q/C | W corre na direção do cursor; S recua com o corpo voltado ao cursor, sem girar 180°; W + S parado; A/D não deslocam; Shift não é necessário; a câmera não muda a direção do movimento |
 | Rifle | Clicar uma vez, depois segurar o botão esquerdo sobre um robô | Disparos manuais, munição diminuindo e indicação de acerto; 3 acertos eliminam um robô |
 | Recarga | Disparar algumas vezes e apertar R; tentar atirar durante a recarga | Recarga de cerca de 1,5 s; disparos bloqueados durante ela; pente até 24, descontando da reserva |
 | Munição finita | Após limpar a área, esvaziar um pente e tentar atirar sem recarregar | Sem tiro com pente vazio; aviso para usar R; reserva não aumenta sozinha |

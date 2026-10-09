@@ -6,6 +6,8 @@ import { useExpeditionStore } from '../state/useExpeditionStore';
 import { useGameStore } from '../state/useGameStore';
 import { MAPS } from '../game/config';
 import { isNearEden } from '../state/playerTransient';
+import { PlayerAssetBadge } from '../characters/player/PlayerAssetBadge';
+import { comparacaoDisponivel } from '../characters/player/playerAssetChoice';
 import { EDEN_BRIEFING, SHANGHAI_BRIEFING } from '../npcs/scripts/eden';
 import { disposeWorld } from '../game/worldUtils';
 import type { OfficeWorld } from '../world/createOfficeMap';
@@ -101,7 +103,8 @@ function Runtime() {
       <p>{s.session.map === 'mars' ? 'EDEN ao norte · Deck de lançamento ao sul, após o complexo.' : 'Neutralize os robôs. Use as esquinas como cobertura e mantenha distância.'}</p>
       <small>Sprint 2 · Combate de teste. Hordas e coleta entram nas próximas etapas.</small>
     </aside>
-    {controls && <aside className="controls">Mouse: orientar personagem · botão esquerdo: atirar · R: recarregar · W/↑: avançar · S/↓: recuar · A/D ou ←/→: deslocar para os lados do personagem · Shift: correr · E: interagir / desembarcar · Q/C: girar câmera · roda ou +/−: zoom · Esc: fechar diálogo / pausar.</aside>}
+    {controls && <aside className="controls">Mouse: mirar e orientar o personagem · W/↑: correr na direção do cursor · S/↓: recuar voltado para o cursor · W + S: parado · botão esquerdo: atirar · R: recarregar · E: interagir / desembarcar · Q/C: girar câmera · roda ou +/−: zoom · Esc: fechar diálogo / pausar.</aside>}
+    {comparacaoDisponivel() && <PlayerAssetBadge/>}
     <footer className="radio"><b>EDEN / RÁDIO</b><p>{s.radio}</p></footer>
     {s.session.map === 'shanghai' && <CombatHud/>}
     {s.saveError && <p className="save-warning" role="alert">{s.saveError}</p>}

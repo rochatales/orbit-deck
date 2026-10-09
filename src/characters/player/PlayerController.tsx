@@ -2,8 +2,8 @@ import { useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useBeforePhysicsStep, useRapier, type RapierCollider, type RapierRigidBody } from "@react-three/rapier";
 import { useEffect, useMemo, useRef, type MutableRefObject } from "react";
-import { MathUtils, Quaternion, Vector2, Vector3 } from "three";
-import { relativeMovement } from "./relativeMovement";
+import { MathUtils, Quaternion, Vector3 } from "three";
+import { aimInput, aimMotion, locomotionKind, updateAimAngle, type LocomotionKind } from "./aimMovement";
 import { combatRuntime } from "../../state/useCombatStore";
 import { simulationBlocked } from "../../game/simulationGate";
 import { GameControl } from "../../controls/keyboardControls";
@@ -15,6 +15,7 @@ import { clamp, damp, dampAngle, type RectBounds } from "../../utils/math";
 import type { OfficeWorld } from "../../world/createOfficeMap";
 import {
   PLAYER_COLLIDER_CENTER_Y,
+  PLAYER_LOCOMOTION,
   PLAYER_MOVEMENT,
   PLAYER_PHYSICS,
   type PlayerMotionState
@@ -97,9 +98,11 @@ export function PlayerController({
   const activeNpcId = useExpeditionStore((state) => state.panel === "eden" ? "eden" : null);
   const [, getKeys] = useKeyboardControls<GameControl>();
   const controllerRef = useRef<ReturnType<typeof world.createCharacterController> | null>(null);
-  const inputRef = useRef(new Vector2());
-  const targetInputRef = useRef(new Vector2());
   const velocityRef = useRef(new Vector3());
+  const speedRef = useRef(0);   // velocidade escalar ao longo da orientação (+ avança, − recua)
+  const motionDirRef = useRef({ x: 0, z: 0 });
+  const aimAngleRef = useRef(0);
+  const kindRef = useRef<LocomotionKind>("idle");
   const movementRef = useRef(new Vector3());
   const upAxis = useMemo(() => new Vector3(0, 1, 0), []);
   const facingAngleRef = useRef(0);
@@ -122,8 +125,9 @@ export function PlayerController({
 
   useEffect(() => {
     if (isPaused || isDialogOpen) {
-      inputRef.current.set(0, 0);
       velocityRef.current.set(0, 0, 0);
+      speedRef.current = 0;
+      kindRef.current = "idle";
       motionRef.current.animationState = 'idle';
       motionRef.current.planarSpeed = 0;
     }
@@ -138,35 +142,40 @@ export function PlayerController({
     }
 
     const dt = stepWorld.integrationParameters.dt;
-    if (simulationBlocked()) { inputRef.current.set(0, 0); velocityRef.current.set(0, 0, 0); return; }
-    const translation = body.translation();
-    const enabled = !simulationBlocked();
-    const keys = getKeys();
-    targetInputRef.current.set(
-      (keys[GameControl.Rightward] ? 1 : 0) - (keys[GameControl.Leftward] ? 1 : 0),
-      (keys[GameControl.Forward] ? 1 : 0) - (keys[GameControl.Backward] ? 1 : 0)
-    );
-    inputRef.current.lerp(targetInputRef.current, MathUtils.clamp(dt * 12, 0, 1));
-
-    if (!enabled) {
-      inputRef.current.lerp(new Vector2(0, 0), MathUtils.clamp(dt * 16, 0, 1));
+    if (simulationBlocked()) {
+      // menus, diálogos, pausa, morte e transições: sem deslocamento e sem locomoção no lugar
+      velocityRef.current.set(0, 0, 0); speedRef.current = 0; kindRef.current = "idle"; motionRef.current.planarSpeed = 0;
+      const st = motionRef.current.animationState;
+      if (st === "walking" || st === "backward") motionRef.current.animationState = "idle";
+      return;
     }
+    const translation = body.translation();
+    const keys = getKeys();
+    // S2.12 · contrato pela mira: W corre, S recua, W+S neutraliza; A/D não entram.
+    const input = aimInput(!!keys[GameControl.Forward], !!keys[GameControl.Backward]);
 
-    const isRunning = enabled && keys[GameControl.Run];
-    const maxMoveSpeed = PLAYER_MOVEMENT.speed * (isRunning ? PLAYER_MOVEMENT.runMultiplier : 1);
-    const desiredSpeed = enabled && inputRef.current.lengthSq() > 0.001 ? maxMoveSpeed : 0;
+    // Direção de mira estável: cursor perto do player (ou fora do canvas) mantém a última.
+    aimAngleRef.current = updateAimAngle(aimAngleRef.current, translation.x, translation.z,
+      combatRuntime.aim.x, combatRuntime.aim.z, combatRuntime.aimValid, PLAYER_LOCOMOTION.aimMinDistance);
+    const interactionAngle = isDialogOpen ? getInteractionFacingAngle(translation.x, translation.z, activeNpcId) : null;
+    const targetAngle = interactionAngle ?? aimAngleRef.current;
+    const rotationAlpha = 1 - Math.pow(1 - PLAYER_MOVEMENT.rotationLerp, dt * 60);
+    facingAngleRef.current =
+      input !== 0 || interactionAngle !== null
+        ? lerpAngle(facingAngleRef.current, targetAngle, rotationAlpha)
+        : dampAngle(facingAngleRef.current, targetAngle, 10, dt);
 
-    // Use the current visual facing, never the camera or movement velocity.
-    // Strafing/backpedalling must not feed back into facing and create a turn loop.
-    const relative = relativeMovement(facingAngleRef.current, inputRef.current.x, inputRef.current.y);
-    const desiredDirection = movementRef.current.set(relative.x, 0, relative.z);
+    // O deslocamento usa a mesma direção do corpo (nunca os eixos da câmera): ao recuar o
+    // corpo continua voltado ao cursor, sem girar 180°.
+    // Só a velocidade escalar é suavizada; a direção é sempre a do corpo neste passo, então
+    // girar o cursor correndo ou recuando gira o deslocamento junto (sem arrasto lateral).
+    const desiredSpeed = input > 0 ? PLAYER_MOVEMENT.runSpeed : input < 0 ? -PLAYER_MOVEMENT.backSpeed : 0;
+    const smoothing = input !== 0 && Math.sign(desiredSpeed) !== -Math.sign(speedRef.current) ? PLAYER_MOVEMENT.acceleration : PLAYER_MOVEMENT.deceleration;
+    speedRef.current = damp(speedRef.current, desiredSpeed, smoothing, dt);
+    const forward = aimMotion(facingAngleRef.current, 1, motionDirRef.current);
+    velocityRef.current.x = forward.x * speedRef.current;
+    velocityRef.current.z = forward.z * speedRef.current;
 
-    const smoothing = desiredSpeed > 0 ? PLAYER_MOVEMENT.acceleration : PLAYER_MOVEMENT.deceleration;
-    velocityRef.current.x = damp(velocityRef.current.x, desiredDirection.x * desiredSpeed, smoothing, dt);
-    velocityRef.current.z = damp(velocityRef.current.z, desiredDirection.z * desiredSpeed, smoothing, dt);
-
-    const planarSpeed = Math.hypot(velocityRef.current.x, velocityRef.current.z);
-    const speedAlpha = MathUtils.clamp(planarSpeed / (PLAYER_MOVEMENT.speed * PLAYER_MOVEMENT.runMultiplier), 0, 1);
     const desiredTranslation = constrainToWalkableAreas(
       translation.x,
       translation.z,
@@ -196,19 +205,17 @@ export function PlayerController({
       z: translation.z + correctedMovement.z
     });
 
-    const interactionAngle = isDialogOpen ? getInteractionFacingAngle(translation.x, translation.z, activeNpcId) : null;
-    const moveAngle = planarSpeed > 0.001 ? Math.atan2(velocityRef.current.x, velocityRef.current.z) : facingAngleRef.current;
-    const aimAngle = combatRuntime.aimValid
-      ? Math.atan2(combatRuntime.aim.x - translation.x, combatRuntime.aim.z - translation.z) : null;
-    const targetAngle = interactionAngle ?? aimAngle ?? facingAngleRef.current;
-    const rotationAlpha = 1 - Math.pow(1 - PLAYER_MOVEMENT.rotationLerp, dt * 60);
-    facingAngleRef.current =
-      planarSpeed > 0.001 || interactionAngle !== null
-        ? lerpAngle(facingAngleRef.current, targetAngle, rotationAlpha)
-        : dampAngle(facingAngleRef.current, targetAngle, 10, dt);
-
     rotationQuaternion.current.setFromAxisAngle(upAxis, facingAngleRef.current);
     body.setNextKinematicRotation(rotationQuaternion.current);
+
+    // Locomoção pela velocidade real depois da colisão (parede → Idle) e pelo sentido em
+    // relação ao corpo (para trás → Backward).
+    const vx = correctedMovement.x / dt, vz = correctedMovement.z / dt;
+    const planarSpeed = Math.hypot(vx, vz);
+    const along = vx * Math.sin(facingAngleRef.current) + vz * Math.cos(facingAngleRef.current);
+    kindRef.current = locomotionKind(kindRef.current, along, planarSpeed, PLAYER_LOCOMOTION.startSpeed, PLAYER_LOCOMOTION.stopSpeed);
+    const speedAlpha = MathUtils.clamp(planarSpeed / PLAYER_MOVEMENT.runSpeed, 0, 1);
+    const moveAngle = planarSpeed > 0.001 ? Math.atan2(vx, vz) : facingAngleRef.current;
 
     const now = performance.now() * 0.001;
     motionRef.current.animationState =
@@ -216,9 +223,11 @@ export function PlayerController({
         ? "actionTriggered"
         : isDialogOpen
           ? "interacting"
-          : speedAlpha > 0.08
+          : kindRef.current === "run"
             ? "walking"
-            : "idle";
+            : kindRef.current === "backward"
+              ? "backward"
+              : "idle";
     motionRef.current.speedAlpha = speedAlpha;
     motionRef.current.planarSpeed = planarSpeed;
     motionRef.current.moveAngle = moveAngle;

@@ -1,0 +1,30 @@
+{
+ "r7": {
+  "erros": [],
+  "estado_no_recuo": {
+   "frente_padrao": "backward",
+   "costas_padrao": "backward",
+   "perfil_dir_padrao": "backward",
+   "perfil_esq_padrao": "backward",
+   "frente_max": "backward",
+   "costas_max": "backward",
+   "perfil_dir_max": "backward",
+   "perfil_esq_max": "backward"
+  },
+  "video": "page@cf725576163463a42bbeafac3b62e581.webm"
+ },
+ "atual": {
+  "erros": [],
+  "estado_no_recuo": {
+   "frente_padrao": "backward",
+   "costas_padrao": "backward",
+   "perfil_dir_padrao": "backward",
+   "perfil_esq_padrao": "backward",
+   "frente_max": "backward",
+   "costas_max": "backward",
+   "perfil_dir_max": "backward",
+   "perfil_esq_max": "backward"
+  },
+  "video": "page@2beea7210cd9950b090b996fcf2da4a6.webm"
+ }
+}

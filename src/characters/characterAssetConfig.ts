@@ -1,5 +1,6 @@
 import edenAsset from '../assets/characters/npcs/brand-brain.glb';
 import playerAsset from '../assets/characters/player/player-main.glb';
+import exploradorR7Asset from '../assets/characters/player/explorador-r7.glb';
 export type CharacterFallbackType = 'player' | 'brand-brain' | 'editorial' | 'narration' | 'design' | 'output-review' | 'smart-lab' | 'orbit-garden';
 export interface CharacterAssetConfig {
     id: string;
@@ -18,10 +19,25 @@ export interface CharacterAssetConfig {
     ];
     accentColor: string;
     fallbackType: CharacterFallbackType;
+    /**
+     * 'estilizado': acabamento antigo (flatShading e visor escurecido por código).
+     * 'preservar': materiais do GLB como exportados (normais suaves, cor e ORM bakeados).
+     */
+    materialProfile?: 'estilizado' | 'preservar';
 }
 export const PLAYER_CHARACTER_ASSET: CharacterAssetConfig = {
-    id: 'player', name: 'Explorador', assetPath: playerAsset, scale: 0.857, positionOffset: [0, 0, 0], rotationOffset: [0, 0, 0], accentColor: '#66e6ff', fallbackType: 'player'
+    id: 'player', name: 'Explorador', assetPath: playerAsset, scale: 0.857, positionOffset: [0, 0, 0], rotationOffset: [0, 0, 0], accentColor: '#66e6ff', fallbackType: 'player', materialProfile: 'estilizado'
 };
+/**
+ * Explorador r7 (S6.8, `4c0ecfd`, `explorador_v2_candidato_r7.glb`, SHA-256 143a14d0…): mesmo rig
+ * de 41 ossos e escala do ativo, com Idle, Run, Talk, Fall e Backward. Asset separado; o GLB ativo
+ * (`player-main.glb`) continua no repositório para comparação.
+ */
+export const EXPLORADOR_R7_ASSET: CharacterAssetConfig = {
+    id: 'player-r7', name: 'Explorador', assetPath: exploradorR7Asset, scale: 0.857, positionOffset: [0, 0, 0], rotationOffset: [0, 0, 0], accentColor: '#66e6ff', fallbackType: 'player', materialProfile: 'preservar'
+};
+export type PlayerAssetVariant = 'r7' | 'atual';
+export const PLAYER_ASSET_VARIANTS: Record<PlayerAssetVariant, CharacterAssetConfig> = { r7: EXPLORADOR_R7_ASSET, atual: PLAYER_CHARACTER_ASSET };
 export const EDEN_CHARACTER_ASSET: CharacterAssetConfig = {
     id: 'eden', name: 'EDEN', assetPath: edenAsset, scale: 1.3, positionOffset: [0.06, 0.68, 0], rotationOffset: [0, 0.06, 0], accentColor: '#f2c94c', fallbackType: 'brand-brain'
 };
