@@ -1,4 +1,4 @@
-import { COMBAT, HIT_LAYER, RIFLE_MASK } from './config';
+import { COMBAT, HIT_LAYER, RIFLE_MASK, PATROL_ROUTES, HORDE_SPAWNS } from './config';
 import { Navigation, clearSegment, segmentBox, type Position, type Terrain } from './navigation';
 export interface Robot extends Position {
     id: number;
@@ -7,6 +7,9 @@ export interface Robot extends Position {
     path: Position[];
     repath: number;
     flash: number;
+    alerted: boolean;
+    routeIndex: number;
+    waypoint: number;
 }
 export interface Shot {
     from: Position;
@@ -69,11 +72,17 @@ export class CombatSimulation {
     elapsed = 0;
     constructor(public terrain: Terrain, count: number) {
         this.navigation = new Navigation(terrain, COMBAT.robot.radius, COMBAT.grid);
-        this.robots = COMBAT.spawns.slice(0, Math.max(1, Math.min(5, count))).map((p, id) => ({ ...p, id, hp: COMBAT.robot.hp, angle: 0, path: [], repath: 0, flash: 0 }));
+        const size = Number.isFinite(count) ? Math.max(1, Math.min(COMBAT.encounterSize, Math.floor(count))) : COMBAT.encounterSize;
+        const spawns = size <= 5 ? COMBAT.spawns.slice(0, size).map((p, id) => ({ ...p, routeIndex: id < 3 ? 2 : id - 3, waypoint: 0 })) : HORDE_SPAWNS.slice(0, size);
+        this.robots = spawns.map((p, id) => {
+            const target = PATROL_ROUTES[p.routeIndex][p.waypoint];
+            return { ...p, id, hp: COMBAT.robot.hp, angle: Math.atan2(target.x - p.x, target.z - p.z), path: [], repath: 0, flash: 0, alerted: false };
+        });
     }
     get dead() { return this.hp <= 0; }
     get cleared() { return this.robots.every(r => r.hp <= 0); }
     get snapshot() { return { hp: this.hp, ammo: this.ammo, reserve: this.reserve, reloading: this.reloadLeft > 0, dead: this.dead, kills: this.kills, total: this.robots.length, cleared: this.cleared, damage: this.damageFlash > 0, hit: this.hitFlash > 0 }; }
+    private nextPosition: Position = { x: 0, z: 0 };
     step(dt: number, input: CombatInput, paused = false) {
         if (paused || this.dead)
             return;
@@ -116,7 +125,11 @@ export class CombatSimulation {
             if (robot.hp <= 0)
                 continue;
             const distance = Math.hypot(robot.x - input.player.x, robot.z - input.player.z);
-            if (distance <= COMBAT.robot.contactRange && clearSegment(robot, input.player, this.terrain, 0)) {
+            if (!robot.alerted && canSeePlayer(robot, input.player, this.terrain)) {
+                robot.alerted = true;
+                robot.repath = 0;
+            }
+            if (robot.alerted && distance <= COMBAT.robot.contactRange && clearSegment(robot, input.player, this.terrain, 0)) {
                 if (this.invulnerable === 0) {
                     this.hp = Math.max(0, this.hp - COMBAT.robot.damage);
                     this.invulnerable = COMBAT.robot.contactInterval;
@@ -124,9 +137,14 @@ export class CombatSimulation {
                 }
                 continue;
             }
+            const route = PATROL_ROUTES[robot.routeIndex];
+            if (!robot.alerted && Math.hypot(robot.x - route[robot.waypoint].x, robot.z - route[robot.waypoint].z) < 0.1) {
+                robot.waypoint = (robot.waypoint + 1) % route.length;
+                robot.repath = 0;
+            }
             robot.repath -= dt;
             if (robot.repath <= 0) {
-                robot.path = this.navigation.path(robot, input.player);
+                robot.path = this.navigation.path(robot, robot.alerted ? input.player : route[robot.waypoint]);
                 robot.repath = COMBAT.robot.repath;
             }
             while (robot.path.length && Math.hypot(robot.path[0].x - robot.x, robot.path[0].z - robot.z) < 0.08)
@@ -135,7 +153,9 @@ export class CombatSimulation {
             if (!target)
                 continue;
             const dx = target.x - robot.x, dz = target.z - robot.z, d = Math.hypot(dx, dz), step = Math.min(COMBAT.robot.speed * dt, d);
-            const next = { x: robot.x + dx / d * step, z: robot.z + dz / d * step };
+            const next = this.nextPosition;
+            next.x = robot.x + dx / d * step;
+            next.z = robot.z + dz / d * step;
             if (clearSegment(robot, next, this.terrain, COMBAT.robot.radius) && !this.robots.some(other => other !== robot && other.hp > 0 && Math.hypot(other.x - next.x, other.z - next.z) < COMBAT.robot.radius * 1.7)) {
                 robot.x = next.x;
                 robot.z = next.z;
@@ -143,4 +163,12 @@ export class CombatSimulation {
             robot.angle = Math.atan2(dx, dz);
         }
     }
+}
+
+/** Cone frontal de 120 graus; paredes bloqueiam a aquisição do alvo. */
+export function canSeePlayer(robot: Robot, player: Position, terrain: Terrain) {
+    const dx = player.x - robot.x, dz = player.z - robot.z, distance = Math.hypot(dx, dz);
+    if (distance > COMBAT.robot.visionRange) return false;
+    if (distance > 0.001 && (dx * Math.sin(robot.angle) + dz * Math.cos(robot.angle)) / distance < COMBAT.robot.visionCos) return false;
+    return clearSegment(robot, player, terrain, 0);
 }

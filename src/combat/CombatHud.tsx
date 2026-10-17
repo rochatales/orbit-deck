@@ -3,7 +3,7 @@ import { useExpeditionStore } from '../state/useExpeditionStore';
 import { useGameStore } from '../state/useGameStore';
 export function EncounterSelect() {
     const count = useCombatStore(s => s.encounterSize), select = useCombatStore(s => s.selectEncounter);
-    return <label>Robôs no encontro de teste<select aria-label="Robôs no encontro" value={count} onChange={e => select(Number(e.target.value))}><option value={1}>1 · Aprender a mirar</option><option value={3}>3 · Encontro padrão</option><option value={5}>5 · Pressão de combate</option></select></label>;
+    return <label>Robôs no encontro de teste<select aria-label="Robôs no encontro" value={count} onChange={e => select(Number(e.target.value))}><option value={1}>1 · Aprender a mirar</option><option value={3}>3 · Patrulha pequena</option><option value={5}>5 · Pressão de combate</option><option value={32}>32 · Horda (~30 s)</option></select></label>;
 }
 export function CombatHud() {
     const s = useCombatStore(), phase = useExpeditionStore(s => s.session.phase), panel = useExpeditionStore(s => s.panel), paused = useGameStore(s => s.isPaused);
