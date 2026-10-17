@@ -101,3 +101,47 @@ test('horda começa completa, patrulha de forma determinística e respeita préd
  assert.ok(COMBAT.rifle.magazine+COMBAT.rifle.reserve>=32*Math.ceil(COMBAT.robot.hp/COMBAT.rifle.damage)*1.25);
  const fresh=new CombatSimulation(world,32);assert.deepEqual(fresh.robots,again.robots);
 });
+
+test('abate gera um conjunto de metais na posição da morte e coleta uma única vez',()=>{
+ const sim=new CombatSimulation(terrain,1),r=sim.robots[0];
+ Object.assign(r,{x:0,z:0,hp:25});
+ sim.step(1/60,{...input,aim:{x:0,z:0},firing:true});
+ assert.equal(sim.kills,1);assert.deepEqual(sim.drops[0],{x:0,z:0,active:true});
+ assert.equal(sim.iron,0);assert.equal(sim.copper,0);
+ ticks(sim,1,{...input,aim:{x:0,z:0},firing:true});assert.equal(sim.kills,1);
+ sim.step(1/60,{...input,player:{x:0,z:0}});
+ assert.equal(sim.drops[0].active,false);assert.equal(sim.iron,1);assert.equal(sim.copper,1);
+ ticks(sim,1,{...input,player:{x:0,z:0}});assert.equal(sim.iron,1);assert.equal(sim.copper,1);
+ assert.equal(sim.snapshot.iron,1);
+});
+test('dois corações curam 50 pontos, limitam a 100 e não são consumidos com vida cheia',()=>{
+ const sim=new CombatSimulation(createWorld(),1);sim.robots[0].hp=0;
+ assert.equal(sim.hearts.length,2);
+ for(const h of sim.hearts)assert.ok(traversable(h,sim.terrain,.32));
+ const first={...input,player:sim.hearts[0]};
+ sim.step(1/60,first);assert.equal(sim.hearts[0].active,true);
+ sim.hp=20;sim.step(1/60,first);assert.equal(sim.hp,70);assert.equal(sim.hearts[0].active,false);
+ sim.step(1/60,first);assert.equal(sim.hp,70);
+ sim.step(1/60,{...input,player:sim.hearts[1]});assert.equal(sim.hp,100);assert.equal(sim.hearts[1].active,false);
+});
+test('coleta respeita pausa, parede, morte e reinício da tentativa',()=>{
+ const wall={...terrain,obstacles:[{minX:-2,maxX:2,minZ:0,maxZ:.1}]};
+ const sim=new CombatSimulation(wall,1);sim.robots[0].hp=0;
+ Object.assign(sim.drops[0],{x:0,z:-.4,active:true});Object.assign(sim.hearts[0],{x:0,z:-.4});sim.hp=50;
+ const close={...input,player:{x:0,z:.4}};
+ sim.step(1/60,close);assert.equal(sim.iron,0);assert.equal(sim.hp,50);
+ const sameSide={...input,player:{x:0,z:-.4}};
+ sim.step(1/60,sameSide,true);assert.equal(sim.iron,0);assert.equal(sim.hp,50);
+ sim.hp=0;sim.step(1/60,sameSide);assert.equal(sim.iron,0);assert.equal(sim.hp,0);
+ const fresh=new CombatSimulation(terrain,1);
+ assert.equal(fresh.iron,0);assert.equal(fresh.copper,0);assert.ok(fresh.hearts.every(h=>h.active));assert.ok(fresh.drops.every(d=>!d.active));
+});
+test('alerta visual inicia na detecção, congela na pausa e expira sem perder perseguição',()=>{
+ const sim=new CombatSimulation(terrain,1),r=sim.robots[0];Object.assign(r,{x:0,z:0,angle:0});
+ assert.equal(r.alertLeft,0);assert.equal(r.alerted,false);
+ sim.step(1/60,{...input,player:{x:0,z:5}});assert.equal(r.alertLeft,COMBAT.alertDuration);
+ ticks(sim,2,{...input,player:{x:0,z:-10}});assert.equal(r.alertLeft,0);assert.equal(r.alerted,true);
+ const fresh=new CombatSimulation(terrain,1);Object.assign(fresh.robots[0],{x:0,z:0,angle:0});
+ fresh.step(1/60,{...input,player:{x:0,z:5}});
+ fresh.step(1,{...input},true);assert.equal(fresh.robots[0].alertLeft,COMBAT.alertDuration);
+});

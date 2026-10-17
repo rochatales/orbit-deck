@@ -12,11 +12,13 @@ export function CombatHud() {
     <aside className="combat-hud" aria-label="Estado de combate">
       <strong>VIDA {s.hp} / 100</strong><progress aria-label="Vida" value={s.hp} max={100}/>
       <b>RIFLE · {s.ammo} / {s.reserve}</b><span>{s.reloading ? 'Recarregando…' : s.ammo === 0 ? (s.reserve > 0 ? 'Sem balas no pente · R para recarregar' : 'Munição esgotada · reinicie o encontro') : 'Mouse: mirar e atirar · R: recarregar'}</span>
+      <small>Peças coletadas: {s.iron} ferro · {s.copper} cobre</small>
+      <small>Aproxime-se para coletar · Coração: +50 de vida</small>
       <small>Robôs neutralizados: {s.kills} / {s.total}</small>
     </aside>
     {s.damage && !s.dead && <div className="damage-vignette" aria-hidden="true"/>}
     {s.hit && !s.dead && <span className="hit-feedback">ACERTO</span>}
-    {s.dead && <section className="overlay" role="dialog" aria-label="Explorador abatido"><article><p className="eyebrow">EXPEDIÇÃO INTERROMPIDA</p><h2>Explorador abatido</h2><p>Recomece em Shanghai com vida e munição restauradas. Nenhum progresso deste encontro é salvo. O sistema de loot será adicionado em outro sprint.</p><EncounterSelect /><button onClick={restart}>Tentar novamente</button></article></section>}
+    {s.dead && <section className="overlay" role="dialog" aria-label="Explorador abatido"><article><p className="eyebrow">EXPEDIÇÃO INTERROMPIDA</p><h2>Explorador abatido</h2><p>Recomece em Shanghai com vida e munição restauradas. Nenhum progresso deste encontro é salvo. As peças coletadas nesta tentativa serão descartadas.</p><EncounterSelect /><button onClick={restart}>Tentar novamente</button></article></section>}
     {!s.dead && phase === 'walking' && !panel && !paused && (s.cleared || (s.ammo === 0 && s.reserve === 0)) && <aside className="encounter-result">
       <h2>{s.cleared ? 'Área de teste livre' : 'Sem munição'}</h2><p>{s.cleared ? 'Volte à nave ou repita com mais robôs.' : 'Retorne à nave ou reinicie para receber um novo carregamento.'}</p><EncounterSelect /><button onClick={restart}>Reiniciar encontro</button>
     </aside>}

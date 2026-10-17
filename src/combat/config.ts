@@ -3,6 +3,8 @@ export const COMBAT = {
     version: 's2.4-patrulha-1', encounterSize: 32, playerHp: 100,
     rifle: { magazine: 24, reserve: 96, damage: 25, interval: 0.18, reload: 1.5, range: 32 },
     robot: { hp: 75, speed: 1.65, radius: 0.42, contactRange: 0.92, damage: 15, contactInterval: 0.8, repath: 0.5, visionRange: 10, visionCos: Math.cos(Math.PI / 3) },
+    pickupRadius: 1.1, heartHeal: 50, alertDuration: 1.5,
+    hearts: [{ x: -5, z: 7 }, { x: 5, z: -5 }],
     grid: 0.5, fixedStep: 1 / 60,
     spawns: [{ x: 0, z: -3 }, { x: -5, z: -8 }, { x: 5, z: -8 }, { x: -14, z: 1 }, { x: 14, z: 1 }]
 } as const;

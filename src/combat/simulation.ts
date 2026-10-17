@@ -8,8 +8,12 @@ export interface Robot extends Position {
     repath: number;
     flash: number;
     alerted: boolean;
+    alertLeft: number;
     routeIndex: number;
     waypoint: number;
+}
+export interface Pickup extends Position {
+    active: boolean;
 }
 export interface Shot {
     from: Position;
@@ -69,6 +73,10 @@ export class CombatSimulation {
     robots: Robot[];
     navigation: Navigation;
     kills = 0;
+    iron = 0;
+    copper = 0;
+    drops: Pickup[];
+    hearts: Pickup[] = COMBAT.hearts.map(p => ({ ...p, active: true }));
     elapsed = 0;
     constructor(public terrain: Terrain, count: number) {
         this.navigation = new Navigation(terrain, COMBAT.robot.radius, COMBAT.grid);
@@ -76,12 +84,17 @@ export class CombatSimulation {
         const spawns = size <= 5 ? COMBAT.spawns.slice(0, size).map((p, id) => ({ ...p, routeIndex: id < 3 ? 2 : id - 3, waypoint: 0 })) : HORDE_SPAWNS.slice(0, size);
         this.robots = spawns.map((p, id) => {
             const target = PATROL_ROUTES[p.routeIndex][p.waypoint];
-            return { ...p, id, hp: COMBAT.robot.hp, angle: Math.atan2(target.x - p.x, target.z - p.z), path: [], repath: 0, flash: 0, alerted: false };
+            return { ...p, id, hp: COMBAT.robot.hp, angle: Math.atan2(target.x - p.x, target.z - p.z), path: [], repath: 0, flash: 0, alerted: false, alertLeft: 0 };
         });
+        this.drops = this.robots.map(() => ({ x: 0, z: 0, active: false }));
     }
     get dead() { return this.hp <= 0; }
     get cleared() { return this.robots.every(r => r.hp <= 0); }
-    get snapshot() { return { hp: this.hp, ammo: this.ammo, reserve: this.reserve, reloading: this.reloadLeft > 0, dead: this.dead, kills: this.kills, total: this.robots.length, cleared: this.cleared, damage: this.damageFlash > 0, hit: this.hitFlash > 0 }; }
+    get snapshot() { return { hp: this.hp, iron: this.iron, copper: this.copper, ammo: this.ammo, reserve: this.reserve, reloading: this.reloadLeft > 0, dead: this.dead, kills: this.kills, total: this.robots.length, cleared: this.cleared, damage: this.damageFlash > 0, hit: this.hitFlash > 0 }; }
+    private canCollect(player: Position, pickup: Position) {
+        return Math.hypot(player.x - pickup.x, player.z - pickup.z) <= COMBAT.pickupRadius
+            && clearSegment(player, pickup, this.terrain, 0);
+    }
     private nextPosition: Position = { x: 0, z: 0 };
     step(dt: number, input: CombatInput, paused = false) {
         if (paused || this.dead)
@@ -92,8 +105,10 @@ export class CombatSimulation {
         this.damageFlash = Math.max(0, this.damageFlash - dt);
         this.hitFlash = Math.max(0, this.hitFlash - dt);
         this.shots = this.shots.filter(s => (s.life -= dt) > 0);
-        for (const r of this.robots)
+        for (const r of this.robots) {
             r.flash = Math.max(0, r.flash - dt);
+            r.alertLeft = Math.max(0, r.alertLeft - dt);
+        }
         if (this.reloadLeft > 0) {
             this.reloadLeft = Math.max(0, this.reloadLeft - dt);
             if (this.reloadLeft === 0) {
@@ -116,8 +131,13 @@ export class CombatSimulation {
                     hit.robot.hp = Math.max(0, hit.robot.hp - COMBAT.rifle.damage);
                     hit.robot.flash = 0.15;
                     this.hitFlash = 0.15;
-                    if (hit.robot.hp === 0)
+                    if (hit.robot.hp === 0) {
                         this.kills++;
+                        const drop = this.drops[hit.robot.id];
+                        drop.x = hit.robot.x;
+                        drop.z = hit.robot.z;
+                        drop.active = true;
+                    }
                 }
             }
         }
@@ -127,6 +147,7 @@ export class CombatSimulation {
             const distance = Math.hypot(robot.x - input.player.x, robot.z - input.player.z);
             if (!robot.alerted && canSeePlayer(robot, input.player, this.terrain)) {
                 robot.alerted = true;
+                robot.alertLeft = COMBAT.alertDuration;
                 robot.repath = 0;
             }
             if (robot.alerted && distance <= COMBAT.robot.contactRange && clearSegment(robot, input.player, this.terrain, 0)) {
@@ -161,6 +182,20 @@ export class CombatSimulation {
                 robot.z = next.z;
             }
             robot.angle = Math.atan2(dx, dz);
+        }
+        if (this.dead) return;
+        for (const drop of this.drops) {
+            if (drop.active && this.canCollect(input.player, drop)) {
+                drop.active = false;
+                this.iron++;
+                this.copper++;
+            }
+        }
+        for (const heart of this.hearts) {
+            if (heart.active && this.hp < COMBAT.playerHp && this.canCollect(input.player, heart)) {
+                heart.active = false;
+                this.hp = Math.min(COMBAT.playerHp, this.hp + COMBAT.heartHeal);
+            }
         }
     }
 }
