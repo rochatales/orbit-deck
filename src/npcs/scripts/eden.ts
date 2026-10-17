@@ -3,4 +3,4 @@ export const EDEN_BRIEFING = [
     'Nosso destino é Shanghai, na Terra. Precisamos recuperar materiais para reconstruir nossa capacidade de produção.',
     'Siga ao sul, atravesse o complexo e encontre o deck de lançamento. Entre na aeronave com E. A partida é uma ação separada, dentro da cabine.'
 ];
-export const SHANGHAI_BRIEFING = 'Pousamos em Shanghai. Desembarque para reconhecer a região. Robôs hostis detectados. Mire com o mouse, segure o botão esquerdo para atirar e use R para recarregar. Mantenha distância. A coleta será habilitada em uma próxima etapa.';
+export const SHANGHAI_BRIEFING = 'Pousamos em Shanghai. Desembarque para reconhecer a região. Robôs hostis detectados. Mire com o mouse, segure o botão esquerdo para atirar e use R para recarregar. Mantenha distância. Aproxime-se das peças para coletar. Corações recuperam 50 pontos de vida.';
