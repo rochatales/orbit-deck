@@ -6,7 +6,7 @@ import fs from 'node:fs';
 import assert from 'node:assert/strict';
 const require=createRequire(process.env.HORDA_QA_PACKAGE);
 const {chromium}=require('playwright-core');
-const out='docs/handoffs/s6.12/evidencias'; fs.mkdirSync(out,{recursive:true});
+const out=process.env.HORDA_QA_OUT ?? 'docs/handoffs/s6.12/evidencias/depois'; fs.mkdirSync(out,{recursive:true});
 const browser=await chromium.launch({headless:true,args:['--enable-gpu','--use-angle=metal','--ignore-gpu-blocklist']});
 const page=await browser.newPage({viewport:{width:1440,height:900}});
 const errors=[];
@@ -40,9 +40,9 @@ try {
  const sceneInfo=()=>page.evaluate(async()=>{
   const {_roots}=await import('/node_modules/.vite/deps/@react-three_fiber.js');
   const s=_roots.get(document.querySelector('canvas')).store.getState();
-  let parts=0,closed=null,open=null;
-  s.scene.traverse(n=>{if(n.userData.colony_name)parts++;if(n.userData.colony_name==='ARQ_Laboratorio_Porta_Folhas')closed=n.visible;if(n.userData.colony_name==='ARQ_Laboratorio_Porta_Folhas_Aberta')open=n.visible;});
-  return {parts,closed,open,camera:s.camera.position.toArray(),memory:{...s.gl.info.memory},calls:s.gl.info.render.calls,triangles:s.gl.info.render.triangles};
+  let parts=0,closed=null,open=null; const doors=[];
+  s.scene.traverse(n=>{if(n.name==='PortaAutomatica')doors.push({position:n.getWorldPosition(n.position.clone()).toArray(),panels:n.children.filter(c=>c.isMesh).map(c=>({x:c.position.x,opacity:c.material.opacity,scale:c.scale.x}))});if(n.userData.colony_name)parts++;if(n.userData.colony_name==='ARQ_Laboratorio_Porta_Folhas')closed=n.visible;if(n.userData.colony_name==='ARQ_Laboratorio_Porta_Folhas_Aberta')open=n.visible;});
+  return {parts,closed,open,doors,camera:s.camera.position.toArray(),memory:{...s.gl.info.memory},calls:s.gl.info.render.calls,triangles:s.gl.info.render.triangles};
  });
  await ready('mars');
  result.spawn=await sceneInfo(); assert.equal(result.spawn.parts,383);
