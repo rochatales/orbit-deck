@@ -12,6 +12,7 @@ import { PhysicsWorld } from '../physics/PhysicsWorld';
 import { OfficeMap } from '../world/OfficeMap';
 import type { OfficeWorld } from '../world/createOfficeMap';
 import type { MapId } from '../game/session';
+import { MarsColony } from './marsColony/MarsColony';
 export function OfficeScene({ world, map }: {
     world: OfficeWorld;
     map: MapId;
@@ -20,16 +21,16 @@ export function OfficeScene({ world, map }: {
     const a = EDEN_CHARACTER_ASSET;
     return <>
     <color attach="background" args={[map === 'mars' ? '#b4927a' : '#788382']}/>
-    <fog attach="fog" args={[map === 'mars' ? '#b4927a' : '#788382', 45, 100]}/>
+    <fog attach="fog" args={map === 'mars' ? ['#b4927a', 130, 270] : ['#788382', 45, 100]}/>
     <Lighting />
-    <CameraRig key={revision} bounds={world.bounds} spawn={spawn}/>
+    <CameraRig key={revision} bounds={world.bounds} spawn={spawn} distanceScale={map === 'mars' ? 3 : 1}/>
     <PlayerAim key={revision}/>
     <PhysicsWorld officeWorld={world}>
       <OfficeMap officeWorld={world}/>
       <Player key={revision} officeWorld={world} spawn={spawn}/>
     </PhysicsWorld>
     {map === 'shanghai' && <CombatScene world={world}/>}
-    <Spacecraft map={map}/>
+    {map === 'mars' ? <MarsColony/> : <Spacecraft map={map}/>}
     {map === 'mars' && <group position={[EDEN.position.x, 0, EDEN.position.z]}>
       <GLBCharacter {...a} animationState="idle"/>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.03, 0]}><ringGeometry args={[1, 1.1, 32]}/><meshBasicMaterial color="#f2c94c"/></mesh>

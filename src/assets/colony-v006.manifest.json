@@ -1,0 +1,6087 @@
+{
+  "version": "v006 B3",
+  "source": "mars_colony_estudo_v006_plataforma_B3.blend",
+  "sourceSha256": "a17aa3c4b557a7e323997429ec7083d1bca5d990c55dcb552c460352f2728dc4",
+  "parts": [
+    {
+      "name": "TER_Solo",
+      "bounds": {
+        "minX": -60.0,
+        "maxX": 60.0,
+        "minY": -0.2997679114341736,
+        "maxY": 5.305448055267334,
+        "minZ": -48.0,
+        "maxZ": 83.25
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.000",
+      "bounds": {
+        "minX": 31.390277862548828,
+        "maxX": 35.147212982177734,
+        "minY": -0.2855195999145508,
+        "maxY": 1.7432401180267334,
+        "minZ": -28.975587844848633,
+        "maxZ": -25.384546279907227
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.001",
+      "bounds": {
+        "minX": -46.51309585571289,
+        "maxX": -35.19460678100586,
+        "minY": -1.9106600284576416,
+        "maxY": 3.6634159088134766,
+        "minZ": 37.537715911865234,
+        "maxZ": 48.99308395385742
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.002",
+      "bounds": {
+        "minX": 29.46160316467285,
+        "maxX": 30.34949493408203,
+        "minY": -0.14421221613883972,
+        "maxY": 0.4108824133872986,
+        "minZ": -2.4443910121917725,
+        "maxZ": -1.497531771659851
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.003",
+      "bounds": {
+        "minX": -38.17338562011719,
+        "maxX": -34.00995635986328,
+        "minY": -0.4590161442756653,
+        "maxY": 1.4884145259857178,
+        "minZ": 37.01227569580078,
+        "maxZ": 41.08152770996094
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.004",
+      "bounds": {
+        "minX": -13.32493782043457,
+        "maxX": -4.978890419006348,
+        "minY": -2.4062280654907227,
+        "maxY": 1.6796050071716309,
+        "minZ": 44.94521713256836,
+        "maxZ": 53.18363952636719
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.005",
+      "bounds": {
+        "minX": 33.35439682006836,
+        "maxX": 41.14539337158203,
+        "minY": -1.989115595817566,
+        "maxY": 3.211791753768921,
+        "minZ": 29.240707397460938,
+        "maxZ": 36.130550384521484
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.006",
+      "bounds": {
+        "minX": -12.654779434204102,
+        "maxX": -8.955650329589844,
+        "minY": -0.9385464787483215,
+        "maxY": 0.8230655789375305,
+        "minZ": 47.33564376831055,
+        "maxZ": 51.11722946166992
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.007",
+      "bounds": {
+        "minX": 5.039572238922119,
+        "maxX": 12.694628715515137,
+        "minY": -2.331517457962036,
+        "maxY": 1.4765808582305908,
+        "minZ": 44.322723388671875,
+        "maxZ": 51.861873626708984
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.008",
+      "bounds": {
+        "minX": -39.436527252197266,
+        "maxX": -31.653247833251953,
+        "minY": -1.9040902853012085,
+        "maxY": 2.805405855178833,
+        "minZ": 3.619734287261963,
+        "maxZ": 11.813203811645508
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.009",
+      "bounds": {
+        "minX": 14.650336265563965,
+        "maxX": 15.334428787231445,
+        "minY": -0.07530265301465988,
+        "maxY": 0.2277521789073944,
+        "minZ": 32.994361877441406,
+        "maxZ": 33.679534912109375
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.010",
+      "bounds": {
+        "minX": -39.03834915161133,
+        "maxX": -35.66379165649414,
+        "minY": -0.19506657123565674,
+        "maxY": 1.8713728189468384,
+        "minZ": 10.661944389343262,
+        "maxZ": 14.149199485778809
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.011",
+      "bounds": {
+        "minX": -1.3563958406448364,
+        "maxX": 3.51064133644104,
+        "minY": -0.4292823076248169,
+        "maxY": 2.396834373474121,
+        "minZ": 55.60762023925781,
+        "maxZ": 60.19858932495117
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.012",
+      "bounds": {
+        "minX": 30.222301483154297,
+        "maxX": 31.442230224609375,
+        "minY": -0.21045945584774017,
+        "maxY": 0.3682137131690979,
+        "minZ": 5.158782958984375,
+        "maxZ": 6.405050277709961
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.013",
+      "bounds": {
+        "minX": 24.224266052246094,
+        "maxX": 25.740541458129883,
+        "minY": -0.41071754693984985,
+        "maxY": 0.4834534227848053,
+        "minZ": 12.162188529968262,
+        "maxZ": 13.630083084106445
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.014",
+      "bounds": {
+        "minX": -17.106277465820312,
+        "maxX": -14.989473342895508,
+        "minY": -0.5297906994819641,
+        "maxY": 0.6548447012901306,
+        "minZ": -22.34872055053711,
+        "maxZ": -20.247211456298828
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.015",
+      "bounds": {
+        "minX": 7.343286514282227,
+        "maxX": 18.195531845092773,
+        "minY": -2.4362454414367676,
+        "maxY": 2.400425434112549,
+        "minZ": 54.621604919433594,
+        "maxZ": 65.53527069091797
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.016",
+      "bounds": {
+        "minX": 6.889302730560303,
+        "maxX": 8.382706642150879,
+        "minY": -0.267530620098114,
+        "maxY": 0.4451952576637268,
+        "minZ": -23.928285598754883,
+        "maxZ": -22.44722557067871
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.017",
+      "bounds": {
+        "minX": 10.948782920837402,
+        "maxX": 17.349411010742188,
+        "minY": -1.4928910732269287,
+        "maxY": 2.104434013366699,
+        "minZ": -31.383724212646484,
+        "maxZ": -24.96381187438965
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.018",
+      "bounds": {
+        "minX": -0.596430242061615,
+        "maxX": 1.3093782663345337,
+        "minY": -0.7489092350006104,
+        "maxY": 0.17820271849632263,
+        "minZ": -16.876445770263672,
+        "maxZ": -14.921382904052734
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.019",
+      "bounds": {
+        "minX": 1.2687361240386963,
+        "maxX": 9.822303771972656,
+        "minY": -2.2433993816375732,
+        "maxY": 1.8799936771392822,
+        "minZ": 48.20468521118164,
+        "maxZ": 56.669837951660156
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.020",
+      "bounds": {
+        "minX": -36.941287994384766,
+        "maxX": -29.35537338256836,
+        "minY": -1.5584566593170166,
+        "maxY": 4.798606872558594,
+        "minZ": -39.91805648803711,
+        "maxZ": -31.08869743347168
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.021",
+      "bounds": {
+        "minX": 30.70975685119629,
+        "maxX": 36.124908447265625,
+        "minY": -1.2233744859695435,
+        "maxY": 1.1918845176696777,
+        "minZ": -22.888593673706055,
+        "maxZ": -17.52585792541504
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.022",
+      "bounds": {
+        "minX": 32.5269889831543,
+        "maxX": 37.37351989746094,
+        "minY": -0.958511471748352,
+        "maxY": 1.4033358097076416,
+        "minZ": 3.5071346759796143,
+        "maxZ": 8.404640197753906
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.023",
+      "bounds": {
+        "minX": 12.340730667114258,
+        "maxX": 13.810494422912598,
+        "minY": -0.3269541263580322,
+        "maxY": 0.5023255944252014,
+        "minZ": 39.71728515625,
+        "maxZ": 41.13764953613281
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.024",
+      "bounds": {
+        "minX": -26.393329620361328,
+        "maxX": -24.332048416137695,
+        "minY": -0.518759548664093,
+        "maxY": 0.47569185495376587,
+        "minZ": 30.58971405029297,
+        "maxZ": 32.70149230957031
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.025",
+      "bounds": {
+        "minX": 32.95853805541992,
+        "maxX": 36.8020133972168,
+        "minY": -0.672439455986023,
+        "maxY": 1.211995244026184,
+        "minZ": -10.840376853942871,
+        "maxZ": -7.047338008880615
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.026",
+      "bounds": {
+        "minX": -17.023639678955078,
+        "maxX": -16.331531524658203,
+        "minY": -0.1726672351360321,
+        "maxY": 0.2267182469367981,
+        "minZ": 11.93531608581543,
+        "maxZ": 12.646507263183594
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.027",
+      "bounds": {
+        "minX": 10.86251449584961,
+        "maxX": 12.91275691986084,
+        "minY": -0.43857309222221375,
+        "maxY": 0.4727954864501953,
+        "minZ": -24.99790382385254,
+        "maxZ": -22.963825225830078
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.028",
+      "bounds": {
+        "minX": 6.327409267425537,
+        "maxX": 8.048891067504883,
+        "minY": -0.5212435722351074,
+        "maxY": 0.5796268582344055,
+        "minZ": 45.523658752441406,
+        "maxZ": 47.17861557006836
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.029",
+      "bounds": {
+        "minX": -18.149415969848633,
+        "maxX": -17.258012771606445,
+        "minY": -0.37818780541419983,
+        "maxY": 0.12120665609836578,
+        "minZ": -5.560979843139648,
+        "maxZ": -4.688900470733643
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.030",
+      "bounds": {
+        "minX": 33.62261199951172,
+        "maxX": 42.346824645996094,
+        "minY": -1.72109055519104,
+        "maxY": 2.1761646270751953,
+        "minZ": 35.324249267578125,
+        "maxZ": 44.107200622558594
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.031",
+      "bounds": {
+        "minX": 37.8294677734375,
+        "maxX": 45.56672668457031,
+        "minY": 0.2793104648590088,
+        "maxY": 4.037625789642334,
+        "minZ": 52.48701477050781,
+        "maxZ": 60.134029388427734
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.032",
+      "bounds": {
+        "minX": 33.3116569519043,
+        "maxX": 42.16630935668945,
+        "minY": -2.131514310836792,
+        "maxY": 3.1934306621551514,
+        "minZ": 20.080265045166016,
+        "maxZ": 28.270038604736328
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.033",
+      "bounds": {
+        "minX": 31.782949447631836,
+        "maxX": 38.959678649902344,
+        "minY": -1.8883377313613892,
+        "maxY": 1.5291239023208618,
+        "minZ": 12.324158668518066,
+        "maxZ": 19.314777374267578
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.034",
+      "bounds": {
+        "minX": 34.585819244384766,
+        "maxX": 44.73966979980469,
+        "minY": -2.0693228244781494,
+        "maxY": 2.9057013988494873,
+        "minZ": 17.18071174621582,
+        "maxZ": 27.449790954589844
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.035",
+      "bounds": {
+        "minX": -43.84718704223633,
+        "maxX": -38.377952575683594,
+        "minY": 0.3470650911331177,
+        "maxY": 3.634307384490967,
+        "minZ": -31.83136749267578,
+        "maxZ": -26.09059715270996
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.036",
+      "bounds": {
+        "minX": -16.851757049560547,
+        "maxX": -15.311064720153809,
+        "minY": -0.5153411030769348,
+        "maxY": 0.4053977131843567,
+        "minZ": 41.25204849243164,
+        "maxZ": 42.87452697753906
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.037",
+      "bounds": {
+        "minX": -24.432443618774414,
+        "maxX": -23.185306549072266,
+        "minY": -0.5324820280075073,
+        "maxY": 0.2512330114841461,
+        "minZ": -8.589018821716309,
+        "maxZ": -7.297563552856445
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.038",
+      "bounds": {
+        "minX": -8.896441459655762,
+        "maxX": -6.96422815322876,
+        "minY": -0.5580134987831116,
+        "maxY": 0.5244048237800598,
+        "minZ": -19.97308921813965,
+        "maxZ": -18.048015594482422
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.039",
+      "bounds": {
+        "minX": 23.212827682495117,
+        "maxX": 25.37543487548828,
+        "minY": -0.6405167579650879,
+        "maxY": 0.4096585810184479,
+        "minZ": 39.00081253051758,
+        "maxZ": 41.21869659423828
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.040",
+      "bounds": {
+        "minX": 39.35806655883789,
+        "maxX": 44.96296310424805,
+        "minY": 0.36856138706207275,
+        "maxY": 3.008209228515625,
+        "minZ": 44.399208068847656,
+        "maxZ": 50.017059326171875
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.041",
+      "bounds": {
+        "minX": -31.3731746673584,
+        "maxX": -29.75037384033203,
+        "minY": -0.33048325777053833,
+        "maxY": 0.6765443086624146,
+        "minZ": 24.238536834716797,
+        "maxZ": 25.717525482177734
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.042",
+      "bounds": {
+        "minX": 32.31566619873047,
+        "maxX": 39.51816177368164,
+        "minY": -2.16729998588562,
+        "maxY": 1.6885862350463867,
+        "minZ": 15.186948776245117,
+        "maxZ": 22.67310333251953
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.043",
+      "bounds": {
+        "minX": -48.75066375732422,
+        "maxX": -39.0755615234375,
+        "minY": -1.5426123142242432,
+        "maxY": 3.9999749660491943,
+        "minZ": 0.9586713314056396,
+        "maxZ": 10.902199745178223
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.044",
+      "bounds": {
+        "minX": -15.677268981933594,
+        "maxX": -14.53075885772705,
+        "minY": -0.3877745568752289,
+        "maxY": 0.5495902299880981,
+        "minZ": 41.31527328491211,
+        "maxZ": 42.64072799682617
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.045",
+      "bounds": {
+        "minX": 20.085546493530273,
+        "maxX": 27.17466926574707,
+        "minY": -2.1688637733459473,
+        "maxY": 0.9942872524261475,
+        "minZ": 44.54314422607422,
+        "maxZ": 51.562320709228516
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.046",
+      "bounds": {
+        "minX": -35.95079803466797,
+        "maxX": -30.497722625732422,
+        "minY": -1.3494477272033691,
+        "maxY": 1.3800410032272339,
+        "minZ": -12.997936248779297,
+        "maxZ": -7.467094421386719
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.047",
+      "bounds": {
+        "minX": 29.12631607055664,
+        "maxX": 33.19582748413086,
+        "minY": -1.369145154953003,
+        "maxY": 1.4176312685012817,
+        "minZ": 22.803985595703125,
+        "maxZ": 26.367456436157227
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.048",
+      "bounds": {
+        "minX": -26.468021392822266,
+        "maxX": -25.284664154052734,
+        "minY": -0.4463866353034973,
+        "maxY": 0.2790803909301758,
+        "minZ": 20.28093147277832,
+        "maxZ": 21.530763626098633
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.049",
+      "bounds": {
+        "minX": -30.748050689697266,
+        "maxX": -29.738313674926758,
+        "minY": -0.1768987774848938,
+        "maxY": 0.43603917956352234,
+        "minZ": 29.692157745361328,
+        "maxZ": 30.667221069335938
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.050",
+      "bounds": {
+        "minX": -42.614009857177734,
+        "maxX": -38.19920349121094,
+        "minY": 0.34408533573150635,
+        "maxY": 2.887101650238037,
+        "minZ": 16.810937881469727,
+        "maxZ": 20.9981689453125
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.051",
+      "bounds": {
+        "minX": 28.267108917236328,
+        "maxX": 30.556249618530273,
+        "minY": -0.6213192939758301,
+        "maxY": 0.42480385303497314,
+        "minZ": 15.447566032409668,
+        "maxZ": 17.696571350097656
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.052",
+      "bounds": {
+        "minX": -45.48634338378906,
+        "maxX": -33.493106842041016,
+        "minY": -2.269897699356079,
+        "maxY": 3.4177489280700684,
+        "minZ": 37.42215347290039,
+        "maxZ": 49.47472381591797
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.053",
+      "bounds": {
+        "minX": -6.881866455078125,
+        "maxX": -5.336292266845703,
+        "minY": -0.7664257287979126,
+        "maxY": 0.42326968908309937,
+        "minZ": -16.200956344604492,
+        "maxZ": -14.443656921386719
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.054",
+      "bounds": {
+        "minX": 33.883583068847656,
+        "maxX": 42.147186279296875,
+        "minY": -2.619239330291748,
+        "maxY": 2.486042022705078,
+        "minZ": -24.208789825439453,
+        "maxZ": -15.473273277282715
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.055",
+      "bounds": {
+        "minX": 19.73462677001953,
+        "maxX": 20.2562255859375,
+        "minY": -0.2614038288593292,
+        "maxY": 0.049541592597961426,
+        "minZ": 4.994026184082031,
+        "maxZ": 5.498504638671875
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.056",
+      "bounds": {
+        "minX": -34.642974853515625,
+        "maxX": -29.190567016601562,
+        "minY": -1.333475112915039,
+        "maxY": 1.897508144378662,
+        "minZ": -25.30466651916504,
+        "maxZ": -19.619028091430664
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.057",
+      "bounds": {
+        "minX": -37.90264892578125,
+        "maxX": -29.805862426757812,
+        "minY": -0.7859230041503906,
+        "maxY": 2.9303250312805176,
+        "minZ": 53.1250114440918,
+        "maxZ": 61.071372985839844
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.058",
+      "bounds": {
+        "minX": 14.819770812988281,
+        "maxX": 25.72295570373535,
+        "minY": -1.8785316944122314,
+        "maxY": 3.701660633087158,
+        "minZ": -41.27714157104492,
+        "maxZ": -30.57638931274414
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.059",
+      "bounds": {
+        "minX": -18.44551658630371,
+        "maxX": -17.557880401611328,
+        "minY": -0.2611624598503113,
+        "maxY": 0.23661719262599945,
+        "minZ": 4.927201747894287,
+        "maxZ": 5.793436050415039
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.060",
+      "bounds": {
+        "minX": -22.893165588378906,
+        "maxX": -21.959043502807617,
+        "minY": -0.2395648956298828,
+        "maxY": 0.23230521380901337,
+        "minZ": 7.735408306121826,
+        "maxZ": 8.698967933654785
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.061",
+      "bounds": {
+        "minX": 19.305627822875977,
+        "maxX": 27.879444122314453,
+        "minY": -2.0431995391845703,
+        "maxY": 2.481505870819092,
+        "minZ": 51.94395446777344,
+        "maxZ": 60.33074188232422
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.062",
+      "bounds": {
+        "minX": -36.07126998901367,
+        "maxX": -29.08942222595215,
+        "minY": -2.1910829544067383,
+        "maxY": 2.357088804244995,
+        "minZ": 10.038376808166504,
+        "maxZ": 16.27280616760254
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.063",
+      "bounds": {
+        "minX": 27.001073837280273,
+        "maxX": 29.120161056518555,
+        "minY": -0.5987663865089417,
+        "maxY": 0.48359987139701843,
+        "minZ": 24.293352127075195,
+        "maxZ": 26.48253059387207
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.064",
+      "bounds": {
+        "minX": 4.269402027130127,
+        "maxX": 10.654026985168457,
+        "minY": -1.1930603981018066,
+        "maxY": 2.4276022911071777,
+        "minZ": 56.65348434448242,
+        "maxZ": 63.209571838378906
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.065",
+      "bounds": {
+        "minX": -26.20397186279297,
+        "maxX": -23.07744598388672,
+        "minY": -0.8831948637962341,
+        "maxY": 1.1949656009674072,
+        "minZ": 46.959896087646484,
+        "maxZ": 49.72945785522461
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.066",
+      "bounds": {
+        "minX": -31.28632354736328,
+        "maxX": -25.541311264038086,
+        "minY": -1.0155760049819946,
+        "maxY": 1.5284546613693237,
+        "minZ": -32.291629791259766,
+        "maxZ": -26.540237426757812
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.067",
+      "bounds": {
+        "minX": -27.45680046081543,
+        "maxX": -25.592153549194336,
+        "minY": -0.46900445222854614,
+        "maxY": 0.44087374210357666,
+        "minZ": -13.251859664916992,
+        "maxZ": -11.410326957702637
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.068",
+      "bounds": {
+        "minX": -15.932222366333008,
+        "maxX": -15.164090156555176,
+        "minY": -0.28308358788490295,
+        "maxY": 0.15337726473808289,
+        "minZ": 15.169090270996094,
+        "maxZ": 15.905787467956543
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TER_Rocha.069",
+      "bounds": {
+        "minX": 23.4981632232666,
+        "maxX": 30.43047332763672,
+        "minY": -2.1903984546661377,
+        "maxY": 1.2322214841842651,
+        "minZ": -27.326000213623047,
+        "maxZ": -20.614158630371094
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Piso_Modulos",
+      "bounds": {
+        "minX": -13.5,
+        "maxX": 18.0,
+        "minY": -0.2500000298023224,
+        "maxY": 0.0,
+        "minZ": -13.0,
+        "maxZ": 27.0
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Piso_Passarelas",
+      "bounds": {
+        "minX": -9.0,
+        "maxX": 9.5,
+        "minY": -0.2500000298023224,
+        "maxY": 0.0,
+        "minZ": -8.0,
+        "maxZ": 20.5
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Piso_Externo",
+      "bounds": {
+        "minX": -20.0,
+        "maxX": 18.0,
+        "minY": -0.2500000298023224,
+        "maxY": 0.0,
+        "minZ": -5.0,
+        "maxZ": 27.5
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Piso_Deck",
+      "bounds": {
+        "minX": -7.0,
+        "maxX": 7.0,
+        "minY": -0.5000000596046448,
+        "maxY": 0.0,
+        "minZ": 25.0,
+        "maxZ": 38.0
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Lab_Piso_Patio",
+      "bounds": {
+        "minX": 9.5,
+        "maxX": 14.5,
+        "minY": -0.2587363123893738,
+        "maxY": 0.004000000189989805,
+        "minZ": -12.0,
+        "maxZ": -3.0
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Lab_Piso_Interno",
+      "bounds": {
+        "minX": 3.5,
+        "maxX": 9.5,
+        "minY": -0.2795085608959198,
+        "maxY": 0.004999999888241291,
+        "minZ": -12.0,
+        "maxZ": -8.0
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Deck_Marcacoes",
+      "bounds": {
+        "minX": -6.764999866485596,
+        "maxX": 6.764999866485596,
+        "minY": 0.0,
+        "maxY": 0.012000000104308128,
+        "minZ": 25.0,
+        "maxZ": 37.900001525878906
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Hub_Canto_NO",
+      "bounds": {
+        "minX": -4.130000114440918,
+        "maxX": -3.869999885559082,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": -4.130000114440918,
+        "maxZ": -3.869999885559082
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Hub_Parede_N_1",
+        "ARQ_Hub_Parede_O_1"
+      ]
+    },
+    {
+      "name": "ARQ_Hub_Canto_SO",
+      "bounds": {
+        "minX": -4.130000114440918,
+        "maxX": -3.869999885559082,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": 3.869999885559082,
+        "maxZ": 4.130000114440918
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Hub_Parede_S_1",
+        "ARQ_Hub_Parede_O_2"
+      ]
+    },
+    {
+      "name": "ARQ_Hub_Canto_NL",
+      "bounds": {
+        "minX": 3.869999885559082,
+        "maxX": 4.130000114440918,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": -4.130000114440918,
+        "maxZ": -3.869999885559082
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Hub_Parede_N_2",
+        "ARQ_Hub_Parede_L_1"
+      ]
+    },
+    {
+      "name": "ARQ_Hub_Canto_SL",
+      "bounds": {
+        "minX": 3.869999885559082,
+        "maxX": 4.130000114440918,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": 3.869999885559082,
+        "maxZ": 4.130000114440918
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Hub_Parede_S_2",
+        "ARQ_Hub_Parede_L_2"
+      ]
+    },
+    {
+      "name": "ARQ_EDEN_Canto_NO",
+      "bounds": {
+        "minX": -3.630000114440918,
+        "maxX": -3.369999885559082,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": -13.130000114440918,
+        "maxZ": -12.869999885559082
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_EDEN_Parede_N_1",
+        "ARQ_EDEN_Parede_O_1"
+      ]
+    },
+    {
+      "name": "ARQ_EDEN_Canto_SO",
+      "bounds": {
+        "minX": -3.630000114440918,
+        "maxX": -3.369999885559082,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": -7.130000114440918,
+        "maxZ": -6.869999885559082
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_EDEN_Parede_S_1",
+        "ARQ_EDEN_Parede_O_1"
+      ]
+    },
+    {
+      "name": "ARQ_EDEN_Canto_NL",
+      "bounds": {
+        "minX": 3.369999885559082,
+        "maxX": 3.630000114440918,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": -13.130000114440918,
+        "maxZ": -12.869999885559082
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_EDEN_Parede_N_1",
+        "ARQ_EDEN_Parede_L_1"
+      ]
+    },
+    {
+      "name": "ARQ_EDEN_Canto_SL",
+      "bounds": {
+        "minX": 3.369999885559082,
+        "maxX": 3.630000114440918,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": -7.130000114440918,
+        "maxZ": -6.869999885559082
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_EDEN_Parede_S_2",
+        "ARQ_EDEN_Parede_L_2"
+      ]
+    },
+    {
+      "name": "ARQ_Arquivo_Canto_NO",
+      "bounds": {
+        "minX": -13.630000114440918,
+        "maxX": -13.369999885559082,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": -3.130000114440918,
+        "maxZ": -2.869999885559082
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Arquivo_Parede_N_1",
+        "ARQ_Arquivo_Parede_O_1"
+      ]
+    },
+    {
+      "name": "ARQ_Arquivo_Canto_SO",
+      "bounds": {
+        "minX": -13.630000114440918,
+        "maxX": -13.369999885559082,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": 2.869999885559082,
+        "maxZ": 3.130000114440918
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Arquivo_Parede_S_1",
+        "ARQ_Arquivo_Parede_O_1"
+      ]
+    },
+    {
+      "name": "ARQ_Arquivo_Canto_NL",
+      "bounds": {
+        "minX": -6.630000114440918,
+        "maxX": -6.369999885559082,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": -3.130000114440918,
+        "maxZ": -2.869999885559082
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Arquivo_Parede_N_1",
+        "ARQ_Arquivo_Parede_L_1"
+      ]
+    },
+    {
+      "name": "ARQ_Arquivo_Canto_SL",
+      "bounds": {
+        "minX": -6.630000114440918,
+        "maxX": -6.369999885559082,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": 2.869999885559082,
+        "maxZ": 3.130000114440918
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Arquivo_Parede_S_1",
+        "ARQ_Arquivo_Parede_L_2"
+      ]
+    },
+    {
+      "name": "ARQ_Oficina_Canto_NO",
+      "bounds": {
+        "minX": 6.369999885559082,
+        "maxX": 6.630000114440918,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": -3.130000114440918,
+        "maxZ": -2.869999885559082
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Oficina_Parede_N_1",
+        "ARQ_Oficina_Parede_O_1"
+      ]
+    },
+    {
+      "name": "ARQ_Oficina_Canto_SO",
+      "bounds": {
+        "minX": 6.369999885559082,
+        "maxX": 6.630000114440918,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": 2.869999885559082,
+        "maxZ": 3.130000114440918
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Oficina_Parede_S_1",
+        "ARQ_Oficina_Parede_O_2"
+      ]
+    },
+    {
+      "name": "ARQ_Oficina_Canto_NL",
+      "bounds": {
+        "minX": 13.369999885559082,
+        "maxX": 13.630000114440918,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": -3.130000114440918,
+        "maxZ": -2.869999885559082
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Oficina_Parede_N_1",
+        "ARQ_Oficina_Parede_L_1"
+      ]
+    },
+    {
+      "name": "ARQ_Oficina_Canto_SL",
+      "bounds": {
+        "minX": 13.369999885559082,
+        "maxX": 13.630000114440918,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": 2.869999885559082,
+        "maxZ": 3.130000114440918
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Oficina_Parede_S_1",
+        "ARQ_Oficina_Parede_L_1"
+      ]
+    },
+    {
+      "name": "ARQ_Comunicacoes_Canto_NO",
+      "bounds": {
+        "minX": -11.130000114440918,
+        "maxX": -10.869999885559082,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": 6.369999885559082,
+        "maxZ": 6.630000114440918
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Comunicacoes_Parede_N_1",
+        "ARQ_Comunicacoes_Parede_O_1"
+      ]
+    },
+    {
+      "name": "ARQ_Comunicacoes_Canto_SO",
+      "bounds": {
+        "minX": -11.130000114440918,
+        "maxX": -10.869999885559082,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": 11.369999885559082,
+        "maxZ": 11.630000114440918
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Comunicacoes_Parede_S_1",
+        "ARQ_Comunicacoes_Parede_O_1"
+      ]
+    },
+    {
+      "name": "ARQ_Comunicacoes_Canto_NL",
+      "bounds": {
+        "minX": -5.130000114440918,
+        "maxX": -4.869999885559082,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": 6.369999885559082,
+        "maxZ": 6.630000114440918
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Comunicacoes_Parede_N_2",
+        "ARQ_Comunicacoes_Parede_L_1"
+      ]
+    },
+    {
+      "name": "ARQ_Comunicacoes_Canto_SL",
+      "bounds": {
+        "minX": -5.130000114440918,
+        "maxX": -4.869999885559082,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": 11.369999885559082,
+        "maxZ": 11.630000114440918
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Comunicacoes_Parede_S_1",
+        "ARQ_Comunicacoes_Parede_L_1"
+      ]
+    },
+    {
+      "name": "ARQ_Deposito_Canto_NO",
+      "bounds": {
+        "minX": 4.869999885559082,
+        "maxX": 5.130000114440918,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": 6.369999885559082,
+        "maxZ": 6.630000114440918
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Deposito_Parede_N_1",
+        "ARQ_Deposito_Parede_O_1"
+      ]
+    },
+    {
+      "name": "ARQ_Deposito_Canto_SO",
+      "bounds": {
+        "minX": 4.869999885559082,
+        "maxX": 5.130000114440918,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": 11.369999885559082,
+        "maxZ": 11.630000114440918
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Deposito_Parede_S_1",
+        "ARQ_Deposito_Parede_O_1"
+      ]
+    },
+    {
+      "name": "ARQ_Deposito_Canto_NL",
+      "bounds": {
+        "minX": 10.869999885559082,
+        "maxX": 11.130000114440918,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": 6.369999885559082,
+        "maxZ": 6.630000114440918
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Deposito_Parede_N_2",
+        "ARQ_Deposito_Parede_L_1"
+      ]
+    },
+    {
+      "name": "ARQ_Deposito_Canto_SL",
+      "bounds": {
+        "minX": 10.869999885559082,
+        "maxX": 11.130000114440918,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": 11.369999885559082,
+        "maxZ": 11.630000114440918
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Deposito_Parede_S_1",
+        "ARQ_Deposito_Parede_L_1"
+      ]
+    },
+    {
+      "name": "ARQ_Reuniao_Canto_NO",
+      "bounds": {
+        "minX": -4.130000114440918,
+        "maxX": -3.869999885559082,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": 11.369999885559082,
+        "maxZ": 11.630000114440918
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Reuniao_Parede_N_1",
+        "ARQ_Reuniao_Parede_O_1"
+      ]
+    },
+    {
+      "name": "ARQ_Reuniao_Canto_SO",
+      "bounds": {
+        "minX": -4.130000114440918,
+        "maxX": -3.869999885559082,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": 17.3700008392334,
+        "maxZ": 17.6299991607666
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Reuniao_Parede_S_1",
+        "ARQ_Reuniao_Parede_O_1"
+      ]
+    },
+    {
+      "name": "ARQ_Reuniao_Canto_NL",
+      "bounds": {
+        "minX": 3.869999885559082,
+        "maxX": 4.130000114440918,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": 11.369999885559082,
+        "maxZ": 11.630000114440918
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Reuniao_Parede_N_2",
+        "ARQ_Reuniao_Parede_L_1"
+      ]
+    },
+    {
+      "name": "ARQ_Reuniao_Canto_SL",
+      "bounds": {
+        "minX": 3.869999885559082,
+        "maxX": 4.130000114440918,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": 17.3700008392334,
+        "maxZ": 17.6299991607666
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Reuniao_Parede_S_2",
+        "ARQ_Reuniao_Parede_L_2"
+      ]
+    },
+    {
+      "name": "ARQ_Cafe_Canto_NO",
+      "bounds": {
+        "minX": 5.369999885559082,
+        "maxX": 5.630000114440918,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": 12.369999885559082,
+        "maxZ": 12.630000114440918
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Cafe_Parede_N_1",
+        "ARQ_Cafe_Parede_O_1"
+      ]
+    },
+    {
+      "name": "ARQ_Cafe_Canto_SO",
+      "bounds": {
+        "minX": 5.369999885559082,
+        "maxX": 5.630000114440918,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": 16.3700008392334,
+        "maxZ": 16.6299991607666
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Cafe_Parede_S_1",
+        "ARQ_Cafe_Parede_O_2"
+      ]
+    },
+    {
+      "name": "ARQ_Cafe_Canto_NL",
+      "bounds": {
+        "minX": 9.369999885559082,
+        "maxX": 9.630000114440918,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": 12.369999885559082,
+        "maxZ": 12.630000114440918
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Cafe_Parede_N_1",
+        "ARQ_Cafe_Parede_L_1"
+      ]
+    },
+    {
+      "name": "ARQ_Cafe_Canto_SL",
+      "bounds": {
+        "minX": 9.369999885559082,
+        "maxX": 9.630000114440918,
+        "minY": 0.0,
+        "maxY": 2.799999952316284,
+        "minZ": 16.3700008392334,
+        "maxZ": 16.6299991607666
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Cafe_Parede_S_1",
+        "ARQ_Cafe_Parede_L_1"
+      ]
+    },
+    {
+      "name": "ARQ_Lab_Patio_MeioFio",
+      "bounds": {
+        "minX": 9.640000343322754,
+        "maxX": 14.640000343322754,
+        "minY": -0.25,
+        "maxY": 0.09999999403953552,
+        "minZ": -12.139999389648438,
+        "maxZ": -5.0
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Hub_Porta_N",
+      "bounds": {
+        "minX": -1.100000023841858,
+        "maxX": 1.100000023841858,
+        "minY": 0.0,
+        "maxY": 2.180000066757202,
+        "minZ": -4.139999866485596,
+        "maxZ": -3.859999895095825
+      },
+      "apoiado_em": [
+        "ARQ_Hub_Parede_N_1",
+        "ARQ_Hub_Parede_N_2"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Hub_Porta_S",
+      "bounds": {
+        "minX": -1.100000023841858,
+        "maxX": 1.100000023841858,
+        "minY": 0.0,
+        "maxY": 2.180000066757202,
+        "minZ": 3.859999895095825,
+        "maxZ": 4.139999866485596
+      },
+      "apoiado_em": [
+        "ARQ_Hub_Parede_S_1",
+        "ARQ_Hub_Parede_S_2"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Hub_Porta_O",
+      "bounds": {
+        "minX": -4.139999866485596,
+        "maxX": -3.859999895095825,
+        "minY": 0.0,
+        "maxY": 2.180000066757202,
+        "minZ": -0.9500000476837158,
+        "maxZ": 0.9500000476837158
+      },
+      "apoiado_em": [
+        "ARQ_Hub_Parede_O_1",
+        "ARQ_Hub_Parede_O_2"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Hub_Porta_L",
+      "bounds": {
+        "minX": 3.859999895095825,
+        "maxX": 4.139999866485596,
+        "minY": 0.0,
+        "maxY": 2.180000066757202,
+        "minZ": -0.9500000476837158,
+        "maxZ": 0.9500000476837158
+      },
+      "apoiado_em": [
+        "ARQ_Hub_Parede_L_1",
+        "ARQ_Hub_Parede_L_2"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_EDEN_Porta_S",
+      "bounds": {
+        "minX": -1.100000023841858,
+        "maxX": 1.100000023841858,
+        "minY": 0.0,
+        "maxY": 2.180000066757202,
+        "minZ": -7.139999866485596,
+        "maxZ": -6.860000133514404
+      },
+      "apoiado_em": [
+        "ARQ_EDEN_Parede_S_1",
+        "ARQ_EDEN_Parede_S_2"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Arquivo_Porta_L",
+      "bounds": {
+        "minX": -6.639999866485596,
+        "maxX": -6.360000133514404,
+        "minY": 0.0,
+        "maxY": 2.180000066757202,
+        "minZ": -0.9500000476837158,
+        "maxZ": 0.9500000476837158
+      },
+      "apoiado_em": [
+        "ARQ_Arquivo_Parede_L_1",
+        "ARQ_Arquivo_Parede_L_2"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Oficina_Porta_O",
+      "bounds": {
+        "minX": 6.360000133514404,
+        "maxX": 6.639999866485596,
+        "minY": 0.0,
+        "maxY": 2.180000066757202,
+        "minZ": -0.9500000476837158,
+        "maxZ": 0.9500000476837158
+      },
+      "apoiado_em": [
+        "ARQ_Oficina_Parede_O_1",
+        "ARQ_Oficina_Parede_O_2"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_EDEN_Lab_Porta_Interna",
+      "bounds": {
+        "minX": 3.359999895095825,
+        "maxX": 3.640000104904175,
+        "minY": 0.0,
+        "maxY": 2.180000066757202,
+        "minZ": -10.949999809265137,
+        "maxZ": -9.050000190734863
+      },
+      "apoiado_em": [
+        "ARQ_EDEN_Parede_L_1",
+        "ARQ_EDEN_Parede_L_2"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Comunicacoes_Porta_N",
+      "bounds": {
+        "minX": -9.100000381469727,
+        "maxX": -6.900000095367432,
+        "minY": 0.0,
+        "maxY": 2.180000066757202,
+        "minZ": 6.360000133514404,
+        "maxZ": 6.639999866485596
+      },
+      "apoiado_em": [
+        "ARQ_Comunicacoes_Parede_N_1",
+        "ARQ_Comunicacoes_Parede_N_2"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Deposito_Porta_N",
+      "bounds": {
+        "minX": 6.900000095367432,
+        "maxX": 9.100000381469727,
+        "minY": 0.0,
+        "maxY": 2.180000066757202,
+        "minZ": 6.360000133514404,
+        "maxZ": 6.639999866485596
+      },
+      "apoiado_em": [
+        "ARQ_Deposito_Parede_N_1",
+        "ARQ_Deposito_Parede_N_2"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Reuniao_Porta_N",
+      "bounds": {
+        "minX": -1.100000023841858,
+        "maxX": 1.100000023841858,
+        "minY": 0.0,
+        "maxY": 2.180000066757202,
+        "minZ": 11.359999656677246,
+        "maxZ": 11.640000343322754
+      },
+      "apoiado_em": [
+        "ARQ_Reuniao_Parede_N_1",
+        "ARQ_Reuniao_Parede_N_2"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Reuniao_Porta_S",
+      "bounds": {
+        "minX": -1.100000023841858,
+        "maxX": 1.100000023841858,
+        "minY": 0.0,
+        "maxY": 2.180000066757202,
+        "minZ": 17.360000610351562,
+        "maxZ": 17.639999389648438
+      },
+      "apoiado_em": [
+        "ARQ_Reuniao_Parede_S_1",
+        "ARQ_Reuniao_Parede_S_2"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Reuniao_Porta_L",
+      "bounds": {
+        "minX": 3.859999895095825,
+        "maxX": 4.139999866485596,
+        "minY": 0.0,
+        "maxY": 2.180000066757202,
+        "minZ": 13.550000190734863,
+        "maxZ": 15.449999809265137
+      },
+      "apoiado_em": [
+        "ARQ_Reuniao_Parede_L_1",
+        "ARQ_Reuniao_Parede_L_2"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Cafe_Porta_O",
+      "bounds": {
+        "minX": 5.360000133514404,
+        "maxX": 5.639999866485596,
+        "minY": 0.0,
+        "maxY": 2.180000066757202,
+        "minZ": 13.550000190734863,
+        "maxZ": 15.449999809265137
+      },
+      "apoiado_em": [
+        "ARQ_Cafe_Parede_O_1",
+        "ARQ_Cafe_Parede_O_2"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Eclusa_Portal_S",
+      "bounds": {
+        "minX": -2.1999998092651367,
+        "maxX": 2.1999998092651367,
+        "minY": 0.0,
+        "maxY": 2.180000066757202,
+        "minZ": 19.21000099182129,
+        "maxZ": 19.489999771118164
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Pavilhao_Porta_O",
+      "bounds": {
+        "minX": 7.5,
+        "maxX": 7.659999847412109,
+        "minY": 0.0,
+        "maxY": 2.180000066757202,
+        "minZ": 20.799999237060547,
+        "maxZ": 24.200000762939453
+      },
+      "apoiado_em": [
+        "ARQ_Pavilhao_Parede_O_1",
+        "ARQ_Pavilhao_Parede_O_2"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Laboratorio_Portal_L",
+      "bounds": {
+        "minX": 9.299999237060547,
+        "maxX": 9.90000057220459,
+        "minY": 0.0,
+        "maxY": 2.180000066757202,
+        "minZ": -10.75,
+        "maxZ": -9.25
+      },
+      "apoiado_em": [
+        "ARQ_Laboratorio_Parede_L_1",
+        "ARQ_Laboratorio_Parede_L_2"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Laboratorio_Porta_Folhas",
+      "bounds": {
+        "minX": 9.364999771118164,
+        "maxX": 9.449999809265137,
+        "minY": 0.019999980926513672,
+        "maxY": 2.1500000953674316,
+        "minZ": -10.75,
+        "maxZ": -9.25
+      },
+      "apoiado_em": [
+        "ARQ_Laboratorio_Portal_L"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Laboratorio_Porta_Folhas_Aberta",
+      "bounds": {
+        "minX": -0.03500000014901161,
+        "maxX": 0.04999995976686478,
+        "minY": 0.019999980926513672,
+        "maxY": 2.1500000953674316,
+        "minZ": -1.470000147819519,
+        "maxZ": 1.470000147819519
+      },
+      "apoiado_em": [
+        "ARQ_Laboratorio_Portal_L"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Hub_Porta_N_Verga",
+      "bounds": {
+        "minX": -1.100000023841858,
+        "maxX": 1.100000023841858,
+        "minY": 2.180000066757202,
+        "maxY": 2.6000001430511475,
+        "minZ": -4.159999847412109,
+        "maxZ": -3.8399999141693115
+      },
+      "apoiado_em": [
+        "ARQ_Hub_Porta_N"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Hub_Porta_S_Verga",
+      "bounds": {
+        "minX": -1.100000023841858,
+        "maxX": 1.100000023841858,
+        "minY": 2.180000066757202,
+        "maxY": 2.6000001430511475,
+        "minZ": 3.8399999141693115,
+        "maxZ": 4.159999847412109
+      },
+      "apoiado_em": [
+        "ARQ_Hub_Porta_S"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Hub_Porta_O_Verga",
+      "bounds": {
+        "minX": -4.159999847412109,
+        "maxX": -3.8399999141693115,
+        "minY": 2.180000066757202,
+        "maxY": 2.6000001430511475,
+        "minZ": -0.949999988079071,
+        "maxZ": 0.949999988079071
+      },
+      "apoiado_em": [
+        "ARQ_Hub_Porta_O"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Hub_Porta_L_Verga",
+      "bounds": {
+        "minX": 3.8399999141693115,
+        "maxX": 4.159999847412109,
+        "minY": 2.180000066757202,
+        "maxY": 2.6000001430511475,
+        "minZ": -0.949999988079071,
+        "maxZ": 0.949999988079071
+      },
+      "apoiado_em": [
+        "ARQ_Hub_Porta_L"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_EDEN_Porta_S_Verga",
+      "bounds": {
+        "minX": -1.100000023841858,
+        "maxX": 1.100000023841858,
+        "minY": 2.180000066757202,
+        "maxY": 2.6000001430511475,
+        "minZ": -7.159999847412109,
+        "maxZ": -6.840000152587891
+      },
+      "apoiado_em": [
+        "ARQ_EDEN_Porta_S"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Arquivo_Porta_L_Verga",
+      "bounds": {
+        "minX": -6.659999847412109,
+        "maxX": -6.340000152587891,
+        "minY": 2.180000066757202,
+        "maxY": 2.6000001430511475,
+        "minZ": -0.949999988079071,
+        "maxZ": 0.949999988079071
+      },
+      "apoiado_em": [
+        "ARQ_Arquivo_Porta_L"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Oficina_Porta_O_Verga",
+      "bounds": {
+        "minX": 6.340000152587891,
+        "maxX": 6.659999847412109,
+        "minY": 2.180000066757202,
+        "maxY": 2.6000001430511475,
+        "minZ": -0.949999988079071,
+        "maxZ": 0.949999988079071
+      },
+      "apoiado_em": [
+        "ARQ_Oficina_Porta_O"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_EDEN_Lab_Porta_Interna_Verga",
+      "bounds": {
+        "minX": 3.3399999141693115,
+        "maxX": 3.6600000858306885,
+        "minY": 2.180000066757202,
+        "maxY": 2.6000001430511475,
+        "minZ": -10.949999809265137,
+        "maxZ": -9.050000190734863
+      },
+      "apoiado_em": [
+        "ARQ_EDEN_Lab_Porta_Interna"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Comunicacoes_Porta_N_Verga",
+      "bounds": {
+        "minX": -9.100000381469727,
+        "maxX": -6.900000095367432,
+        "minY": 2.180000066757202,
+        "maxY": 2.6000001430511475,
+        "minZ": 6.340000152587891,
+        "maxZ": 6.659999847412109
+      },
+      "apoiado_em": [
+        "ARQ_Comunicacoes_Porta_N"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Deposito_Porta_N_Verga",
+      "bounds": {
+        "minX": 6.900000095367432,
+        "maxX": 9.100000381469727,
+        "minY": 2.180000066757202,
+        "maxY": 2.799999952316284,
+        "minZ": 6.340000152587891,
+        "maxZ": 6.659999847412109
+      },
+      "apoiado_em": [
+        "ARQ_Deposito_Porta_N"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Reuniao_Porta_N_Verga",
+      "bounds": {
+        "minX": -1.100000023841858,
+        "maxX": 1.100000023841858,
+        "minY": 2.180000066757202,
+        "maxY": 2.6000001430511475,
+        "minZ": 11.34000015258789,
+        "maxZ": 11.65999984741211
+      },
+      "apoiado_em": [
+        "ARQ_Reuniao_Porta_N"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Reuniao_Porta_S_Verga",
+      "bounds": {
+        "minX": -1.100000023841858,
+        "maxX": 1.100000023841858,
+        "minY": 2.180000066757202,
+        "maxY": 2.6000001430511475,
+        "minZ": 17.34000015258789,
+        "maxZ": 17.65999984741211
+      },
+      "apoiado_em": [
+        "ARQ_Reuniao_Porta_S"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Reuniao_Porta_L_Verga",
+      "bounds": {
+        "minX": 3.8399999141693115,
+        "maxX": 4.159999847412109,
+        "minY": 2.180000066757202,
+        "maxY": 2.6000001430511475,
+        "minZ": 13.550000190734863,
+        "maxZ": 15.449999809265137
+      },
+      "apoiado_em": [
+        "ARQ_Reuniao_Porta_L"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Cafe_Porta_O_Verga",
+      "bounds": {
+        "minX": 5.340000152587891,
+        "maxX": 5.659999847412109,
+        "minY": 2.180000066757202,
+        "maxY": 2.6000001430511475,
+        "minZ": 13.550000190734863,
+        "maxZ": 15.449999809265137
+      },
+      "apoiado_em": [
+        "ARQ_Cafe_Porta_O"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Eclusa_Portal_S_Verga",
+      "bounds": {
+        "minX": -2.200000047683716,
+        "maxX": 2.200000047683716,
+        "minY": 2.180000066757202,
+        "maxY": 2.799999952316284,
+        "minZ": 19.190000534057617,
+        "maxZ": 19.510000228881836
+      },
+      "apoiado_em": [
+        "ARQ_Eclusa_Portal_S"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Pavilhao_Porta_O_Verga",
+      "bounds": {
+        "minX": 7.480000019073486,
+        "maxX": 7.679999828338623,
+        "minY": 2.180000066757202,
+        "maxY": 2.6000001430511475,
+        "minZ": 20.799999237060547,
+        "maxZ": 24.200000762939453
+      },
+      "apoiado_em": [
+        "ARQ_Pavilhao_Porta_O"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Laboratorio_Porta_L_Verga",
+      "bounds": {
+        "minX": 9.359999656677246,
+        "maxX": 9.65999984741211,
+        "minY": 2.179999828338623,
+        "maxY": 2.700000047683716,
+        "minZ": -10.75,
+        "maxZ": -9.25
+      },
+      "apoiado_em": [
+        "ARQ_Laboratorio_Parede_L_1",
+        "ARQ_Laboratorio_Parede_L_2"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Laboratorio_Sinal",
+      "bounds": {
+        "minX": 9.661999702453613,
+        "maxX": 9.668000221252441,
+        "minY": 2.4036500453948975,
+        "maxY": 2.536100149154663,
+        "minZ": -10.512100219726562,
+        "maxZ": -9.492250442504883
+      },
+      "apoiado_em": [
+        "ARQ_Laboratorio_Porta_L_Verga"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Hub_Parede_N_1",
+      "bounds": {
+        "minX": -4.0,
+        "maxX": -0.9000000953674316,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": -4.159999847412109,
+        "maxZ": -3.8399999141693115
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Hub_Parede_N_2",
+      "bounds": {
+        "minX": 0.9000000953674316,
+        "maxX": 4.0,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": -4.159999847412109,
+        "maxZ": -3.8399999141693115
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_EDEN_Parede_N_1",
+      "bounds": {
+        "minX": -3.5,
+        "maxX": 3.5,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": -13.15999984741211,
+        "maxZ": -12.84000015258789
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Arquivo_Parede_N_1",
+      "bounds": {
+        "minX": -13.5,
+        "maxX": -6.5,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": -3.1600000858306885,
+        "maxZ": -2.8399999141693115
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Oficina_Parede_N_1",
+      "bounds": {
+        "minX": 6.5,
+        "maxX": 13.5,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": -3.1600000858306885,
+        "maxZ": -2.8399999141693115
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Comunicacoes_Parede_N_1",
+      "bounds": {
+        "minX": -11.0,
+        "maxX": -8.899999618530273,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 6.340000152587891,
+        "maxZ": 6.659999847412109
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Comunicacoes_Parede_N_2",
+      "bounds": {
+        "minX": -7.100000381469727,
+        "maxX": -5.0,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 6.340000152587891,
+        "maxZ": 6.659999847412109
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Deposito_Parede_N_1",
+      "bounds": {
+        "minX": 5.0,
+        "maxX": 7.100000381469727,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 6.340000152587891,
+        "maxZ": 6.659999847412109
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Deposito_Parede_N_2",
+      "bounds": {
+        "minX": 8.899999618530273,
+        "maxX": 11.0,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 6.340000152587891,
+        "maxZ": 6.659999847412109
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Reuniao_Parede_N_1",
+      "bounds": {
+        "minX": -4.0,
+        "maxX": -0.9000000953674316,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 11.34000015258789,
+        "maxZ": 11.65999984741211
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Reuniao_Parede_N_2",
+      "bounds": {
+        "minX": 0.9000000953674316,
+        "maxX": 4.0,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 11.34000015258789,
+        "maxZ": 11.65999984741211
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Cafe_Parede_N_1",
+      "bounds": {
+        "minX": 5.5,
+        "maxX": 9.5,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 12.34000015258789,
+        "maxZ": 12.65999984741211
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Pavilhao_Parede_N",
+      "bounds": {
+        "minX": 7.529999732971191,
+        "maxX": 17.470001220703125,
+        "minY": 0.0,
+        "maxY": 2.299999952316284,
+        "minZ": 20.0,
+        "maxZ": 20.15999984741211
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Laboratorio_Parede_N_1",
+      "bounds": {
+        "minX": 3.6399998664855957,
+        "maxX": 9.09000015258789,
+        "minY": 0.0,
+        "maxY": 2.700000047683716,
+        "minZ": -12.170000076293945,
+        "maxZ": -11.859999656677246
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Laboratorio_Canto_NE",
+      "bounds": {
+        "minX": 9.09000015258789,
+        "maxX": 9.640000343322754,
+        "minY": 0.0,
+        "maxY": 2.700000047683716,
+        "minZ": -12.140000343322754,
+        "maxZ": -11.59000015258789
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Hub_Parede_S_1",
+      "bounds": {
+        "minX": -4.050000190734863,
+        "maxX": -0.8500001430511475,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 3.8399999141693115,
+        "maxZ": 4.159999847412109
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Hub_Parede_S_2",
+      "bounds": {
+        "minX": 0.8500001430511475,
+        "maxX": 4.050000190734863,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 3.8399999141693115,
+        "maxZ": 4.159999847412109
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_EDEN_Parede_S_1",
+      "bounds": {
+        "minX": -3.549999952316284,
+        "maxX": -0.8500001430511475,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": -7.159999847412109,
+        "maxZ": -6.840000152587891
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_EDEN_Parede_S_2",
+      "bounds": {
+        "minX": 0.8500001430511475,
+        "maxX": 3.549999952316284,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": -7.159999847412109,
+        "maxZ": -6.840000152587891
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Arquivo_Parede_S_1",
+      "bounds": {
+        "minX": -13.550000190734863,
+        "maxX": -6.449999809265137,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 2.8399999141693115,
+        "maxZ": 3.1600000858306885
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Oficina_Parede_S_1",
+      "bounds": {
+        "minX": 6.449999809265137,
+        "maxX": 13.550000190734863,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 2.8399999141693115,
+        "maxZ": 3.1600000858306885
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Comunicacoes_Parede_S_1",
+      "bounds": {
+        "minX": -11.050000190734863,
+        "maxX": -4.949999809265137,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 11.34000015258789,
+        "maxZ": 11.65999984741211
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Deposito_Parede_S_1",
+      "bounds": {
+        "minX": 4.949999809265137,
+        "maxX": 11.050000190734863,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 11.34000015258789,
+        "maxZ": 11.65999984741211
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Reuniao_Parede_S_1",
+      "bounds": {
+        "minX": -4.050000190734863,
+        "maxX": -0.8500001430511475,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 17.34000015258789,
+        "maxZ": 17.65999984741211
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Reuniao_Parede_S_2",
+      "bounds": {
+        "minX": 0.8500001430511475,
+        "maxX": 4.050000190734863,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 17.34000015258789,
+        "maxZ": 17.65999984741211
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Cafe_Parede_S_1",
+      "bounds": {
+        "minX": 5.449999809265137,
+        "maxX": 9.550000190734863,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 16.34000015258789,
+        "maxZ": 16.65999984741211
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Pavilhao_Parede_S",
+      "bounds": {
+        "minX": 7.529999732971191,
+        "maxX": 17.470001220703125,
+        "minY": 0.0,
+        "maxY": 2.299999952316284,
+        "minZ": 26.84000015258789,
+        "maxZ": 27.0
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Laboratorio_Parede_S_1",
+      "bounds": {
+        "minX": 3.640000104904175,
+        "maxX": 9.09000015258789,
+        "minY": 0.0,
+        "maxY": 2.700000047683716,
+        "minZ": -8.140000343322754,
+        "maxZ": -7.829999923706055
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Laboratorio_Canto_SE",
+      "bounds": {
+        "minX": 9.09000015258789,
+        "maxX": 9.640000343322754,
+        "minY": 0.0,
+        "maxY": 2.700000047683716,
+        "minZ": -8.40999984741211,
+        "maxZ": -7.859999656677246
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Hub_Parede_L_1",
+      "bounds": {
+        "minX": 3.8399999141693115,
+        "maxX": 4.159999847412109,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": -4.050000190734863,
+        "maxZ": -0.7000000476837158
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Hub_Parede_L_2",
+      "bounds": {
+        "minX": 3.8399999141693115,
+        "maxX": 4.159999847412109,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 0.7000000476837158,
+        "maxZ": 4.050000190734863
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_EDEN_Parede_L_1",
+      "bounds": {
+        "minX": 3.3399999141693115,
+        "maxX": 3.6600000858306885,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": -13.050000190734863,
+        "maxZ": -10.699999809265137
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_EDEN_Parede_L_2",
+      "bounds": {
+        "minX": 3.3399999141693115,
+        "maxX": 3.6600000858306885,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": -9.300000190734863,
+        "maxZ": -6.949999809265137
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Arquivo_Parede_L_1",
+      "bounds": {
+        "minX": -6.659999847412109,
+        "maxX": -6.340000152587891,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": -3.049999952316284,
+        "maxZ": -0.7000000476837158
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Arquivo_Parede_L_2",
+      "bounds": {
+        "minX": -6.659999847412109,
+        "maxX": -6.340000152587891,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 0.7000000476837158,
+        "maxZ": 3.049999952316284
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Oficina_Parede_L_1",
+      "bounds": {
+        "minX": 13.34000015258789,
+        "maxX": 13.65999984741211,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": -3.049999952316284,
+        "maxZ": 3.049999952316284
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Comunicacoes_Parede_L_1",
+      "bounds": {
+        "minX": -5.160000324249268,
+        "maxX": -4.839999675750732,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 6.449999809265137,
+        "maxZ": 11.550000190734863
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Deposito_Parede_L_1",
+      "bounds": {
+        "minX": 10.84000015258789,
+        "maxX": 11.15999984741211,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 6.449999809265137,
+        "maxZ": 11.550000190734863
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Reuniao_Parede_L_1",
+      "bounds": {
+        "minX": 3.8399999141693115,
+        "maxX": 4.159999847412109,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 11.449999809265137,
+        "maxZ": 13.800000190734863
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Reuniao_Parede_L_2",
+      "bounds": {
+        "minX": 3.8399999141693115,
+        "maxX": 4.159999847412109,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 15.199999809265137,
+        "maxZ": 17.549999237060547
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Cafe_Parede_L_1",
+      "bounds": {
+        "minX": 9.34000015258789,
+        "maxX": 9.65999984741211,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 12.449999809265137,
+        "maxZ": 16.549999237060547
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Eclusa_Parede_L",
+      "bounds": {
+        "minX": 2.0299999713897705,
+        "maxX": 2.3500001430511475,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 17.5,
+        "maxZ": 19.5
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Pavilhao_Parede_L",
+      "bounds": {
+        "minX": 17.34000015258789,
+        "maxX": 17.5,
+        "minY": 0.0,
+        "maxY": 2.299999952316284,
+        "minZ": 20.030000686645508,
+        "maxZ": 26.969999313354492
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Laboratorio_Parede_L_1",
+      "bounds": {
+        "minX": 9.359999656677246,
+        "maxX": 9.640000343322754,
+        "minY": 0.0,
+        "maxY": 2.700000047683716,
+        "minZ": -11.59000015258789,
+        "maxZ": -10.75
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Laboratorio_Parede_L_2",
+      "bounds": {
+        "minX": 9.359999656677246,
+        "maxX": 9.674999237060547,
+        "minY": 0.0,
+        "maxY": 2.700000047683716,
+        "minZ": -9.25,
+        "maxZ": -8.40999984741211
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Hub_Parede_O_1",
+      "bounds": {
+        "minX": -4.159999847412109,
+        "maxX": -3.8399999141693115,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": -4.0,
+        "maxZ": -0.75
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Hub_Parede_O_2",
+      "bounds": {
+        "minX": -4.159999847412109,
+        "maxX": -3.8399999141693115,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 0.75,
+        "maxZ": 4.0
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_EDEN_Parede_O_1",
+      "bounds": {
+        "minX": -3.6600000858306885,
+        "maxX": -3.3399999141693115,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": -13.0,
+        "maxZ": -7.0
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Arquivo_Parede_O_1",
+      "bounds": {
+        "minX": -13.65999984741211,
+        "maxX": -13.34000015258789,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": -3.0,
+        "maxZ": 3.0
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Oficina_Parede_O_1",
+      "bounds": {
+        "minX": 6.340000152587891,
+        "maxX": 6.659999847412109,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": -3.0,
+        "maxZ": -0.75
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Oficina_Parede_O_2",
+      "bounds": {
+        "minX": 6.340000152587891,
+        "maxX": 6.659999847412109,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 0.75,
+        "maxZ": 3.0
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Comunicacoes_Parede_O_1",
+      "bounds": {
+        "minX": -11.15999984741211,
+        "maxX": -10.84000015258789,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 6.5,
+        "maxZ": 11.5
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Deposito_Parede_O_1",
+      "bounds": {
+        "minX": 4.839999675750732,
+        "maxX": 5.160000324249268,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 6.5,
+        "maxZ": 11.5
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Reuniao_Parede_O_1",
+      "bounds": {
+        "minX": -4.160000324249268,
+        "maxX": -3.8399999141693115,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 11.5,
+        "maxZ": 17.5
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Cafe_Parede_O_1",
+      "bounds": {
+        "minX": 5.340000152587891,
+        "maxX": 5.659999847412109,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 12.5,
+        "maxZ": 13.75
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Cafe_Parede_O_2",
+      "bounds": {
+        "minX": 5.340000152587891,
+        "maxX": 5.659999847412109,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 15.25,
+        "maxZ": 16.5
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Eclusa_Parede_O",
+      "bounds": {
+        "minX": -2.3500001430511475,
+        "maxX": -2.0299999713897705,
+        "minY": 0.0,
+        "maxY": 2.6999998092651367,
+        "minZ": 17.5,
+        "maxZ": 19.5
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Pavilhao_Parede_O_1",
+      "bounds": {
+        "minX": 7.5,
+        "maxX": 7.659999847412109,
+        "minY": 0.0,
+        "maxY": 2.299999952316284,
+        "minZ": 20.06999969482422,
+        "maxZ": 21.049999237060547
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "ARQ_Pavilhao_Parede_O_2",
+      "bounds": {
+        "minX": 7.5,
+        "maxX": 7.659999847412109,
+        "minY": 0.0,
+        "maxY": 2.299999952316284,
+        "minZ": 23.950000762939453,
+        "maxZ": 26.93000030517578
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PLAT_Baia_Parapeitos",
+      "bounds": {
+        "minX": -2.0249998569488525,
+        "maxX": 2.0249998569488525,
+        "minY": 0.0,
+        "maxY": 1.149999976158142,
+        "minZ": 30.75,
+        "maxZ": 35.25
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PLAT_Console_Leste",
+      "bounds": {
+        "minX": 7.8299994468688965,
+        "maxX": 8.55300235748291,
+        "minY": 0.0,
+        "maxY": 1.1659389734268188,
+        "minZ": 31.329999923706055,
+        "maxZ": 32.27000045776367
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PLAT_Console_Oeste",
+      "bounds": {
+        "minX": -8.55300235748291,
+        "maxX": -7.8299994468688965,
+        "minY": 0.0,
+        "maxY": 1.1659389734268188,
+        "minZ": 34.93000030517578,
+        "maxZ": 35.87000274658203
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PLAT_Carro_1",
+      "bounds": {
+        "minX": 7.804192543029785,
+        "maxX": 8.795807838439941,
+        "minY": 0.0,
+        "maxY": 1.0,
+        "minZ": 34.470176696777344,
+        "maxZ": 35.32982635498047
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PLAT_Carro_2",
+      "bounds": {
+        "minX": 7.924797534942627,
+        "maxX": 8.875202178955078,
+        "minY": 0.0,
+        "maxY": 1.0,
+        "minZ": 37.00293731689453,
+        "maxZ": 37.79706573486328
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PLAT_Rack_Cilindros",
+      "bounds": {
+        "minX": -8.5,
+        "maxX": -7.980000019073486,
+        "minY": 0.0,
+        "maxY": 1.4399999380111694,
+        "minZ": 29.0,
+        "maxZ": 30.200000762939453
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PLAT_B3_Foguete",
+      "bounds": {
+        "minX": -11.3125,
+        "maxX": -8.6875,
+        "minY": 0.9299999475479126,
+        "maxY": 10.098273277282715,
+        "minZ": 39.80875015258789,
+        "maxZ": 43.19124984741211
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PLAT_B3_Base_Lancamento",
+      "bounds": {
+        "minX": -11.680001258850098,
+        "maxX": -8.319998741149902,
+        "minY": -0.5,
+        "maxY": 1.3200000524520874,
+        "minZ": 39.20000076293945,
+        "maxZ": 43.79999923706055
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PLAT_B3_Casa_Elevador_Base",
+      "bounds": {
+        "minX": -9.743592262268066,
+        "maxX": -7.67653751373291,
+        "minY": 0.9300000071525574,
+        "maxY": 2.8299999237060547,
+        "minZ": 39.46226501464844,
+        "maxZ": 41.43217086791992
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PLAT_B3_Sinal_Casa_Elevador",
+      "bounds": {
+        "minX": -8.630631446838379,
+        "maxX": -8.123661041259766,
+        "minY": 2.5005600452423096,
+        "maxY": 2.6125600337982178,
+        "minZ": 39.81497573852539,
+        "maxZ": 40.41041564941406
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PLAT_B3_Torre_Servico",
+      "bounds": {
+        "minX": -14.522500038146973,
+        "maxX": -13.077500343322754,
+        "minY": 0.0,
+        "maxY": 8.064014434814453,
+        "minZ": 40.77750015258789,
+        "maxZ": 42.22249984741211
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PLAT_B3_Mastro_Servico",
+      "bounds": {
+        "minX": -6.795000076293945,
+        "maxX": -5.604999542236328,
+        "minY": 0.0,
+        "maxY": 5.410034656524658,
+        "minZ": 40.904998779296875,
+        "maxZ": 42.095001220703125
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PLAT_B3_Passarela_Servico_3m",
+      "bounds": {
+        "minX": -13.104999542236328,
+        "maxX": -10.975000381469727,
+        "minY": 2.8000001907348633,
+        "maxY": 4.025000095367432,
+        "minZ": 41.07499694824219,
+        "maxZ": 41.92500305175781
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PLAT_B3_Umbilical_Mastro_1",
+      "bounds": {
+        "minX": -9.018068313598633,
+        "maxX": -6.672936916351318,
+        "minY": 1.6976001262664795,
+        "maxY": 2.2478809356689453,
+        "minZ": 41.694793701171875,
+        "maxZ": 41.805206298828125
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PLAT_B3_Umbilical_Mastro_2",
+      "bounds": {
+        "minX": -9.017051696777344,
+        "maxX": -6.672159194946289,
+        "minY": 3.8663501739501953,
+        "maxY": 4.447432994842529,
+        "minZ": 41.194793701171875,
+        "maxZ": 41.305206298828125
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PLAT_B3_Umbilical_Torre",
+      "bounds": {
+        "minX": -13.109943389892578,
+        "maxX": -10.981344223022461,
+        "minY": 4.066349983215332,
+        "maxY": 4.646134376525879,
+        "minZ": 40.764793395996094,
+        "maxZ": 40.875205993652344
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PLAT_B3_Braco_Tripulacao",
+      "bounds": {
+        "minX": -13.140000343322754,
+        "maxX": -10.760000228881836,
+        "minY": 4.038381576538086,
+        "maxY": 7.053542613983154,
+        "minZ": 40.900001525878906,
+        "maxZ": 42.099998474121094
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PLAT_B3_Linhas_Tanques",
+      "bounds": {
+        "minX": -13.800000190734863,
+        "maxX": -11.800000190734863,
+        "minY": 0.0,
+        "maxY": 1.100000023841858,
+        "minZ": 33.375423431396484,
+        "maxZ": 40.47026443481445
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PLAT_B3_Elevador_Embarque",
+      "bounds": {
+        "minX": -1.1799999475479126,
+        "maxX": 1.1799999475479126,
+        "minY": 0.0,
+        "maxY": 0.02199999988079071,
+        "minZ": 31.81999969482422,
+        "maxZ": 34.18000030517578
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PLAT_B3_Chevrons_Embarque",
+      "bounds": {
+        "minX": -0.5739456415176392,
+        "maxX": 0.5739456415176392,
+        "minY": 0.0005000000819563866,
+        "maxY": 0.007500000298023224,
+        "minZ": 30.201309204101562,
+        "maxZ": 32.098690032958984
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PLAT_B3_Sinal_Piso_Embarque",
+      "bounds": {
+        "minX": -0.9492400288581848,
+        "maxX": 0.9667200446128845,
+        "minY": 0.008999999612569809,
+        "maxY": 0.008999999612569809,
+        "minZ": 29.801420211791992,
+        "maxZ": 30.1168212890625
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PLAT_B3_Totem_Embarque",
+      "bounds": {
+        "minX": -1.2999999523162842,
+        "maxX": 1.2999999523162842,
+        "minY": 0.0,
+        "maxY": 1.3299999237060547,
+        "minZ": 34.75,
+        "maxZ": 35.25
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PLAT_B3_Sinal_Totem",
+      "bounds": {
+        "minX": -0.6507599949836731,
+        "maxX": 0.6456999778747559,
+        "minY": 0.811710000038147,
+        "maxY": 0.9030100107192993,
+        "minZ": 34.75,
+        "maxZ": 34.753997802734375
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TET_Hub",
+      "bounds": {
+        "minX": -4.21999979019165,
+        "maxX": 4.21999979019165,
+        "minY": 2.700000047683716,
+        "maxY": 2.919999837875366,
+        "minZ": -4.21999979019165,
+        "maxZ": 4.21999979019165
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Hub_Canto_NL",
+        "ARQ_Hub_Canto_NO",
+        "ARQ_Hub_Canto_SL",
+        "ARQ_Hub_Canto_SO",
+        "ARQ_Hub_Parede_L_1",
+        "ARQ_Hub_Parede_L_2",
+        "ARQ_Hub_Parede_N_1",
+        "ARQ_Hub_Parede_N_2",
+        "ARQ_Hub_Parede_O_1",
+        "ARQ_Hub_Parede_O_2",
+        "ARQ_Hub_Parede_S_1",
+        "ARQ_Hub_Parede_S_2"
+      ]
+    },
+    {
+      "name": "TET_EDEN",
+      "bounds": {
+        "minX": -3.7200000286102295,
+        "maxX": 3.7200000286102295,
+        "minY": 2.700000047683716,
+        "maxY": 2.9800000190734863,
+        "minZ": -13.220000267028809,
+        "maxZ": -6.779999732971191
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_EDEN_Canto_NL",
+        "ARQ_EDEN_Canto_NO",
+        "ARQ_EDEN_Canto_SL",
+        "ARQ_EDEN_Canto_SO",
+        "ARQ_EDEN_Parede_L_1",
+        "ARQ_EDEN_Parede_L_2",
+        "ARQ_EDEN_Parede_N_1",
+        "ARQ_EDEN_Parede_O_1",
+        "ARQ_EDEN_Parede_S_1",
+        "ARQ_EDEN_Parede_S_2"
+      ]
+    },
+    {
+      "name": "TET_Arquivo",
+      "bounds": {
+        "minX": -13.720000267028809,
+        "maxX": -6.279999732971191,
+        "minY": 2.700000047683716,
+        "maxY": 2.919999837875366,
+        "minZ": -3.2200000286102295,
+        "maxZ": 3.2200000286102295
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Arquivo_Canto_NL",
+        "ARQ_Arquivo_Canto_NO",
+        "ARQ_Arquivo_Canto_SL",
+        "ARQ_Arquivo_Canto_SO",
+        "ARQ_Arquivo_Parede_L_1",
+        "ARQ_Arquivo_Parede_L_2",
+        "ARQ_Arquivo_Parede_N_1",
+        "ARQ_Arquivo_Parede_O_1",
+        "ARQ_Arquivo_Parede_S_1"
+      ]
+    },
+    {
+      "name": "TET_Oficina",
+      "bounds": {
+        "minX": 6.279999732971191,
+        "maxX": 13.720000267028809,
+        "minY": 2.700000047683716,
+        "maxY": 2.919999837875366,
+        "minZ": -3.2200000286102295,
+        "maxZ": 3.2200000286102295
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Oficina_Canto_NL",
+        "ARQ_Oficina_Canto_NO",
+        "ARQ_Oficina_Canto_SL",
+        "ARQ_Oficina_Canto_SO",
+        "ARQ_Oficina_Parede_L_1",
+        "ARQ_Oficina_Parede_N_1",
+        "ARQ_Oficina_Parede_O_1",
+        "ARQ_Oficina_Parede_O_2",
+        "ARQ_Oficina_Parede_S_1"
+      ]
+    },
+    {
+      "name": "TET_Comunicacoes",
+      "bounds": {
+        "minX": -11.220000267028809,
+        "maxX": -4.779999732971191,
+        "minY": 2.700000047683716,
+        "maxY": 2.919999837875366,
+        "minZ": 6.279999732971191,
+        "maxZ": 11.720000267028809
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Comunicacoes_Canto_NL",
+        "ARQ_Comunicacoes_Canto_NO",
+        "ARQ_Comunicacoes_Canto_SL",
+        "ARQ_Comunicacoes_Canto_SO",
+        "ARQ_Comunicacoes_Parede_L_1",
+        "ARQ_Comunicacoes_Parede_N_1",
+        "ARQ_Comunicacoes_Parede_N_2",
+        "ARQ_Comunicacoes_Parede_O_1",
+        "ARQ_Comunicacoes_Parede_S_1"
+      ]
+    },
+    {
+      "name": "TET_Deposito",
+      "bounds": {
+        "minX": 4.779999732971191,
+        "maxX": 11.220000267028809,
+        "minY": 2.700000047683716,
+        "maxY": 2.919999837875366,
+        "minZ": 6.279999732971191,
+        "maxZ": 11.720000267028809
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Deposito_Canto_NL",
+        "ARQ_Deposito_Canto_NO",
+        "ARQ_Deposito_Canto_SL",
+        "ARQ_Deposito_Canto_SO",
+        "ARQ_Deposito_Parede_L_1",
+        "ARQ_Deposito_Parede_N_1",
+        "ARQ_Deposito_Parede_N_2",
+        "ARQ_Deposito_Parede_O_1",
+        "ARQ_Deposito_Parede_S_1"
+      ]
+    },
+    {
+      "name": "TET_Reuniao",
+      "bounds": {
+        "minX": -4.21999979019165,
+        "maxX": 4.21999979019165,
+        "minY": 2.700000047683716,
+        "maxY": 2.919999837875366,
+        "minZ": 11.279999732971191,
+        "maxZ": 17.719999313354492
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Reuniao_Canto_NL",
+        "ARQ_Reuniao_Canto_NO",
+        "ARQ_Reuniao_Canto_SL",
+        "ARQ_Reuniao_Canto_SO",
+        "ARQ_Reuniao_Parede_L_1",
+        "ARQ_Reuniao_Parede_L_2",
+        "ARQ_Reuniao_Parede_N_1",
+        "ARQ_Reuniao_Parede_N_2",
+        "ARQ_Reuniao_Parede_O_1",
+        "ARQ_Reuniao_Parede_S_1",
+        "ARQ_Reuniao_Parede_S_2"
+      ]
+    },
+    {
+      "name": "TET_Cafe",
+      "bounds": {
+        "minX": 5.279999732971191,
+        "maxX": 9.720000267028809,
+        "minY": 2.700000047683716,
+        "maxY": 2.919999837875366,
+        "minZ": 12.279999732971191,
+        "maxZ": 16.719999313354492
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Cafe_Canto_NL",
+        "ARQ_Cafe_Canto_NO",
+        "ARQ_Cafe_Canto_SL",
+        "ARQ_Cafe_Canto_SO",
+        "ARQ_Cafe_Parede_L_1",
+        "ARQ_Cafe_Parede_N_1",
+        "ARQ_Cafe_Parede_O_1",
+        "ARQ_Cafe_Parede_O_2",
+        "ARQ_Cafe_Parede_S_1"
+      ]
+    },
+    {
+      "name": "TET_Hub_Equip",
+      "bounds": {
+        "minX": -2.4880764484405518,
+        "maxX": 2.9433014392852783,
+        "minY": 2.9200000762939453,
+        "maxY": 4.25,
+        "minZ": -2.940000057220459,
+        "maxZ": 2.4880764484405518
+      },
+      "apoiado_em": [
+        "TET_Hub"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TET_EDEN_Equip",
+      "bounds": {
+        "minX": -2.464050054550171,
+        "maxX": 1.7907133102416992,
+        "minY": 2.950000047683716,
+        "maxY": 4.135717391967773,
+        "minZ": -12.26091480255127,
+        "maxZ": -8.417133331298828
+      },
+      "apoiado_em": [
+        "TET_EDEN"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TET_Arquivo_Equip",
+      "bounds": {
+        "minX": -12.350000381469727,
+        "maxX": -8.049999237060547,
+        "minY": 2.919999837875366,
+        "maxY": 3.299999952316284,
+        "minZ": -1.4000000953674316,
+        "maxZ": 2.200000047683716
+      },
+      "apoiado_em": [
+        "TET_Arquivo"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TET_Oficina_Equip",
+      "bounds": {
+        "minX": 8.0,
+        "maxX": 12.352346420288086,
+        "minY": 2.8999998569488525,
+        "maxY": 4.050000190734863,
+        "minZ": -2.200000047683716,
+        "maxZ": 1.7523462772369385
+      },
+      "apoiado_em": [
+        "TET_Oficina"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TET_Comunicacoes_Equip",
+      "bounds": {
+        "minX": -10.407611846923828,
+        "maxX": -6.13184928894043,
+        "minY": 2.544746160507202,
+        "maxY": 7.170000076293945,
+        "minZ": 7.879536151885986,
+        "maxZ": 10.60883617401123
+      },
+      "apoiado_em": [
+        "TET_Comunicacoes"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TET_Deposito_Equip",
+      "bounds": {
+        "minX": 5.599999904632568,
+        "maxX": 10.399999618530273,
+        "minY": 2.919999837875366,
+        "maxY": 3.25,
+        "minZ": 6.799999713897705,
+        "maxZ": 11.0
+      },
+      "apoiado_em": [
+        "TET_Deposito"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TET_Reuniao_Equip",
+      "bounds": {
+        "minX": -2.799999952316284,
+        "maxX": 3.6000001430511475,
+        "minY": 2.919999837875366,
+        "maxY": 3.299999952316284,
+        "minZ": 13.899999618530273,
+        "maxZ": 16.600000381469727
+      },
+      "apoiado_em": [
+        "TET_Reuniao"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TET_Cafe_Equip",
+      "bounds": {
+        "minX": 8.227653503417969,
+        "maxX": 8.572345733642578,
+        "minY": 2.924999952316284,
+        "maxY": 3.4749999046325684,
+        "minZ": 15.227653503417969,
+        "maxZ": 15.572345733642578
+      },
+      "apoiado_em": [
+        "TET_Cafe"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TET_Eclusa",
+      "bounds": {
+        "minX": -2.5,
+        "maxX": 2.5,
+        "minY": 2.700000047683716,
+        "maxY": 2.8999998569488525,
+        "minZ": 17.450000762939453,
+        "maxZ": 19.549999237060547
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Eclusa_Parede_L",
+        "ARQ_Eclusa_Parede_O"
+      ]
+    },
+    {
+      "name": "TET_Pavilhao",
+      "bounds": {
+        "minX": 7.519999980926514,
+        "maxX": 17.479999542236328,
+        "minY": 2.299999952316284,
+        "maxY": 2.43999981880188,
+        "minZ": 20.079999923706055,
+        "maxZ": 26.920000076293945
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Pavilhao_Parede_L",
+        "ARQ_Pavilhao_Parede_N",
+        "ARQ_Pavilhao_Parede_O_1",
+        "ARQ_Pavilhao_Parede_O_2",
+        "ARQ_Pavilhao_Parede_S"
+      ]
+    },
+    {
+      "name": "TET_Laboratorio",
+      "bounds": {
+        "minX": 3.7200000286102295,
+        "maxX": 9.640000343322754,
+        "minY": 2.6600000858306885,
+        "maxY": 3.049999952316284,
+        "minZ": -12.140000343322754,
+        "maxZ": -7.860000133514404
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": [
+        "ARQ_Laboratorio_Canto_NE",
+        "ARQ_Laboratorio_Canto_SE",
+        "ARQ_Laboratorio_Parede_L_1",
+        "ARQ_Laboratorio_Parede_L_2",
+        "ARQ_Laboratorio_Parede_N_1",
+        "ARQ_Laboratorio_Parede_S_1"
+      ]
+    },
+    {
+      "name": "TET_Laboratorio_Equip",
+      "bounds": {
+        "minX": 4.248210906982422,
+        "maxX": 9.019999504089355,
+        "minY": 3.049999952316284,
+        "maxY": 3.943929672241211,
+        "minZ": -11.75,
+        "maxZ": -8.600000381469727
+      },
+      "apoiado_em": [
+        "TET_Laboratorio"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "TET_Laboratorio_Conduites",
+      "bounds": {
+        "minX": 8.72425651550293,
+        "maxX": 9.050519943237305,
+        "minY": 2.6999998092651367,
+        "maxY": 3.181715488433838,
+        "minZ": -12.3080472946167,
+        "maxZ": -11.600000381469727
+      },
+      "apoiado_em": [
+        "TET_Laboratorio"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Lab_CaixaTecnica_Conduites",
+      "bounds": {
+        "minX": 7.87999963760376,
+        "maxX": 9.079999923706055,
+        "minY": 0.10707063227891922,
+        "maxY": 2.700000047683716,
+        "minZ": -12.454999923706055,
+        "maxZ": -12.139999389648438
+      },
+      "apoiado_em": [
+        "ARQ_Laboratorio_Parede_N_1"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Lab_CaixaTecnica_Rotulo",
+      "bounds": {
+        "minX": 8.008529663085938,
+        "maxX": 8.286219596862793,
+        "minY": 1.1783699989318848,
+        "maxY": 1.227370023727417,
+        "minZ": -12.459000587463379,
+        "maxZ": -12.456999778747559
+      },
+      "apoiado_em": [
+        "PROP_Lab_CaixaTecnica_Conduites"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Lab_VolumeTecnico_Provisorio",
+      "bounds": {
+        "minX": 5.300000190734863,
+        "maxX": 7.699999809265137,
+        "minY": 0.0,
+        "maxY": 0.8199999928474426,
+        "minZ": -10.699999809265137,
+        "maxZ": -9.300000190734863
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Lab_VolumeTecnico_Texto",
+      "bounds": {
+        "minX": 5.975450038909912,
+        "maxX": 7.024549961090088,
+        "minY": 0.8209999799728394,
+        "maxY": 0.8209999799728394,
+        "minZ": -10.074620246887207,
+        "maxZ": -9.959830284118652
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Lab_Bancada_Equipamentos",
+      "bounds": {
+        "minX": 7.449999809265137,
+        "maxX": 8.550000190734863,
+        "minY": 0.0,
+        "maxY": 1.2999999523162842,
+        "minZ": -11.75,
+        "maxZ": -11.25
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Lab_Tela_Parede",
+      "bounds": {
+        "minX": 5.510000228881836,
+        "maxX": 7.489999771118164,
+        "minY": 1.5799999237060547,
+        "maxY": 2.5,
+        "minZ": -11.860000610351562,
+        "maxZ": -11.819999694824219
+      },
+      "apoiado_em": [
+        "ARQ_Laboratorio_Parede_N_1"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Lab_Balizador.0",
+      "bounds": {
+        "minX": 14.769999504089355,
+        "maxX": 15.029999732971191,
+        "minY": -0.11945817619562149,
+        "maxY": 0.6205418109893799,
+        "minZ": -11.130000114440918,
+        "maxZ": -10.869999885559082
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Lab_Balizador.1",
+      "bounds": {
+        "minX": 14.769999504089355,
+        "maxX": 15.029999732971191,
+        "minY": -0.11945955455303192,
+        "maxY": 0.62054044008255,
+        "minZ": -8.130000114440918,
+        "maxZ": -7.869999885559082
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Lab_Balizador.2",
+      "bounds": {
+        "minX": 14.769999504089355,
+        "maxX": 15.029999732971191,
+        "minY": -0.11944746971130371,
+        "maxY": 0.6205525398254395,
+        "minZ": -5.630000114440918,
+        "maxZ": -5.369999885559082
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Lab_Vaso",
+      "bounds": {
+        "minX": 14.664682388305664,
+        "maxX": 15.23531723022461,
+        "minY": -0.11942200362682343,
+        "maxY": 0.6385779976844788,
+        "minZ": -9.600000381469727,
+        "maxZ": -9.0
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Lab_Caixa.0",
+      "bounds": {
+        "minX": 14.855610847473145,
+        "maxX": 15.644389152526855,
+        "minY": -0.11913269758224487,
+        "maxY": 0.4308673143386841,
+        "minZ": -11.548544883728027,
+        "maxZ": -10.851454734802246
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Lab_Caixa.1",
+      "bounds": {
+        "minX": 14.894352912902832,
+        "maxX": 15.705647468566895,
+        "minY": -0.11907511204481125,
+        "maxY": 0.4309248924255371,
+        "minZ": -10.711992263793945,
+        "maxZ": -9.988008499145508
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Lab_Caixa.2",
+      "bounds": {
+        "minX": 14.821959495544434,
+        "maxX": 15.71804141998291,
+        "minY": 0.4308672845363617,
+        "maxY": 0.9808672666549683,
+        "minZ": -11.56505012512207,
+        "maxZ": -10.734949111938477
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Hub_Mobiliario",
+      "bounds": {
+        "minX": -2.0,
+        "maxX": 2.0,
+        "minY": 0.0,
+        "maxY": 1.28000009059906,
+        "minZ": -2.5999999046325684,
+        "maxZ": 1.399999976158142
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_EDEN_Mobiliario",
+      "bounds": {
+        "minX": -2.5,
+        "maxX": 1.0499999523162842,
+        "minY": 0.0,
+        "maxY": 1.28000009059906,
+        "minZ": -11.59999942779541,
+        "maxZ": -8.699999809265137
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Arquivo_Mobiliario",
+      "bounds": {
+        "minX": -11.75,
+        "maxX": -7.649999618530273,
+        "minY": 0.0,
+        "maxY": 1.28000009059906,
+        "minZ": -0.8500000238418579,
+        "maxZ": 1.5
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Oficina_Mobiliario",
+      "bounds": {
+        "minX": 7.75,
+        "maxX": 11.75,
+        "minY": 0.0,
+        "maxY": 1.28000009059906,
+        "minZ": -0.8500000238418579,
+        "maxZ": 1.649999976158142
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Comunicacoes_Mobiliario",
+      "bounds": {
+        "minX": -9.800000190734863,
+        "maxX": -6.100000381469727,
+        "minY": 0.0,
+        "maxY": 1.7999999523162842,
+        "minZ": 8.350000381469727,
+        "maxZ": 10.350000381469727
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Deposito_Mobiliario",
+      "bounds": {
+        "minX": 5.599999904632568,
+        "maxX": 10.399999618530273,
+        "minY": 0.0,
+        "maxY": 1.28000009059906,
+        "minZ": 9.59999942779541,
+        "maxZ": 10.649999618530273
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Reuniao_Mobiliario",
+      "bounds": {
+        "minX": -1.600000023841858,
+        "maxX": 1.600000023841858,
+        "minY": 0.0,
+        "maxY": 0.7799999713897705,
+        "minZ": 14.25,
+        "maxZ": 15.25
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Cafe_Mobiliario",
+      "bounds": {
+        "minX": 5.880000114440918,
+        "maxX": 9.119999885559082,
+        "minY": 0.0,
+        "maxY": 1.25,
+        "minZ": 12.619999885559082,
+        "maxZ": 15.199999809265137
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_EDEN_Tela_Parede_O",
+      "bounds": {
+        "minX": -3.3399999141693115,
+        "maxX": -3.299999952316284,
+        "minY": 1.5799999237060547,
+        "maxY": 2.4800000190734863,
+        "minZ": -11.300000190734863,
+        "maxZ": -9.09999942779541
+      },
+      "apoiado_em": [
+        "ARQ_EDEN_Parede_O_1"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_EDEN_Holograma_Parede_N",
+      "bounds": {
+        "minX": 1.1700000762939453,
+        "maxX": 2.309999942779541,
+        "minY": 1.5799999237060547,
+        "maxY": 2.440000057220459,
+        "minZ": -12.860000610351562,
+        "maxZ": -12.819999694824219
+      },
+      "apoiado_em": [
+        "ARQ_EDEN_Parede_N_1"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Arquivo_Estante_Parede_N",
+      "bounds": {
+        "minX": -13.100000381469727,
+        "maxX": -9.600000381469727,
+        "minY": 1.600000023841858,
+        "maxY": 2.4000000953674316,
+        "minZ": -2.8399999141693115,
+        "maxZ": -2.429999828338623
+      },
+      "apoiado_em": [
+        "ARQ_Arquivo_Parede_N_1"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Oficina_Painel_Ferramentas_Parede_L",
+      "bounds": {
+        "minX": 13.260000228881836,
+        "maxX": 13.320000648498535,
+        "minY": 1.5800000429153442,
+        "maxY": 2.4000000953674316,
+        "minZ": -2.0999999046325684,
+        "maxZ": -0.10000002384185791
+      },
+      "apoiado_em": [
+        "ARQ_Oficina_Parede_L_1"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Comunicacoes_Painel_Parede_O",
+      "bounds": {
+        "minX": -10.84000015258789,
+        "maxX": -10.799999237060547,
+        "minY": 1.5800000429153442,
+        "maxY": 2.4000000953674316,
+        "minZ": 8.100000381469727,
+        "maxZ": 9.899999618530273
+      },
+      "apoiado_em": [
+        "ARQ_Comunicacoes_Parede_O_1"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Reuniao_Tela_Parede_O",
+      "bounds": {
+        "minX": -3.819999933242798,
+        "maxX": -3.7799999713897705,
+        "minY": 1.5800000429153442,
+        "maxY": 2.5299999713897705,
+        "minZ": 13.300000190734863,
+        "maxZ": 15.699999809265137
+      },
+      "apoiado_em": [
+        "ARQ_Reuniao_Parede_O_1"
+      ],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Cadeira.00",
+      "bounds": {
+        "minX": -1.322559118270874,
+        "maxX": -0.7774407267570496,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": 0.6774407625198364,
+        "maxZ": 1.2225592136383057
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Cadeira.01",
+      "bounds": {
+        "minX": 0.7774407267570496,
+        "maxX": 1.322559118270874,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": 0.6774407625198364,
+        "maxZ": 1.2225592136383057
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Cadeira.02",
+      "bounds": {
+        "minX": -2.309999942779541,
+        "maxX": -1.8899998664855957,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": 0.9399999976158142,
+        "maxZ": 1.3600000143051147
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Cadeira.03",
+      "bounds": {
+        "minX": 1.8899998664855957,
+        "maxX": 2.309999942779541,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": 0.9399999976158142,
+        "maxZ": 1.3600000143051147
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Cadeira.04",
+      "bounds": {
+        "minX": -0.20999999344348907,
+        "maxX": 0.20999999344348907,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": -12.40999984741211,
+        "maxZ": -11.989999771118164
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Cadeira.05",
+      "bounds": {
+        "minX": -10.460000038146973,
+        "maxX": -10.039999961853027,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": -0.059999994933605194,
+        "maxZ": 0.36000001430511475
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Cadeira.06",
+      "bounds": {
+        "minX": 10.039999961853027,
+        "maxX": 10.460000038146973,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": -0.059999994933605194,
+        "maxZ": 0.36000001430511475
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Cadeira.07",
+      "bounds": {
+        "minX": -8.510000228881836,
+        "maxX": -8.09000015258789,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": 9.140000343322754,
+        "maxZ": 9.5600004196167
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Cadeira.08",
+      "bounds": {
+        "minX": -2.009999990463257,
+        "maxX": -1.5899999141693115,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": 14.539999961853027,
+        "maxZ": 14.960000038146973
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Cadeira.09",
+      "bounds": {
+        "minX": 1.5899999141693115,
+        "maxX": 2.009999990463257,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": 14.539999961853027,
+        "maxZ": 14.960000038146973
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Cadeira.10",
+      "bounds": {
+        "minX": -1.1100000143051147,
+        "maxX": -0.6899999380111694,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": 15.890000343322754,
+        "maxZ": 16.309999465942383
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Cadeira.11",
+      "bounds": {
+        "minX": 0.6899999380111694,
+        "maxX": 1.1100000143051147,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": 15.890000343322754,
+        "maxZ": 16.309999465942383
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Cadeira.12",
+      "bounds": {
+        "minX": 6.840000152587891,
+        "maxX": 7.260000228881836,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": 14.289999961853027,
+        "maxZ": 14.710000038146973
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Vaso_Protegido.00",
+      "bounds": {
+        "minX": -3.2354559898376465,
+        "maxX": -2.864543914794922,
+        "minY": 0.0,
+        "maxY": 0.4926999807357788,
+        "minZ": 2.8550000190734863,
+        "maxZ": 3.244999885559082
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Vaso_Protegido.01",
+      "bounds": {
+        "minX": 2.864543914794922,
+        "maxX": 3.2354559898376465,
+        "minY": 0.0,
+        "maxY": 0.4926999807357788,
+        "minZ": 2.755000114440918,
+        "maxZ": 3.1449999809265137
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Vaso_Protegido.02",
+      "bounds": {
+        "minX": -2.8654561042785645,
+        "maxX": -2.49454402923584,
+        "minY": 0.0,
+        "maxY": 0.4926999807357788,
+        "minZ": -8.015000343322754,
+        "maxZ": -7.625
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Vaso_Protegido.03",
+      "bounds": {
+        "minX": 2.49454402923584,
+        "maxX": 2.8654561042785645,
+        "minY": 0.0,
+        "maxY": 0.4926999807357788,
+        "minZ": -12.274999618530273,
+        "maxZ": -11.885000228881836
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Vaso_Protegido.04",
+      "bounds": {
+        "minX": -12.865456581115723,
+        "maxX": -12.49454402923584,
+        "minY": 0.0,
+        "maxY": 0.4926999807357788,
+        "minZ": 1.9850000143051147,
+        "maxZ": 2.375
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Vaso_Protegido.05",
+      "bounds": {
+        "minX": -7.50545597076416,
+        "maxX": -7.134544372558594,
+        "minY": 0.0,
+        "maxY": 0.4926999807357788,
+        "minZ": -2.2749998569488525,
+        "maxZ": -1.8849998712539673
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Vaso_Protegido.06",
+      "bounds": {
+        "minX": 7.134544372558594,
+        "maxX": 7.50545597076416,
+        "minY": 0.0,
+        "maxY": 0.4926999807357788,
+        "minZ": 1.9850000143051147,
+        "maxZ": 2.375
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Vaso_Protegido.07",
+      "bounds": {
+        "minX": 12.49454402923584,
+        "maxX": 12.865456581115723,
+        "minY": 0.0,
+        "maxY": 0.4926999807357788,
+        "minZ": -2.2749998569488525,
+        "maxZ": -1.8849998712539673
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Vaso_Protegido.08",
+      "bounds": {
+        "minX": -10.365456581115723,
+        "maxX": -9.99454402923584,
+        "minY": 0.0,
+        "maxY": 0.4926999807357788,
+        "minZ": 10.485000610351562,
+        "maxZ": 10.875
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Vaso_Protegido.09",
+      "bounds": {
+        "minX": -6.00545597076416,
+        "maxX": -5.634544372558594,
+        "minY": 0.0,
+        "maxY": 0.4926999807357788,
+        "minZ": 7.224999904632568,
+        "maxZ": 7.615000247955322
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Vaso_Protegido.10",
+      "bounds": {
+        "minX": 5.634544372558594,
+        "maxX": 6.00545597076416,
+        "minY": 0.0,
+        "maxY": 0.4926999807357788,
+        "minZ": 10.485000610351562,
+        "maxZ": 10.875
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Vaso_Protegido.11",
+      "bounds": {
+        "minX": 9.99454402923584,
+        "maxX": 10.365456581115723,
+        "minY": 0.0,
+        "maxY": 0.4926999807357788,
+        "minZ": 7.224999904632568,
+        "maxZ": 7.615000247955322
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Vaso_Protegido.12",
+      "bounds": {
+        "minX": -3.3654561042785645,
+        "maxX": -2.99454402923584,
+        "minY": 0.0,
+        "maxY": 0.4926999807357788,
+        "minZ": 16.485000610351562,
+        "maxZ": 16.875
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Vaso_Protegido.13",
+      "bounds": {
+        "minX": 2.99454402923584,
+        "maxX": 3.3654561042785645,
+        "minY": 0.0,
+        "maxY": 0.4926999807357788,
+        "minZ": 12.225000381469727,
+        "maxZ": 12.614999771118164
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Vaso_Protegido.14",
+      "bounds": {
+        "minX": 8.49454402923584,
+        "maxX": 8.865456581115723,
+        "minY": 0.0,
+        "maxY": 0.4926999807357788,
+        "minZ": 15.485000610351562,
+        "maxZ": 15.875
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Vaso_Protegido.15",
+      "bounds": {
+        "minX": -14.185456275939941,
+        "maxX": -13.814543724060059,
+        "minY": -0.11967547982931137,
+        "maxY": 0.37302449345588684,
+        "minZ": -12.694999694824219,
+        "maxZ": -12.305000305175781
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Vaso_Protegido.16",
+      "bounds": {
+        "minX": 13.814543724060059,
+        "maxX": 14.185456275939941,
+        "minY": -0.11936130374670029,
+        "maxY": 0.3733386695384979,
+        "minZ": -12.694999694824219,
+        "maxZ": -12.305000305175781
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Vaso_Protegido.17",
+      "bounds": {
+        "minX": -13.685456275939941,
+        "maxX": -13.314543724060059,
+        "minY": -0.08218309283256531,
+        "maxY": 0.4105168879032135,
+        "minZ": 12.405000686645508,
+        "maxZ": 12.795000076293945
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Vaso_Protegido.18",
+      "bounds": {
+        "minX": 13.314543724060059,
+        "maxX": 13.685456275939941,
+        "minY": 0.0,
+        "maxY": 0.4926999807357788,
+        "minZ": 12.405000686645508,
+        "maxZ": 12.795000076293945
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Vaso_Protegido.19",
+      "bounds": {
+        "minX": -18.385456085205078,
+        "maxX": -18.014545440673828,
+        "minY": 0.0,
+        "maxY": 0.4926999807357788,
+        "minZ": 24.005001068115234,
+        "maxZ": 24.395000457763672
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Vaso_Protegido.20",
+      "bounds": {
+        "minX": -13.385456085205078,
+        "maxX": -13.014543533325195,
+        "minY": 0.0,
+        "maxY": 0.4926999807357788,
+        "minZ": 22.204999923706055,
+        "maxZ": 22.594999313354492
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Vaso_Protegido.21",
+      "bounds": {
+        "minX": 8.614543914794922,
+        "maxX": 8.985456466674805,
+        "minY": 0.0,
+        "maxY": 0.4926999807357788,
+        "minZ": 23.905000686645508,
+        "maxZ": 24.295000076293945
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Vaso_Protegido.22",
+      "bounds": {
+        "minX": -5.9854559898376465,
+        "maxX": -5.61454439163208,
+        "minY": 0.0,
+        "maxY": 0.4926999807357788,
+        "minZ": 24.204999923706055,
+        "maxZ": 24.594999313354492
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Nodo_Tecnico.00",
+      "bounds": {
+        "minX": -2.8500001430511475,
+        "maxX": -2.549999952316284,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": -2.6500000953674316,
+        "maxZ": -2.3499999046325684
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Nodo_Tecnico.01",
+      "bounds": {
+        "minX": 2.549999952316284,
+        "maxX": 2.8500001430511475,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": -2.6500000953674316,
+        "maxZ": -2.3499999046325684
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Nodo_Tecnico.02",
+      "bounds": {
+        "minX": -2.5500001907348633,
+        "maxX": -2.25,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": -11.549999237060547,
+        "maxZ": -11.25
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Nodo_Tecnico.03",
+      "bounds": {
+        "minX": 2.0999999046325684,
+        "maxX": 2.4000000953674316,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": -11.34999942779541,
+        "maxZ": -11.050000190734863
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Nodo_Tecnico.04",
+      "bounds": {
+        "minX": -12.449999809265137,
+        "maxX": -12.15000057220459,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": 1.0500000715255737,
+        "maxZ": 1.350000023841858
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Nodo_Tecnico.05",
+      "bounds": {
+        "minX": -7.900000095367432,
+        "maxX": -7.599999904632568,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": -1.399999976158142,
+        "maxZ": -1.100000023841858
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Nodo_Tecnico.06",
+      "bounds": {
+        "minX": -10.199999809265137,
+        "maxX": -9.90000057220459,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": 7.799999713897705,
+        "maxZ": 8.09999942779541
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Nodo_Tecnico.07",
+      "bounds": {
+        "minX": -6.050000190734863,
+        "maxX": -5.75,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": 7.900000095367432,
+        "maxZ": 8.199999809265137
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Nodo_Tecnico.08",
+      "bounds": {
+        "minX": 5.799999713897705,
+        "maxX": 6.099999904632568,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": 7.900000095367432,
+        "maxZ": 8.199999809265137
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Nodo_Tecnico.09",
+      "bounds": {
+        "minX": 9.90000057220459,
+        "maxX": 10.199999809265137,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": 7.900000095367432,
+        "maxZ": 8.199999809265137
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Nodo_Tecnico.10",
+      "bounds": {
+        "minX": 2.6499998569488525,
+        "maxX": 2.950000047683716,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": 12.600000381469727,
+        "maxZ": 12.899999618530273
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Nodo_Tecnico.11",
+      "bounds": {
+        "minX": -12.549999237060547,
+        "maxX": -12.25,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": 0.04999999701976776,
+        "maxZ": 0.3500000238418579
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Nodo_Tecnico.12",
+      "bounds": {
+        "minX": 12.25,
+        "maxX": 12.549999237060547,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": 0.04999999701976776,
+        "maxZ": 0.3500000238418579
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Nodo_Tecnico.13",
+      "bounds": {
+        "minX": -16.649999618530273,
+        "maxX": -16.350000381469727,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": 24.450000762939453,
+        "maxZ": 24.75
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Nodo_Tecnico.14",
+      "bounds": {
+        "minX": -14.25,
+        "maxX": -13.950000762939453,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": 22.450000762939453,
+        "maxZ": 22.75
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Nodo_Tecnico.15",
+      "bounds": {
+        "minX": 7.650000095367432,
+        "maxX": 7.950000286102295,
+        "minY": 0.0,
+        "maxY": 0.949999988079071,
+        "minZ": 16.649999618530273,
+        "maxZ": 16.94999885559082
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Pavilhao_Mesa_Bancos",
+      "bounds": {
+        "minX": 11.699999809265137,
+        "maxX": 13.300000190734863,
+        "minY": 0.0,
+        "maxY": 0.7200000286102295,
+        "minZ": 21.799999237060547,
+        "maxZ": 25.200000762939453
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Pavilhao_Balizador.0",
+      "bounds": {
+        "minX": 8.869999885559082,
+        "maxX": 9.130000114440918,
+        "minY": 0.0,
+        "maxY": 0.7400000095367432,
+        "minZ": 20.8700008392334,
+        "maxZ": 21.1299991607666
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Pavilhao_Balizador.1",
+      "bounds": {
+        "minX": 15.869999885559082,
+        "maxX": 16.1299991607666,
+        "minY": 0.0,
+        "maxY": 0.7400000095367432,
+        "minZ": 25.8700008392334,
+        "maxZ": 26.1299991607666
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Paineis_Solares",
+      "bounds": {
+        "minX": -18.950000762939453,
+        "maxX": -8.65000057220459,
+        "minY": 0.0,
+        "maxY": 1.1754671335220337,
+        "minZ": -12.815570831298828,
+        "maxZ": -3.1538262367248535
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Tanques",
+      "bounds": {
+        "minX": -15.120000839233398,
+        "maxX": -7.250000953674316,
+        "minY": 0.0,
+        "maxY": 1.7311960458755493,
+        "minZ": 29.850000381469727,
+        "maxZ": 33.349998474121094
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.00",
+      "bounds": {
+        "minX": -4.329999923706055,
+        "maxX": -4.069999694824219,
+        "minY": -0.11957701295614243,
+        "maxY": 0.6204230189323425,
+        "minZ": 18.920000076293945,
+        "maxZ": 19.17999839782715
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.01",
+      "bounds": {
+        "minX": -4.329999923706055,
+        "maxX": -4.069999694824219,
+        "minY": -0.11949203908443451,
+        "maxY": 0.6205079555511475,
+        "minZ": 27.82000160217285,
+        "maxZ": 28.079999923706055
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.02",
+      "bounds": {
+        "minX": 4.069999694824219,
+        "maxX": 4.329999923706055,
+        "minY": -0.1195550188422203,
+        "maxY": 0.6204450130462646,
+        "minZ": 18.920000076293945,
+        "maxZ": 19.17999839782715
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.03",
+      "bounds": {
+        "minX": 4.069999694824219,
+        "maxX": 4.329999923706055,
+        "minY": -0.11951953172683716,
+        "maxY": 0.620480477809906,
+        "minZ": 27.82000160217285,
+        "maxZ": 28.079999923706055
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.04",
+      "bounds": {
+        "minX": -7.579999923706055,
+        "maxX": -7.319999694824219,
+        "minY": -0.11951334029436111,
+        "maxY": 0.6204866766929626,
+        "minZ": 25.770000457763672,
+        "maxZ": 26.029998779296875
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.05",
+      "bounds": {
+        "minX": 13.819999694824219,
+        "maxX": 14.079999923706055,
+        "minY": -0.1195211336016655,
+        "maxY": 0.6204788684844971,
+        "minZ": 13.069999694824219,
+        "maxZ": 13.329999923706055
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.06",
+      "bounds": {
+        "minX": 13.819999694824219,
+        "maxX": 14.079999923706055,
+        "minY": -0.11953595280647278,
+        "maxY": 0.6204640865325928,
+        "minZ": 15.619999885559082,
+        "maxZ": 15.880000114440918
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.07",
+      "bounds": {
+        "minX": 13.819999694824219,
+        "maxX": 14.079999923706055,
+        "minY": -0.11951173841953278,
+        "maxY": 0.6204882860183716,
+        "minZ": 18.170000076293945,
+        "maxZ": 18.42999839782715
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.08",
+      "bounds": {
+        "minX": 10.420000076293945,
+        "maxX": 10.680000305175781,
+        "minY": -0.11947064846754074,
+        "maxY": 0.6205293536186218,
+        "minZ": 4.569999694824219,
+        "maxZ": 4.829999923706055
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.09",
+      "bounds": {
+        "minX": 15.319999694824219,
+        "maxX": 15.579999923706055,
+        "minY": -0.1193246990442276,
+        "maxY": 0.6206753253936768,
+        "minZ": 4.569999694824219,
+        "maxZ": 4.829999923706055
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.10",
+      "bounds": {
+        "minX": 15.319999694824219,
+        "maxX": 15.579999923706055,
+        "minY": -0.11935800313949585,
+        "maxY": 0.6206420063972473,
+        "minZ": 7.119999885559082,
+        "maxZ": 7.380000114440918
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.11",
+      "bounds": {
+        "minX": 15.319999694824219,
+        "maxX": 15.579999923706055,
+        "minY": -0.11941192299127579,
+        "maxY": 0.6205880641937256,
+        "minZ": 9.670000076293945,
+        "maxZ": 9.930000305175781
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.12",
+      "bounds": {
+        "minX": 18.32000160217285,
+        "maxX": 18.579999923706055,
+        "minY": -0.11933524906635284,
+        "maxY": 0.6206647753715515,
+        "minZ": -3.5300002098083496,
+        "maxZ": -3.2699999809265137
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.13",
+      "bounds": {
+        "minX": 15.369999885559082,
+        "maxX": 15.630000114440918,
+        "minY": -0.11939987540245056,
+        "maxY": 0.6206001043319702,
+        "minZ": -5.579999923706055,
+        "maxZ": -5.319999694824219
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.14",
+      "bounds": {
+        "minX": 15.369999885559082,
+        "maxX": 15.630000114440918,
+        "minY": -0.11931895464658737,
+        "maxY": 0.6206810474395752,
+        "minZ": 3.320000171661377,
+        "maxZ": 3.5799999237060547
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.15",
+      "bounds": {
+        "minX": 18.32000160217285,
+        "maxX": 18.579999923706055,
+        "minY": -0.11930152028799057,
+        "maxY": 0.6206985116004944,
+        "minZ": -1.1299999952316284,
+        "maxZ": -0.8700000047683716
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.16",
+      "bounds": {
+        "minX": 16.8700008392334,
+        "maxX": 17.1299991607666,
+        "minY": -0.11937983334064484,
+        "maxY": 0.6206201910972595,
+        "minZ": -5.579999923706055,
+        "maxZ": -5.319999694824219
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.17",
+      "bounds": {
+        "minX": 16.8700008392334,
+        "maxX": 17.1299991607666,
+        "minY": -0.1192770004272461,
+        "maxY": 0.6207230091094971,
+        "minZ": 3.320000171661377,
+        "maxZ": 3.5799999237060547
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.18",
+      "bounds": {
+        "minX": 18.32000160217285,
+        "maxX": 18.579999923706055,
+        "minY": -0.11926818639039993,
+        "maxY": 0.6207318305969238,
+        "minZ": 1.2699999809265137,
+        "maxZ": 1.5299999713897705
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.19",
+      "bounds": {
+        "minX": -12.529999732971191,
+        "maxX": -12.269999504089355,
+        "minY": -0.11953244358301163,
+        "maxY": 0.6204675436019897,
+        "minZ": 18.920000076293945,
+        "maxZ": 19.17999839782715
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.20",
+      "bounds": {
+        "minX": -8.630000114440918,
+        "maxX": -8.369999885559082,
+        "minY": -0.11952531337738037,
+        "maxY": 0.6204746961593628,
+        "minZ": 18.920000076293945,
+        "maxZ": 19.17999839782715
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.21",
+      "bounds": {
+        "minX": -8.630000114440918,
+        "maxX": -8.369999885559082,
+        "minY": -0.11950469017028809,
+        "maxY": 0.6204953193664551,
+        "minZ": 23.82000160217285,
+        "maxZ": 24.079999923706055
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.22",
+      "bounds": {
+        "minX": -4.730000019073486,
+        "maxX": -4.46999979019165,
+        "minY": -0.11957164108753204,
+        "maxY": 0.6204283833503723,
+        "minZ": 18.920000076293945,
+        "maxZ": 19.17999839782715
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.23",
+      "bounds": {
+        "minX": -18.329999923706055,
+        "maxX": -18.07000160217285,
+        "minY": -0.11953406780958176,
+        "maxY": 0.6204659342765808,
+        "minZ": 19.920000076293945,
+        "maxZ": 20.17999839782715
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.24",
+      "bounds": {
+        "minX": -18.329999923706055,
+        "maxX": -18.07000160217285,
+        "minY": -0.11943991482257843,
+        "maxY": 0.6205601096153259,
+        "minZ": 26.82000160217285,
+        "maxZ": 27.079999923706055
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.25",
+      "bounds": {
+        "minX": -20.579999923706055,
+        "maxX": -20.32000160217285,
+        "minY": -0.11954033374786377,
+        "maxY": 0.6204596757888794,
+        "minZ": 21.57000160217285,
+        "maxZ": 21.829999923706055
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.26",
+      "bounds": {
+        "minX": -15.630000114440918,
+        "maxX": -15.369999885559082,
+        "minY": -0.11952489614486694,
+        "maxY": 0.6204751133918762,
+        "minZ": 19.920000076293945,
+        "maxZ": 20.17999839782715
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.27",
+      "bounds": {
+        "minX": -15.630000114440918,
+        "maxX": -15.369999885559082,
+        "minY": -0.11944889277219772,
+        "maxY": 0.6205511093139648,
+        "minZ": 26.82000160217285,
+        "maxZ": 27.079999923706055
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.28",
+      "bounds": {
+        "minX": -20.579999923706055,
+        "maxX": -20.32000160217285,
+        "minY": -0.11951306462287903,
+        "maxY": 0.6204869747161865,
+        "minZ": 23.3700008392334,
+        "maxZ": 23.6299991607666
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.29",
+      "bounds": {
+        "minX": -12.930000305175781,
+        "maxX": -12.670000076293945,
+        "minY": -0.11946819722652435,
+        "maxY": 0.6205317974090576,
+        "minZ": 26.82000160217285,
+        "maxZ": 27.079999923706055
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.30",
+      "bounds": {
+        "minX": -20.579999923706055,
+        "maxX": -20.32000160217285,
+        "minY": -0.11947537213563919,
+        "maxY": 0.6205246448516846,
+        "minZ": 25.170000076293945,
+        "maxZ": 25.42999839782715
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.31",
+      "bounds": {
+        "minX": -10.680000305175781,
+        "maxX": -10.420000076293945,
+        "minY": -0.11949294060468674,
+        "maxY": 0.6205070614814758,
+        "minZ": 25.170000076293945,
+        "maxZ": 25.42999839782715
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.32",
+      "bounds": {
+        "minX": 18.32000160217285,
+        "maxX": 18.579999923706055,
+        "minY": -0.11938593536615372,
+        "maxY": 0.6206140518188477,
+        "minZ": 21.270000457763672,
+        "maxZ": 21.529998779296875
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.33",
+      "bounds": {
+        "minX": 18.32000160217285,
+        "maxX": 18.579999923706055,
+        "minY": -0.1193809062242508,
+        "maxY": 0.6206191182136536,
+        "minZ": 23.3700008392334,
+        "maxZ": 23.6299991607666
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.34",
+      "bounds": {
+        "minX": 18.32000160217285,
+        "maxX": 18.579999923706055,
+        "minY": -0.11936993151903152,
+        "maxY": 0.6206300854682922,
+        "minZ": 25.470001220703125,
+        "maxZ": 25.729999542236328
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.35",
+      "bounds": {
+        "minX": -2.5799999237060547,
+        "maxX": -2.320000171661377,
+        "minY": -0.11947768181562424,
+        "maxY": 0.6205223202705383,
+        "minZ": 27.8700008392334,
+        "maxZ": 28.1299991607666
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.36",
+      "bounds": {
+        "minX": 2.320000171661377,
+        "maxX": 2.5799999237060547,
+        "minY": -0.11950066685676575,
+        "maxY": 0.6204993724822998,
+        "minZ": 27.8700008392334,
+        "maxZ": 28.1299991607666
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.37",
+      "bounds": {
+        "minX": -4.329999923706055,
+        "maxX": -4.069999694824219,
+        "minY": -0.2994881868362427,
+        "maxY": 0.4405118227005005,
+        "minZ": 28.420000076293945,
+        "maxZ": 28.67999839782715
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.38",
+      "bounds": {
+        "minX": -4.329999923706055,
+        "maxX": -4.069999694824219,
+        "minY": -0.2995074689388275,
+        "maxY": 0.44049254059791565,
+        "minZ": 38.31999969482422,
+        "maxZ": 38.58000183105469
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.39",
+      "bounds": {
+        "minX": -7.579999923706055,
+        "maxX": -7.319999694824219,
+        "minY": -0.2995132505893707,
+        "maxY": 0.44048675894737244,
+        "minZ": 30.670000076293945,
+        "maxZ": 30.92999839782715
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.40",
+      "bounds": {
+        "minX": 7.319999694824219,
+        "maxX": 7.579999923706055,
+        "minY": -0.2995457351207733,
+        "maxY": 0.44045427441596985,
+        "minZ": 30.670000076293945,
+        "maxZ": 30.92999839782715
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.41",
+      "bounds": {
+        "minX": -0.12999999523162842,
+        "maxX": 0.12999999523162842,
+        "minY": -0.2994885742664337,
+        "maxY": 0.44051143527030945,
+        "minZ": 38.31999969482422,
+        "maxZ": 38.58000183105469
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.42",
+      "bounds": {
+        "minX": -7.579999923706055,
+        "maxX": -7.319999694824219,
+        "minY": -0.29952460527420044,
+        "maxY": 0.4404754042625427,
+        "minZ": 33.369998931884766,
+        "maxZ": 33.630001068115234
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.43",
+      "bounds": {
+        "minX": 7.319999694824219,
+        "maxX": 7.579999923706055,
+        "minY": -0.29955342411994934,
+        "maxY": 0.4404465854167938,
+        "minZ": 33.369998931884766,
+        "maxZ": 33.630001068115234
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.44",
+      "bounds": {
+        "minX": 4.069999694824219,
+        "maxX": 4.329999923706055,
+        "minY": -0.29952284693717957,
+        "maxY": 0.4404771625995636,
+        "minZ": 28.420000076293945,
+        "maxZ": 28.67999839782715
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.45",
+      "bounds": {
+        "minX": 4.069999694824219,
+        "maxX": 4.329999923706055,
+        "minY": -0.29949522018432617,
+        "maxY": 0.440504789352417,
+        "minZ": 38.31999969482422,
+        "maxZ": 38.58000183105469
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.46",
+      "bounds": {
+        "minX": -7.579999923706055,
+        "maxX": -7.319999694824219,
+        "minY": -0.2995389401912689,
+        "maxY": 0.44046106934547424,
+        "minZ": 36.06999969482422,
+        "maxZ": 36.33000183105469
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    },
+    {
+      "name": "PROP_Balizador.47",
+      "bounds": {
+        "minX": 7.319999694824219,
+        "maxX": 7.579999923706055,
+        "minY": -0.29952242970466614,
+        "maxY": 0.440477579832077,
+        "minZ": 36.06999969482422,
+        "maxZ": 36.33000183105469
+      },
+      "apoiado_em": [],
+      "apoiado_em_todos": []
+    }
+  ],
+  "colliders": [
+    [
+      -4.0,
+      -0.9,
+      -4.14,
+      -3.86
+    ],
+    [
+      0.9,
+      4.0,
+      -4.14,
+      -3.86
+    ],
+    [
+      -4.0,
+      -0.9,
+      3.86,
+      4.14
+    ],
+    [
+      0.9,
+      4.0,
+      3.86,
+      4.14
+    ],
+    [
+      -4.14,
+      -3.86,
+      -4.0,
+      -0.75
+    ],
+    [
+      -4.14,
+      -3.86,
+      0.75,
+      4.0
+    ],
+    [
+      3.86,
+      4.14,
+      -4.0,
+      -0.75
+    ],
+    [
+      3.86,
+      4.14,
+      0.75,
+      4.0
+    ],
+    [
+      -1.8,
+      1.8,
+      -1.55,
+      0.35
+    ],
+    [
+      -3.5,
+      3.5,
+      -13.14,
+      -12.86
+    ],
+    [
+      -3.5,
+      -0.9,
+      -7.14,
+      -6.86
+    ],
+    [
+      0.9,
+      3.5,
+      -7.14,
+      -6.86
+    ],
+    [
+      -3.64,
+      -3.36,
+      -13.0,
+      -7.0
+    ],
+    [
+      3.36,
+      3.64,
+      -13.0,
+      -10.75
+    ],
+    [
+      3.36,
+      3.64,
+      -9.25,
+      -7.0
+    ],
+    [
+      -1.1,
+      1.1,
+      -11.7,
+      -10.6
+    ],
+    [
+      -2.5,
+      -1.4,
+      -9.2,
+      -8.7
+    ],
+    [
+      -13.5,
+      -6.5,
+      -3.14,
+      -2.86
+    ],
+    [
+      -13.5,
+      -6.5,
+      2.86,
+      3.14
+    ],
+    [
+      -13.64,
+      -13.36,
+      -3.0,
+      3.0
+    ],
+    [
+      -6.64,
+      -6.36,
+      -3.0,
+      -0.75
+    ],
+    [
+      -6.64,
+      -6.36,
+      0.75,
+      3.0
+    ],
+    [
+      -11.85,
+      -10.75,
+      -0.95,
+      1.25
+    ],
+    [
+      -8.75,
+      -7.65,
+      1.0,
+      1.5
+    ],
+    [
+      6.5,
+      13.5,
+      -3.14,
+      -2.86
+    ],
+    [
+      6.5,
+      13.5,
+      2.86,
+      3.14
+    ],
+    [
+      6.36,
+      6.64,
+      -3.0,
+      -0.75
+    ],
+    [
+      6.36,
+      6.64,
+      0.75,
+      3.0
+    ],
+    [
+      13.36,
+      13.64,
+      -3.0,
+      3.0
+    ],
+    [
+      10.75,
+      11.85,
+      -0.95,
+      1.25
+    ],
+    [
+      7.75,
+      8.85,
+      1.15,
+      1.65
+    ],
+    [
+      3.5,
+      9.5,
+      -12.14,
+      -11.86
+    ],
+    [
+      3.5,
+      9.5,
+      -8.14,
+      -7.86
+    ],
+    [
+      3.36,
+      3.64,
+      -12.0,
+      -10.75
+    ],
+    [
+      3.36,
+      3.64,
+      -9.25,
+      -8.0
+    ],
+    [
+      9.36,
+      9.64,
+      -12.0,
+      -10.75
+    ],
+    [
+      9.36,
+      9.64,
+      -9.25,
+      -8.0
+    ],
+    [
+      5.4,
+      7.6,
+      -10.55,
+      -9.45
+    ],
+    [
+      7.45,
+      8.55,
+      -11.75,
+      -11.25
+    ],
+    [
+      -11.0,
+      -8.9,
+      6.36,
+      6.64
+    ],
+    [
+      -7.1,
+      -5.0,
+      6.36,
+      6.64
+    ],
+    [
+      -11.0,
+      -5.0,
+      11.36,
+      11.64
+    ],
+    [
+      -11.14,
+      -10.86,
+      6.5,
+      11.5
+    ],
+    [
+      -5.14,
+      -4.86,
+      6.5,
+      11.5
+    ],
+    [
+      -9.9,
+      -8.8,
+      8.25,
+      10.45
+    ],
+    [
+      -7.0,
+      -6.1,
+      9.2,
+      10.1
+    ],
+    [
+      5.0,
+      7.1,
+      6.36,
+      6.64
+    ],
+    [
+      8.9,
+      11.0,
+      6.36,
+      6.64
+    ],
+    [
+      5.0,
+      11.0,
+      11.36,
+      11.64
+    ],
+    [
+      4.86,
+      5.14,
+      6.5,
+      11.5
+    ],
+    [
+      10.86,
+      11.14,
+      6.5,
+      11.5
+    ],
+    [
+      6.3,
+      9.7,
+      9.65,
+      10.75
+    ],
+    [
+      5.6,
+      6.9,
+      9.6,
+      10.3
+    ],
+    [
+      9.2,
+      10.4,
+      9.85,
+      10.35
+    ],
+    [
+      -4.0,
+      -0.9,
+      11.36,
+      11.64
+    ],
+    [
+      0.9,
+      4.0,
+      11.36,
+      11.64
+    ],
+    [
+      -4.0,
+      -0.9,
+      17.36,
+      17.64
+    ],
+    [
+      0.9,
+      4.0,
+      17.36,
+      17.64
+    ],
+    [
+      -4.14,
+      -3.86,
+      11.5,
+      17.5
+    ],
+    [
+      3.86,
+      4.14,
+      11.5,
+      13.75
+    ],
+    [
+      3.86,
+      4.14,
+      15.25,
+      17.5
+    ],
+    [
+      -1.7,
+      1.7,
+      14.2,
+      15.3
+    ],
+    [
+      5.5,
+      9.5,
+      12.36,
+      12.64
+    ],
+    [
+      5.5,
+      9.5,
+      16.36,
+      16.64
+    ],
+    [
+      5.36,
+      5.64,
+      12.5,
+      13.75
+    ],
+    [
+      5.36,
+      5.64,
+      15.25,
+      16.5
+    ],
+    [
+      9.36,
+      9.64,
+      12.5,
+      16.5
+    ],
+    [
+      7.55,
+      8.65,
+      13.4,
+      15.6
+    ],
+    [
+      5.9,
+      9.1,
+      12.64,
+      13.24
+    ],
+    [
+      7.62,
+      17.38,
+      20.0,
+      20.16
+    ],
+    [
+      7.62,
+      17.38,
+      26.84,
+      27.0
+    ],
+    [
+      17.34,
+      17.5,
+      20.12,
+      26.88
+    ],
+    [
+      7.5,
+      7.66,
+      20.12,
+      21.0
+    ],
+    [
+      7.5,
+      7.66,
+      24.0,
+      26.88
+    ],
+    [
+      -1.27,
+      -0.83,
+      0.73,
+      1.17
+    ],
+    [
+      0.83,
+      1.27,
+      0.73,
+      1.17
+    ],
+    [
+      -2.32,
+      -1.88,
+      0.93,
+      1.37
+    ],
+    [
+      1.88,
+      2.32,
+      0.93,
+      1.37
+    ],
+    [
+      -0.22,
+      0.22,
+      -12.42,
+      -11.98
+    ],
+    [
+      -10.47,
+      -10.03,
+      -0.07,
+      0.37
+    ],
+    [
+      10.03,
+      10.47,
+      -0.07,
+      0.37
+    ],
+    [
+      -8.52,
+      -8.08,
+      9.13,
+      9.57
+    ],
+    [
+      -2.02,
+      -1.58,
+      14.53,
+      14.97
+    ],
+    [
+      1.58,
+      2.02,
+      14.53,
+      14.97
+    ],
+    [
+      -1.12,
+      -0.68,
+      15.88,
+      16.32
+    ],
+    [
+      0.68,
+      1.12,
+      15.88,
+      16.32
+    ],
+    [
+      6.83,
+      7.27,
+      14.28,
+      14.72
+    ],
+    [
+      -3.25,
+      -2.85,
+      2.85,
+      3.25
+    ],
+    [
+      2.85,
+      3.25,
+      2.75,
+      3.15
+    ],
+    [
+      -2.88,
+      -2.48,
+      -8.02,
+      -7.62
+    ],
+    [
+      2.48,
+      2.88,
+      -12.28,
+      -11.88
+    ],
+    [
+      -12.88,
+      -12.48,
+      1.98,
+      2.38
+    ],
+    [
+      -7.52,
+      -7.12,
+      -2.28,
+      -1.88
+    ],
+    [
+      7.12,
+      7.52,
+      1.98,
+      2.38
+    ],
+    [
+      12.48,
+      12.88,
+      -2.28,
+      -1.88
+    ],
+    [
+      -10.38,
+      -9.98,
+      10.48,
+      10.88
+    ],
+    [
+      -6.02,
+      -5.62,
+      7.22,
+      7.62
+    ],
+    [
+      5.62,
+      6.02,
+      10.48,
+      10.88
+    ],
+    [
+      9.98,
+      10.38,
+      7.22,
+      7.62
+    ],
+    [
+      -3.38,
+      -2.98,
+      16.48,
+      16.88
+    ],
+    [
+      2.98,
+      3.38,
+      12.22,
+      12.62
+    ],
+    [
+      8.48,
+      8.88,
+      15.48,
+      15.88
+    ],
+    [
+      -14.2,
+      -13.8,
+      -12.7,
+      -12.3
+    ],
+    [
+      13.8,
+      14.2,
+      -12.7,
+      -12.3
+    ],
+    [
+      -13.7,
+      -13.3,
+      12.4,
+      12.8
+    ],
+    [
+      13.3,
+      13.7,
+      12.4,
+      12.8
+    ],
+    [
+      -18.4,
+      -18.0,
+      24.0,
+      24.4
+    ],
+    [
+      -13.4,
+      -13.0,
+      22.2,
+      22.6
+    ],
+    [
+      8.6,
+      9.0,
+      23.9,
+      24.3
+    ],
+    [
+      -6.0,
+      -5.6,
+      24.2,
+      24.6
+    ],
+    [
+      -2.85,
+      -2.55,
+      -2.65,
+      -2.35
+    ],
+    [
+      2.55,
+      2.85,
+      -2.65,
+      -2.35
+    ],
+    [
+      -2.55,
+      -2.25,
+      -11.55,
+      -11.25
+    ],
+    [
+      2.1,
+      2.4,
+      -11.35,
+      -11.05
+    ],
+    [
+      -12.45,
+      -12.15,
+      1.05,
+      1.35
+    ],
+    [
+      -7.9,
+      -7.6,
+      -1.4,
+      -1.1
+    ],
+    [
+      -10.2,
+      -9.9,
+      7.8,
+      8.1
+    ],
+    [
+      -6.05,
+      -5.75,
+      7.9,
+      8.2
+    ],
+    [
+      5.8,
+      6.1,
+      7.9,
+      8.2
+    ],
+    [
+      9.9,
+      10.2,
+      7.9,
+      8.2
+    ],
+    [
+      2.65,
+      2.95,
+      12.6,
+      12.9
+    ],
+    [
+      -12.55,
+      -12.25,
+      0.05,
+      0.35
+    ],
+    [
+      12.25,
+      12.55,
+      0.05,
+      0.35
+    ],
+    [
+      -16.65,
+      -16.35,
+      24.45,
+      24.75
+    ],
+    [
+      -14.25,
+      -13.95,
+      22.45,
+      22.75
+    ],
+    [
+      7.65,
+      7.95,
+      16.65,
+      16.95
+    ],
+    [
+      -2.025,
+      -1.575,
+      30.75,
+      35.25
+    ],
+    [
+      1.575,
+      2.025,
+      30.75,
+      35.25
+    ],
+    [
+      -1.7,
+      1.7,
+      34.75,
+      35.25
+    ]
+  ]
+}

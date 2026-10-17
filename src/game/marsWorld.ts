@@ -10,5 +10,8 @@ export function createWorld() {
     for (const x of [-6.7, 6.7])
         box(world.group, x, 0.03, 33.5, 0.13, 0.08, 8.8, '#66e6ff');
     addShipCollisions(world, MAPS.mars.ship.x, MAPS.mars.ship.z);
+    // A v006 preserva o layout físico. O visual completo vem do Blender em MarsColony.
+    world.group.visible = false;
+    world.update = () => {};
     return world;
 }
