@@ -15,9 +15,23 @@ function overlap(a, b) {
  return Math.abs(polygon.reduce((sum,p,i)=>{const q=polygon[(i+1)%polygon.length];return sum+p[0]*q[1]-q[0]*p[1];},0))/2;
 }
 export function coplanarProps(scene) {
+ return coplanarParts(scene, name => name.startsWith('PROP_'));
+}
+// Molduras de porta (batente, verga, portal) ganham saliência na exportação; ver
+// scripts/colony_arch_geometry.py. Folhas GLB ficam fora (substituídas pela porta animada).
+export const isDoorFrame = name => /^ARQ_.*_(Porta|Portal)_(?!.*Folhas)/.test(name);
+// Pares entre uma moldura e qualquer parede/moldura, com materiais diferentes. Abaixo de
+// 10 mm² somados é arredondamento float32 em arestas que só se tocam (faixas zebradas).
+export function coplanarDoorFrames(scene) {
+ const report = coplanarParts(scene, name => isDoorFrame(name) || /^ARQ_.*_Parede_/.test(name));
+ const pairs = report.pairs.filter(r => r.parts.some(isDoorFrame) && r.materials[0] !== r.materials[1]
+  && r.projectedArea >= 1e-5);
+ return {...report, trianglePairs: pairs.reduce((s, r) => s + r.trianglePairs, 0), pairs};
+}
+export function coplanarParts(scene, include) {
  scene.updateMatrixWorld(true);
  const triangles=[],a=new Vector3(),b=new Vector3(),c=new Vector3(),normal=new Vector3(),edge=new Vector3();
- const roots=[];scene.traverseVisible(n=>{if((n.userData.colony_name??n.name).startsWith('PROP_') && n.userData.colony_name)roots.push(n);});
+ const roots=[];scene.traverseVisible(n=>{if(n.userData.colony_name && include(n.userData.colony_name))roots.push(n);});
  for(const root of roots)root.traverseVisible(mesh=>{
   if(!mesh.isMesh)return;
   const p=mesh.geometry.attributes.position,idx=mesh.geometry.index;
@@ -45,5 +59,5 @@ export function coplanarProps(scene) {
   const r=pairs.get(key)??{parts:[a.name,b.name],materials:[a.material,b.material],trianglePairs:0,projectedArea:0,planes:[]};
   r.trianglePairs++;r.projectedArea+=area;const plane=[a.axis,a.facing,+a.d.toFixed(5)].join(',');if(!r.planes.includes(plane))r.planes.push(plane);pairs.set(key,r);
  }
- return {props:roots.length,triangles:triangles.length,trianglePairs:[...pairs.values()].reduce((s,r)=>s+r.trianglePairs,0),pairs:[...pairs.values()]};
+ return {props:roots.length,parts:roots.length,triangles:triangles.length,trianglePairs:[...pairs.values()].reduce((s,r)=>s+r.trianglePairs,0),pairs:[...pairs.values()]};
 }

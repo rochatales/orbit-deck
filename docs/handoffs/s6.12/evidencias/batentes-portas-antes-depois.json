@@ -8,7 +8,7 @@
     {
       "phase": "antes",
       "desyncedFrames": 7780,
-      "translucentDepthFrames": 20625,
+      "translucentDepthFrames": 20665,
       "perPortal": [
         {
           "portal": "ARQ_Hub_Porta_N",
@@ -142,7 +142,7 @@
             "ARQ_Pavilhao_Parede_O_1",
             "ARQ_Pavilhao_Parede_O_2"
           ],
-          "desyncedFrames": 335,
+          "desyncedFrames": 339,
           "maxDiff": 0.92
         },
         {
@@ -262,8 +262,8 @@
           "walls": [
             "ARQ_Pavilhao_Porta_O"
           ],
-          "desyncedFrames": 104,
-          "maxDiff": 0.864
+          "desyncedFrames": 100,
+          "maxDiff": 0.856
         },
         {
           "portal": "ARQ_Laboratorio_Porta_L_Verga",
