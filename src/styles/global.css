@@ -72,6 +72,14 @@ nav button:hover:not(:disabled), .secondary:hover:not(:disabled) { color: #09232
 .meter-caption b { font-size: 11px; font-weight: 400; color: var(--cyan); }
 .combat-tally { display: flex; align-items: center; gap: 8px; border-top: 1px solid #78d9d42b; margin-top: 16px; padding-top: 12px; color: #9ebbc1; font-size: 8px; letter-spacing: .06em; }
 .combat-tally b { margin-left: auto; font-size: 12px; color: var(--cyan); }
+.combat-wave { display: flex; align-items: center; gap: 8px; margin-top: 8px; color: #e6c7a5; font-size: 8px; letter-spacing: .06em; }
+.combat-wave b { margin-left: auto; font-size: 12px; font-weight: 400; color: #ffcf8a; font-variant-numeric: tabular-nums; }
+.wave-banner { position: absolute; left: 50%; top: 13%; transform: translateX(-50%); display: grid; justify-items: center; gap: 4px; padding: 10px 22px; background: var(--panel); border: 1px solid #ffb86b99; box-shadow: 0 0 18px #ff9b4a26; pointer-events: none; text-align: center; }
+.wave-banner small { font-size: 8px; letter-spacing: .16em; color: #e6c7a5; }
+.wave-banner strong { font-size: 22px; font-weight: 300; letter-spacing: .08em; color: #ffcf8a; }
+.wave-banner span { font-size: 10px; letter-spacing: .06em; color: #c7d8db; font-variant-numeric: tabular-nums; }
+@media (prefers-reduced-motion: no-preference) { .wave-banner { animation: wave-in .3s ease-out; } }
+@keyframes wave-in { from { opacity: 0; transform: translate(-50%, -6px); } }
 .equipment-bar { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; width: 680px; max-width: calc(100% - 48px); pointer-events: none; }
 .equipment-inventory, .weapon-slot { background: var(--panel); border: 1px solid #86e7dca6; box-shadow: inset 0 0 24px #61e1cb0d, 0 4px 20px #0004; position: relative; padding: 12px; }
 .equipment-inventory::before, .weapon-slot::before { content: ''; position: absolute; top: -1px; left: -4px; width: 4px; height: 32px; background: #86e7dc; }
@@ -117,7 +125,7 @@ nav button:hover:not(:disabled), .secondary:hover:not(:disabled) { color: #09232
  .meter-heading b { font-size: 14px; }
  .meter-track { height: 22px; }
  .meter-caption { font-size: 6px; }
- .combat-tally { font-size: 6px; gap: 4px; }
+ .combat-tally, .combat-wave { font-size: 6px; gap: 4px; }
  .hud-top { top: 12px; right: 12px; left: 12px; }
  .in-combat .hud-top > div { max-width: 135px; }
  .hud-top .eyebrow { font-size: 8px; }

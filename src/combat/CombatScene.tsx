@@ -16,13 +16,15 @@ export function CombatScene({ world }: {
     world: OfficeWorld;
 }) {
     const run = useCombatStore(s => s.run);
-    const simulation = useMemo(() => new CombatSimulation(world, useCombatStore.getState().encounterSize), [world, run]);
+    const simulation = useMemo(() => new CombatSimulation(world, useCombatStore.getState().encounter), [world, run]);
     const { gl } = useThree();
     const robots = useRef<(Group | null)[]>([]), tracers = useRef<(Mesh | null)[]>([]), reticle = useRef<Mesh>(null);
     const rings = useRef<(Mesh | null)[]>([]), alerts = useRef<(Group | null)[]>([]);
     // S6.1: Patrol Unit do autor; um rig (esqueleto, mixer, material) por robô da rodada.
     const patrolUnit = useGLTF(patrolUnitUrl);
     const rigs = useMemo(() => simulation.robots.map(() => new PatrolUnitRig(patrolUnit.scene, patrolUnit.animations)), [simulation, patrolUnit]);
+    // Hordas reutilizam slots: a geração muda a cada nascimento e o rig volta ao Idle.
+    const generations = useMemo(() => simulation.robots.map(r => r.generation), [simulation]);
     useEffect(() => () => rigs.forEach(rig => rig.dispose()), [rigs]);
     const drops = useRef<(Group | null)[]>([]), hearts = useRef<(Group | null)[]>([]);
     const heartShape = useMemo(() => {
@@ -96,6 +98,14 @@ export function CombatScene({ world }: {
             if (!mesh)
                 return;
             const rig = rigs[i];
+            if (!r.spawned) {
+                mesh.visible = false;
+                return;
+            }
+            if (generations[i] !== r.generation) {
+                generations[i] = r.generation;
+                rig.respawn();
+            }
             rig.update(r, playerPosition.x, playerPosition.z, COMBAT.robot.contactRange, blocked ? 0 : Math.min(delta, 0.1));
             mesh.visible = rig.visible;
             mesh.position.set(r.x, 0, r.z);

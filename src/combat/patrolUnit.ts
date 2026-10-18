@@ -23,7 +23,7 @@ export const PATROL_UNIT = {
     // mais 1/3 sobre isso → 1,5 × 4/3 × 4/3 = 2,67 m.
     height: PLAYER_HEIGHT * 16 / 9,
     scale: (PLAYER_HEIGHT * 16 / 9) / PATROL_UNIT_MODEL_HEIGHT,
-    walkReferenceSpeed: 1.65,   // m/s em que o PatrolWalk roda a 1×; COMBAT.robot.speed
+    walkReferenceSpeed: 1.65,   // m/s em que o PatrolWalk roda a 1×; COMBAT.robot.speed (chaseSpeed 2,05 → 1,24×)
     walkRate: [0.6, 1.6] as const,
     moveStart: 0.3,             // m/s para entrar no PatrolWalk
     moveStop: 0.15,             // histerese para voltar ao Idle
@@ -122,6 +122,18 @@ export class PatrolUnitRig {
             material.emissive.copy(robot.alerted && alive ? PATROL_UNIT.alertTint : PATROL_UNIT.calmTint);
         }
         if (this.visible) this.mixer.update(dt);
+    }
+
+    /** Slot reaproveitado por uma nova horda: volta ao Idle sem herdar morte nem velocidade. */
+    respawn() {
+        this.mixer.stopAllAction();
+        this.actions.get('Idle')!.reset().play();
+        this.clip = 'Idle';
+        this.lastX = Number.NaN;
+        this.lastZ = Number.NaN;
+        this.speed = 0;
+        this.deadFor = 0;
+        this.visible = true;
     }
 
     dispose() {
