@@ -23,14 +23,14 @@ export function OfficeScene({ world, map }: {
     <color attach="background" args={[map === 'mars' ? '#b4927a' : '#788382']}/>
     <fog attach="fog" args={map === 'mars' ? ['#b4927a', 130, 270] : ['#788382', 45, 100]}/>
     <Lighting />
-    <CameraRig key={revision} bounds={world.bounds} spawn={spawn} distanceScale={map === 'mars' ? 3 : 1}/>
-    <PlayerAim key={revision}/>
+    <CameraRig key={`camera-${revision}`} bounds={world.bounds} spawn={spawn} distanceScale={map === 'mars' ? 3 : 1}/>
+    <PlayerAim key={`aim-${revision}`}/>
     <PhysicsWorld officeWorld={world}>
-      <OfficeMap officeWorld={world}/>
+      <OfficeMap officeWorld={world} animate={map !== 'mars'}/>
       <Player key={revision} officeWorld={world} spawn={spawn}/>
     </PhysicsWorld>
     {map === 'shanghai' && <CombatScene world={world}/>}
-    {map === 'mars' ? <MarsColony/> : <Spacecraft map={map}/>}
+    {map === 'mars' ? <MarsColony world={world}/> : <Spacecraft map={map}/>}
     {map === 'mars' && <group position={[EDEN.position.x, 0, EDEN.position.z]}>
       <GLBCharacter {...a} animationState="idle"/>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.03, 0]}><ringGeometry args={[1, 1.1, 32]}/><meshBasicMaterial color="#f2c94c"/></mesh>

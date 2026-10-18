@@ -703,9 +703,9 @@ function updateAutomaticDoors(doors: AutomaticDoorInstance[], playerPosition: Ve
     leftMaterial.opacity = panelOpacity;
     rightMaterial.opacity = panelOpacity;
 
-    const panelsVisible = panelOpacity > 0.08;
-    door.leftPanel.visible = panelsVisible;
-    door.rightPanel.visible = panelsVisible;
+    // Base da animação, composta uma única vez com o corte suave de Marte.
+    leftMaterial.userData.doorOpacity = panelOpacity;
+    rightMaterial.userData.doorOpacity = panelOpacity;
 
     const lightMaterial = door.lightBar.material as MeshStandardMaterial;
     lightMaterial.emissiveIntensity = 0.45 + door.openAmount * 0.5;

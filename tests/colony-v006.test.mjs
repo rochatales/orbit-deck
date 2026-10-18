@@ -133,3 +133,79 @@ test('S6.12: os 129 retângulos físicos coincidem com a referência do Blender'
  assert.equal(manifest.colliders.length,129);
  assert.deepEqual(world.obstacles.map(r=>key([r.minX,r.maxX,r.minZ,r.maxZ])).sort(),manifest.colliders.map(key).sort());
 });
+
+async function colonyDoors() {
+ const {GLTFLoader}=await import('three/examples/jsm/loaders/GLTFLoader.js');
+ const bytes=fs.readFileSync('src/assets/colony-v006.glb');
+ const {scene}=await new GLTFLoader().parseAsync(bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength),'');
+ loadSource('src/scene/marsColony/layout.ts').applyColonyLayout(scene);
+ const world=marsWorld();
+ const visibility=new ColonyVisibility(scene,manifest.parts,world.group);
+ const doors=[];world.group.traverse(n=>{if(n.name==='PortaAutomatica')doors.push(n);});
+ return {scene,world,visibility,doors};
+}
+
+test('S6.12: 16 portas alinhadas ao GLB sem interseção durante todo o slide', async () => {
+ const {Box3,Triangle}=await import('three');
+ const {scene,world,visibility,doors}=await colonyDoors();
+ assert.equal(doors.length,16);
+ const meshes=[];scene.traverseVisible(n=>{if(n.isMesh)meshes.push({mesh:n,box:new Box3().setFromObject(n)});});
+ const box=new Box3(),triangle=new Triangle(),far=new Vector3(1000,0,1000);
+ for(const door of doors){
+  assert.ok(door.userData.colonyPortal);
+  const anchor=door.getWorldPosition(new Vector3());
+  for(const amount of [0,0.25,0.5,0.75,1]){
+   world.update(far,10);world.update(anchor,amount===1?10:-Math.log(1-amount)/7);
+   world.group.updateMatrixWorld(true);
+   for(const leaf of door.children){
+    if(!leaf.isMesh)continue;
+    box.setFromObject(leaf);
+    for(const {mesh,box:other} of meshes){
+     if(!box.intersectsBox(other))continue;
+     const p=mesh.geometry.attributes.position,idx=mesh.geometry.index;
+     for(let i=0;i<(idx?idx.count:p.count);i+=3){
+      [triangle.a,triangle.b,triangle.c].forEach((v,j)=>v.fromBufferAttribute(p,idx?idx.getX(i+j):i+j).applyMatrix4(mesh.matrixWorld));
+      assert.equal(box.intersectsTriangle(triangle),false,`${door.userData.colonyPortal}: slide ${amount}, ${mesh.name}`);
+     }
+    }
+   }
+  }
+ }
+ visibility.dispose();
+});
+
+test('S6.12: corte das portas usa malha móvel, compõe opacidade e não troca estados de render', async () => {
+ const {world,visibility,doors}=await colonyDoors();
+ const dynamic=visibility.entries.filter(e=>e.dynamic);assert.equal(dynamic.length,16);
+ const door=doors[0],leaf=door.children[0],entry=dynamic[0];
+ const buffer=entry.triangles,materials=entry.materials.map(m=>m.material);
+ const anchor=door.getWorldPosition(new Vector3());
+ const run=(player,camera)=>{for(let i=0;i<180;i++){
+  world.update(player,1/60);visibility.update(player,camera,1/60);
+  assert.equal(entry.triangles,buffer);
+  entry.materials.forEach((item,k)=>{assert.equal(item.material,materials[k]);assert.equal(item.material.depthWrite,false);});
+  assert.equal(leaf.visible,true);
+  assert.ok(Math.abs(leaf.material.opacity-leaf.material.userData.doorOpacity*entry.opacity)<1e-10);
+ }};
+ // Raio pelo vão central da porta aberta: nada corta a porta.
+ run(door.localToWorld(new Vector3(0,0,-1)),door.localToWorld(new Vector3(0,1,10)));
+ assert.ok(entry.opacity>0.99,'vão aberto não aciona o corte');
+ // Raio atravessando a folha esquerda já deslocada: corte suave até o contorno.
+ run(door.localToWorld(new Vector3(leaf.position.x,0,-1)),door.localToWorld(new Vector3(leaf.position.x,1,10)));
+ assert.ok(entry.opacity<0.081);
+ const player=door.localToWorld(new Vector3(leaf.position.x,0,-1)),camera=door.localToWorld(new Vector3(leaf.position.x,1,10));
+ assert.ok(anchor.distanceTo(player)<2.35);
+ const oldX=entry.triangles[0];world.update(new Vector3(1000,0,1000),10);visibility.update(player,camera,1/60);
+ assert.notEqual(entry.triangles[0],oldX,'triângulos seguem o slide/escala atual');
+ const portals=visibility.entries.filter(e=>e.doorPart&&!e.dynamic);assert.ok(portals.length>=32);
+ const checkPortals=()=>{for(const e of portals)for(const item of e.materials)
+  // Batentes opacos do GLB (DoubleSide, multimalha) mantêm o estado original constante,
+  // para não reordenar as próprias faces ao girar a câmera.
+  assert.equal(item.material.depthWrite,item.depthWrite);};
+ for(const e of visibility.entries.filter(e=>e.dynamic))for(const item of e.materials)assert.equal(item.material.depthWrite,false);
+ checkPortals();
+ // Câmera alta: o raio cruza a verga do portal, que esmaece sem trocar depthWrite.
+ for(let i=0;i<180;i++){visibility.update(anchor.clone().setZ(anchor.z-1),door.localToWorld(new Vector3(0,20,10)),1/60);checkPortals();}
+ assert.ok(portals.some(e=>e.opacity<0.081&&e.materials.some(i=>i.material.depthWrite)),'batente esmaecido não troca depthWrite');
+ visibility.dispose();
+});

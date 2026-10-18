@@ -7,13 +7,15 @@ import { Room } from "./Room";
 
 interface OfficeMapProps {
   officeWorld: OfficeWorld;
+  animate?: boolean;
 }
 
-export function OfficeMap({ officeWorld }: OfficeMapProps) {
+export function OfficeMap({ officeWorld, animate = true }: OfficeMapProps) {
   // Lê a posição mutável por frame: o mapa não re-renderiza quando o player anda.
   const worldVector = useMemo(() => new Vector3(), []);
 
   useFrame((_, delta) => {
+    if (!animate) return;
     worldVector.set(playerPosition.x, playerPosition.y, playerPosition.z);
     officeWorld.update(worldVector, delta);
   });

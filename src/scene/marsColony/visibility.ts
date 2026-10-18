@@ -1,3 +1,4 @@
+import { alignColonyDoors } from './doorAlignment';
 import { Box3, Ray, Vector3, Mesh, type Material, type Object3D } from 'three';
 
 export interface ColonyPart {
@@ -18,29 +19,36 @@ export class ColonyVisibility {
     private readonly c = new Vector3();
     private readonly entries;
 
-    constructor(scene: Object3D, parts: ColonyPart[]) {
+    constructor(scene: Object3D, parts: ColonyPart[], doors?: Object3D) {
+        const animatedDoors = doors ? alignColonyDoors(scene, parts, doors) : [];
         scene.updateMatrixWorld(true);
         const nodes = new Map<string, Object3D>();
         scene.traverse(node => nodes.set(node.userData.colony_name ?? node.name, node));
-        this.entries = parts.flatMap(part => {
-            const node = nodes.get(part.name);
+        this.entries = [...parts.map(part => ({ part, node: nodes.get(part.name), dynamic: false })),
+            ...animatedDoors.map(node => ({ part: { name: 'PortaAutomatica' }, node, dynamic: true }))]
+            .flatMap(({ part, node, dynamic }) => {
             if (!node || !node.visible) return [];
             const cuttable = ((part.name.startsWith('ARQ_') || part.name.startsWith('TET_'))
                 && !part.name.includes('Piso') && !part.name.includes('Patio')
                 && !part.name.startsWith('ARQ_Deck') && !part.name.includes('Folhas'))
                 || part.name === 'PLAT_B3_Foguete' || part.name === 'PLAT_B3_Base_Lancamento';
-            if (!cuttable) return [];
+            if (!cuttable && !dynamic) return [];
+            const doorPart = dynamic || /_Port[ao]/.test(part.name);
+            const meshes: Mesh[] = [];
             const triangles: number[] = [];
             const materials: { material: Material; opacity: number; depthWrite: boolean }[] = [];
             node.traverse(object => {
                 const child = object as Mesh;
                 if (!child.isMesh) return;
+                meshes.push(child);
                 // Sem sombra binária mudando com o fade. Recursos do cache GLTF não são alterados.
                 child.castShadow = false;
                 const clone = (material: Material) => {
                     const copy = material.clone();
                     materials.push({ material: copy, opacity: copy.opacity, depthWrite: copy.depthWrite });
                     copy.transparent = true;
+                    // Folhas/faixa procedurais: translúcidas, ordem fixa por renderOrder, nunca escrevem profundidade.
+                    if (dynamic) copy.depthWrite = false;
                     return copy;
                 };
                 child.material = Array.isArray(child.material) ? child.material.map(clone) : clone(child.material);
@@ -52,13 +60,29 @@ export class ColonyVisibility {
                     triangles.push(this.a.x, this.a.y, this.a.z);
                 }
             });
-            return [{ node, triangles: new Float32Array(triangles), materials,
+            return [{ node, dynamic, doorPart, meshes, triangles: new Float32Array(triangles), materials,
                 box: new Box3().setFromObject(node), hidden: false, clearFor: 0, opacity: 1 }];
         });
     }
 
     update(player: { x: number; z: number }, camera: Vector3, delta: number) {
         for (const entry of this.entries) {
+            if (entry.dynamic) {
+                // Animação já aplicada neste frame: atualiza buffers existentes, sem alocar.
+                entry.node.updateWorldMatrix(true, true);
+                entry.box.makeEmpty();
+                let offset = 0;
+                for (const mesh of entry.meshes) {
+                    const position = mesh.geometry.attributes.position, index = mesh.geometry.index;
+                    for (let i = 0; i < (index ? index.count : position.count); i++) {
+                        this.a.fromBufferAttribute(position, index ? index.getX(i) : i).applyMatrix4(mesh.matrixWorld);
+                        entry.triangles[offset++] = this.a.x;
+                        entry.triangles[offset++] = this.a.y;
+                        entry.triangles[offset++] = this.a.z;
+                        entry.box.expandByPoint(this.a);
+                    }
+                }
+            }
             let blocked = false;
             // AABB só rejeita candidatos: vãos e caixas vazias nunca acionam o corte.
             for (let sample = 0; sample < 3 && !blocked; sample++) {
@@ -85,8 +109,12 @@ export class ColonyVisibility {
             const target = entry.hidden ? 0.08 : 1;
             entry.opacity += (target - entry.opacity) * (1 - Math.exp(-8 * Math.min(delta, 0.05)));
             for (const item of entry.materials) {
-                item.material.opacity = item.opacity * entry.opacity;
-                item.material.depthWrite = entry.opacity > 0.995 && item.depthWrite;
+                item.material.opacity = (entry.dynamic ? item.material.userData.doorOpacity ?? item.opacity : item.opacity) * entry.opacity;
+                // Folhas procedurais: nunca escrevem. Batentes/vergas do GLB (opacos, DoubleSide, multimalha):
+                // estado original constante, sem troca binária nem reordenação das próprias faces ao girar.
+                item.material.depthWrite = entry.dynamic ? false
+                    : entry.doorPart ? item.depthWrite
+                    : entry.opacity > 0.995 && item.depthWrite;
             }
         }
     }
