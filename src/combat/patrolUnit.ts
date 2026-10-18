@@ -19,9 +19,10 @@ export const PLAYER_HEIGHT = 1.5;
 export const PATROL_UNIT_MODEL_HEIGHT = 1.49;
 
 export const PATROL_UNIT = {
-    // Pedido do autor (18/10/2026): robô ~1/3 maior que o personagem → 2,0 m.
-    height: PLAYER_HEIGHT * 4 / 3,
-    scale: (PLAYER_HEIGHT * 4 / 3) / PATROL_UNIT_MODEL_HEIGHT,
+    // Pedidos do autor (18/10/2026): 1/3 maior que o personagem (2,0 m) e depois
+    // mais 1/3 sobre isso → 1,5 × 4/3 × 4/3 = 2,67 m.
+    height: PLAYER_HEIGHT * 16 / 9,
+    scale: (PLAYER_HEIGHT * 16 / 9) / PATROL_UNIT_MODEL_HEIGHT,
     walkReferenceSpeed: 1.65,   // m/s em que o PatrolWalk roda a 1×; COMBAT.robot.speed
     walkRate: [0.6, 1.6] as const,
     moveStart: 0.3,             // m/s para entrar no PatrolWalk
