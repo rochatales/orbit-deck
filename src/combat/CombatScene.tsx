@@ -1,8 +1,8 @@
 import { useExpeditionStore } from '../state/useExpeditionStore';
 import { useEffect, useMemo, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { Group, Mesh, MeshBasicMaterial, MeshStandardMaterial, Shape, Vector3 } from 'three';
-import { Billboard } from '@react-three/drei';
+import { Group, Mesh, Shape, Vector3 } from 'three';
+import { Billboard, useGLTF } from '@react-three/drei';
 import type { OfficeWorld } from '../world/createOfficeMap';
 import { useGameStore } from '../state/useGameStore';
 import { playerPosition } from '../state/playerTransient';
@@ -10,6 +10,8 @@ import { combatRuntime, useCombatStore } from '../state/useCombatStore';
 import { simulationBlocked } from '../game/simulationGate';
 import { CombatSimulation, type CombatInput } from './simulation';
 import { COMBAT } from './config';
+import { PatrolUnitRig } from './patrolUnit';
+import patrolUnitUrl from '../assets/enemies/patrol-unit.glb';
 export function CombatScene({ world }: {
     world: OfficeWorld;
 }) {
@@ -17,7 +19,11 @@ export function CombatScene({ world }: {
     const simulation = useMemo(() => new CombatSimulation(world, useCombatStore.getState().encounterSize), [world, run]);
     const { gl } = useThree();
     const robots = useRef<(Group | null)[]>([]), tracers = useRef<(Mesh | null)[]>([]), reticle = useRef<Mesh>(null);
-    const visors = useRef<(Mesh | null)[]>([]), alerts = useRef<(Group | null)[]>([]);
+    const rings = useRef<(Mesh | null)[]>([]), alerts = useRef<(Group | null)[]>([]);
+    // S6.1: Patrol Unit do autor; um rig (esqueleto, mixer, material) por robô da rodada.
+    const patrolUnit = useGLTF(patrolUnitUrl);
+    const rigs = useMemo(() => simulation.robots.map(() => new PatrolUnitRig(patrolUnit.scene, patrolUnit.animations)), [simulation, patrolUnit]);
+    useEffect(() => () => rigs.forEach(rig => rig.dispose()), [rigs]);
     const drops = useRef<(Group | null)[]>([]), hearts = useRef<(Group | null)[]>([]);
     const heartShape = useMemo(() => {
         const shape = new Shape();
@@ -89,13 +95,13 @@ export function CombatScene({ world }: {
             const mesh = robots.current[i];
             if (!mesh)
                 return;
-            mesh.visible = r.hp > 0;
+            const rig = rigs[i];
+            rig.update(r, playerPosition.x, playerPosition.z, COMBAT.robot.contactRange, blocked ? 0 : Math.min(delta, 0.1));
+            mesh.visible = rig.visible;
             mesh.position.set(r.x, 0, r.z);
             mesh.rotation.y = r.angle;
-            const body = mesh.children[0] as Mesh;
-            (body.material as MeshStandardMaterial).emissive.set(r.flash > 0 ? '#ffffff' : '#000000');
-            const visor = visors.current[i], alert = alerts.current[i];
-            if (visor) (visor.material as MeshBasicMaterial).color.set(r.alerted ? '#ff3028' : '#ff9a24');
+            const ring = rings.current[i], alert = alerts.current[i];
+            if (ring) ring.visible = r.hp > 0;
             if (alert) alert.visible = r.hp > 0 && r.alertLeft > 0;
         });
         simulation.drops.forEach((drop, i) => {
@@ -129,11 +135,8 @@ export function CombatScene({ world }: {
     });
     return <>
     {simulation.robots.map((r, i) => <group key={`${run}-${r.id}`} ref={g => { robots.current[i] = g; }}>
-      <mesh position={[0, 0.8, 0]} castShadow><boxGeometry args={[0.65, 0.85, 0.45]}/><meshStandardMaterial color="#a85740"/></mesh>
-      <mesh position={[0, 1.4, 0]} castShadow><boxGeometry args={[0.5, 0.35, 0.4]}/><meshStandardMaterial color="#343d45"/></mesh>
-      <mesh ref={m => { visors.current[i] = m; }} position={[0, 1.43, 0.215]}><boxGeometry args={[0.35, 0.09, 0.04]}/><meshBasicMaterial color="#ff9a24"/></mesh>
-      {[-0.21, 0.21].map(x => <mesh key={x} position={[x, 0.25, 0]}><boxGeometry args={[0.2, 0.5, 0.3]}/><meshStandardMaterial color="#3b454d"/></mesh>)}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.025, 0]}><ringGeometry args={[0.43, 0.48, 20]}/><meshBasicMaterial color="#ff6753"/></mesh>
+      <primitive object={rigs[i].root}/>
+      <mesh ref={m => { rings.current[i] = m; }} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.025, 0]}><ringGeometry args={[0.43, 0.48, 20]}/><meshBasicMaterial color="#ff6753"/></mesh>
       <Billboard position={[0, 2.1, 0]} ref={g => { alerts.current[i] = g; }} visible={false}>
         <mesh position={[0, 0.13, 0]}><boxGeometry args={[0.12, 0.38, 0.04]}/><meshBasicMaterial color="#ffdb57"/></mesh>
         <mesh position={[0, -0.16, 0]}><sphereGeometry args={[0.075, 8, 6]}/><meshBasicMaterial color="#ffdb57"/></mesh>
