@@ -23,6 +23,9 @@ test('Marte: spawn → EDEN and launch deck are connected with player clearance'
  const world=createMars();assert.ok(traversable(world,INITIAL_POSITION.x,INITIAL_POSITION.z),'initial spawn overlaps an obstacle');
  assert.ok(reachable(world,INITIAL_POSITION,EDEN.position,2.3),'EDEN unreachable');
  assert.ok(reachable(world,INITIAL_POSITION,MAPS.mars.exit),'launch deck unreachable');
+ assert.ok(traversable(world,MAPS.mars.exit.x,MAPS.mars.exit.z),'disembark point overlaps an obstacle');
+ for(const target of [{x:-4,z:33},{x:4,z:33},{x:0,z:36.5}])
+  assert.ok(reachable(world,MAPS.mars.exit,target,0.2),`contorno da base inacessível: ${JSON.stringify(target)}`);
  assert.ok(reachable(world,MAPS.mars.exit,{x:6.5,z:-10},3),'laboratory unreachable after return');
 });
 test('Shanghai: disembark point and streets are reachable and within bounds',()=>{

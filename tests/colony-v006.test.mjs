@@ -125,13 +125,15 @@ test('S6.12: embarque acessível antes da base sólida e saída preservada', () 
  const {MAPS}=loadSource('src/game/config.ts');assert.equal(MAPS.mars.ship.z,33);assert.equal(MAPS.mars.exit.z,29.5);
 });
 
-test('S6.12: os 129 retângulos físicos coincidem com a referência do Blender', () => {
+test('S6.12: preserva os 129 retângulos da fonte e acrescenta a base sólida no runtime', () => {
  globalThis.document={createElement:()=>({width:0,height:0,getContext:()=>({fillText(){}})})};
  const {createWorld}=loadSource('src/game/marsWorld.ts');
  const world=createWorld();
  const key = rect => rect.map(v=>v.toFixed(3)).join(',');
  assert.equal(manifest.colliders.length,129);
- assert.deepEqual(world.obstacles.map(r=>key([r.minX,r.maxX,r.minZ,r.maxZ])).sort(),manifest.colliders.map(key).sort());
+ assert.equal(world.obstacles.length,130);
+ assert.deepEqual(world.obstacles.slice(0,129).map(r=>key([r.minX,r.maxX,r.minZ,r.maxZ])).sort(),manifest.colliders.map(key).sort());
+ assert.deepEqual({...world.obstacles[129]},{minX:-1.68,maxX:1.68,minZ:30.7,maxZ:35.3});
 });
 
 async function colonyDoors() {
@@ -266,4 +268,59 @@ test('S6.12: GLB real mantém zero diferença absoluta entre os 10 apoios e os 9
   assert.ok(rootMaterials[0].opacity>0.999,rootName);
  }
  visibility.dispose();
+});
+
+test('S6.12: caixa física envolve base/foguete já trasladados e deixa desembarque livre', async()=>{
+ const {scene,world,visibility}=await colonyDoors();
+ const {Box3}=await import('three');
+ const {circleIntersectsRect}=loadSource('src/utils/math.ts');
+ const {MAPS}=loadSource('src/game/config.ts');
+ const {isNearShip}=loadSource('src/state/playerTransient.ts');
+ const collider=world.obstacles.at(-1);
+ for(const name of ['PLAT_B3_Base_Lancamento','PLAT_B3_Foguete']) {
+  const box=new Box3().setFromObject(scene.getObjectByName(name));
+  assert.ok(box.min.x>=collider.minX-1e-5&&box.max.x<=collider.maxX+1e-5,name);
+  assert.ok(box.min.z>=collider.minZ-1e-5&&box.max.z<=collider.maxZ+1e-5,name);
+  if(name==='PLAT_B3_Base_Lancamento')for(const [bound,coordinate] of [['minX',box.min.x],['maxX',box.max.x],['minZ',box.min.z],['maxZ',box.max.z]])assert.ok(Math.abs(collider[bound]-coordinate)<1e-5,bound);
+ }
+ assert.ok(circleIntersectsRect(0,33,0.36,collider));
+ for(const z of [28,29.5,30.25]) {
+  assert.equal(world.obstacles.some(r=>circleIntersectsRect(0,z,0.36,r)),false,`acesso Z=${z}`);
+  assert.equal(isNearShip('mars',{x:0,y:0,z}),true);
+ }
+ assert.equal(MAPS.mars.exit.x,0);assert.equal(MAPS.mars.exit.z,29.5);
+ visibility.dispose();
+});
+
+test('S6.12: Rapier bloqueia a base de todos os lados sem autostep por cima',async()=>{
+ const {createRequire}=await import('node:module');
+ const require=createRequire(import.meta.url),rapierRequire=createRequire(require.resolve('@react-three/rapier'));
+ const R=rapierRequire('@dimforge/rapier3d-compat');await R.init();
+ const {PLAYER_PHYSICS:p,PLAYER_MOVEMENT:m,PLAYER_COLLIDER_CENTER_Y:y,PLAYER_COLLIDER_HALF_HEIGHT:halfHeight}=loadSource('src/characters/player/playerConfig.ts');
+ const source=marsWorld();
+ for(const [start,velocity,axis,edge,direction] of [
+  [{x:0,z:29.5},{x:0,z:0.05},'z',30.7,-1],
+  [{x:0,z:37},{x:0,z:-0.05},'z',35.3,1],
+  [{x:-4,z:33},{x:0.05,z:0},'x',-1.68,-1],
+  [{x:4,z:33},{x:-0.05,z:0},'x',1.68,1]
+ ]) {
+  const world=new R.World({x:0,y:0,z:0});
+  try {
+   for(const r of source.obstacles)world.createCollider(R.ColliderDesc.cuboid((r.maxX-r.minX)/2,p.obstacleHeight/2,(r.maxZ-r.minZ)/2).setTranslation((r.minX+r.maxX)/2,p.obstacleHeight/2,(r.minZ+r.maxZ)/2));
+   const body=world.createRigidBody(R.RigidBodyDesc.kinematicPositionBased().setTranslation(start.x,y,start.z));
+   const capsule=world.createCollider(R.ColliderDesc.capsule(halfHeight,m.colliderRadius),body);
+   const controller=world.createCharacterController(p.controllerOffset);
+   controller.enableAutostep(p.autostepMaxHeight,p.autostepMinWidth,false);
+   controller.enableSnapToGround(p.snapToGroundDistance);
+   world.step();
+   for(let i=0;i<160;i++) {
+    controller.computeColliderMovement(capsule,{...velocity,y:0});
+    const position=body.translation(),delta=controller.computedMovement();
+    body.setNextKinematicTranslation({x:position.x+delta.x,y,z:position.z+delta.z});world.step();
+   }
+   const result=body.translation();
+   assert.ok(direction*(result[axis]-edge)>=m.colliderRadius,JSON.stringify({start,result}));
+   assert.equal(result.y,y);
+  }finally{world.free();}
+ }
 });
