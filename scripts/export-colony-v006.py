@@ -9,8 +9,13 @@ import json
 import os
 import sys
 from mathutils import Vector
+sys.dont_write_bytecode = True
+sys.path.insert(0, os.path.dirname(__file__))
+from colony_prop_geometry import repair_prop_geometry
 
 source = bpy.data.filepath
+expected_sha = "a17aa3c4b557a7e323997429ec7083d1bca5d990c55dcb552c460352f2728dc4"
+assert hashlib.sha256(open(source, "rb").read()).hexdigest() == expected_sha
 assert source.endswith('mars_colony_estudo_v006_plataforma_B3.blend')
 out = sys.argv[sys.argv.index('--') + 1]
 os.makedirs(out, exist_ok=True)
@@ -19,6 +24,8 @@ layer.update()
 objects = [o for o in layer.objects if o.type == 'MESH'
            and not o.name.startswith(('REF_', 'COL_', 'SPAWN_', 'INTERACT_', 'CAM_', 'LUZ_'))
            and (not o.hide_render or o.name == 'ARQ_Laboratorio_Porta_Folhas_Aberta')]
+repair_prop_geometry(objects, layer)
+layer.update()
 names = {o.name for o in objects}
 parts = []
 for o in objects:
@@ -52,4 +59,5 @@ manifest = {'version': 'v006 B3', 'source': os.path.basename(source),
                           for o in bpy.data.collections['COL_CANDIDATO'].objects]}
 with open(os.path.join(out, 'colony-v006.manifest.json'), 'w') as f:
     json.dump(manifest, f, ensure_ascii=False, indent=2)
+assert hashlib.sha256(open(source, 'rb').read()).hexdigest() == expected_sha
 print('COLONY_EXPORT', len(parts), 'objetos; fonte preservada', manifest['sourceSha256'])

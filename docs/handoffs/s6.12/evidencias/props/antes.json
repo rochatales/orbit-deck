@@ -1,0 +1,1163 @@
+{
+  "props": 132,
+  "triangles": 21906,
+  "trianglePairs": 758,
+  "pairs": [
+    {
+      "parts": [
+        "PROP_Lab_VolumeTecnico_Provisorio",
+        "PROP_Lab_VolumeTecnico_Provisorio"
+      ],
+      "materials": [
+        "M_MetalEscuro",
+        "M_Estrutura"
+      ],
+      "trianglePairs": 4,
+      "projectedArea": 2.238335863555907,
+      "planes": [
+        "1,-1,0"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Lab_VolumeTecnico_Provisorio",
+        "PROP_Lab_VolumeTecnico_Provisorio"
+      ],
+      "materials": [
+        "M_Marcacao",
+        "M_Marcacao"
+      ],
+      "trianglePairs": 78,
+      "projectedArea": 0.025164380487747842,
+      "planes": [
+        "0,-1,7.3246",
+        "0,-1,7.31359",
+        "1,-1,2.04045",
+        "0,-1,4.90229",
+        "1,1,-2.01273",
+        "0,-1,4.89081",
+        "1,-1,-2.93441",
+        "0,1,7.10812",
+        "1,1,2.96213",
+        "0,1,7.1196",
+        "1,-1,0.012",
+        "1,1,0.018"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Lab_Balizador.0",
+        "PROP_Lab_Balizador.0"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.11946"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Lab_Balizador.1",
+        "PROP_Lab_Balizador.1"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.11946"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Lab_Balizador.2",
+        "PROP_Lab_Balizador.2"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.11945"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Lab_Caixa.0",
+        "PROP_Lab_Caixa.0"
+      ],
+      "materials": [
+        "M_Painel_Gasto",
+        "M_Estrutura"
+      ],
+      "trianglePairs": 8,
+      "projectedArea": 0.8400000190609376,
+      "planes": [
+        "1,-1,-0.11913",
+        "1,1,0.43087"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Lab_Caixa.1",
+        "PROP_Lab_Caixa.1"
+      ],
+      "materials": [
+        "M_Painel_Gasto",
+        "M_Estrutura"
+      ],
+      "trianglePairs": 8,
+      "projectedArea": 0.840000018970855,
+      "planes": [
+        "1,-1,-0.11908",
+        "1,1,0.43092"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Lab_Caixa.2",
+        "PROP_Lab_Caixa.2"
+      ],
+      "materials": [
+        "M_Painel_Gasto",
+        "M_Estrutura"
+      ],
+      "trianglePairs": 8,
+      "projectedArea": 0.8400000197548252,
+      "planes": [
+        "1,-1,0.43087",
+        "1,1,0.98087"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Hub_Mobiliario",
+        "PROP_Hub_Mobiliario"
+      ],
+      "materials": [
+        "M_Painel",
+        "M_LuzCiano"
+      ],
+      "trianglePairs": 8,
+      "projectedArea": 4.392900202012058,
+      "planes": [
+        "1,-1,0"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Hub_Mobiliario",
+        "PROP_Cadeira.01"
+      ],
+      "materials": [
+        "M_LuzCiano",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 26,
+      "projectedArea": 0.16911591555212113,
+      "planes": [
+        "1,-1,0",
+        "1,1,0.04"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Hub_Mobiliario",
+        "PROP_Cadeira.00"
+      ],
+      "materials": [
+        "M_LuzCiano",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 23,
+      "projectedArea": 0.16911591555212147,
+      "planes": [
+        "1,-1,0",
+        "1,1,0.04"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_EDEN_Mobiliario",
+        "PROP_EDEN_Mobiliario"
+      ],
+      "materials": [
+        "M_Painel",
+        "M_LuzAmbar"
+      ],
+      "trianglePairs": 8,
+      "projectedArea": 0.22306571696024802,
+      "planes": [
+        "1,-1,0"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Deposito_Mobiliario",
+        "PROP_Deposito_Mobiliario"
+      ],
+      "materials": [
+        "M_Painel",
+        "M_Estrutura"
+      ],
+      "trianglePairs": 5,
+      "projectedArea": 0.3514399961486845,
+      "planes": [
+        "1,-1,0"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Cadeira.00",
+        "PROP_Cadeira.00"
+      ],
+      "materials": [
+        "M_MetalEscuro",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 4,
+      "projectedArea": 0.00649519046725322,
+      "planes": [
+        "1,-1,0"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Cadeira.01",
+        "PROP_Cadeira.01"
+      ],
+      "materials": [
+        "M_MetalEscuro",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 4,
+      "projectedArea": 0.006495190467253276,
+      "planes": [
+        "1,-1,0"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Cadeira.02",
+        "PROP_Cadeira.02"
+      ],
+      "materials": [
+        "M_MetalEscuro",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 4,
+      "projectedArea": 0.006495192253964888,
+      "planes": [
+        "1,-1,0"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Cadeira.03",
+        "PROP_Cadeira.03"
+      ],
+      "materials": [
+        "M_MetalEscuro",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 4,
+      "projectedArea": 0.006495192253964888,
+      "planes": [
+        "1,-1,0"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Cadeira.04",
+        "PROP_Cadeira.04"
+      ],
+      "materials": [
+        "M_MetalEscuro",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 4,
+      "projectedArea": 0.006495190508592152,
+      "planes": [
+        "1,-1,0"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Cadeira.05",
+        "PROP_Cadeira.05"
+      ],
+      "materials": [
+        "M_MetalEscuro",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 4,
+      "projectedArea": 0.006495192253964777,
+      "planes": [
+        "1,-1,0"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Cadeira.06",
+        "PROP_Cadeira.06"
+      ],
+      "materials": [
+        "M_MetalEscuro",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 4,
+      "projectedArea": 0.006495192253964888,
+      "planes": [
+        "1,-1,0"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Cadeira.07",
+        "PROP_Cadeira.07"
+      ],
+      "materials": [
+        "M_MetalEscuro",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 4,
+      "projectedArea": 0.006495192253957782,
+      "planes": [
+        "1,-1,0"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Cadeira.08",
+        "PROP_Cadeira.08"
+      ],
+      "materials": [
+        "M_MetalEscuro",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 4,
+      "projectedArea": 0.006495192253966664,
+      "planes": [
+        "1,-1,0"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Cadeira.09",
+        "PROP_Cadeira.09"
+      ],
+      "materials": [
+        "M_MetalEscuro",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 4,
+      "projectedArea": 0.006495192253966664,
+      "planes": [
+        "1,-1,0"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Cadeira.10",
+        "PROP_Cadeira.10"
+      ],
+      "materials": [
+        "M_MetalEscuro",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 4,
+      "projectedArea": 0.006495190508591264,
+      "planes": [
+        "1,-1,0"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Cadeira.11",
+        "PROP_Cadeira.11"
+      ],
+      "materials": [
+        "M_MetalEscuro",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 4,
+      "projectedArea": 0.006495190508592152,
+      "planes": [
+        "1,-1,0"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Cadeira.12",
+        "PROP_Cadeira.12"
+      ],
+      "materials": [
+        "M_MetalEscuro",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 4,
+      "projectedArea": 0.006495192253964888,
+      "planes": [
+        "1,-1,0"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Pavilhao_Balizador.0",
+        "PROP_Pavilhao_Balizador.0"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,0"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Pavilhao_Balizador.1",
+        "PROP_Pavilhao_Balizador.1"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383544588,
+      "planes": [
+        "1,-1,0"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.00",
+        "PROP_Balizador.00"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.11958"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.01",
+        "PROP_Balizador.01"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.11949"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.02",
+        "PROP_Balizador.02"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.11956"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.03",
+        "PROP_Balizador.03"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.11952"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.04",
+        "PROP_Balizador.04"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.01590990338360143,
+      "planes": [
+        "1,-1,-0.11951"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.05",
+        "PROP_Balizador.05"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.11952"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.06",
+        "PROP_Balizador.06"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.01590990338360143,
+      "planes": [
+        "1,-1,-0.11954"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.07",
+        "PROP_Balizador.07"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.01590990338360143,
+      "planes": [
+        "1,-1,-0.11951"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.08",
+        "PROP_Balizador.08"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.11947"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.09",
+        "PROP_Balizador.09"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.11932"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.10",
+        "PROP_Balizador.10"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.11936"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.11",
+        "PROP_Balizador.11"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.11941"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.12",
+        "PROP_Balizador.12"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383654722,
+      "planes": [
+        "1,-1,-0.11934"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.13",
+        "PROP_Balizador.13"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.1194"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.14",
+        "PROP_Balizador.14"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383644064,
+      "planes": [
+        "1,-1,-0.11932"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.15",
+        "PROP_Balizador.15"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383644064,
+      "planes": [
+        "1,-1,-0.1193"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.16",
+        "PROP_Balizador.16"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.11938"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.17",
+        "PROP_Balizador.17"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383644064,
+      "planes": [
+        "1,-1,-0.11928"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.18",
+        "PROP_Balizador.18"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.01590990338365117,
+      "planes": [
+        "1,-1,-0.11927"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.19",
+        "PROP_Balizador.19"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.11953"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.20",
+        "PROP_Balizador.20"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.11953"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.21",
+        "PROP_Balizador.21"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.1195"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.22",
+        "PROP_Balizador.22"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383629853,
+      "planes": [
+        "1,-1,-0.11957"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.23",
+        "PROP_Balizador.23"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383544588,
+      "planes": [
+        "1,-1,-0.11953"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.24",
+        "PROP_Balizador.24"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383544588,
+      "planes": [
+        "1,-1,-0.11944"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.25",
+        "PROP_Balizador.25"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383544588,
+      "planes": [
+        "1,-1,-0.11954"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.26",
+        "PROP_Balizador.26"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383544588,
+      "planes": [
+        "1,-1,-0.11952"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.27",
+        "PROP_Balizador.27"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383544588,
+      "planes": [
+        "1,-1,-0.11945"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.28",
+        "PROP_Balizador.28"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383544588,
+      "planes": [
+        "1,-1,-0.11951"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.29",
+        "PROP_Balizador.29"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.11947"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.30",
+        "PROP_Balizador.30"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383544588,
+      "planes": [
+        "1,-1,-0.11948"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.31",
+        "PROP_Balizador.31"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.11949"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.32",
+        "PROP_Balizador.32"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.11939"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.33",
+        "PROP_Balizador.33"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383544588,
+      "planes": [
+        "1,-1,-0.11938"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.34",
+        "PROP_Balizador.34"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.11937"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.35",
+        "PROP_Balizador.35"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.11948"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.36",
+        "PROP_Balizador.36"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.1195"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.37",
+        "PROP_Balizador.37"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.29949"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.38",
+        "PROP_Balizador.38"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.01590990338360143,
+      "planes": [
+        "1,-1,-0.29951"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.39",
+        "PROP_Balizador.39"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.01590990338360143,
+      "planes": [
+        "1,-1,-0.29951"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.40",
+        "PROP_Balizador.40"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.01590990338360143,
+      "planes": [
+        "1,-1,-0.29955"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.41",
+        "PROP_Balizador.41"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383647617,
+      "planes": [
+        "1,-1,-0.29949"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.42",
+        "PROP_Balizador.42"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.01590990338360143,
+      "planes": [
+        "1,-1,-0.29952"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.43",
+        "PROP_Balizador.43"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.01590990338360143,
+      "planes": [
+        "1,-1,-0.29955"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.44",
+        "PROP_Balizador.44"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.29952"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.45",
+        "PROP_Balizador.45"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.01590990338360143,
+      "planes": [
+        "1,-1,-0.2995"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.46",
+        "PROP_Balizador.46"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.29954"
+      ]
+    },
+    {
+      "parts": [
+        "PROP_Balizador.47",
+        "PROP_Balizador.47"
+      ],
+      "materials": [
+        "M_Estrutura",
+        "M_MetalEscuro"
+      ],
+      "trianglePairs": 10,
+      "projectedArea": 0.015909903383658275,
+      "planes": [
+        "1,-1,-0.29952"
+      ]
+    }
+  ]
+}
