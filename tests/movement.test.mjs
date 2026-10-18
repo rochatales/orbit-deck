@@ -138,3 +138,24 @@ test('S2.12: asset r7 separado, com os cinco clipes e o mesmo rig; GLB ativo pre
   const escolha=fs.readFileSync('src/characters/player/playerAssetChoice.ts','utf8');
   assert.match(escolha,/'atual' \? 'atual' : 'r7'/,'a prévia começa com a r7');
 });
+
+test('S2.12: parado, a mira que cruza ±π gira pelo caminho curto (sem volta inteira no eixo)',()=>{
+  const dampAngle=M.dampFacing;
+  // Cursor varre o norte do player (mundo −Z): atan2 salta de +π para −π no meio do gesto.
+  let facing=Math.PI-0.05,travel=0;
+  for(let i=0;i<=60;i++){
+    const ax=0.05-i*(0.1/60);
+    const target=M.updateAimAngle(facing,0,0,ax,-3,true,0.9);
+    const next=dampAngle(facing,target,10,1/60);
+    travel+=Math.abs(next-facing);facing=next;
+  }
+  assert.ok(travel<0.2,`giro total ${travel.toFixed(3)} rad para 0,033 rad de mira`);
+  assert.ok(Math.abs(Math.atan2(Math.sin(facing),Math.cos(facing))-Math.atan2(-0.05,-3))<0.02);
+  // Ângulo acumulado (lerpAngle correndo não normaliza) também segue o caminho curto.
+  const acc=dampAngle(3*Math.PI-0.05,-Math.PI+0.05,10,1/60);
+  assert.ok(acc>3*Math.PI-0.05&&acc<3*Math.PI+0.05);
+  // Mesma curva do damp anterior quando não há salto de ±π.
+  const {dampAngle:linear}=loadSource('src/utils/math.ts');
+  assert.ok(Math.abs(dampAngle(0.2,1.1,10,1/60)-linear(0.2,1.1,10,1/60))<1e-12);
+  assert.match(fs.readFileSync('src/characters/player/PlayerController.tsx','utf8'),/dampFacing\(facingAngleRef\.current, targetAngle/);
+});

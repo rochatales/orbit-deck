@@ -26,6 +26,16 @@ export function updateAimAngle(lastAngle: number, playerX: number, playerZ: numb
     return Math.atan2(dx, dz);
 }
 
+/**
+ * Amortece a orientação do corpo rumo à mira pelo caminho mais curto. A mira vem de atan2 em
+ * (−π, π]: ao cruzar ±π (cursor ao norte, mundo −Z) o alvo salta 2π, e um damp linear daria a
+ * volta inteira no próprio eixo (relato do autor, 18/10/2026). Mesma curva de MathUtils.damp.
+ */
+export function dampFacing(current: number, target: number, smoothing: number, delta: number): number {
+    const diff = Math.atan2(Math.sin(target - current), Math.cos(target - current));
+    return current + diff * (1 - Math.exp(-smoothing * delta));
+}
+
 /** Vetor de deslocamento unitário (ou nulo) ao longo da direção de mira. */
 export function aimMotion(angle: number, input: -1 | 0 | 1, out: { x: number; z: number }) {
     out.x = Math.sin(angle) * input;

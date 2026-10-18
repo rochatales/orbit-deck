@@ -3,7 +3,7 @@ import { useFrame } from "@react-three/fiber";
 import { useBeforePhysicsStep, useRapier, type RapierCollider, type RapierRigidBody } from "@react-three/rapier";
 import { useEffect, useMemo, useRef, type MutableRefObject } from "react";
 import { MathUtils, Quaternion, Vector3 } from "three";
-import { aimInput, aimMotion, locomotionKind, updateAimAngle, type LocomotionKind } from "./aimMovement";
+import { aimInput, aimMotion, dampFacing, locomotionKind, updateAimAngle, type LocomotionKind } from "./aimMovement";
 import { combatRuntime } from "../../state/useCombatStore";
 import { simulationBlocked } from "../../game/simulationGate";
 import { GameControl } from "../../controls/keyboardControls";
@@ -11,7 +11,7 @@ import { EDEN } from "../../game/config";
 import { useExpeditionStore } from "../../state/useExpeditionStore";
 import { useGameStore } from "../../state/useGameStore";
 import { publishPlayerFrame } from "../../state/playerTransient";
-import { clamp, damp, dampAngle, type RectBounds } from "../../utils/math";
+import { clamp, damp, type RectBounds } from "../../utils/math";
 import type { OfficeWorld } from "../../world/createOfficeMap";
 import {
   PLAYER_COLLIDER_CENTER_Y,
@@ -163,7 +163,7 @@ export function PlayerController({
     facingAngleRef.current =
       input !== 0 || interactionAngle !== null
         ? lerpAngle(facingAngleRef.current, targetAngle, rotationAlpha)
-        : dampAngle(facingAngleRef.current, targetAngle, 10, dt);
+        : dampFacing(facingAngleRef.current, targetAngle, 10, dt);
 
     // O deslocamento usa a mesma direção do corpo (nunca os eixos da câmera): ao recuar o
     // corpo continua voltado ao cursor, sem girar 180°.
