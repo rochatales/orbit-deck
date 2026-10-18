@@ -10,7 +10,9 @@ export interface Terrain {
 }
 export function segmentBox(a: Position, b: Position, box: RectBounds, radius = 0): number | null {
     let lo = 0, hi = 1;
-    for (const [start, delta, min, max] of [[a.x, b.x - a.x, box.minX - radius, box.maxX + radius], [a.z, b.z - a.z, box.minZ - radius, box.maxZ + radius]]) {
+    for (let axis = 0; axis < 2; axis++) {
+        const start = axis === 0 ? a.x : a.z, delta = (axis === 0 ? b.x : b.z) - start;
+        const min = (axis === 0 ? box.minX : box.minZ) - radius, max = (axis === 0 ? box.maxX : box.maxZ) + radius;
         if (Math.abs(delta) < 1e-9) {
             if (start < min || start > max)
                 return null;
@@ -34,16 +36,32 @@ export function traversable(p: Position, terrain: Terrain, radius: number) {
 export function clearSegment(a: Position, b: Position, terrain: Terrain, radius: number) {
     if (terrain.obstacles.some(o => segmentBox(a, b, o, radius) !== null))
         return false;
+    const bounds = terrain.bounds;
+    const inside = (p: Position, area: RectBounds) => p.x >= area.minX && p.x <= area.maxX && p.z >= area.minZ && p.z <= area.maxZ;
+    if (a.x < bounds.minX + radius || a.x > bounds.maxX - radius || a.z < bounds.minZ + radius || a.z > bounds.maxZ - radius
+        || b.x < bounds.minX + radius || b.x > bounds.maxX - radius || b.z < bounds.minZ + radius || b.z > bounds.maxZ - radius) return false;
+    // A rectangle is convex; both endpoints inside one walkable area prove
+    // coverage for the complete segment. Swept obstacle checks were done above.
+    if (terrain.walkableAreas.some(area => inside(a, area) && inside(b, area))) return true;
     const steps = Math.max(1, Math.ceil(Math.hypot(b.x - a.x, b.z - a.z) / 0.2));
-    for (let i = 0; i <= steps; i++)
-        if (!traversable({ x: a.x + (b.x - a.x) * i / steps, z: a.z + (b.z - a.z) * i / steps }, terrain, radius))
-            return false;
+    for (let i = 0; i <= steps; i++) {
+        const x = a.x + (b.x - a.x) * i / steps, z = a.z + (b.z - a.z) * i / steps;
+        if (!terrain.walkableAreas.some(area => x >= area.minX && x <= area.maxX && z >= area.minZ && z <= area.maxZ)) return false;
+    }
     return true;
 }
 /** Four-connected grid, inflated obstacles and swept edges: no corner cutting. */
 export class Navigation {
     points: Position[] = [];
     edges: number[][] = [];
+    private buckets: number[][] = [];
+    private bucketWidth = 0;
+    private bucketDepth = 0;
+    private readonly bucketSize = 4;
+    private distances = new Int32Array(0);
+    private reverseEdges: number[][] = [];
+    private cachedGoal = -1;
+    private queue = new Int32Array(0);
     constructor(public terrain: Terrain, public radius: number, cell: number) {
         const ids = new Map<string, number>();
         const b = terrain.bounds;
@@ -55,17 +73,46 @@ export class Navigation {
                     this.points.push(p);
                 }
             }
+        this.bucketWidth = Math.ceil((b.maxX - b.minX) / this.bucketSize);
+        this.bucketDepth = Math.ceil((b.maxZ - b.minZ) / this.bucketSize);
+        this.buckets = Array.from({ length: this.bucketWidth * this.bucketDepth }, () => []);
+        this.points.forEach((p, i) => {
+            const x = Math.floor((p.x - b.minX) / this.bucketSize), z = Math.floor((p.z - b.minZ) / this.bucketSize);
+            this.buckets[z * this.bucketWidth + x].push(i);
+        });
+        this.distances = new Int32Array(this.points.length);
+        this.queue = new Int32Array(this.points.length);
         this.edges = this.points.map(p => [[cell, 0], [-cell, 0], [0, cell], [0, -cell]].flatMap(([dx, dz]) => {
             const n = ids.get(`${p.x + dx},${p.z + dz}`);
             return n !== undefined && clearSegment(p, this.points[n], terrain, radius) ? [n] : [];
         }));
+        this.reverseEdges = this.points.map(() => []);
+        this.edges.forEach((edges, i) => edges.forEach(n => this.reverseEdges[n].push(i)));
     }
     nearest(p: Position, endpointRadius = this.radius) {
+        if (!traversable(p, this.terrain, endpointRadius)) return -1;
+        const bounds = this.terrain.bounds, size = this.bucketSize;
+        const cx = Math.floor((p.x - bounds.minX) / size), cz = Math.floor((p.z - bounds.minZ) / size);
         let best = -1, distance = Infinity;
-        this.points.forEach((q, i) => { const d = (p.x - q.x) ** 2 + (p.z - q.z) ** 2; if (d < distance && clearSegment(p, q, this.terrain, endpointRadius)) {
-            best = i;
-            distance = d;
-        } });
+        const limit = Math.max(this.bucketWidth, this.bucketDepth);
+        // Visit square rings. Once their outer boundary is farther than the best
+        // candidate, no unvisited bucket can improve it. Ties retain original ID order.
+        for (let ring = 0; ring <= limit; ring++) {
+            for (let z = Math.max(0, cz - ring); z <= Math.min(this.bucketDepth - 1, cz + ring); z++) {
+                for (let x = Math.max(0, cx - ring); x <= Math.min(this.bucketWidth - 1, cx + ring); x++) {
+                    if (ring && Math.max(Math.abs(x - cx), Math.abs(z - cz)) !== ring) continue;
+                    for (const i of this.buckets[z * this.bucketWidth + x]) {
+                        const q = this.points[i], d = (p.x - q.x) ** 2 + (p.z - q.z) ** 2;
+                        if ((d < distance || d === distance && i < best) && clearSegment(p, q, this.terrain, endpointRadius)) {
+                            best = i; distance = d;
+                        }
+                    }
+                }
+            }
+            const edge = Math.min(p.x - (bounds.minX + (cx - ring) * size), bounds.minX + (cx + ring + 1) * size - p.x,
+                p.z - (bounds.minZ + (cz - ring) * size), bounds.minZ + (cz + ring + 1) * size - p.z);
+            if (best !== -1 && edge * edge > distance) break;
+        }
         return best;
     }
     path(a: Position, b: Position): Position[] {
@@ -75,20 +122,30 @@ export class Navigation {
         const start = this.nearest(a), goal = this.nearest(b, targetFits ? this.radius : 0);
         if (start < 0 || goal < 0)
             return [];
-        const parent = new Int32Array(this.points.length).fill(-1), queue = [start];
-        parent[start] = start;
-        for (let head = 0; head < queue.length && parent[goal] === -1; head++)
-            for (const n of this.edges[queue[head]])
-                if (parent[n] === -1) {
-                    parent[n] = queue[head];
-                    queue.push(n);
+        // One reverse distance field per goal. The 32 agents share it while the
+        // player remains in the same cell; choosing the first decreasing edge
+        // preserves the original BFS tie order, not merely the path length.
+        const distance = this.distances, queue = this.queue;
+        if (this.cachedGoal !== goal) {
+            distance.fill(-1); distance[goal] = 0; queue[0] = goal;
+            let tail = 1;
+            for (let head = 0; head < tail; head++) {
+                const current = queue[head];
+                for (const n of this.reverseEdges[current]) if (distance[n] === -1) {
+                    distance[n] = distance[current] + 1; queue[tail++] = n;
                 }
-        if (parent[goal] === -1)
-            return [];
-        const result: Position[] = targetFits ? [{ ...b }] : [];
-        for (let i = goal; i !== start; i = parent[i])
-            result.push(this.points[i]);
-        result.push(this.points[start]);
-        return result.reverse();
+            }
+            this.cachedGoal = goal;
+        }
+        if (distance[start] < 0) return [];
+        const result: Position[] = [this.points[start]];
+        let current = start;
+        while (current !== goal) {
+            const next = this.edges[current].find(n => distance[n] === distance[current] - 1);
+            if (next === undefined) return [];
+            current = next; result.push(this.points[current]);
+        }
+        if (targetFits) result.push({ ...b });
+        return result;
     }
 }
