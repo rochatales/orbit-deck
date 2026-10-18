@@ -1,0 +1,12 @@
+{
+  "source": "mars_colony_estudo_v006_plataforma_B3.blend",
+  "sourceSha256": "a17aa3c4b557a7e323997429ec7083d1bca5d990c55dcb552c460352f2728dc4",
+  "object": "PLAT_B3_Foguete",
+  "footprint": {
+    "minX": -1.3125,
+    "maxX": 1.3125,
+    "minZ": -1.6912500858306885,
+    "maxZ": 1.6912500858306885
+  },
+  "height": 9.168273866176605
+}

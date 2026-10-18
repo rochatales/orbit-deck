@@ -34,6 +34,6 @@ test('Shanghai fase 01: contrato de pouso, limites e física independem do GLB',
  assert.deepEqual({...world.bounds},{minX:-51,maxX:51,minZ:-54,maxZ:54});
  assert.equal(world.group.children.length,0,'geometria visual não constrói os obstáculos');
  assert.ok(traversable(world,MAPS.shanghai.exit.x,MAPS.shanghai.exit.z));
- const expected=createShanghai().obstacles.slice(-3);
- assert.deepEqual(world.obstacles.slice(-3),expected,'addShipCollisions preservado');
+ const expected=createShanghai().obstacles.slice(-1);
+ assert.deepEqual(world.obstacles.slice(-1),expected,'mesma colisão do foguete nas duas Shanghai');
 });

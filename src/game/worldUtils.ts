@@ -1,5 +1,6 @@
 import { BoxGeometry, Group, Mesh, MeshStandardMaterial, type Material, Texture } from 'three';
 import type { OfficeWorld } from '../world/createOfficeMap';
+import rocket from '../assets/rocket-b3/rocket-b3.json';
 export function box(group: Group, x: number, y: number, z: number, w: number, h: number, d: number, color: string) {
     const mesh = new Mesh(new BoxGeometry(w, h, d), new MeshStandardMaterial({ color, roughness: 0.8 }));
     mesh.position.set(x, y, z);
@@ -29,6 +30,16 @@ export function disposeWorld(world: OfficeWorld) {
     materials.forEach(x => x.dispose());
     geometries.forEach(x => x.dispose());
 }
+/**
+ * Foguete estacionado de Shanghai (pedido do autor, 18/10/2026): só o foguete
+ * da colônia, sem base. Um retângulo simples na pegada exportada; a malha
+ * nunca é colisor.
+ */
+export function addRocketCollisions(world: OfficeWorld, x: number, z: number) {
+    const f = rocket.footprint;
+    world.obstacles.push({ minX: x + f.minX, maxX: x + f.maxX, minZ: z + f.minZ, maxZ: z + f.maxZ });
+}
+/** Nave provisória (cabine aberta), ainda usada em Marte até a integração da S6.12. */
 export function addShipCollisions(world: OfficeWorld, x: number, z: number) {
     for (const side of [-1.8, 1.8])
         world.obstacles.push({ minX: x + side - 0.225, maxX: x + side + 0.225, minZ: z - 2.25, maxZ: z + 2.25 });
