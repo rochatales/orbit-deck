@@ -14,8 +14,10 @@ export const PLAYER_COLORS = {
 } as const;
 
 export const PLAYER_MOVEMENT = {
-  speed: 3.2,
-  runMultiplier: 1.75,
+  // S2.12 (movimento pela mira): W corre sem Shift; S recua mais devagar. Valores iniciais
+  // para avaliação do autor. Antes: 3,2 m/s andando e 5,6 m/s com Shift.
+  runSpeed: 4.2,
+  backSpeed: 1.2,
   acceleration: 10,
   deceleration: 14,
   rotationLerp: 0.18,
@@ -45,6 +47,7 @@ export const PLAYER_MODEL_ROOT_Y = -PLAYER_COLLIDER_CENTER_Y + 0.02;
 export type PlayerAnimationState =
   | "idle"
   | "walking"
+  | "backward"
   | "interacting"
   | "actionTriggered"
   | "falling";
@@ -82,3 +85,28 @@ export function createInitialPlayerMotionState(): PlayerMotionState {
 // gait visually matches the actual character movement at any pace (kills foot
 // sliding without IK).
 export const PLAYER_RUN_REFERENCE_SPEED = 1.6;
+
+/**
+ * S2.12 · locomoção pela velocidade real (depois das colisões):
+ * - Backward (S6.8 r6b/r7): ciclo in-place de 0,533 s cuja velocidade de referência é 0,80 m/s,
+ *   medida com o pé de apoio parado. É a referência de reprodução, não a velocidade de recuo;
+ * - timeScale = velocidade real / referência, dentro dos limites; abaixo de `stopSpeed` a
+ *   locomoção vira Idle (parado contra parede não "corre no lugar"), com histerese até `startSpeed`;
+ * - transições por crossfade curto.
+ */
+export const PLAYER_BACKWARD_REFERENCE_SPEED = 0.8;
+export const PLAYER_LOCOMOTION = {
+  startSpeed: 0.3,
+  stopSpeed: 0.15,
+  runTimeScale: [0.45, 2.8] as const,
+  backwardTimeScale: [0.5, 2.0] as const,
+  crossfade: 0.18,
+  crossfadeReverse: 0.14,
+  crossfadeFall: 0.06,
+  /**
+   * Cursor mais perto que isto do centro do player não muda a direção (mantém a última). A mira
+   * é projetada no plano y = 0,9 e a câmera mira y = 0,55: o cursor sobre a silhueta cai a até
+   * ~0,6 m do centro nesse plano; 0,9 m cobre a silhueta com folga.
+   */
+  aimMinDistance: 0.9
+} as const;
