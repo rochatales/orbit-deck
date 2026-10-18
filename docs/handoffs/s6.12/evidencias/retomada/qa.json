@@ -1,0 +1,377 @@
+{
+  "data": "2026-10-18T01:56:14.005Z",
+  "reposicao": "assistida via stores; não é navegação física ou aceite do autor",
+  "antes": {
+    "errors": []
+  },
+  "portas": [
+    {
+      "portal": "ARQ_Hub_Porta_N",
+      "opened": 0.14008643114428765,
+      "closed": 0.8198324266837925
+    },
+    {
+      "portal": "ARQ_Hub_Porta_S",
+      "opened": 0.14012094647316098,
+      "closed": 0.819884291951097
+    },
+    {
+      "portal": "ARQ_Hub_Porta_L",
+      "opened": 0.14010011785851495,
+      "closed": 0.8198646450166113
+    },
+    {
+      "portal": "ARQ_Hub_Porta_O",
+      "opened": 0.1401165415750899,
+      "closed": 0.8198471164259504
+    },
+    {
+      "portal": "ARQ_EDEN_Porta_S",
+      "opened": 0.14008322502445625,
+      "closed": 0.8198973396794397
+    },
+    {
+      "portal": "ARQ_Arquivo_Porta_L",
+      "opened": 0.14008594848258504,
+      "closed": 0.8198676405040877
+    },
+    {
+      "portal": "ARQ_Oficina_Porta_O",
+      "opened": 0.14009361101679896,
+      "closed": 0.819879913729608
+    },
+    {
+      "portal": "ARQ_EDEN_Lab_Porta_Interna",
+      "opened": 0.14009001245748343,
+      "closed": 0.8198789848557472
+    },
+    {
+      "portal": "ARQ_Laboratorio_Portal_L",
+      "opened": 0.140091987074902,
+      "closed": 0.8198918074193825
+    },
+    {
+      "portal": "ARQ_Comunicacoes_Porta_N",
+      "opened": 0.14009893351681624,
+      "closed": 0.8198581454018676
+    },
+    {
+      "portal": "ARQ_Deposito_Porta_N",
+      "opened": 0.14009703145396268,
+      "closed": 0.8198921107353747
+    },
+    {
+      "portal": "ARQ_Reuniao_Porta_N",
+      "opened": 0.14010790466189904,
+      "closed": 0.819896187189208
+    },
+    {
+      "portal": "ARQ_Reuniao_Porta_S",
+      "opened": 0.14010368402748086,
+      "closed": 0.8198635994757424
+    },
+    {
+      "portal": "ARQ_Reuniao_Porta_L",
+      "opened": 0.14009817465409113,
+      "closed": 0.819863789199113
+    },
+    {
+      "portal": "ARQ_Cafe_Porta_O",
+      "opened": 0.14008121026874254,
+      "closed": 0.8198840419319817
+    },
+    {
+      "portal": "ARQ_Pavilhao_Porta_O",
+      "opened": 0.14009237423309506,
+      "closed": 0.8198331304743597
+    }
+  ],
+  "telhados": [
+    {
+      "roof": "TET_Hub",
+      "inside": {
+        "roof": 0.08000053930659312,
+        "children": [
+          {
+            "name": "TET_Hub_Equip",
+            "opacities": [
+              0.08000053930659312,
+              0.08000053930659312,
+              0.08000053930659312,
+              0.08000053930659312
+            ]
+          }
+        ]
+      },
+      "outside": {
+        "roof": 0.9999898798453126,
+        "children": [
+          {
+            "name": "TET_Hub_Equip",
+            "opacities": [
+              0.9999898798453126,
+              0.9999898798453126,
+              0.9999898798453126,
+              0.9999898798453126
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "roof": "TET_EDEN",
+      "inside": {
+        "roof": 0.0800005046596431,
+        "children": [
+          {
+            "name": "TET_EDEN_Equip",
+            "opacities": [
+              0.0800005046596431,
+              0.0800005046596431,
+              0.0800005046596431
+            ]
+          }
+        ]
+      },
+      "outside": {
+        "roof": 0.999990923134272,
+        "children": [
+          {
+            "name": "TET_EDEN_Equip",
+            "opacities": [
+              0.999990923134272,
+              0.999990923134272,
+              0.999990923134272
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "roof": "TET_Arquivo",
+      "inside": {
+        "roof": 0.08000060081329444,
+        "children": [
+          {
+            "name": "TET_Arquivo_Equip",
+            "opacities": [
+              0.08000060081329444,
+              0.08000060081329444
+            ]
+          }
+        ]
+      },
+      "outside": {
+        "roof": 0.9999894668339648,
+        "children": [
+          {
+            "name": "TET_Arquivo_Equip",
+            "opacities": [
+              0.9999894668339648,
+              0.9999894668339648
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "roof": "TET_Oficina",
+      "inside": {
+        "roof": 0.0800003771655547,
+        "children": [
+          {
+            "name": "TET_Oficina_Equip",
+            "opacities": [
+              0.0800003771655547,
+              0.0800003771655547
+            ]
+          }
+        ]
+      },
+      "outside": {
+        "roof": 0.9999812474648966,
+        "children": [
+          {
+            "name": "TET_Oficina_Equip",
+            "opacities": [
+              0.9999812474648966,
+              0.9999812474648966
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "roof": "TET_Comunicacoes",
+      "inside": {
+        "roof": 0.08000048954883786,
+        "children": [
+          {
+            "name": "TET_Comunicacoes_Equip",
+            "opacities": [
+              0.08000048954883786,
+              0.08000048954883786,
+              0.08000048954883786
+            ]
+          }
+        ]
+      },
+      "outside": {
+        "roof": 0.9999896588720524,
+        "children": [
+          {
+            "name": "TET_Comunicacoes_Equip",
+            "opacities": [
+              0.9999896588720524,
+              0.9999896588720524,
+              0.9999896588720524
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "roof": "TET_Deposito",
+      "inside": {
+        "roof": 0.0800004387300168,
+        "children": [
+          {
+            "name": "TET_Deposito_Equip",
+            "opacities": [
+              0.0800004387300168,
+              0.0800004387300168,
+              0.0800004387300168
+            ]
+          }
+        ]
+      },
+      "outside": {
+        "roof": 0.9999785327407456,
+        "children": [
+          {
+            "name": "TET_Deposito_Equip",
+            "opacities": [
+              0.9999785327407456,
+              0.9999785327407456,
+              0.9999785327407456
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "roof": "TET_Reuniao",
+      "inside": {
+        "roof": 0.08000048954883786,
+        "children": [
+          {
+            "name": "TET_Reuniao_Equip",
+            "opacities": [
+              0.08000048954883786,
+              0.08000048954883786
+            ]
+          }
+        ]
+      },
+      "outside": {
+        "roof": 0.9999811270637976,
+        "children": [
+          {
+            "name": "TET_Reuniao_Equip",
+            "opacities": [
+              0.9999811270637976,
+              0.9999811270637976
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "roof": "TET_Cafe",
+      "inside": {
+        "roof": 0.08000034650048836,
+        "children": [
+          {
+            "name": "TET_Cafe_Equip",
+            "opacities": [
+              0.08000034650048836
+            ]
+          }
+        ]
+      },
+      "outside": {
+        "roof": 0.9999754250176119,
+        "children": [
+          {
+            "name": "TET_Cafe_Equip",
+            "opacities": [
+              0.9999754250176119
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "roof": "TET_Laboratorio",
+      "inside": {
+        "roof": 0.08000042969868384,
+        "children": [
+          {
+            "name": "TET_Laboratorio_Equip",
+            "opacities": [
+              0.08000042969868384,
+              0.08000042969868384,
+              0.08000042969868384,
+              0.08000042969868384
+            ]
+          },
+          {
+            "name": "TET_Laboratorio_Conduites",
+            "opacities": [
+              0.08000042969868384,
+              0.08000042969868384
+            ]
+          }
+        ]
+      },
+      "outside": {
+        "roof": 0.9999873693178022,
+        "children": [
+          {
+            "name": "TET_Laboratorio_Equip",
+            "opacities": [
+              0.9999873693178022,
+              0.9999873693178022,
+              0.9999873693178022,
+              0.9999873693178022
+            ]
+          },
+          {
+            "name": "TET_Laboratorio_Conduites",
+            "opacities": [
+              0.9999873693178022,
+              0.9999873693178022
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "jogo": {
+    "errors": [],
+    "stats": {
+      "frames": 5000,
+      "doors": 16,
+      "trackedMeshes": 129,
+      "visibleChanges": 0,
+      "depthWriteChanges": 0,
+      "materialChanges": 0,
+      "roofMaxDifference": 0,
+      "roofPairFrames": 50000
+    }
+  },
+  "preview": {
+    "errors": [],
+    "canvas": 1
+  }
+}

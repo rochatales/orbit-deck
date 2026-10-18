@@ -1,0 +1,20 @@
+{
+  "fonteSha256": "a17aa3c4b557a7e323997429ec7083d1bca5d990c55dcb552c460352f2728dc4",
+  "glbAntesSha256": "8f58fd3575e64de249c378e23188713dab7b791b89e7af519a4c1420d46ddd66",
+  "glbDepoisSha256": "e7ceda1d1e7be111c110cf8f860e179adaeba21936663a0d04ea48cb9ef8cd29",
+  "pecasForaDePROP": 251,
+  "geometriaETransformacoesAlteradasForaDePROP": [],
+  "colisores": 129,
+  "propsAuditados": 132,
+  "propsCorrigidos": 73,
+  "triangulosPropsAntes": 21906,
+  "triangulosPropsDepois": 25438,
+  "propsSemMalha": [],
+  "maiorDiferencaBoundsPropsMetros": 0.0002465248107910156,
+  "diferencasBoundsProps": [
+    {
+      "name": "PROP_Lab_VolumeTecnico_Provisorio",
+      "maxDelta": 0.0002465248107910156
+    }
+  ]
+}
