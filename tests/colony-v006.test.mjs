@@ -174,39 +174,48 @@ test('S6.12: 16 portas alinhadas ao GLB sem interseção durante todo o slide', 
  visibility.dispose();
 });
 
-test('S6.12: corte das portas usa malha móvel, compõe opacidade e não troca estados de render', async () => {
+test('S6.12: fachada da porta esmaece como um só grupo e nada translúcido escreve profundidade', async () => {
+ // Regressão de 17/10/2026: batente, verga, folhas e paredes decidiam o corte
+ // separadamente e o contorno verde das portas piscava ao andar. Ver o cabeçalho
+ // de src/scene/marsColony/visibility.ts.
  const {world,visibility,doors}=await colonyDoors();
- const dynamic=visibility.entries.filter(e=>e.dynamic);assert.equal(dynamic.length,16);
- const door=doors[0],leaf=door.children[0],entry=dynamic[0];
- const buffer=entry.triangles,materials=entry.materials.map(m=>m.material);
- const anchor=door.getWorldPosition(new Vector3());
- const run=(player,camera)=>{for(let i=0;i<180;i++){
-  world.update(player,1/60);visibility.update(player,camera,1/60);
-  assert.equal(entry.triangles,buffer);
-  entry.materials.forEach((item,k)=>{assert.equal(item.material,materials[k]);assert.equal(item.material.depthWrite,false);});
-  assert.equal(leaf.visible,true);
-  assert.ok(Math.abs(leaf.material.opacity-leaf.material.userData.doorOpacity*entry.opacity)<1e-10);
- }};
- // Raio pelo vão central da porta aberta: nada corta a porta.
- run(door.localToWorld(new Vector3(0,0,-1)),door.localToWorld(new Vector3(0,1,10)));
- assert.ok(entry.opacity>0.99,'vão aberto não aciona o corte');
- // Raio atravessando a folha esquerda já deslocada: corte suave até o contorno.
- run(door.localToWorld(new Vector3(leaf.position.x,0,-1)),door.localToWorld(new Vector3(leaf.position.x,1,10)));
- assert.ok(entry.opacity<0.081);
- const player=door.localToWorld(new Vector3(leaf.position.x,0,-1)),camera=door.localToWorld(new Vector3(leaf.position.x,1,10));
- assert.ok(anchor.distanceTo(player)<2.35);
- const oldX=entry.triangles[0];world.update(new Vector3(1000,0,1000),10);visibility.update(player,camera,1/60);
- assert.notEqual(entry.triangles[0],oldX,'triângulos seguem o slide/escala atual');
- const portals=visibility.entries.filter(e=>e.doorPart&&!e.dynamic);assert.ok(portals.length>=32);
- const checkPortals=()=>{for(const e of portals)for(const item of e.materials)
-  // Batentes opacos do GLB (DoubleSide, multimalha) mantêm o estado original constante,
-  // para não reordenar as próprias faces ao girar a câmera.
-  assert.equal(item.material.depthWrite,item.depthWrite);};
- for(const e of visibility.entries.filter(e=>e.dynamic))for(const item of e.materials)assert.equal(item.material.depthWrite,false);
- checkPortals();
- // Câmera alta: o raio cruza a verga do portal, que esmaece sem trocar depthWrite.
- for(let i=0;i<180;i++){visibility.update(anchor.clone().setZ(anchor.z-1),door.localToWorld(new Vector3(0,20,10)),1/60);checkPortals();}
- assert.ok(portals.some(e=>e.opacity<0.081&&e.materials.some(i=>i.material.depthWrite)),'batente esmaecido não troca depthWrite');
+ assert.equal(doors.length,16);
+ const parts=new Map(manifest.parts.map(p=>[p.name,p]));
+ const materialsOf=group=>group.materials.map(i=>i.material);
+ const noTranslucentDepth=()=>{for(const owner of [...visibility.groups,...visibility.followers])for(const item of owner.materials)
+  assert.ok(!(item.material.opacity<0.995&&item.material.depthWrite),`${owner.name}: translúcido escrevendo profundidade`);};
+ for(const door of doors){
+  const portal=door.userData.colonyPortal,group=visibility.groupOfPart.get(portal);
+  assert.ok(group,portal);
+  // Paredes de apoio, verga e folhas animadas no MESMO grupo do batente.
+  for(const wall of parts.get(portal).apoiado_em)assert.equal(visibility.groupOfPart.get(wall),group,`${portal} × ${wall}`);
+  if(parts.has(portal+'_Verga'))assert.equal(visibility.groupOfPart.get(portal+'_Verga'),group,`${portal}_Verga`);
+  const member=group.members.find(m=>m.node===door);assert.ok(member&&member.dynamic,`${portal}: folhas animadas no grupo`);
+  // Atravessa a porta nos quatro ângulos da câmera: todos os materiais do grupo
+  // têm sempre a mesma opacidade relativa e ninguém translúcido escreve profundidade.
+  const anchor=door.getWorldPosition(new Vector3()),b=parts.get(portal).bounds;
+  const alongX=(b.maxX-b.minX)<(b.maxZ-b.minZ);
+  for(const angle of [Math.PI/4,3*Math.PI/4,5*Math.PI/4,7*Math.PI/4])for(let f=0;f<90;f++){
+   const u=f/89*2-1,player=new Vector3(alongX?anchor.x+3*u:anchor.x,0,alongX?anchor.z:anchor.z+3*u);
+   const camera=new Vector3(player.x+Math.cos(angle)*55.14,39.55,player.z+Math.sin(angle)*55.14);
+   world.update(player,1/60);visibility.update(player,camera,1/60);
+   for(const item of group.materials){
+    const base=item.dynamic?item.material.userData.doorOpacity??item.opacity:item.opacity;
+    assert.ok(Math.abs(item.material.opacity-base*group.opacity)<1e-9,`${portal}: material fora do fade do grupo`);
+    if(item.dynamic)assert.equal(item.material.depthWrite,false);
+   }
+   noTranslucentDepth();
+  }
+ }
+ // Triângulos das folhas acompanham o slide (buffer preparado na montagem, sem realocar).
+ const door=doors[0],group=visibility.groupOfPart.get(door.userData.colonyPortal),member=group.members.find(m=>m.node===door);
+ const buffer=member.triangles,anchor=door.getWorldPosition(new Vector3()),camera=new Vector3(anchor.x,20,anchor.z+10);
+ world.update(new Vector3(1000,0,1000),10);visibility.update(anchor,camera,1/60);const closed=buffer[0];
+ world.update(anchor,10);visibility.update(anchor,camera,1/60);
+ assert.equal(member.triangles,buffer);assert.notEqual(buffer[0],closed,'triângulos seguem o slide/escala atual');
+ // Cantos entre duas fachadas não decidem: seguem a menor opacidade dos apoios.
+ const corners=visibility.followers.filter(f=>f.name.includes('_Canto_'));assert.ok(corners.length>=30);
+ for(const corner of corners)assert.equal(corner.opacity,Math.min(...corner.supports.map(s=>s.opacity)),corner.name);
  visibility.dispose();
 });
 
@@ -223,7 +232,8 @@ test('S6.12: toda a cobertura usa o fade do teto no mesmo passo, incluindo apoio
   visibility.update({x:0,z:0},new Vector3(0,2,frame<120?10:-10),1/60);
   assert.equal(equip.material.opacity,roof.material.opacity);
   assert.equal(duct.material.opacity,roof.material.opacity);
-  assert.equal(scene.getObjectByName('PROP_Tela').material.opacity,1);
+  // Peça presa à parede segue a parede (regra 1 de visibility.ts), não fica opaca sobre parede esmaecida.
+  assert.equal(scene.getObjectByName('PROP_Tela').material.opacity,scene.getObjectByName('ARQ_Parede').material.opacity);
   assert.equal(equip.visible,true);assert.equal(duct.visible,true);
   if(frame===119)assert.ok(roof.material.opacity<0.081);
  }

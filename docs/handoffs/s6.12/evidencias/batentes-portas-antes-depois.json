@@ -1,0 +1,551 @@
+{
+  "base": "80d9886",
+  "delta": 0.016666666666666666,
+  "framesPerCrossing": 240,
+  "angles": 4,
+  "portals": 33,
+  "results": [
+    {
+      "phase": "antes",
+      "desyncedFrames": 7780,
+      "translucentDepthFrames": 20625,
+      "perPortal": [
+        {
+          "portal": "ARQ_Hub_Porta_N",
+          "walls": [
+            "ARQ_Hub_Parede_N_1",
+            "ARQ_Hub_Parede_N_2"
+          ],
+          "desyncedFrames": 488,
+          "maxDiff": 0.92
+        },
+        {
+          "portal": "ARQ_Hub_Porta_S",
+          "walls": [
+            "ARQ_Hub_Parede_S_1",
+            "ARQ_Hub_Parede_S_2"
+          ],
+          "desyncedFrames": 488,
+          "maxDiff": 0.92
+        },
+        {
+          "portal": "ARQ_Hub_Porta_O",
+          "walls": [
+            "ARQ_Hub_Parede_O_1",
+            "ARQ_Hub_Parede_O_2"
+          ],
+          "desyncedFrames": 481,
+          "maxDiff": 0.92
+        },
+        {
+          "portal": "ARQ_Hub_Porta_L",
+          "walls": [
+            "ARQ_Hub_Parede_L_1",
+            "ARQ_Hub_Parede_L_2"
+          ],
+          "desyncedFrames": 481,
+          "maxDiff": 0.92
+        },
+        {
+          "portal": "ARQ_EDEN_Porta_S",
+          "walls": [
+            "ARQ_EDEN_Parede_S_1",
+            "ARQ_EDEN_Parede_S_2"
+          ],
+          "desyncedFrames": 488,
+          "maxDiff": 0.92
+        },
+        {
+          "portal": "ARQ_Arquivo_Porta_L",
+          "walls": [
+            "ARQ_Arquivo_Parede_L_1",
+            "ARQ_Arquivo_Parede_L_2"
+          ],
+          "desyncedFrames": 481,
+          "maxDiff": 0.92
+        },
+        {
+          "portal": "ARQ_Oficina_Porta_O",
+          "walls": [
+            "ARQ_Oficina_Parede_O_1",
+            "ARQ_Oficina_Parede_O_2"
+          ],
+          "desyncedFrames": 481,
+          "maxDiff": 0.92
+        },
+        {
+          "portal": "ARQ_EDEN_Lab_Porta_Interna",
+          "walls": [
+            "ARQ_EDEN_Parede_L_1",
+            "ARQ_EDEN_Parede_L_2"
+          ],
+          "desyncedFrames": 481,
+          "maxDiff": 0.92
+        },
+        {
+          "portal": "ARQ_Comunicacoes_Porta_N",
+          "walls": [
+            "ARQ_Comunicacoes_Parede_N_1",
+            "ARQ_Comunicacoes_Parede_N_2"
+          ],
+          "desyncedFrames": 488,
+          "maxDiff": 0.92
+        },
+        {
+          "portal": "ARQ_Deposito_Porta_N",
+          "walls": [
+            "ARQ_Deposito_Parede_N_1",
+            "ARQ_Deposito_Parede_N_2"
+          ],
+          "desyncedFrames": 488,
+          "maxDiff": 0.92
+        },
+        {
+          "portal": "ARQ_Reuniao_Porta_N",
+          "walls": [
+            "ARQ_Reuniao_Parede_N_1",
+            "ARQ_Reuniao_Parede_N_2"
+          ],
+          "desyncedFrames": 488,
+          "maxDiff": 0.92
+        },
+        {
+          "portal": "ARQ_Reuniao_Porta_S",
+          "walls": [
+            "ARQ_Reuniao_Parede_S_1",
+            "ARQ_Reuniao_Parede_S_2"
+          ],
+          "desyncedFrames": 542,
+          "maxDiff": 0.92
+        },
+        {
+          "portal": "ARQ_Reuniao_Porta_L",
+          "walls": [
+            "ARQ_Reuniao_Parede_L_1",
+            "ARQ_Reuniao_Parede_L_2"
+          ],
+          "desyncedFrames": 481,
+          "maxDiff": 0.92
+        },
+        {
+          "portal": "ARQ_Cafe_Porta_O",
+          "walls": [
+            "ARQ_Cafe_Parede_O_1",
+            "ARQ_Cafe_Parede_O_2"
+          ],
+          "desyncedFrames": 527,
+          "maxDiff": 0.92
+        },
+        {
+          "portal": "ARQ_Pavilhao_Porta_O",
+          "walls": [
+            "ARQ_Pavilhao_Parede_O_1",
+            "ARQ_Pavilhao_Parede_O_2"
+          ],
+          "desyncedFrames": 335,
+          "maxDiff": 0.92
+        },
+        {
+          "portal": "ARQ_Hub_Porta_N_Verga",
+          "walls": [
+            "ARQ_Hub_Porta_N"
+          ],
+          "desyncedFrames": 4,
+          "maxDiff": 0.303
+        },
+        {
+          "portal": "ARQ_Hub_Porta_S_Verga",
+          "walls": [
+            "ARQ_Hub_Porta_S"
+          ],
+          "desyncedFrames": 4,
+          "maxDiff": 0.303
+        },
+        {
+          "portal": "ARQ_Hub_Porta_O_Verga",
+          "walls": [
+            "ARQ_Hub_Porta_O"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0.215
+        },
+        {
+          "portal": "ARQ_Hub_Porta_L_Verga",
+          "walls": [
+            "ARQ_Hub_Porta_L"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0.215
+        },
+        {
+          "portal": "ARQ_EDEN_Porta_S_Verga",
+          "walls": [
+            "ARQ_EDEN_Porta_S"
+          ],
+          "desyncedFrames": 4,
+          "maxDiff": 0.303
+        },
+        {
+          "portal": "ARQ_Arquivo_Porta_L_Verga",
+          "walls": [
+            "ARQ_Arquivo_Porta_L"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0.215
+        },
+        {
+          "portal": "ARQ_Oficina_Porta_O_Verga",
+          "walls": [
+            "ARQ_Oficina_Porta_O"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0.215
+        },
+        {
+          "portal": "ARQ_EDEN_Lab_Porta_Interna_Verga",
+          "walls": [
+            "ARQ_EDEN_Lab_Porta_Interna"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0.215
+        },
+        {
+          "portal": "ARQ_Comunicacoes_Porta_N_Verga",
+          "walls": [
+            "ARQ_Comunicacoes_Porta_N"
+          ],
+          "desyncedFrames": 4,
+          "maxDiff": 0.303
+        },
+        {
+          "portal": "ARQ_Deposito_Porta_N_Verga",
+          "walls": [
+            "ARQ_Deposito_Porta_N"
+          ],
+          "desyncedFrames": 4,
+          "maxDiff": 0.303
+        },
+        {
+          "portal": "ARQ_Reuniao_Porta_N_Verga",
+          "walls": [
+            "ARQ_Reuniao_Porta_N"
+          ],
+          "desyncedFrames": 4,
+          "maxDiff": 0.303
+        },
+        {
+          "portal": "ARQ_Reuniao_Porta_S_Verga",
+          "walls": [
+            "ARQ_Reuniao_Porta_S"
+          ],
+          "desyncedFrames": 4,
+          "maxDiff": 0.303
+        },
+        {
+          "portal": "ARQ_Reuniao_Porta_L_Verga",
+          "walls": [
+            "ARQ_Reuniao_Porta_L"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0.215
+        },
+        {
+          "portal": "ARQ_Cafe_Porta_O_Verga",
+          "walls": [
+            "ARQ_Cafe_Porta_O"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0.215
+        },
+        {
+          "portal": "ARQ_Pavilhao_Porta_O_Verga",
+          "walls": [
+            "ARQ_Pavilhao_Porta_O"
+          ],
+          "desyncedFrames": 104,
+          "maxDiff": 0.864
+        },
+        {
+          "portal": "ARQ_Laboratorio_Porta_L_Verga",
+          "walls": [
+            "ARQ_Laboratorio_Parede_L_1",
+            "ARQ_Laboratorio_Parede_L_2"
+          ],
+          "desyncedFrames": 430,
+          "maxDiff": 0.92
+        }
+      ]
+    },
+    {
+      "phase": "depois",
+      "desyncedFrames": 0,
+      "translucentDepthFrames": 0,
+      "perPortal": [
+        {
+          "portal": "ARQ_Hub_Porta_N",
+          "walls": [
+            "ARQ_Hub_Parede_N_1",
+            "ARQ_Hub_Parede_N_2"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_Hub_Porta_S",
+          "walls": [
+            "ARQ_Hub_Parede_S_1",
+            "ARQ_Hub_Parede_S_2"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_Hub_Porta_O",
+          "walls": [
+            "ARQ_Hub_Parede_O_1",
+            "ARQ_Hub_Parede_O_2"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_Hub_Porta_L",
+          "walls": [
+            "ARQ_Hub_Parede_L_1",
+            "ARQ_Hub_Parede_L_2"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_EDEN_Porta_S",
+          "walls": [
+            "ARQ_EDEN_Parede_S_1",
+            "ARQ_EDEN_Parede_S_2"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_Arquivo_Porta_L",
+          "walls": [
+            "ARQ_Arquivo_Parede_L_1",
+            "ARQ_Arquivo_Parede_L_2"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_Oficina_Porta_O",
+          "walls": [
+            "ARQ_Oficina_Parede_O_1",
+            "ARQ_Oficina_Parede_O_2"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_EDEN_Lab_Porta_Interna",
+          "walls": [
+            "ARQ_EDEN_Parede_L_1",
+            "ARQ_EDEN_Parede_L_2"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_Comunicacoes_Porta_N",
+          "walls": [
+            "ARQ_Comunicacoes_Parede_N_1",
+            "ARQ_Comunicacoes_Parede_N_2"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_Deposito_Porta_N",
+          "walls": [
+            "ARQ_Deposito_Parede_N_1",
+            "ARQ_Deposito_Parede_N_2"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_Reuniao_Porta_N",
+          "walls": [
+            "ARQ_Reuniao_Parede_N_1",
+            "ARQ_Reuniao_Parede_N_2"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_Reuniao_Porta_S",
+          "walls": [
+            "ARQ_Reuniao_Parede_S_1",
+            "ARQ_Reuniao_Parede_S_2"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_Reuniao_Porta_L",
+          "walls": [
+            "ARQ_Reuniao_Parede_L_1",
+            "ARQ_Reuniao_Parede_L_2"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_Cafe_Porta_O",
+          "walls": [
+            "ARQ_Cafe_Parede_O_1",
+            "ARQ_Cafe_Parede_O_2"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_Pavilhao_Porta_O",
+          "walls": [
+            "ARQ_Pavilhao_Parede_O_1",
+            "ARQ_Pavilhao_Parede_O_2"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_Hub_Porta_N_Verga",
+          "walls": [
+            "ARQ_Hub_Porta_N"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_Hub_Porta_S_Verga",
+          "walls": [
+            "ARQ_Hub_Porta_S"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_Hub_Porta_O_Verga",
+          "walls": [
+            "ARQ_Hub_Porta_O"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_Hub_Porta_L_Verga",
+          "walls": [
+            "ARQ_Hub_Porta_L"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_EDEN_Porta_S_Verga",
+          "walls": [
+            "ARQ_EDEN_Porta_S"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_Arquivo_Porta_L_Verga",
+          "walls": [
+            "ARQ_Arquivo_Porta_L"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_Oficina_Porta_O_Verga",
+          "walls": [
+            "ARQ_Oficina_Porta_O"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_EDEN_Lab_Porta_Interna_Verga",
+          "walls": [
+            "ARQ_EDEN_Lab_Porta_Interna"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_Comunicacoes_Porta_N_Verga",
+          "walls": [
+            "ARQ_Comunicacoes_Porta_N"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_Deposito_Porta_N_Verga",
+          "walls": [
+            "ARQ_Deposito_Porta_N"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_Reuniao_Porta_N_Verga",
+          "walls": [
+            "ARQ_Reuniao_Porta_N"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_Reuniao_Porta_S_Verga",
+          "walls": [
+            "ARQ_Reuniao_Porta_S"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_Reuniao_Porta_L_Verga",
+          "walls": [
+            "ARQ_Reuniao_Porta_L"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_Cafe_Porta_O_Verga",
+          "walls": [
+            "ARQ_Cafe_Porta_O"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_Pavilhao_Porta_O_Verga",
+          "walls": [
+            "ARQ_Pavilhao_Porta_O"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        },
+        {
+          "portal": "ARQ_Laboratorio_Porta_L_Verga",
+          "walls": [
+            "ARQ_Laboratorio_Parede_L_1",
+            "ARQ_Laboratorio_Parede_L_2"
+          ],
+          "desyncedFrames": 0,
+          "maxDiff": 0
+        }
+      ]
+    }
+  ]
+}
