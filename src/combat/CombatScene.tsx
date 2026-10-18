@@ -10,7 +10,7 @@ import { combatRuntime, useCombatStore } from '../state/useCombatStore';
 import { simulationBlocked } from '../game/simulationGate';
 import { CombatSimulation, type CombatInput } from './simulation';
 import { COMBAT } from './config';
-import { PatrolUnitRig } from './patrolUnit';
+import { PATROL_UNIT, PatrolUnitRig } from './patrolUnit';
 import patrolUnitUrl from '../assets/enemies/patrol-unit.glb';
 export function CombatScene({ world }: {
     world: OfficeWorld;
@@ -137,7 +137,7 @@ export function CombatScene({ world }: {
     {simulation.robots.map((r, i) => <group key={`${run}-${r.id}`} ref={g => { robots.current[i] = g; }}>
       <primitive object={rigs[i].root}/>
       <mesh ref={m => { rings.current[i] = m; }} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.025, 0]}><ringGeometry args={[0.43, 0.48, 20]}/><meshBasicMaterial color="#ff6753"/></mesh>
-      <Billboard position={[0, 2.1, 0]} ref={g => { alerts.current[i] = g; }} visible={false}>
+      <Billboard position={[0, PATROL_UNIT.height + 0.45, 0]} ref={g => { alerts.current[i] = g; }} visible={false}>
         <mesh position={[0, 0.13, 0]}><boxGeometry args={[0.12, 0.38, 0.04]}/><meshBasicMaterial color="#ffdb57"/></mesh>
         <mesh position={[0, -0.16, 0]}><sphereGeometry args={[0.075, 8, 6]}/><meshBasicMaterial color="#ffdb57"/></mesh>
       </Billboard>

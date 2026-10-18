@@ -14,7 +14,14 @@ import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
  */
 export type PatrolUnitClip = 'Idle' | 'PatrolWalk' | 'AggressiveLunge' | 'DamagedDeath';
 
+/** Explorador no jogo: 1,50 m (player-main e r7, escala 0,857). Modelo do autor: 1,49 m. */
+export const PLAYER_HEIGHT = 1.5;
+export const PATROL_UNIT_MODEL_HEIGHT = 1.49;
+
 export const PATROL_UNIT = {
+    // Pedido do autor (18/10/2026): robô ~1/3 maior que o personagem → 2,0 m.
+    height: PLAYER_HEIGHT * 4 / 3,
+    scale: (PLAYER_HEIGHT * 4 / 3) / PATROL_UNIT_MODEL_HEIGHT,
     walkReferenceSpeed: 1.65,   // m/s em que o PatrolWalk roda a 1×; COMBAT.robot.speed
     walkRate: [0.6, 1.6] as const,
     moveStart: 0.3,             // m/s para entrar no PatrolWalk
@@ -65,6 +72,7 @@ export class PatrolUnitRig {
 
     constructor(source: Object3D, clips: AnimationClip[]) {
         this.root = clone(source);
+        this.root.scale.setScalar(PATROL_UNIT.scale);
         this.root.traverse(object => {
             const mesh = object as SkinnedMesh;
             if (!mesh.isMesh) return;

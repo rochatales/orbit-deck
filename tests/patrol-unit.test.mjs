@@ -5,7 +5,7 @@ import { createHash } from 'node:crypto';
 import { AnimationClip, BoxGeometry, Group, Mesh, MeshStandardMaterial } from 'three';
 import { loadSource } from './load-source.mjs';
 
-const { nextPatrolUnitClip, walkTimeScale, PatrolUnitRig, PATROL_UNIT } = loadSource('src/combat/patrolUnit.ts');
+const { nextPatrolUnitClip, walkTimeScale, PatrolUnitRig, PATROL_UNIT, PLAYER_HEIGHT, PATROL_UNIT_MODEL_HEIGHT } = loadSource('src/combat/patrolUnit.ts');
 const { COMBAT } = loadSource('src/combat/config.ts');
 
 test('S6.1: Patrol Unit do autor entra sem alteração, com os clipes e o orçamento do modelo', () => {
@@ -22,7 +22,9 @@ test('S6.1: Patrol Unit do autor entra sem alteração, com os clipes e o orçam
     const pos = j.accessors[primitive.attributes.POSITION];
     const height = pos.max[1] - pos.min[1];
     assert.ok(Math.abs(height - 1.49) < 0.02 && Math.abs(pos.min[1]) < 0.01, `1,49 m, pés em y = 0 (${height})`);
-    assert.ok(pos.max[0] - pos.min[0] <= 2 * COMBAT.robot.radius + 0.2, 'largura compatível com o colisor de 0,42 m');
+    assert.ok(Math.abs(height - PATROL_UNIT_MODEL_HEIGHT) < 0.005);
+    // Pedido do autor: robô ~1/3 maior que o Explorador (1,50 m no jogo) → 2,0 m.
+    assert.ok(Math.abs(height * PATROL_UNIT.scale - PLAYER_HEIGHT * 4 / 3) < 0.01, `altura no jogo ${(height * PATROL_UNIT.scale).toFixed(3)} m`);
 });
 
 test('S6.1: clipe pelo estado publicado pela simulação, com histerese e cadência pela velocidade', () => {
@@ -43,6 +45,7 @@ test('S6.1: rig por robô anda, ataca no contato, morre e some; flash e alerta s
     source.add(new Mesh(new BoxGeometry(1, 1.5, 0.6), shared));
     const clips = ['Idle', 'PatrolWalk', 'AggressiveLunge', 'DamagedDeath'].map(name => new AnimationClip(name, 1, []));
     const rig = new PatrolUnitRig(source, clips);
+    assert.equal(rig.root.scale.x, PATROL_UNIT.scale);
     const material = rig.root.children[0].material;
     assert.notEqual(material, shared, 'cache do GLTF intacto');
     const robot = { x: 0, z: 0, hp: 75, flash: 0, alerted: false };
