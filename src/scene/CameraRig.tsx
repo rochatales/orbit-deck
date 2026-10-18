@@ -8,15 +8,18 @@ import { useGameStore } from '../state/useGameStore';
 import { playerPosition } from '../state/playerTransient';
 import { damp, dampAngle, type RectBounds } from '../utils/math';
 import type { Point } from '../game/config';
-export function CameraRig({ bounds, spawn }: {
+import { cameraFit } from './cameraFraming';
+export function CameraRig({ bounds, spawn, distanceScale = 1, framing }: {
     bounds: RectBounds;
     spawn: Point;
+    distanceScale?: number;
+    framing?: { width: number; depth: number };
 }) {
     const ref = useRef<Camera>(null), keys = useRef(new Set<string>());
     const target = useRef(new Vector3(spawn.x, 0.55, spawn.z));
     const angle = useRef(Math.PI / 4);
     const size = useThree(s => s.size);
-    const fit = Math.min(size.width / Math.max(35, (bounds.maxX - bounds.minX) * 0.8), size.height / Math.max(26, (bounds.maxZ - bounds.minZ) * 0.65));
+    const fit = cameraFit(size.width, size.height, bounds, framing);
     useEffect(() => { useGameStore.setState({ targetRotation: Math.PI / 4 }); useGameStore.getState().setZoomBounds(fit, fit * 3.25); useGameStore.getState().setZoom(fit * 1.6); }, [fit]);
     useEffect(() => {
         const down = (e: KeyboardEvent) => { if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement)
@@ -53,8 +56,8 @@ export function CameraRig({ bounds, spawn }: {
         c.updateProjectionMatrix();
         target.current.x = damp(target.current.x, playerPosition.x, 6.5, dt);
         target.current.z = damp(target.current.z, playerPosition.z, 6.5, dt);
-        c.position.set(target.current.x + Math.cos(angle.current) * 18.38, 13.55, target.current.z + Math.sin(angle.current) * 18.38);
+        c.position.set(target.current.x + Math.cos(angle.current) * 18.38 * distanceScale, .55 + 13 * distanceScale, target.current.z + Math.sin(angle.current) * 18.38 * distanceScale);
         c.lookAt(target.current);
     });
-    return <OrthographicCamera ref={ref} makeDefault position={[spawn.x + 13, 13.55, spawn.z + 13]} zoom={fit * 1.6} near={0.1} far={160}/>;
+    return <OrthographicCamera ref={ref} makeDefault position={[spawn.x + 13 * distanceScale, .55 + 13 * distanceScale, spawn.z + 13 * distanceScale]} zoom={fit * 1.6} near={0.1} far={160 * distanceScale}/>;
 }
