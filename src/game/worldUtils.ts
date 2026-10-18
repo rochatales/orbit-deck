@@ -1,4 +1,4 @@
-import { BoxGeometry, CanvasTexture, Group, Mesh, MeshStandardMaterial, type Material, type Texture } from 'three';
+import { BoxGeometry, Group, Mesh, MeshStandardMaterial, type Material, Texture } from 'three';
 import type { OfficeWorld } from '../world/createOfficeMap';
 export function box(group: Group, x: number, y: number, z: number, w: number, h: number, d: number, color: string) {
     const mesh = new Mesh(new BoxGeometry(w, h, d), new MeshStandardMaterial({ color, roughness: 0.8 }));
@@ -10,6 +10,7 @@ export function box(group: Group, x: number, y: number, z: number, w: number, h:
 }
 /** Worlds own these procedural resources; cached GLB models are not children of this group. */
 export function disposeWorld(world: OfficeWorld) {
+    world.group.userData.releasePending?.();
     const geometries = new Set<{
         dispose: () => void;
     }>(), materials = new Set<Material>(), textures = new Set<Texture>();
@@ -18,11 +19,13 @@ export function disposeWorld(world: OfficeWorld) {
         for (const m of Array.isArray(object.material) ? object.material : [object.material]) {
             materials.add(m);
             for (const v of Object.values(m))
-                if (v instanceof CanvasTexture)
+                if (v instanceof Texture)
                     textures.add(v);
         }
     } });
-    textures.forEach(x => x.dispose());
+    const images = new Set<{ close?: () => void }>();
+    textures.forEach(x => { if (x.image) images.add(x.image); x.dispose(); });
+    images.forEach(image => image.close?.());
     materials.forEach(x => x.dispose());
     geometries.forEach(x => x.dispose());
 }

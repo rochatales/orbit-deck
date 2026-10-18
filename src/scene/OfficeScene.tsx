@@ -1,3 +1,7 @@
+import { Suspense } from 'react';
+import { Html } from '@react-three/drei';
+import { ShanghaiLighting } from './ShanghaiLighting';
+import { ShanghaiAssetGate } from './ShanghaiAssetGate';
 import { PlayerAim } from '../characters/player/PlayerAim';
 import { CombatScene } from '../combat/CombatScene';
 import { GLBCharacter } from '../characters/GLBCharacter';
@@ -8,6 +12,8 @@ import { Spacecraft } from '../game/Spacecraft';
 import { useExpeditionStore } from '../state/useExpeditionStore';
 import { CameraRig } from './CameraRig';
 import { Lighting } from './Lighting';
+import { SHANGHAI_FRAMING } from './cameraFraming';
+import { isShanghaiPhase01 } from '../game/shanghai/previewMode';
 import { PhysicsWorld } from '../physics/PhysicsWorld';
 import { OfficeMap } from '../world/OfficeMap';
 import type { OfficeWorld } from '../world/createOfficeMap';
@@ -18,12 +24,13 @@ export function OfficeScene({ world, map }: {
 }) {
     const spawn = useExpeditionStore(s => s.spawn), revision = useExpeditionStore(s => s.session.revision);
     const a = EDEN_CHARACTER_ASSET;
-    return <>
-    <color attach="background" args={[map === 'mars' ? '#b4927a' : '#788382']}/>
-    <fog attach="fog" args={[map === 'mars' ? '#b4927a' : '#788382', 45, 100]}/>
-    <Lighting />
-    <CameraRig key={revision} bounds={world.bounds} spawn={spawn}/>
-    <PlayerAim key={revision}/>
+    const phase01 = map === 'shanghai' && isShanghaiPhase01();
+    return <Suspense fallback={<Html center><p role="status">Carregando Shanghai fase 01…</p></Html>}><ShanghaiAssetGate world={world}><>
+    <color attach="background" args={[map === 'mars' ? '#b4927a' : phase01 ? '#88877d' : '#788382']}/>
+    <fog attach="fog" args={[map === 'mars' ? '#b4927a' : phase01 ? '#88877d' : '#788382', phase01 ? 100 : 45, phase01 ? 220 : 100]}/>
+    {phase01 ? <ShanghaiLighting/> : <Lighting/>}
+    <CameraRig key={`camera-${revision}`} bounds={world.bounds} spawn={spawn} framing={map === 'shanghai' ? SHANGHAI_FRAMING : undefined} distanceScale={phase01 ? 3 : 1}/>
+    <PlayerAim key={`aim-${revision}`}/>
     <PhysicsWorld officeWorld={world}>
       <OfficeMap officeWorld={world}/>
       <Player key={revision} officeWorld={world} spawn={spawn}/>
@@ -34,5 +41,5 @@ export function OfficeScene({ world, map }: {
       <GLBCharacter {...a} animationState="idle"/>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.03, 0]}><ringGeometry args={[1, 1.1, 32]}/><meshBasicMaterial color="#f2c94c"/></mesh>
     </group>}
-  </>;
+  </></ShanghaiAssetGate></Suspense>;
 }
