@@ -1,0 +1,24 @@
+[
+  {
+    "source": "/Users/rochatales/Desktop/Screenshots/Screenshot 2026-09-30 at 22.27.21.png",
+    "sha256_source": "a7afa2c7affee2b3083b266cb65517bc4b6f179e995e1c1169684cf0daf78101",
+    "output": "fase01-ref-1-esquina.webp",
+    "sha256_webp": "3dd67deb4550063f1a5a35c2faa763eee539bf339a27691ca1290367325db036",
+    "pixels_identical_rgb": true,
+    "size": [
+      1417,
+      762
+    ]
+  },
+  {
+    "source": "/Users/rochatales/Desktop/Screenshots/Screenshot 2026-09-30 at 22.28.08.png",
+    "sha256_source": "da76e122f81db0bce8fbf8045e5981fc672db3959cae00512641244e81543d40",
+    "output": "fase01-ref-2-cruzamento.webp",
+    "sha256_webp": "71de8d2e549bc8c7267f145702d89fa0f87e9ee48c48fabb40794ebfef988a88",
+    "pixels_identical_rgb": true,
+    "size": [
+      840,
+      683
+    ]
+  }
+]
