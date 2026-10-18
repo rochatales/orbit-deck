@@ -8,9 +8,10 @@ import { useGameStore } from '../state/useGameStore';
 import { playerPosition } from '../state/playerTransient';
 import { damp, dampAngle, type RectBounds } from '../utils/math';
 import type { Point } from '../game/config';
-export function CameraRig({ bounds, spawn }: {
+export function CameraRig({ bounds, spawn, distanceScale = 1 }: {
     bounds: RectBounds;
     spawn: Point;
+    distanceScale?: number;
 }) {
     const ref = useRef<Camera>(null), keys = useRef(new Set<string>());
     const target = useRef(new Vector3(spawn.x, 0.55, spawn.z));
@@ -53,8 +54,9 @@ export function CameraRig({ bounds, spawn }: {
         c.updateProjectionMatrix();
         target.current.x = damp(target.current.x, playerPosition.x, 6.5, dt);
         target.current.z = damp(target.current.z, playerPosition.z, 6.5, dt);
-        c.position.set(target.current.x + Math.cos(angle.current) * 18.38, 13.55, target.current.z + Math.sin(angle.current) * 18.38);
+        // Recuo ao longo do mesmo eixo ortográfico: preserva escala e libera as torres altas.
+        c.position.set(target.current.x + Math.cos(angle.current) * 18.38 * distanceScale, 0.55 + 13 * distanceScale, target.current.z + Math.sin(angle.current) * 18.38 * distanceScale);
         c.lookAt(target.current);
     });
-    return <OrthographicCamera ref={ref} makeDefault position={[spawn.x + 13, 13.55, spawn.z + 13]} zoom={fit * 1.6} near={0.1} far={160}/>;
+    return <OrthographicCamera ref={ref} makeDefault position={[spawn.x + 13 * distanceScale, 0.55 + 13 * distanceScale, spawn.z + 13 * distanceScale]} zoom={fit * 1.6} near={0.1} far={160 * distanceScale}/>;
 }

@@ -1,0 +1,333 @@
+{
+  "base": "ed302dd",
+  "comparison": "Mesmo jogo atual/câmera; só o GLB anterior é interceptado. Física anterior avaliada separadamente nos testes.",
+  "assets": [
+    {
+      "phase": "antes",
+      "sha256": "19440b750dff0271e243baa26459c85633d63b3b0500232687a1acb20ff4bac0",
+      "bytes": 3889812,
+      "meshes": 887,
+      "triangles": 101150,
+      "floors": [
+        {
+          "name": "ARQ_Piso_Passarelas",
+          "triangles": 1244
+        },
+        {
+          "name": "ARQ_Piso_Externo",
+          "triangles": 1652
+        }
+      ],
+      "coplanarPairs": 0
+    },
+    {
+      "phase": "depois",
+      "sha256": "5a6e6d9c754a8d25296b58598859cff0a9c2b4f9c964306d218bf9b8c71c87a8",
+      "bytes": 7025672,
+      "meshes": 887,
+      "triangles": 133046,
+      "floors": [
+        {
+          "name": "ARQ_Piso_Passarelas",
+          "triangles": 14450
+        },
+        {
+          "name": "ARQ_Piso_Externo",
+          "triangles": 20342
+        }
+      ],
+      "coplanarPairs": 0
+    }
+  ],
+  "views": [
+    {
+      "phase": "antes",
+      "view": "piso-passarelas",
+      "metrics": {
+        "render": {
+          "frame": 408,
+          "calls": 657,
+          "triangles": 657478,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 483,
+          "textures": 7
+        },
+        "camera": {
+          "position": [
+            38.98986791462623,
+            39.55,
+            39.78986792654715
+          ],
+          "zoom": 41.02564102564102
+        },
+        "viewport": [
+          1440,
+          900
+        ],
+        "dpr": 1
+      }
+    },
+    {
+      "phase": "antes",
+      "view": "piso-patio",
+      "metrics": {
+        "render": {
+          "frame": 547,
+          "calls": 281,
+          "triangles": 638252,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 483,
+          "textures": 8
+        },
+        "camera": {
+          "position": [
+            38.98986791462623,
+            39.55,
+            39.78986792654715
+          ],
+          "zoom": 41.02564102564102
+        },
+        "viewport": [
+          1440,
+          900
+        ],
+        "dpr": 1
+      }
+    },
+    {
+      "phase": "antes",
+      "view": "piso-externo",
+      "metrics": {
+        "render": {
+          "frame": 688,
+          "calls": 367,
+          "triangles": 346608,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 483,
+          "textures": 9
+        },
+        "camera": {
+          "position": [
+            38.98986791462623,
+            39.55,
+            39.78986792654715
+          ],
+          "zoom": 41.02564102564102
+        },
+        "viewport": [
+          1440,
+          900
+        ],
+        "dpr": 1
+      }
+    },
+    {
+      "phase": "antes",
+      "view": "deck",
+      "metrics": {
+        "render": {
+          "frame": 829,
+          "calls": 230,
+          "triangles": 338218,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 503,
+          "textures": 10
+        },
+        "camera": {
+          "position": [
+            38.98986791462623,
+            39.55,
+            39.78986792654715
+          ],
+          "zoom": 41.02564102564102
+        },
+        "viewport": [
+          1440,
+          900
+        ],
+        "dpr": 1
+      }
+    },
+    {
+      "phase": "depois",
+      "view": "piso-passarelas",
+      "metrics": {
+        "render": {
+          "frame": 412,
+          "calls": 657,
+          "triangles": 689374,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 450,
+          "textures": 7
+        },
+        "camera": {
+          "position": [
+            38.98986791462623,
+            39.55,
+            39.78986792654715
+          ],
+          "zoom": 41.02564102564102
+        },
+        "viewport": [
+          1440,
+          900
+        ],
+        "dpr": 1
+      }
+    },
+    {
+      "phase": "depois",
+      "view": "piso-patio",
+      "metrics": {
+        "render": {
+          "frame": 551,
+          "calls": 281,
+          "triangles": 670148,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 450,
+          "textures": 8
+        },
+        "camera": {
+          "position": [
+            38.98986791462623,
+            39.55,
+            39.78986792654715
+          ],
+          "zoom": 41.02564102564102
+        },
+        "viewport": [
+          1440,
+          900
+        ],
+        "dpr": 1
+      }
+    },
+    {
+      "phase": "depois",
+      "view": "piso-externo",
+      "metrics": {
+        "render": {
+          "frame": 692,
+          "calls": 367,
+          "triangles": 378504,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 450,
+          "textures": 9
+        },
+        "camera": {
+          "position": [
+            38.98986791462623,
+            39.55,
+            39.78986792654715
+          ],
+          "zoom": 41.02564102564102
+        },
+        "viewport": [
+          1440,
+          900
+        ],
+        "dpr": 1
+      }
+    },
+    {
+      "phase": "depois",
+      "view": "deck",
+      "metrics": {
+        "render": {
+          "frame": 833,
+          "calls": 230,
+          "triangles": 370114,
+          "points": 0,
+          "lines": 0
+        },
+        "memory": {
+          "geometries": 470,
+          "textures": 10
+        },
+        "camera": {
+          "position": [
+            38.98986791462623,
+            39.55,
+            39.78986792654715
+          ],
+          "zoom": 41.02564102564102
+        },
+        "viewport": [
+          1440,
+          900
+        ],
+        "dpr": 1
+      }
+    }
+  ],
+  "unchangedMeshes": 885,
+  "antesErrors": [],
+  "depoisErrors": [],
+  "board": {
+    "phase": "aboard",
+    "panel": "ship"
+  },
+  "exit": {
+    "phase": "walking",
+    "spawn": {
+      "x": 0,
+      "y": 0,
+      "z": 29.5
+    }
+  },
+  "rendererComparison": [
+    {
+      "view": "piso-passarelas",
+      "callsBefore": 657,
+      "callsAfter": 657,
+      "trianglesBefore": 657478,
+      "trianglesAfter": 689374,
+      "deltaTriangles": 31896
+    },
+    {
+      "view": "piso-patio",
+      "callsBefore": 281,
+      "callsAfter": 281,
+      "trianglesBefore": 638252,
+      "trianglesAfter": 670148,
+      "deltaTriangles": 31896
+    },
+    {
+      "view": "piso-externo",
+      "callsBefore": 367,
+      "callsAfter": 367,
+      "trianglesBefore": 346608,
+      "trianglesAfter": 378504,
+      "deltaTriangles": 31896
+    },
+    {
+      "view": "deck",
+      "callsBefore": 230,
+      "callsAfter": 230,
+      "trianglesBefore": 338218,
+      "trianglesAfter": 370114,
+      "deltaTriangles": 31896
+    }
+  ]
+}

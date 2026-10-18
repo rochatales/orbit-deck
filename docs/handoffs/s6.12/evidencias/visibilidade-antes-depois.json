@@ -1,0 +1,66 @@
+{
+  "durationSeconds": 16,
+  "hz": 60,
+  "points": [
+    [
+      0,
+      0.8
+    ],
+    [
+      0,
+      -8
+    ],
+    [
+      9.5,
+      -10
+    ],
+    [
+      0,
+      33
+    ]
+  ],
+  "camera": {
+    "horizontalRadius": 60,
+    "height": 48,
+    "initialAngle": 45,
+    "rotationDegrees": 360
+  },
+  "results": [
+    {
+      "version": "antes",
+      "rotating": false,
+      "toggles": 123,
+      "changedParts": 59,
+      "targetChanges": 90,
+      "maxOpacityStep": 0,
+      "simulationMs": 29.399999976158142
+    },
+    {
+      "version": "depois",
+      "rotating": false,
+      "toggles": 0,
+      "changedParts": 0,
+      "targetChanges": 92,
+      "maxOpacityStep": 0.11484054648048836,
+      "simulationMs": 39.80000001192093
+    },
+    {
+      "version": "antes",
+      "rotating": true,
+      "toggles": 99,
+      "changedParts": 49,
+      "targetChanges": 76,
+      "maxOpacityStep": 0,
+      "simulationMs": 21
+    },
+    {
+      "version": "depois",
+      "rotating": true,
+      "toggles": 0,
+      "changedParts": 0,
+      "targetChanges": 72,
+      "maxOpacityStep": 0.11484054648048836,
+      "simulationMs": 40.80000001192093
+    }
+  ]
+}

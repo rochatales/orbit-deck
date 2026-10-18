@@ -1,0 +1,226 @@
+{
+  "errors": [],
+  "sample": {
+    "status": "valid",
+    "invalidReason": null,
+    "warnings": [],
+    "startedAtMs": 7134,
+    "requestedMs": 3000,
+    "elapsedMs": 3005.699999988079,
+    "map": "mars",
+    "coverage": {
+      "intervalsCollected": 193,
+      "intervalsCapacity": 1516,
+      "intervalsSaturated": false,
+      "countersCollected": 28,
+      "countersCapacity": 46,
+      "countersSaturated": false
+    },
+    "rafIntervals": {
+      "count": 193,
+      "p50": 16.69999999999891,
+      "p95": 25,
+      "max": 25.899999999999636,
+      "mean": 15.587046632124354,
+      "rafOver33": 0,
+      "rafOver50": 0
+    },
+    "longAnimationFrames": {
+      "supported": true,
+      "count": 0,
+      "maxDurationMs": null
+    },
+    "renderer": {
+      "samples": 28,
+      "firstSampledAtMs": 7134.300000011921,
+      "lastSampledAtMs": 10058.699999988079,
+      "drawCalls": {
+        "min": 952,
+        "max": 952,
+        "mean": 952
+      },
+      "triangles": {
+        "min": 682482,
+        "max": 682482,
+        "mean": 682482
+      }
+    }
+  },
+  "report": {
+    "version": 2,
+    "context": {
+      "capturedAt": "2026-10-17T23:16:54.498Z",
+      "build": "production",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "browserBrands": "Chromium 148, HeadlessChrome 148, Not/A)Brand 99",
+      "gpuRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Pro, Unspecified Version)",
+      "hardwareConcurrency": 12,
+      "deviceMemoryGb": 16,
+      "screen": {
+        "width": 1440,
+        "height": 900
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "canvasCss": {
+        "width": 1440,
+        "height": 900
+      },
+      "canvasBuffer": {
+        "width": 1440,
+        "height": 900
+      },
+      "devicePixelRatio": 1,
+      "rendererPixelRatio": 1
+    },
+    "pageLoad": {
+      "responseEndMs": 8.400000035762787,
+      "domContentLoadedMs": 97.69999998807907,
+      "loadEventEndMs": 97.69999998807907,
+      "documentTransferBytes": 703
+    },
+    "resources": {
+      "count": 7,
+      "transferBytes": 56417392,
+      "encodedBytes": 56415292,
+      "models": [
+        {
+          "file": "colony-v006-8f58fd35.glb",
+          "startMs": 224.30000001192093,
+          "responseEndMs": 247.80000001192093,
+          "durationMs": 23.5,
+          "transferBytes": 3877352,
+          "encodedBytes": 3877052
+        },
+        {
+          "file": "brand-brain-f7c02996.glb",
+          "startMs": 224.69999998807907,
+          "responseEndMs": 311.80000001192093,
+          "durationMs": 87.10000002384186,
+          "transferBytes": 20737632,
+          "encodedBytes": 20737332
+        },
+        {
+          "file": "player-main-e44fd1a8.glb",
+          "startMs": 259.60000002384186,
+          "responseEndMs": 341.4000000357628,
+          "durationMs": 81.80000001192093,
+          "transferBytes": 30684676,
+          "encodedBytes": 30684376
+        }
+      ]
+    },
+    "sceneEvents": [
+      {
+        "kind": "canvas-mounted",
+        "map": "mars",
+        "atMs": 502.5,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "map-data-ready",
+        "map": "mars",
+        "atMs": 502.5,
+        "sinceMapLoadingMs": null,
+        "inferred": true
+      },
+      {
+        "kind": "canvas-first-frame",
+        "map": "mars",
+        "atMs": 511.5,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "scene-first-draw",
+        "map": "mars",
+        "atMs": 732.6999999880791,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "scene-assets-ready",
+        "map": "mars",
+        "atMs": 732.6999999880791,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      }
+    ],
+    "latestCounters": {
+      "sampledAtMs": 10121.400000035763,
+      "drawCalls": 952,
+      "triangles": 682482,
+      "geometries": 446,
+      "textures": 6,
+      "programs": 17
+    },
+    "heap": {
+      "usedBytes": 11900000,
+      "totalBytes": 15200000,
+      "limitBytes": 3760000000
+    },
+    "samples": [
+      {
+        "status": "valid",
+        "invalidReason": null,
+        "warnings": [],
+        "startedAtMs": 7134,
+        "requestedMs": 3000,
+        "elapsedMs": 3005.699999988079,
+        "map": "mars",
+        "coverage": {
+          "intervalsCollected": 193,
+          "intervalsCapacity": 1516,
+          "intervalsSaturated": false,
+          "countersCollected": 28,
+          "countersCapacity": 46,
+          "countersSaturated": false
+        },
+        "rafIntervals": {
+          "count": 193,
+          "p50": 16.69999999999891,
+          "p95": 25,
+          "max": 25.899999999999636,
+          "mean": 15.587046632124354,
+          "rafOver33": 0,
+          "rafOver50": 0
+        },
+        "longAnimationFrames": {
+          "supported": true,
+          "count": 0,
+          "maxDurationMs": null
+        },
+        "renderer": {
+          "samples": 28,
+          "firstSampledAtMs": 7134.300000011921,
+          "lastSampledAtMs": 10058.699999988079,
+          "drawCalls": {
+            "min": 952,
+            "max": 952,
+            "mean": 952
+          },
+          "triangles": {
+            "min": 682482,
+            "max": 682482,
+            "mean": 682482
+          }
+        }
+      }
+    ],
+    "limitations": [
+      "Intervalos medidos entre callbacks de requestAnimationFrame: incluem CPU, espera de vsync e agendamento do navegador. Não são tempo de GPU.",
+      "A cadência mínima é limitada pela taxa de atualização da tela; 8,3 ms em 120 Hz não indica folga de GPU.",
+      "Intervalos de rAF acima de 33,3 ms e de 50 ms são contagens próprias, distintas dos eventos da API Long Animation Frames.",
+      "Draw calls e triângulos vêm de renderer.info e refletem o render imediatamente anterior à leitura. Na three 0.165 o reset automático ocorre depois do shadow map, então os passes de sombra não entram nessas contagens.",
+      "Geometrias e texturas são contagens de objetos vivos no renderer, não memória em bytes.",
+      "Memória de heap JS vem de performance.memory, API não padronizada e quantizada (Chromium); ausente nos demais navegadores.",
+      "Medições no servidor de desenvolvimento não são benchmark; prefira o build de produção (npm run preview).",
+      "Aba oculta durante uma amostra a invalida; pausa do jogo durante a amostra é registrada como aviso.",
+      "\"map-data-ready\" indica dados do mapa disponíveis (store da expedição), não cena renderizada. A cena renderizada é \"scene-first-draw\" e, com os personagens GLB, \"scene-assets-ready\".",
+      "Na entrada inicial, \"map-data-ready\" é inferido na montagem do canvas (marcado como inferido); os tempos da entrada inicial contam a partir do início da navegação."
+    ]
+  }
+}

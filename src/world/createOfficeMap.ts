@@ -103,7 +103,7 @@ const OUTDOOR_PATH_IDS = new Set([
   "orbit-garden"
 ]);
 
-export function createOfficeMap(npcConfigs: NpcConfig[]): OfficeWorld {
+export function createOfficeMap(npcConfigs: NpcConfig[], doorsAndLightsOnly = false): OfficeWorld {
   const group = new Group();
   const obstacles: RectBounds[] = [];
   const walkableAreas: RectBounds[] = [];
@@ -146,13 +146,26 @@ export function createOfficeMap(npcConfigs: NpcConfig[]): OfficeWorld {
     });
   });
 
+  if (doorsAndLightsOnly) {
+    // Preserva hierarquia/âncoras e somente as folhas animadas e luzes do piloto.
+    const doorNodes = new Set<Object3D>();
+    for (const door of doors) {
+      door.root.name = "PortaAutomatica";
+      door.root.traverse(node => doorNodes.add(node));
+    }
+    group.traverse(node => {
+      if (node instanceof Mesh && !doorNodes.has(node)) node.visible = false;
+    });
+  }
+  group.updateMatrixWorld(true);
+  const worldDoorPosition = new Vector3();
   return {
     group,
     bounds: OFFICE_MAP_BOUNDS,
     obstacles,
     walkableAreas,
     update: (playerPosition: Vector3, delta: number) => {
-      updateAutomaticDoors(doors, playerPosition, delta);
+      updateAutomaticDoors(doors, playerPosition, delta, worldDoorPosition);
     }
   };
 }
@@ -665,10 +678,9 @@ function getDoorFramePosition(room: MapRoomConfig, doorSide: DoorSide) {
   }
 }
 
-function updateAutomaticDoors(doors: AutomaticDoorInstance[], playerPosition: Vector3, delta: number) {
-  const worldDoorPosition = new Vector3();
+function updateAutomaticDoors(doors: AutomaticDoorInstance[], playerPosition: Vector3, delta: number, worldDoorPosition: Vector3) {
 
-  doors.forEach((door) => {
+  for (const door of doors) {
     worldDoorPosition.setFromMatrixPosition(door.anchor.matrixWorld);
     worldDoorPosition.y = playerPosition.y;
 
@@ -691,13 +703,13 @@ function updateAutomaticDoors(doors: AutomaticDoorInstance[], playerPosition: Ve
     leftMaterial.opacity = panelOpacity;
     rightMaterial.opacity = panelOpacity;
 
-    const panelsVisible = panelOpacity > 0.08;
-    door.leftPanel.visible = panelsVisible;
-    door.rightPanel.visible = panelsVisible;
+    // Base da animação, composta uma única vez com o corte suave de Marte.
+    leftMaterial.userData.doorOpacity = panelOpacity;
+    rightMaterial.userData.doorOpacity = panelOpacity;
 
     const lightMaterial = door.lightBar.material as MeshStandardMaterial;
     lightMaterial.emissiveIntensity = 0.45 + door.openAmount * 0.5;
-  });
+  }
 }
 
 function addSharedLighting(group: Group) {

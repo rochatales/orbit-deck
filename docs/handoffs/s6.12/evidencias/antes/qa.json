@@ -1,0 +1,320 @@
+{
+  "errors": [],
+  "cycles": [
+    {
+      "shanghai": {
+        "parts": 0,
+        "closed": null,
+        "open": null,
+        "camera": [
+          12.996622638208743,
+          13.55,
+          22.51711919274468
+        ],
+        "memory": {
+          "geometries": 45,
+          "textures": 5
+        },
+        "calls": 34,
+        "triangles": 290798
+      },
+      "mars": {
+        "parts": 383,
+        "closed": true,
+        "open": false,
+        "camera": [
+          38.98986791462623,
+          39.55,
+          68.51094232404975
+        ],
+        "memory": {
+          "geometries": 466,
+          "textures": 5
+        },
+        "calls": 420,
+        "triangles": 353696
+      }
+    },
+    {
+      "shanghai": {
+        "parts": 0,
+        "closed": null,
+        "open": null,
+        "camera": [
+          12.996622638208743,
+          13.55,
+          22.513918506850956
+        ],
+        "memory": {
+          "geometries": 45,
+          "textures": 5
+        },
+        "calls": 34,
+        "triangles": 290798
+      },
+      "mars": {
+        "parts": 383,
+        "closed": true,
+        "open": false,
+        "camera": [
+          38.98986791462623,
+          39.55,
+          68.51128559158485
+        ],
+        "memory": {
+          "geometries": 466,
+          "textures": 5
+        },
+        "calls": 420,
+        "triangles": 353696
+      }
+    },
+    {
+      "shanghai": {
+        "parts": 0,
+        "closed": null,
+        "open": null,
+        "camera": [
+          12.996622638208743,
+          13.55,
+          22.51314001184164
+        ],
+        "memory": {
+          "geometries": 45,
+          "textures": 5
+        },
+        "calls": 34,
+        "triangles": 290798
+      },
+      "mars": {
+        "parts": 383,
+        "closed": true,
+        "open": false,
+        "camera": [
+          38.98986791462623,
+          39.55,
+          68.51232902593816
+        ],
+        "memory": {
+          "geometries": 466,
+          "textures": 5
+        },
+        "calls": 420,
+        "triangles": 353696
+      }
+    }
+  ],
+  "angles": [
+    {
+      "parts": 383,
+      "closed": true,
+      "open": false,
+      "camera": [
+        55.139952061943504,
+        39.55,
+        29.572709054263154
+      ],
+      "memory": {
+        "geometries": 817,
+        "textures": 17
+      },
+      "calls": 518,
+      "triangles": 380306
+    },
+    {
+      "parts": 383,
+      "closed": true,
+      "open": false,
+      "camera": [
+        39.0371818436625,
+        39.55,
+        68.44249650067168
+      ],
+      "memory": {
+        "geometries": 817,
+        "textures": 17
+      },
+      "calls": 554,
+      "triangles": 382562
+    },
+    {
+      "parts": 383,
+      "closed": true,
+      "open": false,
+      "camera": [
+        0.06775332684855045,
+        39.55,
+        84.63995837400225
+      ],
+      "memory": {
+        "geometries": 817,
+        "textures": 17
+      },
+      "calls": 556,
+      "triangles": 382410
+    },
+    {
+      "parts": 383,
+      "closed": true,
+      "open": false,
+      "camera": [
+        -38.93903689344463,
+        39.55,
+        68.54063275372157
+      ],
+      "memory": {
+        "geometries": 817,
+        "textures": 17
+      },
+      "calls": 557,
+      "triangles": 382230
+    },
+    {
+      "parts": 383,
+      "closed": true,
+      "open": false,
+      "camera": [
+        -55.13995319338114,
+        39.55,
+        29.571845888800723
+      ],
+      "memory": {
+        "geometries": 817,
+        "textures": 17
+      },
+      "calls": 525,
+      "triangles": 380406
+    },
+    {
+      "parts": 383,
+      "closed": true,
+      "open": false,
+      "camera": [
+        -39.04083540906527,
+        39.55,
+        -9.438833708295313
+      ],
+      "memory": {
+        "geometries": 817,
+        "textures": 17
+      },
+      "calls": 577,
+      "triangles": 383964
+    },
+    {
+      "parts": 383,
+      "closed": true,
+      "open": false,
+      "camera": [
+        -0.07207664059936172,
+        39.55,
+        -25.63995289223486
+      ],
+      "memory": {
+        "geometries": 817,
+        "textures": 17
+      },
+      "calls": 612,
+      "triangles": 385390
+    },
+    {
+      "parts": 383,
+      "closed": true,
+      "open": false,
+      "camera": [
+        38.9388742286761,
+        39.55,
+        -9.540794994509838
+      ],
+      "memory": {
+        "geometries": 817,
+        "textures": 17
+      },
+      "calls": 581,
+      "triangles": 381316
+    }
+  ],
+  "spawn": {
+    "parts": 383,
+    "closed": true,
+    "open": false,
+    "camera": [
+      38.98986791462623,
+      39.55,
+      39.78986792654715
+    ],
+    "memory": {
+      "geometries": 740,
+      "textures": 14
+    },
+    "calls": 974,
+    "triangles": 687888
+  },
+  "eden": true,
+  "lab": {
+    "parts": 383,
+    "closed": false,
+    "open": false,
+    "camera": [
+      48.48986791462623,
+      39.55,
+      28.989867914626224
+    ],
+    "memory": {
+      "geometries": 746,
+      "textures": 16
+    },
+    "calls": 633,
+    "triangles": 671186
+  },
+  "movement": {
+    "x": 0,
+    "z": 2.9045825004577637
+  },
+  "perf": {
+    "status": "valid",
+    "invalidReason": null,
+    "warnings": [],
+    "startedAtMs": 29202,
+    "requestedMs": 3000,
+    "elapsedMs": 3003.5,
+    "map": "mars",
+    "coverage": {
+      "intervalsCollected": 360,
+      "intervalsCapacity": 1516,
+      "intervalsSaturated": false,
+      "countersCollected": 30,
+      "countersCapacity": 46,
+      "countersSaturated": false
+    },
+    "rafIntervals": {
+      "count": 360,
+      "p50": 8.299999999999272,
+      "p95": 8.5,
+      "max": 9.400000000001455,
+      "mean": 8.333333333333334,
+      "rafOver33": 0,
+      "rafOver50": 0
+    },
+    "longAnimationFrames": {
+      "supported": true,
+      "count": 0,
+      "maxDurationMs": null
+    },
+    "renderer": {
+      "samples": 30,
+      "firstSampledAtMs": 29205.599999964237,
+      "lastSampledAtMs": 32189,
+      "drawCalls": {
+        "min": 623,
+        "max": 637,
+        "mean": 634.2666666666667
+      },
+      "triangles": {
+        "min": 655694,
+        "max": 656794,
+        "mean": 656569.2
+      }
+    }
+  }
+}

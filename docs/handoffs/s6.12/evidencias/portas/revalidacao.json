@@ -1,0 +1,505 @@
+{
+  "baseline": "a23138d",
+  "delta": 0.016666666666666666,
+  "stepsPerDoor": 180,
+  "results": [
+    {
+      "phase": "antes",
+      "result": [
+        {
+          "id": 0,
+          "closed": {
+            "triangles": 18,
+            "coplanar": 8
+          },
+          "open": {
+            "triangles": 80,
+            "coplanar": 12
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 4,
+          "materialChanges": 0
+        },
+        {
+          "id": 1,
+          "closed": {
+            "triangles": 20,
+            "coplanar": 8
+          },
+          "open": {
+            "triangles": 188,
+            "coplanar": 12
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 2,
+          "materialChanges": 0
+        },
+        {
+          "id": 2,
+          "closed": {
+            "triangles": 28,
+            "coplanar": 8
+          },
+          "open": {
+            "triangles": 176,
+            "coplanar": 12
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 10,
+          "materialChanges": 0
+        },
+        {
+          "id": 3,
+          "closed": {
+            "triangles": 18,
+            "coplanar": 8
+          },
+          "open": {
+            "triangles": 68,
+            "coplanar": 12
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 6,
+          "materialChanges": 0
+        },
+        {
+          "id": 4,
+          "closed": {
+            "triangles": 20,
+            "coplanar": 8
+          },
+          "open": {
+            "triangles": 188,
+            "coplanar": 12
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 8,
+          "materialChanges": 0
+        },
+        {
+          "id": 5,
+          "closed": {
+            "triangles": 28,
+            "coplanar": 8
+          },
+          "open": {
+            "triangles": 176,
+            "coplanar": 12
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 10,
+          "materialChanges": 0
+        },
+        {
+          "id": 6,
+          "closed": {
+            "triangles": 18,
+            "coplanar": 8
+          },
+          "open": {
+            "triangles": 68,
+            "coplanar": 12
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 6,
+          "materialChanges": 0
+        },
+        {
+          "id": 7,
+          "closed": {
+            "triangles": 34,
+            "coplanar": 7
+          },
+          "open": {
+            "triangles": 180,
+            "coplanar": 10
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 4,
+          "materialChanges": 0
+        },
+        {
+          "id": 8,
+          "closed": {
+            "triangles": 59,
+            "coplanar": 4
+          },
+          "open": {
+            "triangles": 103,
+            "coplanar": 12
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 4,
+          "materialChanges": 0
+        },
+        {
+          "id": 9,
+          "closed": {
+            "triangles": 26,
+            "coplanar": 12
+          },
+          "open": {
+            "triangles": 103,
+            "coplanar": 23
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 2,
+          "materialChanges": 0
+        },
+        {
+          "id": 10,
+          "closed": {
+            "triangles": 26,
+            "coplanar": 12
+          },
+          "open": {
+            "triangles": 102,
+            "coplanar": 22
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 2,
+          "materialChanges": 0
+        },
+        {
+          "id": 11,
+          "closed": {
+            "triangles": 18,
+            "coplanar": 8
+          },
+          "open": {
+            "triangles": 82,
+            "coplanar": 14
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 2,
+          "materialChanges": 0
+        },
+        {
+          "id": 12,
+          "closed": {
+            "triangles": 20,
+            "coplanar": 8
+          },
+          "open": {
+            "triangles": 188,
+            "coplanar": 12
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 6,
+          "materialChanges": 0
+        },
+        {
+          "id": 13,
+          "closed": {
+            "triangles": 28,
+            "coplanar": 8
+          },
+          "open": {
+            "triangles": 176,
+            "coplanar": 12
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 6,
+          "materialChanges": 0
+        },
+        {
+          "id": 14,
+          "closed": {
+            "triangles": 18,
+            "coplanar": 8
+          },
+          "open": {
+            "triangles": 69,
+            "coplanar": 13
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 12,
+          "materialChanges": 0
+        },
+        {
+          "id": 15,
+          "closed": {
+            "triangles": 25,
+            "coplanar": 9
+          },
+          "open": {
+            "triangles": 182,
+            "coplanar": 14
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 4,
+          "materialChanges": 0
+        }
+      ],
+      "route": [
+        {
+          "rotating": false,
+          "frames": 960,
+          "visibleChanges": 0
+        },
+        {
+          "rotating": true,
+          "frames": 960,
+          "visibleChanges": 0
+        }
+      ]
+    },
+    {
+      "phase": "depois",
+      "result": [
+        {
+          "id": 0,
+          "portal": "ARQ_Hub_Porta_N",
+          "closed": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "open": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 0,
+          "materialChanges": 0
+        },
+        {
+          "id": 1,
+          "portal": "ARQ_Hub_Porta_S",
+          "closed": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "open": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 0,
+          "materialChanges": 0
+        },
+        {
+          "id": 2,
+          "portal": "ARQ_Hub_Porta_L",
+          "closed": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "open": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 0,
+          "materialChanges": 0
+        },
+        {
+          "id": 3,
+          "portal": "ARQ_Hub_Porta_O",
+          "closed": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "open": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 0,
+          "materialChanges": 0
+        },
+        {
+          "id": 4,
+          "portal": "ARQ_EDEN_Porta_S",
+          "closed": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "open": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 0,
+          "materialChanges": 0
+        },
+        {
+          "id": 5,
+          "portal": "ARQ_Arquivo_Porta_L",
+          "closed": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "open": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 0,
+          "materialChanges": 0
+        },
+        {
+          "id": 6,
+          "portal": "ARQ_Oficina_Porta_O",
+          "closed": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "open": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 0,
+          "materialChanges": 0
+        },
+        {
+          "id": 7,
+          "portal": "ARQ_EDEN_Lab_Porta_Interna",
+          "closed": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "open": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 0,
+          "materialChanges": 0
+        },
+        {
+          "id": 8,
+          "portal": "ARQ_Laboratorio_Portal_L",
+          "closed": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "open": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 0,
+          "materialChanges": 0
+        },
+        {
+          "id": 9,
+          "portal": "ARQ_Comunicacoes_Porta_N",
+          "closed": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "open": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 0,
+          "materialChanges": 0
+        },
+        {
+          "id": 10,
+          "portal": "ARQ_Deposito_Porta_N",
+          "closed": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "open": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 0,
+          "materialChanges": 0
+        },
+        {
+          "id": 11,
+          "portal": "ARQ_Reuniao_Porta_N",
+          "closed": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "open": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 0,
+          "materialChanges": 0
+        },
+        {
+          "id": 12,
+          "portal": "ARQ_Reuniao_Porta_S",
+          "closed": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "open": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 0,
+          "materialChanges": 0
+        },
+        {
+          "id": 13,
+          "portal": "ARQ_Reuniao_Porta_L",
+          "closed": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "open": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 0,
+          "materialChanges": 0
+        },
+        {
+          "id": 14,
+          "portal": "ARQ_Cafe_Porta_O",
+          "closed": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "open": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 0,
+          "materialChanges": 0
+        },
+        {
+          "id": 15,
+          "portal": "ARQ_Pavilhao_Porta_O",
+          "closed": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "open": {
+            "triangles": 0,
+            "coplanar": 0
+          },
+          "visibleChanges": 0,
+          "depthWriteChanges": 0,
+          "materialChanges": 0
+        }
+      ],
+      "route": [
+        {
+          "rotating": false,
+          "frames": 960,
+          "visibleChanges": 0
+        },
+        {
+          "rotating": true,
+          "frames": 960,
+          "visibleChanges": 0
+        }
+      ]
+    }
+  ]
+}
