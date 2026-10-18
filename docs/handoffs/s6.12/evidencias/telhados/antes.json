@@ -1,0 +1,126 @@
+{
+  "phase": "antes",
+  "delta": 0.016666666666666666,
+  "framesPerRoof": 600,
+  "description": "120 fora, 180 dentro, 300 fora; câmera = player + (18,13.55,18)",
+  "result": [
+    {
+      "roof": "TET_Hub",
+      "children": [
+        "TET_Hub_Equip"
+      ],
+      "frames": 600,
+      "entryMaxDifference": 0.9199999999652687,
+      "exitMaxDifference": 0.9199999999999973,
+      "minRoof": 0.08000000003473125,
+      "returnedRoof": 0.9999999999999495
+    },
+    {
+      "roof": "TET_EDEN",
+      "children": [
+        "TET_EDEN_Equip"
+      ],
+      "frames": 600,
+      "entryMaxDifference": 0.9199999999652687,
+      "exitMaxDifference": 0.9199999999999973,
+      "minRoof": 0.08000000003473125,
+      "returnedRoof": 0.9999999999999495
+    },
+    {
+      "roof": "TET_Arquivo",
+      "children": [
+        "TET_Arquivo_Equip"
+      ],
+      "frames": 600,
+      "entryMaxDifference": 0.9199999999652687,
+      "exitMaxDifference": 0.9199999999999973,
+      "minRoof": 0.08000000003473125,
+      "returnedRoof": 0.9999999999999495
+    },
+    {
+      "roof": "TET_Oficina",
+      "children": [
+        "TET_Oficina_Equip"
+      ],
+      "frames": 600,
+      "entryMaxDifference": 0.9199999999652687,
+      "exitMaxDifference": 0.9199999999999973,
+      "minRoof": 0.08000000003473125,
+      "returnedRoof": 0.9999999999999495
+    },
+    {
+      "roof": "TET_Comunicacoes",
+      "children": [
+        "TET_Comunicacoes_Equip"
+      ],
+      "frames": 600,
+      "entryMaxDifference": 0.9199999999652687,
+      "exitMaxDifference": 0.9199999999999973,
+      "minRoof": 0.08000000003473125,
+      "returnedRoof": 0.9999999999999495
+    },
+    {
+      "roof": "TET_Deposito",
+      "children": [
+        "TET_Deposito_Equip"
+      ],
+      "frames": 600,
+      "entryMaxDifference": 0.9199999999652687,
+      "exitMaxDifference": 0.9199999999999973,
+      "minRoof": 0.08000000003473125,
+      "returnedRoof": 0.9999999999999495
+    },
+    {
+      "roof": "TET_Reuniao",
+      "children": [
+        "TET_Reuniao_Equip"
+      ],
+      "frames": 600,
+      "entryMaxDifference": 0.9199999999652687,
+      "exitMaxDifference": 0.9199999999999973,
+      "minRoof": 0.08000000003473125,
+      "returnedRoof": 0.9999999999999495
+    },
+    {
+      "roof": "TET_Cafe",
+      "children": [
+        "TET_Cafe_Equip"
+      ],
+      "frames": 600,
+      "entryMaxDifference": 0.9199999999652687,
+      "exitMaxDifference": 0.9199999999999973,
+      "minRoof": 0.08000000003473125,
+      "returnedRoof": 0.9999999999999495
+    },
+    {
+      "roof": "TET_Eclusa",
+      "children": [],
+      "frames": 600,
+      "entryMaxDifference": 0,
+      "exitMaxDifference": 0,
+      "minRoof": 1,
+      "returnedRoof": 1
+    },
+    {
+      "roof": "TET_Pavilhao",
+      "children": [],
+      "frames": 600,
+      "entryMaxDifference": 0,
+      "exitMaxDifference": 0,
+      "minRoof": 0.08000000003473125,
+      "returnedRoof": 0.9999999999999495
+    },
+    {
+      "roof": "TET_Laboratorio",
+      "children": [
+        "TET_Laboratorio_Equip",
+        "TET_Laboratorio_Conduites"
+      ],
+      "frames": 600,
+      "entryMaxDifference": 0.9199999999652687,
+      "exitMaxDifference": 0.9199999999999973,
+      "minRoof": 0.08000000003473125,
+      "returnedRoof": 0.9999999999999495
+    }
+  ]
+}

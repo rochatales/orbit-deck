@@ -1,4 +1,5 @@
 import { alignColonyDoors } from './doorAlignment';
+import { colonyRoofOwners } from './roofSupports';
 import { Box3, Ray, Vector3, Mesh, type Material, type Object3D } from 'three';
 
 export interface ColonyPart {
@@ -24,10 +25,21 @@ export class ColonyVisibility {
         scene.updateMatrixWorld(true);
         const nodes = new Map<string, Object3D>();
         scene.traverse(node => nodes.set(node.userData.colony_name ?? node.name, node));
+        const roofOwners = colonyRoofOwners(parts);
+        const roofChildren = new Map<string, Object3D[]>();
+        for (const [name, owner] of roofOwners) {
+            const node = nodes.get(name);
+            if (name === owner || !node || !node.visible) continue;
+            const children = roofChildren.get(owner) ?? [];
+            children.push(node);
+            roofChildren.set(owner, children);
+        }
         this.entries = [...parts.map(part => ({ part, node: nodes.get(part.name), dynamic: false })),
             ...animatedDoors.map(node => ({ part: { name: 'PortaAutomatica' }, node, dynamic: true }))]
             .flatMap(({ part, node, dynamic }) => {
             if (!node || !node.visible) return [];
+            const roofOwner = roofOwners.get(part.name);
+            if (roofOwner && roofOwner !== part.name) return [];
             const cuttable = ((part.name.startsWith('ARQ_') || part.name.startsWith('TET_'))
                 && !part.name.includes('Piso') && !part.name.includes('Patio')
                 && !part.name.startsWith('ARQ_Deck') && !part.name.includes('Folhas'))
@@ -37,7 +49,7 @@ export class ColonyVisibility {
             const meshes: Mesh[] = [];
             const triangles: number[] = [];
             const materials: { material: Material; opacity: number; depthWrite: boolean }[] = [];
-            node.traverse(object => {
+            for (const fadeNode of [node, ...(roofChildren.get(part.name) ?? [])]) fadeNode.traverse(object => {
                 const child = object as Mesh;
                 if (!child.isMesh) return;
                 meshes.push(child);
@@ -45,6 +57,9 @@ export class ColonyVisibility {
                 child.castShadow = false;
                 const clone = (material: Material) => {
                     const copy = material.clone();
+                    // O autor pediu a mesma opacidade absoluta em toda a cobertura,
+                    // inclusive submateriais de vidro dos equipamentos (alpha original 0,32).
+                    if (fadeNode !== node) copy.opacity = 1;
                     materials.push({ material: copy, opacity: copy.opacity, depthWrite: copy.depthWrite });
                     copy.transparent = true;
                     // Folhas/faixa procedurais: translúcidas, ordem fixa por renderOrder, nunca escrevem profundidade.
@@ -52,6 +67,9 @@ export class ColonyVisibility {
                     return copy;
                 };
                 child.material = Array.isArray(child.material) ? child.material.map(clone) : clone(child.material);
+                // Só o teto decide o corte. Equipamentos/conduítes usam exatamente
+                // seu fator e sua histerese, sem raycast ou amortecimento próprios.
+                if (fadeNode !== node) return;
                 const position = child.geometry.attributes.position;
                 const index = child.geometry.index;
                 const count = index ? index.count : position.count;
@@ -105,7 +123,7 @@ export class ColonyVisibility {
             entry.clearFor = blocked ? 0 : entry.clearFor + delta;
             if (blocked) entry.hidden = true;
             else if (entry.clearFor >= 1.2) entry.hidden = false;
-            // Mantém um contorno: nenhum toggle de visible e nenhuma cascata nos objetos apoiados.
+            // Mantém um contorno: nenhum toggle de visible; só coberturas têm apoios vinculados.
             const target = entry.hidden ? 0.08 : 1;
             entry.opacity += (target - entry.opacity) * (1 - Math.exp(-8 * Math.min(delta, 0.05)));
             for (const item of entry.materials) {

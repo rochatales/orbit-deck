@@ -209,3 +209,51 @@ test('S6.12: corte das portas usa malha móvel, compõe opacidade e não troca e
  assert.ok(portals.some(e=>e.opacity<0.081&&e.materials.some(i=>i.material.depthWrite)),'batente esmaecido não troca depthWrite');
  visibility.dispose();
 });
+
+test('S6.12: toda a cobertura usa o fade do teto no mesmo passo, incluindo apoios indiretos', () => {
+ const parts=[part('TET_Teste'),part('TET_Teste_Equip',{apoiado_em:['TET_Teste']}),
+  part('PROP_Duto',{apoiado_em_todos:['TET_Teste_Equip']}),part('ARQ_Parede'),
+  part('PROP_Tela',{apoiado_em:['ARQ_Parede']})];
+ const {scene,visibility}=fixture(parts);
+ const roof=scene.getObjectByName('TET_Teste');
+ const equip=scene.getObjectByName('TET_Teste_Equip'),duct=scene.getObjectByName('PROP_Duto');
+ // Peças fora do raio: só a malha do teto deve decidir a obstrução.
+ equip.position.x=50;duct.position.x=-50;
+ for(let frame=0;frame<400;frame++){
+  visibility.update({x:0,z:0},new Vector3(0,2,frame<120?10:-10),1/60);
+  assert.equal(equip.material.opacity,roof.material.opacity);
+  assert.equal(duct.material.opacity,roof.material.opacity);
+  assert.equal(scene.getObjectByName('PROP_Tela').material.opacity,1);
+  assert.equal(equip.visible,true);assert.equal(duct.visible,true);
+  if(frame===119)assert.ok(roof.material.opacity<0.081);
+ }
+ assert.ok(roof.material.opacity>0.999);
+ visibility.dispose();
+ const {colonyRoofOwners}=loadSource('src/scene/marsColony/roofSupports.ts');
+ assert.throws(()=>colonyRoofOwners([part('PROP_Ciclo',{apoiado_em:['PROP_Ciclo']})]),/Ciclo/);
+ assert.throws(()=>colonyRoofOwners([part('PROP_SemApoio',{apoiado_em:['ausente']})]),/ausente/);
+});
+
+test('S6.12: GLB real mantém zero diferença absoluta entre os 10 apoios e os 9 tetos', async () => {
+ const {scene,visibility}=await colonyDoors();
+ const {colonyRoofOwners}=loadSource('src/scene/marsColony/roofSupports.ts');
+ const owners=colonyRoofOwners(manifest.parts),nodes=new Map();
+ scene.traverse(n=>nodes.set(n.userData.colony_name??n.name,n));
+ const children=[...owners].filter(([name,owner])=>name!==owner);
+ assert.equal(children.length,10);assert.equal(new Set(children.map(([,owner])=>owner)).size,9);
+ for(const rootName of new Set(children.map(([,owner])=>owner))){
+  const bounds=manifest.parts.find(p=>p.name===rootName).bounds;
+  const x=(bounds.minX+bounds.maxX)/2,z=(bounds.minZ+bounds.maxZ)/2;
+  const rootMaterials=[];nodes.get(rootName).traverse(n=>{if(n.isMesh)rootMaterials.push(...(Array.isArray(n.material)?n.material:[n.material]));});
+  for(let frame=0;frame<400;frame++){
+   const player={x:x+(frame<120?0:30),z:z+(frame<120?0:30)};
+   visibility.update(player,new Vector3(player.x+18,13.55,player.z+18),1/60);
+   for(const [child,owner] of children){if(owner!==rootName)continue;nodes.get(child).traverse(n=>{
+    if(n.isMesh)for(const m of Array.isArray(n.material)?n.material:[n.material])assert.equal(m.opacity,rootMaterials[0].opacity,child);
+   });}
+   if(frame===119)assert.ok(rootMaterials[0].opacity<0.081,rootName);
+  }
+  assert.ok(rootMaterials[0].opacity>0.999,rootName);
+ }
+ visibility.dispose();
+});
