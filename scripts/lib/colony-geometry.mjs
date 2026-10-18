@@ -28,6 +28,14 @@ export function coplanarDoorFrames(scene) {
   && r.projectedArea >= 1e-5);
  return {...report, trianglePairs: pairs.reduce((s, r) => s + r.trianglePairs, 0), pairs};
 }
+// O piso derivado substitui as faces antigas. Inclui juntas dentro da mesma
+// malha e seus vizinhos arquitetônicos, sem tolerar área duplicada entre tiles.
+export const isTiledFloor = name => name === 'ARQ_Piso_Passarelas' || name === 'ARQ_Piso_Externo';
+export function coplanarFloorSurfaces(scene) {
+ const report = coplanarParts(scene, name => name.startsWith('ARQ_'));
+ const pairs = report.pairs.filter(r => r.parts.some(isTiledFloor) && r.projectedArea >= 1e-5);
+ return {...report, trianglePairs: pairs.reduce((s, r) => s + r.trianglePairs, 0), pairs};
+}
 export function coplanarParts(scene, include) {
  scene.updateMatrixWorld(true);
  const triangles=[],a=new Vector3(),b=new Vector3(),c=new Vector3(),normal=new Vector3(),edge=new Vector3();
@@ -48,9 +56,13 @@ export function coplanarParts(scene, include) {
     max:[0,1,2].map(k=>Math.max(a.getComponent(k),b.getComponent(k),c.getComponent(k)))});
   }
  });
+ // Varredura por X: a grade do piso tem muitas faces pequenas; elimina pares
+ // distantes antes do teste exato, sem mudar os critérios de coplanaridade.
+ triangles.sort((a,b)=>a.min[0]-b.min[0]);
  const pairs=new Map();
  for(let i=0;i<triangles.length;i++)for(let j=i+1;j<triangles.length;j++) {
   const a=triangles[i],b=triangles[j];
+  if(b.min[0]>a.max[0]+1e-5)break;
   if(a.facing!==b.facing || a.axis!==b.axis || a.min.some((v,k)=>v>b.max[k]+1e-5||b.min[k]>a.max[k]+1e-5))continue;
   if(a.normal.dot(b.normal)<1-1e-10||Math.abs(a.d-b.d)>1e-5)continue;
   const area=overlap(a.points,b.points);
