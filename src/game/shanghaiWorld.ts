@@ -1,9 +1,26 @@
 import { Group } from 'three';
 import type { OfficeWorld } from '../world/createOfficeMap';
 import { MAPS } from './config';
-import { box, addShipCollisions } from './worldUtils';
+import { isShanghaiPhase01 } from './shanghai/previewMode';
+import { createPhase01Terrain } from './shanghai/layout';
+import { box, addRocketCollisions } from './worldUtils';
 /** Fixed blockout with wide streets and reachable placeholders for future resource nodes. */
 export function createWorld(): OfficeWorld {
+    if (isShanghaiPhase01()) {
+        const world = createPhase01Terrain();
+        // A cena suspende até o GLB ficar pronto. O mundo continua sendo o dono
+        // dos recursos, inclusive se a viagem for cancelada durante o download.
+        let disposed = false;
+        world.group.userData.assetState = 'loading';
+        world.group.userData.releasePending = () => { disposed = true; };
+        world.group.userData.visualReady = import('./shanghai/visual')
+            .then(m => { if (!disposed) return m.loadPhase01Visual(world, () => disposed); })
+            .then(() => { if (!disposed) world.group.userData.assetState = 'ready'; })
+            .catch(error => {
+                if (!disposed) { world.group.userData.assetState = 'error'; console.error('Shanghai fase 01', error); }
+            });
+        return world;
+    }
     const group = new Group();
     const bounds = { ...MAPS.shanghai.bounds };
     const obstacles: OfficeWorld['obstacles'] = [];
@@ -21,6 +38,6 @@ export function createWorld(): OfficeWorld {
     for (const x of [-5, 5])
         box(group, x, 0.4, -1, 1.2, 0.8, 1, '#ae8c58');
     const world: OfficeWorld = { group, bounds, obstacles, walkableAreas: [bounds], update: () => { } };
-    addShipCollisions(world, MAPS.shanghai.ship.x, MAPS.shanghai.ship.z);
+    addRocketCollisions(world, MAPS.shanghai.ship.x, MAPS.shanghai.ship.z);
     return world;
 }

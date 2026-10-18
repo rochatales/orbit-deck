@@ -1,0 +1,1035 @@
+{
+  "version": "s6.3-fase01-v001",
+  "bounds": {
+    "minX": -51,
+    "maxX": 51,
+    "minZ": -54,
+    "maxZ": 54
+  },
+  "ship": {
+    "x": 0,
+    "y": 0,
+    "z": 13
+  },
+  "exit": {
+    "x": 0,
+    "y": 0,
+    "z": 9.5
+  },
+  "landingReservation": {
+    "minX": -5,
+    "maxX": 5,
+    "minZ": 6,
+    "maxZ": 19
+  },
+  "walkableAreas": [
+    {
+      "minX": -51,
+      "maxX": 51,
+      "minZ": -54,
+      "maxZ": 54
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "COL_Predio_000_Nucleo",
+      "minX": -44.27,
+      "maxX": -36.73,
+      "minZ": -46.27,
+      "maxZ": -33.73,
+      "source": "Predio_000_Nucleo",
+      "minY": 0.0,
+      "maxY": 13.2
+    },
+    {
+      "id": "COL_Predio_001_Nucleo",
+      "minX": -33.27,
+      "maxX": -25.73,
+      "minZ": -39.27,
+      "maxZ": -28.73,
+      "source": "Predio_001_Nucleo",
+      "minY": 0.0,
+      "maxY": 3.3
+    },
+    {
+      "id": "COL_Predio_010_Pilar_-1_-1",
+      "minX": -44.050000000000004,
+      "maxX": -43.65,
+      "minZ": -6.05,
+      "maxZ": -5.6499999999999995,
+      "source": "Predio_010_Pilar_-1_-1",
+      "minY": 0.0,
+      "maxY": 16.5
+    },
+    {
+      "id": "COL_Predio_010_Pilar_-1_1",
+      "minX": -44.050000000000004,
+      "maxX": -43.65,
+      "minZ": 5.6499999999999995,
+      "maxZ": 6.05,
+      "source": "Predio_010_Pilar_-1_1",
+      "minY": 0.0,
+      "maxY": 16.5
+    },
+    {
+      "id": "COL_Predio_010_Pilar_1_-1",
+      "minX": -37.35,
+      "maxX": -36.949999999999996,
+      "minZ": -6.05,
+      "maxZ": -5.6499999999999995,
+      "source": "Predio_010_Pilar_1_-1",
+      "minY": 0.0,
+      "maxY": 16.5
+    },
+    {
+      "id": "COL_Predio_010_Pilar_1_1",
+      "minX": -37.35,
+      "maxX": -36.949999999999996,
+      "minZ": 5.6499999999999995,
+      "maxZ": 6.05,
+      "source": "Predio_010_Pilar_1_1",
+      "minY": 0.0,
+      "maxY": 16.5
+    },
+    {
+      "id": "COL_Predio_011_Nucleo",
+      "minX": -33.27,
+      "maxX": -25.73,
+      "minZ": -5.27,
+      "maxZ": 5.27,
+      "source": "Predio_011_Nucleo",
+      "minY": 0.0,
+      "maxY": 6.6
+    },
+    {
+      "id": "COL_Predio_020_Nucleo",
+      "minX": -44.27,
+      "maxX": -36.73,
+      "minZ": 33.73,
+      "maxZ": 46.27,
+      "source": "Predio_020_Nucleo",
+      "minY": 0.0,
+      "maxY": 13.2
+    },
+    {
+      "id": "COL_Predio_021_Nucleo",
+      "minX": -33.27,
+      "maxX": -25.73,
+      "minZ": 28.73,
+      "maxZ": 39.27,
+      "source": "Predio_021_Nucleo",
+      "minY": 0.0,
+      "maxY": 3.3
+    },
+    {
+      "id": "COL_Predio_100_Nucleo",
+      "minX": -9.27,
+      "maxX": -1.73,
+      "minZ": -46.27,
+      "maxZ": -33.73,
+      "source": "Predio_100_Nucleo",
+      "minY": 0.0,
+      "maxY": 16.5
+    },
+    {
+      "id": "COL_Predio_101_Nucleo",
+      "minX": 1.73,
+      "maxX": 9.27,
+      "minZ": -39.27,
+      "maxZ": -28.73,
+      "source": "Predio_101_Nucleo",
+      "minY": 0.0,
+      "maxY": 6.6
+    },
+    {
+      "id": "COL_Predio_110_Nucleo",
+      "minX": -9.27,
+      "maxX": -2.73,
+      "minZ": -9.27,
+      "maxZ": -0.73,
+      "source": "Predio_110_Nucleo",
+      "minY": 0.0,
+      "maxY": 6.6
+    },
+    {
+      "id": "COL_Predio_111_Nucleo",
+      "minX": 2.73,
+      "maxX": 9.27,
+      "minZ": -9.27,
+      "maxZ": -0.73,
+      "source": "Predio_111_Nucleo",
+      "minY": 0.0,
+      "maxY": 3.3
+    },
+    {
+      "id": "COL_Predio_120_Nucleo",
+      "minX": -9.27,
+      "maxX": -1.73,
+      "minZ": 33.73,
+      "maxZ": 46.27,
+      "source": "Predio_120_Nucleo",
+      "minY": 0.0,
+      "maxY": 16.5
+    },
+    {
+      "id": "COL_Predio_121_Nucleo",
+      "minX": 1.73,
+      "maxX": 9.27,
+      "minZ": 28.73,
+      "maxZ": 39.27,
+      "source": "Predio_121_Nucleo",
+      "minY": 0.0,
+      "maxY": 6.6
+    },
+    {
+      "id": "COL_Predio_200_Nucleo",
+      "minX": 25.73,
+      "maxX": 33.27,
+      "minZ": -46.27,
+      "maxZ": -33.73,
+      "source": "Predio_200_Nucleo",
+      "minY": 0.0,
+      "maxY": 13.2
+    },
+    {
+      "id": "COL_Predio_201_Nucleo",
+      "minX": 36.73,
+      "maxX": 44.27,
+      "minZ": -39.27,
+      "maxZ": -28.73,
+      "source": "Predio_201_Nucleo",
+      "minY": 0.0,
+      "maxY": 3.3
+    },
+    {
+      "id": "COL_Predio_210_Pilar_-1_-1",
+      "minX": 25.95,
+      "maxX": 26.349999999999998,
+      "minZ": -6.05,
+      "maxZ": -5.6499999999999995,
+      "source": "Predio_210_Pilar_-1_-1",
+      "minY": 0.0,
+      "maxY": 16.5
+    },
+    {
+      "id": "COL_Predio_210_Pilar_-1_1",
+      "minX": 25.95,
+      "maxX": 26.349999999999998,
+      "minZ": 5.6499999999999995,
+      "maxZ": 6.05,
+      "source": "Predio_210_Pilar_-1_1",
+      "minY": 0.0,
+      "maxY": 16.5
+    },
+    {
+      "id": "COL_Predio_210_Pilar_1_-1",
+      "minX": 32.65,
+      "maxX": 33.050000000000004,
+      "minZ": -6.05,
+      "maxZ": -5.6499999999999995,
+      "source": "Predio_210_Pilar_1_-1",
+      "minY": 0.0,
+      "maxY": 16.5
+    },
+    {
+      "id": "COL_Predio_210_Pilar_1_1",
+      "minX": 32.65,
+      "maxX": 33.050000000000004,
+      "minZ": 5.6499999999999995,
+      "maxZ": 6.05,
+      "source": "Predio_210_Pilar_1_1",
+      "minY": 0.0,
+      "maxY": 16.5
+    },
+    {
+      "id": "COL_Predio_211_Nucleo",
+      "minX": 36.73,
+      "maxX": 44.27,
+      "minZ": -5.27,
+      "maxZ": 5.27,
+      "source": "Predio_211_Nucleo",
+      "minY": 0.0,
+      "maxY": 6.6
+    },
+    {
+      "id": "COL_Predio_220_Nucleo",
+      "minX": 25.73,
+      "maxX": 33.27,
+      "minZ": 33.73,
+      "maxZ": 46.27,
+      "source": "Predio_220_Nucleo",
+      "minY": 0.0,
+      "maxY": 13.2
+    },
+    {
+      "id": "COL_Predio_221_Nucleo",
+      "minX": 36.73,
+      "maxX": 44.27,
+      "minZ": 28.73,
+      "maxZ": 39.27,
+      "source": "Predio_221_Nucleo",
+      "minY": 0.0,
+      "maxY": 3.3
+    },
+    {
+      "id": "COL_Carro_0",
+      "minX": -46.96,
+      "maxX": -45.04,
+      "minZ": -13.85,
+      "maxZ": -10.15,
+      "source": "Carro_0",
+      "minY": 0.09999999999999998,
+      "maxY": 1.2999999999999998
+    },
+    {
+      "id": "COL_Carro_1",
+      "minX": 43.04,
+      "maxX": 44.96,
+      "minZ": 3.15,
+      "maxZ": 6.85,
+      "source": "Carro_1",
+      "minY": 0.09999999999999998,
+      "maxY": 1.2999999999999998
+    },
+    {
+      "id": "COL_Carro_2",
+      "minX": -6.96,
+      "maxX": -5.04,
+      "minZ": 38.15,
+      "maxZ": 41.85,
+      "source": "Carro_2",
+      "minY": 0.09999999999999998,
+      "maxY": 1.2999999999999998
+    },
+    {
+      "id": "COL_Carro_3",
+      "minX": 6.04,
+      "maxX": 7.96,
+      "minZ": -40.85,
+      "maxZ": -37.15,
+      "source": "Carro_3",
+      "minY": 0.09999999999999998,
+      "maxY": 1.2999999999999998
+    },
+    {
+      "id": "COL_Carro_4",
+      "minX": -40.96,
+      "maxX": -39.04,
+      "minZ": 24.15,
+      "maxZ": 27.85,
+      "source": "Carro_4",
+      "minY": 0.09999999999999998,
+      "maxY": 1.2999999999999998
+    },
+    {
+      "id": "COL_Carro_5",
+      "minX": 39.04,
+      "maxX": 40.96,
+      "minZ": -27.85,
+      "maxZ": -24.15,
+      "source": "Carro_5",
+      "minY": 0.09999999999999998,
+      "maxY": 1.2999999999999998
+    },
+    {
+      "id": "COL_Monte_0",
+      "minX": -26.5,
+      "maxX": -23.5,
+      "minZ": -31.5,
+      "maxZ": -28.46388423710231,
+      "source": "Monte_0",
+      "minY": 0.0,
+      "maxY": 0.96
+    },
+    {
+      "id": "COL_Monte_1",
+      "minX": 24.5,
+      "maxX": 27.5,
+      "minZ": -31.5,
+      "maxZ": -28.5,
+      "source": "Monte_1",
+      "minY": 0.0,
+      "maxY": 0.96
+    },
+    {
+      "id": "COL_Monte_2",
+      "minX": -26.5,
+      "maxX": -23.5,
+      "minZ": 28.5,
+      "maxZ": 31.5,
+      "source": "Monte_2",
+      "minY": 0.0,
+      "maxY": 0.96
+    },
+    {
+      "id": "COL_Monte_3",
+      "minX": 24.5,
+      "maxX": 27.5,
+      "minZ": 28.5,
+      "maxZ": 31.5,
+      "source": "Monte_3",
+      "minY": 0.0,
+      "maxY": 0.96
+    },
+    {
+      "id": "COL_Monte_4",
+      "minX": -7.5,
+      "maxX": -4.5,
+      "minZ": -44.5,
+      "maxZ": -41.5,
+      "source": "Monte_4",
+      "minY": 0.0,
+      "maxY": 0.96
+    },
+    {
+      "id": "COL_Monte_5",
+      "minX": 5.5,
+      "maxX": 8.5,
+      "minZ": 41.5,
+      "maxZ": 44.5,
+      "source": "Monte_5",
+      "minY": 0.0,
+      "maxY": 0.96
+    }
+  ],
+  "buildings": [
+    {
+      "id": "Predio_000",
+      "x": -40.5,
+      "z": -40,
+      "w": 7,
+      "d": 12,
+      "height": 13.2,
+      "floors": 4,
+      "ruin": false,
+      "pilotis": false
+    },
+    {
+      "id": "Predio_001",
+      "x": -29.5,
+      "z": -34,
+      "w": 7,
+      "d": 10,
+      "height": 3.3,
+      "floors": 1,
+      "ruin": true,
+      "pilotis": false
+    },
+    {
+      "id": "Predio_010",
+      "x": -40.5,
+      "z": 0,
+      "w": 7,
+      "d": 12,
+      "height": 16.5,
+      "floors": 5,
+      "ruin": false,
+      "pilotis": true
+    },
+    {
+      "id": "Predio_011",
+      "x": -29.5,
+      "z": 0,
+      "w": 7,
+      "d": 10,
+      "height": 6.6,
+      "floors": 2,
+      "ruin": true,
+      "pilotis": false
+    },
+    {
+      "id": "Predio_020",
+      "x": -40.5,
+      "z": 40,
+      "w": 7,
+      "d": 12,
+      "height": 13.2,
+      "floors": 4,
+      "ruin": false,
+      "pilotis": false
+    },
+    {
+      "id": "Predio_021",
+      "x": -29.5,
+      "z": 34,
+      "w": 7,
+      "d": 10,
+      "height": 3.3,
+      "floors": 1,
+      "ruin": true,
+      "pilotis": false
+    },
+    {
+      "id": "Predio_100",
+      "x": -5.5,
+      "z": -40,
+      "w": 7,
+      "d": 12,
+      "height": 16.5,
+      "floors": 5,
+      "ruin": false,
+      "pilotis": false
+    },
+    {
+      "id": "Predio_101",
+      "x": 5.5,
+      "z": -34,
+      "w": 7,
+      "d": 10,
+      "height": 6.6,
+      "floors": 2,
+      "ruin": true,
+      "pilotis": false
+    },
+    {
+      "id": "Predio_110",
+      "x": -6,
+      "z": -5,
+      "w": 6,
+      "d": 8,
+      "height": 6.6,
+      "floors": 2,
+      "ruin": false,
+      "pilotis": false
+    },
+    {
+      "id": "Predio_111",
+      "x": 6,
+      "z": -5,
+      "w": 6,
+      "d": 8,
+      "height": 3.3,
+      "floors": 1,
+      "ruin": true,
+      "pilotis": false
+    },
+    {
+      "id": "Predio_120",
+      "x": -5.5,
+      "z": 40,
+      "w": 7,
+      "d": 12,
+      "height": 16.5,
+      "floors": 5,
+      "ruin": false,
+      "pilotis": false
+    },
+    {
+      "id": "Predio_121",
+      "x": 5.5,
+      "z": 34,
+      "w": 7,
+      "d": 10,
+      "height": 6.6,
+      "floors": 2,
+      "ruin": true,
+      "pilotis": false
+    },
+    {
+      "id": "Predio_200",
+      "x": 29.5,
+      "z": -40,
+      "w": 7,
+      "d": 12,
+      "height": 13.2,
+      "floors": 4,
+      "ruin": false,
+      "pilotis": false
+    },
+    {
+      "id": "Predio_201",
+      "x": 40.5,
+      "z": -34,
+      "w": 7,
+      "d": 10,
+      "height": 3.3,
+      "floors": 1,
+      "ruin": true,
+      "pilotis": false
+    },
+    {
+      "id": "Predio_210",
+      "x": 29.5,
+      "z": 0,
+      "w": 7,
+      "d": 12,
+      "height": 16.5,
+      "floors": 5,
+      "ruin": false,
+      "pilotis": true
+    },
+    {
+      "id": "Predio_211",
+      "x": 40.5,
+      "z": 0,
+      "w": 7,
+      "d": 10,
+      "height": 6.6,
+      "floors": 2,
+      "ruin": true,
+      "pilotis": false
+    },
+    {
+      "id": "Predio_220",
+      "x": 29.5,
+      "z": 40,
+      "w": 7,
+      "d": 12,
+      "height": 13.2,
+      "floors": 4,
+      "ruin": false,
+      "pilotis": false
+    },
+    {
+      "id": "Predio_221",
+      "x": 40.5,
+      "z": 34,
+      "w": 7,
+      "d": 10,
+      "height": 3.3,
+      "floors": 1,
+      "ruin": true,
+      "pilotis": false
+    }
+  ],
+  "loot": [
+    {
+      "id": "LOOT_Deposito_1",
+      "kind": "deposito",
+      "x": -17.5,
+      "z": -18.5
+    },
+    {
+      "id": "LOOT_Deposito_2",
+      "kind": "deposito",
+      "x": 17.5,
+      "z": 18.5
+    },
+    {
+      "id": "LOOT_Aluminio_1",
+      "kind": "aluminio",
+      "x": -17.5,
+      "z": 18.5
+    },
+    {
+      "id": "LOOT_Aluminio_2",
+      "kind": "aluminio",
+      "x": 17.5,
+      "z": -18.5
+    },
+    {
+      "id": "LOOT_Aluminio_3",
+      "kind": "aluminio",
+      "x": -13,
+      "z": -16
+    },
+    {
+      "id": "LOOT_Aluminio_4",
+      "kind": "aluminio",
+      "x": 13,
+      "z": 16
+    },
+    {
+      "id": "LOOT_Aluminio_5",
+      "kind": "aluminio",
+      "x": 48,
+      "z": -51
+    },
+    {
+      "id": "LOOT_Aluminio_6",
+      "kind": "aluminio",
+      "x": 48,
+      "z": 51
+    }
+  ],
+  "patrolRoutes": [
+    [
+      {
+        "x": -17.5,
+        "z": -51
+      },
+      {
+        "x": 17.5,
+        "z": -51
+      },
+      {
+        "x": 17.5,
+        "z": -18.5
+      },
+      {
+        "x": -17.5,
+        "z": -18.5
+      }
+    ],
+    [
+      {
+        "x": -17.5,
+        "z": 21
+      },
+      {
+        "x": -17.5,
+        "z": 51
+      },
+      {
+        "x": 17.5,
+        "z": 51
+      },
+      {
+        "x": 17.5,
+        "z": 21
+      }
+    ],
+    [
+      {
+        "x": -48,
+        "z": -18.5
+      },
+      {
+        "x": -17.5,
+        "z": -18.5
+      },
+      {
+        "x": -17.5,
+        "z": 18.5
+      },
+      {
+        "x": -48,
+        "z": 18.5
+      }
+    ],
+    [
+      {
+        "x": 17.5,
+        "z": -18.5
+      },
+      {
+        "x": 48,
+        "z": -18.5
+      },
+      {
+        "x": 48,
+        "z": 18.5
+      },
+      {
+        "x": 17.5,
+        "z": 18.5
+      }
+    ]
+  ],
+  "spawns": [
+    {
+      "id": "SPAWN_Robo_0_0",
+      "x": -14.125,
+      "z": -51.0,
+      "routeIndex": 0,
+      "waypoint": 1
+    },
+    {
+      "id": "SPAWN_Robo_0_1",
+      "x": 2.7500000000000036,
+      "z": -51.0,
+      "routeIndex": 0,
+      "waypoint": 1
+    },
+    {
+      "id": "SPAWN_Robo_0_2",
+      "x": 17.5,
+      "z": -48.875,
+      "routeIndex": 0,
+      "waypoint": 2
+    },
+    {
+      "id": "SPAWN_Robo_0_3",
+      "x": 17.5,
+      "z": -32.0,
+      "routeIndex": 0,
+      "waypoint": 2
+    },
+    {
+      "id": "SPAWN_Robo_0_4",
+      "x": 14.125,
+      "z": -18.5,
+      "routeIndex": 0,
+      "waypoint": 3
+    },
+    {
+      "id": "SPAWN_Robo_0_5",
+      "x": -2.7500000000000036,
+      "z": -18.5,
+      "routeIndex": 0,
+      "waypoint": 3
+    },
+    {
+      "id": "SPAWN_Robo_0_6",
+      "x": -17.5,
+      "z": -20.625,
+      "routeIndex": 0,
+      "waypoint": 0
+    },
+    {
+      "id": "SPAWN_Robo_0_7",
+      "x": -17.5,
+      "z": -37.5,
+      "routeIndex": 0,
+      "waypoint": 0
+    },
+    {
+      "id": "SPAWN_Robo_1_0",
+      "x": -17.5,
+      "z": 24.25,
+      "routeIndex": 1,
+      "waypoint": 1
+    },
+    {
+      "id": "SPAWN_Robo_1_1",
+      "x": -17.5,
+      "z": 40.5,
+      "routeIndex": 1,
+      "waypoint": 1
+    },
+    {
+      "id": "SPAWN_Robo_1_2",
+      "x": -11.75,
+      "z": 51.0,
+      "routeIndex": 1,
+      "waypoint": 2
+    },
+    {
+      "id": "SPAWN_Robo_1_3",
+      "x": 4.5,
+      "z": 51.0,
+      "routeIndex": 1,
+      "waypoint": 2
+    },
+    {
+      "id": "SPAWN_Robo_1_4",
+      "x": 17.5,
+      "z": 47.75,
+      "routeIndex": 1,
+      "waypoint": 3
+    },
+    {
+      "id": "SPAWN_Robo_1_5",
+      "x": 17.5,
+      "z": 31.5,
+      "routeIndex": 1,
+      "waypoint": 3
+    },
+    {
+      "id": "SPAWN_Robo_1_6",
+      "x": 11.75,
+      "z": 21.0,
+      "routeIndex": 1,
+      "waypoint": 0
+    },
+    {
+      "id": "SPAWN_Robo_1_7",
+      "x": -4.5,
+      "z": 21.0,
+      "routeIndex": 1,
+      "waypoint": 0
+    },
+    {
+      "id": "SPAWN_Robo_2_0",
+      "x": -44.625,
+      "z": -18.5,
+      "routeIndex": 2,
+      "waypoint": 1
+    },
+    {
+      "id": "SPAWN_Robo_2_1",
+      "x": -27.75,
+      "z": -18.5,
+      "routeIndex": 2,
+      "waypoint": 1
+    },
+    {
+      "id": "SPAWN_Robo_2_2",
+      "x": -17.5,
+      "z": -11.875,
+      "routeIndex": 2,
+      "waypoint": 2
+    },
+    {
+      "id": "SPAWN_Robo_2_3",
+      "x": -17.5,
+      "z": 5.0,
+      "routeIndex": 2,
+      "waypoint": 2
+    },
+    {
+      "id": "SPAWN_Robo_2_4",
+      "x": -20.875,
+      "z": 18.5,
+      "routeIndex": 2,
+      "waypoint": 3
+    },
+    {
+      "id": "SPAWN_Robo_2_5",
+      "x": -37.75,
+      "z": 18.5,
+      "routeIndex": 2,
+      "waypoint": 3
+    },
+    {
+      "id": "SPAWN_Robo_2_6",
+      "x": -48.0,
+      "z": 11.875,
+      "routeIndex": 2,
+      "waypoint": 0
+    },
+    {
+      "id": "SPAWN_Robo_2_7",
+      "x": -48.0,
+      "z": -5.0,
+      "routeIndex": 2,
+      "waypoint": 0
+    },
+    {
+      "id": "SPAWN_Robo_3_0",
+      "x": 20.875,
+      "z": -18.5,
+      "routeIndex": 3,
+      "waypoint": 1
+    },
+    {
+      "id": "SPAWN_Robo_3_1",
+      "x": 37.75,
+      "z": -18.5,
+      "routeIndex": 3,
+      "waypoint": 1
+    },
+    {
+      "id": "SPAWN_Robo_3_2",
+      "x": 48.0,
+      "z": -11.875,
+      "routeIndex": 3,
+      "waypoint": 2
+    },
+    {
+      "id": "SPAWN_Robo_3_3",
+      "x": 48.0,
+      "z": 5.0,
+      "routeIndex": 3,
+      "waypoint": 2
+    },
+    {
+      "id": "SPAWN_Robo_3_4",
+      "x": 44.625,
+      "z": 18.5,
+      "routeIndex": 3,
+      "waypoint": 3
+    },
+    {
+      "id": "SPAWN_Robo_3_5",
+      "x": 27.75,
+      "z": 18.5,
+      "routeIndex": 3,
+      "waypoint": 3
+    },
+    {
+      "id": "SPAWN_Robo_3_6",
+      "x": 17.5,
+      "z": 11.875,
+      "routeIndex": 3,
+      "waypoint": 0
+    },
+    {
+      "id": "SPAWN_Robo_3_7",
+      "x": 17.5,
+      "z": -5.0,
+      "routeIndex": 3,
+      "waypoint": 0
+    }
+  ],
+  "routes": [
+    [
+      {
+        "x": 0,
+        "z": 9.5
+      },
+      {
+        "x": -8,
+        "z": 9.5
+      },
+      {
+        "x": -17.5,
+        "z": 9.5
+      },
+      {
+        "x": -17.5,
+        "z": -18.5
+      },
+      {
+        "x": -17.5,
+        "z": -51
+      }
+    ],
+    [
+      {
+        "x": 0,
+        "z": 9.5
+      },
+      {
+        "x": 8,
+        "z": 9.5
+      },
+      {
+        "x": 17.5,
+        "z": 9.5
+      },
+      {
+        "x": 17.5,
+        "z": 18.5
+      },
+      {
+        "x": 48,
+        "z": 18.5
+      }
+    ],
+    [
+      {
+        "x": 0,
+        "z": 9.5
+      },
+      {
+        "x": -8,
+        "z": 9.5
+      },
+      {
+        "x": -8,
+        "z": 18.5
+      },
+      {
+        "x": -17.5,
+        "z": 18.5
+      },
+      {
+        "x": -17.5,
+        "z": 51
+      }
+    ]
+  ],
+  "viewpoints": [
+    {
+      "id": "chegada",
+      "x": 0,
+      "z": 9.5
+    },
+    {
+      "id": "avenida-norte",
+      "x": -17.5,
+      "z": -18.5
+    },
+    {
+      "id": "rota-leste",
+      "x": 35,
+      "z": 18.5
+    },
+    {
+      "id": "rota-sul",
+      "x": -17.5,
+      "z": 40
+    }
+  ]
+}

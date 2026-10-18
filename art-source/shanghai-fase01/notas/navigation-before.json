@@ -1,0 +1,31 @@
+{
+  "node": "v26.11.1",
+  "gridCell": 0.5,
+  "radius": 0.42,
+  "agents": 32,
+  "repathSeconds": 0.5,
+  "points": 35842,
+  "constructMs": 492.750292,
+  "waves": [
+    {
+      "totalMs": 2663.5460820000008,
+      "maxPathMs": 463.8573339999998,
+      "meanPathMs": 83.23581506250002
+    },
+    {
+      "totalMs": 2738.906164999998,
+      "maxPathMs": 465.2712499999998,
+      "meanPathMs": 85.59081765624994
+    },
+    {
+      "totalMs": 2739.020043000004,
+      "maxPathMs": 460.63958400000047,
+      "meanPathMs": 85.59437634375013
+    },
+    {
+      "totalMs": 2749.7018290000015,
+      "maxPathMs": 464.02787499999977,
+      "meanPathMs": 85.92818215625005
+    }
+  ]
+}

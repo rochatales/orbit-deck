@@ -32,3 +32,11 @@ test('Shanghai: disembark point and streets are reachable and within bounds',()=
  const world=createShanghai();assert.ok(traversable(world,MAPS.shanghai.exit.x,MAPS.shanghai.exit.z));
  for(const point of [{x:0,z:-14},{x:-5,z:-5},{x:5,z:5},{x:-14,z:-16}])assert.ok(reachable(world,MAPS.shanghai.exit,point),JSON.stringify(point));
 });
+test('Shanghai fase 01: contrato de pouso, limites e física independem do GLB',()=>{
+ const {createPhase01Terrain}=loadSource('src/game/shanghai/layout.ts'),world=createPhase01Terrain();
+ assert.deepEqual({...world.bounds},{minX:-51,maxX:51,minZ:-54,maxZ:54});
+ assert.equal(world.group.children.length,0,'geometria visual não constrói os obstáculos');
+ assert.ok(traversable(world,MAPS.shanghai.exit.x,MAPS.shanghai.exit.z));
+ const expected=createShanghai().obstacles.slice(-1);
+ assert.deepEqual(world.obstacles.slice(-1),expected,'mesma colisão do foguete nas duas Shanghai');
+});

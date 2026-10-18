@@ -1,9 +1,37 @@
+import { useEffect, useMemo } from 'react';
+import { useFrame } from '@react-three/fiber';
+import { useGLTF } from '@react-three/drei';
+import { Mesh } from 'three';
+import rocketUrl from '../assets/rocket-b3/rocket-b3.glb';
+import { playerPosition } from '../state/playerTransient';
 import { MAPS } from './config';
+import { RocketFade } from './rocketFade';
 import type { MapId } from './session';
+
+/**
+ * Shanghai: só o foguete da colônia estacionado no chão, sem base (pedido do
+ * autor, 18/10/2026; asset de scripts/export-rocket-b3.py). Colisão em
+ * addRocketCollisions. Marte mantém a nave provisória até a S6.12.
+ */
+function ParkedRocket({ x, z }: { x: number; z: number }) {
+    const gltf = useGLTF(rocketUrl);
+    // Cópia e materiais próprios juntos: o cache do GLTF nunca é alterado nem descartado.
+    const { scene, fade } = useMemo(() => {
+        const copy = gltf.scene.clone(true);
+        copy.position.set(x, 0, z);
+        copy.traverse(o => { if (o instanceof Mesh) { o.castShadow = true; o.receiveShadow = true; } });
+        return { scene: copy, fade: new RocketFade(copy) };
+    }, [gltf, x, z]);
+    useEffect(() => () => fade.dispose(), [fade]);
+    useFrame(({ camera }, dt) => fade.update(playerPosition.x, playerPosition.z, camera, Math.min(dt, 0.1)));
+    return <primitive object={scene}/>;
+}
+
 export function Spacecraft({ map }: {
     map: MapId;
 }) {
     const p = MAPS[map].ship;
+    if (map === 'shanghai') return <ParkedRocket x={p.x} z={p.z}/>;
     return <group position={[p.x, 0, p.z]}>
     {/* Open-roof cabin: the boarded explorer remains visible. Front is the access ramp. */}
     <mesh position={[0, 0.08, 0]} receiveShadow><boxGeometry args={[3.4, 0.16, 4.2]}/><meshStandardMaterial color="#d2dce0"/></mesh>

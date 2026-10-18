@@ -1,0 +1,569 @@
+{
+  "viewport": [
+    1440,
+    900
+  ],
+  "dpr": 1,
+  "limitation": "Chromium headless com ANGLE/Metal; tempos de quadro são de requestAnimationFrame, não de GPU.",
+  "views": [
+    {
+      "point": "chegada",
+      "x": 0,
+      "z": 9.5,
+      "orientation": 0,
+      "calls": 46,
+      "triangles": 310238,
+      "geometries": 94,
+      "textures": 19,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "chegada",
+      "x": 0,
+      "z": 9.5,
+      "orientation": 1,
+      "calls": 41,
+      "triangles": 304064,
+      "geometries": 96,
+      "textures": 20,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "chegada",
+      "x": 0,
+      "z": 9.5,
+      "orientation": 2,
+      "calls": 47,
+      "triangles": 311150,
+      "geometries": 96,
+      "textures": 22,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "chegada",
+      "x": 0,
+      "z": 9.5,
+      "orientation": 3,
+      "calls": 51,
+      "triangles": 312740,
+      "geometries": 96,
+      "textures": 23,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "chegada",
+      "x": 0,
+      "z": 9.5,
+      "orientation": 4,
+      "calls": 48,
+      "triangles": 311030,
+      "geometries": 96,
+      "textures": 24,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "chegada",
+      "x": 0,
+      "z": 9.5,
+      "orientation": 5,
+      "calls": 45,
+      "triangles": 309038,
+      "geometries": 97,
+      "textures": 25,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "chegada",
+      "x": 0,
+      "z": 9.5,
+      "orientation": 6,
+      "calls": 48,
+      "triangles": 311086,
+      "geometries": 98,
+      "textures": 26,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "chegada",
+      "x": 0,
+      "z": 9.5,
+      "orientation": 7,
+      "calls": 46,
+      "triangles": 306164,
+      "geometries": 98,
+      "textures": 27,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "avenida-norte",
+      "x": -17.5,
+      "z": -18.5,
+      "orientation": 0,
+      "calls": 43,
+      "triangles": 316918,
+      "geometries": 111,
+      "textures": 29,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "avenida-norte",
+      "x": -17.5,
+      "z": -18.5,
+      "orientation": 1,
+      "calls": 45,
+      "triangles": 316162,
+      "geometries": 111,
+      "textures": 30,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "avenida-norte",
+      "x": -17.5,
+      "z": -18.5,
+      "orientation": 2,
+      "calls": 45,
+      "triangles": 314498,
+      "geometries": 111,
+      "textures": 31,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "avenida-norte",
+      "x": -17.5,
+      "z": -18.5,
+      "orientation": 3,
+      "calls": 45,
+      "triangles": 313156,
+      "geometries": 111,
+      "textures": 32,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "avenida-norte",
+      "x": -17.5,
+      "z": -18.5,
+      "orientation": 4,
+      "calls": 41,
+      "triangles": 310924,
+      "geometries": 111,
+      "textures": 33,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "avenida-norte",
+      "x": -17.5,
+      "z": -18.5,
+      "orientation": 5,
+      "calls": 45,
+      "triangles": 312328,
+      "geometries": 111,
+      "textures": 34,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "avenida-norte",
+      "x": -17.5,
+      "z": -18.5,
+      "orientation": 6,
+      "calls": 46,
+      "triangles": 315336,
+      "geometries": 111,
+      "textures": 35,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "avenida-norte",
+      "x": -17.5,
+      "z": -18.5,
+      "orientation": 7,
+      "calls": 48,
+      "triangles": 318610,
+      "geometries": 111,
+      "textures": 36,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "rota-leste",
+      "x": 35,
+      "z": 18.5,
+      "orientation": 0,
+      "calls": 31,
+      "triangles": 303428,
+      "geometries": 114,
+      "textures": 37,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "rota-leste",
+      "x": 35,
+      "z": 18.5,
+      "orientation": 1,
+      "calls": 29,
+      "triangles": 302674,
+      "geometries": 114,
+      "textures": 38,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "rota-leste",
+      "x": 35,
+      "z": 18.5,
+      "orientation": 2,
+      "calls": 36,
+      "triangles": 308716,
+      "geometries": 114,
+      "textures": 39,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "rota-leste",
+      "x": 35,
+      "z": 18.5,
+      "orientation": 3,
+      "calls": 41,
+      "triangles": 311726,
+      "geometries": 114,
+      "textures": 40,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "rota-leste",
+      "x": 35,
+      "z": 18.5,
+      "orientation": 4,
+      "calls": 32,
+      "triangles": 303836,
+      "geometries": 114,
+      "textures": 41,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "rota-leste",
+      "x": 35,
+      "z": 18.5,
+      "orientation": 5,
+      "calls": 32,
+      "triangles": 306030,
+      "geometries": 114,
+      "textures": 42,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "rota-leste",
+      "x": 35,
+      "z": 18.5,
+      "orientation": 6,
+      "calls": 32,
+      "triangles": 306376,
+      "geometries": 114,
+      "textures": 43,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "rota-leste",
+      "x": 35,
+      "z": 18.5,
+      "orientation": 7,
+      "calls": 34,
+      "triangles": 307202,
+      "geometries": 114,
+      "textures": 44,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "rota-sul",
+      "x": -17.5,
+      "z": 40,
+      "orientation": 0,
+      "calls": 26,
+      "triangles": 303680,
+      "geometries": 118,
+      "textures": 45,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "rota-sul",
+      "x": -17.5,
+      "z": 40,
+      "orientation": 1,
+      "calls": 28,
+      "triangles": 304016,
+      "geometries": 118,
+      "textures": 46,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "rota-sul",
+      "x": -17.5,
+      "z": 40,
+      "orientation": 2,
+      "calls": 28,
+      "triangles": 304700,
+      "geometries": 118,
+      "textures": 47,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "rota-sul",
+      "x": -17.5,
+      "z": 40,
+      "orientation": 3,
+      "calls": 25,
+      "triangles": 303692,
+      "geometries": 118,
+      "textures": 48,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "rota-sul",
+      "x": -17.5,
+      "z": 40,
+      "orientation": 4,
+      "calls": 33,
+      "triangles": 308720,
+      "geometries": 118,
+      "textures": 49,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "rota-sul",
+      "x": -17.5,
+      "z": 40,
+      "orientation": 5,
+      "calls": 35,
+      "triangles": 309056,
+      "geometries": 118,
+      "textures": 50,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "rota-sul",
+      "x": -17.5,
+      "z": 40,
+      "orientation": 6,
+      "calls": 30,
+      "triangles": 305166,
+      "geometries": 118,
+      "textures": 51,
+      "zoom": 55.38461538461539
+    },
+    {
+      "point": "rota-sul",
+      "x": -17.5,
+      "z": 40,
+      "orientation": 7,
+      "calls": 26,
+      "triangles": 303486,
+      "geometries": 118,
+      "textures": 52,
+      "zoom": 55.38461538461539
+    }
+  ],
+  "closes": [
+    {
+      "name": "rua",
+      "x": 0,
+      "z": 3.5,
+      "calls": 29,
+      "triangles": 300416,
+      "geometries": 118,
+      "textures": 53,
+      "zoom": 55.38461538461539
+    },
+    {
+      "name": "calcada",
+      "x": -17.5,
+      "z": -18.5,
+      "calls": 24,
+      "triangles": 304994,
+      "geometries": 118,
+      "textures": 54,
+      "zoom": 55.38461538461539
+    },
+    {
+      "name": "fachada",
+      "x": -34,
+      "z": -40,
+      "calls": 17,
+      "triangles": 296972,
+      "geometries": 121,
+      "textures": 55,
+      "zoom": 55.38461538461539
+    },
+    {
+      "name": "entulho",
+      "x": -23,
+      "z": -34,
+      "calls": 23,
+      "triangles": 302336,
+      "geometries": 121,
+      "textures": 56,
+      "zoom": 55.38461538461539
+    }
+  ],
+  "perf": [
+    {
+      "status": "valid",
+      "invalidReason": null,
+      "warnings": [],
+      "startedAtMs": 101438,
+      "requestedMs": 4000,
+      "elapsedMs": 4010.400000035763,
+      "map": "shanghai",
+      "coverage": {
+        "intervalsCollected": 240,
+        "intervalsCapacity": 2016,
+        "intervalsSaturated": false,
+        "countersCollected": 37,
+        "countersCapacity": 56,
+        "countersSaturated": false
+      },
+      "rafIntervals": {
+        "count": 240,
+        "p50": 16.69999999999709,
+        "p95": 16.70000000001164,
+        "max": 16.80000000000291,
+        "mean": 16.666249999999977,
+        "rafOver33": 0,
+        "rafOver50": 0
+      },
+      "longAnimationFrames": {
+        "supported": true,
+        "count": 0,
+        "maxDurationMs": null
+      },
+      "renderer": {
+        "samples": 37,
+        "firstSampledAtMs": 101447.70000004768,
+        "lastSampledAtMs": 105348.30000001192,
+        "drawCalls": {
+          "min": 46,
+          "max": 46,
+          "mean": 46
+        },
+        "triangles": {
+          "min": 310238,
+          "max": 310238,
+          "mean": 310238
+        }
+      },
+      "scenario": "shanghai-fase01",
+      "counters": {
+        "calls": 46,
+        "triangles": 310238,
+        "geometries": 121,
+        "textures": 57,
+        "zoom": 55.38461538461539
+      }
+    },
+    {
+      "status": "valid",
+      "invalidReason": null,
+      "warnings": [],
+      "startedAtMs": 4668.199999988079,
+      "requestedMs": 4000,
+      "elapsedMs": 4007.5,
+      "map": "shanghai",
+      "coverage": {
+        "intervalsCollected": 240,
+        "intervalsCapacity": 2016,
+        "intervalsSaturated": false,
+        "countersCollected": 38,
+        "countersCapacity": 56,
+        "countersSaturated": false
+      },
+      "rafIntervals": {
+        "count": 240,
+        "p50": 16.699999999999818,
+        "p95": 16.700000000000728,
+        "max": 16.800000000000182,
+        "mean": 16.666249999999998,
+        "rafOver33": 0,
+        "rafOver50": 0
+      },
+      "longAnimationFrames": {
+        "supported": true,
+        "count": 0,
+        "maxDurationMs": null
+      },
+      "renderer": {
+        "samples": 38,
+        "firstSampledAtMs": 4675.800000011921,
+        "lastSampledAtMs": 8642.099999964237,
+        "drawCalls": {
+          "min": 33,
+          "max": 33,
+          "mean": 33
+        },
+        "triangles": {
+          "min": 290758,
+          "max": 290758,
+          "mean": 290758
+        }
+      },
+      "scenario": "shanghai-atual",
+      "counters": {
+        "calls": 33,
+        "triangles": 290758,
+        "geometries": 40,
+        "textures": 4,
+        "zoom": 55.38461538461539
+      }
+    },
+    {
+      "status": "valid",
+      "invalidReason": null,
+      "warnings": [],
+      "startedAtMs": 4694.5,
+      "requestedMs": 4000,
+      "elapsedMs": 4012.400000035763,
+      "map": "mars",
+      "coverage": {
+        "intervalsCollected": 240,
+        "intervalsCapacity": 2016,
+        "intervalsSaturated": false,
+        "countersCollected": 37,
+        "countersCapacity": 56,
+        "countersSaturated": false
+      },
+      "rafIntervals": {
+        "count": 240,
+        "p50": 16.699999999999818,
+        "p95": 16.700000000000728,
+        "max": 16.800000000000182,
+        "mean": 16.666249999999998,
+        "rafOver33": 0,
+        "rafOver50": 0
+      },
+      "longAnimationFrames": {
+        "supported": true,
+        "count": 0,
+        "maxDurationMs": null
+      },
+      "renderer": {
+        "samples": 37,
+        "firstSampledAtMs": 4706.900000035763,
+        "lastSampledAtMs": 8624,
+        "drawCalls": {
+          "min": 343,
+          "max": 343,
+          "mean": 343
+        },
+        "triangles": {
+          "min": 613958,
+          "max": 613958,
+          "mean": 613958
+        }
+      },
+      "scenario": "marte",
+      "counters": {
+        "calls": 343,
+        "triangles": 613958,
+        "geometries": 309,
+        "textures": 14,
+        "zoom": 41.02564102564102
+      }
+    }
+  ],
+  "errors": []
+}
