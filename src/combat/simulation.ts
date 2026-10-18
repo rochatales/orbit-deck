@@ -218,6 +218,8 @@ export class CombatSimulation {
                     hit.robot.hp = Math.max(0, hit.robot.hp - COMBAT.rifle.damage);
                     hit.robot.flash = 0.15;
                     this.hitFlash = 0.15;
+                    // O primeiro tiro recebido identifica o jogador, mesmo fora do campo de visão.
+                    if (hit.robot.hp > 0) alertRobot(hit.robot);
                     if (hit.robot.hp === 0) {
                         this.kills++;
                         const drop = this.drops[hit.robot.drop];
@@ -232,11 +234,8 @@ export class CombatSimulation {
             if (robot.hp <= 0)
                 continue;
             const player = input.player, distance = Math.hypot(robot.x - player.x, robot.z - player.z);
-            if (!robot.alerted && canSeePlayer(robot, player, this.terrain)) {
-                robot.alerted = true;
-                robot.alertLeft = COMBAT.alertDuration;
-                robot.repath = 0;
-            }
+            if (!robot.alerted && canSeePlayer(robot, player, this.terrain))
+                alertRobot(robot);
             if (robot.alerted && distance <= COMBAT.robot.contactRange && clearSegment(robot, player, this.terrain, 0)) {
                 if (this.invulnerable === 0) {
                     this.hp = Math.max(0, this.hp - COMBAT.robot.damage);
@@ -393,10 +392,22 @@ function turnToward(robot: Robot, x: number, z: number, dt: number) {
     else if (robot.angle < -Math.PI) robot.angle += 2 * Math.PI;
 }
 
-/** Cone frontal de 120 graus; paredes bloqueiam a aquisição do alvo. */
+/** Aquisição do jogador: exclamação, visor vermelho e perseguição no passo acelerado. */
+function alertRobot(robot: Robot) {
+    if (robot.alerted) return;
+    robot.alerted = true;
+    robot.alertLeft = COMBAT.alertDuration;
+    robot.repath = 0;
+}
+
+/**
+ * Percepção do robô: cone frontal de 120 graus até `visionRange`; dentro de `nearSense`
+ * percebe em qualquer direção (quem passa rente pela lateral ou pelas costas). Paredes
+ * bloqueiam os dois casos.
+ */
 export function canSeePlayer(robot: Robot, player: Position, terrain: Terrain) {
     const dx = player.x - robot.x, dz = player.z - robot.z, distance = Math.hypot(dx, dz);
     if (distance > COMBAT.robot.visionRange) return false;
-    if (distance > 0.001 && (dx * Math.sin(robot.angle) + dz * Math.cos(robot.angle)) / distance < COMBAT.robot.visionCos) return false;
+    if (distance > COMBAT.robot.nearSense && (dx * Math.sin(robot.angle) + dz * Math.cos(robot.angle)) / distance < COMBAT.robot.visionCos) return false;
     return clearSegment(robot, player, terrain, 0);
 }

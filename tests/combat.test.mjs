@@ -145,3 +145,23 @@ test('alerta visual inicia na detecção, congela na pausa e expira sem perder p
  fresh.step(1/60,{...input,player:{x:0,z:5}});
  fresh.step(1,{...input},true);assert.equal(fresh.robots[0].alertLeft,COMBAT.alertDuration);
 });
+test('primeiro tiro recebido identifica o jogador, mesmo pelas costas; tiro errado não',()=>{
+ const sim=new CombatSimulation(terrain,1),r=sim.robots[0];Object.assign(r,{x:0,z:0,angle:Math.PI});
+ sim.step(1/60,input);assert.equal(r.alerted,false,'jogador às costas e longe');
+ sim.step(1/60,{...input,aim:{x:6,z:0},firing:true});assert.equal(sim.shots[0].hit,false);assert.equal(r.alerted,false,'erro não alerta');
+ ticks(sim,.3);assert.equal(r.alerted,false);
+ sim.step(1/60,{...input,aim:{x:r.x,z:r.z},firing:true});
+ assert.equal(r.hp,COMBAT.robot.hp-COMBAT.rifle.damage);assert.equal(r.alerted,true);assert.equal(r.alertLeft,COMBAT.alertDuration);
+ const before=Math.hypot(r.x-input.player.x,r.z-input.player.z);ticks(sim,1);
+ assert.ok(Math.hypot(r.x-input.player.x,r.z-input.player.z)<before-1,'parte para cima do jogador');
+});
+test('rente pela lateral ou pelas costas o robô percebe o jogador; parede e distância bloqueiam',()=>{
+ const sim=new CombatSimulation(terrain,1),r=sim.robots[0],near=COMBAT.robot.nearSense;Object.assign(r,{x:0,z:0,angle:0});
+ assert.ok(near>COMBAT.robot.contactRange*2&&near<COMBAT.robot.visionRange/2,'alcance curto');
+ assert.equal(canSeePlayer(r,{x:near-.2,z:0},terrain),true,'lateral');
+ assert.equal(canSeePlayer(r,{x:-(near-.2),z:-.5},terrain),true,'outra lateral');
+ assert.equal(canSeePlayer(r,{x:0,z:-(near-.2)},terrain),true,'costas');
+ assert.equal(canSeePlayer(r,{x:near+.5,z:0},terrain),false,'lateral além do alcance curto');
+ assert.equal(canSeePlayer(r,{x:2,z:0},{...terrain,obstacles:[{minX:1,maxX:1.2,minZ:-2,maxZ:2}]}),false,'parede bloqueia');
+ sim.step(1/60,{...input,player:{x:2,z:.3}});assert.equal(r.alerted,true);assert.equal(r.alertLeft,COMBAT.alertDuration);
+});
