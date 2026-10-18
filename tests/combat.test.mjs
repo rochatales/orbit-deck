@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {loadSource} from './load-source.mjs';
-const {CombatSimulation,traceShot}=loadSource('src/combat/simulation.ts');
+const {CombatSimulation,traceShot,canSeePlayer}=loadSource('src/combat/simulation.ts');
 const {Navigation,clearSegment,traversable}=loadSource('src/combat/navigation.ts');
 const {COMBAT,HIT_LAYER,RIFLE_MASK}=loadSource('src/combat/config.ts');
 const {createWorld}=loadSource('src/game/shanghaiWorld.ts');
@@ -20,7 +20,7 @@ test('hitscan selects nearest living robot and walls stop bullets; player exclud
 });
 test('manual rifle cadence, kill, finite ammo and partial reload',()=>{
  const sim=new CombatSimulation(terrain,1);
- ticks(sim,1);assert.equal(sim.ammo,24,'must never auto-fire');
+ ticks(sim,1);Object.assign(sim.robots[0],{x:0,z:-3});assert.equal(sim.ammo,24,'must never auto-fire');
  ticks(sim,.4,{...input,firing:true});assert.equal(sim.ammo,21);assert.equal(sim.kills,1);assert.equal(sim.cleared,true);
  sim.ammo=2;sim.reserve=5;sim.step(1/60,{...input,reload:true});
  ticks(sim,1,{...input,firing:true});assert.equal(sim.ammo,2,'cannot shoot during reload');
@@ -48,7 +48,7 @@ test('navigation goes around real Shanghai buildings without crossing their foot
  assert.ok(path.length>2,'must route around building');
  let previous=start;
  for(const p of path){assert.ok(clearSegment(previous,p,world,COMBAT.robot.radius));previous=p;}
- const sim=new CombatSimulation(world,1);Object.assign(sim.robots[0],start);
+ const sim=new CombatSimulation(world,1);Object.assign(sim.robots[0],start,{alerted:true});
  for(let i=0;i<1800;i++){sim.step(1/60,{...input,player:goal});assert.ok(traversable(sim.robots[0],world,COMBAT.robot.radius));}
  assert.ok(Math.hypot(sim.robots[0].x-goal.x,sim.robots[0].z-goal.z)<=COMBAT.robot.contactRange);
  assert.ok(sim.hp<100,'must eventually reach and attack');
@@ -63,7 +63,7 @@ test('1, 3 and 5 robot encounters can be cleared with the finite starting loadou
   const sim=new CombatSimulation(createWorld(),count);
   for(let frame=0;frame<60*40&&!sim.cleared&&!sim.dead;frame++){
    const target=sim.robots.filter(r=>r.hp>0).sort((a,b)=>Math.hypot(a.x-input.player.x,a.z-input.player.z)-Math.hypot(b.x-input.player.x,b.z-input.player.z))[0];
-   sim.step(1/60,{...input,aim:target,firing:true,reload:sim.ammo===0});
+   sim.step(1/60,{...input,aim:target,firing:traceShot(input.player,target,sim.terrain,sim.robots).robot!==null,reload:sim.ammo===0});
   }
   assert.ok(sim.cleared,`encounter ${count}: must be beatable`);assert.equal(sim.kills,count);assert.ok(sim.hp>0);assert.ok(sim.ammo+sim.reserve>=120-count*5,'loadout allows misses');
  }
@@ -72,6 +72,76 @@ test('robots still pursue a player hugging a wall with smaller player clearance'
  const world=createWorld(),sim=new CombatSimulation(world,1),player={x:-7.15,z:1};
  // Player radius .32 fits here, robot radius .42 does not; route to adjacent free cell.
  assert.ok(traversable(player,world,.32));assert.equal(traversable(player,world,COMBAT.robot.radius),false);
- Object.assign(sim.robots[0],{x:-5,z:-5});
+ Object.assign(sim.robots[0],{x:-5,z:-5,alerted:true});
  ticks(sim,15,{...input,player});assert.ok(sim.hp<100,'wall hugging must not disable pursuit');
+});
+
+
+test('visão exige cone frontal, alcance e ausência de parede',()=>{
+ const sim=new CombatSimulation(terrain,1),r=sim.robots[0];Object.assign(r,{x:0,z:0,angle:0});
+ assert.equal(canSeePlayer(r,{x:0,z:5},terrain),true);
+ assert.equal(canSeePlayer(r,{x:0,z:-5},terrain),false);
+ assert.equal(canSeePlayer(r,{x:5,z:0},terrain),false);
+ assert.equal(canSeePlayer(r,{x:0,z:11},terrain),false);
+ const wall={...terrain,obstacles:[{minX:-2,maxX:2,minZ:2,maxZ:3}]};
+ assert.equal(canSeePlayer(r,{x:0,z:5},wall),false);
+ sim.step(1/60,{...input,player:{x:0,z:5}});assert.equal(r.alerted,true);
+ sim.step(1/60,{...input,player:{x:0,z:-5}});assert.equal(r.alerted,true,'perseguição permanece após aquisição');
+});
+test('horda começa completa, patrulha de forma determinística e respeita prédios',()=>{
+ const world=createWorld(),sim=new CombatSimulation(world,COMBAT.encounterSize),again=new CombatSimulation(world,COMBAT.encounterSize);
+ assert.equal(sim.robots.length,32);assert.deepEqual(sim.robots,again.robots);
+ const starts=sim.robots.map(r=>({x:r.x,z:r.z}));
+ for(const r of sim.robots){assert.equal(r.alerted,false);assert.ok(traversable(r,world,COMBAT.robot.radius));}
+ for(let frame=0;frame<60*45;frame++){
+  sim.step(1/60,{...input,player:{x:0,z:17}});
+  for(const r of sim.robots){assert.equal(r.alerted,false);assert.ok(traversable(r,world,COMBAT.robot.radius));}
+ }
+ for(const r of sim.robots)assert.ok(Math.hypot(r.x-starts[r.id].x,r.z-starts[r.id].z)>1,'cada robô percorre seu circuito');
+ assert.ok(COMBAT.rifle.magazine+COMBAT.rifle.reserve>=32*Math.ceil(COMBAT.robot.hp/COMBAT.rifle.damage)*1.25);
+ const fresh=new CombatSimulation(world,32);assert.deepEqual(fresh.robots,again.robots);
+});
+
+test('abate gera um conjunto de metais na posição da morte e coleta uma única vez',()=>{
+ const sim=new CombatSimulation(terrain,1),r=sim.robots[0];
+ Object.assign(r,{x:0,z:0,hp:25});
+ sim.step(1/60,{...input,aim:{x:0,z:0},firing:true});
+ assert.equal(sim.kills,1);assert.deepEqual(sim.drops[0],{x:0,z:0,active:true});
+ assert.equal(sim.iron,0);assert.equal(sim.copper,0);
+ ticks(sim,1,{...input,aim:{x:0,z:0},firing:true});assert.equal(sim.kills,1);
+ sim.step(1/60,{...input,player:{x:0,z:0}});
+ assert.equal(sim.drops[0].active,false);assert.equal(sim.iron,1);assert.equal(sim.copper,1);
+ ticks(sim,1,{...input,player:{x:0,z:0}});assert.equal(sim.iron,1);assert.equal(sim.copper,1);
+ assert.equal(sim.snapshot.iron,1);
+});
+test('dois corações curam 50 pontos, limitam a 100 e não são consumidos com vida cheia',()=>{
+ const sim=new CombatSimulation(createWorld(),1);sim.robots[0].hp=0;
+ assert.equal(sim.hearts.length,2);
+ for(const h of sim.hearts)assert.ok(traversable(h,sim.terrain,.32));
+ const first={...input,player:sim.hearts[0]};
+ sim.step(1/60,first);assert.equal(sim.hearts[0].active,true);
+ sim.hp=20;sim.step(1/60,first);assert.equal(sim.hp,70);assert.equal(sim.hearts[0].active,false);
+ sim.step(1/60,first);assert.equal(sim.hp,70);
+ sim.step(1/60,{...input,player:sim.hearts[1]});assert.equal(sim.hp,100);assert.equal(sim.hearts[1].active,false);
+});
+test('coleta respeita pausa, parede, morte e reinício da tentativa',()=>{
+ const wall={...terrain,obstacles:[{minX:-2,maxX:2,minZ:0,maxZ:.1}]};
+ const sim=new CombatSimulation(wall,1);sim.robots[0].hp=0;
+ Object.assign(sim.drops[0],{x:0,z:-.4,active:true});Object.assign(sim.hearts[0],{x:0,z:-.4});sim.hp=50;
+ const close={...input,player:{x:0,z:.4}};
+ sim.step(1/60,close);assert.equal(sim.iron,0);assert.equal(sim.hp,50);
+ const sameSide={...input,player:{x:0,z:-.4}};
+ sim.step(1/60,sameSide,true);assert.equal(sim.iron,0);assert.equal(sim.hp,50);
+ sim.hp=0;sim.step(1/60,sameSide);assert.equal(sim.iron,0);assert.equal(sim.hp,0);
+ const fresh=new CombatSimulation(terrain,1);
+ assert.equal(fresh.iron,0);assert.equal(fresh.copper,0);assert.ok(fresh.hearts.every(h=>h.active));assert.ok(fresh.drops.every(d=>!d.active));
+});
+test('alerta visual inicia na detecção, congela na pausa e expira sem perder perseguição',()=>{
+ const sim=new CombatSimulation(terrain,1),r=sim.robots[0];Object.assign(r,{x:0,z:0,angle:0});
+ assert.equal(r.alertLeft,0);assert.equal(r.alerted,false);
+ sim.step(1/60,{...input,player:{x:0,z:5}});assert.equal(r.alertLeft,COMBAT.alertDuration);
+ ticks(sim,2,{...input,player:{x:0,z:-10}});assert.equal(r.alertLeft,0);assert.equal(r.alerted,true);
+ const fresh=new CombatSimulation(terrain,1);Object.assign(fresh.robots[0],{x:0,z:0,angle:0});
+ fresh.step(1/60,{...input,player:{x:0,z:5}});
+ fresh.step(1,{...input},true);assert.equal(fresh.robots[0].alertLeft,COMBAT.alertDuration);
 });

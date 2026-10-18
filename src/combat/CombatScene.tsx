@@ -1,7 +1,8 @@
 import { useExpeditionStore } from '../state/useExpeditionStore';
 import { useEffect, useMemo, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { Group, Mesh, MeshStandardMaterial, Vector3 } from 'three';
+import { Group, Mesh, MeshBasicMaterial, MeshStandardMaterial, Shape, Vector3 } from 'three';
+import { Billboard } from '@react-three/drei';
 import type { OfficeWorld } from '../world/createOfficeMap';
 import { useGameStore } from '../state/useGameStore';
 import { playerPosition } from '../state/playerTransient';
@@ -16,6 +17,17 @@ export function CombatScene({ world }: {
     const simulation = useMemo(() => new CombatSimulation(world, useCombatStore.getState().encounterSize), [world, run]);
     const { gl } = useThree();
     const robots = useRef<(Group | null)[]>([]), tracers = useRef<(Mesh | null)[]>([]), reticle = useRef<Mesh>(null);
+    const visors = useRef<(Mesh | null)[]>([]), alerts = useRef<(Group | null)[]>([]);
+    const drops = useRef<(Group | null)[]>([]), hearts = useRef<(Group | null)[]>([]);
+    const heartShape = useMemo(() => {
+        const shape = new Shape();
+        shape.moveTo(0, -0.4);
+        shape.bezierCurveTo(-0.12, -0.24, -0.5, 0.02, -0.42, 0.27);
+        shape.bezierCurveTo(-0.35, 0.52, -0.08, 0.48, 0, 0.25);
+        shape.bezierCurveTo(0.08, 0.48, 0.35, 0.52, 0.42, 0.27);
+        shape.bezierCurveTo(0.5, 0.02, 0.12, -0.24, 0, -0.4);
+        return shape;
+    }, []);
     const input = useRef({ firing: false, tap: false, reload: false }), clock = useRef(0);
     // Entrada do passo reutilizada: a simulação copia a posição ao registrar disparos e rotas.
     const stepInput = useMemo<CombatInput>(() => ({ player: playerPosition, aim: combatRuntime.aim, firing: false, reload: false }), []);
@@ -82,6 +94,20 @@ export function CombatScene({ world }: {
             mesh.rotation.y = r.angle;
             const body = mesh.children[0] as Mesh;
             (body.material as MeshStandardMaterial).emissive.set(r.flash > 0 ? '#ffffff' : '#000000');
+            const visor = visors.current[i], alert = alerts.current[i];
+            if (visor) (visor.material as MeshBasicMaterial).color.set(r.alerted ? '#ff3028' : '#ff9a24');
+            if (alert) alert.visible = r.hp > 0 && r.alertLeft > 0;
+        });
+        simulation.drops.forEach((drop, i) => {
+            const mesh = drops.current[i];
+            if (mesh) {
+                mesh.visible = drop.active;
+                mesh.position.set(drop.x, 0.22, drop.z);
+            }
+        });
+        simulation.hearts.forEach((heart, i) => {
+            const mesh = hearts.current[i];
+            if (mesh) mesh.visible = heart.active;
         });
         tracers.current.forEach((mesh, i) => {
             if (!mesh)
@@ -105,9 +131,22 @@ export function CombatScene({ world }: {
     {simulation.robots.map((r, i) => <group key={`${run}-${r.id}`} ref={g => { robots.current[i] = g; }}>
       <mesh position={[0, 0.8, 0]} castShadow><boxGeometry args={[0.65, 0.85, 0.45]}/><meshStandardMaterial color="#a85740"/></mesh>
       <mesh position={[0, 1.4, 0]} castShadow><boxGeometry args={[0.5, 0.35, 0.4]}/><meshStandardMaterial color="#343d45"/></mesh>
-      <mesh position={[0, 1.43, 0.215]}><boxGeometry args={[0.35, 0.09, 0.04]}/><meshBasicMaterial color="#ff453a"/></mesh>
+      <mesh ref={m => { visors.current[i] = m; }} position={[0, 1.43, 0.215]}><boxGeometry args={[0.35, 0.09, 0.04]}/><meshBasicMaterial color="#ff9a24"/></mesh>
       {[-0.21, 0.21].map(x => <mesh key={x} position={[x, 0.25, 0]}><boxGeometry args={[0.2, 0.5, 0.3]}/><meshStandardMaterial color="#3b454d"/></mesh>)}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.025, 0]}><ringGeometry args={[0.43, 0.48, 20]}/><meshBasicMaterial color="#ff6753"/></mesh>
+      <Billboard position={[0, 2.1, 0]} ref={g => { alerts.current[i] = g; }} visible={false}>
+        <mesh position={[0, 0.13, 0]}><boxGeometry args={[0.12, 0.38, 0.04]}/><meshBasicMaterial color="#ffdb57"/></mesh>
+        <mesh position={[0, -0.16, 0]}><sphereGeometry args={[0.075, 8, 6]}/><meshBasicMaterial color="#ffdb57"/></mesh>
+      </Billboard>
+    </group>)}
+    {simulation.drops.map((_, i) => <group key={`drop-${run}-${i}`} ref={g => { drops.current[i] = g; }} visible={false}>
+      <mesh position={[-0.17, 0, 0]} rotation={[0.2, 0.4, 0.3]}><boxGeometry args={[0.32, 0.18, 0.4]}/><meshStandardMaterial color="#c4d4df" metalness={0.7} roughness={0.3}/></mesh>
+      <mesh position={[0.17, 0.04, 0.04]} rotation={[0, -0.5, 0.2]}><boxGeometry args={[0.28, 0.16, 0.32]}/><meshStandardMaterial color="#d98c50" metalness={0.65} roughness={0.35}/></mesh>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.18, 0]}><ringGeometry args={[0.35, 0.4, 16]}/><meshBasicMaterial color="#9fe5ff"/></mesh>
+    </group>)}
+    {simulation.hearts.map((heart, i) => <group key={`heart-${run}-${i}`} position={[heart.x, 0, heart.z]} ref={g => { hearts.current[i] = g; }}>
+      <Billboard position={[0, 0.85, 0]}><mesh><shapeGeometry args={[heartShape]}/><meshBasicMaterial color="#ff4564"/></mesh></Billboard>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.035, 0]}><ringGeometry args={[0.5, 0.57, 24]}/><meshBasicMaterial color="#ff9bac"/></mesh>
     </group>)}
     {[0, 1, 2].map(i => <mesh key={i} visible={false} ref={m => { tracers.current[i] = m; }}><cylinderGeometry args={[0.028, 0.028, 1, 5]}/><meshBasicMaterial color="#fff7a0"/></mesh>)}
     <mesh ref={reticle} rotation={[-Math.PI / 2, 0, 0]} visible={false}><ringGeometry args={[0.2, 0.27, 24]}/><meshBasicMaterial color="#71f4ff" depthTest={false}/></mesh>
