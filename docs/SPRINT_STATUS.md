@@ -46,6 +46,7 @@ qual a worktree parte e contra o qual a revisão compara.
 
 | Tarefa | Base | Branch | Arquivos principais | Implementa | Revisa | Estado |
 |---|---|---|---|---|---|---|
+| S6.13 Caixa de suprimentos com abertura e revelação azul | `0c6c3f659cfabdb622f525c532f0b0825267d148` | `rochatales/s6.13-caixa-suprimentos` | `art-source/caixa-suprimentos/`, novo GLB/manifesto em `src/assets/props/caixa-suprimentos/`, prévia isolada e handoff; sem alterar consumidor S4.3 | Codex | Autor | ◐ Solicitada em 18/10/2026: modelar referência, tampa animada e revelação luminosa na cor do neon; preparar acionamento por interação. Integração de loot/persistência continua na S4.3; sem merge/push |
 | S6.3 Shanghai fase 01 — mapa ampliado e primeira passada de texturas | `ec845e7f44763e7684589c1e50b1a544f3120e58` | `rochatales/s6.3-shanghai-fase01` | `art-source/shanghai-fase01/`, `src/assets/shanghai-fase01/`, `src/game/shanghai*`, `src/game/config.ts`, `src/combat/navigation.ts`, testes de mundo/navegação, `docs/sprint-6/referencias-shanghai/`, `docs/handoffs/s6.3-shanghai-fase01.md`; câmera só após S6.12/autorização; consumidores de spawns só após S2.4 | Codex | Autor | ◐ Atribuída em 18/10/2026. Autor antecipa fase 01 (102 × 108 m) e texturas iniciais antes de S5.8; não substitui Sprint 7. S6.12 e S2.4 não integradas: respeitar arquivos reservados; pontos de spawn/patrulha em módulo novo. Sem merge/push |
 | S2.4 / S2.8 Ajuste de horda e patrulha solicitado em 17/10/2026 | `dfd5894e4fb55a3bd2e27a36bf3037278b7f2a59` | `rochatales/s2.4-horda-patrulha` | `src/combat/{config.ts,simulation.ts,CombatHud.tsx}`, `src/state/useCombatStore.ts`, `tests/combat.test.mjs`, `docs/handoffs/s2.4-horda-patrulha.md` | Codex | Autor | ◐ Implementada em `f0c35c5`, worktree gerenciada `s2-4-horda-patrulha/game-workplace`; prévia na porta 5179. 38 testes/build/diff-check verdes. 32 robôs em patrulha, aquisição por visão. Duração de ~30 s, desempenho e jogabilidade pendentes de playtest; sem merge |
 | S2.9 Instrumentação de medição | `2bb1f2bab525776b97f8e76126ebe3adffd65aa7` | `claude/s2.9-instrumentacao` | `src/dev/perf/*`, `src/app/GameCanvas.tsx`, `tests/perf-metrics.test.mjs`, `docs/handoffs/s2.9.md` | Claude | Codex | ◐ **Integrada** em `ab9afc4` (merge `--no-ff` de `claude/s2.9-instrumentacao`, autor, 07/10/2026). R4 entregue em `0495d3f` e confirmada pelo Codex; 31 testes, build e diff-check verdes. Validação manual parcial: medições e JSON A/B do autor pendentes ([handoff](./handoffs/s2.9.md)) |
@@ -69,6 +70,8 @@ arquivos principais. S2.10 e S2.11 tocam câmera, controller e física, então
 rodam em sequência, não em paralelo.
 
 ## Log
+
+- 18/10/2026 · codex · S6.13: caixa de suprimentos atribuída por pedido direto, base `0c6c3f6`. A S6.3 está consolidada e integrada por trabalho posterior; a caixa será isolada em worktree própria. Alteração local do plano preservada.
 
 - 18/10/2026 · codex · S6.3 registrada por solicitação do autor, base `ec845e7`. Decisão explícita: antecipar Shanghai fase 01 e texturas iniciais; manter acabamento S7 e aprovação pendentes. Edição local do plano oficial preservada fora deste commit.
 
