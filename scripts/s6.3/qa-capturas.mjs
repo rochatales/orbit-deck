@@ -58,7 +58,7 @@ try {
     await server.listen();
     const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
     await context.addInitScript(() => localStorage.setItem('horda-survivor:hub:v1', JSON.stringify({ version: 1, profile: { displayName: 'QA S6.3', color: '#66e6ff' }, briefingSeen: true })));
-    const page = await open(context, `${ORIGIN}/tests/shanghai-phase01.html?shanghaiFase01&perf`);
+    const page = await open(context, `${ORIGIN}/tests/shanghai-phase01.html?perf`);
 
     // 8 orientações na chegada e em 3 pontos das rotas, zoom inicial do jogo.
     for (const point of layout.viewpoints) {
@@ -87,8 +87,8 @@ try {
     report.perf.push({ ...(await page.evaluate(() => window.__hordaPerf.sample(4000))), scenario: 'shanghai-fase01', counters: await counters(page) });
     await page.close();
 
-    // Comparação: Shanghai atual (sem ?shanghaiFase01) e Marte, mesmo viewport.
-    for (const [map, url] of [['shanghai-atual', `${ORIGIN}/tests/shanghai-phase01.html?perf`], ['marte', `${ORIGIN}/tests/shanghai-phase01.html?map=mars&perf`]]) {
+    // Comparação: Shanghai anterior (?shanghaiAtual) e Marte, mesmo viewport.
+    for (const [map, url] of [['shanghai-atual', `${ORIGIN}/tests/shanghai-phase01.html?shanghaiAtual&perf`], ['marte', `${ORIGIN}/tests/shanghai-phase01.html?map=mars&perf`]]) {
         const other = await open(context, url);
         await other.waitForTimeout(1500);
         report.perf.push({ ...(await other.evaluate(() => window.__hordaPerf.sample(4000))), scenario: map, counters: await counters(other) });

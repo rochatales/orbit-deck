@@ -1,3 +1,5 @@
+import phase01 from '../assets/shanghai-fase01/layout.json';
+import { isShanghaiPhase01 } from '../game/shanghai/previewMode';
 /** First playable tuning; units are metres, seconds and hit points. */
 export const COMBAT = {
     version: 's2.4-patrulha-1', encounterSize: 32, playerHp: 100,
@@ -28,3 +30,30 @@ export const HORDE_SPAWNS = PATROL_ROUTES.flatMap((route, routeIndex) => {
         return { x: a.x + (b.x - a.x) * t, z: a.z + (b.z - a.z) * t, routeIndex, waypoint: (edge + 1) % route.length };
     });
 });
+
+export interface EncounterSpawn { x: number; z: number; routeIndex: number; waypoint: number }
+/** Onde a horda nasce, patrulha e onde ficam os corações, por mapa de Shanghai. */
+export interface EncounterLayout {
+    routes: readonly (readonly { x: number; z: number }[])[];
+    spawns: readonly EncounterSpawn[];
+    /** Encontros pequenos (1–5 robôs) do seletor de teste. */
+    small: readonly EncounterSpawn[];
+    hearts: readonly { x: number; z: number }[];
+}
+const CURRENT_LAYOUT: EncounterLayout = {
+    routes: PATROL_ROUTES, spawns: HORDE_SPAWNS, hearts: COMBAT.hearts,
+    small: COMBAT.spawns.map((p, id) => ({ ...p, routeIndex: id < 3 ? 2 : id - 3, waypoint: 0 })),
+};
+const exit = phase01.exit;
+/**
+ * Fase 01 (S6.3): 32 spawns e 4 patrulhas exportados com o mapa. Encontros
+ * pequenos usam os spawns mais próximos da chegada; corações nos cruzamentos
+ * das rotas a oeste e a leste do desembarque (fora da reserva de pouso).
+ */
+const PHASE01_LAYOUT: EncounterLayout = {
+    routes: phase01.patrolRoutes, spawns: phase01.spawns, hearts: [{ x: -17.5, z: 9.5 }, { x: 17.5, z: 9.5 }],
+    small: [...phase01.spawns].sort((a, b) => Math.hypot(a.x - exit.x, a.z - exit.z) - Math.hypot(b.x - exit.x, b.z - exit.z)),
+};
+export function encounterLayout(phase = isShanghaiPhase01()): EncounterLayout {
+    return phase ? PHASE01_LAYOUT : CURRENT_LAYOUT;
+}

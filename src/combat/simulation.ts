@@ -1,4 +1,4 @@
-import { COMBAT, HIT_LAYER, RIFLE_MASK, PATROL_ROUTES, HORDE_SPAWNS } from './config';
+import { COMBAT, HIT_LAYER, RIFLE_MASK, encounterLayout, type EncounterLayout } from './config';
 import { Navigation, clearSegment, segmentBox, type Position, type Terrain } from './navigation';
 export interface Robot extends Position {
     id: number;
@@ -76,15 +76,16 @@ export class CombatSimulation {
     iron = 0;
     copper = 0;
     drops: Pickup[];
-    hearts: Pickup[] = COMBAT.hearts.map(p => ({ ...p, active: true }));
+    hearts: Pickup[];
     elapsed = 0;
-    constructor(public terrain: Terrain, count: number) {
+    constructor(public terrain: Terrain, count: number, private readonly layout: EncounterLayout = encounterLayout()) {
         this.navigation = new Navigation(terrain, COMBAT.robot.radius, COMBAT.grid);
         const size = Number.isFinite(count) ? Math.max(1, Math.min(COMBAT.encounterSize, Math.floor(count))) : COMBAT.encounterSize;
-        const spawns = size <= 5 ? COMBAT.spawns.slice(0, size).map((p, id) => ({ ...p, routeIndex: id < 3 ? 2 : id - 3, waypoint: 0 })) : HORDE_SPAWNS.slice(0, size);
-        this.robots = spawns.map((p, id) => {
-            const target = PATROL_ROUTES[p.routeIndex][p.waypoint];
-            return { ...p, id, hp: COMBAT.robot.hp, angle: Math.atan2(target.x - p.x, target.z - p.z), path: [], repath: 0, flash: 0, alerted: false, alertLeft: 0 };
+        const spawns = (size <= 5 ? layout.small : layout.spawns).slice(0, size);
+        this.hearts = layout.hearts.map(p => ({ x: p.x, z: p.z, active: true }));
+        this.robots = spawns.map(({ x, z, routeIndex, waypoint }, id) => {
+            const target = layout.routes[routeIndex][waypoint];
+            return { x, z, routeIndex, waypoint, id, hp: COMBAT.robot.hp, angle: Math.atan2(target.x - x, target.z - z), path: [], repath: 0, flash: 0, alerted: false, alertLeft: 0 };
         });
         this.drops = this.robots.map(() => ({ x: 0, z: 0, active: false }));
     }
@@ -158,7 +159,7 @@ export class CombatSimulation {
                 }
                 continue;
             }
-            const route = PATROL_ROUTES[robot.routeIndex];
+            const route = this.layout.routes[robot.routeIndex];
             if (!robot.alerted && Math.hypot(robot.x - route[robot.waypoint].x, robot.z - route[robot.waypoint].z) < 0.1) {
                 robot.waypoint = (robot.waypoint + 1) % route.length;
                 robot.repath = 0;
