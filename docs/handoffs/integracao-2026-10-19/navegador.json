@@ -1,0 +1,761 @@
+{
+  "method": "App real em Vite dev; perfil e viagem pela UI. Reposicionamento pelo spawn/store para percorrer Marte e Shanghai. Seletor exercitado pela UI, forçando derrota entre rodadas. Um robô neutralizado por QA para isolar caixas. Aproximação por W e pela lateral no loop real, com uma rota reta preparada para manter o rumo inicial do robô. Percepção: posições/rumo preparados no modo 1 e passo real da simulação do App, com loop de render pausado. Sem aprovação visual/jogabilidade nem benchmark.",
+  "url": "http://127.0.0.1:5198/",
+  "viewport": [
+    1440,
+    1000
+  ],
+  "dpr": 1,
+  "errors": [],
+  "consoleErrors": [],
+  "warnings": [
+    "[GLB Debug] This GLB appears to be a single mesh. Arm/hand animation is not practical unless you either separate the model into named parts or rig it with bones in Blender."
+  ],
+  "httpErrors": [],
+  "checks": {
+    "mars": {
+      "map": "mars",
+      "phase": "walking",
+      "encounter": "hordas",
+      "nearCrate": false,
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": 0.800000011920929
+      },
+      "paused": false,
+      "combat": null
+    },
+    "options": [
+      "hordas",
+      "1",
+      "3",
+      "5",
+      "32"
+    ],
+    "hordas": {
+      "map": "shanghai",
+      "phase": "walking",
+      "encounter": "hordas",
+      "nearCrate": false,
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": 9.5
+      },
+      "paused": false,
+      "combat": {
+        "hp": 100,
+        "iron": 0,
+        "copper": 0,
+        "ammo": 24,
+        "reserve": 96,
+        "reloading": false,
+        "dead": false,
+        "kills": 0,
+        "total": 100,
+        "cleared": false,
+        "damage": false,
+        "hit": false,
+        "wave": 1,
+        "waves": 4,
+        "nextWave": 0,
+        "alive": 10,
+        "slots": 40,
+        "crates": [
+          {
+            "id": "ammo-west",
+            "x": -10,
+            "z": 12,
+            "phase": "closed",
+            "elapsed": 0,
+            "rewarded": false
+          },
+          {
+            "id": "ammo-northeast",
+            "x": 36,
+            "z": -22,
+            "phase": "closed",
+            "elapsed": 0,
+            "rewarded": false
+          }
+        ]
+      }
+    },
+    "selectors": [
+      {
+        "map": "shanghai",
+        "phase": "walking",
+        "encounter": 3,
+        "nearCrate": false,
+        "player": {
+          "x": 0,
+          "y": 0,
+          "z": 9.5
+        },
+        "paused": false,
+        "combat": {
+          "hp": 100,
+          "iron": 0,
+          "copper": 0,
+          "ammo": 24,
+          "reserve": 96,
+          "reloading": false,
+          "dead": false,
+          "kills": 0,
+          "total": 3,
+          "cleared": false,
+          "damage": false,
+          "hit": false,
+          "wave": 0,
+          "waves": 0,
+          "nextWave": 0,
+          "alive": 3,
+          "slots": 3,
+          "crates": [
+            {
+              "id": "ammo-west",
+              "x": -10,
+              "z": 12,
+              "phase": "closed",
+              "elapsed": 0,
+              "rewarded": false
+            },
+            {
+              "id": "ammo-northeast",
+              "x": 36,
+              "z": -22,
+              "phase": "closed",
+              "elapsed": 0,
+              "rewarded": false
+            }
+          ]
+        }
+      },
+      {
+        "map": "shanghai",
+        "phase": "walking",
+        "encounter": 5,
+        "nearCrate": false,
+        "player": {
+          "x": 0,
+          "y": 0,
+          "z": 9.5
+        },
+        "paused": false,
+        "combat": {
+          "hp": 100,
+          "iron": 0,
+          "copper": 0,
+          "ammo": 24,
+          "reserve": 96,
+          "reloading": false,
+          "dead": false,
+          "kills": 0,
+          "total": 5,
+          "cleared": false,
+          "damage": false,
+          "hit": false,
+          "wave": 0,
+          "waves": 0,
+          "nextWave": 0,
+          "alive": 5,
+          "slots": 5,
+          "crates": [
+            {
+              "id": "ammo-west",
+              "x": -10,
+              "z": 12,
+              "phase": "closed",
+              "elapsed": 0,
+              "rewarded": false
+            },
+            {
+              "id": "ammo-northeast",
+              "x": 36,
+              "z": -22,
+              "phase": "closed",
+              "elapsed": 0,
+              "rewarded": false
+            }
+          ]
+        }
+      },
+      {
+        "map": "shanghai",
+        "phase": "walking",
+        "encounter": 32,
+        "nearCrate": false,
+        "player": {
+          "x": 0,
+          "y": 0,
+          "z": 9.5
+        },
+        "paused": false,
+        "combat": {
+          "hp": 100,
+          "iron": 0,
+          "copper": 0,
+          "ammo": 24,
+          "reserve": 96,
+          "reloading": false,
+          "dead": false,
+          "kills": 0,
+          "total": 32,
+          "cleared": false,
+          "damage": false,
+          "hit": false,
+          "wave": 0,
+          "waves": 0,
+          "nextWave": 0,
+          "alive": 32,
+          "slots": 32,
+          "crates": [
+            {
+              "id": "ammo-west",
+              "x": -10,
+              "z": 12,
+              "phase": "closed",
+              "elapsed": 0,
+              "rewarded": false
+            },
+            {
+              "id": "ammo-northeast",
+              "x": 36,
+              "z": -22,
+              "phase": "closed",
+              "elapsed": 0,
+              "rewarded": false
+            }
+          ]
+        }
+      },
+      {
+        "map": "shanghai",
+        "phase": "walking",
+        "encounter": "hordas",
+        "nearCrate": false,
+        "player": {
+          "x": 0,
+          "y": 0,
+          "z": 9.5
+        },
+        "paused": false,
+        "combat": {
+          "hp": 100,
+          "iron": 0,
+          "copper": 0,
+          "ammo": 24,
+          "reserve": 96,
+          "reloading": false,
+          "dead": false,
+          "kills": 0,
+          "total": 100,
+          "cleared": false,
+          "damage": false,
+          "hit": false,
+          "wave": 0,
+          "waves": 4,
+          "nextWave": 4,
+          "alive": 0,
+          "slots": 40,
+          "crates": [
+            {
+              "id": "ammo-west",
+              "x": -10,
+              "z": 12,
+              "phase": "closed",
+              "elapsed": 0,
+              "rewarded": false
+            },
+            {
+              "id": "ammo-northeast",
+              "x": 36,
+              "z": -22,
+              "phase": "closed",
+              "elapsed": 0,
+              "rewarded": false
+            }
+          ]
+        }
+      },
+      {
+        "map": "shanghai",
+        "phase": "walking",
+        "encounter": 1,
+        "nearCrate": false,
+        "player": {
+          "x": 0,
+          "y": 0,
+          "z": 9.5
+        },
+        "paused": false,
+        "combat": {
+          "hp": 100,
+          "iron": 0,
+          "copper": 0,
+          "ammo": 24,
+          "reserve": 96,
+          "reloading": false,
+          "dead": false,
+          "kills": 0,
+          "total": 1,
+          "cleared": false,
+          "damage": false,
+          "hit": false,
+          "wave": 0,
+          "waves": 0,
+          "nextWave": 0,
+          "alive": 1,
+          "slots": 1,
+          "crates": [
+            {
+              "id": "ammo-west",
+              "x": -10,
+              "z": 12,
+              "phase": "closed",
+              "elapsed": 0,
+              "rewarded": false
+            },
+            {
+              "id": "ammo-northeast",
+              "x": 36,
+              "z": -22,
+              "phase": "closed",
+              "elapsed": 0,
+              "rewarded": false
+            }
+          ]
+        }
+      }
+    ],
+    "westOpening": {
+      "map": "shanghai",
+      "phase": "walking",
+      "encounter": 1,
+      "nearCrate": false,
+      "player": {
+        "x": -10,
+        "y": 0,
+        "z": 14.5
+      },
+      "paused": false,
+      "combat": {
+        "hp": 100,
+        "iron": 0,
+        "copper": 0,
+        "ammo": 24,
+        "reserve": 144,
+        "reloading": false,
+        "dead": false,
+        "kills": 0,
+        "total": 1,
+        "cleared": true,
+        "damage": false,
+        "hit": false,
+        "wave": 0,
+        "waves": 0,
+        "nextWave": 0,
+        "alive": 0,
+        "slots": 1,
+        "crates": [
+          {
+            "id": "ammo-west",
+            "x": -10,
+            "z": 12,
+            "phase": "opening",
+            "elapsed": 0.850000000000001,
+            "rewarded": true
+          },
+          {
+            "id": "ammo-northeast",
+            "x": 36,
+            "z": -22,
+            "phase": "closed",
+            "elapsed": 0,
+            "rewarded": false
+          }
+        ]
+      }
+    },
+    "pause": {
+      "paused": {
+        "map": "shanghai",
+        "phase": "walking",
+        "encounter": 1,
+        "nearCrate": false,
+        "player": {
+          "x": -10,
+          "y": 0,
+          "z": 14.5
+        },
+        "paused": true,
+        "combat": {
+          "hp": 100,
+          "iron": 0,
+          "copper": 0,
+          "ammo": 24,
+          "reserve": 144,
+          "reloading": false,
+          "dead": false,
+          "kills": 0,
+          "total": 1,
+          "cleared": true,
+          "damage": false,
+          "hit": false,
+          "wave": 0,
+          "waves": 0,
+          "nextWave": 0,
+          "alive": 0,
+          "slots": 1,
+          "crates": [
+            {
+              "id": "ammo-west",
+              "x": -10,
+              "z": 12,
+              "phase": "opening",
+              "elapsed": 1.1666666666666674,
+              "rewarded": true
+            },
+            {
+              "id": "ammo-northeast",
+              "x": 36,
+              "z": -22,
+              "phase": "closed",
+              "elapsed": 0,
+              "rewarded": false
+            }
+          ]
+        }
+      },
+      "frozen": {
+        "map": "shanghai",
+        "phase": "walking",
+        "encounter": 1,
+        "nearCrate": false,
+        "player": {
+          "x": -10,
+          "y": 0,
+          "z": 14.5
+        },
+        "paused": true,
+        "combat": {
+          "hp": 100,
+          "iron": 0,
+          "copper": 0,
+          "ammo": 24,
+          "reserve": 144,
+          "reloading": false,
+          "dead": false,
+          "kills": 0,
+          "total": 1,
+          "cleared": true,
+          "damage": false,
+          "hit": false,
+          "wave": 0,
+          "waves": 0,
+          "nextWave": 0,
+          "alive": 0,
+          "slots": 1,
+          "crates": [
+            {
+              "id": "ammo-west",
+              "x": -10,
+              "z": 12,
+              "phase": "opening",
+              "elapsed": 1.1666666666666674,
+              "rewarded": true
+            },
+            {
+              "id": "ammo-northeast",
+              "x": 36,
+              "z": -22,
+              "phase": "closed",
+              "elapsed": 0,
+              "rewarded": false
+            }
+          ]
+        }
+      }
+    },
+    "westOpen": {
+      "map": "shanghai",
+      "phase": "walking",
+      "encounter": 1,
+      "nearCrate": false,
+      "player": {
+        "x": -10,
+        "y": 0,
+        "z": 14.5
+      },
+      "paused": false,
+      "combat": {
+        "hp": 100,
+        "iron": 0,
+        "copper": 0,
+        "ammo": 24,
+        "reserve": 144,
+        "reloading": false,
+        "dead": false,
+        "kills": 0,
+        "total": 1,
+        "cleared": true,
+        "damage": false,
+        "hit": false,
+        "wave": 0,
+        "waves": 0,
+        "nextWave": 0,
+        "alive": 0,
+        "slots": 1,
+        "crates": [
+          {
+            "id": "ammo-west",
+            "x": -10,
+            "z": 12,
+            "phase": "open",
+            "elapsed": 2.4,
+            "rewarded": true
+          },
+          {
+            "id": "ammo-northeast",
+            "x": 36,
+            "z": -22,
+            "phase": "closed",
+            "elapsed": 0,
+            "rewarded": false
+          }
+        ]
+      }
+    },
+    "bothOpen": {
+      "map": "shanghai",
+      "phase": "walking",
+      "encounter": 1,
+      "nearCrate": false,
+      "player": {
+        "x": 36,
+        "y": 0,
+        "z": -19.5
+      },
+      "paused": false,
+      "combat": {
+        "hp": 100,
+        "iron": 0,
+        "copper": 0,
+        "ammo": 24,
+        "reserve": 192,
+        "reloading": false,
+        "dead": false,
+        "kills": 0,
+        "total": 1,
+        "cleared": true,
+        "damage": false,
+        "hit": false,
+        "wave": 0,
+        "waves": 0,
+        "nextWave": 0,
+        "alive": 0,
+        "slots": 1,
+        "crates": [
+          {
+            "id": "ammo-west",
+            "x": -10,
+            "z": 12,
+            "phase": "open",
+            "elapsed": 2.4,
+            "rewarded": true
+          },
+          {
+            "id": "ammo-northeast",
+            "x": 36,
+            "z": -22,
+            "phase": "open",
+            "elapsed": 2.4,
+            "rewarded": true
+          }
+        ]
+      }
+    },
+    "retry": {
+      "map": "shanghai",
+      "phase": "walking",
+      "encounter": 1,
+      "nearCrate": false,
+      "player": {
+        "x": 0,
+        "y": 0,
+        "z": 9.5
+      },
+      "paused": false,
+      "combat": {
+        "hp": 100,
+        "iron": 0,
+        "copper": 0,
+        "ammo": 24,
+        "reserve": 96,
+        "reloading": false,
+        "dead": false,
+        "kills": 0,
+        "total": 1,
+        "cleared": false,
+        "damage": false,
+        "hit": false,
+        "wave": 0,
+        "waves": 0,
+        "nextWave": 0,
+        "alive": 1,
+        "slots": 1,
+        "crates": [
+          {
+            "id": "ammo-west",
+            "x": -10,
+            "z": 12,
+            "phase": "closed",
+            "elapsed": 0,
+            "rewarded": false
+          },
+          {
+            "id": "ammo-northeast",
+            "x": 36,
+            "z": -22,
+            "phase": "closed",
+            "elapsed": 0,
+            "rewarded": false
+          }
+        ]
+      }
+    },
+    "retryReward": {
+      "map": "shanghai",
+      "phase": "walking",
+      "encounter": 1,
+      "nearCrate": false,
+      "player": {
+        "x": -10,
+        "y": 0,
+        "z": 14.5
+      },
+      "paused": false,
+      "combat": {
+        "hp": 100,
+        "iron": 0,
+        "copper": 0,
+        "ammo": 24,
+        "reserve": 144,
+        "reloading": false,
+        "dead": false,
+        "kills": 0,
+        "total": 1,
+        "cleared": true,
+        "damage": false,
+        "hit": false,
+        "wave": 0,
+        "waves": 0,
+        "nextWave": 0,
+        "alive": 0,
+        "slots": 1,
+        "crates": [
+          {
+            "id": "ammo-west",
+            "x": -10,
+            "z": 12,
+            "phase": "opening",
+            "elapsed": 0.733333333333334,
+            "rewarded": true
+          },
+          {
+            "id": "ammo-northeast",
+            "x": 36,
+            "z": -22,
+            "phase": "closed",
+            "elapsed": 0,
+            "rewarded": false
+          }
+        ]
+      }
+    },
+    "livePerception": {
+      "rearBefore": {
+        "player": {
+          "x": 0,
+          "y": 0,
+          "z": -3.200000047683716
+        },
+        "robot": {
+          "x": 0,
+          "z": 0.4752521520631184,
+          "angle": 0,
+          "alerted": false
+        },
+        "distance": 3.675252199746834
+      },
+      "rearAfter": {
+        "player": {
+          "x": 4.337901771123143e-8,
+          "y": 0,
+          "z": -1.065015196800232
+        },
+        "robot": {
+          "x": 0,
+          "z": 1.594592654804293,
+          "angle": 0,
+          "alerted": false
+        },
+        "distance": 2.659607851604525
+      },
+      "lateral": {
+        "player": {
+          "x": 2.5,
+          "y": 0,
+          "z": 2.0663564205169678
+        },
+        "robot": {
+          "x": 1.3591827827859353,
+          "z": 2.0663564407486703,
+          "angle": 1.5707963445292912,
+          "alerted": true
+        },
+        "distance": 1.1408172172140647
+      }
+    },
+    "perception": {
+      "rear": {
+        "player": {
+          "x": 0,
+          "z": -2.8
+        },
+        "visible": false,
+        "alerted": false,
+        "alertLeft": 0
+      },
+      "side": {
+        "player": {
+          "x": 2.8,
+          "z": 0
+        },
+        "visible": true,
+        "alerted": true,
+        "alertLeft": 1.5
+      },
+      "near120": {
+        "player": {
+          "x": 2.4248711305964283,
+          "z": -1.3999999999999992
+        },
+        "visible": true,
+        "alerted": true,
+        "alertLeft": 1.5
+      },
+      "rear160": {
+        "player": {
+          "x": 0.9576564013118728,
+          "z": -2.6311393382005432
+        },
+        "visible": false,
+        "alerted": false,
+        "alertLeft": 0
+      }
+    }
+  },
+  "status": "passed"
+}

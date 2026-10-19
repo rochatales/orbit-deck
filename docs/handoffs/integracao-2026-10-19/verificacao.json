@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-19T20:25:04.796884-03:00",
+  "base_B1": "1637449be4880ac2c7021b5ebe931c6b55e36a43",
+  "s6_13": "239d59f22b35fa85d79283516d99b8bb958a99fa",
+  "runtime_commit": "c1a4be0235958ca4e0de0ad90aef98768274ace8",
+  "s6_13_tests": {
+    "passed": 94,
+    "failed": 0
+  },
+  "integration_tests": {
+    "passed": 104,
+    "failed": 0,
+    "skipped": 0
+  },
+  "build": "passed; aviso de chunk > 500 kB",
+  "browser": "passed; 0 erros; aviso GLB Debug preexistente",
+  "dependency_install": "pnpm install --frozen-lockfile",
+  "lockfile_changed": false,
+  "diff_checks": [
+    "git diff --check",
+    "git diff 1637449...HEAD --check",
+    "git diff --cached --check"
+  ],
+  "reference_parity_files": 114,
+  "snapshot": "/Users/rochatales/Automations/game-workplace-backups/consolidacao-s0-s2-20261019-201227",
+  "manual_acceptance": "pendente do autor",
+  "phase_stop": 1,
+  "evidence_sha256": {
+    "01-marte.png": "626da10ca21c0999c640dec5bd5b65f3aee95fe2045b723ea385c02dc9e043a1",
+    "02-cabine-hordas.png": "1ae054eabe9ea81712cd85bf85b6fe22a15fda309f206ce0367b8b436c92ed8a",
+    "03-chegada-faixa-horda.png": "7494c13e5011572646df149949982f2af815a4c5f7fe502add761959111f9b7f",
+    "04-horda1-hud.png": "1f3b0be2d7aa992584554fc3eccf58029789b204cc2ac3f8c9cc786badc34095",
+    "05-caixa-oeste-fechada.png": "35c70a9469f9a9735b9f496411f44cd8548510ef867905665282a195fac2d3a5",
+    "06-caixa-oeste-revelacao.png": "b506b716144683b4e93d2eb6d6142e06ed11809119717011417a0900ebba99f4",
+    "07-caixa-oeste-aberta.png": "270612883141821c7994d35637725c678f70f7c9be57102ce5087bd7fa715364",
+    "08-caixa-nordeste-fechada.png": "b16a3969c9c6971c3d90755b39d03b86201b93b580e4342bc038dd45041e1e7d",
+    "09-caixa-nordeste-revelacao.png": "46681fc1efac3afb72929f2ba96865528cc6b02c1715b9d4b148927d77bbe920",
+    "10-caixa-nordeste-aberta-camera.png": "0b2e5558d8481441d93740943ee112ed365e0c51fdf74e105c98804414056766",
+    "11-percepcao-preparacao.png": "6a21d1c60182c47cd3120445038b3eff6de85ab320d1a3db914eec6278b22f8b",
+    "11a-aproximacao-costas-w.png": "ac7d997238c72cbb7de7cfd575b87292fddd18631993c815c94ce11fbcacf9ca",
+    "11b-aproximacao-lateral-alerta.png": "02568acf1d0f9273176363050afe28878c9301c6bffadac4fd79da0df5f40f0d",
+    "README.md": "1126fbbd722cf8014319a6d0345d8847d40608c41cab95a46f3558beb003deaa",
+    "build.txt": "f5d47dee53bad3ec448e5ffe0717ee0e4a8243ef97f866fb25491c7eb0e106ec",
+    "navegador.json": "61d46aaeaf9e9ea4ff2b6863c44e4bcaa4a93f34473f9c4dcaaff3bf181dfc92",
+    "paridade-pre-ajuste.json": "94498e7100223ae89fe14ffa4ea331ad723394e66be5ca84bdafbff6abb46c9a",
+    "qa-fase1.cjs": "5fc49bdd4c55e55faaafb105b36d4d787aa779b2c9aee6c0c987c6308e1fd12c",
+    "testes.txt": "e5a6ad0bd2e6ced66fdd8a859884f95fbfe670c6fc412b48d0ed0bfe814b0dc4"
+  }
+}
