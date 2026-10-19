@@ -155,13 +155,27 @@ test('primeiro tiro recebido identifica o jogador, mesmo pelas costas; tiro erra
  const before=Math.hypot(r.x-input.player.x,r.z-input.player.z);ticks(sim,1);
  assert.ok(Math.hypot(r.x-input.player.x,r.z-input.player.z)<before-1,'parte para cima do jogador');
 });
-test('rente pela lateral ou pelas costas o robô percebe o jogador; parede e distância bloqueiam',()=>{
+test('rente pela lateral o robô percebe o jogador; costas, parede e distância bloqueiam',()=>{
  const sim=new CombatSimulation(terrain,1),r=sim.robots[0],near=COMBAT.robot.nearSense;Object.assign(r,{x:0,z:0,angle:0});
  assert.ok(near>COMBAT.robot.contactRange*2&&near<COMBAT.robot.visionRange/2,'alcance curto');
  assert.equal(canSeePlayer(r,{x:near-.2,z:0},terrain),true,'lateral');
  assert.equal(canSeePlayer(r,{x:-(near-.2),z:-.5},terrain),true,'outra lateral');
- assert.equal(canSeePlayer(r,{x:0,z:-(near-.2)},terrain),true,'costas');
+ assert.equal(canSeePlayer(r,{x:0,z:-(near-.2)},terrain),false,'costas');
+ const at=degrees=>({x:(near-.2)*Math.sin(degrees*Math.PI/180),z:(near-.2)*Math.cos(degrees*Math.PI/180)});
+ assert.equal(canSeePlayer(r,at(120),terrain),true,'120 graus dentro da percepção curta');
+ assert.equal(canSeePlayer(r,at(160),terrain),false,'160 graus no ponto cego');
  assert.equal(canSeePlayer(r,{x:near+.5,z:0},terrain),false,'lateral além do alcance curto');
  assert.equal(canSeePlayer(r,{x:2,z:0},{...terrain,obstacles:[{minX:1,maxX:1.2,minZ:-2,maxZ:2}]}),false,'parede bloqueia');
  sim.step(1/60,{...input,player:{x:2,z:.3}});assert.equal(r.alerted,true);assert.equal(r.alertLeft,COMBAT.alertDuration);
+});
+test('percepção curta inclui 3 m e 135 graus dos dois lados; além deles mantém cone frontal',()=>{
+ const sim=new CombatSimulation(terrain,1),r=sim.robots[0];Object.assign(r,{x:0,z:0,angle:0});
+ const at=(degrees,distance)=>({x:distance*Math.sin(degrees*Math.PI/180),z:distance*Math.cos(degrees*Math.PI/180)});
+ for(const sign of [-1,1]){
+  assert.equal(canSeePlayer(r,at(sign*135,COMBAT.robot.nearSense),terrain),true,'borda de 135 graus a 3 m');
+  assert.equal(canSeePlayer(r,at(sign*136,2.8),terrain),false,'após 135 graus');
+  assert.equal(canSeePlayer(r,at(sign*120,COMBAT.robot.nearSense+.01),terrain),false,'fora de 3 m');
+  assert.equal(canSeePlayer(r,at(sign*45,9),terrain),true,'cone frontal preservado');
+ }
+ assert.equal(canSeePlayer(r,{x:0,z:0},terrain),true,'posição coincidente não divide por zero');
 });

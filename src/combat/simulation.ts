@@ -425,12 +425,13 @@ function alertRobot(robot: Robot) {
 
 /**
  * Percepção do robô: cone frontal de 120 graus até `visionRange`; dentro de `nearSense`
- * percebe em qualquer direção (quem passa rente pela lateral ou pelas costas). Paredes
+ * percebe frente e laterais até 135 graus do rumo, com ponto cego traseiro de 90 graus. Paredes
  * bloqueiam os dois casos.
  */
 export function canSeePlayer(robot: Robot, player: Position, terrain: Terrain) {
     const dx = player.x - robot.x, dz = player.z - robot.z, distance = Math.hypot(dx, dz);
     if (distance > COMBAT.robot.visionRange) return false;
-    if (distance > COMBAT.robot.nearSense && (dx * Math.sin(robot.angle) + dz * Math.cos(robot.angle)) / distance < COMBAT.robot.visionCos) return false;
+    const cos = distance > 0 ? (dx * Math.sin(robot.angle) + dz * Math.cos(robot.angle)) / distance : 1;
+    if (cos < (distance <= COMBAT.robot.nearSense ? COMBAT.robot.nearSenseCos : COMBAT.robot.visionCos)) return false;
     return clearSegment(robot, player, terrain, 0);
 }

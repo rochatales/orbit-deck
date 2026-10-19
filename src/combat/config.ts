@@ -6,8 +6,9 @@ export const COMBAT = {
     rifle: { magazine: 24, reserve: 96, damage: 25, interval: 0.18, reload: 1.5, range: 32 },
     robot: {
         hp: 75, speed: 1.65, radius: 0.42, contactRange: 0.92, damage: 15, contactInterval: 0.8, repath: 0.5, visionRange: 10, visionCos: Math.cos(Math.PI / 3),
-        /** Muito perto o robô percebe o jogador em qualquer direção (laterais e costas), sem parede no meio. */
+        /** Muito perto percebe frente e laterais; costas cegas, sem parede no meio. */
         nearSense: 3,
+        nearSenseCos: Math.cos(3 * Math.PI / 4),
         // Ao avistar o jogador o passo acelera ~25% (cadência do PatrolWalk acompanha), sem tranco.
         chaseSpeed: 2.05, paceRate: 3,
         // Desvio local: distância mínima entre robôs, raio de separação e preferência de lado
