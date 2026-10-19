@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-19T20:52:37.402941-03:00",
+  "status": "passed",
+  "phase_stop": 3,
+  "base_phase1": "7e91c1ad1b390f733fa9c5bc5d05fa7d6fe24df5",
+  "phase2_commit": "989b81ff2489e169e82bb2d3a817990020800063",
+  "tests": {
+    "passed": 104,
+    "failed": 0,
+    "skipped": 0
+  },
+  "build": "passed; aviso de chunk > 500 kB mantido",
+  "node_syntax_checks": [
+    "scripts/qa-colony-doors.mjs",
+    "scripts/qa-colony-doors-run.mjs"
+  ],
+  "runtime_tests_dependencies_lockfile_unchanged": true,
+  "official_checkboxes_unchanged": true,
+  "official_checkbox_count": 93,
+  "a1_a13_identical_to_handoff": true,
+  "status_table_task_rows": 14,
+  "local_markdown_links_checked": 55,
+  "missing_local_links": [],
+  "snapshot_manifests_unchanged": true,
+  "versioned_sources_rechecked": 67,
+  "diff_checks": [
+    "git diff --check",
+    "git diff --cached --check",
+    "git diff --cached 1637449 --check"
+  ],
+  "manual_gameplay_acceptance": "pendente na etapa 6.5; conferência funcional da Parada 1 relatada pelo autor",
+  "new_browser_run": false,
+  "phase4_executed": false,
+  "documents_sha256": {
+    "docs/SPRINT_STATUS.md": "2a16863d333f1aebccac9e9fe9fe985904d4d73a6a0052b31142b9484b1538f1",
+    "docs/HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md": "92535b6ba8f446605801a49dd8b3246e2bd2b4ac987dd5aaa5032a0b4aaa1d31",
+    "docs/sprint-2/VALIDACAO_MANUAL.md": "6e2c48596f79fa993f04a4e167ce0d1fc06931b72c10e18a77212df10439b514",
+    "docs/handoffs/arte-plataforma-lancamento.md": "d56355136810fc6f87113094e3473fa928ab6e90f4bd774384aa54d285e6f9ef",
+    "docs/handoffs/integracao-2026-10-19-s0-s2.md": "2f75de9afd35ec4b2777078075fc91a35b775c2781277c28eebcef181734ec11"
+  },
+  "evidence_sha256": {
+    "build.txt": "9eac02dae320bd6315dc24a8e72fd327d6352e2eb23ce2836b6b9cfcd54f2962",
+    "documentacao.patch": "6000ab81c0d93e38c0fde6368593eeeaf95eb57faee8108fbb0d5d74086955b2",
+    "testes.txt": "65f238b665da78ef91bee13adfdc67db02c5bf239bf2bf9b3843fa535cd857be"
+  },
+  "document_diff_unified_context": 0
+}

@@ -1,0 +1,614 @@
+diff --git a/docs/HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md b/docs/HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md
+index 0269e99..0b30855 100644
+--- a/docs/HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md
++++ b/docs/HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md
+@@ -3 +3 @@
+-Criado em 28/09/2026; atualizado em 18/10/2026. Status: Sprint 1 implementado; núcleo do Sprint 2 implementado, com validação do autor e complemento de qualidade pendentes. Sprint 0 mantém a pendência de baseline registrada em seu relatório.
++Criado em 28/09/2026; atualizado em 19/10/2026. Status: Sprint 1 implementado; núcleo do Sprint 2, S2.12 A, hordas e caixas consolidados tecnicamente, sem aceite de jogabilidade. S2.9 (medições), S2.12 (revisão A e parte B), S2.11 e validação do autor pendentes. Sprint 0 mantém a pendência de baseline S0.4.
+@@ -12,0 +13,2 @@ Planejamento de atmosfera 2,5D e estilo *Metal Slug* incorporado em 18/10/2026:
++Consolidação de 19/10/2026: [plano por fases](consolidacao/PLANO_SPRINTS_0_2.md), [quadro](SPRINT_STATUS.md) e [handoff](handoffs/integracao-2026-10-19-s0-s2.md). Colônia B3 (S6.12), Explorador r7 (S2.12 A), patrulhas de 32 (S2.4), Patrol Unit (S6.1) e Shanghai fase 01 (S6.3) já integradas em 18/10; hordas crescentes e caixas (S6.13) reunidas na Fase 1. Autor e Claude conferiram a Parada 1 conforme relato do autor; **aceite de jogabilidade continua na etapa 6.5**, sem encerramento dos itens completos ou novos checkboxes de aceite. Fases 2–3 organizam fontes e documentação; avanço da integração principal segue na Fase 4.
++
+@@ -25 +27 @@ Feedback mínimo de tiro, dano, mira, inimigos, minas e barreiras faz parte da j
+-Nesta atualização, somente o planejamento foi alterado. O piloto em execução, saves, dependências e assets permanecem como estão. Testes visuais e aprovação da jogabilidade são realizados pelo autor; o agente executa verificações técnicas e entrega roteiros.
++Esta atualização documental registra o estado consolidado. As Fases 2–3 preservam o runtime, saves e dependências da Fase 1; fontes são copiadas e documentadas. Testes visuais e aprovação da jogabilidade são realizados pelo autor; o agente executa verificações técnicas e entrega roteiros.
+@@ -132 +134 @@ Saída: abrir o jogo, entrar no hub, falar com EDEN, caminhar ao deck, entrar/sa
+-**Núcleo S2.1–S2.8 implementado em 29/09/2026. Validação visual do autor e novos itens S2.9–S2.12 pendentes.**
++**Núcleo S2.1–S2.8 implementado em 29/09/2026, ampliado nas integrações de 18–19/10. S2.12 A integrada, sem aceite; S2.9 com medições pendentes; S2.10 já aceita. Revisão específica da parte A, parte B, S2.11 e validação de jogabilidade da etapa 6.5 pendentes.**
+@@ -141 +143 @@ Objetivo: validar a sensação básica de combate antes de criar a horda complet
+-- [x] S2.4 Criar robô simples com perseguição e ataque. Para o mapa pequeno, usar navegação sobre área transitável e obstáculos; não apenas vetor direto até o player.
++- [x] S2.4 Criar robô simples com perseguição e ataque. Para o mapa pequeno, usar navegação sobre área transitável e obstáculos; não apenas vetor direto até o player. *Ampliações integradas em 18–19/10, sem aceite: patrulhas de 32 e hordas 10→20→30→40 (padrão), com reabastecimento, antecipam parte da S3.1 a pedido do autor, sem marcar S3.1/S3.4/S3.8. Cone frontal de 120° até 10 m; até 3 m percebe frente/laterais até 135° de cada lado, com ponto cego traseiro de 90°; paredes bloqueiam ambos e tiro recebido alerta de qualquer direção. [Handoff](handoffs/s2.4-hordas-crescentes.md).*
+@@ -155 +157 @@ Executar mudanças pequenas após receber o teste do autor, preservando a config
+-  - **A · Movimento pela mira e Explorador da S6.8** (versão validada pelo autor: r7, `4c0ecfd`, com os cinco clipes). Novo contrato: W corre na direção do cursor; S recua mantendo o personagem voltado ao cursor, sem girar 180°; A/D não deslocam; W + S neutralizam; sem W/S, parado e orientado pelo cursor. A mesma direção horizontal de mira orienta corpo e deslocamento; cursor muito perto mantém a última direção válida. Velocidades de corrida e recuo separadas e ajustáveis, recuo mais lento. Q/C, R, E e Escape preservados; bloqueios de menus, diálogos e transições conferidos; instruções e HUD atualizadas. Integrar o candidato da S6.8 (Explorador r7 com Idle, Run, Talk, Fall e Backward, preservando as correções posteriores à r6) como asset separado, com opção de desenvolvimento para comparar com o personagem atual no mesmo ponto, câmera e luz, sem duplicar personagem ou colisores; prévia de teste começa com a r7. Estados Idle, Run e Backward com transições curtas; reprodução ajustada à velocidade efetiva (0,80 m/s é a referência do Backward, não a velocidade final), contato dos pés conferido contra o deslocamento real no jogo e locomoção parada contra parede. Materiais por asset em `GLBCharacter`, sem `flatShading` indiscriminado; escala, colisores e mapas inalterados. A pose de mira do candidato segue experimental.
++  - **A · Movimento pela mira e Explorador da S6.8** (versão validada pelo autor: r7, `4c0ecfd`, com os cinco clipes). Novo contrato: W corre na direção do cursor; S recua mantendo o personagem voltado ao cursor, sem girar 180°; A/D não deslocam; W + S neutralizam; sem W/S, parado e orientado pelo cursor. A mesma direção horizontal de mira orienta corpo e deslocamento; cursor muito perto mantém a última direção válida. Velocidades de corrida e recuo separadas e ajustáveis, recuo mais lento. Q/C, R, E e Escape preservados; bloqueios de menus, diálogos e transições conferidos; instruções e HUD atualizadas. Integrar o candidato da S6.8 (Explorador r7 com Idle, Run, Talk, Fall e Backward, preservando as correções posteriores à r6) como asset separado, com opção de desenvolvimento para comparar com o personagem atual no mesmo ponto, câmera e luz, sem duplicar personagem ou colisores; prévia de teste começa com a r7. Estados Idle, Run e Backward com transições curtas; reprodução ajustada à velocidade efetiva (0,80 m/s é a referência do Backward, não a velocidade final), contato dos pés conferido contra o deslocamento real no jogo e locomoção parada contra parede. Materiais por asset em `GLBCharacter`, sem `flatShading` indiscriminado; escala, colisores e mapas inalterados. A pose de mira do candidato segue experimental. *Parte A integrada em 18/10 (`cf1bc63`, origem `82e3229`), sem aceite. A revisão específica contra `110922a`, A1–A13 e a decisão sobre corrida/deslizamento do Run permanecem na etapa 6.1; o aceite de jogabilidade segue na etapa 6.5. Fontes r7 preservadas fora do Git da integração, com manifesto da Fase 2.*
+@@ -240 +242 @@ Objetivo: transformar volumes provisórios em elementos reconhecíveis sem alter
+-- [ ] S6.13 Construir narrativa ambiental do novo universo: ruínas urbanas, exploração e vestígios da guerra na Terra; sobrevivência, laboratório e infraestrutura em Marte. Props não alteram cobertura ou ocultam alvos por acidente. Usar marcos visuais para nave, laboratório e rotas.
++- [ ] S6.13 Construir narrativa ambiental do novo universo: ruínas urbanas, exploração e vestígios da guerra na Terra; sobrevivência, laboratório e infraestrutura em Marte. Props não alteram cobertura ou ocultam alvos por acidente. Usar marcos visuais para nave, laboratório e rotas. *Parte antecipada integrada na consolidação de 19/10, sem aceite: duas caixas de munição em Shanghai fase 01, abertura por E/botão e revelação azul; +48 de reserva por caixa uma vez por tentativa, restauradas no reinício. Não conclui toda a narrativa ambiental nem S4.3/persistência. [Handoff](handoffs/s6.13-caixa-suprimentos.md).*
+diff --git a/docs/SPRINT_STATUS.md b/docs/SPRINT_STATUS.md
+index bf9ad17..aeb1fce 100644
+--- a/docs/SPRINT_STATUS.md
++++ b/docs/SPRINT_STATUS.md
+@@ -11 +11 @@
+-> Atualizado em 07/10/2026.
++> Atualizado em 19/10/2026. A pedido do autor, a Fase 3 do [plano de consolidação](./consolidacao/PLANO_SPRINTS_0_2.md) atualiza este quadro na branch `rochatales/integracao-2026-10-19-s0-s2`, antes do avanço da integração principal na Fase 4.
+@@ -19,2 +19,2 @@
+-| 2 · Movimento, tiro e sobrevivência | ◐ Núcleo implementado (S2.1–S2.8) | Validação visual do autor ([roteiro](./sprint-2/VALIDACAO_MANUAL.md)); S2.9 integrada, medições do autor pendentes; S2.10 integrada e aceita pelo autor; S2.12 A em implementação; S2.11 |
+-| 3 · Ondas, categorias e dispositivos | 🔲 Não iniciado | Depende da validação do Sprint 2 |
++| 2 · Movimento, tiro e sobrevivência | ◐ Núcleo implementado (S2.1–S2.8) | S2.12 A, patrulhas de 32 e hordas crescentes integradas, sem aceite; S2.9 com medições pendentes; S2.10 já aceita; revisão específica da S2.12 A, parte B e S2.11 pendentes. Aceite de jogabilidade na etapa 6.5 do [roteiro consolidado](./sprint-2/VALIDACAO_MANUAL.md) |
++| 3 · Ondas, categorias e dispositivos | 🔲 Escopo oficial pendente | Hordas 10→20→30→40 antecipadas pela S2.4; não concluem S3.1/S3.4/S3.8. Defesas e categorias ainda pendentes |
+@@ -23 +23 @@
+-| 6 · Estética dos elementos | 🔲 Não iniciado | UI planejada: S6.6 e S6.14–S6.18; implementação depende do ciclo funcional/playtest do Sprint 5 |
++| 6 · Estética dos elementos | ◐ Partes antecipadas integradas, sem aceite | Colônia B3, Patrol Unit, Shanghai fase 01 e caixas; não encerram os itens completos. S6.5 estacionada; fontes S6.8 fora do Git da integração. S6.6/S6.14–S6.19 planejadas; demais entregas dependem do ciclo funcional/playtest do Sprint 5 |
+@@ -26 +26 @@
+-Testes automatizados: **36** (`npm test`) na branch de integração após o merge da S2.10 (20 do relatório do Sprint 2 + 11 da instrumentação S2.9 + 5 da posição transitória S2.10).
++Testes automatizados: **104/104** (`npm test`) na consolidação da Fase 1 (`7e91c1a`) e na reexecução da Fase 2; build e diff-check verdes. Não é medição de GPU nem aceite de jogabilidade. [Fase 1](./handoffs/integracao-2026-10-19/README.md) · [Fases 2–3](./handoffs/integracao-2026-10-19-s0-s2.md).
+@@ -35,6 +35,7 @@ Legenda: 🔲 não iniciado · ◐ em andamento/parcial · ✅ implementado ·
+-| Branch de integração | `rochatales/horda-survivor` |
+-| Commit de consolidação do piloto | `a40dac41e4637156140e304454f6b4f3afdc2ba0` |
+-| Situação | ✅ Piloto e documentos de colaboração consolidados localmente; sem push ou merge |
+-| Próxima ação | Atribuir uma tarefa, fixando o SHA da ponta da branch de integração; essa ponta inclui o piloto e o registro posterior deste quadro |
+-| Commit-base do conteúdo do piloto | `a40dac41e4637156140e304454f6b4f3afdc2ba0` |
+-| Referência para nova tarefa | `rochatales/horda-survivor`; resolver `git rev-parse rochatales/horda-survivor` e registrar o SHA imutável na linha da tarefa antes de criar a worktree |
++| Branch de integração (destino) | `rochatales/horda-survivor`, ainda em B1 `1637449be4880ac2c7021b5ebe931c6b55e36a43` |
++| Branch da consolidação em revisão | `rochatales/integracao-2026-10-19-s0-s2` |
++| Commit consolidado de código e fontes (Fase 2) | `989b81ff2489e169e82bb2d3a817990020800063` |
++| Situação | Código e fontes consolidados localmente na branch acima; documentação entregue na Parada 3. Sem aceite de jogabilidade, push ou avanço da branch de destino |
++| Próxima ação | Autor ler o diff da Parada 3; Fase 4 revisa o conjunto contra B1 e o autor decide o avanço `--ff-only` |
++| Commit-base histórico do piloto | `a40dac41e4637156140e304454f6b4f3afdc2ba0` |
++| Referência para nova tarefa | Aguardar o avanço da Fase 4; depois resolver `git rev-parse rochatales/horda-survivor` e registrar o SHA imutável. A ponta documental da consolidação é resolvida pela branch, sem autorreferência de commit neste quadro |
+@@ -49,3 +50,3 @@ qual a worktree parte e contra o qual a revisão compara.
+-| S6.13 Caixa de suprimentos com abertura e revelação azul | `0c6c3f659cfabdb622f525c532f0b0825267d148` | `rochatales/s6.13-caixa-suprimentos` | `art-source/caixa-suprimentos/`, novo GLB/manifesto em `src/assets/props/caixa-suprimentos/`, prévia isolada, `src/combat/{CombatScene,CombatHud,simulation}.ts(x)`, `src/game/shanghai/layout.ts`, `src/state/useCombatStore.ts`, `src/app/App.tsx`, testes e handoff | Codex | Autor | ◐ Asset aprovado pelo autor em 18/10/2026; autorizada integração no jogo atual de duas caixas em Shanghai, +48 munições de reserva por caixa, uma vez por tentativa, abertura por E e revelação azul. Runtime da base corresponde à integração atual (`ca8932f` só acrescentou este registro). Sem persistência de inventário/S4.3, merge ou push |
+-| S6.3 Shanghai fase 01 — mapa ampliado e primeira passada de texturas | `ec845e7f44763e7684589c1e50b1a544f3120e58` | `rochatales/s6.3-shanghai-fase01` | `art-source/shanghai-fase01/`, `src/assets/shanghai-fase01/`, `src/game/shanghai*`, `src/game/config.ts`, `src/combat/navigation.ts`, testes de mundo/navegação, `docs/sprint-6/referencias-shanghai/`, `docs/handoffs/s6.3-shanghai-fase01.md`; câmera só após S6.12/autorização; consumidores de spawns só após S2.4 | Codex | Autor | ◐ Atribuída em 18/10/2026. Autor antecipa fase 01 (102 × 108 m) e texturas iniciais antes de S5.8; não substitui Sprint 7. S6.12 e S2.4 não integradas: respeitar arquivos reservados; pontos de spawn/patrulha em módulo novo. Sem merge/push |
+-| S2.4 / S2.8 Ajuste de horda e patrulha solicitado em 17/10/2026 | `dfd5894e4fb55a3bd2e27a36bf3037278b7f2a59` | `rochatales/s2.4-horda-patrulha` | `src/combat/{config.ts,simulation.ts,CombatHud.tsx}`, `src/state/useCombatStore.ts`, `tests/combat.test.mjs`, `docs/handoffs/s2.4-horda-patrulha.md` | Codex | Autor | ◐ Implementada em `f0c35c5`, worktree gerenciada `s2-4-horda-patrulha/game-workplace`; prévia na porta 5179. 38 testes/build/diff-check verdes. 32 robôs em patrulha, aquisição por visão. Duração de ~30 s, desempenho e jogabilidade pendentes de playtest; sem merge |
++| S6.13 Caixa de suprimentos com abertura e revelação azul | `0c6c3f659cfabdb622f525c532f0b0825267d148` | `rochatales/s6.13-caixa-suprimentos` | `art-source/caixa-suprimentos/`, novo GLB/manifesto em `src/assets/props/caixa-suprimentos/`, prévia isolada, `src/combat/{CombatScene,CombatHud,simulation}.ts(x)`, `src/game/shanghai/layout.ts`, `src/state/useCombatStore.ts`, `src/app/App.tsx`, testes e handoff | Codex | Autor | ◐ **Integrada nesta consolidação, sem aceite de jogabilidade**: `239d59f` → merge `5adee8a`. Duas caixas na fase 01, E/botão, +48 de reserva cada, uma vez por tentativa, revelação azul. Autor conferiu o funcionamento na Parada 1; aceite segue na etapa 6.5. Sem S4.3/persistência. [Handoff](./handoffs/s6.13-caixa-suprimentos.md) |
++| S6.3 Shanghai fase 01 — mapa ampliado e primeira passada de texturas | `ec845e7f44763e7684589c1e50b1a544f3120e58` | `rochatales/s6.3-shanghai-fase01` | `art-source/shanghai-fase01/`, `src/assets/shanghai-fase01/`, `src/game/shanghai*`, `src/game/config.ts`, `src/combat/navigation.ts`, testes de mundo/navegação, `docs/sprint-6/referencias-shanghai/`, `docs/handoffs/s6.3-shanghai-fase01.md`; câmera só após S6.12/autorização; consumidores de spawns só após S2.4 | Codex | Autor | ◐ **Integrada em 18/10, sem aceite**: merge `9944c11` e ajuste `7062b81`; fase 01 padrão (102 × 108 m), foguete e primeira passada de texturas. Decisões E3 (ocultação, licença da fonte e densidade) pendentes. [Handoff](./handoffs/s6.3-shanghai-fase01.md) |
++| S2.4 / S2.8 Ajuste de horda e patrulha solicitado em 17/10/2026 | `dfd5894e4fb55a3bd2e27a36bf3037278b7f2a59` | `rochatales/s2.4-horda-patrulha` | `src/combat/{config.ts,simulation.ts,CombatHud.tsx}`, `src/state/useCombatStore.ts`, `tests/combat.test.mjs`, `docs/handoffs/s2.4-horda-patrulha.md` | Codex | Autor | ◐ **Integrada em 18/10, sem aceite**: merge `6e5c0c2` da ponta `cd5ac19`; 32 patrulhas, metais temporários, corações e HUD. Opção 32 preservada; hordas passaram a padrão em 19/10. Duração e desempenho pendentes. [Handoff](./handoffs/s2.4-horda-patrulha.md) |
+@@ -55,2 +56,2 @@ qual a worktree parte e contra o qual a revisão compara.
+-| S2.12 Ajustes de controle do autor (A: movimento pela mira e Explorador da S6.8; B: arma, traçador e colisão) | `110922afac0a981eaf32a9ba45905f4a1e5198e2` (`rochatales/horda-survivor`, merge da S2.10) | `claude/s2.12-movimento-mira-explorador` | Parte A: `src/characters/player/{PlayerController,PlayerAim,LocomotionController,PlayerModel,playerConfig,relativeMovement}.ts(x)`, `src/characters/{GLBCharacter.tsx,characterAssetConfig.ts}`, `src/controls/keyboardControls.ts`, `src/app/App.tsx`, novo `src/assets/characters/player/` (GLB r7 com os cinco clipes, asset separado), `tests/`, `docs/sprint-2/VALIDACAO_MANUAL.md`, `docs/handoffs/s2.12.md`. Parte B: arquivos do handoff da S2.9, confirmados na atribuição dela | Claude | Codex | ◐ Parte A em implementação. Asset: Explorador **r7** (`4c0ecfd`, `export/explorador_v2_candidato_r7.glb`, `143a14d0…`), última versão validada, com Idle, Run, Talk, Fall e Backward; preserva as correções posteriores à r6 |
+-| S6.12 Colônia de Marte v006 B3 no jogo | `b1594714b00e7ead84e14b6a9c7bc9b7e89dd436` | `rochatales/s6.12-colonia-v006` | `src/game/marsWorld.ts`, `src/scene/OfficeScene.tsx`, `src/scene/CameraRig.tsx`, novo `src/scene/marsColony/`, `src/assets/colony-v006*`, scripts de exportação, testes e handoff | Codex | Autor | ◐ Atribuída em 17/10/2026; fonte v006 B3 escolhida pelo autor; fontes Blender preservadas; sem merge. S2.12 e S6.5 sem edição nesta tarefa |
++| S2.12 Ajustes de controle do autor (A: movimento pela mira e Explorador da S6.8; B: arma, traçador e colisão) | `110922afac0a981eaf32a9ba45905f4a1e5198e2` (`rochatales/horda-survivor`, merge da S2.10) | `claude/s2.12-movimento-mira-explorador` | Parte A: `src/characters/player/{PlayerController,PlayerAim,LocomotionController,PlayerModel,playerConfig,relativeMovement}.ts(x)`, `src/characters/{GLBCharacter.tsx,characterAssetConfig.ts}`, `src/controls/keyboardControls.ts`, `src/app/App.tsx`, novo `src/assets/characters/player/` (GLB r7 com os cinco clipes, asset separado), `tests/`, `docs/sprint-2/VALIDACAO_MANUAL.md`, `docs/handoffs/s2.12.md`. Parte B: arquivos do handoff da S2.9, confirmados na atribuição dela | Claude | Codex | ◐ **Parte A integrada em 18/10, sem aceite**: merge `cf1bc63` da ponta `82e3229`, Explorador r7 (`4c0ecfd`) e cinco clipes. Revisão específica Codex `110922a...82e3229`, A1–A13 e decisão sobre Run pendentes na etapa 6.1; parte B depois, com escopo para fase 01 a aprovar. Conferência da Parada 1 não substitui a etapa 6.5. [Handoff](./handoffs/s2.12.md) |
++| S6.12 Colônia de Marte v006 B3 no jogo | `b1594714b00e7ead84e14b6a9c7bc9b7e89dd436` | `rochatales/s6.12-colonia-v006` | `src/game/marsWorld.ts`, `src/scene/OfficeScene.tsx`, `src/scene/CameraRig.tsx`, novo `src/scene/marsColony/`, `src/assets/colony-v006*`, scripts de exportação, testes e handoff | Codex | Autor | ◐ **Integrada em 18/10, sem aceite**: merge `0b13dd1` da ponta `5afd225`. Fonte final B3 e dados das portas versionados em `989b81f`; SHA-256 da fonte confirmado. Escadas E4 pendentes. [Handoff](./handoffs/s6.12-colonia-v006.md) |
+@@ -58 +59,5 @@ qual a worktree parte e contra o qual a revisão compara.
+-| S6.8 Explorador v2 otimizado (só explorador; asset e clipe Backward) | `7f2e60b36fb4ab95d07133b425cb25a11ea99a81` (`rochatales/horda-survivor`) | `claude/horda-survivor-main-player-optimized-fc390c` | `art-source/explorador-v2/**`, `docs/handoffs/s6.8-explorador-v2.md` | Claude | Autor | ◐ r6 (`3911d16`), r6b com Backward (`144b1f4`) e **r7** (`4c0ecfd`: proporções, mãos, capacete, junções; cinco clipes) entregues; r7 validada pelo autor como base da integração; GLB ativo intacto; integração no jogo pela S2.12; sem merge |
++| S6.8 Explorador v2 otimizado (só explorador; asset e clipe Backward) | `7f2e60b36fb4ab95d07133b425cb25a11ea99a81` (`rochatales/horda-survivor`) | `claude/horda-survivor-main-player-optimized-fc390c` | `art-source/explorador-v2/**`, `docs/handoffs/s6.8-explorador-v2.md` | Claude | Autor | ◐ r7 (`4c0ecfd`, cinco clipes) validada pelo autor como base de asset e usada no runtime pela S2.12 A. **Fontes fora do Git da integração**, preservadas na branch de arte e em snapshot complementar da Fase 2 (2.398 arquivos; 3.874.118.420 bytes). Sem merge da branch de fontes; LFS/fontes grandes aguardam S7.10. Aceite completo pendente |
++| S2.4 Hordas crescentes e ajuste das costas | `0c6c3f6` (hordas); B1 `1637449` (consolidação) | `claude/robot-patrol-queue-hordes-797d36`; integração `rochatales/integracao-2026-10-19-s0-s2` | `src/combat/{config,simulation,navigation,patrolUnit,CombatHud,CombatScene}.ts(x)`, store, testes e handoff | Claude (hordas); Codex (integração e costas) | Claude / Autor | ◐ **Integrada nesta consolidação, sem aceite**: `0204158` → merge `83e93de`; costas cegas em `c1a4be0`. Padrão 10→20→30→40, +24% ao avistar, percepção de 3 m sem costas e alerta por tiro. Parada 1 conferida pelo Claude e autor conforme relato do autor; 104/104 testes. Aceite na etapa 6.5. [Handoff](./handoffs/s2.4-hordas-crescentes.md) |
++| S6.1 Patrol Unit no jogo | `cd5ac19` | `claude/s6.1-robo-patrulha` | `src/combat/{patrolUnit,CombatScene}.ts(x)`, `src/assets/enemies/`, testes e handoff | Claude | Autor | ◐ **Integrada em 18/10, sem aceite**: merge `b410f2e` da ponta `5eecb7a`. Visual de 2,67 m; raio de combate 0,42 m ainda aguarda decisão E1/S2.12 B. Fontes no snapshot, sem nova exportação. [Handoff](./handoffs/s6.1-robo-patrulha.md) |
++| Arte · Estudo da plataforma de lançamento v004 (ref. S6.12/S6.13) | `7f2e60b36fb4ab95d07133b425cb25a11ea99a81` | `claude/arte-plataforma-lancamento` | `art-source/mars-colony-plataforma/**`, `docs/handoffs/arte-plataforma-lancamento.md` | Claude | Autor | ◐ Estudo entregue; aguarda avaliação; sem integração da v004/v005. A fonte B3 escolhida foi integrada pela S6.12; estudo original preservado no snapshot e na worktree. [Handoff histórico](./handoffs/arte-plataforma-lancamento.md) |
++| S0/S2 · Consolidação de 19/10/2026 | B1 `1637449be4880ac2c7021b5ebe931c6b55e36a43` | `rochatales/integracao-2026-10-19-s0-s2` | Fontes B3, manifesto, evidências de portas, quadro, plano e roteiro manual; código integrado na Fase 1 | Codex | Claude / Autor | ◐ Fases 0 e 1 conferidas pelo autor; Fases 2 e 3 entregues na Parada 3. Revisão completa contra B1 e avanço `--ff-only` aguardam Fase 4; aceite de jogabilidade na etapa 6.5. [Handoff](./handoffs/integracao-2026-10-19-s0-s2.md) |
+@@ -69,2 +74,3 @@ Regra de conflito: duas tarefas simultâneas não podem listar os mesmos
+-arquivos principais. S2.10 e S2.11 tocam câmera, controller e física, então
+-rodam em sequência, não em paralelo.
++arquivos principais. S2.12 B e S2.11 têm dependência de posição visual/física e
++podem tocar o controller; executar primeiro S2.12 B e depois S2.11, conforme
++Fase 6. A revisão/validação da parte A vem antes de ambas.
+@@ -73,0 +80,8 @@ rodam em sequência, não em paralelo.
++- 19/10/2026 · codex · Fases 2 e 3 na branch de consolidação, autorizadas após a Parada 1. Fonte B3 e dados técnicos das portas em `989b81f`; manifesto por arquivo e snapshot complementar do Explorador. Quadro, plano e roteiro alinhados a 104 testes, Shanghai fase 01, hordas, caixas e percepção sem costas. Nenhum checkbox de aceite alterado; revisão/avanço na Fase 4 e jogabilidade na etapa 6.5.
++
++- 19/10/2026 · autor · Parada 1 conferida: relatou revisão do Claude dos merges, ajuste das costas e 104/104 testes; conferiu no jogo viagem, hordas, caixas e costas. Isso não concede o aceite de jogabilidade da etapa 6.5 nem dispensa a revisão do conjunto da Fase 4.
++
++- 18/10/2026 · integração anterior · S6.12 (`0b13dd1`), S2.12 A (`cf1bc63`), S2.4/32 (`6e5c0c2`), S6.1 (`b410f2e`) e S6.3 (`9944c11`, ajuste `7062b81`) já presentes em `0c6c3f6`; registro regularizado nesta consolidação, sem aceite dos itens completos. [Relatório](./handoffs/integracao-2026-10-18-shanghai-fase01.md).
++
++- 30/09/2026 · claude · estudo de arte da plataforma v004, variantes A central e B deslocada, entregue em worktree sobre `7f2e60b`; registro no quadro regularizado em 19/10. Estudo preservado, sem integrar suas variantes. [Handoff histórico](./handoffs/arte-plataforma-lancamento.md).
++
+diff --git a/docs/handoffs/arte-plataforma-lancamento.md b/docs/handoffs/arte-plataforma-lancamento.md
+new file mode 100644
+index 0000000..600c967
+--- /dev/null
++++ b/docs/handoffs/arte-plataforma-lancamento.md
+@@ -0,0 +1,240 @@
++> Nota da consolidação de 19/10/2026: registro no quadro regularizado na Fase 3.
++> O conteúdo abaixo é o handoff histórico da worktree de arte; suas referências a
++> “não registrada”/“sem integração” descrevem a entrega original. As variantes
++> v004/v005 continuam como estudos, sem incorporação; a B3 escolhida foi integrada
++> pela S6.12 em 18/10, e sua fonte final foi versionada na Fase 2 (`989b81f`).
++> Originais, estudos e renders preservados nos snapshots do manifesto
++> [fontes de arte](../consolidacao/fontes-arte-2026-10-19.json). Nenhum aceite novo.
++
++# Handoff — Arte · Estudo da plataforma de lançamento v004
++
++| Campo | Valor |
++|---|---|
++| Base | `7f2e60b36fb4ab95d07133b425cb25a11ea99a81` (`rochatales/horda-survivor`) |
++| Branch / worktree | `claude/arte-plataforma-lancamento` · `.claude/worktrees/arte-plataforma-lancamento` |
++| Implementa | Claude |
++| Revisa | Autor (revisão visual) |
++| Plano | Relacionado a S6.12/S6.13; não marca nenhum item |
++| Estado | ◐ Estudo entregue; aguarda avaliação do autor. Sem commit, sem integração |
++
++## Registro no quadro (pendente)
++
++O hook da sessão bloqueia edição no checkout principal, onde fica o quadro da
++branch de integração. Por isso a tarefa **não foi registrada** em
++`docs/SPRINT_STATUS.md`.
++
++Linha proposta para o autor colar na tabela "Tarefas":
++
++```
++| Arte · Estudo da plataforma de lançamento v004 (ref. S6.12/S6.13) | `7f2e60b36fb4ab95d07133b425cb25a11ea99a81` (`rochatales/horda-survivor`) | `claude/arte-plataforma-lancamento` | `art-source/mars-colony-plataforma/**`, `docs/handoffs/arte-plataforma-lancamento.md` | Claude | Autor | ◐ Estudo entregue; aguarda avaliação; sem integração |
++```
++
++Log proposto:
++
++```
++- 30/09/2026 · claude · estudo de arte da plataforma de lançamento (v004, variantes A central e B deslocada) em worktree própria a partir de `7f2e60b`. Sem alteração de `src/`, colisores do piloto ou GLB ativo. [Handoff](./handoffs/arte-plataforma-lancamento.md).
++```
++
++## O que mudou
++
++Só arquivos novos, todos em `art-source/mars-colony-plataforma/` e neste
++handoff. O resumo, as medidas, as contagens, a oclusão e as decisões estão em
++`art-source/mars-colony-plataforma/NOTAS_ESTUDO_v004_PLATAFORMA.md`.
++
++## Verificação
++
++**Feito pelo agente**
++
++- **Testes e build:** não foram rodados `npm test` nem `npm run build`; não
++  há mudança de código. `git status` mostra só `art-source/` e este handoff
++  como novos.
++- **Preservação:** MD5 da v001–v003, dos backups e dos GLBs inalterados (início
++  × fim).
++- **Passagem:** raio de 0,36 m, comparando os colisores candidatos com as
++  propostas de cada variante.
++- **Oclusão:** 8 rotações da câmera real, no zoom inicial.
++
++**Roteiro para o autor**
++
++1. Abrir o `.blend` e alternar as camadas `Plataforma_A` e `Plataforma_B`.
++2. Comparar `renders/jogo_8_rotacoes_A.png` com `renders/jogo_8_rotacoes_B.png`.
++3. Ver `renders/comparacao_entrada_v003_A_B.png` e
++   `renders/comparacao_planta_A_B.png`.
++4. Decidir a variante e se as propostas `COL_NOVO_PLAT_*` entram (veja a
++   nota).
++
++## Pendências
++
++- Registrar a tarefa no quadro (linha acima).
++- Commit dos arquivos da tarefa, quando o autor pedir.
++- Avaliação visual e de jogabilidade: não aprovadas.
++
++## Desvio do fluxo
++
++O `AI_WORKFLOW.md` §1.5 pede consolidar o trabalho corrente num commit antes
++de abrir uma worktree nova.
++
++O estudo v001–v003 continua **não commitado** na worktree
++`mars-colony-base-map-9ce462`, porque o autor pediu "não commite" naquela
++tarefa. A worktree nova não toca esses arquivos: a v003 é lida por caminho
++absoluto.
++
++Fica para o autor decidir se esse estudo deve ser consolidado.
++
++---
++
++## v005 · refinamento da variante B ("B2") — 30/09/2026
++
++O autor escolheu a variante B para refinamento visual, ainda sem integração. A
++nota completa está em
++`art-source/mars-colony-plataforma/NOTAS_ESTUDO_v005_B_REFINADA.md`.
++
++**O que mudou**
++
++Tudo são arquivos novos em `art-source/mars-colony-plataforma/`:
++
++- o `.blend` `blend/mars_colony_estudo_v005_plataforma_B2.blend`;
++- os scripts `*_v005*.py` e `otimizar_b2.py`;
++- os resultados em `renders/v005/` e `notas/*v005*.json`.
++
++A v004 e os estudos anteriores não foram alterados.
++
++Ficaram iguais:
++
++- pisos;
++- colisores ativos;
++- `INTERACT_Nave` (0; 33);
++- desembarque e embarque.
++
++Os colisores `COL_NOVO_PLAT_B2_*` continuam como propostas.
++
++**Verificado pelo agente**
++
++- **Oclusão parada no desembarque, 8 orientações:**
++  - jogador, baia, jogador em (0; 33) e passagem: 0% ocultos pela plataforma;
++  - faixa sul: no pior caso 50% (S), contra 58% na B.
++- **Sequência de 204 quadros, da eclusa até o embarque e de volta:** nenhum
++  quadro com o jogador oculto pela plataforma nas 8 orientações. Na B eram 19.
++- **Varredura de 5 em 5°:** restam 6 de 72 giros, entre 100° e 125°, fora das
++  8 orientações.
++- **Passagem, raio 0,36 m:** perda de 0 m² com as propostas; todos os alvos
++  alcançáveis.
++- **Totem:** a peça visual agora fica dentro do colisor do fundo, sem os 3 cm
++  de avanço.
++- **Testes e build:** `npm test` e `npm run build` não foram rodados, porque
++  não há mudança de código.
++
++**Roteiro para o autor**
++
++1. `renders/v005/comparacao_B_atual_x_B_refinada.png`
++2. `renders/v005/jogo_8_rotacoes_B2_desembarque.png`
++3. `renders/v005/sequencia_acesso_B2.mp4` e
++   `renders/v005/sequencia_mapa_ocultacao_B_x_B2.png`
++4. `renders/v005/conexao_baia_rampa_foguete_B2.png`. Nela, âmbar marca o que
++   é jogável e ciano o que é cenográfico.
++5. No `.blend`, a camada `Plataforma_B2`.
++
++**Pendências (nenhuma está resolvida)**
++
++- **Quadro:** a tarefa segue **não registrada** em `docs/SPRINT_STATUS.md`. A
++  linha proposta está acima; para a v005, o status passaria a "◐ B refinada
++  (v005) entregue; aguarda avaliação; sem integração".
++- **Base:** a v001–v003 segue **não commitada** na worktree
++  `mars-colony-base-map-9ce462` (veja "Desvio do fluxo"). A v004 e a v005
++  também estão sem commit nesta branch.
++- **Ordem:** a regularização do quadro e da base tem de acontecer **antes de
++  qualquer integração**.
++- **Exportação:** não houve GLB da B2.
++- **Aprovação:** avaliação visual e de jogabilidade pendentes, do autor.
++
++---
++
++## v006 · B3 — rotação contínua, braço, cenário e GLB de prévia (30/09/2026)
++
++O autor manteve a v005 como base e pediu ajustes antes de exportar. A nota
++completa está em `art-source/mars-colony-plataforma/NOTAS_ESTUDO_v006_B3.md`.
++A prova de exportação está em
++`art-source/mars-colony-plataforma/export/previa_v006_B3/NOTA_PROVA_EXPORTACAO_v006.md`.
++
++**Decisão do autor nesta rodada:** deslocar o conjunto 6 m para oeste,
++centro em (−10; 41,5), com o foguete reduzido para cerca de 9,8 m (topo a
++10,1 m). A escolha foi feita entre quatro opções medidas.
++
++**O que mudou** (só arquivos novos; v001–v005 preservadas)
++
++- `.blend` v006: `blend/mars_colony_estudo_v006_plataforma_B3.blend`.
++- Scripts `*_v006.py`.
++- Renders em `renders/v006/`.
++- Medições em `notas/*v006*.json` e `notas/rotacao_v005_B2.json`.
++- GLB de prévia, manifesto e propostas em `export/previa_v006_B3/`.
++
++**O que ficou igual:** pisos, colisores ativos, `INTERACT_Nave` e embarque.
++
++**Verificado pelo agente**
++
++- **Código do jogo (só leitura):** a câmera gira livre, a 100°/s, sem encaixe.
++  A bordo, o ângulo congela no do embarque.
++- **v005:** o jogador fica oculto entre 98° e 128° no desembarque, na baia e
++  no elevador. São 0,42 s girando de SE a O e de volta; a bordo, o tempo todo.
++- **v006:**
++  - 0° de ocultação em 360° (passo de 1°) no acesso, na baia e no elevador;
++  - 0 s na sequência de giro;
++  - nenhum ângulo de embarque deixa o jogador oculto.
++- **Deck alcançável:** 172 de 684 pontos com o corpo majoritariamente oculto
++  em algum ângulo; na v005, 620. Na faixa sul são 99 de 185, com até 54° de
++  giro. Isso afeta só piso livre: o anel do elevador e a placa da coluna não
++  ficam ocultos.
++- **Passagem, raio 0,36 m:** perda de 0 m² com as propostas e 0 m² de
++  geometria visível sem colisor.
++- **GLB:**
++  - nenhuma diferença em relação ao manifesto, com 30 IDs únicos;
++  - pivôs e caixas com diferença de até 0,05 mm, escala 1;
++  - normais com desvio de até 0,03°;
++  - 18.742 triângulos dos dois lados;
++  - materiais iguais;
++  - renders com diferença média de 0,05 em 255.
++- **Testes e build:** `npm test` e `npm run build` não foram rodados, porque
++  não há mudança de código. `git diff --check` passou.
++
++**Achado para a integração (não resolvido)**
++
++A câmera do jogo fica a 22,8 m do alvo, com near de 0,1, e corta peças altas
++que ficam atrás dela. Isso afeta 5% dos pares ponto × ângulo na v006 e 11,5%
++na v005.
++
++A correção é no runtime (`CameraRig.tsx`): recuar a câmera na mesma direção
++ou usar near negativo. Precisa de uma tarefa de código própria; não foi
++feita aqui.
++
++**Roteiro para o autor**
++
++1. `renders/v006/comparacao_v005_x_v006.png`
++2. `renders/v006/elevador_a_bordo_v005_x_v006.png`
++3. `renders/v006/giro_camera_v005_x_v006.mp4`
++4. `renders/v006/rotacao_360_ocultacao_v005_x_v006.png`
++5. `renders/v006/deck_alcancavel_ocultacao_v005_x_v006.png`
++6. `renders/v006/silhuetas_v005_x_v006.png`
++7. `renders/v006/braco_tripulacao_v005_x_v006.png`
++8. `renders/v006/conexao_baia_elevador_foguete_B3_analise.png`. Âmbar e ciano
++   aparecem só aqui.
++9. `renders/v006/diagnostico_corte_near_camera.png`
++10. No `.blend`, a camada `Plataforma_B3`.
++
++**Pendências (nenhuma está resolvida)**
++
++- **Quadro:** a tarefa segue **não registrada** em `docs/SPRINT_STATUS.md`.
++  Status proposto: "◐ B3 (v006) e GLB de prévia entregues; aguarda avaliação;
++  sem integração".
++- **Base:**
++  - a v001–v003 segue **não commitada** na worktree
++    `mars-colony-base-map-9ce462`;
++  - a v004–v006 segue sem commit nesta branch.
++  - O desvio do fluxo continua o mesmo.
++- **Ordem:** a regularização do quadro e da base tem de vir **antes de
++  qualquer integração**. Não houve integração nem merge.
++- **Runtime:**
++  - correção do corte pelo plano near;
++  - decisão sobre as propostas `COL_NOVO_PLAT_B3_*`.
++- **Anel âmbar do piso do piloto:** continua. Os pisos não foram alterados, e
++  isso é decisão do autor.
++- **Aprovação:** avaliação visual e de jogabilidade, pendentes.
+diff --git a/docs/handoffs/integracao-2026-10-19-s0-s2.md b/docs/handoffs/integracao-2026-10-19-s0-s2.md
+new file mode 100644
+index 0000000..e8249a3
+--- /dev/null
++++ b/docs/handoffs/integracao-2026-10-19-s0-s2.md
+@@ -0,0 +1,144 @@
++# Handoff — Consolidação S0–S2 de 19/10/2026
++
++Implementa: Codex. Branch/worktree únicas: `rochatales/integracao-2026-10-19-s0-s2`,
++`/Users/rochatales/.codex/worktrees/integracao-2026-10-19-s0-s2/game-workplace`.
++Referência: [plano por fases](../consolidacao/PLANO_SPRINTS_0_2.md).
++**Entrega na Parada 3; Fases 4–6 não executadas.**
++
++## Bases, commits e conferências do autor
++
++| Referência | Commit |
++|---|---|
++| Base inicial indicada pelo autor | `a8c7813886a3387fe239e51c74ed384867b17097` |
++| B1 · docs locais registrados na integração principal | `1637449be4880ac2c7021b5ebe931c6b55e36a43` |
++| S6.13 · duas caixas, fonte final e handoff | `239d59f22b35fa85d79283516d99b8bb958a99fa` |
++| Fase 1 · código e evidências | `7e91c1ad1b390f733fa9c5bc5d05fa7d6fe24df5` |
++| Fase 2 · fonte B3, portas e manifesto | `989b81ff2489e169e82bb2d3a817990020800063` |
++
++O commit documental da Fase 3 sucede a Fase 2; obter a ponta com
++`git rev-parse rochatales/integracao-2026-10-19-s0-s2`. O quadro registra o SHA
++consolidado de código/fontes da Fase 2, evitando autorreferência de commit.
++A integração principal `rochatales/horda-survivor` permanece em B1.
++
++O autor conferiu a Fase 0 antes de autorizar a Fase 1. Ao autorizar as Fases 2–3,
++informou que o Claude verificou merges, ajuste das costas e 104/104 testes e
++que ele conferiu no jogo viagem, hordas, caixas e costas. Esse é o registro
++da conferência da Parada 1, baseado no relato do autor; não é uma nova revisão
++invocada pelo Codex nem dispensa a revisão do conjunto na Fase 4. **O aceite de
++jogabilidade continua na etapa 6.5**, conforme instrução expressa do autor.
++
++## Fase 1 — código integrado e conflitos
++
++Dois merges `--no-ff` executados na branch da tarefa, previstos no plano:
++
++- Hordas de `claude/robot-patrol-queue-hordes-797d36` (`0204158`), merge
++  `83e93de`, sem conflito.
++- Caixas de `rochatales/s6.13-caixa-suprimentos` (`239d59f`), merge `5adee8a`.
++  Quatro conflitos: `src/combat/CombatHud.tsx`, `CombatScene.tsx`,
++  `simulation.ts` e `src/state/useCombatStore.ts`. Resolução da referência
++  `munition-box-update`, com `encounter`, crates como quarto argumento,
++  `nearCrate: false`, `encounterTotal` no restart e mensagens de munição por contexto.
++
++Antes do ajuste de costas, 114 arquivos de `src/` e `tests/` ficaram idênticos
++por SHA-256 à referência + arquivos novos da S6.13. Commit separado `c1a4be0`
++limitou a percepção de 3 m a 135° de cada lado (ponto cego traseiro de 90°),
++preservando paredes, cone frontal de 120°/10 m e alerta por tiro recebido de
++qualquer direção. [Registro, testes e navegador da Fase 1](integracao-2026-10-19/README.md).
++
++## Fase 2 — fontes versionadas e preservação
++
++**67 arquivos, 4.588.322 bytes**, além do manifesto:
++
++- 63 arquivos B3 em `art-source/mars-colony-plataforma/`: `.blend` final,
++  `NOTAS_ESTUDO_v006_B3.md`, notas, scripts sem cache e dados/GLB da exportação
++  de prévia. SHA-256 do `.blend` na origem, snapshot e cópia:
++  `a17aa3c4b557a7e323997429ec7083d1bca5d990c55dcb552c460352f2728dc4`.
++- 4 arquivos da S6.12: `jogo-e-preview.json`, `geometria/medicao.json` e
++  `scripts/qa-colony-doors{,-run}.mjs`, copiados sem alteração e conferidos
++  contra o snapshot. São evidências históricas; o replay completo de portas
++  não foi reexecutado nesta fase.
++
++Aplicada a regra geral da Fase 2 também às pastas `export/previa_v006_B3/` e
++`geometria/`: imagens, vídeos, renders, `*.blend1`, caches e scripts temporários
++ficam no snapshot. Notas/scripts anteriores incluídos na seleção explícita
++da B3 permanecem como contexto de geração, sem importar os estudos Blender
++v001–v005. Os colisores propostos da prévia não substituem os colisores/layout
++atuais. Nenhuma nova exportação foi executada nem GLB de runtime alterado.
++
++O [manifesto de fontes](../consolidacao/fontes-arte-2026-10-19.json) registra
++cada arquivo, origem, snapshot, tamanho, SHA-256 e relação com asset de runtime:
++Patrol Unit, Explorador, Astro Explorer candidato, estudos de colônia/plataforma,
++MainPlayer/arte solta, renders/backups da caixa, mídias de portas e docs históricos.
++Todos os arquivos de snapshot nele listados foram reconferidos por SHA-256.
++
++| Snapshot externo | Conteúdo / total de payload |
++|---|---|
++| `/Users/rochatales/Automations/game-workplace-backups/consolidacao-s0-s2-20261019-201227` | Fase 0 já conferida: 3.222 arquivos (inclui 3 patches), 2.785.238.544 bytes; manifesto original intacto |
++| `/Users/rochatales/Automations/game-workplace-backups/consolidacao-s0-s2-complemento-fase2-20261019-204529` | Árvore integral do Explorador: 2.398 arquivos, 3.874.118.420 bytes; cópias e origens reconferidas em duas passagens |
++
++O complemento foi necessário porque a seleção da Fase 0 não abrangia a worktree
++do Explorador. O inventário integral inclui intermediários, renders e arquivos
++ignorados/caches, por isso supera a estimativa antiga de 1,6 GB do plano. Cada
++snapshot tem manifesto, verificação e `RESTORE.md`; recuperar sempre em pasta
++nova. São cópias locais, sem proteção contra perda do disco.
++
++Explorador r7: exportação confere byte a byte com
++`src/assets/characters/player/explorador-r7.glb`. A branch de fontes `4c0ecfd`
++continua intacta, sem merge; fontes grandes aguardam decisão S7.10/LFS.
++Patrol Unit: exportação preservada tem SHA-256 `56dc0510…c43b28`, diferente
++do GLB já versionado `c01d3ea6…b339ad`; JSON glTF é idêntico, chunk BIN difere.
++Ambos foram preservados e seus hashes completos estão no manifesto. A divergência
++é anterior à Fase 2; não se afirma equivalência binária nem se reexporta o robô.
++Astro Explorer v001 é candidato sem uso no jogo.
++
++Docs de `project-review`: colaboração já incorporada por cópia revisada;
++`GAMEPLAY_REVIEW_SPRINTS.md` é histórico do MCP Office e não foi adotado;
++prompts WorldLabs continuam só no snapshot. S6.5 permanece estacionada.
++
++## Fase 3 — documentação entregue
++
++- [Quadro](../SPRINT_STATUS.md): tarefas integradas sem aceite, fontes e base
++  atuais, 104 testes, linha da arte da plataforma e histórico das conferências.
++- [Plano oficial](../HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md): data/status,
++  notas S2.4/S2.12 A/S6.13, sem mudar qualquer checkbox existente. Não marca
++  S3.1/S3.4/S3.8 nem concede aceite de item completo por uma entrega parcial.
++- [Roteiro manual](../sprint-2/VALIDACAO_MANUAL.md): Shanghai fase 01, hordas
++  padrão com opção de 1 robô, visão/proximidade/tiro, caixas, Patrol Unit de
++  2,67 m, cobertura/loot atuais e **A1–A13 preservados literalmente** do handoff
++  da S2.12. Corrigidas as instruções antigas que ainda falavam em movimento lateral
++  e ausência de hordas/coleta.
++- [Handoff da plataforma](arte-plataforma-lancamento.md): cópia histórica com
++  nota de regularização, distinguindo o estudo v004/v005 da B3 usada pela S6.12.
++- [Diff documental para a Parada 3](integracao-2026-10-19/fases-2-3/documentacao.patch),
++  contra `989b81f`; o manifesto técnico da Fase 2 é lido separadamente.
++
++## Comandos e verificação
++
++- Inventário Git/arquivos, cópias com `shutil.copy2`, tamanho e SHA-256 por arquivo;
++  hashes dos manifestos externos conferidos. Nenhuma origem movida ou apagada.
++- `npm test`: **104/104**, zero falhas/skips. [Saída](integracao-2026-10-19/fases-2-3/testes.txt).
++- `npm run build`: passou (TypeScript + Vite); aviso de chunk > 500 kB mantido.
++  [Saída](integracao-2026-10-19/fases-2-3/build.txt).
++- `node --check scripts/qa-colony-doors.mjs` e `node --check scripts/qa-colony-doors-run.mjs`:
++  passaram. Scripts copiados sem alterar comportamento.
++- `git diff --check`, `git diff --cached --check` e diff contra B1 passaram.
++  Conferência documental verifica links novos/alterados, tabela do quadro,
++  A1–A13 e igualdade dos estados de todos os checkboxes oficiais.
++- Runtime, testes, dependências e lockfile iguais à ponta da Parada 1.
++  Após o build/testes da Fase 2, somente docs foram editados na Fase 3; sem
++  motivo para repetir a sessão de navegador já conferida pelo autor.
++
++## Pendências do autor / próximas fases
++
++1. Ler o diff documental desta Parada 3. Na Fase 4, revisão completa contra B1
++   pelo Claude e correções/confirmação; avanço `--ff-only` somente pelo autor.
++2. S0.4 (Fase 5): movimento contínuo, diálogo de EDEN e medições reais.
++3. Fase 6: revisão específica da S2.12 A e A1–A13/Run; medições S2.9 no pico
++   de 40; proposta da S2.12 B na Parada 6.3; S2.11 depois. Raio E1, faixa
++   vertical do Patrol Unit e altura/colisão de caixas/depósitos exigem decisão.
++4. Aceite de jogabilidade na etapa **6.5**; só depois registrar encerramentos
++   autorizados na 6.6. E3 (ocultação/licença/densidade), E4 (escadas), LFS e
++   avaliação dos estudos continuam pendentes conforme o plano.
++
++Sem push, novo merge, avanço da integração principal, remoção de worktrees ou
++limpeza de arquivos do autor nas Fases 2–3. Nenhum aceite novo marcado.
+diff --git a/docs/sprint-2/VALIDACAO_MANUAL.md b/docs/sprint-2/VALIDACAO_MANUAL.md
+index 212ae64..5bed818 100644
+--- a/docs/sprint-2/VALIDACAO_MANUAL.md
++++ b/docs/sprint-2/VALIDACAO_MANUAL.md
+@@ -1 +1 @@
+-# Sprint 2 — Validação manual
++# Sprint 2 — Validação manual do estado consolidado
+@@ -3 +3 @@
+-Status: **pendente com o responsável pelo projeto**. Implementação e testes automatizados concluídos; aprovação visual e sensação dos controles ainda não registradas.
++Atualizado em 19/10/2026. **Aceite de jogabilidade pendente, na etapa 6.5 do [plano de consolidação](../consolidacao/PLANO_SPRINTS_0_2.md).** O autor informou que o Claude conferiu merges, ajuste das costas e 104/104 testes da Parada 1 e que ele conferiu no jogo viagem, hordas, caixas e costas. Essa conferência funcional não encerra esta validação.
+@@ -5 +5 @@ Status: **pendente com o responsável pelo projeto**. Implementação e testes a
+-Abrir http://127.0.0.1:5178/. Se a aba estava aberta, atualizar. Usar a página normal do jogo, não a fixture `/tests/browser-smoke.html`.
++Usar a página normal do jogo, não `/tests/browser-smoke.html` nem outra fixture. Na worktree `rochatales/integracao-2026-10-19-s0-s2`, executar `npm run dev -- --host 127.0.0.1 --port 5178`; se ocupada, usar outra porta explícita (a Fase 1 usou 5198). Para medir `?perf`, usar build e ambiente comparáveis conforme S2.9; dev/fixture não aprovam desempenho.
+@@ -9,3 +9,5 @@ Abrir http://127.0.0.1:5178/. Se a aba estava aberta, atualizar. Usar a página
+-- [ ] Em Marte, caminhar ao deck ao sul e embarcar com **E**.
+-- [ ] Escolher **1 robô** na cabine e decolar para Shanghai.
+-- [ ] Desembarcar. O combate começa quando o explorador está a pé; não começa dentro da cabine.
++- [ ] Em Marte (colônia v006 B3), caminhar ao deck ao sul e embarcar com **E**.
++- [ ] Conferir **Hordas · 10 → 20 → 30 → 40** como padrão. Para os testes básicos abaixo, escolher **1 robô** na cabine e decolar para Shanghai.
++- [ ] Desembarcar na **Shanghai fase 01** (102 × 108 m), mapa padrão; `?shanghaiAtual` é somente a comparação com o blockout anterior. Combate e contagem começam a pé, não na cabine.
++- [ ] Conferir Explorador r7 e **Patrol Unit de 2,67 m**. O raio de combate ainda é 0,42 m, menor que a largura visual de aproximadamente 1,78 m: decisão E1/S2.12 B pendente, sem ajuste nesta consolidação.
++- [ ] Para testar aquisição, reiniciar entre casos: robô já alertado mantém perseguição ao perder a visão.
+@@ -13 +15 @@ Abrir http://127.0.0.1:5178/. Se a aba estava aberta, atualizar. Usar a página
+-## Roteiro — aproximadamente 10 a 15 minutos
++## Testes básicos — 1 robô, depois 3/5/32
+@@ -17,12 +19,17 @@ Abrir http://127.0.0.1:5178/. Se a aba estava aberta, atualizar. Usar a página
+-| Movimento pela mira (contrato da S2.12) | Mirar com o mouse e usar W, S, W + S e A/D; repetir mirando em outra direção, movendo o cursor durante o movimento e girando a câmera com Q/C | W corre na direção do cursor; S recua com o corpo voltado ao cursor, sem girar 180°; W + S parado; A/D não deslocam; Shift não é necessário; a câmera não muda a direção do movimento |
+-| Rifle | Clicar uma vez, depois segurar o botão esquerdo sobre um robô | Disparos manuais, munição diminuindo e indicação de acerto; 3 acertos eliminam um robô |
+-| Recarga | Disparar algumas vezes e apertar R; tentar atirar durante a recarga | Recarga de cerca de 1,5 s; disparos bloqueados durante ela; pente até 24, descontando da reserva |
+-| Munição finita | Após limpar a área, esvaziar um pente e tentar atirar sem recarregar | Sem tiro com pente vazio; aviso para usar R; reserva não aumenta sozinha |
+-| Cobertura | Atrair um robô para trás de um prédio e disparar na direção dele | Prédio bloqueia tiro e dano; não confundir as caixas baixas de futuros recursos com cobertura, pois são apenas marcadores |
+-| Navegação | Contornar um prédio e observar o perseguidor; testar ficar perto de uma parede | Robô contorna o obstáculo sem atravessá-lo; encostar na parede não deve interromper a perseguição |
+-| Dano e morte | Deixar robôs encostarem até a vida acabar | Dano de 15 por contato, intervalo global de aproximadamente 0,8 s; feedback vermelho e tela de derrota com HP zero |
+-| Reinício | Na derrota, clicar Tentar novamente | Retorno à rampa de Shanghai com 100 HP, 24/96 balas, contador zerado e robôs restaurados; nenhum tiro antigo permanece |
+-| Pausa | Apertar Esc durante perseguição e durante recarga; aguardar e retomar | Jogador, inimigos, disparos e recarga congelam; não há dano acumulado ao retomar |
+-| Troca de janela | Segurar movimento/tiro e trocar de janela; voltar | Pausa automática. Ao retomar, nenhum movimento ou tiro fica preso sem novo comando |
+-| Mais inimigos | Ao vencer ou morrer, selecionar 3 e depois 5 robôs e reiniciar | Contagem corresponde ao encontro; os robôs continuam navegando; HUD, mira e resposta continuam legíveis e fluidos |
+-| Viagem preservada | Voltar à nave, embarcar, retornar a Marte e desembarcar | Hub e deck continuam funcionando; sem inimigos ou combate em Marte |
++| Movimento pela mira | Mirar e usar W, S, W + S e A/D; mudar o cursor durante o movimento e girar Q/C | W corre ao cursor; S recua mantendo o corpo para o cursor; W + S parado; A/D sem deslocamento; Shift desnecessário; câmera não redefine a direção |
++| Visão frontal | Aproximar um robô não alertado pela frente, primeiro além de 10 m e depois dentro | Cone frontal de 120° (60° de cada lado), alcance de 10 m e linha livre; fora do alcance não detecta |
++| Proximidade e costas | Em tentativas novas, passar a menos de 3 m pela lateral, a 120°, a 160° e diretamente por trás; repetir com parede entre ambos | Até 3 m, frente/laterais até 135° de cada lado detectam; 160°/costas ficam cegas (90° traseiros). Parede bloqueia. Avaliar o giro da patrulha antes de atribuir detecção às costas |
++| Alerta por tiro | Acertar uma vez pelas costas e fora do cone; em outra tentativa errar sem entrar no campo de visão | Primeiro acerto não letal alerta de qualquer direção; tiro errado não alerta. Visor vermelho e exclamação por 1,5 s; perseguição permanece após perder a visão |
++| Aceleração | Comparar patrulha e perseguição | Passo de 1,65 para 2,05 m/s (cerca de +24%) ao avistar, de forma gradual; autor avalia ritmo |
++| Rifle | Clicar e depois segurar o botão esquerdo sobre o robô | Disparos manuais, consumo de munição e feedback de acerto; 3 acertos de 25 eliminam o robô de 75 HP |
++| Recarga | Disparar e apertar R; tentar atirar durante a recarga | Cerca de 1,5 s, disparos bloqueados, pente até 24 descontando da reserva |
++| Munição finita | Esvaziar o pente sem recarregar | Sem tiro com pente vazio; usar R. Reserva só aumenta por regras explícitas: caixas e reabastecimento das hordas |
++| Cobertura da fase 01 | Atrair o robô para trás de um prédio/parede com colisor exportado e disparar | Colisor simples bloqueia tiro/dano. Não presumir colisão em todo entulho ou letreiro visual. Os 2 depósitos e 6 esconderijos são pontos de loot sem colisor; as 2 caixas de munição têm colisor próprio e hoje bloqueiam tiros independentemente da altura (S2.12 B pendente) |
++| Navegação e patrulha | Contornar prédios; ficar junto a paredes; depois testar 32 patrulhas nos cruzamentos | Robôs contornam sem atravessar colisores nem travar indefinidamente em fila. Avaliar quinas/sobreposição visual considerando a pendência E1 do raio |
++| Peças e corações | Abater e aproximar-se do drop; tomar dano e alcançar os corações em (−17,5; 9,5) e (17,5; 9,5) | +1 ferro/+1 cobre por abate coletado, temporários da tentativa; cada coração cura até +50, limitado a 100 HP, e não é consumido com vida cheia. Sem coleta através de parede, em pausa ou após morte |
++| Dano e morte | Deixar robô encostar até zerar HP | 15 de dano, intervalo global de aproximadamente 0,8 s, feedback vermelho e derrota |
++| Reinício | Na derrota, escolher o modo e clicar Tentar novamente | Desembarque com 100 HP, 24/96 balas, contadores e tiros limpos, robôs do modo escolhido e duas caixas fechadas; sem conservar peças da tentativa |
++| Pausa | Esc durante perseguição, recarga, abertura e intervalo de horda; aguardar e retomar | Movimento, IA, temporizadores, abertura e recompensa congelam; sem dano/tempo acumulado ao retomar |
++| Troca de janela | Segurar movimento/tiro e trocar de janela; voltar | Pausa automática; ao retomar nenhuma tecla/gatilho fica preso |
++| Seletor | Na cabine, vitória ou derrota, exercitar 1/3/5/32/hordas e reiniciar | 1/3/5/32 iniciam patrulhas fixas; hordas usa 10/20/30/40 com slots reaproveitados, até 40 simultâneos |
++| Viagem preservada | Voltar à nave, retornar a Marte e desembarcar | Colônia, deck, EDEN e acesso ao laboratório preservados; sem combate em Marte |
+@@ -30 +37 @@ Abrir http://127.0.0.1:5178/. Se a aba estava aberta, atualizar. Usar a página
+-## O que avaliar visualmente
++## Caixas de munição — S6.13
+@@ -32,7 +39,5 @@ Abrir http://127.0.0.1:5178/. Se a aba estava aberta, atualizar. Usar a página
+-- [ ] Mira corresponde ao alvo e o rifle aponta na direção correta, inclusive com Q/C girando a câmera.
+-- [ ] É fácil distinguir jogador, inimigos e obstáculos.
+-- [ ] Disparo, acerto e dano têm feedback perceptível.
+-- [ ] HUD, rádio e botões não prejudicam a área de combate na resolução usada.
+-- [ ] A câmera acompanha sem atrapalhar mira e movimentação.
+-- [ ] Robôs não ficam presos indefinidamente, sobrepostos ou atravessando paredes.
+-- [ ] Não há travamentos perceptíveis, especialmente com 5 robôs.
++1. Procurar as duas caixas com luz azul, a oeste da chegada `(-10; 12)` e a nordeste `(36; −22)`. Pela frente, aproximar-se do marcador de interação (raio de 1,8 m), usar **E** na primeira e o botão na segunda.
++2. Conferir abertura de 2,4 s, clarão azul e **+48 na reserva por caixa a partir de 0,733 s**, sem encher o pente. Sem tiros/recarga/reabastecimento entre as duas, reserva inicial 96 → 144 → 192. Em hordas, comparar o incremento de cada caixa, pois o total pode mudar no início de uma horda.
++3. Repetir E/botão: não concede de novo, tampa permanece aberta. Testar fora de alcance, por trás da caixa, através de parede, em pausa e após morrer: não abre.
++4. Pausar durante a abertura, retomar e recarregar com R. Tentar caminhar contra a caixa e girar Q/C: colisor simples continua válido, sem prender no acesso; julgar a luz/animação na câmera real.
++5. Reiniciar: duas caixas fechadas, recompensa disponível uma vez em cada na nova tentativa. Inventário/persistência da S4.3 não entram nesta entrega.
+@@ -40 +45 @@ Abrir http://127.0.0.1:5178/. Se a aba estava aberta, atualizar. Usar a página
+-## Feedback de jogabilidade
++Detalhes: [handoff da S6.13](../handoffs/s6.13-caixa-suprimentos.md).
+@@ -42 +47 @@ Abrir http://127.0.0.1:5178/. Se a aba estava aberta, atualizar. Usar a página
+-Registrar se o movimento está pesado/leve, mira intuitiva/difícil, robôs lentos/rápidos, dano fraco/forte e encontro fácil/difícil. Os valores são iniciais, não um balanceamento final.
++## Hordas crescentes — padrão, depois dos testes básicos
+@@ -44 +49,6 @@ Registrar se o movimento está pesado/leve, mira intuitiva/difícil, robôs lent
+-Para cada problema: **teste, quantidade de robôs, ação realizada, resultado observado e resultado esperado**. Informar navegador/resolução e, se possível, vídeo ou captura.
++1. Selecionar **Hordas** e reiniciar. Conferir HUD com total de 100 ameaças, linha da horda e faixa **CONTATO IMINENTE**; primeira horda após 4 s de simulação a pé.
++2. Conferir **10 → 20 → 30 → 40** robôs surgindo por setores da borda, em locais alcançáveis e afastados do jogador. A próxima começa 6 s após todos os vivos da anterior zerarem; observar faixa/contagem e reutilização dos rigs sem pose de morte.
++3. Observar marcha, aquisição individual, +24% de velocidade, cerco e cruzamentos sem fila permanente. Esta antecipação não declara S3.1/S3.4/S3.8 concluídas nem aplica o teto de 8 do plano dessas tarefas.
++4. Conferir reposição dos dois corações no início de cada horda. Se necessário, o jogo aumenta a reserva até assegurar munição total de pelo menos 1,5 × os acertos exigidos pela horda (45/90/135/180); não reduz munição existente nem enche o pente. Caixas abertas não reiniciam a cada horda: somente numa nova tentativa.
++5. Pausar no intervalo; retomar sem avanço acumulado. Zerar as quatro hordas e conferir **Hordas neutralizadas**, sem novos spawns, retorno livre ou reinício.
++6. Cronometrar a duração real, avaliar pressão, margem de erro/munição e medir `?perf` no pico de 40 robôs. A medição em equipamento real da etapa 6.2/S2.9 e o aceite da etapa 6.5 continuam pendentes.
+@@ -46 +56 @@ Para cada problema: **teste, quantidade de robôs, ação realizada, resultado o
+-## Fora do escopo desta validação
++Detalhes: [handoff das hordas](../handoffs/s2.4-hordas-crescentes.md).
+@@ -48 +58 @@ Para cada problema: **teste, quantidade de robôs, ação realizada, resultado o
+-Ondas, minas, barreiras, animais, loot, extração obrigatória e construção da máquina ainda não existem. Robôs, rifle, cenário e animações são provisórios. A volta a Marte permanece livre; os encontros não concedem recompensas. Atualizar a página retorna ao hub e não salva a tentativa em Shanghai.
++## S2.12 A — preservar A1–A13
+@@ -50 +60 @@ Ondas, minas, barreiras, animais, loot, extração obrigatória e construção d
+-## Ajuste de direcionais após feedback
++Itens do [handoff da S2.12](../handoffs/s2.12.md), sem alterar numeração/expectativas nem marcar aceite. Revisão específica e decisão sobre corrida/deslizamento na etapa 6.1. Para comparação em produção, abrir `?comparar`; a variante anterior não possui Backward.
+@@ -52 +62,31 @@ Ondas, minas, barreiras, animais, loot, extração obrigatória e construção d
+-Movimento agora relativo ao olhar, em ambos os mapas. Validar especialmente recuo e deslocamento lateral sem giro involuntário, e W seguindo a nova orientação após mover o mouse. A câmera não define a frente do personagem. Testes visuais permanecem com o responsável.
++| Item | Ação | Esperado |
++|---|---|---|
++| A1 | Correr com W em várias direções, girando o cursor | Corre para onde o cursor aponta; o corpo e o deslocamento giram juntos |
++| A2 | S em várias direções | Recua sem girar o corpo; passos curtos para trás |
++| A3 | W + S, A, D, Shift | Parado com W + S; A/D/Shift sem efeito no movimento |
++| A4 | Alternar W/S rapidamente | Transições curtas entre Run e Backward, sem salto de pose |
++| A5 | Cursor sobre o personagem, parado e recuando | Orientação estável |
++| A6 | Q/C durante o movimento | A direção segue a mira |
++| A7 | Encostar numa parede com W e com S | Personagem para de animar a locomoção; retoma ao sair |
++| A8 | Portas, embarque e desembarque, EDEN (E), Esc | Comportamento como antes; bloqueios em menus e diálogos |
++| A9 | Shanghai: mirar, atirar e recarregar correndo e recuando | Tiro e recarga como antes |
++| A10 | "Comparar com o personagem atual" no selo | Mesmo ponto, câmera e luz; só o visual muda |
++| A11 | Materiais da r7 no zoom máximo | Sombreamento suave, visor azul sem escurecimento duplo |
++| A12 | Velocidades (4,2 / 1,2 m/s) e deslizamento do Run | Decidir os valores |
++| A13 | Parado, girar o cursor devagar em volta do personagem, passando pelo norte do mapa (mundo −Z) | O corpo acompanha o cursor sem dar a volta inteira no próprio eixo |
++
++## O que avaliar e registrar
++
++- [ ] Mira, rifle e alvo coerentes em movimento e com Q/C; limitações de origem/traçador/altura permanecem para a S2.12 B.
++- [ ] Jogador, Patrol Units, prédios, drops e caixas distinguíveis em todos os giros e zooms.
++- [ ] Feedback de disparo, acerto, dano, detecção, horda e abertura perceptível; HUD/rádio/botões legíveis sem ocultar a área principal.
++- [ ] Câmera acompanha sem atrapalhar mira e movimento; Run/Backward e transições avaliados, inclusive deslizamento do Run.
++- [ ] Rotas e performance com 5/32 robôs e no pico de 40; registrar equipamento, navegador, resolução, DPR e limitações (inclusive ausência de 120/144 Hz).
++
++Para cada caso: modo/horda, ação, observado × esperado, resultado, ambiente e evidência. Registrar sensação de controle, ritmo, dano, dificuldade e duração real; valores atuais não são balanceamento final. Nenhum item acima está aprovado por esta atualização.
++
++## Fora do escopo e pendências
++
++Minas, barreiras, duas categorias de criaturas, loot persistente, extração obrigatória e construção da máquina permanecem pendentes. Hordas, peças temporárias, corações e caixas já existem neste estado; não equivalem aos Sprints 3–5 completos. Retorno a Marte continua livre; recarregar a página retorna ao hub e não salva a tentativa em Shanghai.
++
++S2.12 B (origem/mira/traçador, colisão com altura e sólidos/navegação) exige proposta da etapa 6.3 para fase 01: altura do Patrol Unit, raio E1, altura das caixas e colisão dos depósitos. S2.11 vem depois, sem adoção automática. Revisão completa e avanço da integração seguem na Fase 4; aceite de jogabilidade somente na etapa 6.5.
