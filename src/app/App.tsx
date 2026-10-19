@@ -12,6 +12,8 @@ import { EDEN_BRIEFING, SHANGHAI_BRIEFING } from '../npcs/scripts/eden';
 import { disposeWorld } from '../game/worldUtils';
 import type { OfficeWorld } from '../world/createOfficeMap';
 import type { MapId } from '../game/session';
+import { interactWithSupplyCrate } from '../game/props/crateInteraction';
+import { SUPPLY_CRATE } from '../game/props/supplyCrate';
 function Welcome() {
     const [name, setName] = useState(''), [color, setColor] = useState('#66e6ff');
     const start = useExpeditionStore(s => s.start);
@@ -67,9 +69,10 @@ function Runtime() {
     // Proximidade publicada só quando a condição muda (ver PlayerController).
     const canEden = useGameStore(g => g.nearEden);
     const canBoard = useGameStore(g => g.nearShip);
+    const canOpenCrate = useCombatStore(g => g.nearCrate);
     useEffect(() => {
         const key = (e: KeyboardEvent) => {
-            if (e.repeat || e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement)
+            if (e.repeat || e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement || e.target instanceof HTMLSelectElement || (e.target instanceof HTMLElement && e.target.isContentEditable))
                 return;
             const state = useExpeditionStore.getState();
             if (!state.ready || state.session.phase === 'travelling' || (state.session.map === 'shanghai' && useCombatStore.getState().dead))
@@ -87,6 +90,8 @@ function Runtime() {
                     state.closePanel();
                 else if (isNearEden(state.session.map))
                     state.openEden();
+                else if (interactWithSupplyCrate())
+                    e.preventDefault();
                 else
                     state.send('board');
             }
@@ -109,7 +114,7 @@ function Runtime() {
     {s.session.map === 'shanghai' && <CombatHud/>}
     {s.saveError && <p className="save-warning" role="alert">{s.saveError}</p>}
     {s.ready && s.session.phase === 'walking' && !s.panel && !paused && !(s.session.map === 'shanghai' && dead) && <div className="interaction">
-      {canEden ? <button onClick={s.openEden}>E · Conversar com EDEN</button> : canBoard ? <button onClick={() => s.send('board')}>E · Entrar na aeronave</button> : <span>Explore a pé · E para interagir</span>}
+      {canEden ? <button onClick={s.openEden}>E · Conversar com EDEN</button> : canBoard ? <button onClick={() => s.send('board')}>E · Entrar na aeronave</button> : canOpenCrate ? <button onClick={interactWithSupplyCrate}>E · Abrir caixa · +{SUPPLY_CRATE.ammo} munições</button> : <span>Explore a pé · E para interagir</span>}
     </div>}
     {s.panel === 'eden' && <section className="overlay" role="dialog" aria-label="Conversa com EDEN"><article>
       <p className="eyebrow">EDEN · GUIA DA COLÔNIA</p><h2>Uma nova expedição.</h2>{EDEN_BRIEFING.map(line => <p key={line}>{line}</p>)}

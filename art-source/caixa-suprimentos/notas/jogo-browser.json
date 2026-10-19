@@ -1,0 +1,172 @@
+{
+  "method": "App real em Vite; viagem pela UI. Posições preparadas via store para QA; 1 robô colocado na rua norte para isolar a interação; interações E/botão, pausas e câmera reais. Não é aprovação de gameplay.",
+  "far": {
+    "reserve": 96,
+    "ammo": 24,
+    "crates": [
+      {
+        "id": "ammo-west",
+        "phase": "closed",
+        "elapsed": 0,
+        "rewarded": false
+      },
+      {
+        "id": "ammo-northeast",
+        "phase": "closed",
+        "elapsed": 0,
+        "rewarded": false
+      }
+    ],
+    "player": {
+      "x": -5,
+      "y": 0,
+      "z": 2
+    },
+    "paused": false
+  },
+  "opening": {
+    "reserve": 144,
+    "ammo": 24,
+    "crates": [
+      {
+        "id": "ammo-west",
+        "phase": "opening",
+        "elapsed": 0.9000000000000011,
+        "rewarded": true
+      },
+      {
+        "id": "ammo-northeast",
+        "phase": "closed",
+        "elapsed": 0,
+        "rewarded": false
+      }
+    ],
+    "player": {
+      "x": -10,
+      "y": 0,
+      "z": 14.5
+    },
+    "paused": false
+  },
+  "paused": {
+    "reserve": 144,
+    "ammo": 24,
+    "crates": [
+      {
+        "id": "ammo-west",
+        "phase": "opening",
+        "elapsed": 1.2333333333333338,
+        "rewarded": true
+      },
+      {
+        "id": "ammo-northeast",
+        "phase": "closed",
+        "elapsed": 0,
+        "rewarded": false
+      }
+    ],
+    "player": {
+      "x": -10,
+      "y": 0,
+      "z": 14.5
+    },
+    "paused": true
+  },
+  "frozen": {
+    "reserve": 144,
+    "ammo": 24,
+    "crates": [
+      {
+        "id": "ammo-west",
+        "phase": "opening",
+        "elapsed": 1.2333333333333338,
+        "rewarded": true
+      },
+      {
+        "id": "ammo-northeast",
+        "phase": "closed",
+        "elapsed": 0,
+        "rewarded": false
+      }
+    ],
+    "player": {
+      "x": -10,
+      "y": 0,
+      "z": 14.5
+    },
+    "paused": true
+  },
+  "first": {
+    "reserve": 144,
+    "ammo": 24,
+    "crates": [
+      {
+        "id": "ammo-west",
+        "phase": "open",
+        "elapsed": 2.4,
+        "rewarded": true
+      },
+      {
+        "id": "ammo-northeast",
+        "phase": "closed",
+        "elapsed": 0,
+        "rewarded": false
+      }
+    ],
+    "player": {
+      "x": -10,
+      "y": 0,
+      "z": 14.5
+    },
+    "paused": false
+  },
+  "both": {
+    "reserve": 192,
+    "ammo": 24,
+    "crates": [
+      {
+        "id": "ammo-west",
+        "phase": "open",
+        "elapsed": 2.4,
+        "rewarded": true
+      },
+      {
+        "id": "ammo-northeast",
+        "phase": "open",
+        "elapsed": 2.4,
+        "rewarded": true
+      }
+    ],
+    "player": {
+      "x": 24,
+      "y": 0,
+      "z": -13.5
+    },
+    "paused": false
+  },
+  "retry": {
+    "reserve": 96,
+    "ammo": 24,
+    "crates": [
+      {
+        "id": "ammo-west",
+        "phase": "closed",
+        "elapsed": 0,
+        "rewarded": false
+      },
+      {
+        "id": "ammo-northeast",
+        "phase": "closed",
+        "elapsed": 0,
+        "rewarded": false
+      }
+    ],
+    "player": {
+      "x": 0,
+      "y": 0,
+      "z": 9.5
+    },
+    "paused": false
+  },
+  "errors": []
+}

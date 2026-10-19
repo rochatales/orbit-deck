@@ -1,5 +1,7 @@
 import { COMBAT, HIT_LAYER, HORDE_ENCOUNTER, RIFLE_MASK, encounterLayout, type EncounterChoice, type EncounterLayout } from './config';
 import { Navigation, clearSegment, segmentBox, smoothPath, traversable, type Position, type Terrain } from './navigation';
+import { advanceCrate, openCrate, SUPPLY_CRATE, type CratePlacement, type CrateState } from '../game/props/supplyCrate';
+export interface SupplyCrate extends CrateState, CratePlacement { marker: Position; rewarded: boolean }
 export interface Robot extends Position {
     id: number;
     hp: number;
@@ -119,7 +121,9 @@ export class CombatSimulation {
     readonly total: number;
     edgeSpawns: Position[] = [];
     private dropCursor = 0;
-    constructor(public terrain: Terrain, encounter: EncounterChoice, private readonly layout: EncounterLayout = encounterLayout()) {
+    crates: SupplyCrate[];
+    constructor(public terrain: Terrain, encounter: EncounterChoice, private readonly layout: EncounterLayout = encounterLayout(), crates: readonly CratePlacement[] = []) {
+        this.crates = crates.map(p => ({ ...p, marker: { x: p.x, z: p.z + 1.1 }, phase: 'closed', elapsed: 0, rewarded: false }));
         this.navigation = new Navigation(terrain, COMBAT.robot.radius, COMBAT.grid);
         this.hearts = layout.hearts.map(p => ({ x: p.x, z: p.z, active: true }));
         if (encounter === HORDE_ENCOUNTER) {
@@ -178,6 +182,18 @@ export class CombatSimulation {
         const need = Math.ceil(count * Math.ceil(COMBAT.robot.hp / COMBAT.rifle.damage) * COMBAT.hordes.ammoMargin);
         if (this.ammo + this.reserve < need) this.reserve = need - this.ammo;
     }
+    nearbySupplyCrate(player: Position): SupplyCrate | undefined {
+        if (this.dead || !Number.isFinite(player.x + player.z)) return;
+        for (const crate of this.crates)
+            if (crate.phase === 'closed'
+                && Math.hypot(player.x - crate.marker.x, player.z - crate.marker.z) <= SUPPLY_CRATE.radius
+                && clearSegment(player, crate.marker, this.terrain, 0)) return crate;
+    }
+    openSupplyCrate(player: Position, paused = false): boolean {
+        if (paused || this.dead) return false;
+        const crate = this.nearbySupplyCrate(player);
+        return !!crate && openCrate(crate, player.x, player.z, crate.marker.x, crate.marker.z);
+    }
     private canCollect(player: Position, pickup: Position) {
         return Math.hypot(player.x - pickup.x, player.z - pickup.z) <= COMBAT.pickupRadius
             && clearSegment(player, pickup, this.terrain, 0);
@@ -187,6 +203,13 @@ export class CombatSimulation {
         if (paused || this.dead)
             return;
         this.elapsed += dt;
+        for (const crate of this.crates) {
+            advanceCrate(crate, dt);
+            if (!crate.rewarded && crate.elapsed >= SUPPLY_CRATE.rewardAt) {
+                crate.rewarded = true;
+                this.reserve += SUPPLY_CRATE.ammo;
+            }
+        }
         this.cooldown = Math.max(0, this.cooldown - dt);
         this.invulnerable = Math.max(0, this.invulnerable - dt);
         this.damageFlash = Math.max(0, this.damageFlash - dt);

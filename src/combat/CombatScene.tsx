@@ -12,11 +12,15 @@ import { CombatSimulation, type CombatInput } from './simulation';
 import { COMBAT } from './config';
 import { PATROL_UNIT, PatrolUnitRig } from './patrolUnit';
 import patrolUnitUrl from '../assets/enemies/patrol-unit.glb';
+import { SupplyCrates } from '../game/props/SupplyCrates';
+import { SHANGHAI_SUPPLY_CRATES } from '../game/props/supplyCrate';
+import { isShanghaiPhase01 } from '../game/shanghai/previewMode';
 export function CombatScene({ world }: {
     world: OfficeWorld;
 }) {
     const run = useCombatStore(s => s.run);
-    const simulation = useMemo(() => new CombatSimulation(world, useCombatStore.getState().encounter), [world, run]);
+    const simulation = useMemo(() => new CombatSimulation(world, useCombatStore.getState().encounter, undefined,
+        isShanghaiPhase01() ? SHANGHAI_SUPPLY_CRATES : []), [world, run]);
     const { gl } = useThree();
     const robots = useRef<(Group | null)[]>([]), tracers = useRef<(Mesh | null)[]>([]), reticle = useRef<Mesh>(null);
     const rings = useRef<(Mesh | null)[]>([]), alerts = useRef<(Group | null)[]>([]);
@@ -44,8 +48,10 @@ export function CombatScene({ world }: {
         combatRuntime.simulation = simulation;
         clock.current = 0;
         useCombatStore.getState().publish(simulation.snapshot);
-        return () => { if (combatRuntime.simulation === simulation)
-            combatRuntime.simulation = null; };
+        return () => { if (combatRuntime.simulation === simulation) {
+            combatRuntime.simulation = null;
+            useCombatStore.getState().setNearCrate(false);
+        } };
     }, [simulation]);
     useEffect(() => {
         const canvas = gl.domElement;
@@ -74,6 +80,7 @@ export function CombatScene({ world }: {
     }, [gl]);
     useFrame((_, delta) => {
         const blocked = simulationBlocked();
+        useCombatStore.getState().setNearCrate(!blocked && !!simulation.nearbySupplyCrate(playerPosition));
         if (blocked) {
             input.current.firing = false;
             input.current.tap = false;
@@ -144,6 +151,7 @@ export function CombatScene({ world }: {
         }
     });
     return <>
+    {simulation.crates.length > 0 && <SupplyCrates crates={simulation.crates}/>}
     {simulation.robots.map((r, i) => <group key={`${run}-${r.id}`} ref={g => { robots.current[i] = g; }}>
       <primitive object={rigs[i].root}/>
       <mesh ref={m => { rings.current[i] = m; }} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.025, 0]}><ringGeometry args={[0.43, 0.48, 20]}/><meshBasicMaterial color="#ff6753"/></mesh>

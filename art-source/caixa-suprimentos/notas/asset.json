@@ -1,0 +1,82 @@
+{
+  "id": "supply-crate-v001",
+  "units": "metros",
+  "forward": "+Z no jogo / -Y no Blender",
+  "interaction": {
+    "marker": "INTERACT_Crate",
+    "position": [
+      0,
+      0,
+      1.1
+    ],
+    "radius": 1.8,
+    "trigger": "E",
+    "clip": "Open",
+    "loop": false,
+    "clampWhenFinished": true
+  },
+  "initialState": "closed",
+  "durationSeconds": 2.4,
+  "light": {
+    "color": "#39e9ff",
+    "position": [
+      0,
+      0.92,
+      0.05
+    ],
+    "timeline": [
+      [
+        0,
+        0
+      ],
+      [
+        0.433,
+        0
+      ],
+      [
+        0.733,
+        70
+      ],
+      [
+        1.033,
+        150
+      ],
+      [
+        1.433,
+        110
+      ],
+      [
+        1.966,
+        35
+      ],
+      [
+        2.4,
+        12
+      ]
+    ],
+    "blenderUnit": "watts; calibrar intensidade three.js, sem equivalência automática"
+  },
+  "collision": {
+    "type": "cuboid",
+    "center": [
+      0,
+      0.59,
+      0
+    ],
+    "halfExtents": [
+      0.81,
+      0.59,
+      0.7
+    ],
+    "meshIsCollider": false
+  },
+  "nodes": {
+    "root": "CRATE_Supply_01",
+    "lid": "LID_Pivot",
+    "reveal": "VFX_Reveal"
+  },
+  "triangles": 19572,
+  "drawMeshes": 20,
+  "glbBytes": 3775364,
+  "gameplay": "Preparado para S4.3. Não concede nem persiste itens; não integrado ao mapa."
+}
