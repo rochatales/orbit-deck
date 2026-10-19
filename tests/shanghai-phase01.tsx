@@ -12,7 +12,7 @@ import '../src/styles/global.css';
 const query = new URLSearchParams(location.search), map = query.get('map') === 'mars' ? 'mars' : 'shanghai';
 const spawn = map === 'mars' ? INITIAL_POSITION : MAPS.shanghai.exit;
 expedition.setState({profile:{displayName:'QA S6.3',color:'#66e6ff'},session:{map,phase:'walking',destination:null,revision:1},spawn,panel:null});
-combat.setState({encounterSize:0});placePlayer(spawn);
+combat.setState({encounter:1});placePlayer(spawn);
 (window as any).__shanghaiQA = {
  viewpoints:data.viewpoints,
  disableCombat(){ if(combatRuntime.simulation) combatRuntime.simulation.robots.length=0; combat.setState({hp:100,dead:false}); },

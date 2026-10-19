@@ -50,6 +50,21 @@ export function clearSegment(a: Position, b: Position, terrain: Terrain, radius:
     }
     return true;
 }
+/**
+ * Corta a escada da grade de quatro direções (no lugar, sem alocar): mantém só os
+ * nós onde a linha livre a partir do último nó mantido deixa de existir. Sem isso,
+ * todos os robôs chegam ao jogador pelas mesmas quatro linhas retas da grade.
+ * Pontos de grade são compartilhados pela Navigation: só as referências mudam.
+ */
+export function smoothPath(from: Position, path: Position[], terrain: Terrain, radius: number) {
+    if (path.length < 2) return path;
+    let anchor = from, write = 0;
+    for (let i = 1; i < path.length; i++)
+        if (!clearSegment(anchor, path[i], terrain, radius)) { anchor = path[i - 1]; path[write++] = anchor; }
+    path[write++] = path[path.length - 1];
+    path.length = write;
+    return path;
+}
 /** Four-connected grid, inflated obstacles and swept edges: no corner cutting. */
 export class Navigation {
     points: Position[] = [];
