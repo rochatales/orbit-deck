@@ -1,0 +1,19 @@
+{
+ "arquivo": "export/plataforma_v004_B_previa.glb",
+ "bytes": 749184,
+ "nos": 34,
+ "malhas": 29,
+ "materiais": 15,
+ "triangulos_por_instancia_de_malha": 15446,
+ "INTERACT_Nave": [
+  0,
+  0,
+  33
+ ],
+ "SPAWN_Desembarque": [
+  0,
+  0,
+  29.5
+ ],
+ "nos_com_extras_previa": 34
+}

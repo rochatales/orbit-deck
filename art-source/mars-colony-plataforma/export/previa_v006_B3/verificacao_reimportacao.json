@@ -1,0 +1,600 @@
+{
+ "organizacao": {
+  "nos_com_id_estavel": 30,
+  "ids_unicos": true,
+  "id_estavel_igual_ao_manifesto": true,
+  "colisor_anotado_em_todas_as_malhas": true,
+  "objetos_COL_importados": [],
+  "por_papel": {
+   "baia_parapeitos": [
+    "PLAT_Baia_Parapeitos"
+   ],
+   "base_lancamento": [
+    "PLAT_B3_Base_Lancamento"
+   ],
+   "braco_tripulacao": [
+    "PLAT_B3_Braco_Tripulacao"
+   ],
+   "camera": [
+    "CAM_PLAT_B3_Conexao",
+    "CAM_PLAT_Geral"
+   ],
+   "coluna_chamada_elevador": [
+    "PLAT_B3_Totem_Embarque"
+   ],
+   "elevador_chegada_base": [
+    "PLAT_B3_Casa_Elevador_Base"
+   ],
+   "elevador_embarque": [
+    "PLAT_B3_Elevador_Embarque"
+   ],
+   "foguete": [
+    "PLAT_B3_Foguete"
+   ],
+   "linhas_abastecimento": [
+    "PLAT_B3_Linhas_Tanques"
+   ],
+   "marcador": [
+    "INTERACT_Nave",
+    "SPAWN_Desembarque"
+   ],
+   "mastro_servico": [
+    "PLAT_B3_Mastro_Servico",
+    "PLAT_B3_Umbilical_Mastro_1",
+    "PLAT_B3_Umbilical_Mastro_2"
+   ],
+   "mobiliario": [
+    "PLAT_Carro_1",
+    "PLAT_Carro_2",
+    "PLAT_Console_Leste",
+    "PLAT_Console_Oeste",
+    "PLAT_Rack_Cilindros"
+   ],
+   "passarela": [
+    "PLAT_B3_Passarela_Servico_3m"
+   ],
+   "piso_contexto": [
+    "ARQ_Deck_Marcacoes",
+    "ARQ_Piso_Deck"
+   ],
+   "sinalizacao": [
+    "PLAT_B3_Sinal_Casa_Elevador",
+    "PLAT_B3_Sinal_Totem"
+   ],
+   "sinalizacao_piso": [
+    "PLAT_B3_Chevrons_Embarque",
+    "PLAT_B3_Sinal_Piso_Embarque"
+   ],
+   "tanques_contexto": [
+    "PROP_Tanques"
+   ],
+   "torre_servico": [
+    "PLAT_B3_Torre_Servico"
+   ],
+   "umbilical": [
+    "PLAT_B3_Umbilical_Torre"
+   ]
+  }
+ },
+ "escala_e_transformacoes": {
+  "pivo_dif_max_m": 4e-05,
+  "bbox_dif_max_m": 5e-05,
+  "escalas_diferentes_de_1": [],
+  "alturas_fonte_m": {
+   "PLAT_B3_Foguete": 10.0983,
+   "PLAT_B3_Torre_Servico": 8.064,
+   "PLAT_B3_Mastro_Servico": 5.41
+  },
+  "alturas_reimportado_m": {
+   "PLAT_B3_Foguete": 10.0983,
+   "PLAT_B3_Torre_Servico": 8.064,
+   "PLAT_B3_Mastro_Servico": 5.41
+  },
+  "INTERACT_Nave_jogo": [
+   0.0,
+   0.0,
+   33.0
+  ],
+  "SPAWN_Desembarque_jogo": [
+   0.0,
+   0.0,
+   29.5
+  ],
+  "tri_total_fonte": 18742,
+  "tri_total_reimp": 18742,
+  "materiais_diferentes": [],
+  "por_objeto": [
+   {
+    "nome": "ARQ_Deck_Marcacoes",
+    "pivo_dif_m": 0.0,
+    "bbox_dif_m": 0.0,
+    "escala": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "tri_fonte": 296,
+    "tri_reimp": 296,
+    "materiais_reimp": [
+     "M_Deck",
+     "M_LuzCiano",
+     "M_Marcacao"
+    ]
+   },
+   {
+    "nome": "ARQ_Piso_Deck",
+    "pivo_dif_m": 0.0,
+    "bbox_dif_m": 0.0,
+    "escala": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "tri_fonte": 340,
+    "tri_reimp": 340,
+    "materiais_reimp": [
+     "M_Deck"
+    ]
+   },
+   {
+    "nome": "PLAT_B3_Base_Lancamento",
+    "pivo_dif_m": 0.0,
+    "bbox_dif_m": 0.0,
+    "escala": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "tri_fonte": 1404,
+    "tri_reimp": 1404,
+    "materiais_reimp": [
+     "M_Concreto",
+     "M_Estrutura",
+     "M_Foguete_Motor",
+     "M_MetalEscuro",
+     "M_Painel"
+    ]
+   },
+   {
+    "nome": "PLAT_B3_Braco_Tripulacao",
+    "pivo_dif_m": 4e-05,
+    "bbox_dif_m": 4e-05,
+    "escala": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "tri_fonte": 2108,
+    "tri_reimp": 2108,
+    "materiais_reimp": [
+     "M_Estrutura",
+     "M_MetalEscuro",
+     "M_Painel"
+    ]
+   },
+   {
+    "nome": "PLAT_B3_Casa_Elevador_Base",
+    "pivo_dif_m": 4e-05,
+    "bbox_dif_m": 4e-05,
+    "escala": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "tri_fonte": 1404,
+    "tri_reimp": 1404,
+    "materiais_reimp": [
+     "M_Estrutura",
+     "M_LuzAmbar",
+     "M_Marcacao",
+     "M_MetalEscuro",
+     "M_Painel"
+    ]
+   },
+   {
+    "nome": "PLAT_B3_Chevrons_Embarque",
+    "pivo_dif_m": 0.0,
+    "bbox_dif_m": 5e-05,
+    "escala": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "tri_fonte": 96,
+    "tri_reimp": 96,
+    "materiais_reimp": [
+     "M_Marcacao"
+    ]
+   },
+   {
+    "nome": "PLAT_B3_Elevador_Embarque",
+    "pivo_dif_m": 0.0,
+    "bbox_dif_m": 0.0,
+    "escala": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "tri_fonte": 1088,
+    "tri_reimp": 1088,
+    "materiais_reimp": [
+     "M_Deck",
+     "M_Marcacao",
+     "M_MetalEscuro"
+    ]
+   },
+   {
+    "nome": "PLAT_B3_Foguete",
+    "pivo_dif_m": 3e-05,
+    "bbox_dif_m": 5e-05,
+    "escala": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "tri_fonte": 2656,
+    "tri_reimp": 2656,
+    "materiais_reimp": [
+     "M_Estrutura",
+     "M_Foguete_Casco",
+     "M_Foguete_Motor",
+     "M_LuzAmbar",
+     "M_MetalEscuro",
+     "M_Vidro"
+    ]
+   },
+   {
+    "nome": "PLAT_B3_Linhas_Tanques",
+    "pivo_dif_m": 0.0,
+    "bbox_dif_m": 4e-05,
+    "escala": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "tri_fonte": 380,
+    "tri_reimp": 380,
+    "materiais_reimp": [
+     "M_Estrutura",
+     "M_MetalEscuro"
+    ]
+   },
+   {
+    "nome": "PLAT_B3_Mastro_Servico",
+    "pivo_dif_m": 0.0,
+    "bbox_dif_m": 3e-05,
+    "escala": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "tri_fonte": 1404,
+    "tri_reimp": 1404,
+    "materiais_reimp": [
+     "M_Concreto",
+     "M_Estrutura",
+     "M_LuzAmbar",
+     "M_MetalEscuro",
+     "M_Painel",
+     "M_Vidro"
+    ]
+   },
+   {
+    "nome": "PLAT_B3_Passarela_Servico_3m",
+    "pivo_dif_m": 0.0,
+    "bbox_dif_m": 0.0,
+    "escala": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "tri_fonte": 144,
+    "tri_reimp": 144,
+    "materiais_reimp": [
+     "M_Estrutura",
+     "M_MetalEscuro"
+    ]
+   },
+   {
+    "nome": "PLAT_B3_Sinal_Casa_Elevador",
+    "pivo_dif_m": 4e-05,
+    "bbox_dif_m": 4e-05,
+    "escala": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "tri_fonte": 468,
+    "tri_reimp": 468,
+    "materiais_reimp": [
+     "M_Sinal_Texto"
+    ]
+   },
+   {
+    "nome": "PLAT_B3_Sinal_Piso_Embarque",
+    "pivo_dif_m": 0.0,
+    "bbox_dif_m": 4e-05,
+    "escala": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "tri_fonte": 168,
+    "tri_reimp": 168,
+    "materiais_reimp": [
+     "M_Marcacao"
+    ]
+   },
+   {
+    "nome": "PLAT_B3_Sinal_Totem",
+    "pivo_dif_m": 0.0,
+    "bbox_dif_m": 4e-05,
+    "escala": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "tri_fonte": 1266,
+    "tri_reimp": 1266,
+    "materiais_reimp": [
+     "M_Sinal_Texto"
+    ]
+   },
+   {
+    "nome": "PLAT_B3_Torre_Servico",
+    "pivo_dif_m": 0.0,
+    "bbox_dif_m": 1e-05,
+    "escala": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "tri_fonte": 1404,
+    "tri_reimp": 1404,
+    "materiais_reimp": [
+     "M_Concreto",
+     "M_Estrutura",
+     "M_LuzAmbar",
+     "M_MetalEscuro",
+     "M_Painel",
+     "M_Vidro"
+    ]
+   },
+   {
+    "nome": "PLAT_B3_Totem_Embarque",
+    "pivo_dif_m": 0.0,
+    "bbox_dif_m": 0.0,
+    "escala": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "tri_fonte": 264,
+    "tri_reimp": 264,
+    "materiais_reimp": [
+     "M_Estrutura",
+     "M_LuzAmbar",
+     "M_Marcacao",
+     "M_MetalEscuro",
+     "M_Painel",
+     "M_TelaCiano"
+    ]
+   },
+   {
+    "nome": "PLAT_B3_Umbilical_Mastro_1",
+    "pivo_dif_m": 0.0,
+    "bbox_dif_m": 4e-05,
+    "escala": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "tri_fonte": 428,
+    "tri_reimp": 428,
+    "materiais_reimp": [
+     "M_Vedacao"
+    ]
+   },
+   {
+    "nome": "PLAT_B3_Umbilical_Mastro_2",
+    "pivo_dif_m": 0.0,
+    "bbox_dif_m": 5e-05,
+    "escala": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "tri_fonte": 428,
+    "tri_reimp": 428,
+    "materiais_reimp": [
+     "M_Vedacao"
+    ]
+   },
+   {
+    "nome": "PLAT_B3_Umbilical_Torre",
+    "pivo_dif_m": 0.0,
+    "bbox_dif_m": 5e-05,
+    "escala": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "tri_fonte": 428,
+    "tri_reimp": 428,
+    "materiais_reimp": [
+     "M_Estrutura"
+    ]
+   },
+   {
+    "nome": "PLAT_Baia_Parapeitos",
+    "pivo_dif_m": 0.0,
+    "bbox_dif_m": 0.0,
+    "escala": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "tri_fonte": 864,
+    "tri_reimp": 864,
+    "materiais_reimp": [
+     "M_Estrutura",
+     "M_LuzAmbar",
+     "M_Painel"
+    ]
+   },
+   {
+    "nome": "PLAT_Carro_1",
+    "pivo_dif_m": 0.0,
+    "bbox_dif_m": 3e-05,
+    "escala": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "tri_fonte": 180,
+    "tri_reimp": 180,
+    "materiais_reimp": [
+     "M_Estrutura",
+     "M_Foguete_Motor",
+     "M_MetalEscuro",
+     "M_Painel"
+    ]
+   },
+   {
+    "nome": "PLAT_Carro_2",
+    "pivo_dif_m": 0.0,
+    "bbox_dif_m": 4e-05,
+    "escala": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "tri_fonte": 180,
+    "tri_reimp": 180,
+    "materiais_reimp": [
+     "M_Estrutura",
+     "M_Foguete_Motor",
+     "M_MetalEscuro",
+     "M_Painel"
+    ]
+   },
+   {
+    "nome": "PLAT_Console_Leste",
+    "pivo_dif_m": 0.0,
+    "bbox_dif_m": 4e-05,
+    "escala": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "tri_fonte": 60,
+    "tri_reimp": 60,
+    "materiais_reimp": [
+     "M_Estrutura",
+     "M_LuzAmbar",
+     "M_Painel",
+     "M_TelaCiano"
+    ]
+   },
+   {
+    "nome": "PLAT_Console_Oeste",
+    "pivo_dif_m": 0.0,
+    "bbox_dif_m": 4e-05,
+    "escala": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "tri_fonte": 60,
+    "tri_reimp": 60,
+    "materiais_reimp": [
+     "M_Estrutura",
+     "M_LuzAmbar",
+     "M_Painel",
+     "M_TelaCiano"
+    ]
+   },
+   {
+    "nome": "PLAT_Rack_Cilindros",
+    "pivo_dif_m": 0.0,
+    "bbox_dif_m": 0.0,
+    "escala": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "tri_fonte": 312,
+    "tri_reimp": 312,
+    "materiais_reimp": [
+     "M_Estrutura",
+     "M_Foguete_Casco",
+     "M_MetalEscuro",
+     "M_Painel"
+    ]
+   },
+   {
+    "nome": "PROP_Tanques",
+    "pivo_dif_m": 0.0,
+    "bbox_dif_m": 0.0,
+    "escala": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "tri_fonte": 912,
+    "tri_reimp": 912,
+    "materiais_reimp": [
+     "M_Estrutura",
+     "M_MetalEscuro",
+     "M_Painel"
+    ]
+   }
+  ]
+ },
+ "materiais_reimportados": [
+  "M_Concreto",
+  "M_Deck",
+  "M_Estrutura",
+  "M_Foguete_Casco",
+  "M_Foguete_Motor",
+  "M_LuzAmbar",
+  "M_LuzCiano",
+  "M_Marcacao",
+  "M_MetalEscuro",
+  "M_Painel",
+  "M_Sinal_Texto",
+  "M_TelaCiano",
+  "M_Vedacao",
+  "M_Vidro",
+  "Material"
+ ],
+ "vidro": {
+  "surface_render_method": "BLENDED"
+ },
+ "normais": {
+  "PLAT_B3_Foguete": {
+   "cantos_de_face_fonte": 4236,
+   "comparados": 4236,
+   "desvio_max_graus": 0.02,
+   "desvio_medio_graus": 0.0
+  },
+  "PLAT_B3_Braco_Tripulacao": {
+   "cantos_de_face_fonte": 4412,
+   "comparados": 4412,
+   "desvio_max_graus": 0.0,
+   "desvio_medio_graus": 0.0
+  },
+  "PLAT_B3_Base_Lancamento": {
+   "cantos_de_face_fonte": 2808,
+   "comparados": 2808,
+   "desvio_max_graus": 0.0,
+   "desvio_medio_graus": 0.0
+  },
+  "PLAT_B3_Casa_Elevador_Base": {
+   "cantos_de_face_fonte": 2808,
+   "comparados": 2808,
+   "desvio_max_graus": 0.028,
+   "desvio_medio_graus": 0.0
+  }
+ }
+}

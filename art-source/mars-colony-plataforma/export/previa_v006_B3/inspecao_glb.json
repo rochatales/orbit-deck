@@ -1,0 +1,1043 @@
+{
+ "extensoes": [
+  "KHR_materials_emissive_strength",
+  "KHR_materials_specular"
+ ],
+ "nos": [
+  {
+   "nome": "ARQ_Piso_Deck",
+   "t": null,
+   "r": null,
+   "s": null,
+   "extras": {
+    "nota": "Topo em Z=0 (plano do piloto); espessura abaixo do chão.",
+    "id_estavel": "marte.plataforma.piso_deck",
+    "papel": "piso_contexto",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor",
+    "colisor": "piso caminhável ativo do piloto (sem mudança)"
+   },
+   "tri": 340,
+   "atributos": [
+    "NORMAL",
+    "POSITION"
+   ],
+   "mats": [
+    "M_Deck"
+   ]
+  },
+  {
+   "nome": "ARQ_Deck_Marcacoes",
+   "t": [
+    0,
+    0,
+    33.5
+   ],
+   "r": null,
+   "s": null,
+   "extras": {
+    "id_estavel": "marte.plataforma.deck_marcacoes",
+    "papel": "piso_contexto",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor",
+    "colisor": "piso caminhável ativo do piloto (sem mudança)"
+   },
+   "tri": 296,
+   "atributos": [
+    "NORMAL",
+    "POSITION"
+   ],
+   "mats": [
+    "M_Deck",
+    "M_LuzCiano",
+    "M_Marcacao"
+   ]
+  },
+  {
+   "nome": "PLAT_Baia_Parapeitos",
+   "t": [
+    0,
+    0,
+    33
+   ],
+   "r": null,
+   "s": null,
+   "extras": {
+    "tipo": "baia de embarque",
+    "nota": "Mesma planta dos colisores laterais da nave do piloto (COL_Nave_Lateral_O/L).",
+    "id_estavel": "marte.plataforma.baia_parapeitos",
+    "papel": "baia_parapeitos",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor",
+    "colisor": "ativo do piloto: laterais e fundo da nave"
+   },
+   "tri": 864,
+   "atributos": [
+    "NORMAL",
+    "POSITION"
+   ],
+   "mats": [
+    "M_Estrutura",
+    "M_LuzAmbar",
+    "M_Painel"
+   ]
+  },
+  {
+   "nome": "PLAT_Console_Leste",
+   "t": [
+    8.149999618530273,
+    0,
+    31.799999237060547
+   ],
+   "r": [
+    0,
+    0.7071068286895752,
+    0,
+    0.7071068286895752
+   ],
+   "s": null,
+   "extras": {
+    "tipo": "equipamento de apoio (fora do deck)",
+    "id_estavel": "marte.plataforma.console_leste",
+    "papel": "mobiliario",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor",
+    "colisor": "fora da área caminhável; sem colisor próprio"
+   },
+   "tri": 60,
+   "atributos": [
+    "NORMAL",
+    "POSITION"
+   ],
+   "mats": [
+    "M_Estrutura",
+    "M_LuzAmbar",
+    "M_Painel",
+    "M_TelaCiano"
+   ]
+  },
+  {
+   "nome": "PLAT_Console_Oeste",
+   "t": [
+    -8.149999618530273,
+    0,
+    35.400001525878906
+   ],
+   "r": [
+    0,
+    -0.7071068286895752,
+    0,
+    0.7071068286895752
+   ],
+   "s": null,
+   "extras": {
+    "tipo": "equipamento de apoio (fora do deck)",
+    "id_estavel": "marte.plataforma.console_oeste",
+    "papel": "mobiliario",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor",
+    "colisor": "fora da área caminhável; sem colisor próprio"
+   },
+   "tri": 60,
+   "atributos": [
+    "NORMAL",
+    "POSITION"
+   ],
+   "mats": [
+    "M_Estrutura",
+    "M_LuzAmbar",
+    "M_Painel",
+    "M_TelaCiano"
+   ]
+  },
+  {
+   "nome": "PLAT_Carro_1",
+   "t": [
+    8.300000190734863,
+    0,
+    34.900001525878906
+   ],
+   "r": [
+    0,
+    0.14943814277648926,
+    0,
+    0.9887710809707642
+   ],
+   "s": null,
+   "extras": {
+    "tipo": "equipamento de apoio (fora do deck)",
+    "id_estavel": "marte.plataforma.carro_1",
+    "papel": "mobiliario",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor",
+    "colisor": "fora da área caminhável; sem colisor próprio"
+   },
+   "tri": 180,
+   "atributos": [
+    "NORMAL",
+    "POSITION"
+   ],
+   "mats": [
+    "M_Estrutura",
+    "M_Foguete_Motor",
+    "M_MetalEscuro",
+    "M_Painel"
+   ]
+  },
+  {
+   "nome": "PLAT_Carro_2",
+   "t": [
+    8.399999618530273,
+    0,
+    37.400001525878906
+   ],
+   "r": [
+    0,
+    -0.0998334065079689,
+    0,
+    0.9950041770935059
+   ],
+   "s": null,
+   "extras": {
+    "tipo": "equipamento de apoio (fora do deck)",
+    "id_estavel": "marte.plataforma.carro_2",
+    "papel": "mobiliario",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor",
+    "colisor": "fora da área caminhável; sem colisor próprio"
+   },
+   "tri": 180,
+   "atributos": [
+    "NORMAL",
+    "POSITION"
+   ],
+   "mats": [
+    "M_Estrutura",
+    "M_Foguete_Motor",
+    "M_MetalEscuro",
+    "M_Painel"
+   ]
+  },
+  {
+   "nome": "PLAT_Rack_Cilindros",
+   "t": [
+    -8.25,
+    0,
+    29.600000381469727
+   ],
+   "r": [
+    0,
+    0.7071068286895752,
+    0,
+    0.7071068286895752
+   ],
+   "s": null,
+   "extras": {
+    "tipo": "equipamento de apoio (fora do deck)",
+    "id_estavel": "marte.plataforma.rack_cilindros",
+    "papel": "mobiliario",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor",
+    "colisor": "fora da área caminhável; sem colisor próprio"
+   },
+   "tri": 312,
+   "atributos": [
+    "NORMAL",
+    "POSITION"
+   ],
+   "mats": [
+    "M_Estrutura",
+    "M_Foguete_Casco",
+    "M_MetalEscuro",
+    "M_Painel"
+   ]
+  },
+  {
+   "nome": "PLAT_B3_Foguete",
+   "t": [
+    -10,
+    0.2982735335826874,
+    41.5
+   ],
+   "r": null,
+   "s": null,
+   "extras": {
+    "altura_total_m": 9.8,
+    "nota": "Desenho da v004/v005 com 9,8 m; escotilha voltada para a torre (oeste).",
+    "id_estavel": "marte.plataforma.foguete",
+    "papel": "foguete",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor",
+    "colisor": "fora da área caminhável; sem colisor próprio"
+   },
+   "tri": 2656,
+   "atributos": [
+    "NORMAL",
+    "POSITION"
+   ],
+   "mats": [
+    "M_Estrutura",
+    "M_Foguete_Casco",
+    "M_Foguete_Motor",
+    "M_LuzAmbar",
+    "M_MetalEscuro",
+    "M_Vidro"
+   ]
+  },
+  {
+   "nome": "PLAT_B3_Base_Lancamento",
+   "t": [
+    -10,
+    0,
+    41.5
+   ],
+   "r": null,
+   "s": null,
+   "extras": {
+    "id_estavel": "marte.plataforma.base_lancamento",
+    "papel": "base_lancamento",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor",
+    "colisor": "proposta separada: COL_NOVO_PLAT_B3_Base_Lancamento"
+   },
+   "tri": 1404,
+   "atributos": [
+    "NORMAL",
+    "POSITION"
+   ],
+   "mats": [
+    "M_Concreto",
+    "M_Estrutura",
+    "M_Foguete_Motor",
+    "M_MetalEscuro",
+    "M_Painel"
+   ]
+  },
+  {
+   "nome": "PLAT_B3_Casa_Elevador_Base",
+   "t": [
+    -8.818994522094727,
+    0.9300000071525574,
+    40.49614334106445
+   ],
+   "r": null,
+   "s": null,
+   "extras": {
+    "tipo": "chegada do elevador de embarque na base (cenográfica)",
+    "id_estavel": "marte.plataforma.casa_elevador_base",
+    "papel": "elevador_chegada_base",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor",
+    "colisor": "fora da área caminhável; sem colisor próprio"
+   },
+   "tri": 1404,
+   "atributos": [
+    "NORMAL",
+    "POSITION"
+   ],
+   "mats": [
+    "M_Estrutura",
+    "M_LuzAmbar",
+    "M_Marcacao",
+    "M_MetalEscuro",
+    "M_Painel"
+   ]
+  },
+  {
+   "nome": "PLAT_B3_Sinal_Casa_Elevador",
+   "t": [
+    -8.373260498046875,
+    2.549999952316284,
+    40.11726760864258
+   ],
+   "r": null,
+   "s": null,
+   "extras": {
+    "id_estavel": "marte.plataforma.sinal_casa_elevador",
+    "papel": "sinalizacao",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor",
+    "colisor": "fora da área caminhável; sem colisor próprio"
+   },
+   "tri": 468,
+   "atributos": [
+    "NORMAL",
+    "POSITION",
+    "TEXCOORD_0"
+   ],
+   "mats": [
+    "M_Sinal_Texto"
+   ]
+  },
+  {
+   "nome": "PLAT_B3_Torre_Servico",
+   "t": [
+    -13.800000190734863,
+    0,
+    41.5
+   ],
+   "r": null,
+   "s": null,
+   "extras": {
+    "altura_m": 8.2,
+    "id_estavel": "marte.plataforma.torre_servico",
+    "papel": "torre_servico",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor",
+    "colisor": "proposta separada: COL_NOVO_PLAT_B3_Torre_Servico"
+   },
+   "tri": 1404,
+   "atributos": [
+    "NORMAL",
+    "POSITION"
+   ],
+   "mats": [
+    "M_Concreto",
+    "M_Estrutura",
+    "M_LuzAmbar",
+    "M_MetalEscuro",
+    "M_Painel",
+    "M_Vidro"
+   ]
+  },
+  {
+   "nome": "PLAT_B3_Mastro_Servico",
+   "t": [
+    -6.199999809265137,
+    0,
+    41.5
+   ],
+   "r": null,
+   "s": null,
+   "extras": {
+    "altura_m": 5.6,
+    "id_estavel": "marte.plataforma.mastro_servico",
+    "papel": "mastro_servico",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor",
+    "colisor": "proposta separada: COL_NOVO_PLAT_B3_Mastro_Servico"
+   },
+   "tri": 1404,
+   "atributos": [
+    "NORMAL",
+    "POSITION"
+   ],
+   "mats": [
+    "M_Concreto",
+    "M_Estrutura",
+    "M_LuzAmbar",
+    "M_MetalEscuro",
+    "M_Painel",
+    "M_Vidro"
+   ]
+  },
+  {
+   "nome": "PLAT_B3_Passarela_Servico_3m",
+   "t": [
+    -12.039999961853027,
+    3,
+    41.5
+   ],
+   "r": null,
+   "s": null,
+   "extras": {
+    "tipo": "passarela",
+    "altura_m": 3.0,
+    "id_estavel": "marte.plataforma.passarela_servico_3m",
+    "papel": "passarela",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor",
+    "colisor": "fora da área caminhável; sem colisor próprio"
+   },
+   "tri": 144,
+   "atributos": [
+    "NORMAL",
+    "POSITION"
+   ],
+   "mats": [
+    "M_Estrutura",
+    "M_MetalEscuro"
+   ]
+  },
+  {
+   "nome": "PLAT_B3_Umbilical_Mastro_1",
+   "t": [
+    -6.699999809265137,
+    2.200000047683716,
+    41.75
+   ],
+   "r": null,
+   "s": null,
+   "extras": {
+    "tipo": "cabo/linha de abastecimento",
+    "id_estavel": "marte.plataforma.umbilical_mastro_1",
+    "papel": "mastro_servico",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor",
+    "colisor": "fora da área caminhável; sem colisor próprio"
+   },
+   "tri": 428,
+   "atributos": [
+    "NORMAL",
+    "POSITION"
+   ],
+   "mats": [
+    "M_Vedacao"
+   ]
+  },
+  {
+   "nome": "PLAT_B3_Umbilical_Mastro_2",
+   "t": [
+    -6.699999809265137,
+    4.400000095367432,
+    41.25
+   ],
+   "r": null,
+   "s": null,
+   "extras": {
+    "tipo": "cabo/linha de abastecimento",
+    "id_estavel": "marte.plataforma.umbilical_mastro_2",
+    "papel": "mastro_servico",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor",
+    "colisor": "fora da área caminhável; sem colisor próprio"
+   },
+   "tri": 428,
+   "atributos": [
+    "NORMAL",
+    "POSITION"
+   ],
+   "mats": [
+    "M_Vedacao"
+   ]
+  },
+  {
+   "nome": "PLAT_B3_Umbilical_Torre",
+   "t": [
+    -13.079999923706055,
+    4.599999904632568,
+    40.81999969482422
+   ],
+   "r": null,
+   "s": null,
+   "extras": {
+    "tipo": "cabo/linha de abastecimento",
+    "id_estavel": "marte.plataforma.umbilical_torre",
+    "papel": "umbilical",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor",
+    "colisor": "fora da área caminhável; sem colisor próprio"
+   },
+   "tri": 428,
+   "atributos": [
+    "NORMAL",
+    "POSITION"
+   ],
+   "mats": [
+    "M_Estrutura"
+   ]
+  },
+  {
+   "nome": "PLAT_B3_Braco_Tripulacao",
+   "t": [
+    -13.079999923706055,
+    5.653542518615723,
+    41.5
+   ],
+   "r": null,
+   "s": null,
+   "extras": {
+    "nota": "Treliça articulada na torre, com mão-francesa; cabine encostada no casco com colar de acoplamento. Cenográfico: o jogador não entra.",
+    "id_estavel": "marte.plataforma.braco_tripulacao",
+    "papel": "braco_tripulacao",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor",
+    "colisor": "fora da área caminhável; sem colisor próprio"
+   },
+   "tri": 2108,
+   "atributos": [
+    "NORMAL",
+    "POSITION"
+   ],
+   "mats": [
+    "M_Estrutura",
+    "M_MetalEscuro",
+    "M_Painel"
+   ]
+  },
+  {
+   "nome": "PLAT_B3_Linhas_Tanques",
+   "t": [
+    -12.399999618530273,
+    0,
+    37
+   ],
+   "r": null,
+   "s": null,
+   "extras": {
+    "nota": "Fora da área caminhável; não cruza a passagem.",
+    "id_estavel": "marte.plataforma.linhas_tanques",
+    "papel": "linhas_abastecimento",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor",
+    "colisor": "fora da área caminhável; sem colisor próprio"
+   },
+   "tri": 380,
+   "atributos": [
+    "NORMAL",
+    "POSITION"
+   ],
+   "mats": [
+    "M_Estrutura",
+    "M_MetalEscuro"
+   ]
+  },
+  {
+   "nome": "PLAT_B3_Elevador_Embarque",
+   "t": [
+    0,
+    0,
+    33
+   ],
+   "r": null,
+   "s": null,
+   "extras": {
+    "tipo": "elevador de embarque",
+    "centro_jogo_xz": "0, 33",
+    "nota": "Coincide com INTERACT_Nave (para onde o jogo leva o jogador ao embarcar). Rente ao piso.",
+    "id_estavel": "marte.plataforma.elevador_embarque",
+    "papel": "elevador_embarque",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor",
+    "colisor": "sem colisor: rente ao piso (até 2 cm)"
+   },
+   "tri": 1088,
+   "atributos": [
+    "NORMAL",
+    "POSITION"
+   ],
+   "mats": [
+    "M_Deck",
+    "M_Marcacao",
+    "M_MetalEscuro"
+   ]
+  },
+  {
+   "nome": "PLAT_B3_Chevrons_Embarque",
+   "t": [
+    0,
+    0,
+    31
+   ],
+   "r": null,
+   "s": null,
+   "extras": {
+    "tipo": "sinalização de piso (rente)",
+    "id_estavel": "marte.plataforma.chevrons_embarque",
+    "papel": "sinalizacao_piso",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor",
+    "colisor": "sem colisor: rente ao piso (até 2 cm)"
+   },
+   "tri": 96,
+   "atributos": [
+    "NORMAL",
+    "POSITION"
+   ],
+   "mats": [
+    "M_Marcacao"
+   ]
+  },
+  {
+   "nome": "PLAT_B3_Sinal_Piso_Embarque",
+   "t": [
+    0,
+    0.008999999612569809,
+    29.950000762939453
+   ],
+   "r": null,
+   "s": null,
+   "extras": {
+    "id_estavel": "marte.plataforma.sinal_piso_embarque",
+    "papel": "sinalizacao_piso",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor",
+    "colisor": "sem colisor: rente ao piso (até 2 cm)"
+   },
+   "tri": 168,
+   "atributos": [
+    "NORMAL",
+    "POSITION",
+    "TEXCOORD_0"
+   ],
+   "mats": [
+    "M_Marcacao"
+   ]
+  },
+  {
+   "nome": "PLAT_B3_Totem_Embarque",
+   "t": [
+    0,
+    0,
+    35
+   ],
+   "r": null,
+   "s": null,
+   "extras": {
+    "nota": "x ±1,3 e z 34,75–35,25, dentro do colisor do fundo (como na v005).",
+    "id_estavel": "marte.plataforma.totem_embarque",
+    "papel": "coluna_chamada_elevador",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor",
+    "colisor": "ativo do piloto: fundo da nave (x ±1,7; z 34,75–35,25)"
+   },
+   "tri": 264,
+   "atributos": [
+    "NORMAL",
+    "POSITION"
+   ],
+   "mats": [
+    "M_Estrutura",
+    "M_LuzAmbar",
+    "M_Marcacao",
+    "M_MetalEscuro",
+    "M_Painel",
+    "M_TelaCiano"
+   ]
+  },
+  {
+   "nome": "PLAT_B3_Sinal_Totem",
+   "t": [
+    0,
+    0.8600000143051147,
+    34.75199890136719
+   ],
+   "r": null,
+   "s": null,
+   "extras": {
+    "id_estavel": "marte.plataforma.sinal_totem",
+    "papel": "sinalizacao",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor",
+    "colisor": "fora da área caminhável; sem colisor próprio"
+   },
+   "tri": 1266,
+   "atributos": [
+    "NORMAL",
+    "POSITION",
+    "TEXCOORD_0"
+   ],
+   "mats": [
+    "M_Sinal_Texto"
+   ]
+  },
+  {
+   "nome": "PROP_Tanques",
+   "t": [
+    -13.5,
+    0,
+    31.600000381469727
+   ],
+   "r": null,
+   "s": null,
+   "extras": {
+    "id_estavel": "marte.plataforma.tanques",
+    "papel": "tanques_contexto",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor",
+    "colisor": "fora da área caminhável; sem colisor próprio"
+   },
+   "tri": 912,
+   "atributos": [
+    "NORMAL",
+    "POSITION"
+   ],
+   "mats": [
+    "M_Estrutura",
+    "M_MetalEscuro",
+    "M_Painel"
+   ]
+  },
+  {
+   "nome": "SPAWN_Desembarque",
+   "t": [
+    0,
+    0,
+    29.5
+   ],
+   "r": null,
+   "s": null,
+   "extras": {
+    "jogo_xyz": "0, 0, 29.5",
+    "fonte": "config.ts MAPS.mars.exit",
+    "id_estavel": "marte.plataforma.spawn_desembarque",
+    "papel": "marcador",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor"
+   }
+  },
+  {
+   "nome": "INTERACT_Nave",
+   "t": [
+    0,
+    0,
+    33
+   ],
+   "r": null,
+   "s": null,
+   "extras": {
+    "jogo_xyz": "0, 0, 33",
+    "fonte": "config.ts MAPS.mars.ship",
+    "id_estavel": "marte.plataforma.interact_nave",
+    "papel": "marcador",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor"
+   }
+  },
+  {
+   "nome": "CAM_PLAT_Geral",
+   "t": [
+    42.15460205078125,
+    56.62109375,
+    90.44325256347656
+   ],
+   "r": [
+    -0.29604944586753845,
+    0.31429457664489746,
+    0.10384853929281235,
+    0.8959850072860718
+   ],
+   "s": null,
+   "extras": {
+    "id_estavel": "marte.plataforma.geral",
+    "papel": "camera",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor"
+   }
+  },
+  {
+   "nome": "CAM_PLAT_B3_Conexao",
+   "t": [
+    9,
+    13,
+    22
+   ],
+   "r": [
+    -0.09344576299190521,
+    0.8995113372802734,
+    0.23667536675930023,
+    0.3551509976387024
+   ],
+   "s": null,
+   "extras": {
+    "id_estavel": "marte.plataforma.b3_conexao",
+    "papel": "camera",
+    "estado_inicial": "visivel",
+    "previa": "estudo v006 (B3) — somente prévia; não importar no jogo sem decisão do autor"
+   }
+  }
+ ],
+ "malhas": 24,
+ "materiais": 14,
+ "cameras": [
+  "CAM_PLAT_Geral",
+  "CAM_PLAT_B3_Conexao.001"
+ ],
+ "luzes_no_glb": 0,
+ "diferencas_fonte_x_glb": [],
+ "ids_estaveis": {
+  "total": 30,
+  "unicos": true
+ },
+ "nos_COL_no_glb": [],
+ "sem_NORMAL": [],
+ "nos_com_escala_diferente_de_1": [],
+ "triangulos_total_glb": 18742,
+ "triangulos_total_fonte": 18742,
+ "materiais_detalhe": {
+  "M_Deck": {
+   "alphaMode": "OPAQUE",
+   "emissive": null,
+   "emissive_strength": null,
+   "baseColor": [
+    0.061246052384376526,
+    0.08865558356046677,
+    0.10224173218011856,
+    1
+   ],
+   "doubleSided": true
+  },
+  "M_LuzCiano": {
+   "alphaMode": "OPAQUE",
+   "emissive": [
+    0.32016262877664226,
+    1,
+    0.9349275299686618
+   ],
+   "emissive_strength": 2.9860088229179382,
+   "baseColor": [
+    0.19120168685913086,
+    0.5972017645835876,
+    0.5583403706550598,
+    1
+   ],
+   "doubleSided": true
+  },
+  "M_Marcacao": {
+   "alphaMode": "OPAQUE",
+   "emissive": null,
+   "emissive_strength": null,
+   "baseColor": [
+    0.5840784311294556,
+    0.30054378509521484,
+    0.04970656707882881,
+    1
+   ],
+   "doubleSided": true
+  },
+  "M_Estrutura": {
+   "alphaMode": "OPAQUE",
+   "emissive": null,
+   "emissive_strength": null,
+   "baseColor": [
+    0.03560131415724754,
+    0.10461648553609848,
+    0.09084171056747437,
+    1
+   ],
+   "doubleSided": true
+  },
+  "M_Painel": {
+   "alphaMode": "OPAQUE",
+   "emissive": null,
+   "emissive_strength": null,
+   "baseColor": [
+    0.68668532371521,
+    0.637596845626831,
+    0.520995557308197,
+    1
+   ],
+   "doubleSided": true
+  },
+  "M_LuzAmbar": {
+   "alphaMode": "OPAQUE",
+   "emissive": [
+    1,
+    0.5236806993685502,
+    0.1483401119637172
+   ],
+   "emissive_strength": 4.427462339401245,
+   "baseColor": [
+    0.7379103899002075,
+    0.38642942905426025,
+    0.109461709856987,
+    1
+   ],
+   "doubleSided": true
+  },
+  "M_TelaCiano": {
+   "alphaMode": "OPAQUE",
+   "emissive": [
+    0.3059227035332128,
+    0.9555228375721398,
+    0.8933446063599675
+   ],
+   "emissive_strength": null,
+   "baseColor": [
+    0.027320891618728638,
+    0.11443537473678589,
+    0.10702310502529144,
+    1
+   ],
+   "doubleSided": true
+  },
+  "M_MetalEscuro": {
+   "alphaMode": "OPAQUE",
+   "emissive": null,
+   "emissive_strength": null,
+   "baseColor": [
+    0.03433980792760849,
+    0.04373503103852272,
+    0.04373503103852272,
+    1
+   ],
+   "doubleSided": true
+  },
+  "M_Foguete_Motor": {
+   "alphaMode": "OPAQUE",
+   "emissive": null,
+   "emissive_strength": null,
+   "baseColor": [
+    0.024157632142305374,
+    0.03071344457566738,
+    0.03071344457566738,
+    1
+   ],
+   "doubleSided": true
+  },
+  "M_Foguete_Casco": {
+   "alphaMode": "OPAQUE",
+   "emissive": null,
+   "emissive_strength": null,
+   "baseColor": [
+    0.7912979125976562,
+    0.7454041838645935,
+    0.6444796919822693,
+    1
+   ],
+   "doubleSided": true
+  },
+  "M_Vidro": {
+   "alphaMode": "BLEND",
+   "emissive": null,
+   "emissive_strength": null,
+   "baseColor": [
+    0.3324515223503113,
+    0.5840784311294556,
+    0.4677838087081909,
+    0.3199999928474426
+   ],
+   "doubleSided": true
+  },
+  "M_Concreto": {
+   "alphaMode": "OPAQUE",
+   "emissive": null,
+   "emissive_strength": null,
+   "baseColor": [
+    0.18447498977184296,
+    0.17144110798835754,
+    0.1441284716129303,
+    1
+   ],
+   "doubleSided": true
+  },
+  "M_Sinal_Texto": {
+   "alphaMode": "OPAQUE",
+   "emissive": [
+    0.5178943482198051,
+    0.48417136208897205,
+    0.4034659069166935
+   ],
+   "emissive_strength": null,
+   "baseColor": [
+    0.8631572127342224,
+    0.8069522380828857,
+    0.672443151473999,
+    1
+   ],
+   "doubleSided": true
+  },
+  "M_Vedacao": {
+   "alphaMode": "OPAQUE",
+   "emissive": null,
+   "emissive_strength": null,
+   "baseColor": [
+    0.016807375475764275,
+    0.020288562402129173,
+    0.020288562402129173,
+    1
+   ],
+   "doubleSided": true
+  }
+ }
+}

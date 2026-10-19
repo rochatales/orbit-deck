@@ -1,0 +1,210 @@
+{
+ "A_central_fundo_deck (0; 36,6)": {
+  "passagem/desembarque": {
+   "L": 0,
+   "SE": 5,
+   "S": 100,
+   "SO": 5,
+   "O": 0,
+   "NO": 0,
+   "N": 0,
+   "NE": 0
+  },
+  "deck_livre": {
+   "L": 25,
+   "SE": 40,
+   "S": 40,
+   "SO": 40,
+   "O": 25,
+   "NO": 20,
+   "N": 20,
+   "NE": 20
+  },
+  "caminho_sul": {
+   "L": 0,
+   "SE": 5,
+   "S": 60,
+   "SO": 5,
+   "O": 0,
+   "NO": 0,
+   "N": 0,
+   "NE": 0
+  },
+  "conector_pavilhao": {
+   "L": 0,
+   "SE": 0,
+   "S": 0,
+   "SO": 17,
+   "O": 0,
+   "NO": 0,
+   "N": 0,
+   "NE": 0
+  },
+  "caminho_oeste": {
+   "L": 0,
+   "SE": 25,
+   "S": 0,
+   "SO": 0,
+   "O": 0,
+   "NO": 0,
+   "N": 0,
+   "NE": 0
+  }
+ },
+ "B_leste_fora_deck (11,5; 34,5)": {
+  "passagem/desembarque": {
+   "L": 15,
+   "SE": 41,
+   "S": 0,
+   "SO": 0,
+   "O": 0,
+   "NO": 0,
+   "N": 0,
+   "NE": 0
+  },
+  "deck_livre": {
+   "L": 55,
+   "SE": 25,
+   "S": 0,
+   "SO": 0,
+   "O": 0,
+   "NO": 0,
+   "N": 0,
+   "NE": 15
+  },
+  "caminho_sul": {
+   "L": 0,
+   "SE": 55,
+   "S": 0,
+   "SO": 0,
+   "O": 0,
+   "NO": 0,
+   "N": 0,
+   "NE": 0
+  },
+  "conector_pavilhao": {
+   "L": 0,
+   "SE": 0,
+   "S": 0,
+   "SO": 0,
+   "O": 0,
+   "NO": 0,
+   "N": 0,
+   "NE": 0
+  },
+  "caminho_oeste": {
+   "L": 0,
+   "SE": 0,
+   "S": 0,
+   "SO": 0,
+   "O": 0,
+   "NO": 0,
+   "N": 0,
+   "NE": 0
+  }
+ },
+ "C_sudoeste_tanques (-12; 37,5)": {
+  "passagem/desembarque": {
+   "L": 0,
+   "SE": 0,
+   "S": 0,
+   "SO": 87,
+   "O": 0,
+   "NO": 0,
+   "N": 0,
+   "NE": 0
+  },
+  "deck_livre": {
+   "L": 0,
+   "SE": 0,
+   "S": 0,
+   "SO": 35,
+   "O": 40,
+   "NO": 0,
+   "N": 0,
+   "NE": 0
+  },
+  "caminho_sul": {
+   "L": 0,
+   "SE": 0,
+   "S": 0,
+   "SO": 35,
+   "O": 0,
+   "NO": 0,
+   "N": 0,
+   "NE": 0
+  },
+  "conector_pavilhao": {
+   "L": 0,
+   "SE": 0,
+   "S": 0,
+   "SO": 0,
+   "O": 0,
+   "NO": 0,
+   "N": 0,
+   "NE": 0
+  },
+  "caminho_oeste": {
+   "L": 0,
+   "SE": 0,
+   "S": 75,
+   "SO": 0,
+   "O": 0,
+   "NO": 0,
+   "N": 0,
+   "NE": 0
+  }
+ },
+ "D_sul_alem_limite (0; 42,5)": {
+  "passagem/desembarque": {
+   "L": 0,
+   "SE": 0,
+   "S": 100,
+   "SO": 0,
+   "O": 0,
+   "NO": 0,
+   "N": 0,
+   "NE": 0
+  },
+  "deck_livre": {
+   "L": 0,
+   "SE": 35,
+   "S": 50,
+   "SO": 35,
+   "O": 0,
+   "NO": 0,
+   "N": 0,
+   "NE": 0
+  },
+  "caminho_sul": {
+   "L": 0,
+   "SE": 0,
+   "S": 30,
+   "SO": 0,
+   "O": 0,
+   "NO": 0,
+   "N": 0,
+   "NE": 0
+  },
+  "conector_pavilhao": {
+   "L": 0,
+   "SE": 0,
+   "S": 0,
+   "SO": 0,
+   "O": 0,
+   "NO": 0,
+   "N": 0,
+   "NE": 0
+  },
+  "caminho_oeste": {
+   "L": 0,
+   "SE": 0,
+   "S": 0,
+   "SO": 0,
+   "O": 0,
+   "NO": 0,
+   "N": 0,
+   "NE": 0
+  }
+ }
+}

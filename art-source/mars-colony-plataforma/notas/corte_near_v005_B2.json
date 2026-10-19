@@ -1,0 +1,89 @@
+{
+ "mapa_caminhavel_2m": {
+  "pontos": 197,
+  "pontos_com_corte_em_algum_angulo": 115,
+  "pares_ponto_angulo": 14184,
+  "pares_com_corte": 1628,
+  "fracao_pares_com_corte": 0.1148
+ },
+ "acesso_x0_z19_33": {
+  "pontos": 29,
+  "pontos_com_corte_em_algum_angulo": 14,
+  "pares_ponto_angulo": 2088,
+  "pares_com_corte": 186,
+  "fracao_pares_com_corte": 0.0891
+ },
+ "acesso_por_ponto": [
+  {
+   "x": 0.0,
+   "z": 19.0,
+   "graus_com_corte": 95
+  },
+  {
+   "x": 0.0,
+   "z": 19.5,
+   "graus_com_corte": 90
+  },
+  {
+   "x": 0.0,
+   "z": 20.0,
+   "graus_com_corte": 85
+  },
+  {
+   "x": 0.0,
+   "z": 20.5,
+   "graus_com_corte": 85
+  },
+  {
+   "x": 0.0,
+   "z": 21.0,
+   "graus_com_corte": 80
+  },
+  {
+   "x": 0.0,
+   "z": 21.5,
+   "graus_com_corte": 75
+  },
+  {
+   "x": 0.0,
+   "z": 22.0,
+   "graus_com_corte": 75
+  },
+  {
+   "x": 0.0,
+   "z": 22.5,
+   "graus_com_corte": 70
+  },
+  {
+   "x": 0.0,
+   "z": 23.0,
+   "graus_com_corte": 65
+  },
+  {
+   "x": 0.0,
+   "z": 23.5,
+   "graus_com_corte": 60
+  },
+  {
+   "x": 0.0,
+   "z": 24.0,
+   "graus_com_corte": 55
+  },
+  {
+   "x": 0.0,
+   "z": 24.5,
+   "graus_com_corte": 45
+  },
+  {
+   "x": 0.0,
+   "z": 25.0,
+   "graus_com_corte": 30
+  },
+  {
+   "x": 0.0,
+   "z": 25.5,
+   "graus_com_corte": 20
+  }
+ ],
+ "nota": "Corte = vértice de peça alta (foguete, torre, mastro, braço, passarelas, umbilicais) atrás do plano near e dentro do quadro. Some com a câmera recuada na mesma direção (enquadramento ortográfico idêntico)."
+}

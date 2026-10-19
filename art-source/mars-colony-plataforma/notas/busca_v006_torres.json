@@ -1,0 +1,1 @@
+[{"graus_pior_ponto": 30, "graus_elevador": 28, "graus_soma": 374, "bloqueadores": {"PLAT_B2_Foguete": 575, "PLAT_B2_Torre_2": 211, "PLAT_B2_Braco_Tripulacao_Cabine": 198, "PLAT_B2_Braco_Tripulacao_Passarela": 34}, "variante": "v005"}, {"graus_pior_ponto": 14, "graus_elevador": 13, "graus_soma": 207, "bloqueadores": {"PLAT_B2_Foguete": 575}, "variante": "sem_torres_e_braco"}]

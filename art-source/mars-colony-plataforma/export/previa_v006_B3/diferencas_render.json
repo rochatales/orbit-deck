@@ -1,0 +1,14 @@
+{
+ "CAM_PLAT_Geral": {
+  "diferenca_media_0_255": 0.052,
+  "pixels_acima_de_8_pct": 0.021,
+  "pixels_acima_de_32_pct": 0.0,
+  "max": 20
+ },
+ "CAM_PLAT_B3_Conexao": {
+  "diferenca_media_0_255": 0.031,
+  "pixels_acima_de_8_pct": 0.02,
+  "pixels_acima_de_32_pct": 0.0,
+  "max": 11
+ }
+}

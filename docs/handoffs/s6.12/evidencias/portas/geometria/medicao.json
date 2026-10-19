@@ -1,0 +1,216 @@
+{
+  "phase": "geometria",
+  "stepsPerDoor": 180,
+  "delta": 0.016666666666666666,
+  "errors": [],
+  "result": [
+    {
+      "id": 0,
+      "position": [
+        0,
+        0,
+        -4
+      ],
+      "closed": [],
+      "open": [],
+      "visibleChanges": 0,
+      "depthWriteChanges": 0,
+      "materialChanges": 0
+    },
+    {
+      "id": 1,
+      "position": [
+        0,
+        0,
+        4
+      ],
+      "closed": [],
+      "open": [],
+      "visibleChanges": 0,
+      "depthWriteChanges": 0,
+      "materialChanges": 0
+    },
+    {
+      "id": 2,
+      "position": [
+        4,
+        0,
+        0
+      ],
+      "closed": [],
+      "open": [],
+      "visibleChanges": 0,
+      "depthWriteChanges": 0,
+      "materialChanges": 0
+    },
+    {
+      "id": 3,
+      "position": [
+        -4,
+        0,
+        0
+      ],
+      "closed": [],
+      "open": [],
+      "visibleChanges": 0,
+      "depthWriteChanges": 0,
+      "materialChanges": 0
+    },
+    {
+      "id": 4,
+      "position": [
+        0,
+        0,
+        -7
+      ],
+      "closed": [],
+      "open": [],
+      "visibleChanges": 0,
+      "depthWriteChanges": 0,
+      "materialChanges": 0
+    },
+    {
+      "id": 5,
+      "position": [
+        -6.5,
+        0,
+        0
+      ],
+      "closed": [],
+      "open": [],
+      "visibleChanges": 0,
+      "depthWriteChanges": 0,
+      "materialChanges": 0
+    },
+    {
+      "id": 6,
+      "position": [
+        6.5,
+        0,
+        0
+      ],
+      "closed": [],
+      "open": [],
+      "visibleChanges": 0,
+      "depthWriteChanges": 0,
+      "materialChanges": 0
+    },
+    {
+      "id": 7,
+      "position": [
+        3.5,
+        0,
+        -10
+      ],
+      "closed": [],
+      "open": [],
+      "visibleChanges": 0,
+      "depthWriteChanges": 0,
+      "materialChanges": 0
+    },
+    {
+      "id": 8,
+      "position": [
+        9.5,
+        0,
+        -10
+      ],
+      "closed": [],
+      "open": [],
+      "visibleChanges": 0,
+      "depthWriteChanges": 0,
+      "materialChanges": 0
+    },
+    {
+      "id": 9,
+      "position": [
+        -8,
+        0,
+        6.5
+      ],
+      "closed": [],
+      "open": [],
+      "visibleChanges": 0,
+      "depthWriteChanges": 0,
+      "materialChanges": 0
+    },
+    {
+      "id": 10,
+      "position": [
+        8,
+        0,
+        6.5
+      ],
+      "closed": [],
+      "open": [],
+      "visibleChanges": 0,
+      "depthWriteChanges": 0,
+      "materialChanges": 0
+    },
+    {
+      "id": 11,
+      "position": [
+        0,
+        0,
+        11.5
+      ],
+      "closed": [],
+      "open": [],
+      "visibleChanges": 0,
+      "depthWriteChanges": 0,
+      "materialChanges": 0
+    },
+    {
+      "id": 12,
+      "position": [
+        0,
+        0,
+        17.5
+      ],
+      "closed": [],
+      "open": [],
+      "visibleChanges": 0,
+      "depthWriteChanges": 0,
+      "materialChanges": 0
+    },
+    {
+      "id": 13,
+      "position": [
+        4,
+        0,
+        14.5
+      ],
+      "closed": [],
+      "open": [],
+      "visibleChanges": 0,
+      "depthWriteChanges": 0,
+      "materialChanges": 0
+    },
+    {
+      "id": 14,
+      "position": [
+        5.5,
+        0,
+        14.5
+      ],
+      "closed": [],
+      "open": [],
+      "visibleChanges": 0,
+      "depthWriteChanges": 0,
+      "materialChanges": 0
+    },
+    {
+      "id": 15,
+      "position": [
+        7.58,
+        0,
+        22.5
+      ],
+      "closed": [],
+      "open": [],
+      "visibleChanges": 0,
+      "depthWriteChanges": 0,
+      "materialChanges": 0
+    }
+  ]
+}

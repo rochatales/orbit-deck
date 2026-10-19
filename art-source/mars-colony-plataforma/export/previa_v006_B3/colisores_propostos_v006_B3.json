@@ -1,0 +1,42 @@
+{
+ "versao": "v006 (B3)",
+ "colisores_propostos": [
+  {
+   "nome": "COL_NOVO_PLAT_B3_Torre_Servico",
+   "rect_jogo_minX_maxX_minZ_maxZ": [
+    -14.523,
+    -13.078,
+    40.778,
+    42.222
+   ],
+   "altura_m": 9.0,
+   "nota": "fora do deck caminhável",
+   "estado": "proposta; não integra os colisores ativos"
+  },
+  {
+   "nome": "COL_NOVO_PLAT_B3_Mastro_Servico",
+   "rect_jogo_minX_maxX_minZ_maxZ": [
+    -6.795,
+    -5.605,
+    40.905,
+    42.095
+   ],
+   "altura_m": 6.0,
+   "nota": "fora do deck caminhável",
+   "estado": "proposta; não integra os colisores ativos"
+  },
+  {
+   "nome": "COL_NOVO_PLAT_B3_Base_Lancamento",
+   "rect_jogo_minX_maxX_minZ_maxZ": [
+    -11.65,
+    -8.35,
+    39.2,
+    43.8
+   ],
+   "altura_m": 2.0,
+   "nota": "base fora do deck",
+   "estado": "proposta; não integra os colisores ativos"
+  }
+ ],
+ "nota": "Fora do GLB de prévia. Retângulos no plano do jogo (x, z); a passagem (r 0,36 m) não perde área com eles (notas/analise_v006.json)."
+}

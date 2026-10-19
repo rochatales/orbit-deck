@@ -1,0 +1,2404 @@
+{
+ "oclusao": {
+  "B2_v005": {
+   "jogador_no_desembarque": {
+    "L": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SE": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "S": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 0,
+     "bloqueadores": {}
+    }
+   },
+   "zona_embarque_2_7m": {
+    "L": {
+     "pct": 7,
+     "bloqueadores": {
+      "PLAT_Baia_Parapeitos": 1
+     }
+    },
+    "SE": {
+     "pct": 7,
+     "bloqueadores": {
+      "PLAT_Baia_Parapeitos": 1
+     }
+    },
+    "S": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SO": {
+     "pct": 7,
+     "bloqueadores": {
+      "PLAT_Baia_Parapeitos": 1
+     }
+    },
+    "O": {
+     "pct": 7,
+     "bloqueadores": {
+      "PLAT_Baia_Parapeitos": 1
+     }
+    },
+    "NO": {
+     "pct": 7,
+     "bloqueadores": {
+      "PLAT_Baia_Parapeitos": 1
+     }
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 7,
+     "bloqueadores": {
+      "PLAT_Baia_Parapeitos": 1
+     }
+    }
+   },
+   "baia_ate_INTERACT_Nave": {
+    "L": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SE": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "S": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 0,
+     "bloqueadores": {}
+    }
+   },
+   "passagem_z25_31": {
+    "L": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SE": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "S": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 0,
+     "bloqueadores": {}
+    }
+   },
+   "deck_livre": {
+    "L": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SE": {
+     "pct": 5,
+     "bloqueadores": {
+      "PLAT_B2_Foguete": 1
+     }
+    },
+    "S": {
+     "pct": 50,
+     "bloqueadores": {
+      "PLAT_B2_Foguete": 5,
+      "PLAT_B2_Torre_2": 4,
+      "PLAT_B2_Passarela_T2_7m": 1
+     }
+    },
+    "SO": {
+     "pct": 35,
+     "bloqueadores": {
+      "PLAT_B2_Foguete": 3,
+      "PLAT_B2_Torre_1": 2,
+      "PLAT_B2_Braco_Tripulacao_Passarela": 1
+     }
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 0,
+     "bloqueadores": {}
+    }
+   },
+   "caminho_sul": {
+    "L": {
+     "pct": 20,
+     "bloqueadores": {
+      "ARQ_Pavilhao_Parede_N": 1,
+      "ARQ_Pavilhao_Porta_O_Verga": 1,
+      "ARQ_Pavilhao_Parede_O_2": 1
+     }
+    },
+    "SE": {
+     "pct": 10,
+     "bloqueadores": {
+      "ARQ_Pavilhao_Porta_O_Verga": 2
+     }
+    },
+    "S": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 10,
+     "bloqueadores": {
+      "TET_Eclusa": 1,
+      "ARQ_Eclusa_Parede_L": 1
+     }
+    },
+    "N": {
+     "pct": 15,
+     "bloqueadores": {
+      "TET_Reuniao": 2,
+      "TET_Eclusa": 1
+     }
+    },
+    "NE": {
+     "pct": 20,
+     "bloqueadores": {
+      "ARQ_Pavilhao_Porta_O_Verga": 2,
+      "ARQ_Eclusa_Parede_O": 1,
+      "TET_Eclusa": 1
+     }
+    }
+   },
+   "faixa_sul_deck": {
+    "L": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SE": {
+     "pct": 8,
+     "bloqueadores": {
+      "PLAT_B2_Foguete": 1
+     }
+    },
+    "S": {
+     "pct": 50,
+     "bloqueadores": {
+      "PLAT_B2_Foguete": 4,
+      "PLAT_B2_Torre_2": 2
+     }
+    },
+    "SO": {
+     "pct": 25,
+     "bloqueadores": {
+      "PLAT_B2_Foguete": 1,
+      "PLAT_B2_Braco_Tripulacao_Cabine": 1,
+      "PLAT_B2_Torre_1": 1
+     }
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 0,
+     "bloqueadores": {}
+    }
+   },
+   "jogador_no_elevador_0_33": {
+    "L": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SE": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "S": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 0,
+     "bloqueadores": {}
+    }
+   }
+  },
+  "B3_v006": {
+   "jogador_no_desembarque": {
+    "L": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SE": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "S": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 0,
+     "bloqueadores": {}
+    }
+   },
+   "zona_embarque_2_7m": {
+    "L": {
+     "pct": 7,
+     "bloqueadores": {
+      "PLAT_Baia_Parapeitos": 1
+     }
+    },
+    "SE": {
+     "pct": 7,
+     "bloqueadores": {
+      "PLAT_Baia_Parapeitos": 1
+     }
+    },
+    "S": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SO": {
+     "pct": 7,
+     "bloqueadores": {
+      "PLAT_Baia_Parapeitos": 1
+     }
+    },
+    "O": {
+     "pct": 7,
+     "bloqueadores": {
+      "PLAT_Baia_Parapeitos": 1
+     }
+    },
+    "NO": {
+     "pct": 7,
+     "bloqueadores": {
+      "PLAT_Baia_Parapeitos": 1
+     }
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 7,
+     "bloqueadores": {
+      "PLAT_Baia_Parapeitos": 1
+     }
+    }
+   },
+   "baia_ate_INTERACT_Nave": {
+    "L": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SE": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "S": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 0,
+     "bloqueadores": {}
+    }
+   },
+   "passagem_z25_31": {
+    "L": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SE": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "S": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 0,
+     "bloqueadores": {}
+    }
+   },
+   "deck_livre": {
+    "L": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SE": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "S": {
+     "pct": 10,
+     "bloqueadores": {
+      "PLAT_B3_Mastro_Servico": 2
+     }
+    },
+    "SO": {
+     "pct": 15,
+     "bloqueadores": {
+      "PLAT_B3_Foguete": 3
+     }
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 0,
+     "bloqueadores": {}
+    }
+   },
+   "caminho_sul": {
+    "L": {
+     "pct": 20,
+     "bloqueadores": {
+      "ARQ_Pavilhao_Parede_N": 1,
+      "ARQ_Pavilhao_Porta_O_Verga": 1,
+      "ARQ_Pavilhao_Parede_O_2": 1
+     }
+    },
+    "SE": {
+     "pct": 10,
+     "bloqueadores": {
+      "ARQ_Pavilhao_Porta_O_Verga": 2
+     }
+    },
+    "S": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 10,
+     "bloqueadores": {
+      "TET_Eclusa": 1,
+      "ARQ_Eclusa_Parede_L": 1
+     }
+    },
+    "N": {
+     "pct": 15,
+     "bloqueadores": {
+      "TET_Reuniao": 2,
+      "TET_Eclusa": 1
+     }
+    },
+    "NE": {
+     "pct": 20,
+     "bloqueadores": {
+      "ARQ_Pavilhao_Porta_O_Verga": 2,
+      "ARQ_Eclusa_Parede_O": 1,
+      "TET_Eclusa": 1
+     }
+    }
+   },
+   "faixa_sul_deck": {
+    "L": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SE": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "S": {
+     "pct": 17,
+     "bloqueadores": {
+      "PLAT_B3_Mastro_Servico": 2
+     }
+    },
+    "SO": {
+     "pct": 42,
+     "bloqueadores": {
+      "PLAT_B3_Foguete": 4,
+      "PLAT_B3_Braco_Tripulacao": 1
+     }
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 0,
+     "bloqueadores": {}
+    }
+   },
+   "jogador_no_elevador_0_33": {
+    "L": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SE": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "S": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 0,
+     "bloqueadores": {}
+    }
+   }
+  }
+ },
+ "oclusao_resumo": {
+  "B2_v005": {
+   "jogador_no_desembarque": {
+    "media_%": 0.0,
+    "max_%": 0,
+    "SE_padrao_%": 0
+   },
+   "zona_embarque_2_7m": {
+    "media_%": 5.2,
+    "max_%": 7,
+    "SE_padrao_%": 7
+   },
+   "baia_ate_INTERACT_Nave": {
+    "media_%": 0.0,
+    "max_%": 0,
+    "SE_padrao_%": 0
+   },
+   "passagem_z25_31": {
+    "media_%": 0.0,
+    "max_%": 0,
+    "SE_padrao_%": 0
+   },
+   "deck_livre": {
+    "media_%": 11.2,
+    "max_%": 50,
+    "SE_padrao_%": 5
+   },
+   "caminho_sul": {
+    "media_%": 9.4,
+    "max_%": 20,
+    "SE_padrao_%": 10
+   },
+   "faixa_sul_deck": {
+    "media_%": 10.4,
+    "max_%": 50,
+    "SE_padrao_%": 8
+   },
+   "jogador_no_elevador_0_33": {
+    "media_%": 0.0,
+    "max_%": 0,
+    "SE_padrao_%": 0
+   }
+  },
+  "B3_v006": {
+   "jogador_no_desembarque": {
+    "media_%": 0.0,
+    "max_%": 0,
+    "SE_padrao_%": 0
+   },
+   "zona_embarque_2_7m": {
+    "media_%": 5.2,
+    "max_%": 7,
+    "SE_padrao_%": 7
+   },
+   "baia_ate_INTERACT_Nave": {
+    "media_%": 0.0,
+    "max_%": 0,
+    "SE_padrao_%": 0
+   },
+   "passagem_z25_31": {
+    "media_%": 0.0,
+    "max_%": 0,
+    "SE_padrao_%": 0
+   },
+   "deck_livre": {
+    "media_%": 3.1,
+    "max_%": 15,
+    "SE_padrao_%": 0
+   },
+   "caminho_sul": {
+    "media_%": 9.4,
+    "max_%": 20,
+    "SE_padrao_%": 10
+   },
+   "faixa_sul_deck": {
+    "media_%": 7.4,
+    "max_%": 42,
+    "SE_padrao_%": 0
+   },
+   "jogador_no_elevador_0_33": {
+    "media_%": 0.0,
+    "max_%": 0,
+    "SE_padrao_%": 0
+   }
+  }
+ },
+ "passagem_r036": {
+  "candidato (sem mudanças)": {
+   "area_alcancavel_deck_m2": 126.81,
+   "alvos": {
+    "desembarque (0; 29,5)": true,
+    "INTERACT_Nave (0; 33)": true,
+    "zona de embarque (2,7 m)": true,
+    "canto SO do deck": true,
+    "canto SE do deck": true,
+    "fundo do deck (0; 37)": true
+   }
+  },
+  "B2_v005": {
+   "propostas_COL_NOVO": [
+    "COL_NOVO_PLAT_B2_Torre_1",
+    "COL_NOVO_PLAT_B2_Torre_2",
+    "COL_NOVO_PLAT_B2_Base_Lancamento"
+   ],
+   "com_propostas": {
+    "area_alcancavel_deck_m2": 126.81,
+    "perda_deck_m2": 0.0,
+    "alvos": {
+     "desembarque (0; 29,5)": true,
+     "INTERACT_Nave (0; 33)": true,
+     "zona de embarque (2,7 m)": true,
+     "canto SO do deck": true,
+     "canto SE do deck": true,
+     "fundo do deck (0; 37)": true
+    }
+   },
+   "geometria_visivel_sem_colisor": {
+    "total_m2": 0.0,
+    "por_objeto_m2": {},
+    "perda_se_fosse_solida_m2": 0.0,
+    "alvos": {
+     "desembarque (0; 29,5)": true,
+     "INTERACT_Nave (0; 33)": true,
+     "zona de embarque (2,7 m)": true,
+     "canto SO do deck": true,
+     "canto SE do deck": true,
+     "fundo do deck (0; 37)": true
+    }
+   }
+  },
+  "B3_v006": {
+   "propostas_COL_NOVO": [
+    "COL_NOVO_PLAT_B3_Torre_Servico",
+    "COL_NOVO_PLAT_B3_Mastro_Servico",
+    "COL_NOVO_PLAT_B3_Base_Lancamento"
+   ],
+   "com_propostas": {
+    "area_alcancavel_deck_m2": 126.81,
+    "perda_deck_m2": 0.0,
+    "alvos": {
+     "desembarque (0; 29,5)": true,
+     "INTERACT_Nave (0; 33)": true,
+     "zona de embarque (2,7 m)": true,
+     "canto SO do deck": true,
+     "canto SE do deck": true,
+     "fundo do deck (0; 37)": true
+    }
+   },
+   "geometria_visivel_sem_colisor": {
+    "total_m2": 0.0,
+    "por_objeto_m2": {},
+    "perda_se_fosse_solida_m2": 0.0,
+    "alvos": {
+     "desembarque (0; 29,5)": true,
+     "INTERACT_Nave (0; 33)": true,
+     "zona de embarque (2,7 m)": true,
+     "canto SO do deck": true,
+     "canto SE do deck": true,
+     "fundo do deck (0; 37)": true
+    }
+   }
+  }
+ },
+ "trajeto": {
+  "B2_v005": {
+   "amostras_z": [
+    19.0,
+    19.5,
+    20.0,
+    20.5,
+    21.0,
+    21.5,
+    22.0,
+    22.5,
+    23.0,
+    23.5,
+    24.0,
+    24.5,
+    25.0,
+    25.5,
+    26.0,
+    26.5,
+    27.0,
+    27.5,
+    28.0,
+    28.5,
+    29.0,
+    29.5,
+    30.0,
+    30.5,
+    31.0,
+    31.5,
+    32.0,
+    32.5,
+    33.0
+   ],
+   "oito_orientacoes_so_plataforma": {
+    "L": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "SE": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "S": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "SO": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "O": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "NO": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "N": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "NE": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "oito_orientacoes_qualquer_objeto": {
+    "L": [
+     1.0,
+     1.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "SE": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "S": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "SO": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "O": [
+     1.0,
+     0.67,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "NO": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.33,
+     0.33,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "N": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.67,
+     0.33,
+     0.33,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "NE": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.33,
+     0.33,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "max_oito_so_plataforma": 0.0,
+   "max_oito_qualquer_objeto": 1.0,
+   "varredura_5graus_so_plataforma": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "varredura_5graus_qualquer_objeto": [
+    1.0,
+    1.0,
+    1.0,
+    0.67,
+    0.33,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.33,
+    0.67,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "angulos_ocultos_pela_plataforma_de_72": 6,
+   "faixas_ocultas_pela_plataforma_graus": [
+    100,
+    105,
+    110,
+    115,
+    120,
+    125
+   ],
+   "angulos_ocultos_por_qualquer_objeto_de_72": 51
+  },
+  "B3_v006": {
+   "amostras_z": [
+    19.0,
+    19.5,
+    20.0,
+    20.5,
+    21.0,
+    21.5,
+    22.0,
+    22.5,
+    23.0,
+    23.5,
+    24.0,
+    24.5,
+    25.0,
+    25.5,
+    26.0,
+    26.5,
+    27.0,
+    27.5,
+    28.0,
+    28.5,
+    29.0,
+    29.5,
+    30.0,
+    30.5,
+    31.0,
+    31.5,
+    32.0,
+    32.5,
+    33.0
+   ],
+   "oito_orientacoes_so_plataforma": {
+    "L": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "SE": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "S": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "SO": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "O": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "NO": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "N": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "NE": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "oito_orientacoes_qualquer_objeto": {
+    "L": [
+     1.0,
+     1.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "SE": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "S": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "SO": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "O": [
+     1.0,
+     0.67,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "NO": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.33,
+     0.33,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "N": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.67,
+     0.33,
+     0.33,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "NE": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.33,
+     0.33,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "max_oito_so_plataforma": 0.0,
+   "max_oito_qualquer_objeto": 1.0,
+   "varredura_5graus_so_plataforma": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "varredura_5graus_qualquer_objeto": [
+    1.0,
+    1.0,
+    1.0,
+    0.67,
+    0.33,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.33,
+    0.67,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "angulos_ocultos_pela_plataforma_de_72": 0,
+   "faixas_ocultas_pela_plataforma_graus": [],
+   "angulos_ocultos_por_qualquer_objeto_de_72": 45
+  }
+ },
+ "medidas": {
+  "PLAT_B2_Foguete": {
+   "x": [
+    -5.47,
+    -2.53
+   ],
+   "z_jogo": [
+    39.58,
+    43.42
+   ],
+   "altura": [
+    0.93,
+    14.03
+   ]
+  },
+  "PLAT_B3_Foguete": {
+   "x": [
+    -11.31,
+    -8.69
+   ],
+   "z_jogo": [
+    39.81,
+    43.19
+   ],
+   "altura": [
+    0.93,
+    10.1
+   ]
+  },
+  "PLAT_B2_Torre_1": {
+   "x": [
+    -4.55,
+    -2.29
+   ],
+   "z_jogo": [
+    43.72,
+    45.98
+   ],
+   "altura": [
+    0.0,
+    11.69
+   ]
+  },
+  "PLAT_B2_Torre_2": {
+   "x": [
+    -8.08,
+    -5.82
+   ],
+   "z_jogo": [
+    42.06,
+    44.32
+   ],
+   "altura": [
+    0.0,
+    11.69
+   ]
+  },
+  "PLAT_B3_Torre_Servico": {
+   "x": [
+    -14.52,
+    -13.08
+   ],
+   "z_jogo": [
+    40.78,
+    42.22
+   ],
+   "altura": [
+    0.0,
+    8.06
+   ]
+  },
+  "PLAT_B3_Mastro_Servico": {
+   "x": [
+    -6.8,
+    -5.6
+   ],
+   "z_jogo": [
+    40.9,
+    42.1
+   ],
+   "altura": [
+    0.0,
+    5.41
+   ]
+  },
+  "PLAT_B2_Base_Lancamento": {
+   "x": [
+    -6.78,
+    -1.22
+   ],
+   "z_jogo": [
+    38.36,
+    44.64
+   ],
+   "altura": [
+    -0.5,
+    1.44
+   ]
+  },
+  "PLAT_B3_Base_Lancamento": {
+   "x": [
+    -11.68,
+    -8.32
+   ],
+   "z_jogo": [
+    39.2,
+    43.8
+   ],
+   "altura": [
+    -0.5,
+    1.32
+   ]
+  },
+  "PLAT_B3_Totem_Embarque": {
+   "x": [
+    -1.3,
+    1.3
+   ],
+   "z_jogo": [
+    34.75,
+    35.25
+   ],
+   "altura": [
+    0.0,
+    1.33
+   ]
+  },
+  "PLAT_B2_Braco_Tripulacao_Cabine": {
+   "x": [
+    -3.28,
+    -1.64
+   ],
+   "z_jogo": [
+    41.38,
+    43.07
+   ],
+   "altura": [
+    7.91,
+    10.01
+   ]
+  },
+  "PLAT_B3_Braco_Tripulacao": {
+   "x": [
+    -13.14,
+    -10.76
+   ],
+   "z_jogo": [
+    40.9,
+    42.1
+   ],
+   "altura": [
+    4.03,
+    7.05
+   ]
+  },
+  "PLAT_B3_Casa_Elevador_Base": {
+   "x": [
+    -9.74,
+    -7.68
+   ],
+   "z_jogo": [
+    39.46,
+    41.43
+   ],
+   "altura": [
+    0.93,
+    2.83
+   ]
+  }
+ },
+ "contagens": {
+  "PLATAFORMA_COMUM": {
+   "objetos": 6,
+   "triangulos_base_sem_modificadores": 888,
+   "materiais": [
+    "M_Estrutura",
+    "M_Foguete_Casco",
+    "M_Foguete_Motor",
+    "M_LuzAmbar",
+    "M_MetalEscuro",
+    "M_Painel",
+    "M_TelaCiano"
+   ]
+  },
+  "PLATAFORMA_B2_REFINADA": {
+   "objetos": 24,
+   "triangulos_base_sem_modificadores": 11742,
+   "materiais": [
+    "M_Concreto",
+    "M_Deck",
+    "M_Estrutura",
+    "M_Foguete_Casco",
+    "M_Foguete_Motor",
+    "M_LuzAmbar",
+    "M_LuzCiano",
+    "M_Marcacao",
+    "M_MetalEscuro",
+    "M_Painel",
+    "M_Sinal_Texto",
+    "M_TelaCiano",
+    "M_Vedacao",
+    "M_Vidro"
+   ]
+  },
+  "PLATAFORMA_B3_V006": {
+   "objetos": 17,
+   "triangulos_base_sem_modificadores": 11402,
+   "materiais": [
+    "M_Concreto",
+    "M_Deck",
+    "M_Estrutura",
+    "M_Foguete_Casco",
+    "M_Foguete_Motor",
+    "M_LuzAmbar",
+    "M_Marcacao",
+    "M_MetalEscuro",
+    "M_Painel",
+    "M_Sinal_Texto",
+    "M_TelaCiano",
+    "M_Vedacao",
+    "M_Vidro"
+   ]
+  }
+ }
+}

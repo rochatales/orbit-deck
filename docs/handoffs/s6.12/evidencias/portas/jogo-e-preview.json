@@ -1,0 +1,102 @@
+{
+  "data": "2026-10-18T00:30:26.202Z",
+  "jogo": {
+    "errors": [],
+    "warnings": {
+      "chavesReactDuplicadas": 102
+    },
+    "result": {
+      "frames": 2974,
+      "visible": 0,
+      "depthWrite": 0,
+      "material": 0,
+      "opacityJumps": 71,
+      "opacityJumpsFrameNormal": 10,
+      "maxStepFrameNormal": 0.2860389292013573,
+      "maxFrameMs": 116.70000000000073,
+      "samples": [
+        {
+          "mesh": "PortaAutomatica",
+          "de": 0.605,
+          "para": 0.254,
+          "frameMs": 100
+        },
+        {
+          "mesh": "PortaAutomatica",
+          "de": 0.605,
+          "para": 0.254,
+          "frameMs": 100
+        },
+        {
+          "mesh": "PortaAutomatica",
+          "de": 0.844,
+          "para": 0.592,
+          "frameMs": 100
+        },
+        {
+          "mesh": "PortaAutomatica",
+          "de": 0.661,
+          "para": 0.288,
+          "frameMs": 83.3
+        },
+        {
+          "mesh": "PortaAutomatica",
+          "de": 0.661,
+          "para": 0.288,
+          "frameMs": 83.3
+        },
+        {
+          "mesh": "PortaAutomatica",
+          "de": 0.886,
+          "para": 0.62,
+          "frameMs": 83.3
+        },
+        {
+          "mesh": "PortaAutomatica",
+          "de": 0.552,
+          "para": 0.252,
+          "frameMs": 83.4
+        },
+        {
+          "mesh": "PortaAutomatica",
+          "de": 0.552,
+          "para": 0.252,
+          "frameMs": 83.4
+        },
+        {
+          "mesh": "PortaAutomatica",
+          "de": 0.82,
+          "para": 0.57,
+          "frameMs": 33.3
+        },
+        {
+          "mesh": "PortaAutomatica",
+          "de": 0.82,
+          "para": 0.57,
+          "frameMs": 33.3
+        },
+        {
+          "mesh": "PortaAutomatica",
+          "de": 0.57,
+          "para": 0.252,
+          "frameMs": 83.3
+        },
+        {
+          "mesh": "PortaAutomatica",
+          "de": 0.57,
+          "para": 0.252,
+          "frameMs": 83.3
+        }
+      ],
+      "tracked": 129,
+      "doors": 16
+    }
+  },
+  "preview": {
+    "errors": [],
+    "warnings": {},
+    "result": {
+      "canvas": 1
+    }
+  }
+}

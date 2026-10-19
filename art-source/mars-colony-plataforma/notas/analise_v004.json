@@ -1,0 +1,1156 @@
+{
+ "oclusao": {
+  "v003": {
+   "jogador_no_desembarque": {
+    "L": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SE": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "S": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 0,
+     "bloqueadores": {}
+    }
+   },
+   "zona_embarque_2_7m": {
+    "L": {
+     "pct": 7,
+     "bloqueadores": {
+      "PROP_Nave_Referencia": 1
+     }
+    },
+    "SE": {
+     "pct": 7,
+     "bloqueadores": {
+      "PROP_Nave_Referencia": 1
+     }
+    },
+    "S": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SO": {
+     "pct": 7,
+     "bloqueadores": {
+      "PROP_Nave_Referencia": 1
+     }
+    },
+    "O": {
+     "pct": 7,
+     "bloqueadores": {
+      "PROP_Nave_Referencia": 1
+     }
+    },
+    "NO": {
+     "pct": 7,
+     "bloqueadores": {
+      "PROP_Nave_Referencia": 1
+     }
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 7,
+     "bloqueadores": {
+      "PROP_Nave_Referencia": 1
+     }
+    }
+   },
+   "baia_ate_INTERACT_Nave": {
+    "L": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SE": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "S": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 0,
+     "bloqueadores": {}
+    }
+   },
+   "passagem_z25_31": {
+    "L": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SE": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "S": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 0,
+     "bloqueadores": {}
+    }
+   },
+   "deck_livre": {
+    "L": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SE": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "S": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 0,
+     "bloqueadores": {}
+    }
+   },
+   "caminho_sul": {
+    "L": {
+     "pct": 20,
+     "bloqueadores": {
+      "ARQ_Pavilhao_Parede_N": 1,
+      "ARQ_Pavilhao_Porta_O_Verga": 1,
+      "ARQ_Pavilhao_Parede_O_2": 1
+     }
+    },
+    "SE": {
+     "pct": 10,
+     "bloqueadores": {
+      "ARQ_Pavilhao_Porta_O_Verga": 2
+     }
+    },
+    "S": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 10,
+     "bloqueadores": {
+      "TET_Eclusa": 1,
+      "ARQ_Eclusa_Parede_L": 1
+     }
+    },
+    "N": {
+     "pct": 15,
+     "bloqueadores": {
+      "TET_Reuniao": 2,
+      "TET_Eclusa": 1
+     }
+    },
+    "NE": {
+     "pct": 20,
+     "bloqueadores": {
+      "ARQ_Pavilhao_Porta_O_Verga": 2,
+      "ARQ_Eclusa_Parede_O": 1,
+      "TET_Eclusa": 1
+     }
+    }
+   }
+  },
+  "A_central": {
+   "jogador_no_desembarque": {
+    "L": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SE": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "S": {
+     "pct": 100,
+     "bloqueadores": {
+      "PLAT_A_Foguete": 3
+     }
+    },
+    "SO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 0,
+     "bloqueadores": {}
+    }
+   },
+   "zona_embarque_2_7m": {
+    "L": {
+     "pct": 7,
+     "bloqueadores": {
+      "PLAT_Baia_Parapeitos": 1
+     }
+    },
+    "SE": {
+     "pct": 20,
+     "bloqueadores": {
+      "PLAT_A_Torre_2": 2,
+      "PLAT_Baia_Parapeitos": 1
+     }
+    },
+    "S": {
+     "pct": 100,
+     "bloqueadores": {
+      "PLAT_A_Foguete": 15
+     }
+    },
+    "SO": {
+     "pct": 27,
+     "bloqueadores": {
+      "PLAT_A_Torre_1": 3,
+      "PLAT_Baia_Parapeitos": 1
+     }
+    },
+    "O": {
+     "pct": 7,
+     "bloqueadores": {
+      "PLAT_Baia_Parapeitos": 1
+     }
+    },
+    "NO": {
+     "pct": 7,
+     "bloqueadores": {
+      "PLAT_Baia_Parapeitos": 1
+     }
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 7,
+     "bloqueadores": {
+      "PLAT_Baia_Parapeitos": 1
+     }
+    }
+   },
+   "baia_ate_INTERACT_Nave": {
+    "L": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SE": {
+     "pct": 58,
+     "bloqueadores": {
+      "PLAT_A_Torre_2": 6,
+      "PLAT_A_Foguete": 1
+     }
+    },
+    "S": {
+     "pct": 100,
+     "bloqueadores": {
+      "PLAT_A_Foguete": 12
+     }
+    },
+    "SO": {
+     "pct": 42,
+     "bloqueadores": {
+      "PLAT_A_Torre_1": 4,
+      "PLAT_A_Foguete": 1
+     }
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 0,
+     "bloqueadores": {}
+    }
+   },
+   "passagem_z25_31": {
+    "L": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SE": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "S": {
+     "pct": 78,
+     "bloqueadores": {
+      "PLAT_A_Foguete": 7
+     }
+    },
+    "SO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 0,
+     "bloqueadores": {}
+    }
+   },
+   "deck_livre": {
+    "L": {
+     "pct": 20,
+     "bloqueadores": {
+      "PLAT_A_Foguete": 2,
+      "PLAT_A_Torre_1": 1,
+      "PLAT_A_Linha_Torre1": 1
+     }
+    },
+    "SE": {
+     "pct": 25,
+     "bloqueadores": {
+      "PLAT_A_Foguete": 5
+     }
+    },
+    "S": {
+     "pct": 20,
+     "bloqueadores": {
+      "PLAT_A_Torre_1": 4
+     }
+    },
+    "SO": {
+     "pct": 30,
+     "bloqueadores": {
+      "PLAT_A_Foguete": 5,
+      "PLAT_A_Torre_2": 1
+     }
+    },
+    "O": {
+     "pct": 20,
+     "bloqueadores": {
+      "PLAT_A_Foguete": 3,
+      "PLAT_A_Torre_2": 1
+     }
+    },
+    "NO": {
+     "pct": 15,
+     "bloqueadores": {
+      "PLAT_A_Torre_2": 3
+     }
+    },
+    "N": {
+     "pct": 5,
+     "bloqueadores": {
+      "PLAT_A_Torre_1": 1
+     }
+    },
+    "NE": {
+     "pct": 15,
+     "bloqueadores": {
+      "PLAT_A_Torre_1": 3
+     }
+    }
+   },
+   "caminho_sul": {
+    "L": {
+     "pct": 20,
+     "bloqueadores": {
+      "ARQ_Pavilhao_Parede_N": 1,
+      "ARQ_Pavilhao_Porta_O_Verga": 1,
+      "ARQ_Pavilhao_Parede_O_2": 1
+     }
+    },
+    "SE": {
+     "pct": 15,
+     "bloqueadores": {
+      "ARQ_Pavilhao_Porta_O_Verga": 2,
+      "PLAT_A_Braco_Tripulacao": 1
+     }
+    },
+    "S": {
+     "pct": 60,
+     "bloqueadores": {
+      "PLAT_A_Torre_1": 4,
+      "PLAT_A_Torre_2": 4,
+      "PLAT_A_Braco_Tripulacao": 2
+     }
+    },
+    "SO": {
+     "pct": 5,
+     "bloqueadores": {
+      "PLAT_A_Torre_1": 1
+     }
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 10,
+     "bloqueadores": {
+      "TET_Eclusa": 1,
+      "ARQ_Eclusa_Parede_L": 1
+     }
+    },
+    "N": {
+     "pct": 15,
+     "bloqueadores": {
+      "TET_Reuniao": 2,
+      "TET_Eclusa": 1
+     }
+    },
+    "NE": {
+     "pct": 20,
+     "bloqueadores": {
+      "ARQ_Pavilhao_Porta_O_Verga": 2,
+      "ARQ_Eclusa_Parede_O": 1,
+      "TET_Eclusa": 1
+     }
+    }
+   }
+  },
+  "B_deslocada": {
+   "jogador_no_desembarque": {
+    "L": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SE": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "S": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 0,
+     "bloqueadores": {}
+    }
+   },
+   "zona_embarque_2_7m": {
+    "L": {
+     "pct": 7,
+     "bloqueadores": {
+      "PLAT_Baia_Parapeitos": 1
+     }
+    },
+    "SE": {
+     "pct": 7,
+     "bloqueadores": {
+      "PLAT_Baia_Parapeitos": 1
+     }
+    },
+    "S": {
+     "pct": 20,
+     "bloqueadores": {
+      "PLAT_B_Torre_2": 2,
+      "PLAT_B_Braco_Tripulacao": 1
+     }
+    },
+    "SO": {
+     "pct": 27,
+     "bloqueadores": {
+      "PLAT_B_Torre_1": 2,
+      "PLAT_Baia_Parapeitos": 1,
+      "PLAT_B_Umbilical_T1_3": 1
+     }
+    },
+    "O": {
+     "pct": 7,
+     "bloqueadores": {
+      "PLAT_Baia_Parapeitos": 1
+     }
+    },
+    "NO": {
+     "pct": 7,
+     "bloqueadores": {
+      "PLAT_Baia_Parapeitos": 1
+     }
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 7,
+     "bloqueadores": {
+      "PLAT_Baia_Parapeitos": 1
+     }
+    }
+   },
+   "baia_ate_INTERACT_Nave": {
+    "L": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SE": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "S": {
+     "pct": 17,
+     "bloqueadores": {
+      "PLAT_B_Torre_2": 2
+     }
+    },
+    "SO": {
+     "pct": 58,
+     "bloqueadores": {
+      "PLAT_B_Torre_1": 3,
+      "PLAT_B_Foguete": 3,
+      "PLAT_B_Passarela_T1_9m": 1
+     }
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 0,
+     "bloqueadores": {}
+    }
+   },
+   "passagem_z25_31": {
+    "L": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SE": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "S": {
+     "pct": 11,
+     "bloqueadores": {
+      "PLAT_B_Torre_2": 1
+     }
+    },
+    "SO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 0,
+     "bloqueadores": {}
+    }
+   },
+   "deck_livre": {
+    "L": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "SE": {
+     "pct": 5,
+     "bloqueadores": {
+      "PLAT_B_Torre_2": 1
+     }
+    },
+    "S": {
+     "pct": 50,
+     "bloqueadores": {
+      "PLAT_B_Foguete": 10
+     }
+    },
+    "SO": {
+     "pct": 40,
+     "bloqueadores": {
+      "PLAT_B_Torre_2": 3,
+      "PLAT_B_Braco_Tripulacao": 2,
+      "PLAT_B_Foguete": 2
+     }
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "N": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NE": {
+     "pct": 0,
+     "bloqueadores": {}
+    }
+   },
+   "caminho_sul": {
+    "L": {
+     "pct": 20,
+     "bloqueadores": {
+      "ARQ_Pavilhao_Parede_N": 1,
+      "ARQ_Pavilhao_Porta_O_Verga": 1,
+      "ARQ_Pavilhao_Parede_O_2": 1
+     }
+    },
+    "SE": {
+     "pct": 10,
+     "bloqueadores": {
+      "ARQ_Pavilhao_Porta_O_Verga": 2
+     }
+    },
+    "S": {
+     "pct": 15,
+     "bloqueadores": {
+      "PLAT_B_Foguete": 3
+     }
+    },
+    "SO": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "O": {
+     "pct": 0,
+     "bloqueadores": {}
+    },
+    "NO": {
+     "pct": 10,
+     "bloqueadores": {
+      "TET_Eclusa": 1,
+      "ARQ_Eclusa_Parede_L": 1
+     }
+    },
+    "N": {
+     "pct": 15,
+     "bloqueadores": {
+      "TET_Reuniao": 2,
+      "TET_Eclusa": 1
+     }
+    },
+    "NE": {
+     "pct": 20,
+     "bloqueadores": {
+      "ARQ_Pavilhao_Porta_O_Verga": 2,
+      "ARQ_Eclusa_Parede_O": 1,
+      "TET_Eclusa": 1
+     }
+    }
+   }
+  }
+ },
+ "oclusao_resumo": {
+  "v003": {
+   "jogador_no_desembarque": {
+    "media_%": 0.0,
+    "max_%": 0,
+    "SE_padrao_%": 0
+   },
+   "zona_embarque_2_7m": {
+    "media_%": 5.2,
+    "max_%": 7,
+    "SE_padrao_%": 7
+   },
+   "baia_ate_INTERACT_Nave": {
+    "media_%": 0.0,
+    "max_%": 0,
+    "SE_padrao_%": 0
+   },
+   "passagem_z25_31": {
+    "media_%": 0.0,
+    "max_%": 0,
+    "SE_padrao_%": 0
+   },
+   "deck_livre": {
+    "media_%": 0.0,
+    "max_%": 0,
+    "SE_padrao_%": 0
+   },
+   "caminho_sul": {
+    "media_%": 9.4,
+    "max_%": 20,
+    "SE_padrao_%": 10
+   }
+  },
+  "A_central": {
+   "jogador_no_desembarque": {
+    "media_%": 12.5,
+    "max_%": 100,
+    "SE_padrao_%": 0
+   },
+   "zona_embarque_2_7m": {
+    "media_%": 21.9,
+    "max_%": 100,
+    "SE_padrao_%": 20
+   },
+   "baia_ate_INTERACT_Nave": {
+    "media_%": 25.0,
+    "max_%": 100,
+    "SE_padrao_%": 58
+   },
+   "passagem_z25_31": {
+    "media_%": 9.8,
+    "max_%": 78,
+    "SE_padrao_%": 0
+   },
+   "deck_livre": {
+    "media_%": 18.8,
+    "max_%": 30,
+    "SE_padrao_%": 25
+   },
+   "caminho_sul": {
+    "media_%": 18.1,
+    "max_%": 60,
+    "SE_padrao_%": 15
+   }
+  },
+  "B_deslocada": {
+   "jogador_no_desembarque": {
+    "media_%": 0.0,
+    "max_%": 0,
+    "SE_padrao_%": 0
+   },
+   "zona_embarque_2_7m": {
+    "media_%": 10.2,
+    "max_%": 27,
+    "SE_padrao_%": 7
+   },
+   "baia_ate_INTERACT_Nave": {
+    "media_%": 9.4,
+    "max_%": 58,
+    "SE_padrao_%": 0
+   },
+   "passagem_z25_31": {
+    "media_%": 1.4,
+    "max_%": 11,
+    "SE_padrao_%": 0
+   },
+   "deck_livre": {
+    "media_%": 11.9,
+    "max_%": 50,
+    "SE_padrao_%": 5
+   },
+   "caminho_sul": {
+    "media_%": 11.2,
+    "max_%": 20,
+    "SE_padrao_%": 10
+   }
+  }
+ },
+ "passagem_r036": {
+  "candidato (sem mudanças)": {
+   "area_alcancavel_deck_m2": 126.81,
+   "alvos": {
+    "desembarque (0; 29,5)": true,
+    "INTERACT_Nave (0; 33)": true,
+    "zona de embarque (2,7 m)": true,
+    "canto SO do deck": true,
+    "canto SE do deck": true,
+    "fundo do deck (0; 37)": true
+   }
+  },
+  "A_central": {
+   "propostas_COL_NOVO": [
+    "COL_NOVO_PLAT_A_Base_Lancamento",
+    "COL_NOVO_PLAT_A_Torre_1",
+    "COL_NOVO_PLAT_A_Torre_2"
+   ],
+   "com_propostas": {
+    "area_alcancavel_deck_m2": 102.03,
+    "perda_deck_m2": 24.78,
+    "alvos": {
+     "desembarque (0; 29,5)": true,
+     "INTERACT_Nave (0; 33)": true,
+     "zona de embarque (2,7 m)": true,
+     "canto SO do deck": true,
+     "canto SE do deck": true,
+     "fundo do deck (0; 37)": false
+    }
+   },
+   "geometria_visivel_sem_colisor": {
+    "total_m2": 16.598,
+    "por_objeto_m2": {
+     "PLAT_A_Base_Lancamento": 30.092,
+     "PLAT_A_Foguete": 2.2,
+     "PLAT_A_Torre_1": 1.24,
+     "PLAT_A_Torre_2": 1.24,
+     "PLAT_A_Placa_Elevador": 0.375,
+     "PLAT_A_Linha_Torre1": 0.11
+    },
+    "perda_se_fosse_solida_m2": 23.86,
+    "alvos": {
+     "desembarque (0; 29,5)": true,
+     "INTERACT_Nave (0; 33)": true,
+     "zona de embarque (2,7 m)": true,
+     "canto SO do deck": true,
+     "canto SE do deck": true,
+     "fundo do deck (0; 37)": false
+    }
+   }
+  },
+  "B_deslocada": {
+   "propostas_COL_NOVO": [
+    "COL_NOVO_PLAT_B_Base_Lancamento",
+    "COL_NOVO_PLAT_B_Torre_1",
+    "COL_NOVO_PLAT_B_Torre_2",
+    "COL_NOVO_PLAT_B_Rampa_Servico"
+   ],
+   "com_propostas": {
+    "area_alcancavel_deck_m2": 126.04,
+    "perda_deck_m2": 0.77,
+    "alvos": {
+     "desembarque (0; 29,5)": true,
+     "INTERACT_Nave (0; 33)": true,
+     "zona de embarque (2,7 m)": true,
+     "canto SO do deck": true,
+     "canto SE do deck": true,
+     "fundo do deck (0; 37)": true
+    }
+   },
+   "geometria_visivel_sem_colisor": {
+    "total_m2": 0.26,
+    "por_objeto_m2": {
+     "PLAT_B_Totem_Embarque": 0.35
+    },
+    "perda_se_fosse_solida_m2": 0.26,
+    "alvos": {
+     "desembarque (0; 29,5)": true,
+     "INTERACT_Nave (0; 33)": true,
+     "zona de embarque (2,7 m)": true,
+     "canto SO do deck": true,
+     "canto SE do deck": true,
+     "fundo do deck (0; 37)": true
+    }
+   }
+  }
+ },
+ "medidas": {
+  "PLAT_A_Foguete": {
+   "x": [
+    -2.26,
+    2.26
+   ],
+   "z_jogo": [
+    34.85,
+    38.35
+   ],
+   "altura": [
+    1.15,
+    17.84
+   ]
+  },
+  "PLAT_A_Torre_1": {
+   "x": [
+    -4.55,
+    -2.85
+   ],
+   "z_jogo": [
+    35.75,
+    37.45
+   ],
+   "altura": [
+    0.0,
+    14.75
+   ]
+  },
+  "PLAT_A_Base_Lancamento": {
+   "x": [
+    -2.65,
+    2.65
+   ],
+   "z_jogo": [
+    34.71,
+    38.45
+   ],
+   "altura": [
+    -0.5,
+    1.79
+   ]
+  },
+  "PLAT_B_Foguete": {
+   "x": [
+    -7.26,
+    -2.74
+   ],
+   "z_jogo": [
+    39.25,
+    42.75
+   ],
+   "altura": [
+    1.15,
+    17.84
+   ]
+  },
+  "PLAT_B_Base_Lancamento": {
+   "x": [
+    -7.65,
+    -2.35
+   ],
+   "z_jogo": [
+    39.15,
+    42.85
+   ],
+   "altura": [
+    -0.5,
+    1.79
+   ]
+  },
+  "PLAT_Baia_Parapeitos": {
+   "x": [
+    -2.02,
+    2.02
+   ],
+   "z_jogo": [
+    30.75,
+    35.25
+   ],
+   "altura": [
+    0.0,
+    1.15
+   ]
+  },
+  "PLAT_A_Braco_Tripulacao": {
+   "x": [
+    -0.7,
+    3.7
+   ],
+   "z_jogo": [
+    34.05,
+    36.3
+   ],
+   "altura": [
+    10.05,
+    12.37
+   ]
+  }
+ },
+ "contagens": {
+  "PLATAFORMA_COMUM": {
+   "objetos": 8,
+   "triangulos": 2156,
+   "materiais": [
+    "M_Deck",
+    "M_Estrutura",
+    "M_Foguete_Casco",
+    "M_Foguete_Motor",
+    "M_LuzAmbar",
+    "M_Marcacao",
+    "M_MetalEscuro",
+    "M_Painel",
+    "M_TelaCiano"
+   ]
+  },
+  "PLATAFORMA_A_CENTRAL": {
+   "objetos": 20,
+   "triangulos": 13628,
+   "materiais": [
+    "M_Concreto",
+    "M_Estrutura",
+    "M_Foguete_Casco",
+    "M_Foguete_Motor",
+    "M_LuzAmbar",
+    "M_Marcacao",
+    "M_MetalEscuro",
+    "M_Painel",
+    "M_Sinal_Texto",
+    "M_Sinal_TextoEscuro",
+    "M_Vedacao",
+    "M_Vidro"
+   ]
+  },
+  "PLATAFORMA_B_DESLOCADA": {
+   "objetos": 21,
+   "triangulos": 10538,
+   "materiais": [
+    "M_Concreto",
+    "M_Estrutura",
+    "M_Foguete_Casco",
+    "M_Foguete_Motor",
+    "M_LuzAmbar",
+    "M_Marcacao",
+    "M_MetalEscuro",
+    "M_Painel",
+    "M_Sinal_Texto",
+    "M_Sinal_TextoEscuro",
+    "M_TelaCiano",
+    "M_Vedacao",
+    "M_Vidro"
+   ]
+  },
+  "variante_A_total": {
+   "objetos": 28,
+   "triangulos": 15784,
+   "materiais": [
+    "M_Concreto",
+    "M_Deck",
+    "M_Estrutura",
+    "M_Foguete_Casco",
+    "M_Foguete_Motor",
+    "M_LuzAmbar",
+    "M_Marcacao",
+    "M_MetalEscuro",
+    "M_Painel",
+    "M_Sinal_Texto",
+    "M_Sinal_TextoEscuro",
+    "M_TelaCiano",
+    "M_Vedacao",
+    "M_Vidro"
+   ]
+  },
+  "variante_B_total": {
+   "objetos": 29,
+   "triangulos": 12694,
+   "materiais": [
+    "M_Concreto",
+    "M_Deck",
+    "M_Estrutura",
+    "M_Foguete_Casco",
+    "M_Foguete_Motor",
+    "M_LuzAmbar",
+    "M_Marcacao",
+    "M_MetalEscuro",
+    "M_Painel",
+    "M_Sinal_Texto",
+    "M_Sinal_TextoEscuro",
+    "M_TelaCiano",
+    "M_Vedacao",
+    "M_Vidro"
+   ]
+  },
+  "v003_nave_substituida": {
+   "objetos": 1,
+   "triangulos": 96
+  },
+  "colisores_candidatos": 129
+ }
+}

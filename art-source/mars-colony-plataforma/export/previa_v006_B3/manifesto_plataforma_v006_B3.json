@@ -1,0 +1,1379 @@
+{
+ "versao": "v006 (B3)",
+ "fonte": "blend/mars_colony_estudo_v006_plataforma_B3.blend",
+ "camada": "Plataforma_B3",
+ "conversao_eixos": "Blender (X, Y, Z) -> jogo/glTF (x = X, y = Z, z = -Y); pivo_jogo_xyz e bbox_jogo já em coordenadas do jogo",
+ "regras": {
+  "identificador": "id_estavel = \"marte.plataforma.\" + nome sem prefixo de variante; o nome do nó glTF é o nome do objeto",
+  "transporte": "extras do nó glTF (propriedades personalizadas) + este manifesto",
+  "colisores": "nenhum colisor no GLB; propostas em colisores_propostos_v006_B3.json; a malha nunca é colisor",
+  "marcadores": "SPAWN_Desembarque e INTERACT_Nave como nós vazios, só para conferência de posição"
+ },
+ "objetos": [
+  {
+   "nome": "ARQ_Deck_Marcacoes",
+   "id_estavel": "marte.plataforma.deck_marcacoes",
+   "papel": "piso_contexto",
+   "tipo": "MESH",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    0.0,
+    0.0,
+    33.5
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "colisor": "piso caminhável ativo do piloto (sem mudança)",
+   "triangulos": 296,
+   "vertices": 160,
+   "materiais": [
+    "M_LuzCiano",
+    "M_Marcacao",
+    "M_Deck"
+   ],
+   "bbox_jogo": {
+    "min": [
+     -6.765,
+     0.0,
+     25.0
+    ],
+    "max": [
+     6.765,
+     0.012,
+     37.9
+    ]
+   },
+   "modificadores": []
+  },
+  {
+   "nome": "ARQ_Piso_Deck",
+   "id_estavel": "marte.plataforma.piso_deck",
+   "papel": "piso_contexto",
+   "tipo": "MESH",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    0.0,
+    0.0,
+    -0.0
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "colisor": "piso caminhável ativo do piloto (sem mudança)",
+   "triangulos": 340,
+   "vertices": 172,
+   "materiais": [
+    "M_Deck"
+   ],
+   "bbox_jogo": {
+    "min": [
+     -7.0,
+     -0.5,
+     25.0
+    ],
+    "max": [
+     7.0,
+     0.0,
+     38.0
+    ]
+   },
+   "modificadores": [
+    "SOLIDIFY"
+   ]
+  },
+  {
+   "nome": "PLAT_B3_Base_Lancamento",
+   "id_estavel": "marte.plataforma.base_lancamento",
+   "papel": "base_lancamento",
+   "tipo": "MESH",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    -10.0,
+    0.0,
+    41.5
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "colisor": "proposta separada: COL_NOVO_PLAT_B3_Base_Lancamento",
+   "triangulos": 1404,
+   "vertices": 728,
+   "materiais": [
+    "M_Concreto",
+    "M_Painel",
+    "M_Estrutura",
+    "M_Foguete_Motor",
+    "M_MetalEscuro"
+   ],
+   "bbox_jogo": {
+    "min": [
+     -11.68,
+     -0.5,
+     39.2
+    ],
+    "max": [
+     -8.32,
+     1.32,
+     43.8
+    ]
+   },
+   "modificadores": [
+    "BEVEL"
+   ]
+  },
+  {
+   "nome": "PLAT_B3_Braco_Tripulacao",
+   "id_estavel": "marte.plataforma.braco_tripulacao",
+   "papel": "braco_tripulacao",
+   "tipo": "MESH",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    -13.08,
+    5.6535,
+    41.5
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "colisor": "fora da área caminhável; sem colisor próprio",
+   "triangulos": 2108,
+   "vertices": 1120,
+   "materiais": [
+    "M_Estrutura",
+    "M_MetalEscuro",
+    "M_Painel"
+   ],
+   "bbox_jogo": {
+    "min": [
+     -13.14,
+     4.0384,
+     40.9
+    ],
+    "max": [
+     -10.76,
+     7.0535,
+     42.1
+    ]
+   },
+   "modificadores": [
+    "BEVEL"
+   ]
+  },
+  {
+   "nome": "PLAT_B3_Casa_Elevador_Base",
+   "id_estavel": "marte.plataforma.casa_elevador_base",
+   "papel": "elevador_chegada_base",
+   "tipo": "MESH",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    -8.819,
+    0.93,
+    40.4961
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "colisor": "fora da área caminhável; sem colisor próprio",
+   "triangulos": 1404,
+   "vertices": 728,
+   "materiais": [
+    "M_Painel",
+    "M_Estrutura",
+    "M_MetalEscuro",
+    "M_Marcacao",
+    "M_LuzAmbar"
+   ],
+   "bbox_jogo": {
+    "min": [
+     -9.7436,
+     0.93,
+     39.4623
+    ],
+    "max": [
+     -7.6765,
+     2.83,
+     41.4322
+    ]
+   },
+   "modificadores": [
+    "BEVEL"
+   ]
+  },
+  {
+   "nome": "PLAT_B3_Chevrons_Embarque",
+   "id_estavel": "marte.plataforma.chevrons_embarque",
+   "papel": "sinalizacao_piso",
+   "tipo": "MESH",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    0.0,
+    0.0,
+    31.0
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "colisor": "sem colisor: rente ao piso (até 2 cm)",
+   "triangulos": 96,
+   "vertices": 64,
+   "materiais": [
+    "M_Marcacao"
+   ],
+   "bbox_jogo": {
+    "min": [
+     -0.5739,
+     0.0005,
+     30.2013
+    ],
+    "max": [
+     0.5739,
+     0.0075,
+     32.0987
+    ]
+   },
+   "modificadores": []
+  },
+  {
+   "nome": "PLAT_B3_Elevador_Embarque",
+   "id_estavel": "marte.plataforma.elevador_embarque",
+   "papel": "elevador_embarque",
+   "tipo": "MESH",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    0.0,
+    0.0,
+    33.0
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "colisor": "sem colisor: rente ao piso (até 2 cm)",
+   "triangulos": 1088,
+   "vertices": 608,
+   "materiais": [
+    "M_MetalEscuro",
+    "M_Marcacao",
+    "M_Deck"
+   ],
+   "bbox_jogo": {
+    "min": [
+     -1.18,
+     0.0,
+     31.82
+    ],
+    "max": [
+     1.18,
+     0.022,
+     34.18
+    ]
+   },
+   "modificadores": []
+  },
+  {
+   "nome": "PLAT_B3_Foguete",
+   "id_estavel": "marte.plataforma.foguete",
+   "papel": "foguete",
+   "tipo": "MESH",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    -10.0,
+    0.2983,
+    41.5
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "colisor": "fora da área caminhável; sem colisor próprio",
+   "triangulos": 2656,
+   "vertices": 1404,
+   "materiais": [
+    "M_Foguete_Motor",
+    "M_Foguete_Casco",
+    "M_Estrutura",
+    "M_LuzAmbar",
+    "M_MetalEscuro",
+    "M_Vidro"
+   ],
+   "bbox_jogo": {
+    "min": [
+     -11.3125,
+     0.93,
+     39.8088
+    ],
+    "max": [
+     -8.6875,
+     10.0983,
+     43.1912
+    ]
+   },
+   "modificadores": []
+  },
+  {
+   "nome": "PLAT_B3_Linhas_Tanques",
+   "id_estavel": "marte.plataforma.linhas_tanques",
+   "papel": "linhas_abastecimento",
+   "tipo": "MESH",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    -12.4,
+    0.0,
+    37.0
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "colisor": "fora da área caminhável; sem colisor próprio",
+   "triangulos": 380,
+   "vertices": 224,
+   "materiais": [
+    "M_Estrutura",
+    "M_MetalEscuro"
+   ],
+   "bbox_jogo": {
+    "min": [
+     -13.8,
+     0.0,
+     33.3754
+    ],
+    "max": [
+     -11.8,
+     1.1,
+     40.4703
+    ]
+   },
+   "modificadores": []
+  },
+  {
+   "nome": "PLAT_B3_Mastro_Servico",
+   "id_estavel": "marte.plataforma.mastro_servico",
+   "papel": "mastro_servico",
+   "tipo": "MESH",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    -6.2,
+    0.0,
+    41.5
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "colisor": "proposta separada: COL_NOVO_PLAT_B3_Mastro_Servico",
+   "triangulos": 1404,
+   "vertices": 932,
+   "materiais": [
+    "M_Estrutura",
+    "M_Concreto",
+    "M_Painel",
+    "M_Vidro",
+    "M_MetalEscuro",
+    "M_LuzAmbar"
+   ],
+   "bbox_jogo": {
+    "min": [
+     -6.795,
+     0.0,
+     40.905
+    ],
+    "max": [
+     -5.605,
+     5.41,
+     42.095
+    ]
+   },
+   "modificadores": []
+  },
+  {
+   "nome": "PLAT_B3_Passarela_Servico_3m",
+   "id_estavel": "marte.plataforma.passarela_servico_3m",
+   "papel": "passarela",
+   "tipo": "MESH",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    -12.04,
+    3.0,
+    41.5
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "colisor": "fora da área caminhável; sem colisor próprio",
+   "triangulos": 144,
+   "vertices": 96,
+   "materiais": [
+    "M_MetalEscuro",
+    "M_Estrutura"
+   ],
+   "bbox_jogo": {
+    "min": [
+     -13.105,
+     2.8,
+     41.075
+    ],
+    "max": [
+     -10.975,
+     4.025,
+     41.925
+    ]
+   },
+   "modificadores": []
+  },
+  {
+   "nome": "PLAT_B3_Sinal_Casa_Elevador",
+   "id_estavel": "marte.plataforma.sinal_casa_elevador",
+   "papel": "sinalizacao",
+   "tipo": "MESH",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    -8.3733,
+    2.55,
+    40.1173
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "colisor": "fora da área caminhável; sem colisor próprio",
+   "triangulos": 468,
+   "vertices": 484,
+   "materiais": [
+    "M_Sinal_Texto"
+   ],
+   "bbox_jogo": {
+    "min": [
+     -8.6306,
+     2.5006,
+     39.815
+    ],
+    "max": [
+     -8.1237,
+     2.6126,
+     40.4104
+    ]
+   },
+   "modificadores": []
+  },
+  {
+   "nome": "PLAT_B3_Sinal_Piso_Embarque",
+   "id_estavel": "marte.plataforma.sinal_piso_embarque",
+   "papel": "sinalizacao_piso",
+   "tipo": "MESH",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    0.0,
+    0.009,
+    29.95
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "colisor": "sem colisor: rente ao piso (até 2 cm)",
+   "triangulos": 168,
+   "vertices": 173,
+   "materiais": [
+    "M_Marcacao"
+   ],
+   "bbox_jogo": {
+    "min": [
+     -0.9492,
+     0.009,
+     29.8014
+    ],
+    "max": [
+     0.9667,
+     0.009,
+     30.1168
+    ]
+   },
+   "modificadores": []
+  },
+  {
+   "nome": "PLAT_B3_Sinal_Totem",
+   "id_estavel": "marte.plataforma.sinal_totem",
+   "papel": "sinalizacao",
+   "tipo": "MESH",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    0.0,
+    0.86,
+    34.752
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "colisor": "fora da área caminhável; sem colisor próprio",
+   "triangulos": 1266,
+   "vertices": 1296,
+   "materiais": [
+    "M_Sinal_Texto"
+   ],
+   "bbox_jogo": {
+    "min": [
+     -0.6508,
+     0.8117,
+     34.75
+    ],
+    "max": [
+     0.6457,
+     0.903,
+     34.754
+    ]
+   },
+   "modificadores": []
+  },
+  {
+   "nome": "PLAT_B3_Torre_Servico",
+   "id_estavel": "marte.plataforma.torre_servico",
+   "papel": "torre_servico",
+   "tipo": "MESH",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    -13.8,
+    0.0,
+    41.5
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "colisor": "proposta separada: COL_NOVO_PLAT_B3_Torre_Servico",
+   "triangulos": 1404,
+   "vertices": 932,
+   "materiais": [
+    "M_Estrutura",
+    "M_Concreto",
+    "M_Painel",
+    "M_Vidro",
+    "M_MetalEscuro",
+    "M_LuzAmbar"
+   ],
+   "bbox_jogo": {
+    "min": [
+     -14.5225,
+     0.0,
+     40.7775
+    ],
+    "max": [
+     -13.0775,
+     8.064,
+     42.2225
+    ]
+   },
+   "modificadores": []
+  },
+  {
+   "nome": "PLAT_B3_Totem_Embarque",
+   "id_estavel": "marte.plataforma.totem_embarque",
+   "papel": "coluna_chamada_elevador",
+   "tipo": "MESH",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    0.0,
+    0.0,
+    35.0
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "colisor": "ativo do piloto: fundo da nave (x ±1,7; z 34,75–35,25)",
+   "triangulos": 264,
+   "vertices": 144,
+   "materiais": [
+    "M_Painel",
+    "M_Estrutura",
+    "M_MetalEscuro",
+    "M_TelaCiano",
+    "M_LuzAmbar",
+    "M_Marcacao"
+   ],
+   "bbox_jogo": {
+    "min": [
+     -1.3,
+     0.0,
+     34.75
+    ],
+    "max": [
+     1.3,
+     1.33,
+     35.25
+    ]
+   },
+   "modificadores": [
+    "BEVEL"
+   ]
+  },
+  {
+   "nome": "PLAT_B3_Umbilical_Mastro_1",
+   "id_estavel": "marte.plataforma.umbilical_mastro_1",
+   "papel": "mastro_servico",
+   "tipo": "MESH",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    -6.7,
+    2.2,
+    41.75
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "colisor": "fora da área caminhável; sem colisor próprio",
+   "triangulos": 428,
+   "vertices": 244,
+   "materiais": [
+    "M_Vedacao"
+   ],
+   "bbox_jogo": {
+    "min": [
+     -9.0181,
+     1.6976,
+     41.6948
+    ],
+    "max": [
+     -6.6729,
+     2.2479,
+     41.8052
+    ]
+   },
+   "modificadores": []
+  },
+  {
+   "nome": "PLAT_B3_Umbilical_Mastro_2",
+   "id_estavel": "marte.plataforma.umbilical_mastro_2",
+   "papel": "mastro_servico",
+   "tipo": "MESH",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    -6.7,
+    4.4,
+    41.25
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "colisor": "fora da área caminhável; sem colisor próprio",
+   "triangulos": 428,
+   "vertices": 244,
+   "materiais": [
+    "M_Vedacao"
+   ],
+   "bbox_jogo": {
+    "min": [
+     -9.0171,
+     3.8664,
+     41.1948
+    ],
+    "max": [
+     -6.6722,
+     4.4474,
+     41.3052
+    ]
+   },
+   "modificadores": []
+  },
+  {
+   "nome": "PLAT_B3_Umbilical_Torre",
+   "id_estavel": "marte.plataforma.umbilical_torre",
+   "papel": "umbilical",
+   "tipo": "MESH",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    -13.08,
+    4.6,
+    40.82
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "colisor": "fora da área caminhável; sem colisor próprio",
+   "triangulos": 428,
+   "vertices": 244,
+   "materiais": [
+    "M_Estrutura"
+   ],
+   "bbox_jogo": {
+    "min": [
+     -13.1099,
+     4.0663,
+     40.7648
+    ],
+    "max": [
+     -10.9813,
+     4.6461,
+     40.8752
+    ]
+   },
+   "modificadores": []
+  },
+  {
+   "nome": "PLAT_Baia_Parapeitos",
+   "id_estavel": "marte.plataforma.baia_parapeitos",
+   "papel": "baia_parapeitos",
+   "tipo": "MESH",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    0.0,
+    0.0,
+    33.0
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "colisor": "ativo do piloto: laterais e fundo da nave",
+   "triangulos": 864,
+   "vertices": 448,
+   "materiais": [
+    "M_Estrutura",
+    "M_Painel",
+    "M_LuzAmbar"
+   ],
+   "bbox_jogo": {
+    "min": [
+     -2.025,
+     0.0,
+     30.75
+    ],
+    "max": [
+     2.025,
+     1.15,
+     35.25
+    ]
+   },
+   "modificadores": [
+    "BEVEL"
+   ]
+  },
+  {
+   "nome": "PLAT_Carro_1",
+   "id_estavel": "marte.plataforma.carro_1",
+   "papel": "mobiliario",
+   "tipo": "MESH",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    8.3,
+    0.0,
+    34.9
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    0.3
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "colisor": "fora da área caminhável; sem colisor próprio",
+   "triangulos": 180,
+   "vertices": 104,
+   "materiais": [
+    "M_Estrutura",
+    "M_MetalEscuro",
+    "M_Painel",
+    "M_Foguete_Motor"
+   ],
+   "bbox_jogo": {
+    "min": [
+     7.8042,
+     0.0,
+     34.4702
+    ],
+    "max": [
+     8.7958,
+     1.0,
+     35.3298
+    ]
+   },
+   "modificadores": []
+  },
+  {
+   "nome": "PLAT_Carro_2",
+   "id_estavel": "marte.plataforma.carro_2",
+   "papel": "mobiliario",
+   "tipo": "MESH",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    8.4,
+    0.0,
+    37.4
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    -0.2
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "colisor": "fora da área caminhável; sem colisor próprio",
+   "triangulos": 180,
+   "vertices": 104,
+   "materiais": [
+    "M_Estrutura",
+    "M_MetalEscuro",
+    "M_Painel",
+    "M_Foguete_Motor"
+   ],
+   "bbox_jogo": {
+    "min": [
+     7.9248,
+     0.0,
+     37.0029
+    ],
+    "max": [
+     8.8752,
+     1.0,
+     37.7971
+    ]
+   },
+   "modificadores": []
+  },
+  {
+   "nome": "PLAT_Console_Leste",
+   "id_estavel": "marte.plataforma.console_leste",
+   "papel": "mobiliario",
+   "tipo": "MESH",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    8.15,
+    0.0,
+    31.8
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    1.5708
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "colisor": "fora da área caminhável; sem colisor próprio",
+   "triangulos": 60,
+   "vertices": 40,
+   "materiais": [
+    "M_Painel",
+    "M_Estrutura",
+    "M_TelaCiano",
+    "M_LuzAmbar"
+   ],
+   "bbox_jogo": {
+    "min": [
+     7.83,
+     0.0,
+     31.33
+    ],
+    "max": [
+     8.553,
+     1.1659,
+     32.27
+    ]
+   },
+   "modificadores": []
+  },
+  {
+   "nome": "PLAT_Console_Oeste",
+   "id_estavel": "marte.plataforma.console_oeste",
+   "papel": "mobiliario",
+   "tipo": "MESH",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    -8.15,
+    0.0,
+    35.4
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    -1.5708
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "colisor": "fora da área caminhável; sem colisor próprio",
+   "triangulos": 60,
+   "vertices": 40,
+   "materiais": [
+    "M_Painel",
+    "M_Estrutura",
+    "M_TelaCiano",
+    "M_LuzAmbar"
+   ],
+   "bbox_jogo": {
+    "min": [
+     -8.553,
+     0.0,
+     34.93
+    ],
+    "max": [
+     -7.83,
+     1.1659,
+     35.87
+    ]
+   },
+   "modificadores": []
+  },
+  {
+   "nome": "PLAT_Rack_Cilindros",
+   "id_estavel": "marte.plataforma.rack_cilindros",
+   "papel": "mobiliario",
+   "tipo": "MESH",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    -8.25,
+    0.0,
+    29.6
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    1.5708
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "colisor": "fora da área caminhável; sem colisor próprio",
+   "triangulos": 312,
+   "vertices": 176,
+   "materiais": [
+    "M_Estrutura",
+    "M_Painel",
+    "M_MetalEscuro",
+    "M_Foguete_Casco"
+   ],
+   "bbox_jogo": {
+    "min": [
+     -8.5,
+     0.0,
+     29.0
+    ],
+    "max": [
+     -7.98,
+     1.44,
+     30.2
+    ]
+   },
+   "modificadores": []
+  },
+  {
+   "nome": "PROP_Tanques",
+   "id_estavel": "marte.plataforma.tanques",
+   "papel": "tanques_contexto",
+   "tipo": "MESH",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    -13.5,
+    0.0,
+    31.6
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "colisor": "fora da área caminhável; sem colisor próprio",
+   "triangulos": 912,
+   "vertices": 484,
+   "materiais": [
+    "M_Painel",
+    "M_Estrutura",
+    "M_MetalEscuro"
+   ],
+   "bbox_jogo": {
+    "min": [
+     -15.12,
+     0.0,
+     29.85
+    ],
+    "max": [
+     -7.25,
+     1.7312,
+     33.35
+    ]
+   },
+   "modificadores": [
+    "BEVEL"
+   ]
+  }
+ ],
+ "marcadores": [
+  {
+   "nome": "SPAWN_Desembarque",
+   "id_estavel": "marte.plataforma.spawn_desembarque",
+   "papel": "marcador",
+   "tipo": "EMPTY",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    0.0,
+    0.0,
+    29.5
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "nome": "INTERACT_Nave",
+   "id_estavel": "marte.plataforma.interact_nave",
+   "papel": "marcador",
+   "tipo": "EMPTY",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    0.0,
+    0.0,
+    33.0
+   ],
+   "rotacao_blender": [
+    0.0,
+    -0.0,
+    0.0
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ]
+  }
+ ],
+ "cameras": [
+  {
+   "nome": "CAM_PLAT_Geral",
+   "id_estavel": "marte.plataforma.geral",
+   "papel": "camera",
+   "tipo": "CAMERA",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    42.1546,
+    56.6211,
+    90.4433
+   ],
+   "rotacao_blender": [
+    0.93255,
+    0.0,
+    0.67474
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "camera": {
+    "tipo": "ORTHO",
+    "lente_mm": 50.0,
+    "ortho_scale": 40.0
+   }
+  },
+  {
+   "nome": "CAM_PLAT_B3_Conexao",
+   "id_estavel": "marte.plataforma.b3_conexao",
+   "papel": "camera",
+   "tipo": "CAMERA",
+   "estado_inicial": "visivel",
+   "pivo_jogo_xyz": [
+    9.0,
+    13.0,
+    22.0
+   ],
+   "rotacao_blender": [
+    1.05623,
+    0.0,
+    2.38952
+   ],
+   "escala": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "camera": {
+    "tipo": "PERSP",
+    "lente_mm": 26.0,
+    "ortho_scale": 6.0
+   }
+  }
+ ],
+ "luzes_fonte_fora_do_glb": {
+  "LUZ_Sol": {
+   "tipo": "SUN",
+   "energia": 3.200000047683716,
+   "cor": [
+    1.0,
+    0.7454041838645935,
+    0.520995557308197
+   ],
+   "matriz": [
+    [
+     0.6636145710945129,
+     0.5019442439079285,
+     -0.5546779632568359,
+     0.0
+    ],
+    [
+     -0.7480746507644653,
+     0.4452730119228363,
+     -0.4920530915260315,
+     0.0
+    ],
+    [
+     -8.934094353207911e-08,
+     0.7414741516113281,
+     0.6709814667701721,
+     30.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "angulo": 0.06108652427792549,
+   "raio": 0.0
+  },
+  "LUZ_Preenchimento": {
+   "tipo": "SUN",
+   "energia": 0.550000011920929,
+   "cor": [
+    0.48514994978904724,
+    0.5711248517036438,
+    0.6038273572921753
+   ],
+   "matriz": [
+    [
+     -0.6246952414512634,
+     -0.5339294075965881,
+     0.5698028206825256,
+     0.0
+    ],
+    [
+     0.780868649482727,
+     -0.42714378237724304,
+     0.45584243535995483,
+     0.0
+    ],
+    [
+     7.180516803373393e-08,
+     0.7297037839889526,
+     0.6837633848190308,
+     30.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "angulo": 0.009180432185530663,
+   "raio": 0.0
+  },
+  "LUZ_Deck_Ciano": {
+   "tipo": "POINT",
+   "energia": 40.0,
+   "cor": [
+    0.19120168685913086,
+    0.5972017645835876,
+    0.5583403706550598
+   ],
+   "matriz": [
+    [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     1.0,
+     0.0,
+     -33.0
+    ],
+    [
+     0.0,
+     0.0,
+     1.0,
+     1.7999999523162842
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "angulo": null,
+   "raio": 0.30000001192092896
+  }
+ },
+ "mundo_fonte": {
+  "cor": [
+   0.5457244515419006,
+   0.43965718150138855,
+   0.31398871541023254,
+   1.0
+  ],
+  "forca": 0.8500000238418579,
+  "view_transform": "AgX",
+  "look": "AgX - Medium High Contrast"
+ },
+ "glb": {
+  "arquivo": "export/previa_v006_B3/plataforma_v006_B3_previa.glb",
+  "bytes": 898152
+ }
+}
