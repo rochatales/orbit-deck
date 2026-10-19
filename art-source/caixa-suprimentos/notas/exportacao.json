@@ -1,0 +1,180 @@
+{
+  "sourceSHA256": "1568bb17c8d539b8153d5a0ac34251e7ffa2408c4c995ee048345d238d235098",
+  "sourceUnchanged": true,
+  "glbSHA256": "c4fde32f23ef68fbe0de0ca02576d739a877d4a3aefed5fc7bebb1fdeaecd0b8",
+  "boundsBlender": {
+    "min": [
+      -0.8025000095367432,
+      -0.6710000038146973,
+      0.0
+    ],
+    "max": [
+      0.8025000095367432,
+      0.6319999694824219,
+      1.1675000190734863
+    ]
+  },
+  "maximumMatrixDelta": 6.062909960746765e-07,
+  "samples": [
+    {
+      "frame": 1,
+      "node": "LID_Pivot",
+      "maxMatrixDelta": 0.0
+    },
+    {
+      "frame": 1,
+      "node": "LOCK_Left",
+      "maxMatrixDelta": 0.0
+    },
+    {
+      "frame": 1,
+      "node": "LOCK_Right",
+      "maxMatrixDelta": 0.0
+    },
+    {
+      "frame": 1,
+      "node": "VFX_Reveal",
+      "maxMatrixDelta": 0.0
+    },
+    {
+      "frame": 7,
+      "node": "LID_Pivot",
+      "maxMatrixDelta": 0.0
+    },
+    {
+      "frame": 7,
+      "node": "LOCK_Left",
+      "maxMatrixDelta": 0.0
+    },
+    {
+      "frame": 7,
+      "node": "LOCK_Right",
+      "maxMatrixDelta": 0.0
+    },
+    {
+      "frame": 7,
+      "node": "VFX_Reveal",
+      "maxMatrixDelta": 0.0
+    },
+    {
+      "frame": 16,
+      "node": "LID_Pivot",
+      "maxMatrixDelta": 1.1920928955078125e-07
+    },
+    {
+      "frame": 16,
+      "node": "LOCK_Left",
+      "maxMatrixDelta": 0.0
+    },
+    {
+      "frame": 16,
+      "node": "LOCK_Right",
+      "maxMatrixDelta": 0.0
+    },
+    {
+      "frame": 16,
+      "node": "VFX_Reveal",
+      "maxMatrixDelta": 0.0
+    },
+    {
+      "frame": 23,
+      "node": "LID_Pivot",
+      "maxMatrixDelta": 5.960464477539063e-08
+    },
+    {
+      "frame": 23,
+      "node": "LOCK_Left",
+      "maxMatrixDelta": 0.0
+    },
+    {
+      "frame": 23,
+      "node": "LOCK_Right",
+      "maxMatrixDelta": 0.0
+    },
+    {
+      "frame": 23,
+      "node": "VFX_Reveal",
+      "maxMatrixDelta": 0.0
+    },
+    {
+      "frame": 32,
+      "node": "LID_Pivot",
+      "maxMatrixDelta": 6.062909960746765e-07
+    },
+    {
+      "frame": 32,
+      "node": "LOCK_Left",
+      "maxMatrixDelta": 0.0
+    },
+    {
+      "frame": 32,
+      "node": "LOCK_Right",
+      "maxMatrixDelta": 0.0
+    },
+    {
+      "frame": 32,
+      "node": "VFX_Reveal",
+      "maxMatrixDelta": 0.0
+    },
+    {
+      "frame": 39,
+      "node": "LID_Pivot",
+      "maxMatrixDelta": 8.940696716308594e-08
+    },
+    {
+      "frame": 39,
+      "node": "LOCK_Left",
+      "maxMatrixDelta": 0.0
+    },
+    {
+      "frame": 39,
+      "node": "LOCK_Right",
+      "maxMatrixDelta": 0.0
+    },
+    {
+      "frame": 39,
+      "node": "VFX_Reveal",
+      "maxMatrixDelta": 0.0
+    },
+    {
+      "frame": 60,
+      "node": "LID_Pivot",
+      "maxMatrixDelta": 1.1920928955078125e-07
+    },
+    {
+      "frame": 60,
+      "node": "LOCK_Left",
+      "maxMatrixDelta": 0.0
+    },
+    {
+      "frame": 60,
+      "node": "LOCK_Right",
+      "maxMatrixDelta": 0.0
+    },
+    {
+      "frame": 60,
+      "node": "VFX_Reveal",
+      "maxMatrixDelta": 0.0
+    },
+    {
+      "frame": 73,
+      "node": "LID_Pivot",
+      "maxMatrixDelta": 1.1920928955078125e-07
+    },
+    {
+      "frame": 73,
+      "node": "LOCK_Left",
+      "maxMatrixDelta": 0.0
+    },
+    {
+      "frame": 73,
+      "node": "LOCK_Right",
+      "maxMatrixDelta": 0.0
+    },
+    {
+      "frame": 73,
+      "node": "VFX_Reveal",
+      "maxMatrixDelta": 0.0
+    }
+  ]
+}

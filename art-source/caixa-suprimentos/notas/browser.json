@@ -1,0 +1,48 @@
+{
+  "far": {
+    "phase": "closed",
+    "elapsed": 0,
+    "light": 0,
+    "player": [
+      1.7,
+      1.8
+    ],
+    "angle": 0.7853981633974483
+  },
+  "mid": {
+    "phase": "opening",
+    "elapsed": 1.0014000000357626,
+    "light": 29.89333333571751,
+    "player": [
+      0,
+      1.65
+    ],
+    "angle": 0.7853981633974483
+  },
+  "done": {
+    "phase": "open",
+    "elapsed": 2.4,
+    "light": 2,
+    "player": [
+      0,
+      1.65
+    ],
+    "angle": 0.7853981633974483
+  },
+  "repeated": {
+    "phase": "open",
+    "elapsed": 2.4,
+    "light": 2,
+    "player": [
+      0,
+      1.65
+    ],
+    "angle": 0.7853981633974483
+  },
+  "errors": [],
+  "viewport": [
+    1440,
+    1000
+  ],
+  "method": "Prévia isolada com GLB real e Explorador r7. E fora/perto, conclusão e repetição. Não é aprovação de gameplay."
+}

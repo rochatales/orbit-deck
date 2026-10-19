@@ -41,7 +41,7 @@ export function CombatHud() {
     {s.hit && !s.dead && <span className="hit-feedback">ACERTO</span>}
     {s.dead && <section className="overlay" role="dialog" aria-label="Explorador abatido"><article><p className="eyebrow">EXPEDIÇÃO INTERROMPIDA</p><h2>Explorador abatido</h2><p>Recomece em Shanghai com vida e munição restauradas. Nenhum progresso deste encontro é salvo. As peças coletadas nesta tentativa serão descartadas.</p><EncounterSelect /><button onClick={restart}>Tentar novamente</button></article></section>}
     {!s.dead && phase === 'walking' && !panel && !paused && (s.cleared || (s.ammo === 0 && s.reserve === 0)) && <aside className="encounter-result">
-      <h2>{s.cleared ? 'Área de teste livre' : 'Sem munição'}</h2><p>{s.cleared ? 'Volte à nave ou repita com mais robôs.' : 'Retorne à nave ou reinicie para receber um novo carregamento.'}</p><EncounterSelect /><button onClick={restart}>Reiniciar encontro</button>
+      <h2>{s.cleared ? 'Área de teste livre' : 'Sem munição'}</h2><p>{s.cleared ? 'Volte à nave ou repita com mais robôs.' : 'Procure as caixas de munição com luz azul e use E. Você também pode retornar à nave ou reiniciar.'}</p><EncounterSelect /><button onClick={restart}>Reiniciar encontro</button>
     </aside>}
   </>;
 }
