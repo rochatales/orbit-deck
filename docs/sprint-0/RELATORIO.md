@@ -1,6 +1,8 @@
 # Sprint 0 — Preservação e baseline
 
-Data: 28/09/2026. Execução técnica registrada; baseline manual de movimento/EDEN e FPS permanece parcial.
+Data do registro histórico: 28/09/2026. Atualização S0.4 em 19/10/2026 (Fase 5.1), base de runtime `796ae3a6776a623fb2c839310f04eb58925efc93`. **Baseline manual de movimento contínuo, EDEN e frames permanece pendente com o autor; S0.4 não está aprovada.**
+
+As seções até a captura do escritório preservam o contexto histórico do produto anterior. O roteiro atual e a evidência do build consolidado estão abaixo; não executar servidor/backend ou controles antigos para esta validação.
 
 ## Entregas concluídas
 
@@ -55,30 +57,127 @@ Console inspecionado apresentou avisos de GLBs com mesh único, sem rig adequado
 
 ![Baseline do escritório](baseline-office.png)
 
-## Roteiro para completar baseline e repetir após a refatoração
+## S0.4 — roteiro atual para o autor (Fases 5.1–5.3)
 
-1. Abrir a versão de referência com backend desligado; configurar perfil local e entrar no escritório.
-2. Sustentar WASD/setas em todas as direções; testar SHIFT, portas e colisões com móveis. Registrar se há travamento ou passagem através de objetos.
-3. Testar zoom e rotação Q/R; identificar EDEN ao norte e caminhar até a área de interação.
-4. Pressionar E, observar ativação/tela de EDEN e fechar com ESC, sem cadastrar cliente ou enviar dados.
-5. Testar pausa e retomada durante movimento; alternar foco da janela e conferir que teclas não ficam presas.
-6. Registrar navegador/viewport e medir pelo menos 30 segundos em repouso e 30 segundos em movimento com ferramenta de performance apropriada; guardar frame time mediano/p95 e duração de carregamento em condições explicitadas.
-7. Repetir o ciclo após as mudanças; comparar especialmente movimento, câmera e navegação do hub.
+Executar no checkout principal `/Users/rochatales/Automations/game-workplace`, branch
+`rochatales/horda-survivor`, já avançada pelo autor para `796ae3a`. Registrar a ponta
+usada com `git rev-parse HEAD`; a base de runtime desta preparação é o SHA acima.
+Usar perfil de navegador isolado para não alterar o save habitual do autor.
 
-Este roteiro está documentado, mas os itens pendentes não foram marcados como aprovados pelo autor.
+```bash
+cd /Users/rochatales/Automations/game-workplace
+npm run build
+npm run preview -- --host 127.0.0.1 --port 4173 --strictPort
+```
 
-## Defaults preparados para o protótipo
+Se a porta estiver ocupada, escolher outra explicitamente; conferir que é a prévia
+**deste build**, não um servidor dev ou outra worktree. Abrir a página normal com
+`?perf` (por exemplo `http://127.0.0.1:4173/?perf`), sem fixture de QA.
+Nenhum backend é necessário. Não mudar presets/resolução/zoom entre amostras comparadas.
 
-Manter os defaults do plano: desktop/teclado+mouse, câmera atual, tiro manual, inventários separados, três ondas, minas/barreiras, extração física pela nave e máquina em posição predefinida. São parâmetros iniciais de teste, não balanceamento validado.
+1. **Entrada e carregamento:** preencher perfil de teste, entrar na colônia de Marte
+   v006 B3 e aguardar cena/personagens carregados. Anotar o tempo até mapa desenhado
+   e até GLBs prontos; `map-data-ready` não significa cena renderizada. Exportar um
+   JSON A de `?perf` após a entrada para guardar navegação, recursos e `sceneEvents`.
+2. **Movimento contínuo:** sustentar W, apontando o cursor ao longo de uma rota livre;
+   repetir com S para recuar voltado ao cursor. A/D não deslocam; W + S neutralizam.
+   Conferir portas, quinas e paredes. Q/C gira a câmera e a roda/+/− ajusta zoom;
+   **R é recarga**, não rotação. Julgar sensação e fluidez em ambos os sentidos.
+3. **EDEN:** a partir do hub, caminhar ao norte até a área de interação em torno de
+   `(0; −10)`. Usar **E**, ler o briefing local e fechar com **Escape**; confirmar
+   retorno ao movimento e rádio. Não há cliente, deck de reunião ou serviço externo.
+4. **Deck:** caminhar ao sul até a saída da nave em `(0; 29,5)`; a estrutura do
+   foguete fica em `(0; 33)` e não deve ser atravessada. E embarca, sem decolar
+   automaticamente; E/desembarcar volta ao deck. Opcionalmente viajar a Shanghai
+   fase 01 e retornar para gerar um JSON B dos eventos de troca de mapa.
+5. **Pausa e foco:** Esc fora do diálogo pausa; retomar e testar movimento/tiro
+   quando aplicável. Trocar de janela com tecla sustentada, voltar e conferir pausa
+   e limpeza das teclas/gatilho. Não misturar essa verificação com amostra de frames.
+6. **M1 — 30 s parado em Marte:** manter aba visível, jogo sem pausa e câmera parada.
+   O botão do painel mede 10 s; para a janela de 30 s usar o console conforme abaixo.
+7. **M2 — 30 s em movimento:** nas mesmas condições, sustentar W ou S enquanto guia
+   o cursor por uma rota livre por 30 s, sem ficar contra a parede. Se necessário
+   alternar os sentidos, registrar a rota e o método. Não pausar nem trocar de aba.
+8. **Exportar e relatar:** depois das duas janelas, usar **Copiar JSON**. Informar
+   dispositivo/CPU/GPU/RAM, sistema, versão do navegador, resolução da tela, viewport,
+   canvas CSS/buffer, DPR da janela e do renderer, build/SHA, perfil/zoom, condições
+   de cache e duração de carregamento. Registrar p50/p95, frames >33/>50 ms, cobertura,
+   avisos, draw calls/triângulos e contagens de memória disponíveis.
 
-Conflito identificado: **R atualmente gira a câmera e está proposto para recarga**. No sprint 2, remapear rotação (proposta Q/C) e atualizar instruções/handlers conjuntamente antes de implementar recarga. E/contextos de interação e Escape/cancelamento/pausa também precisam de prioridade explícita.
+Para iniciar cada amostra pelo console e ter tempo de voltar à página:
+
+```javascript
+setTimeout(() => window.__hordaPerf.sample(30000).then(r => console.info('S0.4', r)), 3000)
+```
+
+Voltar à página e retomar o jogo antes dos 3 s. Na M1, aguardar parado; na M2,
+começar o movimento com a janela em foco. Após terminar, o relatório completo
+fica em `window.__hordaPerf.report()` e no botão Copiar JSON. Uma amostra oculta,
+interrompida, saturada ou com aviso de pausa deve ser repetida; não usar valores
+nulos/indisponíveis como zero. Os intervalos rAF não são tempo de GPU nem garantia
+universal de 60 FPS. Registrar ausência de tela 120/144 Hz como limitação.
+
+A sessão pode ser a mesma da S2.9 (etapa 6.2), que ainda exige Shanghai fase 01 no
+pico de 40 robôs. O autor relata o resultado dos itens acima; só então a Fase 5.3
+pode registrar aceite e marcar S0.4. Nenhum aceite é inferido da automação.
+
+## Evidência técnica do build consolidado — Fase 5.1 (19/10/2026)
+
+Execução no **checkout principal**, build de `3c85237` (somente o registro documental
+posterior a `796ae3a`; `src/`, dependências e lockfile idênticos à base de runtime).
+`npm test`: **104/104**; `npm run build`: passou, com aviso de chunk > 500 kB.
+Não há novo baseline aprovado de gameplay.
+
+- [Carregamento e ambiente completos](evidencias/796ae3a/carregamento.json).
+- [JSON nativo de referência `?perf`](evidencias/796ae3a/perf-referencia.json), com duas
+  amostras solicitadas de 30.000 ms; ambas válidas, sem pausa/ocultação/saturação.
+- [Captura da cena carregada](evidencias/796ae3a/01-marte-carregado.png),
+  [M1](evidencias/796ae3a/02-marte-m1.png) e [M2](evidencias/796ae3a/03-marte-m2.png).
+- [Testes](evidencias/796ae3a/testes.txt) e [build](evidencias/796ae3a/build.txt).
+- Reprodução: `npm run build`, depois
+  `node scripts/qa-s0.4-build.mjs <pasta-nova>`. `HORDA_QA_PACKAGE` aponta ao pacote
+  local que fornece `playwright-core`, e `HORDA_QA_CHROMIUM` pode indicar o executável.
+  O script serve somente `dist/` via Vite preview (porta padrão 4196), fecha o próprio
+  servidor/browser e não importa `src/` nem usa ganchos DEV.
+
+| Condição da referência | Valor |
+|---|---|
+| Equipamento | Mac14,9 · Apple M2 Pro · 16 GiB RAM · macOS 26.5.1 (25F80) |
+| Navegador / renderer | Chromium headless 156.0.8078.4 · ANGLE Metal / Apple M2 Pro |
+| Resolução / DPR | Viewport e canvas 1440 × 1000; DPR da janela/renderer 1; tela virtual 1440 × 1000 |
+| Carregamento | DOMContentLoaded 117,4 ms; primeiro draw da cena 619,4 ms; `scene-assets-ready` 945,9 ms desde a navegação |
+| M1 · parado | 30.010,5 ms observados; 1.800 intervalos; p50/p95 **16,7 / 16,7 ms** |
+| M2 · entrada W/S automatizada | 30.007,9 ms observados; 1.800 intervalos; p50/p95 **16,7 / 16,7 ms** |
+| Console / HTTP | Zero erros de página, console ou HTTP ≥ 400; aviso GLB Debug de malha única já conhecido |
+
+Carregamento inclui criação do perfil de teste pela UI, usando cache HTTP novo de
+contexto isolado e arquivos locais (sem controle de cache do sistema operacional).
+`map-data-ready` inicial é inferido pela instrumentação e está sinalizado no JSON.
+A referência confirma cena desenhada e personagens GLB prontos, não apenas dados
+ou canvas vazio. Ganchos de player DEV e selo de comparação ausentes na produção.
+Q/C e pausa/retomada foram exercitados tecnicamente; EDEN e percurso ao deck não
+foram validados nesta automação.
+
+**Limites:** headless, teclado/mouse sintéticos, sem medição de GPU ou certificação
+humana de fluidez. M2 alterna W/S e não certifica 30 s de rota sem obstrução; ela
+é referência técnica de entrada em movimento, não substitui a M2 manual. Estes
+números não encerram S0.4 nem as medições S2.9. A evidência do autor permanece pendente.
+
+## Defaults históricos e contrato atual
+
+Os defaults preparados em 28/09 (três ondas, defesas, extração e máquina) eram plano
+do protótipo, não sistemas completos. Hoje o encontro de teste usa hordas
+10→20→30→40 por padrão e oferece 1/3/5/32 patrulhas, sem concluir os Sprints 3–5.
+O conflito histórico de R foi resolvido: Q/C gira câmera; R recarrega. W/S seguem
+mira, A/D não deslocam; E interage e Escape fecha/pausa. Não usar WASD/Shift ou
+Q/R do registro histórico como roteiro do jogo atual.
 
 ## Situação dos critérios de Sprint 0
 
 - [x] S0.1 Referência Git e branch.
 - [x] S0.2 Backup dos não rastreados verificado por hash.
 - [x] S0.3 Inventário e separação conceitual fonte/exportação, sem movimentos.
-- [ ] S0.4 Parcial: build, ambiente, entrada, mapa e zoom registrados; movimento contínuo, diálogo de EDEN e medição de frames ainda não validados.
+- [ ] S0.4 Parcial: roteiro atual e evidência técnica do build em `796ae3a` registrados; movimento contínuo, diálogo de EDEN e medições de frames na sessão manual do autor continuam pendentes (Fases 5.2–5.3).
 - [x] S0.5 Roteiro e defaults documentados; validação humana da sensação de jogo continua no playtest.
 
 A preparação para a refatoração está preservada e documentada. O Sprint 0 não deve ser tratado como baseline de gameplay integralmente aprovado até completar S0.4.

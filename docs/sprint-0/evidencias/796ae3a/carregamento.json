@@ -1,0 +1,276 @@
+{
+  "status": "passed",
+  "runtimeBase": "796ae3a6776a623fb2c839310f04eb58925efc93",
+  "buildCheckout": "/Users/rochatales/Automations/game-workplace",
+  "buildCommit": "3c852375dde5c8f9b8857f407a0a8e20befe665c",
+  "date": "2026-10-20T00:23:53.661Z",
+  "method": "Vite preview do build do checkout principal, perfil limpo criado pela UI; somente DOM, teclado/mouse e API pública ?perf. M1 30 s parado; M2 30 s com W/S alternados por automação, sem validação humana da rota. Sessão automatizada não substitui S0.4/S2.9 manuais.",
+  "limitations": [
+    "Chromium headless/ANGLE Metal, sem aprovação de fluidez ou gameplay.",
+    "rAF p50/p95 são intervalos do navegador, não tempo de GPU.",
+    "Carregamento inicial inclui o preenchimento do perfil; início é performance.now() da navegação.",
+    "M2 registra entrada W/S automatizada; não certifica 30 s de trajeto sem obstrução."
+  ],
+  "environment": {
+    "model": "Mac14,9",
+    "cpu": "Apple M2 Pro",
+    "ramBytes": 17179869184,
+    "os": "ProductName:\t\tmacOS\nProductVersion:\t\t26.5.1\nBuildVersion:\t\t25F80",
+    "viewport": [
+      1440,
+      1000
+    ],
+    "dpr": 1,
+    "browser": "156.0.8078.4"
+  },
+  "pageErrors": [],
+  "consoleErrors": [],
+  "warnings": [
+    "[GLB Debug] This GLB appears to be a single mesh. Arm/hand animation is not practical unless you either separate the model into named parts or rig it with bones in Blender."
+  ],
+  "httpErrors": [],
+  "scenarios": [
+    {
+      "id": "M1",
+      "condition": "Marte parado, 30 s, entrada inicial, r7, perfil de teste, sem movimentar câmera",
+      "sample": {
+        "status": "valid",
+        "invalidReason": null,
+        "warnings": [],
+        "startedAtMs": 2676,
+        "requestedMs": 30000,
+        "elapsedMs": 30010.5,
+        "map": "mars",
+        "coverage": {
+          "intervalsCollected": 1800,
+          "intervalsCapacity": 15016,
+          "intervalsSaturated": false,
+          "countersCollected": 279,
+          "countersCapacity": 316,
+          "countersSaturated": false
+        },
+        "rafIntervals": {
+          "count": 1800,
+          "p50": 16.69999999999891,
+          "p95": 16.700000000000728,
+          "max": 16.80000000000291,
+          "mean": 16.66605555555563,
+          "rafOver33": 0,
+          "rafOver50": 0
+        },
+        "longAnimationFrames": {
+          "supported": true,
+          "count": 0,
+          "maxDurationMs": null
+        },
+        "renderer": {
+          "samples": 279,
+          "firstSampledAtMs": 2688.2000000476837,
+          "lastSampledAtMs": 32620.200000047684,
+          "drawCalls": {
+            "min": 954,
+            "max": 954,
+            "mean": 954
+          },
+          "triangles": {
+            "min": 457462,
+            "max": 457462,
+            "mean": 457462
+          }
+        }
+      }
+    },
+    {
+      "id": "M2",
+      "condition": "Marte com W/S alternados, 30 s de entrada automatizada; sem certificar percurso livre",
+      "cycles": 31,
+      "sample": {
+        "status": "valid",
+        "invalidReason": null,
+        "warnings": [],
+        "startedAtMs": 32893.10000002384,
+        "requestedMs": 30000,
+        "elapsedMs": 30007.899999976158,
+        "map": "mars",
+        "coverage": {
+          "intervalsCollected": 1800,
+          "intervalsCapacity": 15016,
+          "intervalsSaturated": false,
+          "countersCollected": 276,
+          "countersCapacity": 316,
+          "countersSaturated": false
+        },
+        "rafIntervals": {
+          "count": 1800,
+          "p50": 16.69999999999709,
+          "p95": 16.700000000004366,
+          "max": 16.80000000000291,
+          "mean": 16.665944444444442,
+          "rafOver33": 0,
+          "rafOver50": 0
+        },
+        "longAnimationFrames": {
+          "supported": true,
+          "count": 0,
+          "maxDurationMs": null
+        },
+        "renderer": {
+          "samples": 276,
+          "firstSampledAtMs": 32903.60000002384,
+          "lastSampledAtMs": 62835,
+          "drawCalls": {
+            "min": 929,
+            "max": 954,
+            "mean": 945.3623188405797
+          },
+          "triangles": {
+            "min": 453866,
+            "max": 457462,
+            "mean": 456175.6376811594
+          }
+        }
+      }
+    }
+  ],
+  "loading": {
+    "version": 2,
+    "context": {
+      "capturedAt": "2026-10-20T00:23:55.153Z",
+      "build": "production",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36",
+      "browserBrands": "Not:A-Brand 8, Chromium 156, HeadlessChrome 156",
+      "gpuRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Pro, Unspecified Version)",
+      "hardwareConcurrency": 12,
+      "deviceMemoryGb": 16,
+      "screen": {
+        "width": 1440,
+        "height": 1000
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "canvasCss": {
+        "width": 1440,
+        "height": 1000
+      },
+      "canvasBuffer": {
+        "width": 1440,
+        "height": 1000
+      },
+      "devicePixelRatio": 1,
+      "rendererPixelRatio": 1
+    },
+    "pageLoad": {
+      "responseEndMs": 10.299999952316284,
+      "domContentLoadedMs": 117.39999997615814,
+      "loadEventEndMs": 117.5,
+      "documentTransferBytes": 703
+    },
+    "resources": {
+      "count": 7,
+      "transferBytes": 35439119,
+      "encodedBytes": 35437019,
+      "models": [
+        {
+          "file": "colony-v006-5a6e6d9c.glb",
+          "startMs": 399.89999997615814,
+          "responseEndMs": 436,
+          "durationMs": 36.10000002384186,
+          "transferBytes": 7025972,
+          "encodedBytes": 7025672
+        },
+        {
+          "file": "brand-brain-f7c02996.glb",
+          "startMs": 400.2999999523163,
+          "responseEndMs": 537.8999999761581,
+          "durationMs": 137.60000002384186,
+          "transferBytes": 20737632,
+          "encodedBytes": 20737332
+        },
+        {
+          "file": "explorador-r7-143a14d0.glb",
+          "startMs": 430.39999997615814,
+          "responseEndMs": 494.5,
+          "durationMs": 64.10000002384186,
+          "transferBytes": 6537404,
+          "encodedBytes": 6537104
+        }
+      ]
+    },
+    "sceneEvents": [
+      {
+        "kind": "canvas-mounted",
+        "map": "mars",
+        "atMs": 536.5,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "map-data-ready",
+        "map": "mars",
+        "atMs": 536.5,
+        "sinceMapLoadingMs": null,
+        "inferred": true
+      },
+      {
+        "kind": "canvas-first-frame",
+        "map": "mars",
+        "atMs": 557,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "scene-first-draw",
+        "map": "mars",
+        "atMs": 619.3999999761581,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "scene-assets-ready",
+        "map": "mars",
+        "atMs": 945.8999999761581,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      }
+    ],
+    "latestCounters": {
+      "sampledAtMs": 963,
+      "drawCalls": 954,
+      "triangles": 457462,
+      "geometries": 491,
+      "textures": 8,
+      "programs": 18
+    },
+    "heap": {
+      "usedBytes": 11200000,
+      "totalBytes": 18200000,
+      "limitBytes": 3760000000
+    },
+    "samples": [],
+    "limitations": [
+      "Intervalos medidos entre callbacks de requestAnimationFrame: incluem CPU, espera de vsync e agendamento do navegador. Não são tempo de GPU.",
+      "A cadência mínima é limitada pela taxa de atualização da tela; 8,3 ms em 120 Hz não indica folga de GPU.",
+      "Intervalos de rAF acima de 33,3 ms e de 50 ms são contagens próprias, distintas dos eventos da API Long Animation Frames.",
+      "Draw calls e triângulos vêm de renderer.info e refletem o render imediatamente anterior à leitura. Na three 0.165 o reset automático ocorre depois do shadow map, então os passes de sombra não entram nessas contagens.",
+      "Geometrias e texturas são contagens de objetos vivos no renderer, não memória em bytes.",
+      "Memória de heap JS vem de performance.memory, API não padronizada e quantizada (Chromium); ausente nos demais navegadores.",
+      "Medições no servidor de desenvolvimento não são benchmark; prefira o build de produção (npm run preview).",
+      "Aba oculta durante uma amostra a invalida; pausa do jogo durante a amostra é registrada como aviso.",
+      "\"map-data-ready\" indica dados do mapa disponíveis (store da expedição), não cena renderizada. A cena renderizada é \"scene-first-draw\" e, com os personagens GLB, \"scene-assets-ready\".",
+      "Na entrada inicial, \"map-data-ready\" é inferido na montagem do canvas (marcado como inferido); os tempos da entrada inicial contam a partir do início da navegação."
+    ]
+  },
+  "productionHooks": {
+    "playerMotion": "undefined",
+    "playerActions": "undefined",
+    "playerScene": "undefined",
+    "assetBadge": false
+  },
+  "controls": {
+    "qc": "entrada real exercitada; aceite visual pendente",
+    "pause": true
+  },
+  "dom": "PERF · mars\n–\nrAF p50 / p95: 16.7 ms / 16.7 ms\nrAF > 50 ms (últimos 240): 0\ndraw calls: 942 · triângulos: 460.666\ngeometrias: 496 · texturas: 8 (contagens)\nrenderer.info lido há 6 ms\nheap JS: 11.20 MB\nDPR: 1.00 / renderer 1.00\nÚltima amostra (válida): p50 16.7 ms · p95 16.7 ms · >33 ms 0 · >50 ms 0 · LoAF 0\nAMOSTRA 10 S\nCOPIAR JSON\nIntervalos de rAF, não tempo de GPU.\n\nMARTE · COLÔNIA HUMANA\n\nReferência S0.4\nCONTROLES\nPAUSAR\nROTA DE EXPLORAÇÃO\nDestino: Shanghai\n\nEDEN ao norte · Deck de lançamento ao sul, após o complexo.\n\nExplore · Sobreviva · Recupere materiais.\nEDEN / RÁDIO\n\nEDEN está ao norte. Encontre-a para receber o briefing. O deck de lançamento fica ao sul.\n\nExplore a pé · E para interagir"
+}

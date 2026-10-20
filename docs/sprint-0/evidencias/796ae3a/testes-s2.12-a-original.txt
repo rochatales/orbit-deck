@@ -1,0 +1,59 @@
+
+> horda-survivor@0.1.0 test
+> node --test tests/*.test.mjs
+
+✔ hitscan selects nearest living robot and walls stop bullets; player excluded (25.857958ms)
+✔ manual rifle cadence, kill, finite ammo and partial reload (17.819667ms)
+✔ pause freezes reload, enemy positions, contact immunity, shots and simulation time (15.381167ms)
+✔ five simultaneous contacts use a global damage interval; death is terminal (18.804292ms)
+✔ navigation goes around real Shanghai buildings without crossing their footprint (57.361583ms)
+✔ contact cannot damage through a thin wall (12.140958ms)
+✔ 1, 3 and 5 robot encounters can be cleared with the finite starting loadout (75.975583ms)
+✔ robots still pursue a player hugging a wall with smaller player clearance (21.664916ms)
+(node:5978) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ S2.12: W avança, S recua e W + S (ou nenhum) neutralizam (0.821875ms)
+✔ S2.12: A/D não deslocam — não há ação lateral e o deslocamento é sempre paralelo à mira (0.664833ms)
+✔ S2.12: recuo vai na direção oposta à mira sem inverter a orientação do personagem (0.137166ms)
+✔ S2.12: cursor perto do personagem mantém a última direção válida, sem tremor (0.140417ms)
+✔ S2.12: velocidades de corrida e recuo separadas e recuo mais lento; Shift não é necessário (0.058166ms)
+✔ S2.12: locomoção pela velocidade real, com histerese e parada contra parede (0.073792ms)
+✔ S2.12: taxa dos ciclos acompanha a velocidade real dentro dos limites (0.079625ms)
+✔ S2.12: seleção e transição de clipes (Idle, Run, Backward; queda e interação têm prioridade) (0.101125ms)
+✔ S2.12: bloqueios de sessão param o movimento antes de ler as teclas (52.769958ms)
+✔ S2.12: asset r7 separado, com os cinco clipes e o mesmo rig; GLB ativo preservado (14.166ms)
+✔ S2.12: parado, a mira que cruza ±π gira pelo caminho curto (sem volta inteira no eixo) (19.377625ms)
+✔ S2.9: ativação só com ?perf (0.505125ms)
+✔ S2.9: percentis e intervalos de rAF acima de 33,3 ms e 50 ms (0.264541ms)
+✔ S2.9: dados ausentes aparecem como indisponíveis, nunca como zero (1.163666ms)
+✔ S2.9: recursos separam modelos e não inventam bytes ausentes (0.390542ms)
+✔ S2.9: aba oculta invalida a amostra e pausa vira aviso (0.846042ms)
+✔ S2.9: capacidade cobre a duração pedida e saturação invalida explicitamente (9.164333ms)
+✔ S2.9: prontidão separa dados do mapa, primeiro draw e personagens; entrada inicial inferida (0.66425ms)
+✔ S2.9: troca de mapa durante amostra invalida, resolve a Promise, limpa coletores e remonta sem duplicar (0.707541ms)
+✔ S2.9: espera antes do clique não contamina a amostra (R4) (0.501584ms)
+✔ S2.9: aba oculta durante amostra encerra na hora com motivo (0.400792ms)
+✔ S2.9: armazenamento limitado e relatório com limitações (0.306042ms)
+✔ S2.10: andar escreve na posição mutável sem notificar a store (1.459833ms)
+✔ S2.10: proximidade publica só quando a condição de interação muda (1.317042ms)
+✔ S2.10: guardas de EDEN e de embarque leem a posição mutável (0.268708ms)
+✔ S2.10: viagem, desembarque e retry reposicionam a fonte mutável e a proximidade no mesmo passo (0.237667ms)
+✔ S2.10: consumidores ativos não leem a posição da store nem a assinam por seletor (7.636875ms)
+✔ boarding does not launch; exiting returns to the same map (0.424667ms)
+✔ round trip arrives aboard and duplicate launch/arrival cannot launch twice (0.075ms)
+✔ failed travel preserves origin and allows another attempt (0.058375ms)
+✔ old profile migrates without connection, workflow or mission state (2.003416ms)
+✔ invalid, corrupt and future saves fall back safely (0.270791ms)
+✔ integration: migrated identity, distance guards, boarding/roundtrip, persistence without transient travel (0.888625ms)
+✔ paused and loading interactions are rejected; save errors are visible (0.19325ms)
+✔ combat death blocks boarding; retry clears transient HUD and restores Shanghai spawn (0.144875ms)
+✔ Marte: spawn → EDEN and launch deck are connected with player clearance (57.090833ms)
+✔ Shanghai: disembark point and streets are reachable and within bounds (32.230167ms)
+ℹ tests 45
+ℹ suites 0
+ℹ pass 45
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 666.804333

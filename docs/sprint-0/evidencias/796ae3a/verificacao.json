@@ -1,0 +1,24 @@
+{
+  "base_runtime": "796ae3a6776a623fb2c839310f04eb58925efc93",
+  "build_commit": "3c852375dde5c8f9b8857f407a0a8e20befe665c",
+  "base_registered_before_branches": "3c852375dde5c8f9b8857f407a0a8e20befe665c",
+  "status": "passed",
+  "tests_integrated": 104,
+  "tests_original_s2_12_a": 45,
+  "runtime_unchanged": true,
+  "manual_acceptance": false,
+  "s0_4_checkbox_unchanged": true,
+  "local_links_checked": 43,
+  "review_findings": [],
+  "correction_branch_created": false,
+  "hashes": {
+    "docs/sprint-0/evidencias/796ae3a/01-marte-carregado.png": "4f9cf7f4aac4156caf518be81af97f465f641ffced9a7ba7317a17f63286bdb7",
+    "docs/sprint-0/evidencias/796ae3a/02-marte-m1.png": "7fb2b6fb218d193a9ff7a8c3706692e097698709276e3d35bfbe46dbe93d20e4",
+    "docs/sprint-0/evidencias/796ae3a/03-marte-m2.png": "c3bbfa274a5c3e35fd76dda83a7a32d93e68296fca9ab958f18f94270d2cc020",
+    "docs/sprint-0/evidencias/796ae3a/build.txt": "b3aa22c8a73d45267d37c201f2c4001cd0981e155dfb07b0bc7bcfe802f5ee35",
+    "docs/sprint-0/evidencias/796ae3a/carregamento.json": "470edc648eb1577308f1f43e4e66d60235e4f038973a6d3c6e2fcf936b100716",
+    "docs/sprint-0/evidencias/796ae3a/perf-referencia.json": "92a5c5a93da32d02df67154b87ac2dedbf60fde8bacf5d368a998be06a83099c",
+    "docs/sprint-0/evidencias/796ae3a/testes-s2.12-a-original.txt": "e84e179ab2efb83c5ee316371e8ac9f206cf54fd992107dd0676a3905799b18f",
+    "docs/sprint-0/evidencias/796ae3a/testes.txt": "d7e56f54dbf04e83638c19d4aabcb73d41d51e13e98201ef86a49fb06b9de8c7"
+  }
+}
