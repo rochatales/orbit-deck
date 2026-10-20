@@ -40,6 +40,7 @@ Legenda: 🔲 não iniciado · ◐ em andamento/parcial · ✅ implementado ·
 | Revisão técnica | Fase 4.1 revisada pelo Claude, conforme relato do autor: código sem defeitos; 104/104 testes, build e diff-check verdes. Aceite de jogabilidade permanece na etapa 6.5 |
 | Regra de avanço | Na Fase 4.2, o autor executa `git merge --ff-only rochatales/integracao-2026-10-19-s0-s2` no checkout principal; Fases 5 e 6 seguem o plano |
 | Commit-base histórico do piloto | `a40dac41e4637156140e304454f6b4f3afdc2ba0` |
+| Base de execução S0.4 / revisão S2.12 A | `796ae3a6776a623fb2c839310f04eb58925efc93`, ponta avançada pelo autor; fixada antes de criar branches de correção |
 | Referência para nova tarefa | Após o avanço da Fase 4.2, resolver `git rev-parse rochatales/horda-survivor` e registrar esse SHA imutável antes de criar a branch/worktree da tarefa |
 
 ## Tarefas
@@ -63,6 +64,8 @@ qual a worktree parte e contra o qual a revisão compara.
 | S6.1 Patrol Unit no jogo | `cd5ac19` | `claude/s6.1-robo-patrulha` | `src/combat/{patrolUnit,CombatScene}.ts(x)`, `src/assets/enemies/`, testes e handoff | Claude | Autor | ◐ **Integrada em 18/10, sem aceite**: merge `b410f2e` da ponta `5eecb7a`. Visual de 2,67 m; raio de combate 0,42 m ainda aguarda decisão E1/S2.12 B. Fontes no snapshot, sem nova exportação. [Handoff](./handoffs/s6.1-robo-patrulha.md) |
 | Arte · Estudo da plataforma de lançamento v004 (ref. S6.12/S6.13) | `7f2e60b36fb4ab95d07133b425cb25a11ea99a81` | `claude/arte-plataforma-lancamento` | `art-source/mars-colony-plataforma/**`, `docs/handoffs/arte-plataforma-lancamento.md` | Claude | Autor | ◐ Estudo entregue; aguarda avaliação; sem integração da v004/v005. A fonte B3 escolhida foi integrada pela S6.12; estudo original preservado no snapshot e na worktree. [Handoff histórico](./handoffs/arte-plataforma-lancamento.md) |
 | S0/S2 · Consolidação de 19/10/2026 | B1 `1637449be4880ac2c7021b5ebe931c6b55e36a43` | `rochatales/integracao-2026-10-19-s0-s2` | Fontes B3, manifesto, evidências de portas, quadro, plano e roteiro manual; código integrado na Fase 1 | Codex | Claude / Autor | ◐ Fases 0 e 1 conferidas pelo autor; Fases 2 e 3 entregues na Parada 3. Revisão completa contra B1 e avanço `--ff-only` aguardam Fase 4; aceite de jogabilidade na etapa 6.5. [Handoff](./handoffs/integracao-2026-10-19-s0-s2.md) |
+| S0.4 · Preparação do baseline atual (Fase 5.1) | `796ae3a6776a623fb2c839310f04eb58925efc93` | `rochatales/horda-survivor` (roteiro/evidências no checkout principal; sem runtime) | `docs/sprint-0/RELATORIO.md`, evidências técnicas de carregamento e `?perf`, handoff | Codex | Autor | ◐ Autorizada após o avanço da integração. Preparar roteiro e evidência no build consolidado; sessão manual e aceite S0.4 continuam com o autor |
+| S2.12 A · Revisão específica (Fase 6.1) | Execução/correções: `796ae3a6776a623fb2c839310f04eb58925efc93`; diff de revisão: `110922a...82e3229` | Relatório na integração; se necessárias, correções em `rochatales/s2.12-a-revisao`, worktree própria a partir da base fixa | Arquivos da parte A, testes e handoff; sem S2.12 B/S2.11 | Codex | Autor; Claude para eventuais correções | ◐ Revisão atribuída. A1–A13 e decisão corrida/deslizamento do Run permanecem com o autor. Nenhuma correção ou branch criada antes deste registro |
 
 Planejamento de UI solicitado pelo autor em 30/09/2026, registrado na
 branch de integração: [plano de ação](./sprint-6/PLANO_UI.md) e
@@ -78,6 +81,8 @@ podem tocar o controller; executar primeiro S2.12 B e depois S2.11, conforme
 Fase 6. A revisão/validação da parte A vem antes de ambas.
 
 ## Log
+
+- 19/10/2026 · autor/codex · Autor confirmou avanço de `rochatales/horda-survivor` para `796ae3a`. Base imutável registrada antes de branches para preparar S0.4 (5.1) e revisar S2.12 A (6.1). Sem aceite manual, push ou início da parte B/S2.11.
 
 - 19/10/2026 · codex · Fases 2 e 3 na branch de consolidação, autorizadas após a Parada 1. Fonte B3 e dados técnicos das portas em `989b81f`; manifesto por arquivo e snapshot complementar do Explorador. Quadro, plano e roteiro alinhados a 104 testes, Shanghai fase 01, hordas, caixas e percepção sem costas. Nenhum checkbox de aceite alterado; revisão/avanço na Fase 4 e jogabilidade na etapa 6.5.
 
