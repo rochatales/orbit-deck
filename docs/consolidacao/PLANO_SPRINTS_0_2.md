@@ -228,7 +228,7 @@ obsoletas. O agente só lista; não remove (regra 6 do `AGENTS.md`).
   `robot-patrol-queue-hordes-797d36`, `s2.10-…`, `claude-s2.9-…`, `s2.12-…`, `s6.1-…`,
   `plano-s6.19-atmosfera`, `instrumentation-setup-…`, `project-review-…`,
   `mars-colony-base-map-…`, `consolidar-sprints-0-2-…`; do Codex, `s2-4-…`, `s6-3-…`,
-  `s6-12-…` e `s6-13-…`.
+  `s6-12-…`, `s6-13-…` e `integracao-2026-10-19-s0-s2` (esta consolidação, após o avanço).
 - Mantidas: S6.5 (estacionada), S6.8 (fontes do Explorador) e `arte-plataforma-lancamento`
   (aguarda avaliação do autor).
 

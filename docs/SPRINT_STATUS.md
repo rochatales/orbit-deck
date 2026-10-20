@@ -32,13 +32,15 @@ Legenda: 🔲 não iniciado · ◐ em andamento/parcial · ✅ implementado ·
 
 | Campo | Valor |
 |---|---|
-| Branch de integração (destino) | `rochatales/horda-survivor`, ainda em B1 `1637449be4880ac2c7021b5ebe931c6b55e36a43` |
-| Branch da consolidação em revisão | `rochatales/integracao-2026-10-19-s0-s2` |
+| Branch de integração | `rochatales/horda-survivor` |
+| Branch de origem da consolidação | `rochatales/integracao-2026-10-19-s0-s2` |
+| Base de comparação da revisão (B1) | `1637449be4880ac2c7021b5ebe931c6b55e36a43` |
 | Commit consolidado de código e fontes (Fase 2) | `989b81ff2489e169e82bb2d3a817990020800063` |
-| Situação | Código e fontes consolidados localmente na branch acima; documentação entregue na Parada 3. Sem aceite de jogabilidade, push ou avanço da branch de destino |
-| Próxima ação | Autor ler o diff da Parada 3; Fase 4 revisa o conjunto contra B1 e o autor decide o avanço `--ff-only` |
+| Ponta após o avanço | O `--ff-only` da Fase 4.2 faz a ponta de `rochatales/horda-survivor` corresponder à ponta desta consolidação, incluindo os commits documentais posteriores à Fase 2 |
+| Revisão técnica | Fase 4.1 revisada pelo Claude, conforme relato do autor: código sem defeitos; 104/104 testes, build e diff-check verdes. Aceite de jogabilidade permanece na etapa 6.5 |
+| Regra de avanço | Na Fase 4.2, o autor executa `git merge --ff-only rochatales/integracao-2026-10-19-s0-s2` no checkout principal; Fases 5 e 6 seguem o plano |
 | Commit-base histórico do piloto | `a40dac41e4637156140e304454f6b4f3afdc2ba0` |
-| Referência para nova tarefa | Aguardar o avanço da Fase 4; depois resolver `git rev-parse rochatales/horda-survivor` e registrar o SHA imutável. A ponta documental da consolidação é resolvida pela branch, sem autorreferência de commit neste quadro |
+| Referência para nova tarefa | Após o avanço da Fase 4.2, resolver `git rev-parse rochatales/horda-survivor` e registrar esse SHA imutável antes de criar a branch/worktree da tarefa |
 
 ## Tarefas
 

@@ -3,7 +3,8 @@
 Implementa: Codex. Branch/worktree únicas: `rochatales/integracao-2026-10-19-s0-s2`,
 `/Users/rochatales/.codex/worktrees/integracao-2026-10-19-s0-s2/game-workplace`.
 Referência: [plano por fases](../consolidacao/PLANO_SPRINTS_0_2.md).
-**Entrega na Parada 3; Fases 4–6 não executadas.**
+**Registro das Fases 1–3 e do ajuste documental após a revisão 4.1; avanço 4.2
+e Fases 5–6 não executados pelo Codex.**
 
 ## Bases, commits e conferências do autor
 
@@ -142,3 +143,22 @@ prompts WorldLabs continuam só no snapshot. S6.5 permanece estacionada.
 
 Sem push, novo merge, avanço da integração principal, remoção de worktrees ou
 limpeza de arquivos do autor nas Fases 2–3. Nenhum aceite novo marcado.
+
+## Ajuste documental após a revisão 4.1 — 19/10/2026
+
+O autor informou que o Claude revisou a Fase 4.1: código sem defeitos,
+104/104 testes, build e diff-check verdes. Esse relato atualiza o estado
+histórico de revisão pendente descrito nas seções anteriores.
+
+A pedido do autor, um único commit de docs ajusta o bloco "Base consolidada"
+do quadro para continuar válido após o `--ff-only`: B1 e a Fase 2 são referências
+históricas, e a base de uma nova tarefa é o SHA obtido de
+`git rev-parse rochatales/horda-survivor` depois do avanço. O roteiro manual
+passa a usar o checkout principal nessa branch após a Fase 4.2; o item 4.3 do
+plano inclui a worktree desta consolidação entre as obsoletas após o avanço.
+
+Verificações reexecutadas na worktree da consolidação: `npm test` **104/104**,
+`npm run build` e `git diff --check` passaram; permanece o aviso de chunk
+> 500 kB. Somente docs alterados, sem mudança de runtime ou de aceite.
+Nenhum avanço da branch principal, push ou remoção de worktree executado.
+Aceite de jogabilidade permanece na etapa 6.5. Parada após este ajuste e checks.

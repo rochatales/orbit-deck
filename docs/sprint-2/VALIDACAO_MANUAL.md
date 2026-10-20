@@ -2,7 +2,7 @@
 
 Atualizado em 19/10/2026. **Aceite de jogabilidade pendente, na etapa 6.5 do [plano de consolidação](../consolidacao/PLANO_SPRINTS_0_2.md).** O autor informou que o Claude conferiu merges, ajuste das costas e 104/104 testes da Parada 1 e que ele conferiu no jogo viagem, hordas, caixas e costas. Essa conferência funcional não encerra esta validação.
 
-Usar a página normal do jogo, não `/tests/browser-smoke.html` nem outra fixture. Na worktree `rochatales/integracao-2026-10-19-s0-s2`, executar `npm run dev -- --host 127.0.0.1 --port 5178`; se ocupada, usar outra porta explícita (a Fase 1 usou 5198). Para medir `?perf`, usar build e ambiente comparáveis conforme S2.9; dev/fixture não aprovam desempenho.
+Após o avanço `--ff-only` da Fase 4.2, rodar o jogo a partir do checkout principal `/Users/rochatales/Automations/game-workplace`, na branch `rochatales/horda-survivor`. Nesse checkout, executar `npm run dev -- --host 127.0.0.1 --port 5178`; se ocupada, usar outra porta explícita e conferir que o servidor pertence a esse checkout. Abrir a página normal desse servidor, não `/tests/browser-smoke.html` nem outra fixture. Para medir `?perf`, usar o build do checkout principal e ambiente comparável conforme S2.9; dev/fixture não aprovam desempenho.
 
 ## Preparação
 
