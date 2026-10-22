@@ -8,6 +8,7 @@ import colonyUrl from '../../assets/colony-v006.glb';
 import manifest from '../../assets/colony-v006.manifest.json';
 import { ColonyVisibility } from './visibility';
 import { applyColonyLayout } from './layout';
+import { AresLanding } from './AresLanding';
 
 /** A geometria exportada é apenas visual: colisão continua nos retângulos do mapa. */
 export function MarsColony({ world }: { world: OfficeWorld }) {
@@ -28,5 +29,5 @@ export function MarsColony({ world }: { world: OfficeWorld }) {
         world.update(position, delta);
         visibility.update(playerPosition, camera.position, delta);
     });
-    return <primitive object={scene} dispose={null} />;
+    return <><primitive object={scene} dispose={null} /><AresLanding /></>;
 }

@@ -6,7 +6,6 @@ import { loadSource } from './load-source.mjs';
 
 globalThis.document = { createElement: () => ({ width: 0, height: 0, getContext: () => ({ fillText() {} }) }) };
 const { createWorld: createShanghai } = loadSource('src/game/shanghaiWorld.ts');
-const { createPhase01Terrain } = loadSource('src/game/shanghai/layout.ts');
 const { MAPS } = loadSource('src/game/config.ts');
 const { circleIntersectsRect } = loadSource('src/utils/math.ts');
 const { RocketFade, ROCKET_FADED } = loadSource('src/game/rocketFade.ts');
@@ -18,7 +17,7 @@ async function rocketScene() {
     return (await new GLTFLoader().parseAsync(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), '')).scene;
 }
 
-test('S6.3: Shanghai usa só o foguete da colônia, assentado no chão e sem base', async () => {
+test('S6.3: blockout de comparação preserva o foguete da colônia, sem base', async () => {
     const scene = await rocketScene();
     const names = [], materials = new Set();
     let triangles = 0;
@@ -37,10 +36,10 @@ test('S6.3: Shanghai usa só o foguete da colônia, assentado no chão e sem bas
     assert.match(component, /map === 'shanghai'\) return <ParkedRocket/);
 });
 
-test('S6.3: colisão simples na pegada do foguete e saída/embarque alcançáveis', () => {
+test('S6.3: blockout anterior preserva colisão do foguete e saída alcançável', () => {
     const { x, z } = MAPS.shanghai.ship;
     const expected = { minX: x + rocket.footprint.minX, maxX: x + rocket.footprint.maxX, minZ: z + rocket.footprint.minZ, maxZ: z + rocket.footprint.maxZ };
-    for (const world of [createShanghai(), createPhase01Terrain()]) {
+    for (const world of [createShanghai()]) {
         assert.deepEqual(world.obstacles.at(-1), expected);
         assert.ok(!world.obstacles.some(o => Math.abs(o.maxX - o.minX - 0.45) < 1e-6), 'paredes da cabine provisória removidas');
         const exit = MAPS.shanghai.exit;

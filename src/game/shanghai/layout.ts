@@ -2,7 +2,7 @@ import data from '../../assets/shanghai-fase01/layout.json';
 import type { OfficeWorld } from '../../world/createOfficeMap';
 import type { RectBounds } from '../../utils/math';
 import { Group } from 'three';
-import { addRocketCollisions } from '../worldUtils';
+import { addAresCollisions } from './aresLanding';
 import { SHANGHAI_SUPPLY_CRATES, crateObstacle } from '../props/supplyCrate';
 /** Dados separados do GLB: nenhum triângulo visual entra na física. */
 export const SHANGHAI_PHASE01 = data;
@@ -13,7 +13,7 @@ export function createPhase01Terrain(): OfficeWorld {
         walkableAreas: data.walkableAreas.map(a => ({ ...a })), update: () => { }
     };
     world.obstacles.push(...SHANGHAI_SUPPLY_CRATES.map(crateObstacle));
-    addRocketCollisions(world, data.ship.x, data.ship.z);
+    addAresCollisions(world);
     return world;
 }
 export function isLandingReserved(x: number, z: number, radius = 0): boolean {

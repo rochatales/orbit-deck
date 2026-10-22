@@ -7,11 +7,11 @@ import { playerPosition } from '../state/playerTransient';
 import { MAPS } from './config';
 import { RocketFade } from './rocketFade';
 import type { MapId } from './session';
+import { isShanghaiPhase01 } from './shanghai/previewMode';
 
 /**
- * Shanghai: só o foguete da colônia estacionado no chão, sem base (pedido do
- * autor, 18/10/2026; asset de scripts/export-rocket-b3.py). Colisão em
- * addRocketCollisions. Marte mantém a nave provisória até a S6.12.
+ * O foguete anterior fica no blockout de comparação (?shanghaiAtual).
+ * A fase 01 carrega ARES-I com o mundo, sob a mesma barreira de carregamento.
  */
 function ParkedRocket({ x, z }: { x: number; z: number }) {
     const gltf = useGLTF(rocketUrl);
@@ -31,6 +31,7 @@ export function Spacecraft({ map }: {
     map: MapId;
 }) {
     const p = MAPS[map].ship;
+    if (map === 'shanghai' && isShanghaiPhase01()) return null;
     if (map === 'shanghai') return <ParkedRocket x={p.x} z={p.z}/>;
     return <group position={[p.x, 0, p.z]}>
     {/* Open-roof cabin: the boarded explorer remains visible. Front is the access ramp. */}
