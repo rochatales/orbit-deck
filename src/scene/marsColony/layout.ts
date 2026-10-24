@@ -1,7 +1,11 @@
 import type { Object3D } from 'three';
 
-/** Decisão do autor de 17/10: só foguete/base no deck. Fonte e cache permanecem intactos. */
+/** ARES-I de 22/10 substitui o foguete e o deck retangular. Fonte e cache permanecem intactos. */
 export const REMOVED_COLONY_PARTS = new Set([
+    'PLAT_B3_Foguete', 'PLAT_B3_Base_Lancamento', 'PLAT_B3_Sinal_Piso_Embarque',
+    'ARQ_Piso_Deck', 'ARQ_Deck_Marcacoes',
+    'PROP_Balizador.01', 'PROP_Balizador.03',
+    ...Array.from({ length: 13 }, (_, i) => `PROP_Balizador.${i + 35}`),
     'PLAT_B3_Torre_Servico', 'PLAT_B3_Mastro_Servico',
     'PLAT_B3_Casa_Elevador_Base', 'PLAT_B3_Sinal_Casa_Elevador',
     'PLAT_B3_Passarela_Servico_3m', 'PLAT_B3_Umbilical_Mastro_1',

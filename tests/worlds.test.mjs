@@ -24,7 +24,7 @@ test('Marte: spawn → EDEN and launch deck are connected with player clearance'
  assert.ok(reachable(world,INITIAL_POSITION,EDEN.position,2.3),'EDEN unreachable');
  assert.ok(reachable(world,INITIAL_POSITION,MAPS.mars.exit),'launch deck unreachable');
  assert.ok(traversable(world,MAPS.mars.exit.x,MAPS.mars.exit.z),'disembark point overlaps an obstacle');
- for(const target of [{x:-4,z:33},{x:4,z:33},{x:0,z:36.5}])
+ for(const target of [{x:-4,z:33},{x:5.5,z:33},{x:0,z:36.5}])
   assert.ok(reachable(world,MAPS.mars.exit,target,0.2),`contorno da base inacessível: ${JSON.stringify(target)}`);
  assert.ok(reachable(world,MAPS.mars.exit,{x:6.5,z:-10},3),'laboratory unreachable after return');
 });
@@ -37,6 +37,8 @@ test('Shanghai fase 01: contrato de pouso, limites e física independem do GLB',
  assert.deepEqual({...world.bounds},{minX:-51,maxX:51,minZ:-54,maxZ:54});
  assert.equal(world.group.children.length,0,'geometria visual não constrói os obstáculos');
  assert.ok(traversable(world,MAPS.shanghai.exit.x,MAPS.shanghai.exit.z));
- const expected=createShanghai().obstacles.slice(-1);
- assert.deepEqual(world.obstacles.slice(-1),expected,'mesma colisão do foguete nas duas Shanghai');
+ const {ARES_COLLIDERS,ARES_LANDING}=loadSource('src/game/shanghai/aresLanding.ts');
+ const {x,z}=ARES_LANDING.position;
+ const expected=ARES_COLLIDERS.map(b=>({minX:x+b.minX,maxX:x+b.maxX,minZ:z+b.minZ,maxZ:z+b.maxZ}));
+ assert.deepEqual(world.obstacles.slice(-expected.length),expected,'colisão ARES nasce dos retângulos, sem carregar GLB');
 });

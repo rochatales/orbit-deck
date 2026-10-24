@@ -1,0 +1,1199 @@
+{
+  "fonte_commit": "63634bd",
+  "fonte_sha256": "20fdebc4e29cfd48723ec576fa1315ef752917f112079490ee7953fd9ac73b21",
+  "glb_sha256": "59b4cb7dbeb09699416207cc97863a42027f2cd131f887b9caf4050bbf121354",
+  "bytes": 1394900,
+  "triangulos": 37828,
+  "malhas": 8,
+  "materiais": 8,
+  "pecas": [
+    {
+      "nome": "Deck_Fundacao",
+      "triangulos": 380
+    },
+    {
+      "nome": "Deck_Superficie",
+      "triangulos": 380
+    },
+    {
+      "nome": "Deck_Painel_Radial_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Saia_0",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Armadura_0_-0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Luz_Aro_0_-0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Armadura_0_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Luz_Aro_0_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Armadura_0_0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Luz_Aro_0_0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Seguranca_Base_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Hazard_0_0",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_0_1",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_0_2",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_0_3",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_0_4",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_0_5",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_0_6",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_0_7",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_0_8",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_0_9",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_0_10",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_0_11",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_0_12",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_0_13",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_0_14",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_0_15",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Ventilacao_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_0_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_0_1",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_0_2",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_0_3",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_0_4",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_0_5",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_0_6",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_0_7",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_0_8",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_0_9",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_0_10",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_0_11",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Junta_0",
+      "triangulos": 284
+    },
+    {
+      "nome": "Deck_Painel_Radial_1",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Saia_1",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Armadura_1_-0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Luz_Aro_1_-0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Armadura_1_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Luz_Aro_1_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Armadura_1_0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Luz_Aro_1_0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Seguranca_Base_1",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Hazard_1_0",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_1_1",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_1_2",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_1_3",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_1_4",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_1_5",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Ventilacao_1",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_1_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_1_1",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_1_2",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_1_3",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_1_4",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_1_5",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_1_6",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_1_7",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_1_8",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_1_9",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_1_10",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_1_11",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Junta_1",
+      "triangulos": 284
+    },
+    {
+      "nome": "Deck_Painel_Radial_2",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Saia_2",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Armadura_2_-0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Luz_Aro_2_-0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Armadura_2_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Luz_Aro_2_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Armadura_2_0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Luz_Aro_2_0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Seguranca_Base_2",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Hazard_2_0",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_2_1",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_2_2",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_2_3",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_2_4",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_2_5",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_2_6",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_2_7",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_2_8",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_2_9",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_2_10",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_2_11",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_2_12",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_2_13",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_2_14",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_2_15",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Ventilacao_2",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_2_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_2_1",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_2_2",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_2_3",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_2_4",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_2_5",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_2_6",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_2_7",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_2_8",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_2_9",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_2_10",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_2_11",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Junta_2",
+      "triangulos": 284
+    },
+    {
+      "nome": "Deck_Painel_Radial_3",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Saia_3",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Armadura_3_-0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Luz_Aro_3_-0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Armadura_3_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Luz_Aro_3_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Armadura_3_0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Luz_Aro_3_0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Seguranca_Base_3",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Hazard_3_0",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_3_1",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_3_2",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_3_3",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_3_4",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_3_5",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Ventilacao_3",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_3_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_3_1",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_3_2",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_3_3",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_3_4",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_3_5",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_3_6",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_3_7",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_3_8",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_3_9",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_3_10",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_3_11",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Junta_3",
+      "triangulos": 284
+    },
+    {
+      "nome": "Deck_Painel_Radial_4",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Saia_4",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Armadura_4_-0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Luz_Aro_4_-0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Armadura_4_0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Luz_Aro_4_0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Seguranca_Base_4",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Hazard_4_0",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_4_1",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_4_2",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_4_3",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_4_4",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_4_5",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_4_6",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_4_7",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_4_8",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_4_9",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_4_10",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_4_11",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_4_12",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_4_13",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_4_14",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_4_15",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Junta_4",
+      "triangulos": 284
+    },
+    {
+      "nome": "Deck_Painel_Radial_5",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Saia_5",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Armadura_5_-0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Luz_Aro_5_-0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Armadura_5_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Luz_Aro_5_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Armadura_5_0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Luz_Aro_5_0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Seguranca_Base_5",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Hazard_5_0",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_5_1",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_5_2",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_5_3",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_5_4",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_5_5",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Ventilacao_5",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_5_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_5_1",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_5_2",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_5_3",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_5_4",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_5_5",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_5_6",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_5_7",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_5_8",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_5_9",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_5_10",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_5_11",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Junta_5",
+      "triangulos": 284
+    },
+    {
+      "nome": "Deck_Painel_Radial_6",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Saia_6",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Armadura_6_-0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Luz_Aro_6_-0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Armadura_6_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Luz_Aro_6_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Armadura_6_0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Luz_Aro_6_0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Seguranca_Base_6",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Hazard_6_0",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_6_1",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_6_2",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_6_3",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_6_4",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_6_5",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_6_6",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_6_7",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_6_8",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_6_9",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_6_10",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_6_11",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_6_12",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_6_13",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_6_14",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_6_15",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Ventilacao_6",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_6_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_6_1",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_6_2",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_6_3",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_6_4",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_6_5",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_6_6",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_6_7",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_6_8",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_6_9",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_6_10",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_6_11",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Junta_6",
+      "triangulos": 284
+    },
+    {
+      "nome": "Deck_Painel_Radial_7",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Saia_7",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Armadura_7_-0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Luz_Aro_7_-0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Armadura_7_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Luz_Aro_7_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Armadura_7_0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Luz_Aro_7_0p29",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Seguranca_Base_7",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Hazard_7_0",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_7_1",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_7_2",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_7_3",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_7_4",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Hazard_7_5",
+      "triangulos": 2
+    },
+    {
+      "nome": "Deck_Ventilacao_7",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_7_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_7_1",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_7_2",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_7_3",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_7_4",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_7_5",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_7_6",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_7_7",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_7_8",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_7_9",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_7_10",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Grelha_7_11",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Junta_7",
+      "triangulos": 284
+    },
+    {
+      "nome": "Deck_Ladrilho_-2_-2",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Ladrilho_-2_-1",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Ladrilho_-2_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Ladrilho_-2_1",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Ladrilho_-2_2",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Ladrilho_-1_-2",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Ladrilho_-1_-1",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Ladrilho_-1_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Ladrilho_-1_1",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Ladrilho_-1_2",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Ladrilho_0_-2",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Ladrilho_0_-1",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Ladrilho_0_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Ladrilho_0_1",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Ladrilho_0_2",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Ladrilho_1_-2",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Ladrilho_1_-1",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Ladrilho_1_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Ladrilho_1_1",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Ladrilho_1_2",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Ladrilho_2_-2",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Ladrilho_2_-1",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Ladrilho_2_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Ladrilho_2_1",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Ladrilho_2_2",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Guia_-3p6_-2",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Guia_-3p6_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Guia_-3p6_2",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Guia_3p6_-2",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Guia_3p6_0",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Guia_3p6_2",
+      "triangulos": 188
+    },
+    {
+      "nome": "Deck_Conexao_Runtime",
+      "triangulos": 12
+    }
+  ],
+  "omitidas": [
+    "Deck_Acesso_Degrau_0",
+    "Deck_Acesso_Degrau_1",
+    "Deck_Acesso_Degrau_2",
+    "Conexao_Colonia_0",
+    "Conexao_Colonia_1",
+    "Conexao_Colonia_2",
+    "Conexao_Colonia_3",
+    "Conexao_Colonia_4",
+    "Conexao_Luz_-1p03",
+    "Conexao_Luz_1p03"
+  ],
+  "ajustes": {
+    "altura_m": -0.455,
+    "conexao_plana_m": [
+      4,
+      2.4
+    ],
+    "octogono_m": [
+      12,
+      12
+    ]
+  },
+  "sem_fisica": true
+}
