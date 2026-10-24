@@ -1,0 +1,477 @@
+{
+  "version": "v007",
+  "axes": "Blender X = jogo.x; Blender Y = -jogo.z; Blender Z = jogo.y",
+  "wallThickness": 0.2,
+  "doorWidth": 2.2,
+  "rooms": [
+    {
+      "id": "central-hub",
+      "name": "Sala de reunião",
+      "sourceName": "Hub",
+      "position": {
+        "x": 0,
+        "z": 0
+      },
+      "size": {
+        "width": 8,
+        "depth": 8
+      },
+      "doorSides": [
+        "north",
+        "south",
+        "east",
+        "west"
+      ],
+      "source": [
+        0,
+        0,
+        8,
+        8
+      ]
+    },
+    {
+      "id": "brand-brain",
+      "name": "EDEN · Centro de controle",
+      "sourceName": "EDEN",
+      "position": {
+        "x": 0,
+        "z": -10.5
+      },
+      "size": {
+        "width": 7,
+        "depth": 6.5
+      },
+      "doorSides": [
+        "south",
+        "east"
+      ],
+      "source": [
+        0,
+        -10,
+        7,
+        6
+      ]
+    },
+    {
+      "id": "smart-lab",
+      "name": "Laboratório",
+      "sourceName": "Laboratorio",
+      "position": {
+        "x": 10.5,
+        "z": -10.5
+      },
+      "size": {
+        "width": 8,
+        "depth": 5
+      },
+      "doorSides": [
+        "west",
+        "south"
+      ],
+      "source": [
+        6.5,
+        -10,
+        6,
+        4
+      ]
+    },
+    {
+      "id": "editorial",
+      "name": "Centro de dados",
+      "sourceName": "Arquivo",
+      "position": {
+        "x": -10.5,
+        "z": 0
+      },
+      "size": {
+        "width": 6.5,
+        "depth": 6.5
+      },
+      "doorSides": [
+        "east"
+      ],
+      "source": [
+        -10,
+        0,
+        7,
+        6
+      ]
+    },
+    {
+      "id": "design",
+      "name": "Alojamentos",
+      "sourceName": "Oficina",
+      "position": {
+        "x": 10.5,
+        "z": 0
+      },
+      "size": {
+        "width": 6.5,
+        "depth": 6.5
+      },
+      "doorSides": [
+        "west",
+        "north"
+      ],
+      "source": [
+        10,
+        0,
+        7,
+        6
+      ]
+    },
+    {
+      "id": "narration",
+      "name": "Sala de operações",
+      "sourceName": "Comunicacoes",
+      "position": {
+        "x": -10.5,
+        "z": 8.5
+      },
+      "size": {
+        "width": 6,
+        "depth": 5.5
+      },
+      "doorSides": [
+        "east"
+      ],
+      "source": [
+        -8,
+        9,
+        6,
+        5
+      ]
+    },
+    {
+      "id": "output-review",
+      "name": "Oficina",
+      "sourceName": "Deposito",
+      "position": {
+        "x": 10.5,
+        "z": 8.5
+      },
+      "size": {
+        "width": 6,
+        "depth": 5.5
+      },
+      "doorSides": [
+        "west"
+      ],
+      "source": [
+        8,
+        9,
+        6,
+        5
+      ]
+    },
+    {
+      "id": "meeting-suite",
+      "name": "Doca de carga",
+      "sourceName": "Reuniao",
+      "position": {
+        "x": 0,
+        "z": 14.5
+      },
+      "size": {
+        "width": 9,
+        "depth": 6
+      },
+      "doorSides": [
+        "north",
+        "south",
+        "east"
+      ],
+      "source": [
+        0,
+        14.5,
+        8,
+        6
+      ]
+    },
+    {
+      "id": "coffee-nook",
+      "name": "Refeitório",
+      "sourceName": "Cafe",
+      "position": {
+        "x": 7.2,
+        "z": 15
+      },
+      "size": {
+        "width": 3.8,
+        "depth": 3.8
+      },
+      "doorSides": [
+        "west"
+      ],
+      "source": [
+        7.5,
+        14.5,
+        4,
+        4
+      ]
+    }
+  ],
+  "corridors": [
+    {
+      "id": "north-connector-brand",
+      "position": {
+        "x": 0,
+        "z": -5.625
+      },
+      "size": {
+        "width": 2.6,
+        "depth": 3.25
+      },
+      "kind": "tunnel",
+      "axis": "z",
+      "requestedCenter": [
+        0,
+        -5.6
+      ]
+    },
+    {
+      "id": "eden-lab-connector",
+      "position": {
+        "x": 5,
+        "z": -10.5
+      },
+      "size": {
+        "width": 3,
+        "depth": 2.6
+      },
+      "kind": "tunnel",
+      "axis": "x"
+    },
+    {
+      "id": "lab-quarters-connector",
+      "position": {
+        "x": 10.5,
+        "z": -5.625
+      },
+      "size": {
+        "width": 2.6,
+        "depth": 4.75
+      },
+      "kind": "tunnel",
+      "axis": "z",
+      "requestedCenter": [
+        10.5,
+        -5.5
+      ]
+    },
+    {
+      "id": "west-connector-editorial",
+      "position": {
+        "x": -5.625,
+        "z": 0
+      },
+      "size": {
+        "width": 3.25,
+        "depth": 2.6
+      },
+      "kind": "tunnel",
+      "axis": "x",
+      "requestedCenter": [
+        -5.6,
+        0
+      ]
+    },
+    {
+      "id": "east-connector-design",
+      "position": {
+        "x": 5.625,
+        "z": 0
+      },
+      "size": {
+        "width": 3.25,
+        "depth": 2.6
+      },
+      "kind": "tunnel",
+      "axis": "x",
+      "requestedCenter": [
+        5.6,
+        0
+      ]
+    },
+    {
+      "id": "southwest-connector-narration",
+      "position": {
+        "x": -6.2,
+        "z": 8.5
+      },
+      "size": {
+        "width": 2.6,
+        "depth": 2.6
+      },
+      "kind": "tunnel",
+      "axis": "x"
+    },
+    {
+      "id": "southeast-connector-output",
+      "position": {
+        "x": 6.2,
+        "z": 8.5
+      },
+      "size": {
+        "width": 2.6,
+        "depth": 2.6
+      },
+      "kind": "tunnel",
+      "axis": "x"
+    },
+    {
+      "id": "south-connector-meeting",
+      "position": {
+        "x": 0,
+        "z": 7.75
+      },
+      "size": {
+        "width": 2.6,
+        "depth": 7.5
+      },
+      "kind": "tunnel",
+      "axis": "z",
+      "requestedCenter": [
+        0,
+        9.2
+      ],
+      "sideExitsZ": 8.5
+    },
+    {
+      "id": "meeting-east-connector",
+      "position": {
+        "x": 4.9,
+        "z": 15
+      },
+      "size": {
+        "width": 0.8,
+        "depth": 2.2
+      },
+      "kind": "tunnel",
+      "axis": "x"
+    },
+    {
+      "id": "meeting-exterior-airlock",
+      "position": {
+        "x": 0,
+        "z": 18.8
+      },
+      "size": {
+        "width": 2.6,
+        "depth": 2.6
+      },
+      "kind": "tunnel",
+      "axis": "z"
+    },
+    {
+      "id": "central-plaza",
+      "position": {
+        "x": 0,
+        "z": 1.5
+      },
+      "size": {
+        "width": 15,
+        "depth": 18
+      },
+      "kind": "plaza",
+      "axis": "z"
+    },
+    {
+      "id": "exterior-south-path",
+      "position": {
+        "x": 0,
+        "z": 23.55
+      },
+      "size": {
+        "width": 4,
+        "depth": 6.9
+      },
+      "kind": "road",
+      "axis": "z"
+    },
+    {
+      "id": "build-zone-a",
+      "position": {
+        "x": 18,
+        "z": 2
+      },
+      "size": {
+        "width": 5,
+        "depth": 25
+      },
+      "kind": "zone",
+      "axis": "z"
+    },
+    {
+      "id": "build-zone-b",
+      "position": {
+        "x": -4.5,
+        "z": 24.25
+      },
+      "size": {
+        "width": 27,
+        "depth": 5.5
+      },
+      "kind": "zone",
+      "axis": "z"
+    },
+    {
+      "id": "greenhouse-connector",
+      "position": {
+        "x": 9.75,
+        "z": 22.5
+      },
+      "size": {
+        "width": 1.5,
+        "depth": 3
+      },
+      "kind": "path",
+      "axis": "z"
+    },
+    {
+      "id": "east-service-path",
+      "position": {
+        "x": 18,
+        "z": 17
+      },
+      "size": {
+        "width": 5,
+        "depth": 5
+      },
+      "kind": "path",
+      "axis": "z"
+    },
+    {
+      "id": "east-greenhouse-path",
+      "position": {
+        "x": 19,
+        "z": 21.5
+      },
+      "size": {
+        "width": 3,
+        "depth": 4
+      },
+      "kind": "path",
+      "axis": "z"
+    },
+    {
+      "id": "orbit-garden",
+      "position": {
+        "x": 14,
+        "z": 22.5
+      },
+      "size": {
+        "width": 7,
+        "depth": 11
+      },
+      "kind": "greenhouse",
+      "axis": "z"
+    }
+  ],
+  "solar": {
+    "x": -14.5,
+    "z": -10.5,
+    "rows": 2,
+    "columns": 5
+  }
+}

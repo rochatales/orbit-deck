@@ -2,7 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { Group, Object3D, Vector3, Mesh, BoxGeometry, MeshStandardMaterial } from 'three';
-import { loadSource } from './load-source.mjs';
+import path from 'node:path';
+import { createSourceLoader, loadSource } from './load-source.mjs';
 const { ColonyVisibility } = loadSource('src/scene/marsColony/visibility.ts');
 const manifest = JSON.parse(fs.readFileSync('src/assets/colony-v006.manifest.json', 'utf8'));
 function fixture(parts) {
@@ -91,9 +92,13 @@ test('S6.2: foguete/base antigos, deck e serviços retirados só da cópia', () 
  assert.ok(rocket.material.opacity<0.081);
 });
 
+// A v006 permanece como fixture histórica; não deve ser avaliada usando o layout v007.
+const legacyLoadSource = createSourceLoader({[path.resolve('src/world/mapConfig.ts')]:path.resolve('tests/fixtures/mapConfig-v006.ts')});
 function marsWorld(){
  globalThis.document={createElement:()=>({width:0,height:0,getContext:()=>({fillText(){}})})};
- return loadSource('src/game/marsWorld.ts').createWorld();
+ const world=legacyLoadSource('src/world/createOfficeMap.ts').createOfficeMap([{id:'eden',name:'EDEN',position:{x:0,y:0,z:-10},color:'#f2c94c',interactionRadius:2.7}],true);
+ loadSource('src/game/marsLanding.ts').addMarsLanding(world);
+ return world;
 }
 test('S6.12: todas as folhas preservam raio, amortecimento, escala, slide, opacidade e luz', () => {
  const world=marsWorld(),doors=[];world.group.traverse(n=>{if(n.name==='PortaAutomatica')doors.push(n);});
@@ -127,7 +132,7 @@ test('S6.12: embarque acessível antes da base sólida e saída preservada', () 
 
 test('S6.2: preserva obstáculos da colônia e troca só os quatro volumes da nave antiga', () => {
  const world=marsWorld();
- const {createOfficeMap}=loadSource('src/world/createOfficeMap.ts');
+ const {createOfficeMap}=legacyLoadSource('src/world/createOfficeMap.ts');
  const {EDEN}=loadSource('src/game/config.ts');
  const {ARES_COLLIDERS}=loadSource('src/game/aresCollisions.ts');
  const {MARS_ARES}=loadSource('src/game/marsLanding.ts');
