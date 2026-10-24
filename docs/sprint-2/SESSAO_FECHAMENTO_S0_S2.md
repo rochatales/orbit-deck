@@ -1,5 +1,14 @@
 # Sessão única do autor — fechamento das Sprints 0 e 2
 
+> **SESSÃO SUSPENSA — 24/10/2026.** ARES-I integrada no fechamento em
+> `fcdb34e23b0127fd749bce1939c46eeae57b9a41`, mas o reensaio a raio 0,80 m
+> reprovou o destino exato junto à escada. Parada na etapa 2, aguardando decisão
+> do autor; [resultado e causa](../handoffs/s2.12-b-proposta.md#reensaio-após-ares-i--24102026-parada-na-etapa-2).
+> **Não executar este roteiro ainda nem usar o checkout principal.** Os blocos
+> abaixo preservam a versão anterior: comandos, coordenadas e itens da ARES-I
+> serão atualizados na etapa 3, após resolver este portão. A sessão futura usará
+> o build de `rochatales/fechamento-s0-s2` nesta worktree, porta 4173.
+
 Preparado em 24/10/2026. **Todos os resultados estão pendentes.** Este kit organiza
 as Fases 5 e 6 do [plano de consolidação](../consolidacao/PLANO_SPRINTS_0_2.md)
 conforme o pedido atual do autor. Não encerra sprints nem libera implementação.

@@ -1,6 +1,6 @@
 # Handoff — fechamento das Sprints 0 e 2
 
-Preparação e kit: 24/10/2026. **Parada 1; aguardando resultados do autor.**
+Preparação e kit: 24/10/2026. **Atualização ARES-I: merge concluído; parada técnica no reensaio (etapa 2 do pedido atual). Sessão suspensa.**
 
 | Campo | Valor |
 |---|---|
@@ -12,7 +12,7 @@ Preparação e kit: 24/10/2026. **Parada 1; aguardando resultados do autor.**
 | Kit da sessão | [SESSAO_FECHAMENTO_S0_S2.md](../sprint-2/SESSAO_FECHAMENTO_S0_S2.md) |
 | Referência | [Plano de consolidação, Fases 5–6](../consolidacao/PLANO_SPRINTS_0_2.md) e pedido do autor de 24/10/2026 |
 
-## Entrega desta parada
+## Entrega inicial — Parada 1 (antes da ARES-I)
 
 - Registro da base, branch/worktree, tarefa e portões no quadro desta branch,
   por autorização expressa do autor. A futura S2.12 B partirá da ponta do
@@ -33,7 +33,7 @@ seguinte contém **somente o kit**, conforme a Etapa 1. Código, arte, testes,
 dependências, lockfile, plano oficial e relatórios/aceites não foram alterados.
 Nenhum checkbox foi marcado, nem iniciadas B ou S2.11.
 
-## Verificação técnica desta entrega
+## Verificação técnica da entrega inicial
 
 Executada exclusivamente na worktree de fechamento:
 
@@ -51,6 +51,51 @@ e `/tmp/horda-fechamento-s0-s2-build.log`. Não foram criados testes novos para 
 mudança documental. Não houve execução do roteiro de jogo, nova medição de frames
 ou aprovação visual pelo agente; nenhum servidor foi iniciado nesta entrega.
 Sem push, merge ou remoção de worktrees.
+
+## Integração ARES-I — 24/10/2026
+
+Autorização expressa do autor substitui a exclusão anterior da ARES-I: integrar a
+entrega aprovada em 22/10 antes da sessão, somente nesta worktree de fechamento.
+
+| Campo | Resultado |
+|---|---|
+| Ponta anterior do fechamento | `aa8765062fd84429ba8e0c34f60621580f50a4d8` |
+| Branch/ponta de origem | `rochatales/s6.3-shanghai-ares-runtime`, `a12294fa73e0f710807c612cf535adeeef14d9a8` |
+| Merge `--no-ff`, sem conflito | **`fcdb34e23b0127fd749bce1939c46eeae57b9a41`** |
+| `npm test` após merge | **109/109**, zero falhas |
+| `npm run build` / `git diff --check` | Passaram; aviso conhecido de chunk >500 kB |
+| Ensaio de navegação | **Reprovado a 0,80 m no destino exato junto à escada**; a 0,42 m, 32/32 spawns e 272/272 pontos válidos |
+| Fonte dos resultados | [Proposta atualizada e interpretação](s2.12-b-proposta.md#reensaio-após-ares-i--24102026-parada-na-etapa-2), [JSON](fechamento-s0-s2/ares-navegacao.json), [script](fechamento-s0-s2/ares-navegacao.mjs) |
+
+No terreno com ARES-I, as nove vielas, os 16 segmentos das patrulhas e os dez
+acessos humanos (duas caixas incluídas, jogador de raio 0,36 m) continuam válidos.
+Nós livres: 36.674→36.546 a 0,42 m e 34.104→33.929 a 0,80 m.
+
+A face da escada de Shanghai começa em Z=10,02 m, a 0,52 m do desembarque
+(0; 9,5). O robô de raio 0,80 m não cabe nesse ponto. O retorno bruto de
+`Navigation.path` continua não vazio para os 32 spawns, mas termina num nó
+aproximado (exemplo: 0; 9,0). Os 272 candidatos de horda também permanecem;
+a validação estrita de origem/destino livres resulta em 0/32 e 0/272 por causa
+do destino inválido. Isso não prova isolamento dos spawns nem defeito de combate;
+a dinâmica de perseguição/contato junto à escada não foi certificada a 0,80 m.
+
+O script registra o JSON antes de reprovar a asserção de continuidade com exit 1.
+Nenhum teste foi afrouxado e nenhum ajuste de raio, colisor, chegada, patrulha ou
+arte foi aplicado. A premissa 32/32 até desembarque livre da proposta aprovada
+precisa de decisão do autor. **Parada na etapa 2, conforme o portão solicitado.**
+
+A etapa 3 (atualização completa do kit para deck/embarque/desembarque ARES-I e
+build desta branch na porta 4173) não foi executada após esse achado. O kit recebeu
+somente aviso de suspensão e de não usar o checkout principal; as instruções
+anteriores estão preservadas como versão histórica. Não iniciar a sessão ainda.
+Quadro e proposta registram o merge e o bloqueio. Logs locais desta atualização:
+`/tmp/horda-fechamento-ares-{testes,build,navegacao}.log`.
+
+Sem push, merge na integração ou remoção de worktrees. Checkout principal
+preservado; sem alteração adicional em código, arte, dependências, r8 ou Astro
+Explorer. O merge traz os assets/fontes já aprovados da branch ARES-I.
+Nenhum checkbox ou novo aceite foi marcado. Integração principal continua em
+`720527d4b06d8325ec97b90214b75fc314fbef65`.
 
 ## Continuação condicionada ao autor
 
@@ -72,6 +117,6 @@ será acrescentada ao kit somente para essas mudanças. Sem aceite, não marcar
 S2.11/S2.12 nem encerrar a Sprint 2. Reunir entregas na branch de fechamento para
 revisão do Claude; avanço da integração por `--ff-only` é do autor.
 
-ARES-I, r8, Astro Explorer, itens da Sprint 6 e arquivos não rastreados do autor
-ficam fora desta tarefa. O checkout principal mantém suas alterações locais de
+A ARES-I entrou pelo merge autorizado acima; r8, Astro Explorer, demais itens da
+Sprint 6 e arquivos não rastreados do autor permanecem fora desta tarefa. O checkout principal mantém suas alterações locais de
 arquivamento do MCP Office, AGENTS.md, README.md e .gitignore, sem stash ou commit.
