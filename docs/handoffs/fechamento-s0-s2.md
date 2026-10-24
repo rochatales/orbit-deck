@@ -1,6 +1,6 @@
 # Handoff — fechamento das Sprints 0 e 2
 
-Preparação e kit: 24/10/2026. **Atualização ARES-I: merge concluído; parada técnica no reensaio (etapa 2 do pedido atual). Sessão suspensa.**
+Preparação e kit: 24/10/2026. **Parada 1 — kit ARES-I pronto, após decisão do autor sobre alcance de contato; sessão e aceites pendentes.**
 
 | Campo | Valor |
 |---|---|
@@ -11,6 +11,56 @@ Preparação e kit: 24/10/2026. **Atualização ARES-I: merge concluído; parada
 | Implementa / revisa / valida e integra | Codex / Claude / autor |
 | Kit da sessão | [SESSAO_FECHAMENTO_S0_S2.md](../sprint-2/SESSAO_FECHAMENTO_S0_S2.md) |
 | Referência | [Plano de consolidação, Fases 5–6](../consolidacao/PLANO_SPRINTS_0_2.md) e pedido do autor de 24/10/2026 |
+
+## Retomada com ARES-I e contato — Parada 1 vigente
+
+Base desta atualização: `c92ed79bc4df4c8902b8eadff30f42b73ce4e229`; runtime segue
+exatamente o merge `fcdb34e`. O autor decidiu, com conferência do Claude, manter
+raio 0,80 m, demais decisões de `222bc5b`, desembarque e colisores ARES-I. A
+parada anterior era causada pelo critério de destino exato do ensaio, não por
+um defeito do jogo. O critério aprovado passa a ser **alcance de contato**:
+origem e término livres no raio do robô, todos os segmentos válidos em
+`clearSegment`, término a **≤ contactRange = 1,20 m** do desembarque.
+
+| Ensaio no terreno ARES-I | Raio 0,42 m | Raio 0,80 m |
+|---|---:|---:|
+| Nós livres | 36.546 | 33.929 |
+| Spawns com caminho válido até contato | 32/32 | 32/32 |
+| Candidatos de horda validados até contato | 272/272 | 272/272 |
+| Maior distância final à saída | 0 m | 0,50 m |
+| Vielas / acessos humanos / caixas | 9/9 / 10/10 / 2/2 | 9/9 / 10/10 / 2/2 |
+
+A 0,80 m, os caminhos chegam a **(0; 9,0)**, dentro do contato de 1,20 m do
+jogador em **(0; 9,5)**. Os quatro cenários antes/depois passaram no script;
+o diagnóstico anterior do ponto exato e o JSON antigo permanecem preservados
+como histórico, sem mudança de raio, colisores ou chegada.
+
+- [Decisão e números completos](s2.12-b-proposta.md#decisão-de-contato-após-ares-i--24102026-vigente).
+- [JSON do reensaio por contato](fechamento-s0-s2/ares-navegacao-contato.json).
+- [Script atualizado](fechamento-s0-s2/ares-navegacao.mjs): `node docs/handoffs/fechamento-s0-s2/ares-navegacao.mjs` termina com **exit 0**.
+
+O escopo da **etapa 3 futura** agora exige o mesmo critério em
+`tests/hordes.test.mjs` e `tests/integration-shanghai.test.mjs`, e impede
+`hordeEdgeSpawns` de aceitar candidatos cujo caminho não passe pela validação.
+Não basta `path.length > 0`. Nenhuma dessas mudanças foi implementada no runtime
+ou nos testes do projeto. A1–A13 e liberação explícita continuam precedendo B.
+
+O kit foi concluído para esta branch: Marte com deck octogonal centrado em
+(0; 33), ARES-I visual em (0,72; 0,012; 33,52), E/desembarque em (0; 29,5);
+Shanghai com nave em (0,72; 0,012; 13,52), asfalto/impacto sem deck e E/desembarque
+em (0; 9,5). Itens novos para ligação do deck, embarque/desembarque nos dois
+mapas, contorno/oclusão e retorno. Comandos de build/preview e medições apontam
+para a **worktree de fechamento**, porta **4173**; o checkout principal não é
+usado. A1–A13, campos de resultado, decisões de Run e JSONs/ambiente preservados.
+
+Verificações nesta worktree: reensaio **4/4 cenários**, `npm test` **109/109**,
+`npm run build` e `git diff --check` verdes (aviso conhecido de chunk >500 kB).
+Logs: `/tmp/horda-fechamento-ares-contato.log`,
+`/tmp/horda-fechamento-contato-testes.log`, `/tmp/horda-fechamento-contato-build.log`.
+Sem execução de sessão visual, nova medição de frames ou checkbox de aceite.
+Checkout principal conferido por SHA-256 de status/diff/índice, preservado.
+Sem push, merge ou remoção de worktrees nesta atualização. **Parada 1: aguarda
+relato do autor.** Os registros anteriores abaixo são históricos.
 
 ## Entrega inicial — Parada 1 (antes da ARES-I)
 
@@ -52,7 +102,10 @@ mudança documental. Não houve execução do roteiro de jogo, nova medição de
 ou aprovação visual pelo agente; nenhum servidor foi iniciado nesta entrega.
 Sem push, merge ou remoção de worktrees.
 
-## Integração ARES-I — 24/10/2026
+## Integração ARES-I — histórico da parada em 24/10/2026
+
+**Portão resolvido pela decisão de contato acima.** O script e o exit 1 descritos
+nesta seção são a versão histórica de `c92ed79`, não o ensaio vigente.
 
 Autorização expressa do autor substitui a exclusão anterior da ARES-I: integrar a
 entrega aprovada em 22/10 antes da sessão, somente nesta worktree de fechamento.

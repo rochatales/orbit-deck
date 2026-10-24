@@ -1,13 +1,9 @@
 # Sessão única do autor — fechamento das Sprints 0 e 2
 
-> **SESSÃO SUSPENSA — 24/10/2026.** ARES-I integrada no fechamento em
-> `fcdb34e23b0127fd749bce1939c46eeae57b9a41`, mas o reensaio a raio 0,80 m
-> reprovou o destino exato junto à escada. Parada na etapa 2, aguardando decisão
-> do autor; [resultado e causa](../handoffs/s2.12-b-proposta.md#reensaio-após-ares-i--24102026-parada-na-etapa-2).
-> **Não executar este roteiro ainda nem usar o checkout principal.** Os blocos
-> abaixo preservam a versão anterior: comandos, coordenadas e itens da ARES-I
-> serão atualizados na etapa 3, após resolver este portão. A sessão futura usará
-> o build de `rochatales/fechamento-s0-s2` nesta worktree, porta 4173.
+**Kit pronto — Parada 1 (24/10/2026).** ARES-I integrada em `fcdb34e`.
+O autor resolveu o portão do ensaio após `c92ed79`: caminho válido até contato
+≤1,20 m, preservando raio 0,80 m, desembarque e colisores. A sessão usa o build
+da **worktree de fechamento**, porta 4173. [Decisão e reensaio](../handoffs/s2.12-b-proposta.md#decisão-de-contato-após-ares-i--24102026-vigente).
 
 Preparado em 24/10/2026. **Todos os resultados estão pendentes.** Este kit organiza
 as Fases 5 e 6 do [plano de consolidação](../consolidacao/PLANO_SPRINTS_0_2.md)
@@ -15,10 +11,11 @@ conforme o pedido atual do autor. Não encerra sprints nem libera implementaçã
 
 | Referência | Valor |
 |---|---|
-| Base confirmada | `720527d4b06d8325ec97b90214b75fc314fbef65` (`git rev-parse rochatales/horda-survivor`) |
+| Base original do fechamento | `720527d4b06d8325ec97b90214b75fc314fbef65` |
+| Runtime da sessão com ARES-I | Merge `fcdb34e23b0127fd749bce1939c46eeae57b9a41`; ARES-I de `a12294f`, aprovada em 22/10. Preparação retomada de `c92ed79`; registrar o HEAD documental real ao executar |
 | Branch de fechamento | `rochatales/fechamento-s0-s2` |
 | Worktree dos documentos e resultados | `/Users/rochatales/.codex/worktrees/fechamento-s0-s2/game-workplace` |
-| Checkout do jogo a testar | `/Users/rochatales/Automations/game-workplace`, branch `rochatales/horda-survivor` |
+| Checkout do jogo a testar | `/Users/rochatales/.codex/worktrees/fechamento-s0-s2/game-workplace`, branch `rochatales/fechamento-s0-s2` |
 | Ordem | S0.4 → S2.12 A (A1–A13 e decisões) → jogabilidade 6.5 (1 robô, depois hordas) → medições S2.9 |
 | Fontes | [Roteiro consolidado](VALIDACAO_MANUAL.md), [S0.4](../sprint-0/RELATORIO.md), [S2.9](../handoffs/s2.9.md), [S2.12 A](../handoffs/s2.12.md), [hordas](../handoffs/s2.4-hordas-crescentes.md), [caixas](../handoffs/s6.13-caixa-suprimentos.md) |
 
@@ -29,37 +26,56 @@ anteriores e a conferência funcional da Parada 1 de 19/10 não substituem este 
 
 ## Preparação da sessão
 
-Os comandos deste bloco são **para o autor**, no checkout principal, para gerar e
-servir o build de produção. Não fazer stash, commit, checkout de branch ou limpeza:
-o arquivamento local do MCP Office, `AGENTS.md`, `README.md`, `.gitignore` e demais
-arquivos do autor ficam como estão. O agente verifica esta entrega na worktree de
-fechamento; ele não executa build/preview no checkout principal nesta Etapa 1.
+Os comandos deste bloco são **para o autor**, na worktree de fechamento, para
+gerar e servir o build de produção desta branch. O checkout principal não participa
+da sessão e mantém as alterações locais do autor. Não trocar branch nem fazer
+stash, commit ou limpeza para executar o kit.
 
 ```bash
-cd /Users/rochatales/Automations/game-workplace
+cd /Users/rochatales/.codex/worktrees/fechamento-s0-s2/game-workplace
 git branch --show-current
 git rev-parse HEAD
-git rev-parse rochatales/horda-survivor
+git merge-base --is-ancestor fcdb34e23b0127fd749bce1939c46eeae57b9a41 HEAD
 npm run build
 npm run preview -- --host 127.0.0.1 --port 4173 --strictPort
 ```
 
-Conferir branch `rochatales/horda-survivor` e SHA esperado `720527d4b06d8325ec97b90214b75fc314fbef65`.
-Se a base tiver avançado, anotar o SHA real e relatar a diferença; não reposicionar
-nem sobrescrever o checkout. Só iniciar o preview se o build passar. Se a porta
+Conferir branch `rochatales/fechamento-s0-s2`, registrar o HEAD e confirmar que o
+merge `fcdb34e` é ancestral (comando acima termina com código 0). Esta preparação
+não muda o runtime após esse merge; o raio de 0,80 m foi apenas ensaiado, e a
+S2.12 B continua sem implementação. Se houver diferença de versão, registrar e
+relatar sem reposicionar a worktree. Só iniciar o preview se o build passar. Se a porta
 4173 estiver ocupada, o `--strictPort` deve falhar: identificar a instância antes
 de continuar, sem encerrar processos desconhecidos ou aceitar porta automática.
 O preview fica no terminal até **Ctrl+C**.
 
 Abrir [a prévia com comparação](http://127.0.0.1:4173/?comparar) para os blocos 1–3.
 Usar um perfil de navegador de teste para preservar o save habitual. A comparação
-usa o Explorador r7 já integrado; nenhuma versão nova de arte entra na sessão.
+usa o Explorador r7 já integrado; a nave e o deck são a ARES-I aprovada em 22/10.
 A página normal do jogo é o alvo; fixtures, servidor dev e outra worktree não valem
 como build desta sessão. Nenhum backend é necessário.
 
 | Item | Conferência | Resultado | Observação/evidência |
 |---|---|---|---|
-| Preparação | Branch/SHA anotados, build passou, origem 4173 pertence ao checkout principal e página normal aberta | pendente | — |
+| Preparação | Branch/SHA anotados, build passou, origem 4173 pertence à worktree de fechamento com ARES-I e página normal aberta | pendente | — |
+
+### Posições da ARES-I para a sessão
+
+Coordenadas **(X; Y; Z)** em metros; para caminhar, usar X/Z e o marcador E na
+cena. A posição visual da nave é diferente do ponto de interação/desembarque.
+
+| Mapa / referência | Posição | Conferir |
+|---|---|---|
+| Marte · centro do deck | (0; 0; 33) | Octógono de 12 × 12 m; acesso plano de X −2…2, Z 25…27,4 conecta o piso da colônia |
+| Marte · ARES-I visual | (0,72; 0,012; 33,52) | Mesma nave usada em Shanghai, assentada sobre o deck |
+| Marte · E / desembarque | **(0; 0; 29,5)** | Pé da escada, acesso pelo sul da colônia; E abre cabine, E/desembarcar devolve controle |
+| Shanghai fase 01 · ARES-I visual | **(0,72; 0,012; 13,52)** | Pouso no asfalto junto ao quarteirão central, rachaduras/fuligem, sem deck metálico |
+| Shanghai · E / desembarque / retry | **(0; 0; 9,5)** | Ponto preservado no pé da escada; embarque/desembarque não exige subida física |
+
+O nó (0; 9,0) do ensaio a raio 0,80 m é aproximação para **contato do robô**;
+não substitui o desembarque do jogador. Os seis colisores simples da nave e os
+pontos oficiais permanecem como integrados. Observar oclusão do jogador pelo
+casco ao girar Q/C; a escada bloqueia passagem física e usa E no pé.
 
 ### Ambiente e identificação (preencher antes de medir)
 
@@ -112,7 +128,9 @@ com M1/M2 do bloco 4, sem exigir outra sessão do autor.
 | S0.4 · movimento contínuo | Em rota livre, sustentar W guiando pelo cursor, depois S. W segue a mira; S recua voltado a ela. A/D não deslocam; W+S neutralizam. Conferir quinas, paredes e portas | pendente | — |
 | S0.4 · câmera | Girar Q/C enquanto anda e recua; a mira continua orientando o movimento. Conferir zoom com roda/+/−; R é recarga | pendente | — |
 | S0.4 · EDEN | Ir ao norte, próximo de (0; −10), usar E, ler o briefing, fechar com Esc e voltar a andar. Diálogo deve bloquear movimento/tiro e devolver controle ao fechar | pendente | — |
-| S0.4 · deck | Seguir ao sul até o acesso da nave, próximo de (0; 29,5). E embarca sem decolar automaticamente; desembarcar devolve o controle | pendente | — |
+| S0.4 · deck ARES-I | Seguir ao sul pela ligação plana em (0; 25…27,4) ao deck octogonal centrado em (0; 33). Conferir piso contínuo, contato dos pés, bordas e chegada ao E em (0; 29,5) sem buraco/degrau ou bloqueio | pendente | — |
+| S0.4 · embarque Marte | No pé da escada (0; 29,5), E abre a cabine sem decolar automaticamente. Movimento e tiro ficam bloqueados a bordo; escada/casco não são atravessáveis | pendente | — |
+| S0.4 · desembarque Marte | Ainda em Marte, usar E/desembarcar: retornar a (0; 29,5), recuperar movimento e conseguir sair do deck para a colônia sem prender nos volumes da nave | pendente | — |
 | S0.4 · pausa | Fora de diálogo, Esc pausa; esperar, retomar e conferir controle sem avanço acumulado | pendente | — |
 | S0.4 · troca de janela | Com movimento sustentado, trocar de janela e soltar a tecla fora do jogo. Voltar: pausa automática; retomar sem movimento preso. Repetir com tiro em Shanghai no bloco 3, fora das medições | pendente | — |
 | S0.4 · frames | Completar M1 e M2 no bloco 4, 30 s cada, com JSONs válidos e ambiente registrado. São intervalos de rAF, não tempo de GPU | pendente | — |
@@ -170,6 +188,10 @@ Não usar `?shanghaiAtual`, fixture ou ganchos de desenvolvimento.
 
 | Item | Ação / resultado esperado | Resultado | Observação/evidência |
 |---|---|---|---|
+| 6.5 · ARES-I pouso Shanghai | Após viajar de Marte, conferir nave em (0,72; 0,012; 13,52), impacto no asfalto e ausência de deck metálico; ruas, prédios e caixas preservados | pendente | — |
+| 6.5 · ARES-I desembarque Shanghai | E/desembarcar sai da cabine em (0; 9,5), com controle livre no pé da escada, sem ficar dentro do casco ou iniciar combate a bordo | pendente | — |
+| 6.5 · ARES-I embarque Shanghai | Voltar ao marcador E em (0; 9,5), abrir cabine e desembarcar novamente sem viajar: recuperar controle e manter acesso à rua | pendente | — |
+| 6.5 · ARES-I contorno | Contornar casco, pods e escada nos dois mapas; volumes bloqueiam sem prender o acesso. Girar Q/C pelos oito lados e variar zoom, registrando quando a nave encobre o jogador | pendente | — |
 | 6.5 · visão frontal | Aproximar pela frente com linha livre: cone de 120°, até 10 m. Além do alcance não detecta; parede bloqueia | pendente | — |
 | 6.5 · 3 m sem costas | Em tentativas novas, passar a menos de 3 m pela lateral e a 120°: detecta até 135° do rumo. A 160° e diretamente atrás não detecta (ponto cego traseiro de 90°). Parede bloqueia também a percepção curta | pendente | — |
 | 6.5 · tiro alerta | Acertar tiro não letal por trás/fora do cone: alerta individual imediato, visor vermelho/exclamação por 1,5 s e perseguição. Em tentativa nova, tiro errado sem entrar no campo de visão não alerta | pendente | — |
@@ -195,7 +217,7 @@ Não usar `?shanghaiAtual`, fixture ou ganchos de desenvolvimento.
 | 6.5 · reposição | Início da horda repõe dois corações e eleva munição total, se necessário, a 45/90/135/180 (margem 1,5×). Não reduz munição, não enche pente e não fecha/recompensa caixas já abertas | pendente | — |
 | 6.5 · intervalo e pausa | Pausar na contagem e retomar: sem avanço acumulado; faixas/contagens coerentes | pendente | — |
 | 6.5 · conclusão/ritmo | Zerar as quatro hordas: Hordas neutralizadas, sem novos spawns; cronometrar duração total e avaliar pressão, munição, dificuldade e margem de erro | pendente | Duração: —; avaliação: — |
-| 6.5 · retorno | Retornar à nave, viajar a Marte e desembarcar: hub, EDEN e acesso ao laboratório preservados; sem combate em Marte | pendente | — |
+| 6.5 · retorno ARES-I | Em Shanghai, embarcar no E (0; 9,5), voltar a Marte e desembarcar no E (0; 29,5) sobre o novo deck. Repetir embarque/desembarque; acesso à colônia, EDEN e laboratório preservado, sem combate em Marte e sem perda de materiais/luzes da nave após recarregar mapas | pendente | — |
 | 6.5 · apresentação | Avaliar câmera, zoom, HUD/rádio/botões e feedback de tiro/acerto/dano/detecção/horda/caixa. Registrar oclusão e dificuldade de distinguir jogador, robôs, prédios e drops | pendente | — |
 
 **Aceite deste estado da etapa 6.5:** aprovo / não aprovo / pendente: —.
@@ -204,13 +226,13 @@ S2.12 B e a decisão sobre S2.11 exigem a sessão curta final.
 
 Limitações conhecidas a distinguir de regressões: origem/mira/traçador e colisão
 por altura aguardam S2.12 B; caixas bloqueiam tiros sem considerar altura neste
-build. ARES-I, r8, Astro Explorer e alterações da Sprint 6 estão fora da tarefa.
-O visual já integrado pode ser observado, sem editar arte nem encerrar itens S6.
+build. ARES-I já integrada é a nave desta sessão; não editar arte nem encerrar
+itens S6. r8, Astro Explorer e demais alterações da Sprint 6 ficam fora da tarefa.
 Loot persistente, extração obrigatória e Builder continuam fora deste fechamento.
 
 ## 4. S2.9 — medições do autor no build de produção
 
-Usar o mesmo preview do **checkout principal**, porta **4173**. Depois dos blocos
+Usar o mesmo preview da **worktree de fechamento com ARES-I**, porta **4173**. Depois dos blocos
 funcionais, conferir [sem instrumentação](http://127.0.0.1:4173/) e então abrir
 [com instrumentação](http://127.0.0.1:4173/?perf). A nova navegação retorna ao hub e
 encerra a tentativa anterior; o perfil do navegador permanece. Medir com **r7**,

@@ -1,0 +1,2436 @@
+{
+  "before": "aa8765062fd84429ba8e0c34f60621580f50a4d8",
+  "merged": "fcdb34e23b0127fd749bce1939c46eeae57b9a41",
+  "approvedScope": "222bc5b",
+  "contactDecisionBase": "c92ed79",
+  "criterion": "Todos os segmentos válidos no raio do robô; término a até contactRange do desembarque.",
+  "contactRange": 1.2,
+  "cell": 0.5,
+  "playerRadius": 0.36,
+  "depositsSolid": false,
+  "streets": [
+    {
+      "a": "Predio_000",
+      "b": "Predio_001",
+      "visualGap": 3.480000000000004,
+      "from": {
+        "x": -35,
+        "z": -39.735
+      },
+      "to": {
+        "x": -35,
+        "z": -33.375
+      }
+    },
+    {
+      "a": "Predio_010",
+      "b": "Predio_011",
+      "visualGap": 3.6899999999999977,
+      "from": {
+        "x": -35.105,
+        "z": -5.625
+      },
+      "to": {
+        "x": -35.105,
+        "z": 5.625
+      }
+    },
+    {
+      "a": "Predio_020",
+      "b": "Predio_021",
+      "visualGap": 3.480000000000004,
+      "from": {
+        "x": -35,
+        "z": 33.375
+      },
+      "to": {
+        "x": -35,
+        "z": 39.625
+      }
+    },
+    {
+      "a": "Predio_100",
+      "b": "Predio_101",
+      "visualGap": 3.48,
+      "from": {
+        "x": 0,
+        "z": -39.625
+      },
+      "to": {
+        "x": 0,
+        "z": -33.375
+      }
+    },
+    {
+      "a": "Predio_110",
+      "b": "Predio_111",
+      "visualGap": 5.4799999999999995,
+      "from": {
+        "x": 0,
+        "z": -9.625
+      },
+      "to": {
+        "x": 0,
+        "z": -0.375
+      }
+    },
+    {
+      "a": "Predio_120",
+      "b": "Predio_121",
+      "visualGap": 3.48,
+      "from": {
+        "x": 0,
+        "z": 33.375
+      },
+      "to": {
+        "x": 0,
+        "z": 39.625
+      }
+    },
+    {
+      "a": "Predio_200",
+      "b": "Predio_201",
+      "visualGap": 3.480000000000004,
+      "from": {
+        "x": 35,
+        "z": -39.735
+      },
+      "to": {
+        "x": 35,
+        "z": -33.375
+      }
+    },
+    {
+      "a": "Predio_210",
+      "b": "Predio_211",
+      "visualGap": 3.6899999999999977,
+      "from": {
+        "x": 34.895,
+        "z": -5.625
+      },
+      "to": {
+        "x": 34.895,
+        "z": 5.625
+      }
+    },
+    {
+      "a": "Predio_220",
+      "b": "Predio_221",
+      "visualGap": 3.480000000000004,
+      "from": {
+        "x": 35,
+        "z": 33.375
+      },
+      "to": {
+        "x": 35,
+        "z": 39.625
+      }
+    }
+  ],
+  "scenarios": [
+    {
+      "terrain": "anterior",
+      "radius": 0.42,
+      "obstacles": 39,
+      "nodes": 36674,
+      "arrivalFree": true,
+      "spawnPaths": 32,
+      "failedSpawns": [],
+      "spawnChecks": [
+        {
+          "index": 0,
+          "id": "SPAWN_Robo_0_0",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 151,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 1,
+          "id": "SPAWN_Robo_0_1",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 129,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 2,
+          "id": "SPAWN_Robo_0_2",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 154,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 3,
+          "id": "SPAWN_Robo_0_3",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 120,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 4,
+          "id": "SPAWN_Robo_0_4",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 86,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 5,
+          "id": "SPAWN_Robo_0_5",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 6,
+          "id": "SPAWN_Robo_0_6",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 97,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 7,
+          "id": "SPAWN_Robo_0_7",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 131,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 8,
+          "id": "SPAWN_Robo_1_0",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 66,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 9,
+          "id": "SPAWN_Robo_1_1",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 99,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 10,
+          "id": "SPAWN_Robo_1_2",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 109,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 11,
+          "id": "SPAWN_Robo_1_3",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 98,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 12,
+          "id": "SPAWN_Robo_1_4",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 113,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 13,
+          "id": "SPAWN_Robo_1_5",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 81,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 14,
+          "id": "SPAWN_Robo_1_6",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 48,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 15,
+          "id": "SPAWN_Robo_1_7",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 34,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 16,
+          "id": "SPAWN_Robo_2_0",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 17,
+          "id": "SPAWN_Robo_2_1",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 18,
+          "id": "SPAWN_Robo_2_2",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 80,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 19,
+          "id": "SPAWN_Robo_2_3",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 20,
+          "id": "SPAWN_Robo_2_4",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 21,
+          "id": "SPAWN_Robo_2_5",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 96,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 22,
+          "id": "SPAWN_Robo_2_6",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 23,
+          "id": "SPAWN_Robo_2_7",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 127,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 24,
+          "id": "SPAWN_Robo_3_0",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 100,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 25,
+          "id": "SPAWN_Robo_3_1",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 26,
+          "id": "SPAWN_Robo_3_2",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 141,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 27,
+          "id": "SPAWN_Robo_3_3",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 107,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 28,
+          "id": "SPAWN_Robo_3_4",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 29,
+          "id": "SPAWN_Robo_3_5",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 30,
+          "id": "SPAWN_Robo_3_6",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 31,
+          "id": "SPAWN_Robo_3_7",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        }
+      ],
+      "maxSpawnContactDistance": 0,
+      "rawSpawnPaths": 32,
+      "examplePathEnd": {
+        "x": 0,
+        "y": 0,
+        "z": 9.5
+      },
+      "perimeter": 272,
+      "validatedPerimeter": 272,
+      "failedPerimeter": [],
+      "allPerimeterSegmentsValid": true,
+      "perimeterCheckedSegments": 36052,
+      "maxPerimeterContactDistance": 0,
+      "alleyPaths": 9,
+      "blockedAlleys": [],
+      "blockedCorners": [],
+      "blockedPatrol": [],
+      "playerAccess": 10,
+      "playerTargets": [
+        {
+          "id": "LOOT_Aluminio_1",
+          "kind": "aluminio",
+          "x": -17.5,
+          "z": 18.5,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_2",
+          "kind": "aluminio",
+          "x": 17.5,
+          "z": -18.5,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_3",
+          "kind": "aluminio",
+          "x": -13,
+          "z": -16,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_4",
+          "kind": "aluminio",
+          "x": 13,
+          "z": 16,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_5",
+          "kind": "aluminio",
+          "x": 48,
+          "z": -51,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_6",
+          "kind": "aluminio",
+          "x": 48,
+          "z": 51,
+          "reachable": true
+        },
+        {
+          "x": -17.5,
+          "z": -17,
+          "reachable": true
+        },
+        {
+          "x": 17.5,
+          "z": 20,
+          "reachable": true
+        },
+        {
+          "id": "ammo-west",
+          "x": -10,
+          "z": 13.1,
+          "reachable": true
+        },
+        {
+          "id": "ammo-northeast",
+          "x": 36,
+          "z": -20.9,
+          "reachable": true
+        }
+      ],
+      "crateMarkers": [
+        {
+          "id": "ammo-west",
+          "x": -10,
+          "z": 13.1,
+          "reachable": true
+        },
+        {
+          "id": "ammo-northeast",
+          "x": 36,
+          "z": -20.9,
+          "reachable": true
+        }
+      ],
+      "crateApproaches": [
+        {
+          "id": "ammo-west",
+          "x": -10,
+          "z": 13.129999999999999,
+          "reachable": true
+        },
+        {
+          "id": "ammo-northeast",
+          "x": 36,
+          "z": -20.87,
+          "reachable": true
+        }
+      ],
+      "crateApproachesOriginFree": true
+    },
+    {
+      "terrain": "anterior",
+      "radius": 0.8,
+      "obstacles": 39,
+      "nodes": 34104,
+      "arrivalFree": true,
+      "spawnPaths": 32,
+      "failedSpawns": [],
+      "spawnChecks": [
+        {
+          "index": 0,
+          "id": "SPAWN_Robo_0_0",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 151,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 1,
+          "id": "SPAWN_Robo_0_1",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 129,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 2,
+          "id": "SPAWN_Robo_0_2",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 154,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 3,
+          "id": "SPAWN_Robo_0_3",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 120,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 4,
+          "id": "SPAWN_Robo_0_4",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 86,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 5,
+          "id": "SPAWN_Robo_0_5",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 6,
+          "id": "SPAWN_Robo_0_6",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 97,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 7,
+          "id": "SPAWN_Robo_0_7",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 131,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 8,
+          "id": "SPAWN_Robo_1_0",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 66,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 9,
+          "id": "SPAWN_Robo_1_1",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 99,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 10,
+          "id": "SPAWN_Robo_1_2",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 109,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 11,
+          "id": "SPAWN_Robo_1_3",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 102,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 12,
+          "id": "SPAWN_Robo_1_4",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 113,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 13,
+          "id": "SPAWN_Robo_1_5",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 81,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 14,
+          "id": "SPAWN_Robo_1_6",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 48,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 15,
+          "id": "SPAWN_Robo_1_7",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 34,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 16,
+          "id": "SPAWN_Robo_2_0",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 17,
+          "id": "SPAWN_Robo_2_1",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 114,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 18,
+          "id": "SPAWN_Robo_2_2",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 80,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 19,
+          "id": "SPAWN_Robo_2_3",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 20,
+          "id": "SPAWN_Robo_2_4",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 62,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 21,
+          "id": "SPAWN_Robo_2_5",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 96,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 22,
+          "id": "SPAWN_Robo_2_6",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 23,
+          "id": "SPAWN_Robo_2_7",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 127,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 24,
+          "id": "SPAWN_Robo_3_0",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 100,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 25,
+          "id": "SPAWN_Robo_3_1",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 26,
+          "id": "SPAWN_Robo_3_2",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 141,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 27,
+          "id": "SPAWN_Robo_3_3",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 107,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 28,
+          "id": "SPAWN_Robo_3_4",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 29,
+          "id": "SPAWN_Robo_3_5",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 30,
+          "id": "SPAWN_Robo_3_6",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 31,
+          "id": "SPAWN_Robo_3_7",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        }
+      ],
+      "maxSpawnContactDistance": 0,
+      "rawSpawnPaths": 32,
+      "examplePathEnd": {
+        "x": 0,
+        "y": 0,
+        "z": 9.5
+      },
+      "perimeter": 272,
+      "validatedPerimeter": 272,
+      "failedPerimeter": [],
+      "allPerimeterSegmentsValid": true,
+      "perimeterCheckedSegments": 37469,
+      "maxPerimeterContactDistance": 0,
+      "alleyPaths": 9,
+      "blockedAlleys": [],
+      "blockedCorners": [],
+      "blockedPatrol": [],
+      "playerAccess": 10,
+      "playerTargets": [
+        {
+          "id": "LOOT_Aluminio_1",
+          "kind": "aluminio",
+          "x": -17.5,
+          "z": 18.5,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_2",
+          "kind": "aluminio",
+          "x": 17.5,
+          "z": -18.5,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_3",
+          "kind": "aluminio",
+          "x": -13,
+          "z": -16,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_4",
+          "kind": "aluminio",
+          "x": 13,
+          "z": 16,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_5",
+          "kind": "aluminio",
+          "x": 48,
+          "z": -51,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_6",
+          "kind": "aluminio",
+          "x": 48,
+          "z": 51,
+          "reachable": true
+        },
+        {
+          "x": -17.5,
+          "z": -17,
+          "reachable": true
+        },
+        {
+          "x": 17.5,
+          "z": 20,
+          "reachable": true
+        },
+        {
+          "id": "ammo-west",
+          "x": -10,
+          "z": 13.1,
+          "reachable": true
+        },
+        {
+          "id": "ammo-northeast",
+          "x": 36,
+          "z": -20.9,
+          "reachable": true
+        }
+      ],
+      "crateMarkers": [
+        {
+          "id": "ammo-west",
+          "x": -10,
+          "z": 13.1,
+          "reachable": true
+        },
+        {
+          "id": "ammo-northeast",
+          "x": 36,
+          "z": -20.9,
+          "reachable": true
+        }
+      ],
+      "crateApproaches": [
+        {
+          "id": "ammo-west",
+          "x": -10,
+          "z": 13.51,
+          "reachable": true
+        },
+        {
+          "id": "ammo-northeast",
+          "x": 36,
+          "z": -20.49,
+          "reachable": true
+        }
+      ],
+      "crateApproachesOriginFree": true
+    },
+    {
+      "terrain": "ares",
+      "radius": 0.42,
+      "obstacles": 44,
+      "nodes": 36546,
+      "arrivalFree": true,
+      "spawnPaths": 32,
+      "failedSpawns": [],
+      "spawnChecks": [
+        {
+          "index": 0,
+          "id": "SPAWN_Robo_0_0",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 151,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 1,
+          "id": "SPAWN_Robo_0_1",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 129,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 2,
+          "id": "SPAWN_Robo_0_2",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 154,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 3,
+          "id": "SPAWN_Robo_0_3",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 120,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 4,
+          "id": "SPAWN_Robo_0_4",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 86,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 5,
+          "id": "SPAWN_Robo_0_5",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 6,
+          "id": "SPAWN_Robo_0_6",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 97,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 7,
+          "id": "SPAWN_Robo_0_7",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 131,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 8,
+          "id": "SPAWN_Robo_1_0",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 66,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 9,
+          "id": "SPAWN_Robo_1_1",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 99,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 10,
+          "id": "SPAWN_Robo_1_2",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 109,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 11,
+          "id": "SPAWN_Robo_1_3",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 108,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 12,
+          "id": "SPAWN_Robo_1_4",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 113,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 13,
+          "id": "SPAWN_Robo_1_5",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 81,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 14,
+          "id": "SPAWN_Robo_1_6",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 48,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 15,
+          "id": "SPAWN_Robo_1_7",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 34,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 16,
+          "id": "SPAWN_Robo_2_0",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 17,
+          "id": "SPAWN_Robo_2_1",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 18,
+          "id": "SPAWN_Robo_2_2",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 80,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 19,
+          "id": "SPAWN_Robo_2_3",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 20,
+          "id": "SPAWN_Robo_2_4",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 62,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 21,
+          "id": "SPAWN_Robo_2_5",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 96,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 22,
+          "id": "SPAWN_Robo_2_6",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 23,
+          "id": "SPAWN_Robo_2_7",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 127,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 24,
+          "id": "SPAWN_Robo_3_0",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 100,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 25,
+          "id": "SPAWN_Robo_3_1",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 26,
+          "id": "SPAWN_Robo_3_2",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 141,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 27,
+          "id": "SPAWN_Robo_3_3",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 107,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 28,
+          "id": "SPAWN_Robo_3_4",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 109,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 29,
+          "id": "SPAWN_Robo_3_5",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 75,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 30,
+          "id": "SPAWN_Robo_3_6",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 42,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        },
+        {
+          "index": 31,
+          "id": "SPAWN_Robo_3_7",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 1,
+          "endpoint": {
+            "x": 0,
+            "y": 0,
+            "z": 9.5
+          },
+          "distance": 0
+        }
+      ],
+      "maxSpawnContactDistance": 0,
+      "rawSpawnPaths": 32,
+      "examplePathEnd": {
+        "x": 0,
+        "y": 0,
+        "z": 9.5
+      },
+      "perimeter": 272,
+      "validatedPerimeter": 272,
+      "failedPerimeter": [],
+      "allPerimeterSegmentsValid": true,
+      "perimeterCheckedSegments": 37781,
+      "maxPerimeterContactDistance": 0,
+      "alleyPaths": 9,
+      "blockedAlleys": [],
+      "blockedCorners": [],
+      "blockedPatrol": [],
+      "playerAccess": 10,
+      "playerTargets": [
+        {
+          "id": "LOOT_Aluminio_1",
+          "kind": "aluminio",
+          "x": -17.5,
+          "z": 18.5,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_2",
+          "kind": "aluminio",
+          "x": 17.5,
+          "z": -18.5,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_3",
+          "kind": "aluminio",
+          "x": -13,
+          "z": -16,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_4",
+          "kind": "aluminio",
+          "x": 13,
+          "z": 16,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_5",
+          "kind": "aluminio",
+          "x": 48,
+          "z": -51,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_6",
+          "kind": "aluminio",
+          "x": 48,
+          "z": 51,
+          "reachable": true
+        },
+        {
+          "x": -17.5,
+          "z": -17,
+          "reachable": true
+        },
+        {
+          "x": 17.5,
+          "z": 20,
+          "reachable": true
+        },
+        {
+          "id": "ammo-west",
+          "x": -10,
+          "z": 13.1,
+          "reachable": true
+        },
+        {
+          "id": "ammo-northeast",
+          "x": 36,
+          "z": -20.9,
+          "reachable": true
+        }
+      ],
+      "crateMarkers": [
+        {
+          "id": "ammo-west",
+          "x": -10,
+          "z": 13.1,
+          "reachable": true
+        },
+        {
+          "id": "ammo-northeast",
+          "x": 36,
+          "z": -20.9,
+          "reachable": true
+        }
+      ],
+      "crateApproaches": [
+        {
+          "id": "ammo-west",
+          "x": -10,
+          "z": 13.129999999999999,
+          "reachable": true
+        },
+        {
+          "id": "ammo-northeast",
+          "x": 36,
+          "z": -20.87,
+          "reachable": true
+        }
+      ],
+      "crateApproachesOriginFree": true
+    },
+    {
+      "terrain": "ares",
+      "radius": 0.8,
+      "obstacles": 44,
+      "nodes": 33929,
+      "arrivalFree": false,
+      "spawnPaths": 32,
+      "failedSpawns": [],
+      "spawnChecks": [
+        {
+          "index": 0,
+          "id": "SPAWN_Robo_0_0",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 149,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 1,
+          "id": "SPAWN_Robo_0_1",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 127,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 2,
+          "id": "SPAWN_Robo_0_2",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 152,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 3,
+          "id": "SPAWN_Robo_0_3",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 118,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 4,
+          "id": "SPAWN_Robo_0_4",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 84,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 5,
+          "id": "SPAWN_Robo_0_5",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 62,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 6,
+          "id": "SPAWN_Robo_0_6",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 95,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 7,
+          "id": "SPAWN_Robo_0_7",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 129,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 8,
+          "id": "SPAWN_Robo_1_0",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 66,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 9,
+          "id": "SPAWN_Robo_1_1",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 99,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 10,
+          "id": "SPAWN_Robo_1_2",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 109,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 11,
+          "id": "SPAWN_Robo_1_3",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 110,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 12,
+          "id": "SPAWN_Robo_1_4",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 113,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 13,
+          "id": "SPAWN_Robo_1_5",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 81,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 14,
+          "id": "SPAWN_Robo_1_6",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 48,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 15,
+          "id": "SPAWN_Robo_1_7",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 34,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 16,
+          "id": "SPAWN_Robo_2_0",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 145,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 17,
+          "id": "SPAWN_Robo_2_1",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 112,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 18,
+          "id": "SPAWN_Robo_2_2",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 78,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 19,
+          "id": "SPAWN_Robo_2_3",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 44,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 20,
+          "id": "SPAWN_Robo_2_4",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 62,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 21,
+          "id": "SPAWN_Robo_2_5",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 96,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 22,
+          "id": "SPAWN_Robo_2_6",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 103,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 23,
+          "id": "SPAWN_Robo_2_7",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 125,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 24,
+          "id": "SPAWN_Robo_3_0",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 98,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 25,
+          "id": "SPAWN_Robo_3_1",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 131,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 26,
+          "id": "SPAWN_Robo_3_2",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 139,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 27,
+          "id": "SPAWN_Robo_3_3",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 105,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 28,
+          "id": "SPAWN_Robo_3_4",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 109,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 29,
+          "id": "SPAWN_Robo_3_5",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 75,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 30,
+          "id": "SPAWN_Robo_3_6",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 42,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        },
+        {
+          "index": 31,
+          "id": "SPAWN_Robo_3_7",
+          "valid": true,
+          "startFree": true,
+          "segmentsValid": true,
+          "checkedSegments": 64,
+          "endpoint": {
+            "x": 0,
+            "z": 9
+          },
+          "distance": 0.5
+        }
+      ],
+      "maxSpawnContactDistance": 0.5,
+      "rawSpawnPaths": 32,
+      "examplePathEnd": {
+        "x": 0,
+        "z": 9
+      },
+      "perimeter": 272,
+      "validatedPerimeter": 272,
+      "failedPerimeter": [],
+      "allPerimeterSegmentsValid": true,
+      "perimeterCheckedSegments": 42264,
+      "maxPerimeterContactDistance": 0.5,
+      "alleyPaths": 9,
+      "blockedAlleys": [],
+      "blockedCorners": [],
+      "blockedPatrol": [],
+      "playerAccess": 10,
+      "playerTargets": [
+        {
+          "id": "LOOT_Aluminio_1",
+          "kind": "aluminio",
+          "x": -17.5,
+          "z": 18.5,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_2",
+          "kind": "aluminio",
+          "x": 17.5,
+          "z": -18.5,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_3",
+          "kind": "aluminio",
+          "x": -13,
+          "z": -16,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_4",
+          "kind": "aluminio",
+          "x": 13,
+          "z": 16,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_5",
+          "kind": "aluminio",
+          "x": 48,
+          "z": -51,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_6",
+          "kind": "aluminio",
+          "x": 48,
+          "z": 51,
+          "reachable": true
+        },
+        {
+          "x": -17.5,
+          "z": -17,
+          "reachable": true
+        },
+        {
+          "x": 17.5,
+          "z": 20,
+          "reachable": true
+        },
+        {
+          "id": "ammo-west",
+          "x": -10,
+          "z": 13.1,
+          "reachable": true
+        },
+        {
+          "id": "ammo-northeast",
+          "x": 36,
+          "z": -20.9,
+          "reachable": true
+        }
+      ],
+      "crateMarkers": [
+        {
+          "id": "ammo-west",
+          "x": -10,
+          "z": 13.1,
+          "reachable": true
+        },
+        {
+          "id": "ammo-northeast",
+          "x": 36,
+          "z": -20.9,
+          "reachable": true
+        }
+      ],
+      "crateApproaches": [
+        {
+          "id": "ammo-west",
+          "x": -10,
+          "z": 13.51,
+          "reachable": false
+        },
+        {
+          "id": "ammo-northeast",
+          "x": 36,
+          "z": -20.49,
+          "reachable": false
+        }
+      ],
+      "crateApproachesOriginFree": false
+    }
+  ],
+  "differences": [
+    {
+      "radius": 0.42,
+      "nodesDelta": -128,
+      "obstaclesDelta": 5,
+      "spawnPathsDelta": 0,
+      "perimeterDelta": 0,
+      "validatedPerimeterDelta": 0,
+      "alleyPathsDelta": 0,
+      "playerAccessDelta": 0
+    },
+    {
+      "radius": 0.8,
+      "nodesDelta": -175,
+      "obstaclesDelta": 5,
+      "spawnPathsDelta": 0,
+      "perimeterDelta": 0,
+      "validatedPerimeterDelta": 0,
+      "alleyPathsDelta": 0,
+      "playerAccessDelta": 0
+    }
+  ],
+  "arrival": {
+    "x": 0,
+    "y": 0,
+    "z": 9.5,
+    "blockers": [
+      {
+        "radius": 0.42,
+        "colliders": []
+      },
+      {
+        "radius": 0.8,
+        "colliders": [
+          {
+            "id": "escada",
+            "minX": -0.6599999999999999,
+            "maxX": 0.6599999999999999,
+            "minZ": 10.02,
+            "maxZ": 12.219999999999999
+          }
+        ]
+      }
+    ]
+  },
+  "continuity": {
+    "status": "pass",
+    "reason": "Validação pelo alcance de contato de 1,20 m, aprovada pelo autor; destino exato livre é diagnóstico, não requisito do robô."
+  }
+}

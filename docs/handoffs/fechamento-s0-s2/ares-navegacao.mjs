@@ -72,8 +72,30 @@ function checkPath(nav, a, b) {
   }
   return Math.hypot(previous.x - b.x, previous.z - b.z) < 1e-8;
 }
+// Decisão do autor após c92ed79: o robô deve alcançar contato, sem ocupar o jogador.
+const approvedContactRange = 1.20;
+function checkContactPath(nav, a, b) {
+  const startFree = traversable(a, nav.terrain, nav.radius);
+  const route = startFree ? nav.path(a, b) : [];
+  let previous = a, checkedSegments = 0;
+  let segmentsValid = route.length > 0;
+  for (const p of route) {
+    if (!traversable(p, nav.terrain, nav.radius) || !clearSegment(previous, p, nav.terrain, nav.radius)) {
+      segmentsValid = false;
+      break;
+    }
+    checkedSegments++;
+    previous = p;
+  }
+  const endpoint = route.length ? route.at(-1) : null;
+  const distance = endpoint ? Math.hypot(endpoint.x - b.x, endpoint.z - b.z) : null;
+  return { valid: startFree && segmentsValid && distance !== null && distance <= approvedContactRange + 1e-8,
+    startFree, segmentsValid, checkedSegments, endpoint, distance };
+}
 const result = {
-  before, merged, approvedScope: '222bc5b', cell: .5, playerRadius: .36,
+  before, merged, approvedScope: '222bc5b', contactDecisionBase: 'c92ed79',
+  criterion: 'Todos os segmentos válidos no raio do robô; término a até contactRange do desembarque.',
+  contactRange: approvedContactRange, cell: .5, playerRadius: .36,
   depositsSolid: false, streets, scenarios: []
 };
 const originalRadius = COMBAT.robot.radius;
@@ -85,8 +107,10 @@ try {
     COMBAT.robot.radius = radius;
     const world = createWorld(), nav = new Navigation(world, radius, .5);
     const perimeter = hordeEdgeSpawns(world, nav, d.exit);
-    const failedSpawns = d.spawns.flatMap((p, index) => checkPath(nav, p, d.exit) ? [] : [{ index, ...p }]);
-    const failedPerimeter = perimeter.filter(p => !checkPath(nav, p, d.exit));
+    const spawnChecks = d.spawns.map((p, index) => ({ index, id: p.id, ...checkContactPath(nav, p, d.exit) }));
+    const perimeterChecks = perimeter.map((p, index) => ({ index, ...p, ...checkContactPath(nav, p, d.exit) }));
+    const failedSpawns = spawnChecks.filter(p => !p.valid);
+    const failedPerimeter = perimeterChecks.filter(p => !p.valid);
     const blockedAlleys = streets.filter(s => !clearSegment(s.from, s.to, world, radius))
       .map(s => ({ ...s, blockingObstacles: world.obstacles.filter(o => segmentBox(s.from, s.to, o, radius) !== null) }));
     const blockedCorners = d.patrolRoutes.flatMap((route, r) => route.flatMap((p, i) =>
@@ -110,13 +134,18 @@ try {
     });
     const row = { terrain: terrainName, radius, obstacles: world.obstacles.length,
       nodes: nav.points.length, arrivalFree: traversable(d.exit, world, radius),
-      spawnPaths: d.spawns.length - failedSpawns.length, failedSpawns,
+      spawnPaths: d.spawns.length - failedSpawns.length, failedSpawns, spawnChecks,
+      maxSpawnContactDistance: Math.max(...spawnChecks.map(p => p.distance ?? Infinity)),
       rawSpawnPaths: d.spawns.filter(p => nav.path(p, d.exit).length).length,
       examplePathEnd: nav.path(d.spawns[0], d.exit).at(-1) ?? null,
       perimeter: perimeter.length, validatedPerimeter: perimeter.length - failedPerimeter.length, failedPerimeter,
+      allPerimeterSegmentsValid: perimeterChecks.every(p => p.segmentsValid),
+      perimeterCheckedSegments: perimeterChecks.reduce((sum, p) => sum + p.checkedSegments, 0),
+      maxPerimeterContactDistance: Math.max(...perimeterChecks.map(p => p.distance ?? Infinity)),
       alleyPaths: streets.length - blockedAlleys.length, blockedAlleys, blockedCorners, blockedPatrol,
       playerAccess: playerTargets.filter(p => p.reachable).length, playerTargets,
-      crateMarkers, crateApproaches };
+      crateMarkers, crateApproaches,
+      crateApproachesOriginFree: traversable(d.exit, world, radius) };
     result.scenarios.push(row);
     console.log(JSON.stringify({ terrain: row.terrain, radius, nodes: row.nodes, arrivalFree: row.arrivalFree,
       spawnPaths: row.spawnPaths, perimeter: row.perimeter, validatedPerimeter: row.validatedPerimeter,
@@ -140,28 +169,34 @@ result.arrival = { ...d.exit, blockers: [.42, .8].map(radius => ({ radius,
   })
 })) };
 result.continuity = {
-  status: result.scenarios.every(s => s.arrivalFree && s.spawnPaths === 32 && s.validatedPerimeter === 272) ? 'pass' : 'blocked',
-  reason: 'Com raio 0,80 m a chegada exata não cabe junto à escada. Path não vazio pode terminar em nó próximo; não comprova acesso ao destino.'
+  status: result.scenarios.every(s => s.spawnPaths === 32 && s.validatedPerimeter === 272) ? 'pass' : 'blocked',
+  reason: 'Validação pelo alcance de contato de 1,20 m, aprovada pelo autor; destino exato livre é diagnóstico, não requisito do robô.'
 };
 assert.equal(afterWorld.obstacles.length, d.obstacles.length + crates.length + ARES_COLLIDERS.length);
-const output = path.join(root, 'docs/handoffs/fechamento-s0-s2/ares-navegacao.json');
+const output = path.join(root, 'docs/handoffs/fechamento-s0-s2/ares-navegacao-contato.json');
 fs.writeFileSync(output, JSON.stringify(result, null, 2) + '\n');
 // Critérios de continuidade do escopo; números de nós podem mudar com a nova pegada.
 assert.equal(streets.length, 9);
 assert.ok(streets.every(s => s.visualGap >= 2.5));
 for (const row of result.scenarios) {
-  assert.equal(row.arrivalFree, true);
+  // Mantém o diagnóstico geométrico: a 0,80 m o ponto exato não cabe; contato é o portão.
+  assert.equal(row.arrivalFree, !(row.terrain === 'ares' && row.radius === .8));
   assert.equal(row.spawnPaths, 32);
   assert.equal(row.perimeter, 272);
   assert.equal(row.validatedPerimeter, 272);
+  assert.ok(row.spawnChecks.every(p => p.segmentsValid && p.distance <= approvedContactRange + 1e-8));
+  assert.ok(row.allPerimeterSegmentsValid);
+  assert.ok(row.maxPerimeterContactDistance <= approvedContactRange + 1e-8);
   assert.equal(row.alleyPaths, 9);
   assert.equal(row.blockedCorners.length, 0);
   assert.equal(row.blockedPatrol.length, 0);
   assert.equal(row.playerAccess, 10);
   assert.ok(row.crateMarkers.every(p => p.reachable));
-  assert.ok(row.crateApproaches.every(p => p.reachable));
+  // Complemento antigo das caixas no raio do robô preservado como diagnóstico.
+  // Ele parte do ponto exato: sem origem livre, não mede o acesso às caixas.
+  if (row.crateApproachesOriginFree) assert.ok(row.crateApproaches.every(p => p.reachable));
 }
 assert.equal(ARES_COLLIDERS.length, 6);
 assert.deepEqual({ ...ARES_LANDING.boarding }, { ...d.exit });
-console.log('PASS: quatro cenários antes/depois; nove vielas, 32 spawns, 272 pontos de horda e acessos preservados.');
+console.log('PASS: quatro cenários antes/depois; 32 spawns e 272 pontos de horda alcançam contato a até 1,20 m; vielas e acessos humanos preservados.');
 console.log(JSON.stringify(result.differences));
