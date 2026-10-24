@@ -1,6 +1,6 @@
 # Sessão única do autor — fechamento das Sprints 0 e 2
 
-**Kit pronto — Parada 1 (24/10/2026).** ARES-I integrada em `fcdb34e`.
+**Kit pronto — Parada 1 (24/10/2026).** ARES-I integrada em `fcdb34e`; consoles e rack do deck ajustados a pedido do autor após `0c56448`.
 O autor resolveu o portão do ensaio após `c92ed79`: caminho válido até contato
 ≤1,20 m, preservando raio 0,80 m, desembarque e colisores. A sessão usa o build
 da **worktree de fechamento**, porta 4173. [Decisão e reensaio](../handoffs/s2.12-b-proposta.md#decisão-de-contato-após-ares-i--24102026-vigente).
@@ -12,7 +12,7 @@ conforme o pedido atual do autor. Não encerra sprints nem libera implementaçã
 | Referência | Valor |
 |---|---|
 | Base original do fechamento | `720527d4b06d8325ec97b90214b75fc314fbef65` |
-| Runtime da sessão com ARES-I | Merge `fcdb34e23b0127fd749bce1939c46eeae57b9a41`; ARES-I de `a12294f`, aprovada em 22/10. Preparação retomada de `c92ed79`; registrar o HEAD documental real ao executar |
+| Runtime da sessão com ARES-I | Merge `fcdb34e23b0127fd749bce1939c46eeae57b9a41`; ARES-I de `a12294f`, aprovada em 22/10. inclui ajuste dos consoles e rack de Marte após `0c56448`; registrar o HEAD real ao executar |
 | Branch de fechamento | `rochatales/fechamento-s0-s2` |
 | Worktree dos documentos e resultados | `/Users/rochatales/.codex/worktrees/fechamento-s0-s2/game-workplace` |
 | Checkout do jogo a testar | `/Users/rochatales/.codex/worktrees/fechamento-s0-s2/game-workplace`, branch `rochatales/fechamento-s0-s2` |
@@ -41,9 +41,9 @@ npm run preview -- --host 127.0.0.1 --port 4173 --strictPort
 ```
 
 Conferir branch `rochatales/fechamento-s0-s2`, registrar o HEAD e confirmar que o
-merge `fcdb34e` é ancestral (comando acima termina com código 0). Esta preparação
-não muda o runtime após esse merge; o raio de 0,80 m foi apenas ensaiado, e a
-S2.12 B continua sem implementação. Se houver diferença de versão, registrar e
+merge `fcdb34e` é ancestral (comando acima termina com código 0). O build inclui
+os dois consoles, rack conectado ao tubo original e um colisor de movimento no Oeste, após a sessão
+em `0c56448`. O raio de 0,80 m foi apenas ensaiado; S2.12 B continua sem implementação. Se houver diferença de versão, registrar e
 relatar sem reposicionar a worktree. Só iniciar o preview se o build passar. Se a porta
 4173 estiver ocupada, o `--strictPort` deve falhar: identificar a instância antes
 de continuar, sem encerrar processos desconhecidos ou aceitar porta automática.
@@ -71,6 +71,8 @@ cena. A posição visual da nave é diferente do ponto de interação/desembarqu
 | Marte · E / desembarque | **(0; 0; 29,5)** | Pé da escada, acesso pelo sul da colônia; E abre cabine, E/desembarcar devolve controle |
 | Shanghai fase 01 · ARES-I visual | **(0,72; 0,012; 13,52)** | Pouso no asfalto junto ao quarteirão central, rachaduras/fuligem, sem deck metálico |
 | Shanghai · E / desembarque / retry | **(0; 0; 9,5)** | Ponto preservado no pé da escada; embarque/desembarque não exige subida física |
+
+[Posições, medidas e capturas dos consoles de Marte](../handoffs/fechamento-s0-s2/consoles-marte/README.md).
 
 O nó (0; 9,0) do ensaio a raio 0,80 m é aproximação para **contato do robô**;
 não substitui o desembarque do jogador. Os seis colisores simples da nave e os
@@ -128,7 +130,7 @@ com M1/M2 do bloco 4, sem exigir outra sessão do autor.
 | S0.4 · movimento contínuo | Em rota livre, sustentar W guiando pelo cursor, depois S. W segue a mira; S recua voltado a ela. A/D não deslocam; W+S neutralizam. Conferir quinas, paredes e portas | pendente | — |
 | S0.4 · câmera | Girar Q/C enquanto anda e recua; a mira continua orientando o movimento. Conferir zoom com roda/+/−; R é recarga | pendente | — |
 | S0.4 · EDEN | Ir ao norte, próximo de (0; −10), usar E, ler o briefing, fechar com Esc e voltar a andar. Diálogo deve bloquear movimento/tiro e devolver controle ao fechar | pendente | — |
-| S0.4 · deck ARES-I | Seguir ao sul pela ligação plana em (0; 25…27,4) ao deck octogonal centrado em (0; 33). Conferir piso contínuo, contato dos pés, bordas e chegada ao E em (0; 29,5) sem buraco/degrau ou bloqueio | pendente | — |
+| S0.4 · deck ARES-I | Seguir ao sul pela passarela X −2…2, Z 25…27,4 até o deck centrado em (0; 33). Conferir piso, bordas e E em (0; 29,5). Oeste em (−3; 25,9), tela para a chegada: tentar atravessar (deve bloquear) e contornar; não invade passarela/faixas/borda, sem z-fighting. Leste em (6,85; 31,8), folga ≈0,41 m. Rack em (−6,75; 31,6), fileira em X, folga 0,07 m: ponta do tubo entra no primeiro cilindro, tanques grandes imóveis. Leste/rack fora da área caminhável e sem colisores novos; caminho ao embarque livre | pendente | — |
 | S0.4 · embarque Marte | No pé da escada (0; 29,5), E abre a cabine sem decolar automaticamente. Movimento e tiro ficam bloqueados a bordo; escada/casco não são atravessáveis | pendente | — |
 | S0.4 · desembarque Marte | Ainda em Marte, usar E/desembarcar: retornar a (0; 29,5), recuperar movimento e conseguir sair do deck para a colônia sem prender nos volumes da nave | pendente | — |
 | S0.4 · pausa | Fora de diálogo, Esc pausa; esperar, retomar e conferir controle sem avanço acumulado | pendente | — |

@@ -12,6 +12,37 @@ Preparação e kit: 24/10/2026. **Parada 1 — kit ARES-I pronto, após decisão
 | Kit da sessão | [SESSAO_FECHAMENTO_S0_S2.md](../sprint-2/SESSAO_FECHAMENTO_S0_S2.md) |
 | Referência | [Plano de consolidação, Fases 5–6](../consolidacao/PLANO_SPRINTS_0_2.md) e pedido do autor de 24/10/2026 |
 
+## Ajuste dos consoles e rack de Marte — 24/10/2026
+
+A pedido do autor durante a sessão com build `0c56448`, consoles e rack reposicionados
+em `applyColonyLayout`, sem editar GLB/.blend/manifesto. Base desta alteração:
+`0c56448055a65cef3813171f48035ae02259eb69`, na mesma worktree/branch de fechamento.
+
+- **Oeste:** centro X/Z **(−3; 25,9)**, tela para −Z; pegada 0,94 × 0,723003 m.
+  Um colisor simples novo em Marte, preservando a passarela de 4 m; folga real
+  para o deck 0,658498 m, para a lateral da passarela 0,530000 m e para embarque
+  4,109595 m. Y=0 no piso da praça.
+- **Leste:** centro **(6,85; 31,8)**, orientação preservada, sem colisor novo.
+  Borda/para-choques medidos em X=6,08; folga 0,408498 m.
+- **Rack:** centro **(−6,75; 31,6)**, rotação Y=0, pegada 1,20 × 0,52 m e folga
+  **0,07 m** ao deck. Tubo fundido à estrutura dos tanques grandes: preservado,
+  com sua ponta original (−7,25; 0,15; 31,6) terminando dentro do primeiro cilindro.
+  Tanques grandes imóveis, rack fora da área caminhável e sem novo colisor.
+- **113/113 testes**, build e diff-check verdes. Rapier bloqueia Oeste nos quatro
+  lados; caminho completo colônia → deck → E revalidado, com embarque/desembarque
+  pela UI e W contra o console no navegador, zero erros de página.
+- [Handoff detalhado e capturas antes/depois](fechamento-s0-s2/consoles-marte/README.md).
+  Câmera real, duas vistas do autor (sudoeste e noroeste), mesmo enquadramento por par.
+  Complemento incorporado por solicitação expressa ao mesmo commit dos consoles,
+  substituindo o SHA local anterior `350b584`.
+  Medidas contra os triângulos do deck, somente para QA; física usa retângulo simples.
+- Kit atualizado em **S0.4 · deck ARES-I**, com resultado ainda pendente do autor.
+  Nenhum aceite, item de Sprint 6 ou implementação S2.12 B foi marcado/iniciado.
+
+A sessão segue na worktree de fechamento, porta 4173. Reconstruir o build antes de
+retomar. Checkout principal preservado; sem push, merge na integração ou remoção
+de worktrees. O servidor DEV de QA da porta 5184 foi usado apenas nesta conferência.
+
 ## Retomada com ARES-I e contato — Parada 1 vigente
 
 Base desta atualização: `c92ed79bc4df4c8902b8eadff30f42b73ce4e229`; runtime segue

@@ -36,7 +36,8 @@ test('Marte ARES: mesma nave, sem impacto urbano, marcador no desembarque e deck
 });
 test('Marte ARES: área caminhável fica dentro do octógono e acesso/contorno ficam livres',()=>{
  const world={obstacles:[],walkableAreas:[]};addMarsLanding(world);
- assert.equal(world.obstacles.length,ARES_COLLIDERS.length);
+ assert.equal(world.obstacles.length,ARES_COLLIDERS.length+1);
+ assert.deepEqual(world.obstacles.at(-1),{...loadSource('src/scene/marsColony/layout.ts').MARS_CONSOLE_WEST_COLLIDER});
  for(const r of world.walkableAreas.slice(1))for(const x of [r.minX,r.maxX])for(const z of [r.minZ,r.maxZ]){
   assert.ok(Math.abs(x)<=6&&Math.abs(z-33)<=6);
   assert.ok(Math.abs(x)+Math.abs(z-33)<=9.75+1e-9);

@@ -125,7 +125,7 @@ test('S6.12: embarque acessível antes da base sólida e saída preservada', () 
  const {MAPS}=loadSource('src/game/config.ts');assert.equal(MAPS.mars.ship.z,33);assert.equal(MAPS.mars.exit.z,29.5);
 });
 
-test('S6.2: preserva obstáculos da colônia e troca só os quatro volumes da nave antiga', () => {
+test('S6.2: preserva obstáculos da colônia, ARES e console Oeste reposicionado', () => {
  const world=marsWorld();
  const {createOfficeMap}=loadSource('src/world/createOfficeMap.ts');
  const {EDEN}=loadSource('src/game/config.ts');
@@ -135,7 +135,8 @@ test('S6.2: preserva obstáculos da colônia e troca só os quatro volumes da na
  assert.equal(colony.obstacles.length,126);
  assert.deepEqual(world.obstacles.slice(0,126),colony.obstacles);
  const {x,z}=MARS_ARES.position;
- assert.deepEqual(world.obstacles.slice(126),ARES_COLLIDERS.map(b=>({minX:x+b.minX,maxX:x+b.maxX,minZ:z+b.minZ,maxZ:z+b.maxZ})));
+ const {MARS_CONSOLE_WEST_COLLIDER}=loadSource('src/scene/marsColony/layout.ts');
+ assert.deepEqual(world.obstacles.slice(126),[...ARES_COLLIDERS.map(b=>({minX:x+b.minX,maxX:x+b.maxX,minZ:z+b.minZ,maxZ:z+b.maxZ})),{...MARS_CONSOLE_WEST_COLLIDER}]);
 });
 
 async function colonyDoors() {

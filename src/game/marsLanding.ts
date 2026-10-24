@@ -1,5 +1,6 @@
 import type { OfficeWorld } from '../world/createOfficeMap';
 import { addAresCollisions } from './aresCollisions';
+import { MARS_CONSOLE_WEST_COLLIDER } from '../scene/marsColony/layout';
 
 export const MARS_ARES = {
     position: { x: 0.72, y: 0.012, z: 33.52 },
@@ -18,4 +19,5 @@ export function addMarsLanding(world: OfficeWorld) {
         world.walkableAreas.push({ minX: -width, maxX: width, minZ: z + 33, maxZ: z + 33.125 });
     }
     addAresCollisions(world, MARS_ARES.position);
+    world.obstacles.push({ ...MARS_CONSOLE_WEST_COLLIDER });
 }
