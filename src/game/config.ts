@@ -1,3 +1,4 @@
+import masterplan from '../world/marsMasterplan.json';
 import type { MapId } from './session';
 import { isShanghaiPhase01 } from './shanghai/previewMode';
 export interface Point {
@@ -12,7 +13,8 @@ export interface NpcConfig {
     position: Point;
     interactionRadius: number;
 }
-export const EDEN: NpcConfig = { id: 'eden', name: 'EDEN', color: '#f2c94c', position: { x: 0, y: 0, z: -10 }, interactionRadius: 2.7 };
+const edenRoom = masterplan.rooms.find(room => room.id === 'brand-brain')!;
+export const EDEN: NpcConfig = { id: 'eden', name: 'EDEN', color: '#f2c94c', position: { x: edenRoom.position.x, y: 0, z: edenRoom.position.z }, interactionRadius: 2.7 };
 export const MAPS: Record<MapId, {
     title: string;
     ship: Point;

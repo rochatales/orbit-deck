@@ -1,0 +1,1709 @@
+{
+  "version": "greenhouse-v001",
+  "initialState": "OFFLINE",
+  "position": {
+    "x": 14,
+    "z": 22.5
+  },
+  "size": {
+    "width": 11,
+    "depth": 7
+  },
+  "entrance": "west",
+  "parts": [
+    {
+      "id": "ARQ_Estufa_Parede_N",
+      "papel": "wall",
+      "ambiente": "greenhouse",
+      "apoiado_em": [],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 8.370000839233398,
+        "maxX": 19.6299991607666,
+        "minY": 0.0,
+        "maxY": 2.500000238418579,
+        "minZ": 18.76202964782715,
+        "maxZ": 19.329999923706055
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Parede_S",
+      "papel": "wall",
+      "ambiente": "greenhouse",
+      "apoiado_em": [],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 8.370000839233398,
+        "maxX": 19.6299991607666,
+        "minY": 0.0,
+        "maxY": 2.500000238418579,
+        "minZ": 25.670000076293945,
+        "maxZ": 26.1299991607666
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Parede_L",
+      "papel": "wall",
+      "ambiente": "greenhouse",
+      "apoiado_em": [],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 19.239999771118164,
+        "maxX": 19.51999855041504,
+        "minY": 0.04800000786781311,
+        "maxY": 2.5,
+        "minZ": 19.119998931884766,
+        "maxZ": 25.880001068115234
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Parede_O_1",
+      "papel": "wall",
+      "ambiente": "greenhouse",
+      "apoiado_em": [],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 8.440999984741211,
+        "maxX": 8.760000228881836,
+        "minY": 0.04800000786781311,
+        "maxY": 2.5,
+        "minZ": 19.119998931884766,
+        "maxZ": 21.415000915527344
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Parede_O_2",
+      "papel": "wall",
+      "ambiente": "greenhouse",
+      "apoiado_em": [],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 8.440999984741211,
+        "maxX": 8.760000228881836,
+        "minY": 0.04800000786781311,
+        "maxY": 2.5,
+        "minZ": 23.584999084472656,
+        "maxZ": 25.880001068115234
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Portal_Entrada",
+      "papel": "wall",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 8.21415901184082,
+        "maxX": 8.569999694824219,
+        "minY": 0.009999990463256836,
+        "maxY": 3.190000057220459,
+        "minZ": 21.270000457763672,
+        "maxZ": 23.729999542236328
+      }
+    },
+    {
+      "id": "TET_Estufa",
+      "papel": "roof",
+      "ambiente": "greenhouse",
+      "apoiado_em": [],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 8.519998550415039,
+        "maxX": 19.479999542236328,
+        "minY": 2.4599990844726562,
+        "maxY": 4.212528705596924,
+        "minZ": 18.973058700561523,
+        "maxZ": 26.026939392089844
+      }
+    },
+    {
+      "id": "TET_Estufa_GrowLights",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "TET_Estufa"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 8.96500015258789,
+        "maxX": 19.03499984741211,
+        "minY": 3.2054998874664307,
+        "maxY": 3.809999942779541,
+        "minZ": 20.780000686645508,
+        "maxZ": 24.219999313354492
+      }
+    },
+    {
+      "id": "PROP_Estufa_Canteiros",
+      "papel": "furniture",
+      "ambiente": "greenhouse",
+      "apoiado_em": [],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 8.829999923706055,
+        "maxX": 19.170000076293945,
+        "minY": 0.12000000476837158,
+        "maxY": 1.2905694246292114,
+        "minZ": 19.672500610351562,
+        "maxZ": 25.327499389648438
+      }
+    },
+    {
+      "id": "PROP_Estufa_Canteiros_Suspensos",
+      "papel": "furniture",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 8.940000534057617,
+        "maxX": 19.059999465942383,
+        "minY": 1.7239991426467896,
+        "maxY": 2.3500001430511475,
+        "minZ": 19.270708084106445,
+        "maxZ": 25.729290008544922
+      }
+    },
+    {
+      "id": "PROP_Estufa_Plantas_Online",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "PROP_Estufa_Canteiros",
+        "PROP_Estufa_Canteiros_Suspensos"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "oculto",
+      "estado_operacao": "online",
+      "bounds": {
+        "minX": 8.955451965332031,
+        "maxX": 19.064922332763672,
+        "minY": 1.0410757064819336,
+        "maxY": 2.6832892894744873,
+        "minZ": 19.457096099853516,
+        "maxZ": 25.560848236083984
+      }
+    },
+    {
+      "id": "PROP_Estufa_Status",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Portal_Entrada"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 8.270999908447266,
+        "maxX": 18.174999237060547,
+        "minY": 0.6800000667572021,
+        "maxY": 3.0350000858306885,
+        "minZ": 20.97249984741211,
+        "maxZ": 28.020000457763672
+      }
+    },
+    {
+      "id": "PROP_Estufa_Tanque_Bomba",
+      "papel": "prop",
+      "ambiente": "greenhouse",
+      "apoiado_em": [],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 13.809999465942383,
+        "maxX": 17.590002059936523,
+        "minY": 0.04999995231628418,
+        "maxY": 2.069999933242798,
+        "minZ": 26.040000915527344,
+        "maxZ": 28.017499923706055
+      }
+    },
+    {
+      "id": "PROP_Estufa_Tanque_Gelo_Online",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "PROP_Estufa_Tanque_Bomba"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "oculto",
+      "estado_operacao": "online",
+      "bounds": {
+        "minX": 14.101686477661133,
+        "maxX": 18.060400009155273,
+        "minY": 0.010999992489814758,
+        "maxY": 0.29632115364074707,
+        "minZ": 26.3089599609375,
+        "maxZ": 28.185279846191406
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_N_0_0",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Parede_N"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 8.770000457763672,
+        "maxX": 11.15999984741211,
+        "minY": 0.7800000309944153,
+        "maxY": 1.4300000667572021,
+        "minZ": 19.108001708984375,
+        "maxZ": 19.131999969482422
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_N_0_1",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Parede_N"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 8.770000457763672,
+        "maxX": 11.15999984741211,
+        "minY": 1.5700000524520874,
+        "maxY": 2.380000114440918,
+        "minZ": 19.108001708984375,
+        "maxZ": 19.131999969482422
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_N_1_0",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Parede_N"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 11.460000038146973,
+        "maxX": 13.84999942779541,
+        "minY": 0.7800000309944153,
+        "maxY": 1.4300000667572021,
+        "minZ": 19.108001708984375,
+        "maxZ": 19.131999969482422
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_N_1_1",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Parede_N"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 11.460000038146973,
+        "maxX": 13.84999942779541,
+        "minY": 1.5700000524520874,
+        "maxY": 2.380000114440918,
+        "minZ": 19.108001708984375,
+        "maxZ": 19.131999969482422
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_N_2_0",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Parede_N"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 14.15000057220459,
+        "maxX": 16.540000915527344,
+        "minY": 0.7800000309944153,
+        "maxY": 1.4300000667572021,
+        "minZ": 19.108001708984375,
+        "maxZ": 19.131999969482422
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_N_2_1",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Parede_N"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 14.15000057220459,
+        "maxX": 16.540000915527344,
+        "minY": 1.5700000524520874,
+        "maxY": 2.380000114440918,
+        "minZ": 19.108001708984375,
+        "maxZ": 19.131999969482422
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_N_3_0",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Parede_N"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 16.84000015258789,
+        "maxX": 19.229999542236328,
+        "minY": 0.7800000309944153,
+        "maxY": 1.4300000667572021,
+        "minZ": 19.108001708984375,
+        "maxZ": 19.131999969482422
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_N_3_1",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Parede_N"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 16.84000015258789,
+        "maxX": 19.229999542236328,
+        "minY": 1.5700000524520874,
+        "maxY": 2.380000114440918,
+        "minZ": 19.108001708984375,
+        "maxZ": 19.131999969482422
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_S_0_0",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Parede_S"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 8.770000457763672,
+        "maxX": 11.15999984741211,
+        "minY": 0.7800000309944153,
+        "maxY": 1.4300000667572021,
+        "minZ": 25.868000030517578,
+        "maxZ": 25.891998291015625
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_S_0_1",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Parede_S"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 8.770000457763672,
+        "maxX": 11.15999984741211,
+        "minY": 1.5700000524520874,
+        "maxY": 2.380000114440918,
+        "minZ": 25.868000030517578,
+        "maxZ": 25.891998291015625
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_S_1_0",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Parede_S"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 11.460000038146973,
+        "maxX": 13.84999942779541,
+        "minY": 0.7800000309944153,
+        "maxY": 1.4300000667572021,
+        "minZ": 25.868000030517578,
+        "maxZ": 25.891998291015625
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_S_1_1",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Parede_S"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 11.460000038146973,
+        "maxX": 13.84999942779541,
+        "minY": 1.5700000524520874,
+        "maxY": 2.380000114440918,
+        "minZ": 25.868000030517578,
+        "maxZ": 25.891998291015625
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_S_2_0",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Parede_S"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 14.15000057220459,
+        "maxX": 16.540000915527344,
+        "minY": 0.7800000309944153,
+        "maxY": 1.4300000667572021,
+        "minZ": 25.868000030517578,
+        "maxZ": 25.891998291015625
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_S_2_1",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Parede_S"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 14.15000057220459,
+        "maxX": 16.540000915527344,
+        "minY": 1.5700000524520874,
+        "maxY": 2.380000114440918,
+        "minZ": 25.868000030517578,
+        "maxZ": 25.891998291015625
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_S_3_0",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Parede_S"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 16.84000015258789,
+        "maxX": 19.229999542236328,
+        "minY": 0.7800000309944153,
+        "maxY": 1.4300000667572021,
+        "minZ": 25.868000030517578,
+        "maxZ": 25.891998291015625
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_S_3_1",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Parede_S"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 16.84000015258789,
+        "maxX": 19.229999542236328,
+        "minY": 1.5700000524520874,
+        "maxY": 2.380000114440918,
+        "minZ": 25.868000030517578,
+        "maxZ": 25.891998291015625
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_Teto_0_0",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "TET_Estufa"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 8.770000457763672,
+        "maxX": 11.15999984741211,
+        "minY": 2.6591389179229736,
+        "maxY": 3.7808611392974854,
+        "minZ": 19.262306213378906,
+        "maxZ": 20.40769386291504
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_Teto_0_1",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "TET_Estufa"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 8.770000457763672,
+        "maxX": 11.15999984741211,
+        "minY": 3.9090001583099365,
+        "maxY": 3.930999994277954,
+        "minZ": 20.700000762939453,
+        "maxZ": 22.399999618530273
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_Teto_0_2",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "TET_Estufa"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 8.770000457763672,
+        "maxX": 11.15999984741211,
+        "minY": 3.9090001583099365,
+        "maxY": 3.930999994277954,
+        "minZ": 22.600000381469727,
+        "maxZ": 24.299999237060547
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_Teto_0_3",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "TET_Estufa"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 8.770000457763672,
+        "maxX": 11.15999984741211,
+        "minY": 2.6591389179229736,
+        "maxY": 3.7808611392974854,
+        "minZ": 24.59230613708496,
+        "maxZ": 25.737693786621094
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_Teto_1_0",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "TET_Estufa"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 11.460000038146973,
+        "maxX": 13.850000381469727,
+        "minY": 2.6591389179229736,
+        "maxY": 3.7808611392974854,
+        "minZ": 19.262306213378906,
+        "maxZ": 20.40769386291504
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_Teto_1_1",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "TET_Estufa"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 11.460000038146973,
+        "maxX": 13.850000381469727,
+        "minY": 3.9090001583099365,
+        "maxY": 3.930999994277954,
+        "minZ": 20.700000762939453,
+        "maxZ": 22.399999618530273
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_Teto_1_2",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "TET_Estufa"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 11.460000038146973,
+        "maxX": 13.850000381469727,
+        "minY": 3.9090001583099365,
+        "maxY": 3.930999994277954,
+        "minZ": 22.600000381469727,
+        "maxZ": 24.299999237060547
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_Teto_1_3",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "TET_Estufa"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 11.460000038146973,
+        "maxX": 13.850000381469727,
+        "minY": 2.6591389179229736,
+        "maxY": 3.7808611392974854,
+        "minZ": 24.59230613708496,
+        "maxZ": 25.737693786621094
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_Teto_2_0",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "TET_Estufa"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 14.149999618530273,
+        "maxX": 16.540000915527344,
+        "minY": 2.6591389179229736,
+        "maxY": 3.7808611392974854,
+        "minZ": 19.262306213378906,
+        "maxZ": 20.40769386291504
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_Teto_2_1",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "TET_Estufa"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 14.149999618530273,
+        "maxX": 16.540000915527344,
+        "minY": 3.9090001583099365,
+        "maxY": 3.930999994277954,
+        "minZ": 20.700000762939453,
+        "maxZ": 22.399999618530273
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_Teto_2_2",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "TET_Estufa"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 14.149999618530273,
+        "maxX": 16.540000915527344,
+        "minY": 3.9090001583099365,
+        "maxY": 3.930999994277954,
+        "minZ": 22.600000381469727,
+        "maxZ": 24.299999237060547
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_Teto_2_3",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "TET_Estufa"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 14.149999618530273,
+        "maxX": 16.540000915527344,
+        "minY": 2.6591389179229736,
+        "maxY": 3.7808611392974854,
+        "minZ": 24.59230613708496,
+        "maxZ": 25.737693786621094
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_Teto_3_0",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "TET_Estufa"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 16.84000015258789,
+        "maxX": 19.229999542236328,
+        "minY": 2.6591389179229736,
+        "maxY": 3.7808611392974854,
+        "minZ": 19.262306213378906,
+        "maxZ": 20.40769386291504
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_Teto_3_1",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "TET_Estufa"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 16.84000015258789,
+        "maxX": 19.229999542236328,
+        "minY": 3.9090001583099365,
+        "maxY": 3.930999994277954,
+        "minZ": 20.700000762939453,
+        "maxZ": 22.399999618530273
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_Teto_3_2",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "TET_Estufa"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 16.84000015258789,
+        "maxX": 19.229999542236328,
+        "minY": 3.9090001583099365,
+        "maxY": 3.930999994277954,
+        "minZ": 22.600000381469727,
+        "maxZ": 24.299999237060547
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_Teto_3_3",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "TET_Estufa"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 16.84000015258789,
+        "maxX": 19.229999542236328,
+        "minY": 2.6591389179229736,
+        "maxY": 3.7808611392974854,
+        "minZ": 24.59230613708496,
+        "maxZ": 25.737693786621094
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_Fachada_-1",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Parede_O_1"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 8.607999801635742,
+        "maxX": 8.631999969482422,
+        "minY": 0.7899999618530273,
+        "maxY": 2.309999942779541,
+        "minZ": 19.2549991607666,
+        "maxZ": 21.184999465942383
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_Fachada_1",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Parede_O_2"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 8.607999801635742,
+        "maxX": 8.631999969482422,
+        "minY": 0.7899999618530273,
+        "maxY": 2.309999942779541,
+        "minZ": 23.815000534057617,
+        "maxZ": 25.7450008392334
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_Fundo_-2.25",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Parede_L"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 19.368000030517578,
+        "maxX": 19.391998291015625,
+        "minY": 0.809999942779541,
+        "maxY": 2.309999942779541,
+        "minZ": 19.229999542236328,
+        "maxZ": 21.270000457763672
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_Fundo_0",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Parede_L"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 19.368000030517578,
+        "maxX": 19.391998291015625,
+        "minY": 0.809999942779541,
+        "maxY": 2.309999942779541,
+        "minZ": 21.479999542236328,
+        "maxZ": 23.520000457763672
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_Fundo_2.25",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Parede_L"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 19.368000030517578,
+        "maxX": 19.391998291015625,
+        "minY": 0.809999942779541,
+        "maxY": 2.309999942779541,
+        "minZ": 23.729999542236328,
+        "maxZ": 25.770000457763672
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_Empena_-1",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Portal_Entrada"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 8.607999801635742,
+        "maxX": 8.631999969482422,
+        "minY": 2.6700000762939453,
+        "maxY": 3.75,
+        "minZ": 19.450000762939453,
+        "maxZ": 25.549999237060547
+      }
+    },
+    {
+      "id": "ARQ_Estufa_Vidro_Empena_1",
+      "papel": "detail",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Parede_L"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "bounds": {
+        "minX": 19.368000030517578,
+        "maxX": 19.391998291015625,
+        "minY": 2.6700000762939453,
+        "maxY": 3.75,
+        "minZ": 19.450000762939453,
+        "maxZ": 25.549999237060547
+      }
+    },
+    {
+      "id": "D_Estufa_Entrada_L",
+      "papel": "door",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Portal_Entrada"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "slide_x": 0,
+      "slide_z": -1.14,
+      "bounds": {
+        "minX": 8.388500213623047,
+        "maxX": 8.529999732971191,
+        "minY": 0.009999990463256836,
+        "maxY": 2.2899999618530273,
+        "minZ": 21.407501220703125,
+        "maxZ": 22.49250030517578
+      }
+    },
+    {
+      "id": "D_Estufa_Entrada_R",
+      "papel": "door",
+      "ambiente": "greenhouse",
+      "apoiado_em": [
+        "ARQ_Estufa_Portal_Entrada"
+      ],
+      "apoiado_em_todos": [],
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "slide_x": 0,
+      "slide_z": 1.14,
+      "bounds": {
+        "minX": 8.388500213623047,
+        "maxX": 8.529999732971191,
+        "minY": 0.009999990463256836,
+        "maxY": 2.2899999618530273,
+        "minZ": 22.50749969482422,
+        "maxZ": 23.592498779296875
+      }
+    }
+  ],
+  "doors": [
+    {
+      "id": "D_Estufa_Entrada",
+      "x": 8.48,
+      "z": 22.5,
+      "axis": "z",
+      "width": 2.2,
+      "owner": "greenhouse"
+    }
+  ],
+  "walkableAreas": [
+    {
+      "id": "greenhouse",
+      "minX": 8.5,
+      "maxX": 19.5,
+      "minZ": 19,
+      "maxZ": 26
+    }
+  ],
+  "colliders": [
+    {
+      "id": "greenhouse-wall-n",
+      "minX": 8.34,
+      "maxX": 19.66,
+      "minZ": 18.75,
+      "maxZ": 19.3
+    },
+    {
+      "id": "greenhouse-wall-s",
+      "minX": 8.34,
+      "maxX": 19.66,
+      "minZ": 25.7,
+      "maxZ": 26.18
+    },
+    {
+      "id": "greenhouse-wall-e",
+      "minX": 19.2,
+      "maxX": 19.66,
+      "minZ": 18.82,
+      "maxZ": 26.18
+    },
+    {
+      "id": "greenhouse-wall-w1",
+      "minX": 8.3,
+      "maxX": 8.8,
+      "minZ": 18.82,
+      "maxZ": 21.4
+    },
+    {
+      "id": "greenhouse-wall-w2",
+      "minX": 8.3,
+      "maxX": 8.8,
+      "minZ": 23.6,
+      "maxZ": 26.18
+    },
+    {
+      "id": "greenhouse-planters-n",
+      "minX": 9.0,
+      "maxX": 19.0,
+      "minZ": 19.36,
+      "maxZ": 21.07
+    },
+    {
+      "id": "greenhouse-planters-s",
+      "minX": 9.0,
+      "maxX": 19.0,
+      "minZ": 23.93,
+      "maxZ": 25.64
+    },
+    {
+      "id": "greenhouse-tank",
+      "minX": 13.75,
+      "maxX": 17.65,
+      "minZ": 26.18,
+      "maxZ": 27.97
+    }
+  ],
+  "clearances": [
+    {
+      "panelId": "ARQ_Estufa_Vidro_N_0_0",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_N_0_1",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_N_1_0",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_N_1_1",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_N_2_0",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_N_2_1",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_N_3_0",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_N_3_1",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_S_0_0",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_S_0_1",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_S_1_0",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_S_1_1",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_S_2_0",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_S_2_1",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_S_3_0",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_S_3_1",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_Teto_0_0",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_Teto_0_1",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_Teto_0_2",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_Teto_0_3",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_Teto_1_0",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_Teto_1_1",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_Teto_1_2",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_Teto_1_3",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_Teto_2_0",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_Teto_2_1",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_Teto_2_2",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_Teto_2_3",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_Teto_3_0",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_Teto_3_1",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_Teto_3_2",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_Teto_3_3",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_Fachada_-1",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_Fachada_1",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_Fundo_-2.25",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_Fundo_0",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_Fundo_2.25",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_Empena_-1",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    },
+    {
+      "panelId": "ARQ_Estufa_Vidro_Empena_1",
+      "otherIds": [
+        "ARQ_Estufa_Parede_N",
+        "ARQ_Estufa_Parede_S",
+        "ARQ_Estufa_Parede_L",
+        "ARQ_Estufa_Parede_O_1",
+        "ARQ_Estufa_Parede_O_2",
+        "ARQ_Estufa_Portal_Entrada",
+        "TET_Estufa"
+      ],
+      "minimum": 0.002
+    }
+  ],
+  "switchMaterials": [
+    {
+      "name": "MAT_GH_GrowDiffuse",
+      "offline": {
+        "color": "#3A3F45",
+        "emissive": "#000000",
+        "emissiveIntensity": 0
+      },
+      "online": {
+        "color": "#FF66C4",
+        "emissive": "#FF66C4",
+        "emissiveIntensity": 3.2
+      }
+    },
+    {
+      "name": "MAT_GH_Status",
+      "offline": {
+        "color": "#2B383A",
+        "emissive": "#000000",
+        "emissiveIntensity": 0
+      },
+      "online": {
+        "color": "#00F5FF",
+        "emissive": "#00F5FF",
+        "emissiveIntensity": 2.8
+      }
+    }
+  ],
+  "growLights": [
+    {
+      "x": 9.965,
+      "y": 2.78,
+      "z": 22.5,
+      "intensity": 5,
+      "distance": 5,
+      "color": "#FF66C4"
+    },
+    {
+      "x": 12.655,
+      "y": 2.78,
+      "z": 22.5,
+      "intensity": 5,
+      "distance": 5,
+      "color": "#FF66C4"
+    },
+    {
+      "x": 15.345,
+      "y": 2.78,
+      "z": 22.5,
+      "intensity": 5,
+      "distance": 5,
+      "color": "#FF66C4"
+    },
+    {
+      "x": 18.035,
+      "y": 2.78,
+      "z": 22.5,
+      "intensity": 5,
+      "distance": 5,
+      "color": "#FF66C4"
+    }
+  ],
+  "stats": {
+    "ribs": 5,
+    "bays": 4,
+    "lowerPlanters": 8,
+    "upperPlanters": 4,
+    "growBars": 8,
+    "parts": 55,
+    "triangles": 50952
+  },
+  "sourceReference": "/Users/rochatales/Game Development/Horda Survivor/Predios/Greenhouse_concept01.jpg"
+}
