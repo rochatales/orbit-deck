@@ -10,8 +10,9 @@ import { combatRuntime, useCombatStore } from '../state/useCombatStore';
 import { simulationBlocked } from '../game/simulationGate';
 import { CombatSimulation, type CombatInput } from './simulation';
 import { COMBAT, RIFLE_POSE, robotConfig, waveRobotKind } from './config';
-import { PATROL_UNIT, LARGE_PATROL_VISUAL, PatrolUnitRig } from './patrolUnit';
+import { PATROL_UNIT, LARGE_PATROL_VISUAL, SMALL_MUTANT_VISUAL, PatrolUnitRig } from './patrolUnit';
 import { ResourceDrops } from './ResourceDrops';
+import mutantUrl from '../assets/enemies/mutant-animal.glb';
 import largePatrolUrl from '../assets/enemies/large-patrol-unit.glb';
 import patrolUnitUrl from '../assets/enemies/patrol-unit.glb';
 import { SupplyCrates } from '../game/props/SupplyCrates';
@@ -33,9 +34,13 @@ export function CombatScene({ world }: {
     const largeRigs = useMemo(() => simulation.robots.map((_, i) =>
         simulation.waves.some((count, wave) => i < count && waveRobotKind(wave, i) === 'largePatrol')
             ? new PatrolUnitRig(largePatrol.scene, largePatrol.animations, true) : null), [simulation, largePatrol]);
+    const mutant = useGLTF(simulation.waves.length ? mutantUrl : patrolUnitUrl);
+    const mutantRigs = useMemo(() => simulation.robots.map((_, i) =>
+        simulation.waves.some((count, wave) => i < count && waveRobotKind(wave, i) === 'smallMutant')
+            ? new PatrolUnitRig(mutant.scene, mutant.animations, 'smallMutant') : null), [simulation, mutant]);
     // Hordas reutilizam slots: a geração muda a cada nascimento e o rig volta ao Idle.
     const generations = useMemo(() => simulation.robots.map(r => r.generation), [simulation]);
-    useEffect(() => () => { rigs.forEach(rig => rig.dispose()); largeRigs.forEach(rig => rig?.dispose()); }, [rigs, largeRigs]);
+    useEffect(() => () => { rigs.forEach(rig => rig.dispose()); largeRigs.forEach(rig => rig?.dispose()); mutantRigs.forEach(rig => rig?.dispose()); }, [rigs, largeRigs, mutantRigs]);
     const hearts = useRef<(Group | null)[]>([]);
     const heartShape = useMemo(() => {
         const shape = new Shape();
@@ -111,10 +116,11 @@ export function CombatScene({ world }: {
             const mesh = robots.current[i];
             if (!mesh)
                 return;
-            const large = r.kind === 'largePatrol', rig = large ? largeRigs[i]! : rigs[i];
+            const large = r.kind === 'largePatrol', animal = r.kind === 'smallMutant', rig = animal ? mutantRigs[i]! : large ? largeRigs[i]! : rigs[i];
             const R = robotConfig(r);
-            rigs[i].root.visible = !large;
+            rigs[i].root.visible = !large && !animal;
             if (largeRigs[i]) largeRigs[i]!.root.visible = large;
+            if (mutantRigs[i]) mutantRigs[i]!.root.visible = animal;
             if (!r.spawned) {
                 mesh.visible = false;
                 return;
@@ -129,7 +135,7 @@ export function CombatScene({ world }: {
             mesh.rotation.y = r.angle;
             const ring = rings.current[i], alert = alerts.current[i];
             if (ring) { ring.visible = r.hp > 0; ring.scale.setScalar(R.radius / COMBAT.robot.radius); }
-            if (alert) { alert.visible = r.hp > 0 && r.alertLeft > 0; alert.position.y = (large ? LARGE_PATROL_VISUAL.height : PATROL_UNIT.height) + .45; }
+            if (alert) { alert.visible = r.hp > 0 && r.alertLeft > 0; alert.position.y = (animal ? SMALL_MUTANT_VISUAL.height : large ? LARGE_PATROL_VISUAL.height : PATROL_UNIT.height) + .45; }
         });
         simulation.hearts.forEach((heart, i) => {
             const mesh = hearts.current[i];
@@ -159,6 +165,7 @@ export function CombatScene({ world }: {
     {simulation.robots.map((r, i) => <group key={`${run}-${r.id}`} ref={g => { robots.current[i] = g; }}>
       <primitive object={rigs[i].root}/>
       {largeRigs[i] && <primitive object={largeRigs[i]!.root}/>}
+      {mutantRigs[i] && <primitive object={mutantRigs[i]!.root}/>}
       <mesh ref={m => { rings.current[i] = m; }} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.025, 0]}><ringGeometry args={[0.43, 0.48, 20]}/><meshBasicMaterial color="#ff6753"/></mesh>
       <Billboard position={[0, PATROL_UNIT.height + 0.45, 0]} ref={g => { alerts.current[i] = g; }} visible={false}>
         <mesh position={[0, 0.13, 0]}><boxGeometry args={[0.12, 0.38, 0.04]}/><meshBasicMaterial color="#ffdb57"/></mesh>

@@ -10,7 +10,7 @@ const {PATROL_UNIT,LARGE_PATROL_VISUAL}=loadSource('src/combat/patrolUnit.ts');
 const {COMBAT}=loadSource('src/combat/config.ts');
 
 test('Recursos: anéis com cor fixa, raio pulsante ±12%, fases próprias e flutuação comum',()=>{
- assert.deepEqual({...V.colors},{titanium:'#ffd35a',copper:'#ff8b32',iron:'#dce5ed'});
+ assert.deepEqual({...V.colors},{titanium:'#ffd35a',copper:'#ff8b32',iron:'#dce5ed',organic:'#76f57b'});
  for(const kind of RESOURCE_KINDS){
   const phase=resourcePhase(3,kind);let sum=0,min=Infinity,max=-Infinity;
   for(let i=0;i<960;i++){const y=resourceHeight(i*V.floatPeriod/960,phase);sum+=y;min=Math.min(min,y);max=Math.max(max,y)}

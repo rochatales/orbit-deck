@@ -1,13 +1,13 @@
 import type { CSSProperties } from 'react';
-import { Heart, Layers, Boxes, Crosshair, Shell, Siren } from 'lucide-react';
-import { COMBAT, HORDE_ENCOUNTER } from './config';
+import { Heart, Layers, Boxes, Crosshair, Shell, Siren, Leaf } from 'lucide-react';
+import { COMBAT, HORDE_TOTALS, HORDE_ENCOUNTER } from './config';
 import { useCombatStore } from '../state/useCombatStore';
 import { useExpeditionStore } from '../state/useExpeditionStore';
 import { useGameStore } from '../state/useGameStore';
 export function EncounterSelect() {
     const choice = useCombatStore(s => s.encounter), select = useCombatStore(s => s.selectEncounter);
     return <label>Robôs no encontro de teste<select aria-label="Robôs no encontro" value={String(choice)} onChange={e => select(e.target.value === HORDE_ENCOUNTER ? HORDE_ENCOUNTER : Number(e.target.value))}>
-      <option value={HORDE_ENCOUNTER}>Hordas · {COMBAT.hordes.waves.join(' → ')} pela borda</option>
+      <option value={HORDE_ENCOUNTER}>Hordas · {HORDE_TOTALS.join(' → ')} pela borda</option>
       <option value={1}>1 · Aprender a mirar</option><option value={3}>3 · Patrulha pequena</option><option value={5}>5 · Pressão de combate</option><option value={32}>32 · Patrulhas (~30 s)</option>
     </select></label>;
 }
@@ -36,7 +36,7 @@ export function CombatHud() {
     {s.waves > 0 && s.nextWave > 0 && !s.dead && !paused && <div className="wave-banner" role="status">
       <small>{s.wave === 0 ? 'CONTATO IMINENTE' : `HORDA ${s.wave} NEUTRALIZADA`}</small>
       <strong>HORDA {s.wave + 1} / {s.waves}</strong>
-      <span>{COMBAT.hordes.waves[s.wave]} robôs pela borda do mapa{COMBAT.hordes.largePatrols[s.wave] > 0 ? ` · ${COMBAT.hordes.largePatrols[s.wave]} Patrol grandes` : ''} · {s.nextWave} s</span>
+      <span>{HORDE_TOTALS[s.wave]} ameaças pela borda do mapa{COMBAT.hordes.largePatrols[s.wave] > 0 ? ` · ${COMBAT.hordes.largePatrols[s.wave]} Patrol grandes` : ''}{COMBAT.hordes.smallMutants[s.wave] > 0 ? ` · ${COMBAT.hordes.smallMutants[s.wave]} animais` : ''} · {s.nextWave} s</span>
     </div>}
     <aside className="equipment-bar" aria-label="Itens e equipamentos">
       <div className="equipment-inventory"><h2>ITENS / EQUIPAMENTOS <span>COLETA POR PROXIMIDADE</span></h2>
@@ -44,6 +44,7 @@ export function CombatHud() {
           <div className="item-slot" title="Ferro coletado nesta tentativa"><div><Layers/><b>×{s.iron}</b></div><span>FERRO</span></div>
           <div className="item-slot" title="Cobre coletado nesta tentativa"><div><Boxes/><b>×{s.copper}</b></div><span>COBRE</span></div>
           <div className="item-slot" title="Titânio dos Patrol grandes coletado nesta tentativa"><div><Boxes/><b>×{s.titanium}</b></div><span>TITÂNIO</span></div>
+          <div className="item-slot" title="Matéria orgânica dos animais coletada nesta tentativa"><div><Leaf/><b>×{s.organic}</b></div><span>ORGÂNICA</span></div>
           <div className="item-slot" title="Munição de reserva"><div><Shell/><b>×{s.reserve}</b></div><span>RESERVA</span></div>
           <div className="item-slot health-slot" title="Corações coletáveis no mapa; cada um recupera 50 de vida"><div><Heart/><b>+50</b></div><span>CURA NO MAPA</span></div>
         </div>
@@ -54,7 +55,7 @@ export function CombatHud() {
     {s.hit && !s.dead && <span className="hit-feedback">ACERTO</span>}
     {s.dead && <section className="overlay" role="dialog" aria-label="Explorador abatido"><article><p className="eyebrow">EXPEDIÇÃO INTERROMPIDA</p><h2>Explorador abatido</h2><p>Recomece em Shanghai com vida e munição restauradas. Nenhum progresso deste encontro é salvo. As peças coletadas nesta tentativa serão descartadas.</p><EncounterSelect /><button onClick={restart}>Tentar novamente</button></article></section>}
     {!s.dead && phase === 'walking' && !panel && !paused && (s.cleared || (s.ammo === 0 && s.reserve === 0)) && <aside className="encounter-result">
-      <h2>{s.cleared ? (s.waves > 0 ? 'Hordas neutralizadas' : 'Área de teste livre') : 'Sem munição'}</h2><p>{s.cleared ? (s.waves > 0 ? `${s.waves} hordas, ${s.total} robôs. Volte à nave ou repita.` : 'Volte à nave ou repita com mais robôs.') : s.waves > 0 && s.wave < s.waves ? 'A próxima horda chega com reabastecimento. Sobreviva ou reinicie.' : 'Procure as caixas de munição com luz azul e use E. Você também pode retornar à nave ou reiniciar.'}</p><EncounterSelect /><button onClick={restart}>Reiniciar encontro</button>
+      <h2>{s.cleared ? (s.waves > 0 ? 'Hordas neutralizadas' : 'Área de teste livre') : 'Sem munição'}</h2><p>{s.cleared ? (s.waves > 0 ? `${s.waves} hordas, ${s.total} ameaças. Volte à nave ou repita.` : 'Volte à nave ou repita com mais robôs.') : s.waves > 0 && s.wave < s.waves ? 'A próxima horda chega com reabastecimento. Sobreviva ou reinicie.' : 'Procure as caixas de munição com luz azul e use E. Você também pode retornar à nave ou reiniciar.'}</p><EncounterSelect /><button onClick={restart}>Reiniciar encontro</button>
     </aside>}
   </>;
 }

@@ -28,7 +28,7 @@ export const COMBAT = {
      * até a posição do jogador em ritmo de patrulha e aceleram ao avistá-lo.
      */
     hordes: {
-        waves: [10, 20, 30, 40], largePatrols: [0, 0, 5, 10], firstDelay: 4, intermission: 6,
+        waves: [10, 20, 30, 40], largePatrols: [0, 0, 5, 10], smallMutants: [3, 6, 0, 0], firstDelay: 4, intermission: 6,
         edgeInset: 1.5, edgeStep: 1.5, minPlayerDistance: 14,
         /** No início de cada horda, munição total ≥ acertos necessários × margem. */
         ammoMargin: 1.5,
@@ -39,7 +39,7 @@ export const HORDE_ENCOUNTER = 'hordas' as const;
 export type EncounterChoice = number | typeof HORDE_ENCOUNTER;
 export const ENCOUNTER_CHOICES: readonly EncounterChoice[] = [1, 3, 5, COMBAT.encounterSize, HORDE_ENCOUNTER];
 export function encounterTotal(choice: EncounterChoice) {
-    return choice === HORDE_ENCOUNTER ? COMBAT.hordes.waves.reduce((a, b) => a + b, 0) : choice;
+    return choice === HORDE_ENCOUNTER ? HORDE_TOTALS.reduce((a, b) => a + b, 0) : choice;
 }
 export const HIT_LAYER = { world: 1, enemy: 2, player: 4 } as const;
 export const RIFLE_MASK = HIT_LAYER.world | HIT_LAYER.enemy;
@@ -113,13 +113,27 @@ export const LARGE_PATROL = {
     radius: 1.65, spacing: 3.3, separation: 3.6, separationWeight: 0.5,
     contactRange: 2.5, damage: 25, contactInterval: 1.2,
 } as const;
-export type RobotKind = 'patrol' | 'largePatrol';
+/** Animal pequeno: valores próprios, sem herdar tuning do Patrol. Raio é aproximação circular. */
+export const SMALL_MUTANT = {
+    hp: 50, speed: 2.2, chaseSpeed: 4.6, radius: .5, contactRange: .5 + .32 + .08,
+    damage: 8, contactInterval: .8, repath: .35, visionRange: 10, visionCos: Math.cos(Math.PI / 3),
+    nearSense: 3, nearSenseCos: Math.cos(3 * Math.PI / 4), paceRate: 4,
+    spacing: .65, separation: 1.1, separationWeight: 1.1, sidestep: Math.PI / 5, turnRate: 9,
+    directChase: 9, waypointReach: .5, stuckAdvance: 1.2,
+} as const;
+export const MUTANT_PACK = { distance: 6, resetDistance: 8, radius: 1.6, reach: .35, arcStep: .55, approach: .78 } as const;
+export type RobotKind = 'patrol' | 'largePatrol' | 'smallMutant';
+/** `waves` conserva os números de robôs; estes totais incluem os animais adicionais. */
+export const HORDE_TOTALS = COMBAT.hordes.waves.map((robots, i) => robots + COMBAT.hordes.smallMutants[i]);
 export function robotConfig(robot: { kind?: RobotKind }) {
-    return robot.kind === 'largePatrol' ? LARGE_PATROL : COMBAT.robot;
+    return robot.kind === 'smallMutant' ? SMALL_MUTANT : robot.kind === 'largePatrol' ? LARGE_PATROL : COMBAT.robot;
 }
 
 /** Distribuição uniforme dos grandes ao redor do perímetro, preservando o total da horda. */
 export function waveRobotKind(waveIndex: number, slot: number): RobotKind {
-    const count = COMBAT.hordes.waves[waveIndex], large = Math.min(count, COMBAT.hordes.largePatrols[waveIndex] ?? 0);
-    return Math.floor((slot + 1) * large / count) > Math.floor(slot * large / count) ? 'largePatrol' : 'patrol';
+    const count = HORDE_TOTALS[waveIndex], mutants = COMBAT.hordes.smallMutants[waveIndex];
+    const before = Math.floor(slot * mutants / count);
+    if (Math.floor((slot + 1) * mutants / count) > before) return 'smallMutant';
+    const robotSlot = slot - before, robots = COMBAT.hordes.waves[waveIndex], large = COMBAT.hordes.largePatrols[waveIndex];
+    return Math.floor((robotSlot + 1) * large / robots) > Math.floor(robotSlot * large / robots) ? 'largePatrol' : 'patrol';
 }

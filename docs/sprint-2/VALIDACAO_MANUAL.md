@@ -121,3 +121,28 @@ Casos geométricos e alcance exato: testes automatizados da etapa 1. A evidênci
 em fixture dev é verificação técnica, sem substituir este playtest no build.
 Claude revisa contra a base antes da próxima etapa. **Parar após a etapa 1**;
 sem liberar etapas 2/3, marcar checkbox ou declarar aceite pelo agente.
+
+
+## Animal mutante pequeno / matéria orgânica — roteiro incremental (25/10/2026)
+
+Build da worktree `/Users/rochatales/.codex/worktrees/s2-12-b/game-workplace`,
+branch `rochatales/s2.12-b`. Base do animal: `f786255` (registro documental após
+`daaff88`). Registrar SHA testado. O autor já aprovou mapa v007/deck, estufa e
+anel na calçada; revisão Claude dos commits anteriores sem defeitos, conforme
+relato do autor. **Casos do animal abaixo aguardam o autor**, sem novo aceite.
+
+| Caso | Conferir | Resultado |
+|---|---|---|
+| Animal 1 · composição | Horda 1: 10 comuns + 3 animais = 13; horda 2: 20 + 6 = 26; horda 3: 25 comuns + 5 grandes = 30; horda 4: 30 + 10 = 40, sem animais nas duas últimas. HUD/resultado total 109 | pendente |
+| Animal 2 · velocidade e pressão | Animal marcha/corre, alcança o explorador em perseguição (4,6 > 4,2 m/s) e tenta abrir em setores diferentes a menos de 6 m antes do contato; testar campo aberto, parede e quina | pendente |
+| Animal 3 · ataque e tiro | Dois tiros de rifle matam o animal; cano/traçador a 0,85 m; tiro alerta. Dano de 8 com proteção global: vários animais juntos não somam dano no mesmo intervalo | pendente |
+| Animal 4 · animações | Idle ao nascer; PatrolWalk, ChaseRun, bote e morte conforme estado. Horda 2 reutiliza os rigs sem pose morta/velocidade antiga; ShockAttack não é usado | pendente |
+| Animal 5 · orgânica | Animal morto deixa 1 matéria orgânica, anel verde sobre rua/calçada/canteiro, pulso e flutuação sem giro Y; coletar uma vez, contador ORGÂNICA instantâneo e coleta visual rápida | pendente |
+| Animal 6 · munição/reset | Reposição considera 2 acertos por animal, sem reduzir munição existente; pausa congela combate/efeitos. Retry/viagem zeram orgânica e restauram a primeira horda, sem drop/pose anterior | pendente |
+
+Raio circular 0,50 m não engloba toda a frente/cauda de 2,07 m: observar a
+limitação visual nas paredes, sem colisor de malha. Faixa de tiro vertical do
+animal ainda não implementada; envelope do bote chega a 1,180 m, proposta
+0–1,20 m para a etapa 2. Este roteiro não libera a etapa 2.
+Capturas e método assistido em `docs/handoffs/s6.1-mutante-pequeno/`;
+QA técnico não substitui o playtest. **Parar para revisão Claude antes do avanço.**

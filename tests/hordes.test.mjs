@@ -4,7 +4,7 @@ import { loadSource } from './load-source.mjs';
 
 globalThis.document = { createElement: () => ({ width: 0, height: 0, getContext: () => ({ fillText() {} }) }) };
 const { CombatSimulation } = loadSource('src/combat/simulation.ts');
-const { COMBAT, robotConfig, HORDE_ENCOUNTER, encounterLayout, encounterTotal } = loadSource('src/combat/config.ts');
+const { COMBAT, HORDE_TOTALS, robotConfig, HORDE_ENCOUNTER, encounterLayout, encounterTotal } = loadSource('src/combat/config.ts');
 const { Navigation, clearSegment, smoothPath, traversable } = loadSource('src/combat/navigation.ts');
 const { createPhase01Terrain, SHANGHAI_PHASE01: data } = loadSource('src/game/shanghai/layout.ts');
 const { createWorld } = loadSource('src/game/shanghaiWorld.ts');
@@ -76,11 +76,11 @@ test('caminho suavizado continua livre de prédios e corta a escada da grade', (
     assert.deepEqual(path.at(-1), goal);
 });
 
-test('hordas 10 → 20 → 30 → 40 nascem na borda, em pontos distintos, longe do jogador e uma por vez', () => {
+test('hordas 13 → 26 → 30 → 40 nascem na borda, em pontos distintos, longe do jogador e uma por vez', () => {
     const terrain = createPhase01Terrain(), sim = new CombatSimulation(terrain, HORDE_ENCOUNTER, encounterLayout(true));
-    const player = { x: data.exit.x, z: data.exit.z }, b = terrain.bounds, waves = COMBAT.hordes.waves;
-    assert.deepEqual([...waves], [10, 20, 30, 40]);
-    assert.equal(sim.total, 100); assert.equal(sim.robots.length, 40); assert.equal(sim.drops.length, 100);
+    const player = { x: data.exit.x, z: data.exit.z }, b = terrain.bounds, waves = HORDE_TOTALS;
+    assert.deepEqual([...waves], [13, 26, 30, 40]);
+    assert.equal(sim.total, 109); assert.equal(sim.robots.length, 40); assert.equal(sim.drops.length, 109);
     assert.ok(sim.robots.every(r => !r.spawned && r.hp === 0), 'nenhum robô antes da primeira horda');
     assert.deepEqual([sim.snapshot.wave, sim.snapshot.waves, sim.snapshot.nextWave, sim.snapshot.cleared], [0, 4, COMBAT.hordes.firstDelay, false]);
     step(sim, player, 2, true);
@@ -103,7 +103,7 @@ test('hordas 10 → 20 → 30 → 40 nascem na borda, em pontos distintos, longe
         const sides = new Set(alive.map(r => { const d = [r.z - b.minZ, b.maxZ - r.z, r.x - b.minX, b.maxX - r.x]; return d.indexOf(Math.min(...d)); }));
         assert.equal(sides.size, 4, 'chegam pelos quatro lados');
         assert.ok(sim.hearts.every(h => h.active), 'corações repostos');
-        assert.ok(sim.ammo + sim.reserve >= alive.reduce((hits,r)=>hits+Math.ceil(robotConfig(r).hp/COMBAT.rifle.damage),0) * COMBAT.hordes.ammoMargin, 'reabastecimento proporcional à vida dos dois portes');
+        assert.ok(sim.ammo + sim.reserve >= alive.reduce((hits,r)=>hits+Math.ceil(robotConfig(r).hp/COMBAT.rifle.damage),0) * COMBAT.hordes.ammoMargin, 'reabastecimento proporcional à vida de cada tipo');
         previous = points;
         step(sim, player, 3);
         assert.equal(sim.wave, w, 'próxima horda espera a atual');
@@ -131,10 +131,10 @@ test('horda marcha da borda até o jogador e acelera ao avistá-lo', () => {
 test('seletor aceita hordas como padrão e mantém as patrulhas de teste', () => {
     const store = useCombatStore;
     assert.equal(store.getState().encounter, HORDE_ENCOUNTER);
-    assert.equal(encounterTotal(HORDE_ENCOUNTER), 100);
+    assert.equal(encounterTotal(HORDE_ENCOUNTER), 109);
     store.getState().selectEncounter(32); assert.equal(store.getState().encounter, 32);
     store.getState().selectEncounter(7); assert.equal(store.getState().encounter, 32, 'valor fora da lista é ignorado');
     store.getState().restart(); assert.equal(store.getState().total, 32);
     store.getState().selectEncounter(HORDE_ENCOUNTER); store.getState().restart();
-    assert.equal(store.getState().total, 100); assert.equal(store.getState().wave, 0);
+    assert.equal(store.getState().total, 109); assert.equal(store.getState().wave, 0);
 });

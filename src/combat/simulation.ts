@@ -1,10 +1,13 @@
+import { writeMutantPackTarget } from './mutantPack';
 import { placeResourceDrop } from './resourcePlacement';
-import { COMBAT, LARGE_PATROL, robotConfig, waveRobotKind, type RobotKind, HIT_LAYER, HORDE_ENCOUNTER, RIFLE_MASK, RIFLE_POSE, writeRifleMuzzle, encounterLayout, type EncounterChoice, type EncounterLayout } from './config';
+import { COMBAT, LARGE_PATROL, SMALL_MUTANT, HORDE_TOTALS, robotConfig, waveRobotKind, type RobotKind, HIT_LAYER, HORDE_ENCOUNTER, RIFLE_MASK, RIFLE_POSE, writeRifleMuzzle, encounterLayout, type EncounterChoice, type EncounterLayout } from './config';
 import { Navigation, clearSegment, segmentBox, smoothPath, traversable, type Position, type Terrain } from './navigation';
 import { advanceCrate, openCrate, SUPPLY_CRATE, type CratePlacement, type CrateState } from '../game/props/supplyCrate';
 export interface SupplyCrate extends CrateState, CratePlacement { marker: Position; rewarded: boolean }
 export interface Robot extends Position {
     kind: RobotKind;
+    packAngle: number;
+    packReady: boolean;
     id: number;
     hp: number;
     angle: number;
@@ -28,7 +31,7 @@ export interface Robot extends Position {
     stuck: number;
 }
 function createRobot(id: number, x: number, z: number, routeIndex: number, waypoint: number, angle: number, spawned: boolean): Robot {
-    return { kind: 'patrol', x, z, routeIndex, waypoint, id, hp: spawned ? COMBAT.robot.hp : 0, angle, path: [], repath: 0, flash: 0, alerted: false, alertLeft: 0, spawned, generation: spawned ? 1 : 0, pace: COMBAT.robot.speed, drop: id, stuck: 0 };
+    return { kind: 'patrol', packAngle: 0, packReady: false, x, z, routeIndex, waypoint, id, hp: spawned ? COMBAT.robot.hp : 0, angle, path: [], repath: 0, flash: 0, alerted: false, alertLeft: 0, spawned, generation: spawned ? 1 : 0, pace: COMBAT.robot.speed, drop: id, stuck: 0 };
 }
 /**
  * Pontos de nascimento das hordas: o perímetro do mapa recuado `edgeInset`, a cada
@@ -56,7 +59,7 @@ export function hordeEdgeSpawns(terrain: Terrain, navigation: Navigation, arriva
     }
     return result;
 }
-export interface ResourceDrop extends Pickup { kind: 'metals' | 'titanium'; spawned: boolean; surfaceIron: number; surfaceCopper: number; surfaceTitanium: number }
+export interface ResourceDrop extends Pickup { kind: 'metals' | 'titanium' | 'organic'; spawned: boolean; surfaceIron: number; surfaceCopper: number; surfaceTitanium: number; surfaceOrganic: number }
 export interface Pickup extends Position {
     active: boolean;
 }
@@ -132,12 +135,15 @@ export class CombatSimulation {
     private shotCursor = 0;
     robots: Robot[];
     navigation: Navigation;
+    mutantNavigation: Navigation | null = null;
+    mutantEdgeSpawns: Position[] = [];
     largeNavigation: Navigation | null = null;
     largeEdgeSpawns: Position[] = [];
     kills = 0;
     iron = 0;
     copper = 0;
     titanium = 0;
+    organic = 0;
     drops: ResourceDrop[];
     hearts: Pickup[];
     elapsed = 0;
@@ -157,11 +163,13 @@ export class CombatSimulation {
         this.hearts = layout.hearts.map(p => ({ x: p.x, z: p.z, active: true }));
         if (encounter === HORDE_ENCOUNTER) {
             // Slots reutilizados entre hordas (tamanho da maior); peças têm um slot por robô da rodada.
-            this.waves = COMBAT.hordes.waves;
+            this.waves = HORDE_TOTALS;
             this.edgeSpawns = hordeEdgeSpawns(terrain, this.navigation, layout.arrival);
             this.largeNavigation = new Navigation(terrain, LARGE_PATROL.radius, COMBAT.grid);
             this.largeEdgeSpawns = hordeEdgeSpawns(terrain, this.largeNavigation, layout.arrival, LARGE_PATROL.radius, LARGE_PATROL.contactRange);
-            if (!this.edgeSpawns.length || !this.largeEdgeSpawns.length) throw new Error('Mapa sem ponto livre e alcançável para as hordas.');
+            this.mutantNavigation = new Navigation(terrain, SMALL_MUTANT.radius, COMBAT.grid);
+            this.mutantEdgeSpawns = hordeEdgeSpawns(terrain, this.mutantNavigation, layout.arrival, SMALL_MUTANT.radius, SMALL_MUTANT.contactRange);
+            if (!this.edgeSpawns.length || !this.largeEdgeSpawns.length || !this.mutantEdgeSpawns.length) throw new Error('Mapa sem ponto livre e alcançável para as hordas.');
             this.robots = Array.from({ length: Math.max(...this.waves) }, (_, id) => createRobot(id, 0, 0, -1, 0, 0, false));
             this.total = this.waves.reduce((a, b) => a + b, 0);
             this.waveLeft = COMBAT.hordes.firstDelay;
@@ -175,7 +183,7 @@ export class CombatSimulation {
             });
             this.total = this.robots.length;
         }
-        this.drops = Array.from({ length: this.total }, () => ({ x: 0, z: 0, active: false, kind: 'metals', spawned: false, surfaceIron: 0, surfaceCopper: 0, surfaceTitanium: 0 }));
+        this.drops = Array.from({ length: this.total }, () => ({ x: 0, z: 0, active: false, kind: 'metals', spawned: false, surfaceIron: 0, surfaceCopper: 0, surfaceTitanium: 0, surfaceOrganic: 0 }));
     }
     get dead() { return this.hp <= 0; }
     get alive() {
@@ -184,7 +192,7 @@ export class CombatSimulation {
         return n;
     }
     get cleared() { return this.wave >= this.waves.length && this.waveLeft === 0 && this.alive === 0; }
-    get snapshot() { return { hp: this.hp, iron: this.iron, copper: this.copper, titanium: this.titanium, ammo: this.ammo, reserve: this.reserve, reloading: this.reloadLeft > 0, dead: this.dead, kills: this.kills, total: this.total, cleared: this.cleared, damage: this.damageFlash > 0, hit: this.hitFlash > 0, wave: this.wave, waves: this.waves.length, nextWave: Math.ceil(this.waveLeft), alive: this.alive }; }
+    get snapshot() { return { hp: this.hp, iron: this.iron, copper: this.copper, titanium: this.titanium, organic: this.organic, ammo: this.ammo, reserve: this.reserve, reloading: this.reloadLeft > 0, dead: this.dead, kills: this.kills, total: this.total, cleared: this.cleared, damage: this.damageFlash > 0, hit: this.hitFlash > 0, wave: this.wave, waves: this.waves.length, nextWave: Math.ceil(this.waveLeft), alive: this.alive }; }
     /**
      * Próxima horda: `count` pontos da borda, um por setor igual do perímetro, com o
      * início girando a cada horda (pontos diferentes). Em cada setor, o primeiro ponto
@@ -192,10 +200,10 @@ export class CombatSimulation {
      */
     private startWave(player: Position) {
         const waveIndex = this.wave++, count = this.waves[waveIndex];
-        let requiredHits = 0;
+        let requiredHits = 0, mutantSlot = 0;
         for (let i = 0; i < count; i++) {
-            const kind = waveRobotKind(waveIndex, i), R = kind === 'largePatrol' ? LARGE_PATROL : COMBAT.robot;
-            const spawns = kind === 'largePatrol' ? this.largeEdgeSpawns : this.edgeSpawns;
+            const kind = waveRobotKind(waveIndex, i), R = kind === 'smallMutant' ? SMALL_MUTANT : kind === 'largePatrol' ? LARGE_PATROL : COMBAT.robot;
+            const spawns = kind === 'smallMutant' ? this.mutantEdgeSpawns : kind === 'largePatrol' ? this.largeEdgeSpawns : this.edgeSpawns;
             const m = spawns.length, sector = m / count, offset = ((this.wave * 0.618034) % 1) * m;
             const from = Math.floor(offset + i * sector), to = Math.max(from + 1, Math.floor(offset + (i + 1) * sector));
             let pick = from % m, best = -1;
@@ -205,10 +213,12 @@ export class CombatSimulation {
                 if (distance > best) { best = distance; pick = j % m; }
             }
             const r = this.robots[i], p = spawns[pick];
+            r.packReady = false;
+            r.packAngle = kind === 'smallMutant' ? mutantSlot++ * Math.PI * 2 / COMBAT.hordes.smallMutants[waveIndex] + this.wave * 2.399963 : 0;
             r.kind = kind; r.x = p.x; r.z = p.z; r.hp = R.hp;
             requiredHits += Math.ceil(R.hp / COMBAT.rifle.damage); r.spawned = true; r.generation++;
             r.alerted = false; r.alertLeft = 0; r.flash = 0; r.stuck = 0; r.pace = R.speed;
-            r.routeIndex = -1; r.waypoint = 0; r.path = []; r.drop = this.dropCursor++;
+            r.routeIndex = -1; r.waypoint = 0; r.path.length = 0; r.drop = this.dropCursor++;
             // Caminhos em quadros alternados: 40 robôs não calculam rota no mesmo passo.
             r.repath = (i % 10) * COMBAT.fixedStep;
             r.angle = Math.atan2(player.x - p.x, player.z - p.z);
@@ -234,6 +244,7 @@ export class CombatSimulation {
             && clearSegment(player, pickup, this.terrain, 0);
     }
     private nextPosition: Position = { x: 0, z: 0 };
+    private packTarget: Position = { x: 0, z: 0 };
     step(dt: number, input: CombatInput, paused = false) {
         if (paused || this.dead)
             return;
@@ -306,7 +317,7 @@ export class CombatSimulation {
                 if (hit.robot.hp === 0) {
                     this.kills++;
                     const drop = this.drops[hit.robot.drop];
-                    placeResourceDrop(drop, hit.robot.x, hit.robot.z, hit.robot.kind === 'largePatrol' ? 'titanium' : 'metals', this.terrain.surfaceHeight);
+                    placeResourceDrop(drop, hit.robot.x, hit.robot.z, hit.robot.kind === 'smallMutant' ? 'organic' : hit.robot.kind === 'largePatrol' ? 'titanium' : 'metals', this.terrain.surfaceHeight);
                 }
             }
         }
@@ -333,7 +344,8 @@ export class CombatSimulation {
         for (const drop of this.drops) {
             if (drop.active && this.canCollect(input.player, drop)) {
                 drop.active = false;
-                if (drop.kind === 'titanium') this.titanium++;
+                if (drop.kind === 'organic') this.organic++;
+                else if (drop.kind === 'titanium') this.titanium++;
                 else { this.iron++; this.copper++; }
             }
         }
@@ -361,12 +373,13 @@ export class CombatSimulation {
      * quando a linha está livre e caminhos da grade suavizados.
      */
     private moveRobot(robot: Robot, player: Position, distance: number, dt: number) {
-        const R = robotConfig(robot), navigation = robot.kind === 'largePatrol' ? this.largeNavigation! : this.navigation;
+        const R = robotConfig(robot), navigation = robot.kind === 'smallMutant' ? this.mutantNavigation! : robot.kind === 'largePatrol' ? this.largeNavigation! : this.navigation;
         robot.pace += ((robot.alerted ? R.chaseSpeed : R.speed) - robot.pace) * Math.min(1, R.paceRate * dt);
         const hunting = robot.alerted || robot.routeIndex < 0;
+        const chaseGoal = robot.kind === 'smallMutant' && writeMutantPackTarget(this.packTarget, robot, player, distance, this.terrain) ? this.packTarget : player;
         let tx: number, tz: number;
-        if (hunting && distance <= R.directChase && clearSegment(robot, player, this.terrain, R.radius)) {
-            tx = player.x; tz = player.z;
+        if (hunting && distance <= R.directChase && clearSegment(robot, chaseGoal, this.terrain, R.radius)) {
+            tx = chaseGoal.x; tz = chaseGoal.z;
             robot.repath = 0;
         }
         else {
@@ -382,7 +395,7 @@ export class CombatSimulation {
             }
             robot.repath -= dt;
             if (robot.repath <= 0) {
-                const goal = hunting ? player : this.layout.routes[robot.routeIndex][robot.waypoint];
+                const goal = hunting ? chaseGoal : this.layout.routes[robot.routeIndex][robot.waypoint];
                 robot.path = smoothPath(robot, navigation.path(robot, goal), this.terrain, R.radius);
                 robot.repath = R.repath;
             }
@@ -458,7 +471,7 @@ export class CombatSimulation {
                 continue;
             const after = Math.hypot(other.x - next.x, other.z - next.z);
             const otherR = robotConfig(other);
-            const spacing = robot.kind === 'largePatrol' || other.kind === 'largePatrol' ? Math.max(R.radius + otherR.radius, (R.spacing + otherR.spacing) / 2) : R.spacing;
+            const spacing = robot.kind !== other.kind || robot.kind === 'largePatrol' ? Math.max(R.radius + otherR.radius, (R.spacing + otherR.spacing) / 2) : R.spacing;
             if (after < spacing && after < Math.hypot(other.x - robot.x, other.z - robot.z) - 1e-6)
                 return false;
         }
@@ -470,7 +483,7 @@ export class CombatSimulation {
 function turnToward(robot: Robot, x: number, z: number, dt: number) {
     if (x * x + z * z < 1e-12) return;
     const delta = Math.atan2(Math.sin(Math.atan2(x, z) - robot.angle), Math.cos(Math.atan2(x, z) - robot.angle));
-    const max = COMBAT.robot.turnRate * dt;
+    const max = robotConfig(robot).turnRate * dt;
     robot.angle += Math.max(-max, Math.min(max, delta));
     if (robot.angle > Math.PI) robot.angle -= 2 * Math.PI;
     else if (robot.angle < -Math.PI) robot.angle += 2 * Math.PI;
@@ -491,8 +504,9 @@ function alertRobot(robot: Robot) {
  */
 export function canSeePlayer(robot: Robot, player: Position, terrain: Terrain) {
     const dx = player.x - robot.x, dz = player.z - robot.z, distance = Math.hypot(dx, dz);
-    if (distance > COMBAT.robot.visionRange) return false;
+    const R = robotConfig(robot);
+    if (distance > R.visionRange) return false;
     const cos = distance > 0 ? (dx * Math.sin(robot.angle) + dz * Math.cos(robot.angle)) / distance : 1;
-    if (cos < (distance <= COMBAT.robot.nearSense ? COMBAT.robot.nearSenseCos : COMBAT.robot.visionCos)) return false;
+    if (cos < (distance <= R.nearSense ? R.nearSenseCos : R.visionCos)) return false;
     return clearSegment(robot, player, terrain, 0);
 }

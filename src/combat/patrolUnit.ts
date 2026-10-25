@@ -36,6 +36,8 @@ export const PATROL_UNIT = {
 /** Grande: 3,20 m de altura / 3,28 m de largura, cabe nas vielas de pelo menos 3,48 m. */
 export const LARGE_PATROL_VISUAL = { height: 3.2, scale: 3.2 / 2.08507967 } as const;
 
+export const SMALL_MUTANT_VISUAL = { height: .96201372, scale: 1, walkReferenceSpeed: 2.2, chaseReferenceSpeed: 4.6 } as const;
+
 export interface PatrolUnitInput {
     alive: boolean;
     speed: number;              // m/s medidos entre quadros
@@ -75,9 +77,9 @@ export class PatrolUnitRig {
     private speed = 0;          // suavizada: a simulação anda em passos fixos, 0–2 por quadro
 
     private readonly stateInput: PatrolUnitInput = { alive: true, speed: 0, attacking: false, chasing: false };
-    constructor(source: Object3D, clips: AnimationClip[], private readonly large = false) {
+    constructor(source: Object3D, clips: AnimationClip[], private readonly variant: boolean | 'smallMutant' = false) {
         this.root = clone(source);
-        this.root.scale.setScalar(large ? LARGE_PATROL_VISUAL.scale : PATROL_UNIT.scale);
+        this.root.scale.setScalar(variant === 'smallMutant' ? SMALL_MUTANT_VISUAL.scale : variant ? LARGE_PATROL_VISUAL.scale : PATROL_UNIT.scale);
         this.root.traverse(object => {
             const mesh = object as SkinnedMesh;
             if (!mesh.isMesh) return;
@@ -90,7 +92,7 @@ export class PatrolUnitRig {
         });
         this.mixer = new AnimationMixer(this.root);
         const names: PatrolUnitClip[] = ['Idle', 'PatrolWalk', 'AggressiveLunge', 'DamagedDeath'];
-        if (large) names.push('ChaseRun');
+        if (variant) names.push('ChaseRun');
         for (const name of names) {
             const clip = clips.find(c => c.name === name);
             if (!clip) throw new Error(`Patrol Unit sem o clipe ${name}`);
@@ -112,7 +114,7 @@ export class PatrolUnitRig {
         }
         const speed = this.speed;
         const attacking = alive && robot.alerted && Math.hypot(robot.x - playerX, robot.z - playerZ) <= contactRange;
-        this.stateInput.alive = alive; this.stateInput.speed = speed; this.stateInput.attacking = attacking; this.stateInput.chasing = this.large && robot.alerted;
+        this.stateInput.alive = alive; this.stateInput.speed = speed; this.stateInput.attacking = attacking; this.stateInput.chasing = !!this.variant && robot.alerted;
         const next = nextPatrolUnitClip(this.clip, this.stateInput);
         if (next !== this.clip) {
             const from = this.actions.get(this.clip)!, to = this.actions.get(next)!;
@@ -120,8 +122,8 @@ export class PatrolUnitRig {
             from.crossFadeTo(to, PATROL_UNIT.fade, false);
             this.clip = next;
         }
-        if (next === 'PatrolWalk') this.actions.get(next)!.timeScale = walkTimeScale(speed, this.large ? 1.25 : PATROL_UNIT.walkReferenceSpeed);
-        if (next === 'ChaseRun') this.actions.get(next)!.timeScale = walkTimeScale(speed, 1.55);
+        if (next === 'PatrolWalk') this.actions.get(next)!.timeScale = walkTimeScale(speed, this.variant === 'smallMutant' ? SMALL_MUTANT_VISUAL.walkReferenceSpeed : this.variant ? 1.25 : PATROL_UNIT.walkReferenceSpeed);
+        if (next === 'ChaseRun') this.actions.get(next)!.timeScale = walkTimeScale(speed, this.variant === 'smallMutant' ? SMALL_MUTANT_VISUAL.chaseReferenceSpeed : 1.55);
         this.deadFor = alive ? 0 : this.deadFor + dt;
         this.visible = alive || this.deadFor < PATROL_UNIT.deathVisible;
         for (let i = 0; i < this.materials.length; i++) {

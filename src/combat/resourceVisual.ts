@@ -1,10 +1,10 @@
 /** Apenas apresentação: não muda coleta, contador, colisão ou save. */
-export type ResourceKind = 'titanium' | 'copper' | 'iron';
-export const RESOURCE_KINDS: readonly ResourceKind[] = ['titanium', 'copper', 'iron'];
+export type ResourceKind = 'titanium' | 'copper' | 'iron' | 'organic';
+export const RESOURCE_KINDS: readonly ResourceKind[] = ['titanium', 'copper', 'iron', 'organic'];
 export const RESOURCE_VISUAL = {
     height: .35, floatAmplitude: .06, floatPeriod: 1.6,
     metalOffset: .42, ringY: .006, ringRadius: .6, ringAmplitude: .12, ringPeriod: 1.2,
-    colors: { titanium: '#ffd35a', copper: '#ff8b32', iron: '#dce5ed' },
+    colors: { titanium: '#ffd35a', copper: '#ff8b32', iron: '#dce5ed', organic: '#76f57b' },
     // Primeira metade do TEMPO VISUAL a 1×; rampa quadrática nos próximos 30%; final a 3×.
     collect: { normalFraction: .5, rampFraction: .3, endSpeed: 3 },
 } as const;

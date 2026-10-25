@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import {createHash} from 'node:crypto';
 import {AnimationClip,Group,Mesh,BoxGeometry,MeshStandardMaterial} from 'three';
 import {loadSource} from './load-source.mjs';
-const {COMBAT,LARGE_PATROL,robotConfig,waveRobotKind,encounterLayout}=loadSource('src/combat/config.ts');
+const {COMBAT,HORDE_TOTALS,LARGE_PATROL,robotConfig,waveRobotKind,encounterLayout}=loadSource('src/combat/config.ts');
 const {CombatSimulation,hordeEdgeSpawns,traceShot}=loadSource('src/combat/simulation.ts');
 const {Navigation,clearSegment,traversable}=loadSource('src/combat/navigation.ts');
 const {createPhase01Terrain,SHANGHAI_PHASE01:d}=loadSource('src/game/shanghai/layout.ts');
@@ -27,19 +27,19 @@ test('Recursos/Patrol grande: GLBs do autor preservados, rigs e clipes esperados
  }
 });
 
-test('Hordas: 10/20 comuns, depois 25+5 e 30+10, com 100 inimigos totais',()=>{
+test('Hordas: robôs preservados, animais adicionais 3/6, com 109 ameaças totais',()=>{
  assert.deepEqual([...COMBAT.hordes.waves],[10,20,30,40]);
- for(let w=0;w<4;w++)assert.equal(Array.from({length:COMBAT.hordes.waves[w]},(_,i)=>waveRobotKind(w,i)).filter(k=>k==='largePatrol').length,[0,0,5,10][w]);
+ for(let w=0;w<4;w++)assert.equal(Array.from({length:HORDE_TOTALS[w]},(_,i)=>waveRobotKind(w,i)).filter(k=>k==='largePatrol').length,[0,0,5,10][w]);
  const sim=new CombatSimulation(createPhase01Terrain(),'hordas',encounterLayout(true));
  const usedDrops=new Set();
  for(let w=1;w<=4;w++){
   for(let guard=0;sim.wave<w;guard++){assert.ok(guard<650);sim.hp=100;sim.step(1/60,input);}
-  const live=sim.robots.filter(r=>r.hp>0);assert.equal(live.length,COMBAT.hordes.waves[w-1]);assert.equal(live.filter(r=>r.kind==='largePatrol').length,[0,0,5,10][w-1]);
-  for(const r of live){assert.equal(r.hp,robotConfig(r).hp);assert.ok(!usedDrops.has(r.drop));usedDrops.add(r.drop);assertRoute(r.kind==='largePatrol'?sim.largeNavigation:sim.navigation,r,d.exit,robotConfig(r).contactRange);}
+  const live=sim.robots.filter(r=>r.hp>0);assert.equal(live.length,HORDE_TOTALS[w-1]);assert.equal(live.filter(r=>r.kind==='largePatrol').length,[0,0,5,10][w-1]);
+  for(const r of live){assert.equal(r.hp,robotConfig(r).hp);assert.ok(!usedDrops.has(r.drop));usedDrops.add(r.drop);assertRoute(r.kind==='smallMutant'?sim.mutantNavigation:r.kind==='largePatrol'?sim.largeNavigation:sim.navigation,r,d.exit,robotConfig(r).contactRange);}
   const need=Math.ceil(live.reduce((s,r)=>s+Math.ceil(robotConfig(r).hp/COMBAT.rifle.damage),0)*COMBAT.hordes.ammoMargin);assert.ok(sim.ammo+sim.reserve>=need);
   live.forEach(r=>{r.hp=0});
  }
- assert.equal(usedDrops.size,100);assert.equal(sim.total,100);assert.equal(sim.drops.length,100);
+ assert.equal(usedDrops.size,109);assert.equal(sim.total,109);assert.equal(sim.drops.length,109);
 });
 
 test('Patrol grande: perímetro recuado respeita raio, todos os segmentos e alcance de contato ARES-I',()=>{
