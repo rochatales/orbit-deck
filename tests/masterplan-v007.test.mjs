@@ -38,6 +38,11 @@ test('v007: GLB/manifesto concordam em IDs, apoios, posições e estado; erros s
 test('v007: só telhado e apoios ocultam dentro; paredes continuam visíveis em qualquer câmera',async()=>{
  const s=await scene(),originalMaterials=[];s.traverse(n=>{if(n.isMesh)originalMaterials.push([n.material,n.material.opacity]);});
  const copy=s.clone(true),runtime=new MasterplanRuntime(copy,manifest),{nodes}=validateMasterplan(copy,manifest);
+ const roofMaterial=nodes.get('TET_central-hub').material;
+ const beforeFadeVersion=roofMaterial.version;
+ runtime.update({x:0,z:.8},1/60);
+ assert.equal(roofMaterial.transparent,true);
+ assert.ok(roofMaterial.version>beforeFadeVersion,'troca de transparência invalida o shader opaco');
  for(let i=0;i<150;i++)runtime.update({x:0,z:.8},1/60);
  assert.equal(nodes.get('TET_central-hub').visible,false);assert.equal(nodes.get('Cupula_central-hub').visible,false);
  assert.equal(nodes.get('TET_brand-brain').visible,true);
@@ -94,4 +99,21 @@ test('v007: zero faces coplanares sobrepostas na arquitetura e junção com ARES
  execFileSync(process.execPath,['scripts/validate-masterplan-surfaces.mjs']);
  const report=JSON.parse(fs.readFileSync('art-source/mars-masterplan-v007/notas/coplanaridade.json'));
  assert.equal(report.partPairs,0);assert.equal(report.trianglePairs,0);
+});
+
+// Exercise the full usable doorway, not merely one narrow route found by flood-fill.
+test('v007: soleiras da estufa têm piso externo em toda a largura e entrada da Oficina livre',()=>{
+ const world=createWorld(),radius=.36;
+ for(const side of ['west','east']){
+  const door=manifest.doors.find(d=>d.id==='D_orbit-garden_'+side);
+  const outsideX=door.x+(side==='west'?-1:1)*.6;
+  for(let z=door.z-door.width/2+radius;z<=door.z+door.width/2-radius;z+=.05){
+   for(const dx of [-radius,0,radius])for(const dz of [-radius,0,radius])
+    assert.ok(world.walkableAreas.some(b=>outsideX+dx>=b.minX&&outsideX+dx<=b.maxX&&z+dz>=b.minZ&&z+dz<=b.maxZ),side+' piso na soleira');
+   assert.ok(!world.obstacles.some(b=>circleIntersectsRect(outsideX,z,radius,b)),side+' acesso livre');
+  }
+ }
+ const door=manifest.doors.find(d=>d.id==='D_output-review_west');
+ for(let x=door.x;x<=door.x+1.5;x+=.05)for(let z=door.z-.7;z<=door.z+.7;z+=.05)
+  assert.ok(!world.obstacles.some(b=>circleIntersectsRect(x,z,radius,b)),'Oficina faixa de entrada livre');
 });

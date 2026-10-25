@@ -95,6 +95,10 @@ for o in list(bpy.context.scene.objects):
     # Affine plan transform applied consistently to props and their simple collision rectangles.
     transform=Matrix.Translation((nx,-nz,0))@Matrix.Diagonal((nw/ow,nd/od,1,1))@Matrix.Translation((-ox,oz,0))
     o.matrix_world=transform@o.matrix_world
+    # Move the complete inherited workshop furniture assembly away from its new west entrance.
+    if name=='PROP_Deposito_Mobiliario':o.location.y-=.55
+    if name=='PROP_Nodo_Tecnico.08':o.location.y+=.4
+    if name=='PROP_Vaso_Protegido.10':o.location.x+=2;o.location.y+=3
     tag(o,name,'furniture',room['id']);reused.append((o,p))
 # Retain interior obstacles, discard the old architecture/perimeter collision set.
 for i,rect in enumerate(SOURCE['colliders']):
@@ -103,7 +107,7 @@ for i,rect in enumerate(SOURCE['colliders']):
         ox,oz,ow,od=r['source']
         if x0>ox-ow/2+.15 and x1<ox+ow/2-.15 and z0>oz-od/2+.15 and z1<oz+od/2-.15:
             nx,nz=r['position'].values();nw,nd=r['size'].values()
-            collider('interior-'+str(i),nx+((x0+x1)/2-ox)*nw/ow,nz+((z0+z1)/2-oz)*nd/od,(x1-x0)*nw/ow,(z1-z0)*nd/od);break
+            collider('interior-'+str(i),nx+((x0+x1)/2-ox)*nw/ow+(2 if i==97 else 0),nz+((z0+z1)/2-oz)*nd/od+(.55 if i in [51,52,53] else -.4 if i==118 else -3 if i==97 else 0),(x1-x0)*nw/ow,(z1-z0)*nd/od);break
 
 # Room walls: exact nominal outer faces, segmented around 2.2m doors; no mesh physics.
 def walls(room,greenhouse=False):

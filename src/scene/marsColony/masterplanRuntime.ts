@@ -1,4 +1,4 @@
-import { Mesh, Quaternion, Vector3, type Material, type Object3D } from 'three';
+import { type Mesh, Quaternion, Vector3, type Material, type Object3D } from 'three';
 import type { RectBounds } from '../../utils/math';
 
 export interface MasterplanPart {
@@ -80,7 +80,8 @@ export class MasterplanRuntime {
             const visual: VisualPart = { node, materials: [], roofs: roofAncestors(part.id), initialVisible: part.estado_inicial !== 'oculto' };
             node.visible = visual.initialVisible;
             node.traverse(object => {
-                if (!(object instanceof Mesh)) return;
+                const mesh = object as Mesh;
+                if (!mesh.isMesh) return;
                 object.castShadow = true; object.receiveShadow = true;
                 // Materiais privados só para quem muda de opacidade; o cache do GLB fica intacto.
                 if (!visual.roofs.length) return;
@@ -89,7 +90,7 @@ export class MasterplanRuntime {
                     visual.materials.push({ own, opacity: own.opacity, transparent: own.transparent, depthWrite: own.depthWrite });
                     return own;
                 };
-                object.material = Array.isArray(object.material) ? object.material.map(clone) : clone(object.material);
+                mesh.material = Array.isArray(mesh.material) ? mesh.material.map(clone) : clone(mesh.material);
             });
             this.visuals.push(visual);
             if (part.papel === 'door') {
@@ -120,7 +121,11 @@ export class MasterplanRuntime {
             visual.node.visible = visual.initialVisible && opacity > .01;
             for (const material of visual.materials) {
                 material.own.opacity = material.opacity * opacity;
-                material.own.transparent = material.transparent || opacity < .995;
+                const transparent = material.transparent || opacity < .995;
+                if (material.own.transparent !== transparent) {
+                    material.own.transparent = transparent;
+                    material.own.needsUpdate = true;
+                }
                 material.own.depthWrite = material.depthWrite && opacity > .995;
             }
         }

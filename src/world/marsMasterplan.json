@@ -419,7 +419,7 @@
       "id": "greenhouse-connector",
       "position": {
         "x": 9.75,
-        "z": 22.5
+        "z": 21.125
       },
       "size": {
         "width": 1.5,
@@ -445,11 +445,11 @@
       "id": "east-greenhouse-path",
       "position": {
         "x": 19,
-        "z": 21.5
+        "z": 22.5
       },
       "size": {
         "width": 3,
-        "depth": 4
+        "depth": 6
       },
       "kind": "path",
       "axis": "z"
