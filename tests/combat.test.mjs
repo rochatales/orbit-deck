@@ -106,7 +106,7 @@ test('abate gera um conjunto de metais na posição da morte e coleta uma única
  const sim=new CombatSimulation(terrain,1),r=sim.robots[0];
  Object.assign(r,{x:0,z:0,hp:25});
  sim.step(1/60,{...input,aim:{x:0,z:0},firing:true});
- assert.equal(sim.kills,1);assert.deepEqual(sim.drops[0],{x:0,z:0,active:true,kind:'metals',spawned:true});
+ assert.equal(sim.kills,1);assert.deepEqual(sim.drops[0],{x:0,z:0,active:true,kind:'metals',spawned:true,surfaceIron:0,surfaceCopper:0,surfaceTitanium:0});
  assert.equal(sim.iron,0);assert.equal(sim.copper,0);
  ticks(sim,1,{...input,aim:{x:0,z:0},firing:true});assert.equal(sim.kills,1);
  sim.step(1/60,{...input,player:{x:0,z:0}});

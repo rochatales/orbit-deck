@@ -1,3 +1,4 @@
+import { placeResourceDrop } from './resourcePlacement';
 import { COMBAT, LARGE_PATROL, robotConfig, waveRobotKind, type RobotKind, HIT_LAYER, HORDE_ENCOUNTER, RIFLE_MASK, RIFLE_POSE, writeRifleMuzzle, encounterLayout, type EncounterChoice, type EncounterLayout } from './config';
 import { Navigation, clearSegment, segmentBox, smoothPath, traversable, type Position, type Terrain } from './navigation';
 import { advanceCrate, openCrate, SUPPLY_CRATE, type CratePlacement, type CrateState } from '../game/props/supplyCrate';
@@ -55,7 +56,7 @@ export function hordeEdgeSpawns(terrain: Terrain, navigation: Navigation, arriva
     }
     return result;
 }
-export interface ResourceDrop extends Pickup { kind: 'metals' | 'titanium'; spawned: boolean }
+export interface ResourceDrop extends Pickup { kind: 'metals' | 'titanium'; spawned: boolean; surfaceIron: number; surfaceCopper: number; surfaceTitanium: number }
 export interface Pickup extends Position {
     active: boolean;
 }
@@ -174,7 +175,7 @@ export class CombatSimulation {
             });
             this.total = this.robots.length;
         }
-        this.drops = Array.from({ length: this.total }, () => ({ x: 0, z: 0, active: false, kind: 'metals', spawned: false }));
+        this.drops = Array.from({ length: this.total }, () => ({ x: 0, z: 0, active: false, kind: 'metals', spawned: false, surfaceIron: 0, surfaceCopper: 0, surfaceTitanium: 0 }));
     }
     get dead() { return this.hp <= 0; }
     get alive() {
@@ -305,11 +306,7 @@ export class CombatSimulation {
                 if (hit.robot.hp === 0) {
                     this.kills++;
                     const drop = this.drops[hit.robot.drop];
-                    drop.x = hit.robot.x;
-                    drop.z = hit.robot.z;
-                    drop.spawned = true;
-                    drop.kind = hit.robot.kind === 'largePatrol' ? 'titanium' : 'metals';
-                    drop.active = true;
+                    placeResourceDrop(drop, hit.robot.x, hit.robot.z, hit.robot.kind === 'largePatrol' ? 'titanium' : 'metals', this.terrain.surfaceHeight);
                 }
             }
         }

@@ -45,6 +45,7 @@ import {
 } from "./mapConfig";
 
 export interface OfficeWorld {
+  surfaceHeight?: (x: number, z: number) => number;
   group: Group;
   bounds: RectBounds;
   obstacles: RectBounds[];

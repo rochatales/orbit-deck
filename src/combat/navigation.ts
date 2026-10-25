@@ -4,6 +4,8 @@ export interface Position {
     z: number;
 }
 export interface Terrain {
+    /** Altura visual de apoio, consultada só ao nascer um drop. Movimento/visão continuam 2D. */
+    surfaceHeight?: (x: number, z: number) => number;
     bounds: RectBounds;
     obstacles: RectBounds[];
     walkableAreas: RectBounds[];

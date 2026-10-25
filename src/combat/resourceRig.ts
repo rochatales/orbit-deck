@@ -58,10 +58,10 @@ export class ResourceRig {
         });
     }
 
-    update(active: boolean, dt: number, spawned = active) {
+    update(active: boolean, dt: number, spawned = active, surfaceY = 0) {
         if (dt <= 0) return;
         this.clock += dt;
-        this.root.position.y = resourceHeight(this.clock, this.phase);
+        this.root.position.y = surfaceY + resourceHeight(this.clock, this.phase);
         const newborn = spawned && !this.previousSpawned;
         if (active && (!this.previousActive || newborn)) {
             this.mixer.stopAllAction(); this.spawn.reset().play(); this.spawning = true;

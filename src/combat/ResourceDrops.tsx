@@ -56,12 +56,13 @@ export function ResourceDrops({ drops }: { drops: ResourceDrop[] }) {
             const drop = drops[i], rig = rigs[i];
             for (const kind of RESOURCE_KINDS) {
                 const matches = kind === 'titanium' ? drop.kind === 'titanium' : drop.kind === 'metals';
-                const item = rig[kind], x = drop.x + (kind === 'copper' ? .42 : kind === 'iron' ? -.42 : 0);
+                const item = rig[kind], x = drop.x + (kind === 'copper' ? RESOURCE_VISUAL.metalOffset : kind === 'iron' ? -RESOURCE_VISUAL.metalOffset : 0);
+                const surfaceY = kind === 'copper' ? drop.surfaceCopper : kind === 'iron' ? drop.surfaceIron : drop.surfaceTitanium;
                 item.root.position.x = x; item.root.position.z = drop.z;
-                item.update(drop.active && matches, dt, drop.spawned && matches);
+                item.update(drop.active && matches, dt, drop.spawned && matches, surfaceY);
                 if (drop.active && matches) {
                     const radius = resourceRingRadius(clock.current, resourcePhase(i, kind));
-                    pose.position.set(x, RESOURCE_VISUAL.ringY, drop.z); pose.scale.set(radius, radius, 1);
+                    pose.position.set(x, surfaceY + RESOURCE_VISUAL.ringY, drop.z); pose.scale.set(radius, radius, 1);
                     pose.matrix.compose(pose.position, pose.rotation, pose.scale);
                     rings.current[kind]?.setMatrixAt(counts[kind]++, pose.matrix);
                 }

@@ -1,4 +1,5 @@
 import data from '../../assets/shanghai-fase01/layout.json';
+import { phase01SurfaceHeight } from './surfaces';
 import type { OfficeWorld } from '../../world/createOfficeMap';
 import type { RectBounds } from '../../utils/math';
 import { Group } from 'three';
@@ -8,6 +9,7 @@ import { SHANGHAI_SUPPLY_CRATES, crateObstacle } from '../props/supplyCrate';
 export const SHANGHAI_PHASE01 = data;
 export function createPhase01Terrain(): OfficeWorld {
     const world: OfficeWorld = {
+        surfaceHeight: phase01SurfaceHeight,
         group: new Group(), bounds: { ...data.bounds },
         obstacles: data.obstacles.map(o => ({ minX: o.minX, maxX: o.maxX, minZ: o.minZ, maxZ: o.maxZ })),
         walkableAreas: data.walkableAreas.map(a => ({ ...a })), update: () => { }
