@@ -1,0 +1,323 @@
+{
+  "base": "1956a6e",
+  "method": "Chromium GPU, Web Audio real; horda curta assistida por reposicionamento de ameaças/tiros/contato e coleta na simulação, sem ouvir ou aceitar timbre. Movimento via teclado, suspensão e mudo pela UI.",
+  "errors": [],
+  "httpErrors": [],
+  "beforeGesture": {
+    "context": null,
+    "unlocked": false,
+    "blocked": false,
+    "buffers": 0,
+    "decodedVariations": 0,
+    "muted": false,
+    "volume": 0.7,
+    "stats": {
+      "events": {},
+      "played": {},
+      "stolen": 0,
+      "discarded": 0,
+      "decodeErrors": 0
+    }
+  },
+  "unlocked": {
+    "context": "running",
+    "unlocked": true,
+    "blocked": false,
+    "buffers": 14,
+    "decodedVariations": 39,
+    "muted": false,
+    "volume": 0.7,
+    "stats": {
+      "events": {},
+      "played": {},
+      "stolen": 0,
+      "discarded": 0,
+      "decodeErrors": 0
+    }
+  },
+  "horde": {
+    "hp": 100,
+    "iron": 1,
+    "copper": 1,
+    "titanium": 0,
+    "organic": 1,
+    "ammo": 24,
+    "reserve": 91,
+    "reloading": false,
+    "dead": false,
+    "kills": 2,
+    "total": 109,
+    "cleared": false,
+    "damage": false,
+    "hit": false,
+    "wave": 1,
+    "waves": 4,
+    "nextWave": 0,
+    "alive": 11
+  },
+  "afterHorde": {
+    "context": "running",
+    "unlocked": true,
+    "blocked": false,
+    "buffers": 14,
+    "decodedVariations": 39,
+    "muted": false,
+    "volume": 0.7,
+    "stats": {
+      "events": {
+        "shot:patrol": 5,
+        "bulletHit:patrol": 2,
+        "death:patrol": 1,
+        "bulletHit:smallMutant": 1,
+        "death:smallMutant": 1,
+        "attack:patrol": 1,
+        "attack:smallMutant": 1,
+        "collect:patrol": 3,
+        "reload:patrol": 1,
+        "enemyStep:patrol": 32,
+        "playerStep:patrol": 10
+      },
+      "played": {
+        "SFX_Rifle_shot": 5,
+        "SFX_Patrol_small_bullet_hit": 2,
+        "SFX_Patrol_small_death_hit": 1,
+        "SFX_Mutant_small_bullet_hit": 1,
+        "SFX_Mutant_small_death_hit": 1,
+        "SFX_Patrol_small_attack_hit": 1,
+        "SFX_Mutant_small_attack_hit": 1,
+        "SFX_Item_collected": 3,
+        "SFX_Rifle_Reload": 1,
+        "SFX_Patrol_small_step": 32,
+        "SFX_Main_character_step": 10
+      },
+      "stolen": 6,
+      "discarded": 0,
+      "decodeErrors": 0
+    }
+  },
+  "paused": {
+    "context": "suspended",
+    "unlocked": true,
+    "blocked": true,
+    "buffers": 14,
+    "decodedVariations": 39,
+    "muted": false,
+    "volume": 0.7,
+    "stats": {
+      "events": {
+        "shot:patrol": 5,
+        "bulletHit:patrol": 2,
+        "death:patrol": 1,
+        "bulletHit:smallMutant": 1,
+        "death:smallMutant": 1,
+        "attack:patrol": 1,
+        "attack:smallMutant": 1,
+        "collect:patrol": 3,
+        "reload:patrol": 1,
+        "enemyStep:patrol": 32,
+        "playerStep:patrol": 10
+      },
+      "played": {
+        "SFX_Rifle_shot": 5,
+        "SFX_Patrol_small_bullet_hit": 2,
+        "SFX_Patrol_small_death_hit": 1,
+        "SFX_Mutant_small_bullet_hit": 1,
+        "SFX_Mutant_small_death_hit": 1,
+        "SFX_Patrol_small_attack_hit": 1,
+        "SFX_Mutant_small_attack_hit": 1,
+        "SFX_Item_collected": 3,
+        "SFX_Rifle_Reload": 1,
+        "SFX_Patrol_small_step": 32,
+        "SFX_Main_character_step": 10
+      },
+      "stolen": 6,
+      "discarded": 0,
+      "decodeErrors": 0
+    }
+  },
+  "resumed": {
+    "context": "running",
+    "unlocked": true,
+    "blocked": false,
+    "buffers": 14,
+    "decodedVariations": 39,
+    "muted": false,
+    "volume": 0.35,
+    "stats": {
+      "events": {
+        "shot:patrol": 6,
+        "bulletHit:patrol": 2,
+        "death:patrol": 1,
+        "bulletHit:smallMutant": 1,
+        "death:smallMutant": 1,
+        "attack:patrol": 1,
+        "attack:smallMutant": 2,
+        "collect:patrol": 3,
+        "reload:patrol": 1,
+        "enemyStep:patrol": 36,
+        "playerStep:patrol": 10
+      },
+      "played": {
+        "SFX_Rifle_shot": 5,
+        "SFX_Patrol_small_bullet_hit": 2,
+        "SFX_Patrol_small_death_hit": 1,
+        "SFX_Mutant_small_bullet_hit": 1,
+        "SFX_Mutant_small_death_hit": 1,
+        "SFX_Patrol_small_attack_hit": 1,
+        "SFX_Mutant_small_attack_hit": 2,
+        "SFX_Item_collected": 3,
+        "SFX_Rifle_Reload": 1,
+        "SFX_Patrol_small_step": 36,
+        "SFX_Main_character_step": 10
+      },
+      "stolen": 6,
+      "discarded": 1,
+      "decodeErrors": 0
+    }
+  },
+  "blur": {
+    "context": "suspended",
+    "unlocked": true,
+    "blocked": true,
+    "buffers": 14,
+    "decodedVariations": 39,
+    "muted": false,
+    "volume": 0.35,
+    "stats": {
+      "events": {
+        "shot:patrol": 6,
+        "bulletHit:patrol": 2,
+        "death:patrol": 1,
+        "bulletHit:smallMutant": 1,
+        "death:smallMutant": 1,
+        "attack:patrol": 1,
+        "attack:smallMutant": 2,
+        "collect:patrol": 3,
+        "reload:patrol": 1,
+        "enemyStep:patrol": 36,
+        "playerStep:patrol": 10
+      },
+      "played": {
+        "SFX_Rifle_shot": 5,
+        "SFX_Patrol_small_bullet_hit": 2,
+        "SFX_Patrol_small_death_hit": 1,
+        "SFX_Mutant_small_bullet_hit": 1,
+        "SFX_Mutant_small_death_hit": 1,
+        "SFX_Patrol_small_attack_hit": 1,
+        "SFX_Mutant_small_attack_hit": 2,
+        "SFX_Item_collected": 3,
+        "SFX_Rifle_Reload": 1,
+        "SFX_Patrol_small_step": 36,
+        "SFX_Main_character_step": 10
+      },
+      "stolen": 6,
+      "discarded": 1,
+      "decodeErrors": 0
+    }
+  },
+  "muted": {
+    "context": "running",
+    "unlocked": true,
+    "blocked": false,
+    "buffers": 14,
+    "decodedVariations": 39,
+    "muted": true,
+    "volume": 0.35,
+    "stats": {
+      "events": {
+        "shot:patrol": 6,
+        "bulletHit:patrol": 2,
+        "death:patrol": 1,
+        "bulletHit:smallMutant": 1,
+        "death:smallMutant": 1,
+        "attack:patrol": 1,
+        "attack:smallMutant": 2,
+        "collect:patrol": 3,
+        "reload:patrol": 1,
+        "enemyStep:patrol": 36,
+        "playerStep:patrol": 10
+      },
+      "played": {
+        "SFX_Rifle_shot": 5,
+        "SFX_Patrol_small_bullet_hit": 2,
+        "SFX_Patrol_small_death_hit": 1,
+        "SFX_Mutant_small_bullet_hit": 1,
+        "SFX_Mutant_small_death_hit": 1,
+        "SFX_Patrol_small_attack_hit": 1,
+        "SFX_Mutant_small_attack_hit": 2,
+        "SFX_Item_collected": 3,
+        "SFX_Rifle_Reload": 1,
+        "SFX_Patrol_small_step": 36,
+        "SFX_Main_character_step": 10
+      },
+      "stolen": 6,
+      "discarded": 1,
+      "decodeErrors": 0
+    }
+  },
+  "saved": {
+    "volume": 0.35,
+    "muted": true
+  },
+  "dialog": {
+    "context": "suspended",
+    "unlocked": true,
+    "blocked": true,
+    "buffers": 14,
+    "decodedVariations": 39,
+    "muted": true,
+    "volume": 0.35,
+    "stats": {
+      "events": {
+        "shot:patrol": 6,
+        "bulletHit:patrol": 2,
+        "death:patrol": 1,
+        "bulletHit:smallMutant": 1,
+        "death:smallMutant": 1,
+        "attack:patrol": 1,
+        "attack:smallMutant": 2,
+        "collect:patrol": 3,
+        "reload:patrol": 1,
+        "enemyStep:patrol": 36,
+        "playerStep:patrol": 10
+      },
+      "played": {
+        "SFX_Rifle_shot": 5,
+        "SFX_Patrol_small_bullet_hit": 2,
+        "SFX_Patrol_small_death_hit": 1,
+        "SFX_Mutant_small_bullet_hit": 1,
+        "SFX_Mutant_small_death_hit": 1,
+        "SFX_Patrol_small_attack_hit": 1,
+        "SFX_Mutant_small_attack_hit": 2,
+        "SFX_Item_collected": 3,
+        "SFX_Rifle_Reload": 1,
+        "SFX_Patrol_small_step": 36,
+        "SFX_Main_character_step": 10
+      },
+      "stolen": 6,
+      "discarded": 1,
+      "decodeErrors": 0
+    }
+  },
+  "restored": {
+    "context": null,
+    "unlocked": false,
+    "blocked": false,
+    "buffers": 0,
+    "decodedVariations": 0,
+    "muted": true,
+    "volume": 0.35,
+    "stats": {
+      "events": {},
+      "played": {},
+      "stolen": 0,
+      "discarded": 0,
+      "decodeErrors": 0
+    }
+  },
+  "welcomeGesture": {
+    "unlocked": true,
+    "buffers": 14,
+    "context": "running"
+  }
+}

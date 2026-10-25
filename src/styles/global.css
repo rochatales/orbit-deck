@@ -167,3 +167,7 @@ nav button:hover:not(:disabled), .secondary:hover:not(:disabled) { color: #09232
 
 /* S2.12: selo da prévia de comparação do personagem (só com ?comparar). */
 .qa-asset{position:absolute;right:18px;bottom:16px;width:280px;display:grid;gap:6px;background:#13262ce8;border:1px solid #f3cf7766;border-radius:12px;padding:12px 14px;z-index:3}.qa-asset small{font-size:11px;color:#bacdd2}.qa-asset button{padding:8px 10px;font-size:12px}@media(max-width:650px){.qa-asset{bottom:150px;width:220px}}
+
+.audio-controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 12px 0; border: 1px solid #66e6ff55; }
+.audio-controls label { display: flex; gap: 10px; align-items: center; }
+.audio-controls input { width: 130px; }

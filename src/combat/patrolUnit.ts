@@ -1,3 +1,4 @@
+import { FootstepClock } from '../audio/events';
 import { AnimationMixer, Color, LoopOnce, LoopRepeat, MeshStandardMaterial, SkinnedMesh, type AnimationAction, type AnimationClip, type Object3D } from 'three';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
 
@@ -65,6 +66,8 @@ export interface PatrolUnitRobot { x: number; z: number; hp: number; flash: numb
  */
 export class PatrolUnitRig {
     readonly root: Object3D;
+    stepSound = false;
+    private stepClock = new FootstepClock();
     clip: PatrolUnitClip = 'Idle';
     visible = true;
     private readonly mixer: AnimationMixer;
@@ -132,11 +135,16 @@ export class PatrolUnitRig {
             material.emissive.copy(robot.alerted && alive ? PATROL_UNIT.alertTint : PATROL_UNIT.calmTint);
         }
         if (this.visible) this.mixer.update(dt);
+        const action = this.actions.get(next)!;
+        const stepping = alive && dt > 0 && (next === 'PatrolWalk' || next === 'ChaseRun');
+        this.stepSound = stepping && this.stepClock.advance(next, action.time, action.getClip().duration);
+        if (!stepping) this.stepClock.reset();
     }
 
     /** Slot reaproveitado por uma nova horda: volta ao Idle sem herdar morte nem velocidade. */
     respawn() {
         this.mixer.stopAllAction();
+        this.stepClock.reset(); this.stepSound = false;
         this.actions.get('Idle')!.reset().play();
         this.clip = 'Idle';
         this.lastX = Number.NaN;

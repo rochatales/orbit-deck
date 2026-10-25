@@ -1,3 +1,6 @@
+import { FootstepClock, playerSounds } from '../../audio/events';
+import { playerPosition } from '../../state/playerTransient';
+import { simulationBlocked } from '../../game/simulationGate';
 import { useFrame } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import { LoopOnce, LoopRepeat, type AnimationAction } from "three";
@@ -24,6 +27,7 @@ interface LocomotionControllerProps {
  * de apoio não deslizar.
  */
 export function LocomotionController({ motionRef, actions }: LocomotionControllerProps) {
+  const stepClock = useRef(new FootstepClock());
   const currentRef = useRef<AnimationAction | null>(null);
   const stateRef = useRef<PlayerAnimationState | null>(null);
 
@@ -84,6 +88,10 @@ export function LocomotionController({ motionRef, actions }: LocomotionControlle
     // asset sem Backward (comparação): o Run, quando usado no recuo, segue a velocidade real
     if (run && !back && active === run && motion.animationState === "backward")
       run.timeScale = playbackRate(motion.planarSpeed, PLAYER_RUN_REFERENCE_SPEED, PLAYER_LOCOMOTION.runTimeScale);
+    if (!simulationBlocked() && active && motion.planarSpeed >= PLAYER_LOCOMOTION.stopSpeed && (motion.animationState === "walking" || motion.animationState === "backward")) {
+      if (stepClock.current.advance(motion.animationState, active.time, active.getClip().duration))
+        playerSounds.emit('playerStep', playerPosition.x, playerPosition.z);
+    } else stepClock.current.reset();
   });
 
   return null;

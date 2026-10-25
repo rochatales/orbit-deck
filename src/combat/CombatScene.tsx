@@ -1,3 +1,4 @@
+import { AUDIO } from '../audio/config';
 import { useExpeditionStore } from '../state/useExpeditionStore';
 import { useEffect, useMemo, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
@@ -41,6 +42,7 @@ export function CombatScene({ world }: {
     // Hordas reutilizam slots: a geração muda a cada nascimento e o rig volta ao Idle.
     const generations = useMemo(() => simulation.robots.map(r => r.generation), [simulation]);
     useEffect(() => () => { rigs.forEach(rig => rig.dispose()); largeRigs.forEach(rig => rig?.dispose()); mutantRigs.forEach(rig => rig?.dispose()); }, [rigs, largeRigs, mutantRigs]);
+    const stepSlots = useMemo(() => new Int32Array(4), []), stepDistances = useMemo(() => new Float64Array(4), []);
     const hearts = useRef<(Group | null)[]>([]);
     const heartShape = useMemo(() => {
         const shape = new Shape();
@@ -112,6 +114,7 @@ export function CombatScene({ world }: {
             }
             useCombatStore.getState().publish(simulation.snapshot);
         }
+        stepSlots.fill(-1); stepDistances.fill(Infinity);
         simulation.robots.forEach((r, i) => {
             const mesh = robots.current[i];
             if (!mesh)
@@ -130,6 +133,14 @@ export function CombatScene({ world }: {
                 rig.respawn();
             }
             rig.update(r, playerPosition.x, playerPosition.z, R.contactRange, blocked ? 0 : Math.min(delta, 0.1));
+            if (!blocked && !animal && r.hp > 0 && (rig.clip === 'PatrolWalk' || rig.clip === 'ChaseRun')) {
+                const d = Math.hypot(r.x - playerPosition.x, r.z - playerPosition.z);
+                if (d <= AUDIO.enemyStepDistance) for (let slot = 0; slot < 4; slot++) {
+                    if (d >= stepDistances[slot]) continue;
+                    for (let shift = 3; shift > slot; shift--) { stepSlots[shift] = stepSlots[shift - 1]; stepDistances[shift] = stepDistances[shift - 1]; }
+                    stepSlots[slot] = i; stepDistances[slot] = d; break;
+                }
+            }
             mesh.visible = rig.visible;
             mesh.position.set(r.x, 0, r.z);
             mesh.rotation.y = r.angle;
@@ -137,6 +148,11 @@ export function CombatScene({ world }: {
             if (ring) { ring.visible = r.hp > 0; ring.scale.setScalar(R.radius / COMBAT.robot.radius); }
             if (alert) { alert.visible = r.hp > 0 && r.alertLeft > 0; alert.position.y = (animal ? SMALL_MUTANT_VISUAL.height : large ? LARGE_PATROL_VISUAL.height : PATROL_UNIT.height) + .45; }
         });
+        for (let slot = 0; slot < 4; slot++) {
+            const i = stepSlots[slot]; if (i < 0) continue;
+            const r = simulation.robots[i], rig = r.kind === 'largePatrol' ? largeRigs[i]! : rigs[i];
+            if (rig.stepSound) simulation.sounds.emit('enemyStep', r.x, r.z, r.kind);
+        }
         simulation.hearts.forEach((heart, i) => {
             const mesh = hearts.current[i];
             if (mesh) mesh.visible = heart.active;

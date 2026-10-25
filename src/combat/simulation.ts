@@ -1,3 +1,4 @@
+import { SoundQueue } from '../audio/events';
 import { writeMutantPackTarget } from './mutantPack';
 import { placeResourceDrop } from './resourcePlacement';
 import { COMBAT, LARGE_PATROL, SMALL_MUTANT, HORDE_TOTALS, robotConfig, waveRobotKind, type RobotKind, HIT_LAYER, HORDE_ENCOUNTER, RIFLE_MASK, RIFLE_POSE, writeRifleMuzzle, encounterLayout, type EncounterChoice, type EncounterLayout } from './config';
@@ -118,6 +119,7 @@ export function traceShot(a: Position, b: Position, terrain: Terrain, robots: Ro
     return out;
 }
 export class CombatSimulation {
+    readonly sounds = new SoundQueue();
     hp: number = COMBAT.playerHp;
     ammo: number = COMBAT.rifle.magazine;
     reserve: number = COMBAT.rifle.reserve;
@@ -279,8 +281,10 @@ export class CombatSimulation {
                 this.reserve -= transfer;
             }
         }
-        if (input.reload && this.reloadLeft === 0 && this.ammo < COMBAT.rifle.magazine && this.reserve > 0)
+        if (input.reload && this.reloadLeft === 0 && this.ammo < COMBAT.rifle.magazine && this.reserve > 0) {
             this.reloadLeft = COMBAT.rifle.reload;
+            this.sounds.emit('reload', input.player.x, input.player.z);
+        }
         if (input.firing && this.reloadLeft === 0 && this.cooldown === 0 && this.ammo > 0
             && Number.isFinite(input.facingAngle) && Number.isFinite(input.player.x + input.player.z + input.aim.x + input.aim.z)) {
             const { muzzle, rifleEnd } = this;
@@ -301,6 +305,7 @@ export class CombatSimulation {
                 from = muzzle;
                 hit = traceShot(muzzle, rifleEnd, this.terrain, this.robots, RIFLE_MASK, this.shotTrace);
             }
+            this.sounds.emit('shot', muzzle.x, muzzle.z);
             this.ammo--;
             this.cooldown = COMBAT.rifle.interval;
             const shot = this.shotPool[this.shotCursor++ % this.shotPool.length];
@@ -310,6 +315,7 @@ export class CombatSimulation {
             this.shots.push(shot);
             if (hit.robot) {
                 hit.robot.hp = Math.max(0, hit.robot.hp - COMBAT.rifle.damage);
+                this.sounds.emit(hit.robot.hp > 0 ? 'bulletHit' : 'death', hit.robot.x, hit.robot.z, hit.robot.kind);
                 hit.robot.flash = 0.15;
                 this.hitFlash = 0.15;
                 // O primeiro tiro recebido identifica o jogador, mesmo fora do campo de visão.
@@ -333,6 +339,7 @@ export class CombatSimulation {
                     this.hp = Math.max(0, this.hp - R.damage);
                     this.invulnerable = R.contactInterval;
                     this.damageFlash = 0.24;
+                    this.sounds.emit('attack', robot.x, robot.z, robot.kind);
                 }
                 robot.stuck = 0;
                 turnToward(robot, player.x - robot.x, player.z - robot.z, dt);
@@ -344,6 +351,8 @@ export class CombatSimulation {
         for (const drop of this.drops) {
             if (drop.active && this.canCollect(input.player, drop)) {
                 drop.active = false;
+                this.sounds.emit('collect', drop.x, drop.z);
+                if (drop.kind === 'metals') this.sounds.emit('collect', drop.x, drop.z); // ferro e cobre: um evento por item
                 if (drop.kind === 'organic') this.organic++;
                 else if (drop.kind === 'titanium') this.titanium++;
                 else { this.iron++; this.copper++; }
