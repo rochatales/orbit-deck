@@ -60,6 +60,7 @@ export class MasterplanRuntime {
     private readonly up = new Vector3(0, 1, 0);
     private readonly dishes: Object3D[] = [];
     private readonly visuals: VisualPart[] = [];
+    private readonly visualsById = new Map<string, VisualPart>();
     private readonly roofs = new Map<string, { area: RectBounds; opacity: number; inside: boolean }>();
     private readonly doors: { node: Object3D; x: number; z: number; dx: number; dz: number; originX: number; originZ: number; amount: number }[] = [];
     constructor(scene: Object3D, manifest: MasterplanManifest) {
@@ -93,6 +94,7 @@ export class MasterplanRuntime {
                 mesh.material = Array.isArray(mesh.material) ? mesh.material.map(clone) : clone(mesh.material);
             });
             this.visuals.push(visual);
+            this.visualsById.set(part.id, visual);
             if (part.papel === 'door') {
                 const door = manifest.doors.find(door => part.id === `${door.id}_L` || part.id === `${door.id}_R`);
                 if (!door) throw new Error(`Porta sem âncora: ${part.id}`);
@@ -101,6 +103,20 @@ export class MasterplanRuntime {
                 this.doors.push({ node, x: door.x, z: door.z, dx, dz, originX: node.position.x, originZ: node.position.z, amount: 0 });
             }
         }
+    }
+    /** Estado de operação compõe com o corte do teto, sem reaparecer peças sustentadas. */
+    setPartVisible(id: string, visible: boolean) {
+        const visual = this.visualsById.get(id);
+        if (!visual) throw new Error(`Peça de estado ausente: ${id}`);
+        visual.initialVisible = visible;
+        let opacity = 1;
+        for (const roofId of visual.roofs) opacity = Math.min(opacity, this.roofs.get(roofId)!.opacity);
+        visual.node.visible = visible && opacity > .01;
+    }
+    getRoofOpacity(id: string) {
+        const roof = this.roofs.get(id);
+        if (!roof) throw new Error(`Telhado ausente: ${id}`);
+        return roof.opacity;
     }
     update(player: { x: number; z: number }, delta: number) {
         this.spin.setFromAxisAngle(this.up, Math.min(delta, .05) * .12);

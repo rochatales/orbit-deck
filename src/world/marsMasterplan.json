@@ -460,11 +460,12 @@
         "z": 22.5
       },
       "size": {
-        "width": 7,
-        "depth": 11
+        "width": 11,
+        "depth": 7
       },
       "kind": "greenhouse",
-      "axis": "z"
+      "axis": "x",
+      "externalAsset": "greenhouse-v001"
     },
     {
       "id": "open-north-circulation",
@@ -514,6 +515,58 @@
       "size": {
         "width": 15,
         "depth": 1
+      },
+      "kind": "path",
+      "axis": "x"
+    },
+    {
+      "id": "greenhouse-service-existing",
+      "position": {
+        "x": 14,
+        "z": 22.5
+      },
+      "size": {
+        "width": 7,
+        "depth": 11
+      },
+      "kind": "path",
+      "axis": "z"
+    },
+    {
+      "id": "greenhouse-tank-service",
+      "position": {
+        "x": 16,
+        "z": 27.4
+      },
+      "size": {
+        "width": 6,
+        "depth": 3.2
+      },
+      "kind": "path",
+      "axis": "x"
+    },
+    {
+      "id": "greenhouse-west-service",
+      "position": {
+        "x": 7.1,
+        "z": 20.25
+      },
+      "size": {
+        "width": 2.8,
+        "depth": 5
+      },
+      "kind": "path",
+      "axis": "z"
+    },
+    {
+      "id": "greenhouse-north-service",
+      "position": {
+        "x": 13.2,
+        "z": 17.7
+      },
+      "size": {
+        "width": 14.6,
+        "depth": 2.2
       },
       "kind": "path",
       "axis": "x"

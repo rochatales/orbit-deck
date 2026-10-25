@@ -2,7 +2,7 @@
   "step": 0.05,
   "radius": 0.36,
   "method": "Inflacao quadrada conservadora; erosao do piso pela uniao; flood-fill 4 direcoes",
-  "reachableArea": 835.4975000000001,
+  "reachableArea": 796.9625000000001,
   "spawnClear": true,
   "destinations": [
     {

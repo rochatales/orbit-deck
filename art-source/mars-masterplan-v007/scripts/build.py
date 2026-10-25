@@ -158,13 +158,7 @@ def walls(room,greenhouse=False):
     roof=box('TET_'+id,x,z,2.94,w+.22,d+.22,.28,glass if greenhouse else cream,'roof',id,bevel=.12)
     return roof
 for room in DATA['rooms']: walls(room)
-greenhouse=next(c for c in DATA['corridors'] if c['kind']=='greenhouse');greenhouse={**greenhouse,'doorSides':['west','east']}
-walls(greenhouse,True)
-# Five portal frames along the north-south greenhouse axis.
-for i in range(5):
-    z=17+i*2.75
-    for x in [10.5,17.5]:box(f'Estufa_Portico_{i}_{x}',x,z,1.4,.14,.14,2.8,green,'wall','orbit-garden')
-    box(f'Estufa_Viga_{i}',14,z,2.78,7,.10,.12,green,'detail','orbit-garden',['TET_orbit-garden'])
+# Greenhouse has a standalone refined GLB; its placeholder is no longer exported.
 
 # Circulation is open by author request (25/10): floor only between buildings.
 # No tunnel shell, rings, freestanding doors, lintels or corridor colliders.
@@ -332,6 +326,10 @@ for filename,pos in [('src/assets/ares-lander/ares-lander.glb',(.72,-33.52,.012)
         if o.parent is None:o.location+=Vector(pos)
         o.name='REF_ARES_'+o.name
         if o.get('conjunto')=='impacto':o.hide_render=True;o.hide_set(True)
+bpy.ops.import_scene.gltf(filepath=str(ROOT/'src/assets/greenhouse/greenhouse-v001.glb'))
+for o in bpy.context.scene.objects:
+    if o.get('estado_operacao')=='online':
+        for child in [o,*o.children_recursive]:child.hide_render=True;child.hide_set(True)
 bpy.ops.object.camera_add(location=(48,-68,65));cam=bpy.context.object;cam.rotation_euler=((Vector((0,-8,0))-cam.location).to_track_quat('-Z','Y').to_euler());cam.data.type='ORTHO';cam.data.ortho_scale=65;bpy.context.scene.camera=cam
 bpy.ops.object.light_add(type='SUN',location=(0,0,30));bpy.context.object.rotation_euler=(.5,-.4,-.4);bpy.context.object.data.energy=2
 bpy.context.scene.world=bpy.data.worlds.new('Marte');bpy.context.scene.world.color=(.25,.22,.2)
@@ -339,6 +337,6 @@ for screen in bpy.data.screens:
  for area in screen.areas:
     if area.type=='VIEW_3D':area.spaces.active.region_3d.view_distance=60;area.spaces.active.region_3d.view_location=(0,-9,0)
 bpy.ops.object.select_all(action='DESELECT');bpy.context.preferences.filepaths.save_version=0
-bpy.ops.wm.save_as_mainfile(filepath=str(OUT/'blend/mars_colony_masterplan_v007_aberto.blend'))
+bpy.ops.wm.save_as_mainfile(filepath=str(OUT/'blend/mars_colony_masterplan_v007_greenhouse.blend'))
 for path,digest in BASELINE.items():assert hashlib.sha256((ROOT/path).read_bytes()).hexdigest()==digest,path
 print('MASTERPLAN_OK',len(parts),'peças',len(colliders),'colisores',len(surface_cells),'células disjuntas')

@@ -1,0 +1,18 @@
+{
+  "method": "Node performance.now; 5000 passos de aquecimento + 20 lotes de 3000 atualizações; tempo médio por chamada em cada lote. Sem render/GPU.",
+  "node": "v26.11.1",
+  "states": [
+    {
+      "state": "OFFLINE",
+      "p50ms": 0.0003381806666666686,
+      "p95ms": 0.0003591390000000085,
+      "maxMs": 0.0006946109999999901
+    },
+    {
+      "state": "ONLINE",
+      "p50ms": 0.0003280833333333438,
+      "p95ms": 0.00036487500000000257,
+      "maxMs": 0.0003726389999999924
+    }
+  ]
+}

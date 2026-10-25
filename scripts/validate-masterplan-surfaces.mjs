@@ -5,6 +5,7 @@ async function read(path){const b=fs.readFileSync(path);return(await new GLTFLoa
 const scene=await read('src/assets/colony-v007.glb');
 const deck=await read('src/assets/ares-mars/deck-mars.glb');deck.position.z=33;
 deck.traverse(n=>{if(n.isMesh)n.userData.colony_name='ARES_'+n.name;});scene.add(deck);
+scene.add(await read('src/assets/greenhouse/greenhouse-v001.glb'));
 const result=coplanarParts(scene,name=>!name.startsWith('TER_'));
 // The approved ARES asset is unchanged. Audit new geometry and its seam with the approved deck.
 const pairs=result.pairs.filter(p=>!p.parts.every(n=>n.startsWith('ARES_'))&&p.projectedArea>=1e-5);

@@ -1,0 +1,13 @@
+{
+  "stats": {
+    "ribs": 5,
+    "bays": 4,
+    "lowerPlanters": 8,
+    "upperPlanters": 4,
+    "growBars": 8,
+    "parts": 55,
+    "triangles": 51056
+  },
+  "glbBytes": 2589472,
+  "glbSHA256": "f220675854eb8e2bb7e1c7e24007a7974c8d4b1da8d7431ec0d80e7c59c9b943"
+}
