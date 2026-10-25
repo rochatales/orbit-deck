@@ -1,51 +1,81 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
-import { Matrix4, type InstancedMesh } from 'three';
+import { Color, Matrix4, Quaternion, RingGeometry, ShaderMaterial, Vector3, type InstancedMesh } from 'three';
 import type { ResourceDrop } from './simulation';
 import { simulationBlocked } from '../game/simulationGate';
 import { ResourceRig } from './resourceRig';
+import { RESOURCE_KINDS, RESOURCE_VISUAL, resourcePhase, resourceRingRadius, type ResourceKind } from './resourceVisual';
 import copperUrl from '../assets/props/cobre.glb';
 import ironUrl from '../assets/props/ferro.glb';
+import titaniumUrl from '../assets/props/titanio.glb';
 
-/** GLBs compartilhados; skeleton/mixer próprios por drop, sem colisores de malha. */
+function ringMaterial(kind: ResourceKind) {
+    return new ShaderMaterial({ transparent: true, depthWrite: false, toneMapped: false,
+        uniforms: { color: { value: new Color(RESOURCE_VISUAL.colors[kind]) } },
+        vertexShader: `varying vec2 ground;
+            void main() { ground = position.xy; vec4 p = vec4(position, 1.0);
+            #ifdef USE_INSTANCING
+                p = instanceMatrix * p;
+            #endif
+                gl_Position = projectionMatrix * modelViewMatrix * p; }`,
+        fragmentShader: `uniform vec3 color; varying vec2 ground;
+            void main() { float d = abs(length(ground) - 0.76);
+                float thin = 1.0 - smoothstep(0.009, 0.026, d);
+                float halo = 0.24 * exp(-d * d / 0.012);
+                float a = min(0.95, thin + halo); if (a < 0.003) discard;
+                gl_FragColor = vec4(color * (1.0 + thin * 0.7), a);
+                #include <colorspace_fragment>
+            }`,
+    });
+}
+
+/** Uma geometria, três materiais/batches de anéis; GLBs e animações compartilhados por tipo. */
 export function ResourceDrops({ drops }: { drops: ResourceDrop[] }) {
-    const copper = useGLTF(copperUrl), iron = useGLTF(ironUrl);
-    const titaniumBase = useRef<InstancedMesh>(null), titaniumTop = useRef<InstancedMesh>(null);
-    const matrix = useMemo(() => new Matrix4(), []);
-    const rigs = useMemo(() => drops.map(() => ({
-        copper: new ResourceRig(copper.scene, copper.animations, .03),
-        iron: new ResourceRig(iron.scene, iron.animations, .01),
-    })), [drops, copper, iron]);
-    useEffect(() => () => rigs.forEach(r => { r.copper.dispose(); r.iron.dispose(); }), [rigs]);
+    const copper = useGLTF(copperUrl), iron = useGLTF(ironUrl), titanium = useGLTF(titaniumUrl);
+    const rings = useRef<Partial<Record<ResourceKind, InstancedMesh | null>>>({});
+    const clock = useRef(0);
+    const counts = useMemo(() => ({ titanium: 0, copper: 0, iron: 0 }), []);
+    const pose = useMemo(() => ({ matrix: new Matrix4(), position: new Vector3(), scale: new Vector3(), rotation: new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), -Math.PI / 2) }), []);
+    const ground = useMemo(() => ({ geometry: new RingGeometry(0, 1, 64), materials: {
+        titanium: ringMaterial('titanium'), copper: ringMaterial('copper'), iron: ringMaterial('iron'),
+    } }), []);
+    const rigs = useMemo(() => drops.map((_, i) => ({
+        copper: new ResourceRig(copper.scene, copper.animations, resourcePhase(i, 'copper')),
+        iron: new ResourceRig(iron.scene, iron.animations, resourcePhase(i, 'iron')),
+        titanium: new ResourceRig(titanium.scene, titanium.animations, resourcePhase(i, 'titanium')),
+    })), [drops, copper, iron, titanium]);
+    useEffect(() => () => { for (const r of rigs) for (const kind of RESOURCE_KINDS) r[kind].dispose(); }, [rigs]);
+    useEffect(() => () => { ground.geometry.dispose(); for (const kind of RESOURCE_KINDS) ground.materials[kind].dispose(); }, [ground]);
     useFrame((_, delta) => {
         const dt = simulationBlocked() ? 0 : Math.min(delta, .1);
         if (dt === 0) return;
-        let titaniumCount = 0;
+        clock.current += dt;
+        counts.iron = counts.copper = counts.titanium = 0;
         for (let i = 0; i < drops.length; i++) {
-            const drop = drops[i], rig = rigs[i], metals = drop.kind === 'metals';
-            rig.copper.root.position.x = drop.x + .42; rig.copper.root.position.z = drop.z;
-            rig.iron.root.position.x = drop.x - .42; rig.iron.root.position.z = drop.z;
-            rig.copper.update(drop.active && metals, dt, drop.spawned && metals); rig.iron.update(drop.active && metals, dt, drop.spawned && metals);
-            if (drop.active && !metals) {
-                matrix.makeRotationY(.3).setPosition(drop.x, .18, drop.z);
-                titaniumBase.current?.setMatrixAt(titaniumCount, matrix);
-                matrix.makeRotationY(-.3).setPosition(drop.x + .1, .36, drop.z);
-                titaniumTop.current?.setMatrixAt(titaniumCount++, matrix);
+            const drop = drops[i], rig = rigs[i];
+            for (const kind of RESOURCE_KINDS) {
+                const matches = kind === 'titanium' ? drop.kind === 'titanium' : drop.kind === 'metals';
+                const item = rig[kind], x = drop.x + (kind === 'copper' ? .42 : kind === 'iron' ? -.42 : 0);
+                item.root.position.x = x; item.root.position.z = drop.z;
+                item.update(drop.active && matches, dt, drop.spawned && matches);
+                if (drop.active && matches) {
+                    const radius = resourceRingRadius(clock.current, resourcePhase(i, kind));
+                    pose.position.set(x, RESOURCE_VISUAL.ringY, drop.z); pose.scale.set(radius, radius, 1);
+                    pose.matrix.compose(pose.position, pose.rotation, pose.scale);
+                    rings.current[kind]?.setMatrixAt(counts[kind]++, pose.matrix);
+                }
             }
         }
-        if (titaniumBase.current) { titaniumBase.current.count = titaniumCount; titaniumBase.current.instanceMatrix.needsUpdate = true; }
-        if (titaniumTop.current) { titaniumTop.current.count = titaniumCount; titaniumTop.current.instanceMatrix.needsUpdate = true; }
+        for (const kind of RESOURCE_KINDS) {
+            const mesh = rings.current[kind];
+            if (mesh) { mesh.count = counts[kind]; mesh.instanceMatrix.needsUpdate = true; }
+        }
     });
     return <>{rigs.map((rig, i) => <group key={i}>
-      <primitive object={rig.iron.root} dispose={null}/><primitive object={rig.copper.root} dispose={null}/>
+      <primitive object={rig.iron.root} dispose={null}/><primitive object={rig.copper.root} dispose={null}/><primitive object={rig.titanium.root} dispose={null}/>
     </group>)}
-    {/* Sem GLB de titânio fornecido: lingotes provisórios, no máximo duas draw calls. */}
-    <instancedMesh name="TitaniumDrops" ref={titaniumBase} args={[undefined, undefined, drops.length]} frustumCulled={false} castShadow>
-      <boxGeometry args={[.55,.24,.32]}/><meshStandardMaterial color="#a5afc8" metalness={.85} roughness={.25}/>
-    </instancedMesh>
-    <instancedMesh ref={titaniumTop} args={[undefined, undefined, drops.length]} frustumCulled={false} castShadow>
-      <boxGeometry args={[.42,.14,.22]}/><meshStandardMaterial color="#9c81dd" metalness={.8} roughness={.3} emissive="#40315c" emissiveIntensity={.25}/>
-    </instancedMesh>
+    {RESOURCE_KINDS.map(kind => <instancedMesh key={kind} name={`ResourceRing-${kind}`} ref={mesh => { rings.current[kind] = mesh; if (mesh) mesh.count = 0; }}
+        args={[ground.geometry, ground.materials[kind], drops.length]} frustumCulled={false} dispose={null}/>)}
     </>;
 }

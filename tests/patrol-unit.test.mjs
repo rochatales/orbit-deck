@@ -23,8 +23,8 @@ test('S6.1: Patrol Unit do autor entra sem alteração, com os clipes e o orçam
     const height = pos.max[1] - pos.min[1];
     assert.ok(Math.abs(height - 1.49) < 0.02 && Math.abs(pos.min[1]) < 0.01, `1,49 m, pés em y = 0 (${height})`);
     assert.ok(Math.abs(height - PATROL_UNIT_MODEL_HEIGHT) < 0.005);
-    // Pedidos do autor: 1/3 maior que o Explorador (1,50 m) e mais 1/3 → 2,67 m.
-    assert.ok(Math.abs(height * PATROL_UNIT.scale - PLAYER_HEIGHT * 16 / 9) < 0.01, `altura no jogo ${(height * PATROL_UNIT.scale).toFixed(3)} m`);
+    // Pedido do autor de 25/10: comum 16% menor, 2,24 m; grande não muda.
+    assert.ok(Math.abs(height * PATROL_UNIT.scale - 2.24) < 0.01, `altura no jogo ${(height * PATROL_UNIT.scale).toFixed(3)} m`);
 });
 
 test('S6.1: clipe pelo estado publicado pela simulação, com histerese e cadência pela velocidade', () => {
