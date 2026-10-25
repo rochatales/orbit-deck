@@ -6,8 +6,8 @@
     "upperPlanters": 4,
     "growBars": 8,
     "parts": 55,
-    "triangles": 51056
+    "triangles": 50952
   },
-  "glbBytes": 2589472,
-  "glbSHA256": "f220675854eb8e2bb7e1c7e24007a7974c8d4b1da8d7431ec0d80e7c59c9b943"
+  "glbBytes": 2591408,
+  "glbSHA256": "a5668881b521a98126ecfb3eef30b5b10c68451478d30981cf3269db10b19c07"
 }

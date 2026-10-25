@@ -443,12 +443,12 @@
     {
       "id": "east-greenhouse-path",
       "position": {
-        "x": 19,
-        "z": 22.5
+        "x": 19.5,
+        "z": 23.25
       },
       "size": {
-        "width": 3,
-        "depth": 6
+        "width": 4,
+        "depth": 9.5
       },
       "kind": "path",
       "axis": "z"
@@ -539,7 +539,7 @@
         "z": 27.4
       },
       "size": {
-        "width": 6,
+        "width": 11,
         "depth": 3.2
       },
       "kind": "path",

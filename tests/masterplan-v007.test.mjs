@@ -91,7 +91,7 @@ test('v007: todos os destinos alcançáveis com raio 0,36m e passo 5cm',async()=
  const {execFileSync}=await import('node:child_process');
  execFileSync(process.execPath,['scripts/validate-masterplan-paths.mjs']);
  const report=JSON.parse(fs.readFileSync('art-source/mars-masterplan-v007/notas/alcancabilidade.json'));
- assert.equal(report.destinations.length,12);assert.ok(report.destinations.every(d=>d.reachable));
+ assert.equal(report.destinations.length,16);assert.ok(report.destinations.every(d=>d.reachable));
 });
 
 test('v007: zero faces coplanares sobrepostas na arquitetura e junção com ARES',async()=>{

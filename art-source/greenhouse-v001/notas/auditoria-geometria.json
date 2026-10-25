@@ -1,6 +1,6 @@
 {
   "parts": 55,
-  "triangles": 51056,
+  "triangles": 50952,
   "states": "OFFLINE e ONLINE, sem filtro de visibilidade",
   "coplanarity": {
     "planeTolerance": 0.00001,

@@ -25,13 +25,13 @@ git diff --check
 
 ## Contrato
 
-55 peças semânticas, 51.056 triângulos, GLB de 2.589.472 bytes; 5 pórticos, 4 vãos, 8 cubas inferiores, 4 bandejas superiores e 8 calhas com dois difusores cada. Componentes agrupados por função para limitar draw calls, com slots próprios para os materiais dinâmicos. Folhagem, gelo/condensação e irrigação são ONLINE; tanque/bomba secos ficam visíveis nos dois estados e seu colisor é constante. As quatro bandejas superiores são distribuídas alternadamente entre os lados.
+55 peças semânticas, 50.952 triângulos, GLB de 2.591.408 bytes; 5 pórticos, 4 vãos, 8 cubas inferiores, 4 bandejas superiores e 8 calhas com dois difusores cada. Componentes agrupados por função para limitar draw calls, com slots próprios para os materiais dinâmicos. Folhagem, gelo/condensação e irrigação são ONLINE; tanque/bomba secos ficam visíveis nos dois estados e seu colisor é constante. As quatro bandejas superiores são distribuídas alternadamente entre os lados.
 
 O estado inicial é OFFLINE. O jogo recebe quatro luzes locais de cultivo explícitas; não importa luzes do GLB. O modo de prévia `?greenhousePreview` oferece botões para comparação; não cria missão, desbloqueio, persistência ou nova tecla de interação.
 
 `TET_Estufa` controla cobertura, vidros do teto e `TET_Estufa_GrowLights` ao entrar no ambiente. Paredes, vidros laterais, porta, canteiros e plantas permanecem. As luminárias e suas luzes apagam com o corte; não ficam suspensas. Colisores: cinco caixas de paredes, duas de canteiros e uma de tanque, sempre externos à malha visual.
 
-As zonas externas abertas e os materiais/cores dos tiles anteriores são mantidos; a implantação acrescenta piso de serviço ao norte/oeste para preservar o acesso à área de construção leste, e ao sul para o tanque. Nenhum túnel foi recolocado.
+As zonas externas abertas e os materiais/cores dos tiles anteriores são mantidos; a implantação acrescenta piso de serviço ao norte/oeste para preservar o acesso à área de construção leste, e ao sul para o tanque, conectado por um percurso leste mais largo. Nenhum túnel foi recolocado.
 
 ## Evidências
 

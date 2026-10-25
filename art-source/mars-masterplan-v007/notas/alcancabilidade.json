@@ -2,7 +2,7 @@
   "step": 0.05,
   "radius": 0.36,
   "method": "Inflacao quadrada conservadora; erosao do piso pela uniao; flood-fill 4 direcoes",
-  "reachableArea": 796.9625000000001,
+  "reachableArea": 817.45,
   "spawnClear": true,
   "destinations": [
     {
@@ -73,6 +73,30 @@
     },
     {
       "id": "EMBARQUE",
+      "reachable": true,
+      "nearestDistance": 0,
+      "tolerance": 0.1
+    },
+    {
+      "id": "GREENHOUSE_EAST",
+      "reachable": true,
+      "nearestDistance": 3.552713678800501e-15,
+      "tolerance": 0.1
+    },
+    {
+      "id": "TANK_WEST",
+      "reachable": true,
+      "nearestDistance": 0,
+      "tolerance": 0.1
+    },
+    {
+      "id": "TANK_EAST",
+      "reachable": true,
+      "nearestDistance": 0,
+      "tolerance": 0.1
+    },
+    {
+      "id": "TANK_SOUTH",
       "reachable": true,
       "nearestDistance": 0,
       "tolerance": 0.1

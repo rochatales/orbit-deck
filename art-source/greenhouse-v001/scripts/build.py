@@ -81,6 +81,15 @@ def prism(g,coords,thickness,mat):
  faces=[tuple(reversed(range(n))),tuple(range(n,2*n))]+[(i,(i+1)%n,(i+1)%n+n,i+n) for i in range(n)]
  me=bpy.data.meshes.new('Painel');me.from_pydata(verts,[],faces);o=bpy.data.objects.new('Painel',me);bpy.context.collection.objects.link(o);return add(o,g,mat)
 
+def rounded_face(g,u,v,h,w,t,r,depth,mat):
+ # Extruded rounded rectangle: radius is independent of the thin glass depth.
+ coords=[]
+ for dv,dh,start in [(w/2-r,t/2-r,0),(-w/2+r,t/2-r,90),(-w/2+r,-t/2+r,180),(w/2-r,-t/2+r,270)]:
+  for step in range(5):
+   angle=math.radians(start+step*22.5)
+   coords.append((u,v+dv+r*math.cos(angle),h+dh+r*math.sin(angle)))
+ return prism(g,coords,depth,mat)
+
 north=definition('ARQ_Estufa_Parede_N','wall');south=definition('ARQ_Estufa_Parede_S','wall')
 east=definition('ARQ_Estufa_Parede_L','wall');west1=definition('ARQ_Estufa_Parede_O_1','wall');west2=definition('ARQ_Estufa_Parede_O_2','wall')
 portal=definition('ARQ_Estufa_Portal_Entrada','wall',[west1,west2])
@@ -136,9 +145,10 @@ for sign,g in [(-1,west1),(1,west2)]:
  for j,v in enumerate([sign*2.28]):
   pg=definition(f'ARQ_Estufa_Vidro_Fachada_{sign}','detail',[g])
   box(pg,-5.38,v,1.55,.024,1.93,1.52,glass_light,0)
- # Hazard dashes sit ahead of the base, separated by 6mm.
+ # Black backing and yellow dashes have independent surface clearance.
+ box(g,-5.530,sign*2.28,.59,.008,1.62,.20,black,0)
  for k in range(6):
-  o=box(g,-5.535,sign*2.28+(k-2.5)*.24,.59,.018,.11,.12,yellow,0);o.rotation_euler.x=.35
+  o=box(g,-5.55,sign*2.28+(k-2.5)*.24,.59,.018,.11,.12,yellow,0);o.rotation_euler.x=.35
 for v in [-2.25,0,2.25]:
  pg=definition('ARQ_Estufa_Vidro_Fundo_'+str(v),'detail',[east])
  box(pg,5.38,v,1.56,.024,2.04,1.50,glass,0)
@@ -154,8 +164,8 @@ box(portal,-5.55,0,2.43,.24,2.46,.24,cream,.06)
 for sign,suffix in [(-1,'L'),(1,'R')]:
  g=definition('D_Estufa_Entrada_'+suffix,'door',[portal])
  box(g,-5.52,sign*.55,1.15,.10,1.085,2.28,base,.07)
- box(g,-5.582,sign*.55,1.82,.018,.77,.49,dark,.08)
- box(g,-5.596,sign*.55,1.82,.008,.65,.37,glass_light,.07)
+ rounded_face(g,-5.582,sign*.55,1.82,.77,.49,.08,.018,dark)
+ rounded_face(g,-5.598,sign*.55,1.82,.65,.37,.07,.008,glass_light)
  box(g,-5.594,sign*.22,.97,.035,.10,.25,dark,.025)
  definitions[g]['slide_x']=0;definitions[g]['slide_z']=sign*1.14
 box(portal,-5.57,0,2.94,.27,1.0,.50,base,.065)

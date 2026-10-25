@@ -71,7 +71,7 @@
       "estado_inicial": "visivel",
       "estado_operacao": "both",
       "bounds": {
-        "minX": 8.456000328063965,
+        "minX": 8.440999984741211,
         "maxX": 8.760000228881836,
         "minY": 0.04800000786781311,
         "maxY": 2.5,
@@ -88,7 +88,7 @@
       "estado_inicial": "visivel",
       "estado_operacao": "both",
       "bounds": {
-        "minX": 8.456000328063965,
+        "minX": 8.440999984741211,
         "maxX": 8.760000228881836,
         "minY": 0.04800000786781311,
         "maxY": 2.5,
@@ -1703,7 +1703,7 @@
     "upperPlanters": 4,
     "growBars": 8,
     "parts": 55,
-    "triangles": 51056
+    "triangles": 50952
   },
   "sourceReference": "/Users/rochatales/Game Development/Horda Survivor/Predios/Greenhouse_concept01.jpg"
 }

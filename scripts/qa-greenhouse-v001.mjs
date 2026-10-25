@@ -8,6 +8,7 @@ import assert from 'node:assert/strict';
 const {chromium}=createRequire(process.env.HORDA_QA_PACKAGE)('playwright-core');
 const browser=await chromium.launch({headless:true,executablePath:process.env.HORDA_QA_CHROMIUM,args:['--enable-gpu','--use-angle=metal','--ignore-gpu-blocklist']});
 const page=await browser.newPage({viewport:{width:1280,height:800}});
+await page.bringToFront();
 const report={method:'Estado do runtime, eventos de interface e W/S reais; posições de início configuradas por QA. Sem screenshots, revisão artística ou aceite de jogabilidade.',errors:[],httpErrors:[],angles:[]};
 page.on('pageerror',error=>report.errors.push(String(error)));
 page.on('response',response=>{if(response.status()>=400)report.httpErrors.push({url:response.url(),status:response.status()});});
@@ -40,7 +41,9 @@ const snapshot=()=>page.evaluate(async()=>{
  });
  state.scene.traverse(node=>{const id=node.userData.id_estavel??'';if(/^ARQ_Pavilhao_|^TET_Pavilhao$/.test(id))legacy.push(id);});
  const{playerPosition}=await import('/src/state/playerTransient.ts');
- return {state:root.userData.operationalState,nodes,lights,legacy,player:{...playerPosition},camera:state.camera.position.toArray(),calls:state.gl.info.render.calls,triangles:state.gl.info.render.triangles};
+ const {useGameStore:game}=await import('/src/state/useGameStore.ts');
+ const {simulationBlocked}=await import('/src/game/simulationGate.ts');
+ return {paused:game.getState().isPaused,simulationBlocked:simulationBlocked(),focused:document.hasFocus(),activeElement:document.activeElement?.tagName,state:root.userData.operationalState,nodes,lights,legacy,player:{...playerPosition},camera:state.camera.position.toArray(),calls:state.gl.info.render.calls,triangles:state.gl.info.render.triangles};
 });
 const visible=(data,id)=>{const node=data.nodes.find(node=>node.id===id);assert.ok(node,'ID ausente '+id);return node.visible;};
 const wallsVisible=data=>assert.deepEqual(data.nodes.filter(node=>node.role==='wall'&&!node.visible).map(node=>node.id),[],'paredes permanecem visíveis');
@@ -64,6 +67,7 @@ const aimEast=async()=>{
 };
 const walk=async(key,targetX)=>{
  await aimEast();await page.waitForTimeout(400);
+ const before=await snapshot();assert.equal(before.simulationBlocked,false,'simulação bloqueada antes de caminhar: '+JSON.stringify({paused:before.paused,focused:before.focused,active:before.activeElement}));
  const samples=[],start=Date.now();await page.keyboard.down(key);
  try {
   while(Date.now()-start<14000) {
@@ -74,7 +78,7 @@ const walk=async(key,targetX)=>{
  } finally {await page.keyboard.up(key);}
  await page.waitForTimeout(400);
  const final=await snapshot();assert.ok(samples.length>2,'amostra de movimento insuficiente');
- assert.ok(key==='KeyW'?final.player.x>=targetX:final.player.x<=targetX,`${key} não chegou ao destino: ${JSON.stringify(final.player)}`);
+ assert.ok(key==='KeyW'?final.player.x>=targetX:final.player.x<=targetX,`${key} não chegou ao destino: ${JSON.stringify({player:final.player,paused:final.paused,blocked:final.simulationBlocked,focus:final.focused,active:final.activeElement})}`);
  assert.ok(samples.every(point=>Math.abs(point.z-22.5)<.45),'desvio para os canteiros');
  return {key,targetX,durationMs:Date.now()-start,samples,final};
 };
