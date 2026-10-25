@@ -1,4 +1,8 @@
-# AGENTS.md — Horda Survivor
+# AGENTS.md — EXODEN
+
+EXODEN é o nome oficial do jogo desde 25/10/2026 (nome de trabalho anterior: Horda
+Survivor). Arquivos `HORDA_SURVIVOR_*`, a branch `rochatales/horda-survivor` e os
+ganchos de desenvolvimento `window.__horda*` mantêm o nome antigo por compatibilidade.
 
 Instruções compartilhadas para agentes de código. O Codex lê este arquivo; o
 Claude Code lê via `CLAUDE.md`, que importa este. É a fonte única de

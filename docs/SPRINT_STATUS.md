@@ -1,4 +1,4 @@
-# Quadro de execução — Horda Survivor
+# Quadro de execução — EXODEN
 
 > Quem está fazendo o quê, em qual base e branch. O status oficial de cada
 > item (checkbox) continua em
@@ -92,6 +92,7 @@ Fase 6. A revisão/validação da parte A vem antes de ambas.
 
 ## Log
 
+- 25/10/2026 · claude · a pedido do autor: nome oficial **EXODEN** ("O mundo acabou. A humanidade, não."). Mudam título da página, tela de entrada, README, AGENTS.md, títulos do plano/quadro/fluxo/UI e `package.json` (`exoden`). Save passa a `exoden:hub:v1`, lendo `horda-survivor:hub:v1` para migrar sem apagá-la (4 testes novos). Mantidos por compatibilidade: arquivos `HORDA_SURVIVOR_*`, branch `rochatales/horda-survivor`, ganchos `window.__horda*` (usados pelo kit da sessão) e o modo de combate "Hordas". Sem push ou merge.
 - 25/10/2026 · claude · a pedido do autor: S0.4 aprovada (relato "pelos meus testes está tudo ok", build `3e04ac8` na porta 4173, MacBook M2 Pro) com as medidas técnicas disponíveis de `796ae3a`; Sprint 0 encerrado no relatório, no plano (checkbox S0.4) e neste quadro. Nada da Sprint 2 marcado. Sem push ou merge.
 
 - 24/10/2026 · autor/codex · Complemento da mesma tarefa/commit dos consoles: rack levado a (−6,75; 31,6), fileira em X, a 7 cm da borda real. Tubo fundido em PROP_Tanques_2 permaneceu intacto; ponta original recebe o primeiro cilindro, tanques grandes imóveis. Sem novo colisor ou mudança de área caminhável/embarque. 113/113 testes, build/diff-check verdes; capturas sudoeste atualizadas e novo par noroeste, kit/handoff atualizados. Autor solicitou incorporar ao mesmo commit local dos consoles (350b584 substituído), sem push ou merge na integração.

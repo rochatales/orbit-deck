@@ -15,7 +15,7 @@ try {
     for (const [phase, url] of [['antes', process.env.HORDA_QA_BASE ?? 'http://127.0.0.1:5181/'], ['depois', process.env.HORDA_QA_URL ?? 'http://127.0.0.1:5180/']]) {
         const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 });
         try {
-            await context.addInitScript(() => localStorage.setItem('horda-survivor:hub:v1', JSON.stringify({ version: 1, profile: { displayName: 'Explorador QA', color: '#66e6ff' }, briefingSeen: true })));
+            await context.addInitScript(() => localStorage.setItem('exoden:hub:v1', JSON.stringify({ version: 1, profile: { displayName: 'Explorador QA', color: '#66e6ff' }, briefingSeen: true })));
             const page = await context.newPage();
             page.on('pageerror', error => report.errors.push({ phase, message: String(error) }));
             await page.goto(url + '?perf');

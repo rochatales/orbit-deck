@@ -1,4 +1,8 @@
-# Horda Survivor
+# EXODEN
+
+**O mundo acabou. A humanidade, não.**
+
+Nome oficial definido pelo autor em 25/10/2026 (nome de trabalho anterior: Horda Survivor).
 
 Protótipo local de exploração e combate: a humanidade vive em Marte e envia um explorador às ruínas da Terra. EDEN orienta a viagem pelo rádio.
 

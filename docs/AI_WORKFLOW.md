@@ -1,4 +1,4 @@
-# Fluxo de trabalho: Claude Code + Codex — Horda Survivor
+# Fluxo de trabalho: Claude Code + Codex — EXODEN
 
 > Como os dois agentes trabalham no mesmo repositório sem se atropelar, e
 > como o autor acompanha e aprova.

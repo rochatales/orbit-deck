@@ -47,7 +47,7 @@ try {
  for(const phase of ['antes','depois']) {
   const context=await browser.newContext({viewport:{width:1440,height:900}});
   try {
-   await context.addInitScript(()=>localStorage.setItem('horda-survivor:hub:v1',JSON.stringify({version:1,profile:{displayName:'Explorador QA',color:'#66e6ff'},briefingSeen:true})));
+   await context.addInitScript(()=>localStorage.setItem('exoden:hub:v1',JSON.stringify({version:1,profile:{displayName:'Explorador QA',color:'#66e6ff'},briefingSeen:true})));
    if(phase==='antes')await context.route(/\/src\/assets\/colony-v006\.glb$/,route=>route.fulfill({body:before,contentType:'model/gltf-binary'}));
    const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(String(e)));
    await page.goto('http://127.0.0.1:5192/');await page.waitForTimeout(5000);

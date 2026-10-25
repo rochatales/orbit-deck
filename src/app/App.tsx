@@ -18,7 +18,7 @@ function Welcome() {
     const [name, setName] = useState(''), [color, setColor] = useState('#66e6ff');
     const start = useExpeditionStore(s => s.start);
     return <main className="welcome"><form onSubmit={e => { e.preventDefault(); start(name, color); }}>
-    <p className="eyebrow">HORDA SURVIVOR · PROTÓTIPO</p><h1>A humanidade começa de novo.</h1>
+    <p className="eyebrow">EXODEN · PROTÓTIPO</p><h1>O mundo acabou. A humanidade, não.</h1>
     <p>Marte é nosso lar. A Terra guarda os materiais do próximo passo.</p>
     <label>Nome do explorador<input value={name} onChange={e => setName(e.target.value)} minLength={2} maxLength={32} required autoFocus/></label>
     <label>Cor do traje<input type="color" value={color} onChange={e => setColor(e.target.value)}/></label>

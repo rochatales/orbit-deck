@@ -1,4 +1,4 @@
-# Horda Survivor — Sprints do protótipo Shanghai
+# EXODEN — Sprints do protótipo Shanghai
 
 Criado em 28/09/2026; atualizado em 19/10/2026. Status: Sprint 1 implementado; núcleo do Sprint 2, S2.12 A, hordas e caixas consolidados tecnicamente, sem aceite de jogabilidade. S2.9 (medições), S2.12 (revisão A e parte B), S2.11 e validação do autor pendentes. Sprint 0 mantém a pendência de baseline S0.4.
 

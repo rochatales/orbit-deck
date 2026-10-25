@@ -1,4 +1,4 @@
-# Plano de ação — Interfaces de Horda Survivor
+# Plano de ação — Interfaces de EXODEN
 
 Planejado em 30/09/2026, a pedido do autor. Base consultada:
 `7f2e60b36fb4ab95d07133b425cb25a11ea99a81` (`rochatales/horda-survivor`).

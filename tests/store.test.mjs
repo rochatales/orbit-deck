@@ -11,14 +11,14 @@ test('integration: migrated identity, distance guards, boarding/roundtrip, persi
  assert.equal(store.getState().profile.displayName,'Old Profile');store.getState().setReady(true);
  store.getState().send('board');assert.equal(store.getState().session.phase,'walking');
  place(EDEN.position);store.getState().openEden();assert.equal(store.getState().panel,'eden');store.getState().closePanel();
- const save=JSON.parse(values.get('horda-survivor:hub:v1'));assert.equal(save.briefingSeen,true);assert.equal(save.session,undefined);
+ const save=JSON.parse(values.get('exoden:hub:v1'));assert.equal(save.briefingSeen,true);assert.equal(save.session,undefined);
  place(MAPS.mars.exit);store.getState().send('board');assert.equal(store.getState().session.phase,'aboard');
  store.getState().send('depart');store.getState().send('depart');assert.equal(store.getState().session.destination,'shanghai');
  store.getState().send('arrive');store.getState().setReady(true);assert.equal(store.getState().session.map,'shanghai');assert.equal(store.getState().spawn.z,13);
  store.getState().send('exit');assert.deepEqual(store.getState().spawn,MAPS.shanghai.exit);
  store.getState().send('board');store.getState().send('depart');store.getState().send('arrive');store.getState().setReady(true);store.getState().send('exit');
  assert.equal(store.getState().session.map,'mars');assert.deepEqual(store.getState().spawn,MAPS.mars.exit);
- assert.equal(JSON.parse(values.get('horda-survivor:hub:v1')).session,undefined);
+ assert.equal(JSON.parse(values.get('exoden:hub:v1')).session,undefined);
 });
 test('paused and loading interactions are rejected; save errors are visible',()=>{
  place(MAPS.mars.exit);game.setState({isPaused:true});store.getState().send('board');assert.equal(store.getState().session.phase,'walking');

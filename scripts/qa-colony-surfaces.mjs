@@ -17,7 +17,7 @@ const browser=await chromium.launch({headless:true,executablePath,args:['--enabl
 const report={data:new Date().toISOString(),reposicao:'assistida via stores; não é navegação física ou aceite do autor'};
 async function open(url,label,before=false,video=true) {
  const context=await browser.newContext({viewport:{width:1280,height:800},...(video?{recordVideo:{dir:out,size:{width:1280,height:800}}}:{})});
- await context.addInitScript(()=>localStorage.setItem('horda-survivor:hub:v1',JSON.stringify({version:1,profile:{displayName:'Explorador QA',color:'#66e6ff'},briefingSeen:true})));
+ await context.addInitScript(()=>localStorage.setItem('exoden:hub:v1',JSON.stringify({version:1,profile:{displayName:'Explorador QA',color:'#66e6ff'},briefingSeen:true})));
  if(before)await context.route(/\/src\/assets\/colony-v006\.glb$/,route=>route.fulfill({path:beforeGlb,contentType:'model/gltf-binary'}));
  const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(String(e)));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
  await page.goto(url);await page.waitForTimeout(5000);
