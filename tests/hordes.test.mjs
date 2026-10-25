@@ -4,7 +4,7 @@ import { loadSource } from './load-source.mjs';
 
 globalThis.document = { createElement: () => ({ width: 0, height: 0, getContext: () => ({ fillText() {} }) }) };
 const { CombatSimulation } = loadSource('src/combat/simulation.ts');
-const { COMBAT, HORDE_ENCOUNTER, encounterLayout, encounterTotal } = loadSource('src/combat/config.ts');
+const { COMBAT, robotConfig, HORDE_ENCOUNTER, encounterLayout, encounterTotal } = loadSource('src/combat/config.ts');
 const { Navigation, clearSegment, smoothPath, traversable } = loadSource('src/combat/navigation.ts');
 const { createPhase01Terrain, SHANGHAI_PHASE01: data } = loadSource('src/game/shanghai/layout.ts');
 const { createWorld } = loadSource('src/game/shanghaiWorld.ts');
@@ -94,8 +94,8 @@ test('hordas 10 → 20 → 30 → 40 nascem na borda, em pontos distintos, longe
         assert.ok(alive.filter(r => !previous.has(`${r.x},${r.z}`)).length >= alive.length * 0.7, 'pontos diferentes da horda anterior');
         for (const r of alive) {
             const edge = Math.min(r.x - b.minX, b.maxX - r.x, r.z - b.minZ, b.maxZ - r.z);
-            assert.ok(Math.abs(edge - COMBAT.hordes.edgeInset) < 1e-6, `robô ${r.id} no limite do mapa`);
-            assert.ok(traversable(r, terrain, COMBAT.robot.radius));
+            assert.ok(Math.abs(edge - Math.max(COMBAT.hordes.edgeInset, robotConfig(r).radius + .2)) < 1e-6, `robô ${r.id} no limite do mapa`);
+            assert.ok(traversable(r, terrain, robotConfig(r).radius));
             assert.ok(Math.hypot(r.x - player.x, r.z - player.z) >= COMBAT.hordes.minPlayerDistance);
             assert.equal(r.alerted, false); assert.equal(r.routeIndex, -1);
             assert.ok(!drops.has(r.drop), 'slot de peças novo a cada vida'); drops.add(r.drop);
@@ -103,7 +103,7 @@ test('hordas 10 → 20 → 30 → 40 nascem na borda, em pontos distintos, longe
         const sides = new Set(alive.map(r => { const d = [r.z - b.minZ, b.maxZ - r.z, r.x - b.minX, b.maxX - r.x]; return d.indexOf(Math.min(...d)); }));
         assert.equal(sides.size, 4, 'chegam pelos quatro lados');
         assert.ok(sim.hearts.every(h => h.active), 'corações repostos');
-        assert.ok(sim.ammo + sim.reserve >= waves[w - 1] * 3 * COMBAT.hordes.ammoMargin, 'reabastecimento');
+        assert.ok(sim.ammo + sim.reserve >= alive.reduce((hits,r)=>hits+Math.ceil(robotConfig(r).hp/COMBAT.rifle.damage),0) * COMBAT.hordes.ammoMargin, 'reabastecimento proporcional à vida dos dois portes');
         previous = points;
         step(sim, player, 3);
         assert.equal(sim.wave, w, 'próxima horda espera a atual');

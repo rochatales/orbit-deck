@@ -1,0 +1,137 @@
+{
+  "base": "a15af914440577ed1b4e26bdeb44e6dd727a06c8",
+  "metodo": "Fixture dev, Chromium headless GPU, 1440×900 DPR 1; salto assistido às hordas 3/4 e reposição assistida para inspeção/coleta. Não é playtest, benchmark ou aceite do autor.",
+  "errors": [],
+  "waves": [
+    {
+      "wave": 3,
+      "total": 30,
+      "large": 5,
+      "visible": {
+        "PlayerMesh_1": 1,
+        "PlayerMesh_2": 1,
+        "IronCollectibleMesh": 1,
+        "CopperCollectibleMesh": 1,
+        "PatrolUnitMesh": 25,
+        "LargePatrolUnitMesh": 5
+      },
+      "titaniumInstances": 1,
+      "snapshot": {
+        "hp": 100,
+        "iron": 0,
+        "copper": 0,
+        "titanium": 0,
+        "ammo": 24,
+        "reserve": 134,
+        "reloading": false,
+        "dead": false,
+        "kills": 0,
+        "total": 100,
+        "cleared": false,
+        "damage": false,
+        "hit": false,
+        "wave": 3,
+        "waves": 4,
+        "nextWave": 0,
+        "alive": 30
+      }
+    },
+    {
+      "wave": 4,
+      "total": 40,
+      "large": 10,
+      "visible": {
+        "PlayerMesh_1": 1,
+        "PlayerMesh_2": 1,
+        "PatrolUnitMesh": 30,
+        "LargePatrolUnitMesh": 10
+      },
+      "titaniumInstances": 0,
+      "snapshot": {
+        "hp": 100,
+        "iron": 1,
+        "copper": 1,
+        "titanium": 1,
+        "ammo": 24,
+        "reserve": 201,
+        "reloading": false,
+        "dead": false,
+        "kills": 0,
+        "total": 100,
+        "cleared": false,
+        "damage": false,
+        "hit": false,
+        "wave": 4,
+        "waves": 4,
+        "nextWave": 0,
+        "alive": 40
+      }
+    }
+  ],
+  "collectMetals": {
+    "wave": 3,
+    "total": 0,
+    "large": 0,
+    "visible": {
+      "PlayerMesh_1": 1,
+      "PlayerMesh_2": 1,
+      "IronCollectibleMesh": 1,
+      "CopperCollectibleMesh": 1,
+      "PatrolUnitMesh": 25,
+      "LargePatrolUnitMesh": 5
+    },
+    "titaniumInstances": 1,
+    "snapshot": {
+      "hp": 100,
+      "iron": 1,
+      "copper": 1,
+      "titanium": 0,
+      "ammo": 24,
+      "reserve": 134,
+      "reloading": false,
+      "dead": false,
+      "kills": 0,
+      "total": 100,
+      "cleared": false,
+      "damage": false,
+      "hit": false,
+      "wave": 3,
+      "waves": 4,
+      "nextWave": 100,
+      "alive": 0
+    }
+  },
+  "collectTitanium": {
+    "wave": 3,
+    "total": 0,
+    "large": 0,
+    "visible": {
+      "PlayerMesh_1": 1,
+      "PlayerMesh_2": 1,
+      "IronCollectibleMesh": 1,
+      "CopperCollectibleMesh": 1,
+      "PatrolUnitMesh": 25,
+      "LargePatrolUnitMesh": 5
+    },
+    "titaniumInstances": 0,
+    "snapshot": {
+      "hp": 100,
+      "iron": 1,
+      "copper": 1,
+      "titanium": 1,
+      "ammo": 24,
+      "reserve": 134,
+      "reloading": false,
+      "dead": false,
+      "kills": 0,
+      "total": 100,
+      "cleared": false,
+      "damage": false,
+      "hit": false,
+      "wave": 3,
+      "waves": 4,
+      "nextWave": 99,
+      "alive": 0
+    }
+  }
+}

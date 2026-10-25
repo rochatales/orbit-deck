@@ -171,11 +171,12 @@ não tem Backward e usa Run no recuo; serve só como comparação de visual.
 | Decisão vinculada a A12 | Resultado (passou/falhou/pendente) | Decisão/observação do autor |
 |---|---|---|
 | Corrida W: manter 4,2 m/s ou solicitar outro valor | passou | **Autor confirmou expressamente em 25/10: mantém 4,2 m/s; referência do Run do Explorador Toy.** |
-| Recuo S: manter 1,2 m/s ou solicitar outro valor | passou | Mantém 1,2 m/s no piloto (mesma leitura) |
+| Recuo S: manter 1,2 m/s ou solicitar outro valor | passou | **Autor confirmou expressamente em 25/10: mantém 1,2 m/s; referência do Backward do Explorador Toy.** |
 | Deslizamento/cadência do Run na câmera real | passou | Aceitável no piloto com o r7. A correção definitiva é a corrida autorada para a velocidade real no Explorador Toy (`docs/sprint-6/ESTUDO_MAIN_PLAYER.md`, 1.2 e 3.4), que o autor já apontou como estranha em 24/10 |
 
 **Aceite A1–A13:** **aprovo** (autor, 25/10/2026: "A1–A13 ok"). Itens com falha: nenhum. Registro feito pelo Claude a pedido do autor.
-**Liberação explícita para iniciar S2.12 B:** sim / não / pendente: —.
+**Liberação explícita para iniciar S2.12 B: sim — autor, 25/10/2026.**
+Etapa 1 autorizada; parar ao final para revisão do Claude e decisão do avanço.
 Se houver falhas em A1–A13, o agente registra, propõe correções e para; não corrige
 sem liberação. O aceite de A não marca a S2.12 completa.
 

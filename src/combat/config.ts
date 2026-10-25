@@ -28,7 +28,7 @@ export const COMBAT = {
      * até a posição do jogador em ritmo de patrulha e aceleram ao avistá-lo.
      */
     hordes: {
-        waves: [10, 20, 30, 40], firstDelay: 4, intermission: 6,
+        waves: [10, 20, 30, 40], largePatrols: [0, 0, 5, 10], firstDelay: 4, intermission: 6,
         edgeInset: 1.5, edgeStep: 1.5, minPlayerDistance: 14,
         /** No início de cada horda, munição total ≥ acertos necessários × margem. */
         ammoMargin: 1.5,
@@ -105,4 +105,21 @@ export function writeRifleMuzzle(out: { x: number; z: number }, x: number, z: nu
     const sin = Math.sin(angle), cos = Math.cos(angle);
     out.x = x + RIFLE_POSE.side * cos + forward * sin;
     out.z = z - RIFLE_POSE.side * sin + forward * cos;
+}
+
+/** S6.1: Patrol grande, apenas nas duas últimas hordas. Tuning inicial do pedido. */
+export const LARGE_PATROL = {
+    ...COMBAT.robot, hp: 150, speed: 1.25, chaseSpeed: 1.55,
+    radius: 1.65, spacing: 3.3, separation: 3.6, separationWeight: 0.5,
+    contactRange: 2.5, damage: 25, contactInterval: 1.2,
+} as const;
+export type RobotKind = 'patrol' | 'largePatrol';
+export function robotConfig(robot: { kind?: RobotKind }) {
+    return robot.kind === 'largePatrol' ? LARGE_PATROL : COMBAT.robot;
+}
+
+/** Distribuição uniforme dos grandes ao redor do perímetro, preservando o total da horda. */
+export function waveRobotKind(waveIndex: number, slot: number): RobotKind {
+    const count = COMBAT.hordes.waves[waveIndex], large = Math.min(count, COMBAT.hordes.largePatrols[waveIndex] ?? 0);
+    return Math.floor((slot + 1) * large / count) > Math.floor(slot * large / count) ? 'largePatrol' : 'patrol';
 }

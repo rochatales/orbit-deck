@@ -36,13 +36,14 @@ export function CombatHud() {
     {s.waves > 0 && s.nextWave > 0 && !s.dead && !paused && <div className="wave-banner" role="status">
       <small>{s.wave === 0 ? 'CONTATO IMINENTE' : `HORDA ${s.wave} NEUTRALIZADA`}</small>
       <strong>HORDA {s.wave + 1} / {s.waves}</strong>
-      <span>{COMBAT.hordes.waves[s.wave]} robôs pela borda do mapa · {s.nextWave} s</span>
+      <span>{COMBAT.hordes.waves[s.wave]} robôs pela borda do mapa{COMBAT.hordes.largePatrols[s.wave] > 0 ? ` · ${COMBAT.hordes.largePatrols[s.wave]} Patrol grandes` : ''} · {s.nextWave} s</span>
     </div>}
     <aside className="equipment-bar" aria-label="Itens e equipamentos">
       <div className="equipment-inventory"><h2>ITENS / EQUIPAMENTOS <span>COLETA POR PROXIMIDADE</span></h2>
         <div className="item-slots">
           <div className="item-slot" title="Ferro coletado nesta tentativa"><div><Layers/><b>×{s.iron}</b></div><span>FERRO</span></div>
           <div className="item-slot" title="Cobre coletado nesta tentativa"><div><Boxes/><b>×{s.copper}</b></div><span>COBRE</span></div>
+          <div className="item-slot" title="Titânio dos Patrol grandes coletado nesta tentativa"><div><Boxes/><b>×{s.titanium}</b></div><span>TITÂNIO</span></div>
           <div className="item-slot" title="Munição de reserva"><div><Shell/><b>×{s.reserve}</b></div><span>RESERVA</span></div>
           <div className="item-slot health-slot" title="Corações coletáveis no mapa; cada um recupera 50 de vida"><div><Heart/><b>+50</b></div><span>CURA NO MAPA</span></div>
         </div>
