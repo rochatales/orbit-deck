@@ -14,7 +14,7 @@
 
 | Sprint | Situação | Pendências |
 |---|---|---|
-| 0 · Preservação e baseline | ◐ Preparação concluída | S0.4 parcial: movimento contínuo, diálogo de EDEN e medição de frames sem validação manual |
+| 0 · Preservação e baseline | ✅ Encerrado em 25/10/2026 | — (S0.4 aprovada pelo autor; medições no equipamento do autor seguem na S2.9) |
 | 1 · Base local e viagem Marte–Shanghai | ✅ Implementado (S1.1–S1.10) | — |
 | 2 · Movimento, tiro e sobrevivência | ◐ Núcleo implementado (S2.1–S2.8) | S2.12 A, patrulhas de 32 e hordas crescentes integradas, sem aceite; S2.9 com medições pendentes; S2.10 já aceita; revisão de código da S2.12 A concluída sem achados; A1–A13/Run pendentes; parte B com escopo decidido, aguardando validação A1–A13 e liberação; S2.11 posterior a B. Aceite de jogabilidade na etapa 6.5 do [roteiro consolidado](./sprint-2/VALIDACAO_MANUAL.md) |
 | 3 · Ondas, categorias e dispositivos | 🔲 Escopo oficial pendente | Hordas 10→20→30→40 antecipadas pela S2.4; não concluem S3.1/S3.4/S3.8. Defesas e categorias ainda pendentes |
@@ -91,6 +91,8 @@ podem tocar o controller; executar primeiro S2.12 B e depois S2.11, conforme
 Fase 6. A revisão/validação da parte A vem antes de ambas.
 
 ## Log
+
+- 25/10/2026 · claude · a pedido do autor: S0.4 aprovada (relato "pelos meus testes está tudo ok", build `3e04ac8` na porta 4173, MacBook M2 Pro) com as medidas técnicas disponíveis de `796ae3a`; Sprint 0 encerrado no relatório, no plano (checkbox S0.4) e neste quadro. Nada da Sprint 2 marcado. Sem push ou merge.
 
 - 24/10/2026 · autor/codex · Complemento da mesma tarefa/commit dos consoles: rack levado a (−6,75; 31,6), fileira em X, a 7 cm da borda real. Tubo fundido em PROP_Tanques_2 permaneceu intacto; ponta original recebe o primeiro cilindro, tanques grandes imóveis. Sem novo colisor ou mudança de área caminhável/embarque. 113/113 testes, build/diff-check verdes; capturas sudoeste atualizadas e novo par noroeste, kit/handoff atualizados. Autor solicitou incorporar ao mesmo commit local dos consoles (350b584 substituído), sem push ou merge na integração.
 

@@ -126,19 +126,19 @@ com M1/M2 do bloco 4, sem exigir outra sessão do autor.
 
 | Item | Ação / resultado esperado | Resultado | Observação/evidência |
 |---|---|---|---|
-| S0.4 · entrada | Preencher perfil de teste e entrar na colônia de Marte; esperar mapa e personagens carregarem. Anotar falhas de carregamento; tempos entram no JSON A | pendente | — |
-| S0.4 · movimento contínuo | Em rota livre, sustentar W guiando pelo cursor, depois S. W segue a mira; S recua voltado a ela. A/D não deslocam; W+S neutralizam. Conferir quinas, paredes e portas | pendente | — |
-| S0.4 · câmera | Girar Q/C enquanto anda e recua; a mira continua orientando o movimento. Conferir zoom com roda/+/−; R é recarga | pendente | — |
-| S0.4 · EDEN | Ir ao norte, próximo de (0; −10), usar E, ler o briefing, fechar com Esc e voltar a andar. Diálogo deve bloquear movimento/tiro e devolver controle ao fechar | pendente | — |
-| S0.4 · deck ARES-I | Seguir ao sul pela passarela X −2…2, Z 25…27,4 até o deck centrado em (0; 33). Conferir piso, bordas e E em (0; 29,5). Oeste em (−3; 25,9), tela para a chegada: tentar atravessar (deve bloquear) e contornar; não invade passarela/faixas/borda, sem z-fighting. Leste em (6,85; 31,8), folga ≈0,41 m. Rack em (−6,75; 31,6), fileira em X, folga 0,07 m: ponta do tubo entra no primeiro cilindro, tanques grandes imóveis. Leste/rack fora da área caminhável e sem colisores novos; caminho ao embarque livre | pendente | — |
-| S0.4 · embarque Marte | No pé da escada (0; 29,5), E abre a cabine sem decolar automaticamente. Movimento e tiro ficam bloqueados a bordo; escada/casco não são atravessáveis | pendente | — |
-| S0.4 · desembarque Marte | Ainda em Marte, usar E/desembarcar: retornar a (0; 29,5), recuperar movimento e conseguir sair do deck para a colônia sem prender nos volumes da nave | pendente | — |
-| S0.4 · pausa | Fora de diálogo, Esc pausa; esperar, retomar e conferir controle sem avanço acumulado | pendente | — |
-| S0.4 · troca de janela | Com movimento sustentado, trocar de janela e soltar a tecla fora do jogo. Voltar: pausa automática; retomar sem movimento preso. Repetir com tiro em Shanghai no bloco 3, fora das medições | pendente | — |
-| S0.4 · frames | Completar M1 e M2 no bloco 4, 30 s cada, com JSONs válidos e ambiente registrado. São intervalos de rAF, não tempo de GPU | pendente | — |
+| S0.4 · entrada | Preencher perfil de teste e entrar na colônia de Marte; esperar mapa e personagens carregarem. Anotar falhas de carregamento; tempos entram no JSON A | passou | Relato do autor, 25/10/2026 |
+| S0.4 · movimento contínuo | Em rota livre, sustentar W guiando pelo cursor, depois S. W segue a mira; S recua voltado a ela. A/D não deslocam; W+S neutralizam. Conferir quinas, paredes e portas | passou | Relato do autor, 25/10/2026 |
+| S0.4 · câmera | Girar Q/C enquanto anda e recua; a mira continua orientando o movimento. Conferir zoom com roda/+/−; R é recarga | passou | Relato do autor, 25/10/2026 |
+| S0.4 · EDEN | Ir ao norte, próximo de (0; −10), usar E, ler o briefing, fechar com Esc e voltar a andar. Diálogo deve bloquear movimento/tiro e devolver controle ao fechar | passou | Relato do autor, 25/10/2026 |
+| S0.4 · deck ARES-I | Seguir ao sul pela passarela X −2…2, Z 25…27,4 até o deck centrado em (0; 33). Conferir piso, bordas e E em (0; 29,5). Oeste em (−3; 25,9), tela para a chegada: tentar atravessar (deve bloquear) e contornar; não invade passarela/faixas/borda, sem z-fighting. Leste em (6,85; 31,8), folga ≈0,41 m. Rack em (−6,75; 31,6), fileira em X, folga 0,07 m: ponta do tubo entra no primeiro cilindro, tanques grandes imóveis. Leste/rack fora da área caminhável e sem colisores novos; caminho ao embarque livre | passou | Relato do autor, 25/10/2026 |
+| S0.4 · embarque Marte | No pé da escada (0; 29,5), E abre a cabine sem decolar automaticamente. Movimento e tiro ficam bloqueados a bordo; escada/casco não são atravessáveis | passou | Relato do autor, 25/10/2026 |
+| S0.4 · desembarque Marte | Ainda em Marte, usar E/desembarcar: retornar a (0; 29,5), recuperar movimento e conseguir sair do deck para a colônia sem prender nos volumes da nave | passou | Relato do autor, 25/10/2026 |
+| S0.4 · pausa | Fora de diálogo, Esc pausa; esperar, retomar e conferir controle sem avanço acumulado | passou | Relato do autor, 25/10/2026 |
+| S0.4 · troca de janela | Com movimento sustentado, trocar de janela e soltar a tecla fora do jogo. Voltar: pausa automática; retomar sem movimento preso. Repetir com tiro em Shanghai no bloco 3, fora das medições | passou | Relato do autor, 25/10/2026 |
+| S0.4 · frames | Completar M1 e M2 no bloco 4, 30 s cada, com JSONs válidos e ambiente registrado. São intervalos de rAF, não tempo de GPU | passou (referência técnica) | Medidas disponíveis: `docs/sprint-0/evidencias/796ae3a/perf-referencia.json`, duas amostras válidas de 30 s em Marte, build de produção (Chromium headless, M2 Pro). M1/M2/S40 no equipamento do autor seguem com a S2.9 |
 
-**Aceite expresso S0.4 (somente após M1/M2):** aprovo / não aprovo / pendente: —.
-Observações do autor: —. Sem esse aceite, S0.4 e Sprint 0 permanecem abertas.
+**Aceite expresso S0.4:** **aprovo** (autor, 25/10/2026: "pelos meus testes está tudo ok"). O autor decidiu encerrar a S0.4 com as medidas técnicas disponíveis; M1/M2 no equipamento do autor passam a pertencer só à S2.9.
+Observações do autor: navegador e tela não informados. Registro feito pelo Claude a pedido do autor. **S0.4 e Sprint 0 encerradas em 25/10/2026.**
 
 ## 2. S2.12 A — A1–A13 e decisões de movimento
 

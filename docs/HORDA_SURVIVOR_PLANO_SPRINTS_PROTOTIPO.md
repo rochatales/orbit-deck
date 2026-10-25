@@ -96,14 +96,14 @@ A localização exata do deck será definida no blockout do sprint 1, preservand
 
 ## 4. Sprint 0 — Preservação, inventário e referência
 
-Execução registrada em [Relatório do Sprint 0](sprint-0/RELATORIO.md). Preparação concluída; S0.4 parcial, com limites explícitos no relatório. Nenhuma alteração de gameplay.
+Execução registrada em [Relatório do Sprint 0](sprint-0/RELATORIO.md). **Encerrado em 25/10/2026**: S0.4 aprovada pelo autor na sessão de fechamento; medições no equipamento do autor seguem na S2.9. Nenhuma alteração de gameplay.
 
 Objetivo: preparar uma base recuperável sem perder código ou arte.
 
 - [x] S0.1 Registrar commit/estado atual e criar a branch de implementação `rochatales/horda-survivor`, se ainda não existir.
 - [x] S0.2 Inventariar e preservar separadamente os arquivos não rastreados; verificar a cópia. Não usar a criação de branch como backup desses arquivos.
 - [x] S0.3 Registrar assets ativos, fontes e exportações. Adiar movimentos em massa até atualizar imports; não criar duplicatas de GLBs ativos.
-- [ ] S0.4 Reexecutar build e registrar uma sessão manual: entrada, movimento, câmera e EDEN. Registrar o dispositivo, navegador, resolução e medidas de carregamento/desempenho disponíveis.
+- [x] S0.4 Reexecutar build e registrar uma sessão manual: entrada, movimento, câmera e EDEN. Registrar o dispositivo, navegador, resolução e medidas de carregamento/desempenho disponíveis.
 - [x] S0.5 Confirmar o roteiro de playtest e documentar os defaults usados no protótipo.
 
 Saída: referência recuperável, inventário e baseline registrados. Sem alteração de gameplay neste sprint.
