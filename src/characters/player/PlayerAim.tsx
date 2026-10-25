@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Plane, Raycaster, Vector2, Vector3 } from 'three';
+import { RIFLE_POSE } from '../../combat/config';
 import { combatRuntime } from '../../state/useCombatStore';
 import { useGameStore } from '../../state/useGameStore';
 import { useExpeditionStore } from '../../state/useExpeditionStore';
@@ -12,7 +13,7 @@ export function PlayerAim() {
   const { gl, camera } = useThree();
   const pointer = useRef(new Vector2()), inside = useRef(false);
   const ray = useMemo(() => new Raycaster(), []);
-  const plane = useMemo(() => new Plane(new Vector3(0, 1, 0), -0.9), []);
+  const plane = useMemo(() => new Plane(new Vector3(0, 1, 0), -RIFLE_POSE.height), []);
   const point = useMemo(() => new Vector3(), []);
   useEffect(() => {
     const canvas = gl.domElement;

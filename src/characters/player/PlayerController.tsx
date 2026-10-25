@@ -243,7 +243,7 @@ export function PlayerController({
 
     // Posição frequente fora do React; a store só recebe a mudança de condição de interação.
     const translation = body.translation();
-    publishPlayerFrame(translation.x, motionRef.current.visualBob, translation.z, useExpeditionStore.getState().session.map);
+    publishPlayerFrame(translation.x, motionRef.current.visualBob, translation.z, useExpeditionStore.getState().session.map, facingAngleRef.current);
   });
 
   return null;

@@ -90,3 +90,34 @@ Para cada caso: modo/horda, ação, observado × esperado, resultado, ambiente e
 Minas, barreiras, duas categorias de criaturas, loot persistente, extração obrigatória e construção da máquina permanecem pendentes. Hordas, peças temporárias, corações e caixas já existem neste estado; não equivalem aos Sprints 3–5 completos. Retorno a Marte continua livre; recarregar a página retorna ao hub e não salva a tentativa em Shanghai.
 
 S2.12 B (origem/mira/traçador, colisão com altura e sólidos/navegação) exige proposta da etapa 6.3 para fase 01: altura do Patrol Unit, raio E1, altura das caixas e colisão dos depósitos. S2.11 vem depois, sem adoção automática. Revisão completa e avanço da integração seguem na Fase 4; aceite de jogabilidade somente na etapa 6.5.
+
+## S2.12 B — etapa 1, Parada 1 (25/10/2026)
+
+Autor liberou B após A1–A13, com A12 confirmado: corrida 4,2 m/s, recuo 1,2 m/s.
+Nesta etapa, tiro/cano/plano a 0,85 m e retícula a 0,86 m. Raio, altura de
+colisores e navegação aguardam etapas 2 e 3; depósitos excluídos até S4.3.
+As referências anteriores à proposta pendente são históricas; o escopo vigente
+está no [handoff da etapa 1](../handoffs/s2.12-b.md) e na
+[proposta decidida](../handoffs/s2.12-b-proposta.md).
+
+Testar o **build da worktree `/Users/rochatales/.codex/worktrees/s2-12-b/game-workplace`**,
+branch `rochatales/s2.12-b`, base `2b1c91beeb6a59d3ef8815cdf3f3f1ab66689b28`.
+Comandos: `npm run build` e `npm run preview -- --host 127.0.0.1 --port 4192 --strictPort`.
+A porta 4173 permanece com o fechamento; não trocar sua instância pela tarefa.
+Registrar o SHA real testado. **Todos os itens abaixo aguardam o autor.**
+
+| Caso | Conferir | Resultado |
+|---|---|---|
+| B1.1 · regressão A | Marte: W/S, Q/C, E/EDEN/Esc e velocidades 4,2/1,2 m/s mantidos | pendente |
+| B1.2 · giro/origem | Shanghai, 1 robô, parado/correndo/recuando: girar o cursor; o traçador nasce na ponta da arma suavizada, a 0,85 m | pendente |
+| B1.3 · parede/quina | Encostar e apontar para além: checagem centro→cano impede dano do outro lado; traçador ocluído termina na face | pendente |
+| B1.4 · perto/longe | Na mesma direção do cano, aproximar/afastar o cursor; bala continua além da retícula até colisão/32 m, sem distância do cursor limitar o alcance | pendente |
+| B1.5 · mira próxima | Cursor sobre o corpo, no cano ou atrás dele: tiro horizontal segue o rumo do corpo, sem inversão | pendente |
+| B1.6 · impacto | Robô à frente e parede atrás, depois robô protegido por parede: primeiro contato define fim do traçador e dano | pendente |
+| B1.7 · bloqueios | Atirar/recarregar, pausar, abrir interação, embarcar: sem tiro ou avanço de combate em estado bloqueado | pendente |
+| B1.8 · reset | Viajar/desembarcar e retry após morte: origem/rumo no novo spawn, sem traçador antigo ou gatilho preso | pendente |
+
+Casos geométricos e alcance exato: testes automatizados da etapa 1. A evidência
+em fixture dev é verificação técnica, sem substituir este playtest no build.
+Claude revisa contra a base antes da próxima etapa. **Parar após a etapa 1**;
+sem liberar etapas 2/3, marcar checkbox ou declarar aceite pelo agente.

@@ -1,4 +1,4 @@
-import { COMBAT, HIT_LAYER, HORDE_ENCOUNTER, RIFLE_MASK, encounterLayout, type EncounterChoice, type EncounterLayout } from './config';
+import { COMBAT, HIT_LAYER, HORDE_ENCOUNTER, RIFLE_MASK, RIFLE_POSE, writeRifleMuzzle, encounterLayout, type EncounterChoice, type EncounterLayout } from './config';
 import { Navigation, clearSegment, segmentBox, smoothPath, traversable, type Position, type Terrain } from './navigation';
 import { advanceCrate, openCrate, SUPPLY_CRATE, type CratePlacement, type CrateState } from '../game/props/supplyCrate';
 export interface SupplyCrate extends CrateState, CratePlacement { marker: Position; rewarded: boolean }
@@ -58,6 +58,8 @@ export interface Shot {
 export interface CombatInput {
     player: Position;
     aim: Position;
+    /** Rumo suavizado do corpo publicado pelo controller; nunca o ângulo instantâneo do cursor. */
+    facingAngle: number;
     firing: boolean;
     reload: boolean;
 }
@@ -73,26 +75,33 @@ export function rayCircle(a: Position, b: Position, c: Position, r: number): num
     const t = (-bb - Math.sqrt(disc)) / (2 * aa);
     return t >= 0 && t <= 1 ? t : null;
 }
+export interface ShotTrace { to: Position; robot: Robot | null; blocked: boolean }
 /** Hitscan uses the same obstacle footprints as movement. Player is excluded by mask. */
-export function traceShot(a: Position, b: Position, terrain: Terrain, robots: Robot[], mask = RIFLE_MASK) {
+export function traceShot(a: Position, b: Position, terrain: Terrain, robots: Robot[], mask = RIFLE_MASK, out: ShotTrace = { to: { x: 0, z: 0 }, robot: null, blocked: false }) {
+    out.blocked = false;
     let t = 1, robot: Robot | null = null;
     if (mask & HIT_LAYER.world)
         for (const obstacle of terrain.obstacles) {
             const hit = segmentBox(a, b, obstacle);
             if (hit !== null && hit <= t) {
                 t = hit;
+                out.blocked = true;
             }
         }
     if (mask & HIT_LAYER.enemy)
         for (const candidate of robots)
             if (candidate.hp > 0) {
                 const hit = rayCircle(a, b, candidate, COMBAT.robot.radius);
-                if (hit !== null && hit < t) {
+                if (hit !== null && hit <= t && (!out.blocked || hit < t - 1e-9)) {
                     t = hit;
                     robot = candidate;
+                    out.blocked = true;
                 }
             }
-    return { to: { x: a.x + (b.x - a.x) * t, z: a.z + (b.z - a.z) * t }, robot };
+    out.to.x = a.x + (b.x - a.x) * t;
+    out.to.z = a.z + (b.z - a.z) * t;
+    out.robot = robot;
+    return out;
 }
 export class CombatSimulation {
     hp: number = COMBAT.playerHp;
@@ -104,6 +113,12 @@ export class CombatSimulation {
     damageFlash = 0;
     hitFlash = 0;
     shots: Shot[] = [];
+    // Origem/destino, resultado e três traçadores pré-alocados; nenhum objeto por disparo/passo.
+    private muzzle: Position = { x: 0, z: 0 };
+    private rifleEnd: Position = { x: 0, z: 0 };
+    private shotTrace: ShotTrace = { to: { x: 0, z: 0 }, robot: null, blocked: false };
+    private shotPool: Shot[] = Array.from({ length: 3 }, () => ({ from: { x: 0, z: 0 }, to: { x: 0, z: 0 }, life: 0, hit: false }));
+    private shotCursor = 0;
     robots: Robot[];
     navigation: Navigation;
     kills = 0;
@@ -214,7 +229,13 @@ export class CombatSimulation {
         this.invulnerable = Math.max(0, this.invulnerable - dt);
         this.damageFlash = Math.max(0, this.damageFlash - dt);
         this.hitFlash = Math.max(0, this.hitFlash - dt);
-        this.shots = this.shots.filter(s => (s.life -= dt) > 0);
+        let visibleShots = 0;
+        for (let i = 0; i < this.shots.length; i++) {
+            const shot = this.shots[i];
+            shot.life -= dt;
+            if (shot.life > 0) this.shots[visibleShots++] = shot;
+        }
+        this.shots.length = visibleShots;
         for (const r of this.robots) {
             r.flash = Math.max(0, r.flash - dt);
             r.alertLeft = Math.max(0, r.alertLeft - dt);
@@ -229,27 +250,45 @@ export class CombatSimulation {
         }
         if (input.reload && this.reloadLeft === 0 && this.ammo < COMBAT.rifle.magazine && this.reserve > 0)
             this.reloadLeft = COMBAT.rifle.reload;
-        if (input.firing && this.reloadLeft === 0 && this.cooldown === 0 && this.ammo > 0) {
-            const dx = input.aim.x - input.player.x, dz = input.aim.z - input.player.z, length = Math.hypot(dx, dz);
-            if (length > 0.05) {
-                const end = { x: input.player.x + dx / length * COMBAT.rifle.range, z: input.player.z + dz / length * COMBAT.rifle.range };
-                const hit = traceShot(input.player, end, this.terrain, this.robots);
-                this.ammo--;
-                this.cooldown = COMBAT.rifle.interval;
-                this.shots.push({ from: { ...input.player }, to: hit.to, life: 0.09, hit: !!hit.robot });
-                if (hit.robot) {
-                    hit.robot.hp = Math.max(0, hit.robot.hp - COMBAT.rifle.damage);
-                    hit.robot.flash = 0.15;
-                    this.hitFlash = 0.15;
-                    // O primeiro tiro recebido identifica o jogador, mesmo fora do campo de visão.
-                    if (hit.robot.hp > 0) alertRobot(hit.robot);
-                    if (hit.robot.hp === 0) {
-                        this.kills++;
-                        const drop = this.drops[hit.robot.drop];
-                        drop.x = hit.robot.x;
-                        drop.z = hit.robot.z;
-                        drop.active = true;
-                    }
+        if (input.firing && this.reloadLeft === 0 && this.cooldown === 0 && this.ammo > 0
+            && Number.isFinite(input.facingAngle) && Number.isFinite(input.player.x + input.player.z + input.aim.x + input.aim.z)) {
+            const { muzzle, rifleEnd } = this;
+            writeRifleMuzzle(muzzle, input.player.x, input.player.z, input.facingAngle);
+            const forwardX = Math.sin(input.facingAngle), forwardZ = Math.cos(input.facingAngle);
+            let dx = input.aim.x - muzzle.x, dz = input.aim.z - muzzle.z, length = Math.hypot(dx, dz);
+            // Cursor próximo do corpo ou atrás do cano: mantém o rumo do corpo, sem inverter.
+            if (Math.hypot(input.aim.x - input.player.x, input.aim.z - input.player.z) <= RIFLE_POSE.nearAim
+                || length < 1e-8 || dx * forwardX + dz * forwardZ <= 0) {
+                dx = forwardX; dz = forwardZ; length = 1;
+            }
+            rifleEnd.x = muzzle.x + dx / length * COMBAT.rifle.range;
+            rifleEnd.z = muzzle.z + dz / length * COMBAT.rifle.range;
+            // O cano não pode nascer do outro lado de uma parede/quina. Esta checagem só vê mundo.
+            let from: Position = input.player;
+            let hit = traceShot(input.player, muzzle, this.terrain, this.robots, HIT_LAYER.world, this.shotTrace);
+            if (!hit.blocked) {
+                from = muzzle;
+                hit = traceShot(muzzle, rifleEnd, this.terrain, this.robots, RIFLE_MASK, this.shotTrace);
+            }
+            this.ammo--;
+            this.cooldown = COMBAT.rifle.interval;
+            const shot = this.shotPool[this.shotCursor++ % this.shotPool.length];
+            shot.from.x = from.x; shot.from.z = from.z;
+            shot.to.x = hit.to.x; shot.to.z = hit.to.z;
+            shot.life = 0.09; shot.hit = !!hit.robot;
+            this.shots.push(shot);
+            if (hit.robot) {
+                hit.robot.hp = Math.max(0, hit.robot.hp - COMBAT.rifle.damage);
+                hit.robot.flash = 0.15;
+                this.hitFlash = 0.15;
+                // O primeiro tiro recebido identifica o jogador, mesmo fora do campo de visão.
+                if (hit.robot.hp > 0) alertRobot(hit.robot);
+                if (hit.robot.hp === 0) {
+                    this.kills++;
+                    const drop = this.drops[hit.robot.drop];
+                    drop.x = hit.robot.x;
+                    drop.z = hit.robot.z;
+                    drop.active = true;
                 }
             }
         }

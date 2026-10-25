@@ -72,3 +72,22 @@ test('S2.10: consumidores ativos não leem a posição da store nem a assinam po
  const controller=fs.readFileSync('src/characters/player/PlayerController.tsx','utf8');
  assert.match(controller,/publishPlayerFrame\(translation\.x, motionRef\.current\.visualBob, translation\.z,/);
 });
+
+test('S2.12 B1: pose segue o corpo sem notificação e reseta em spawn, viagem e retry',()=>{
+ const facing=transient.playerFacing,position=transient.playerPosition;
+ placePlayer({x:0,y:0,z:0});game.getState().setProximity(false,false);
+ assert.equal(countNotifications(()=>{
+  for(let i=0;i<300;i++)publishPlayerFrame(2,0,2,'mars',i*.01);
+ }),0);
+ assert.equal(transient.playerFacing,facing);assert.equal(transient.playerPosition,position);
+ assert.equal(facing.angle,2.99);
+ placePlayer(MAPS.mars.exit);assert.equal(facing.angle,0);
+ store.setState({ready:true,panel:null,session:{map:'mars',phase:'walking',destination:null,revision:0}});game.setState({isPaused:false});
+ publishPlayerFrame(MAPS.mars.exit.x,0,MAPS.mars.exit.z,'mars',2.3);
+ store.getState().send('board');assert.equal(facing.angle,0);
+ facing.angle=-1;store.getState().send('depart');store.getState().send('arrive');store.getState().setReady(true);
+ assert.equal(facing.angle,0);assert.deepEqual({...position},MAPS.shanghai.ship);
+ facing.angle=1.7;store.getState().send('exit');assert.equal(facing.angle,0);
+ publishPlayerFrame(6,0,-4,'shanghai',-2);store.getState().restartMission();
+ assert.equal(facing.angle,0);assert.deepEqual({...position},MAPS.shanghai.exit);
+});

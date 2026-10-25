@@ -92,3 +92,17 @@ const PHASE01_LAYOUT: EncounterLayout = {
 export function encounterLayout(phase = isShanghaiPhase01()): EncounterLayout {
     return phase ? PHASE01_LAYOUT : CURRENT_LAYOUT;
 }
+
+/** S2.12 B: arma provisória. Alturas sobre o chão; offsets no corpo, frente +Z. */
+export const RIFLE_POSE = {
+    height: 0.85, reticleLift: 0.01,
+    side: 0.34, gripForward: 0.42, barrelForward: 0.42, barrelLength: 0.22,
+    nearAim: 0.9,
+} as const;
+/** Ponta do cano a partir da mesma pose suavizada que gira o corpo. Sem alocação. */
+export function writeRifleMuzzle(out: { x: number; z: number }, x: number, z: number, angle: number) {
+    const forward = RIFLE_POSE.gripForward + RIFLE_POSE.barrelForward + RIFLE_POSE.barrelLength / 2;
+    const sin = Math.sin(angle), cos = Math.cos(angle);
+    out.x = x + RIFLE_POSE.side * cos + forward * sin;
+    out.z = z - RIFLE_POSE.side * sin + forward * cos;
+}

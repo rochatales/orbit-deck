@@ -13,6 +13,9 @@ export const SHIP_INTERACTION_RADIUS = 2.7;
  */
 export const playerPosition: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0.8 };
 
+/** Rumo real suavizado do corpo, fora do React; resetado junto da posição. */
+export const playerFacing = { angle: 0 };
+
 export function writePlayerPosition(x: number, y: number, z: number) {
     playerPosition.x = x;
     playerPosition.y = y;
@@ -22,6 +25,7 @@ export function writePlayerPosition(x: number, y: number, z: number) {
 /** Reposição explícita (spawn, viagem, retry): vale já para o próximo leitor. */
 export function placePlayer(spawn: Point) {
     writePlayerPosition(spawn.x, spawn.y, spawn.z);
+    playerFacing.angle = 0;
 }
 
 export function isNearEden(map: MapId, p: Point = playerPosition) {
@@ -36,7 +40,8 @@ export function isNearShip(map: MapId, p: Point = playerPosition) {
  * Passo por frame do controller: grava a posição e publica a proximidade.
  * Sem alocação; a store só notifica quando a condição de interação muda.
  */
-export function publishPlayerFrame(x: number, y: number, z: number, map: MapId) {
+export function publishPlayerFrame(x: number, y: number, z: number, map: MapId, facingAngle = 0) {
+    playerFacing.angle = facingAngle;
     writePlayerPosition(x, y, z);
     useGameStore.getState().setProximity(isNearEden(map), isNearShip(map));
 }

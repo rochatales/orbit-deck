@@ -5,11 +5,11 @@ import { Group, Mesh, Shape, Vector3 } from 'three';
 import { Billboard, useGLTF } from '@react-three/drei';
 import type { OfficeWorld } from '../world/createOfficeMap';
 import { useGameStore } from '../state/useGameStore';
-import { playerPosition } from '../state/playerTransient';
+import { playerPosition, playerFacing } from '../state/playerTransient';
 import { combatRuntime, useCombatStore } from '../state/useCombatStore';
 import { simulationBlocked } from '../game/simulationGate';
 import { CombatSimulation, type CombatInput } from './simulation';
-import { COMBAT } from './config';
+import { COMBAT, RIFLE_POSE } from './config';
 import { PATROL_UNIT, PatrolUnitRig } from './patrolUnit';
 import patrolUnitUrl from '../assets/enemies/patrol-unit.glb';
 import { SupplyCrates } from '../game/props/SupplyCrates';
@@ -42,7 +42,7 @@ export function CombatScene({ world }: {
     }, []);
     const input = useRef({ firing: false, tap: false, reload: false }), clock = useRef(0);
     // Entrada do passo reutilizada: a simulação copia a posição ao registrar disparos e rotas.
-    const stepInput = useMemo<CombatInput>(() => ({ player: playerPosition, aim: combatRuntime.aim, firing: false, reload: false }), []);
+    const stepInput = useMemo<CombatInput>(() => ({ player: playerPosition, aim: combatRuntime.aim, facingAngle: 0, firing: false, reload: false }), []);
     const axis = useMemo(() => new Vector3(0, 1, 0), []), direction = useMemo(() => new Vector3(), []);
     useEffect(() => {
         combatRuntime.simulation = simulation;
@@ -91,6 +91,7 @@ export function CombatScene({ world }: {
             clock.current += Math.min(delta, 0.1);
             while (clock.current >= COMBAT.fixedStep) {
                 stepInput.aim = combatRuntime.aim;
+                stepInput.facingAngle = playerFacing.angle;
                 stepInput.firing = (input.current.firing || input.current.tap) && combatRuntime.aimValid;
                 stepInput.reload = input.current.reload;
                 simulation.step(COMBAT.fixedStep, stepInput);
@@ -136,18 +137,18 @@ export function CombatScene({ world }: {
             if (!mesh)
                 return;
             const shot = simulation.shots[i];
-            mesh.visible = !!shot;
+            mesh.visible = !!shot && Math.hypot(shot.to.x - shot.from.x, shot.to.z - shot.from.z) > 1e-8;
             if (shot) {
                 direction.set(shot.to.x - shot.from.x, 0, shot.to.z - shot.from.z);
                 const length = direction.length();
-                mesh.position.set((shot.from.x + shot.to.x) / 2, 0.9, (shot.from.z + shot.to.z) / 2);
+                mesh.position.set((shot.from.x + shot.to.x) / 2, RIFLE_POSE.height, (shot.from.z + shot.to.z) / 2);
                 mesh.scale.set(1, length, 1);
                 mesh.quaternion.setFromUnitVectors(axis, direction.normalize());
             }
         });
         if (reticle.current) {
             reticle.current.visible = !blocked && combatRuntime.aimValid;
-            reticle.current.position.set(combatRuntime.aim.x, 0.91, combatRuntime.aim.z);
+            reticle.current.position.set(combatRuntime.aim.x, RIFLE_POSE.height + RIFLE_POSE.reticleLift, combatRuntime.aim.z);
         }
     });
     return <>
