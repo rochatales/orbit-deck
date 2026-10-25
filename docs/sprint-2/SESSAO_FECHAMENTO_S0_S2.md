@@ -149,19 +149,19 @@ A10/A11 usam `?comparar`; após comparar, voltar ao **Explorador r7**.
 
 | Item | Ação | Esperado | Resultado | Observação/evidência |
 |---|---|---|---|---|
-| A1 | Correr com W em várias direções, girando o cursor | Corre para onde o cursor aponta; o corpo e o deslocamento giram juntos | pendente | — |
-| A2 | S em várias direções | Recua sem girar o corpo; passos curtos para trás | pendente | — |
-| A3 | W + S, A, D, Shift | Parado com W + S; A/D/Shift sem efeito no movimento | pendente | — |
-| A4 | Alternar W/S rapidamente | Transições curtas entre Run e Backward, sem salto de pose | pendente | — |
-| A5 | Cursor sobre o personagem, parado e recuando | Orientação estável | pendente | — |
-| A6 | Q/C durante o movimento | A direção segue a mira | pendente | — |
-| A7 | Encostar numa parede com W e com S | Personagem para de animar a locomoção; retoma ao sair | pendente | — |
-| A8 | Portas, embarque e desembarque, EDEN (E), Esc | Comportamento como antes; bloqueios em menus e diálogos | pendente | — |
-| A9 | Shanghai: mirar, atirar e recarregar correndo e recuando | Tiro e recarga como antes | pendente | — |
-| A10 | "Comparar com o personagem atual" no selo | Mesmo ponto, câmera e luz; só o visual muda | pendente | — |
-| A11 | Materiais da r7 no zoom máximo | Sombreamento suave, visor azul sem escurecimento duplo | pendente | — |
-| A12 | Velocidades (4,2 / 1,2 m/s) e deslizamento do Run | Decidir os valores | pendente | — |
-| A13 | Parado, girar o cursor devagar em volta do personagem, passando pelo norte do mapa (mundo −Z) | O corpo acompanha o cursor sem dar a volta inteira no próprio eixo | pendente | — |
+| A1 | Correr com W em várias direções, girando o cursor | Corre para onde o cursor aponta; o corpo e o deslocamento giram juntos | passou | Relato do autor, 25/10/2026 ("A1–A13 ok") |
+| A2 | S em várias direções | Recua sem girar o corpo; passos curtos para trás | passou | Relato do autor, 25/10/2026 ("A1–A13 ok") |
+| A3 | W + S, A, D, Shift | Parado com W + S; A/D/Shift sem efeito no movimento | passou | Relato do autor, 25/10/2026 ("A1–A13 ok") |
+| A4 | Alternar W/S rapidamente | Transições curtas entre Run e Backward, sem salto de pose | passou | Relato do autor, 25/10/2026 ("A1–A13 ok") |
+| A5 | Cursor sobre o personagem, parado e recuando | Orientação estável | passou | Relato do autor, 25/10/2026 ("A1–A13 ok") |
+| A6 | Q/C durante o movimento | A direção segue a mira | passou | Relato do autor, 25/10/2026 ("A1–A13 ok") |
+| A7 | Encostar numa parede com W e com S | Personagem para de animar a locomoção; retoma ao sair | passou | Relato do autor, 25/10/2026 ("A1–A13 ok") |
+| A8 | Portas, embarque e desembarque, EDEN (E), Esc | Comportamento como antes; bloqueios em menus e diálogos | passou | Relato do autor, 25/10/2026 ("A1–A13 ok") |
+| A9 | Shanghai: mirar, atirar e recarregar correndo e recuando | Tiro e recarga como antes | passou | Relato do autor, 25/10/2026 ("A1–A13 ok") |
+| A10 | "Comparar com o personagem atual" no selo | Mesmo ponto, câmera e luz; só o visual muda | passou | Relato do autor, 25/10/2026 ("A1–A13 ok") |
+| A11 | Materiais da r7 no zoom máximo | Sombreamento suave, visor azul sem escurecimento duplo | passou | Relato do autor, 25/10/2026 ("A1–A13 ok") |
+| A12 | Velocidades (4,2 / 1,2 m/s) e deslizamento do Run | Decidir os valores | passou | Relato do autor, 25/10/2026 ("A1–A13 ok"): valores atuais mantidos no piloto r7; ver decisões abaixo |
+| A13 | Parado, girar o cursor devagar em volta do personagem, passando pelo norte do mapa (mundo −Z) | O corpo acompanha o cursor sem dar a volta inteira no próprio eixo | passou | Relato do autor, 25/10/2026 ("A1–A13 ok") |
 
 Detalhar A12 abaixo: os valores existentes são pontos de avaliação, sem ajuste
 automático. O handoff da parte A registra deslizamento técnico aproximado de 54%
@@ -170,11 +170,11 @@ não tem Backward e usa Run no recuo; serve só como comparação de visual.
 
 | Decisão vinculada a A12 | Resultado (passou/falhou/pendente) | Decisão/observação do autor |
 |---|---|---|
-| Corrida W: manter 4,2 m/s ou solicitar outro valor | pendente | Valor desejado e motivo: — |
-| Recuo S: manter 1,2 m/s ou solicitar outro valor | pendente | Valor desejado e motivo: — |
-| Deslizamento/cadência do Run na câmera real | pendente | Aceitável no piloto ou exige correção: — |
+| Corrida W: manter 4,2 m/s ou solicitar outro valor | passou | Mantém 4,2 m/s no piloto (leitura do "A1–A13 ok" de 25/10; o autor pode corrigir) |
+| Recuo S: manter 1,2 m/s ou solicitar outro valor | passou | Mantém 1,2 m/s no piloto (mesma leitura) |
+| Deslizamento/cadência do Run na câmera real | passou | Aceitável no piloto com o r7. A correção definitiva é a corrida autorada para a velocidade real no Explorador Toy (`docs/sprint-6/ESTUDO_MAIN_PLAYER.md`, 1.2 e 3.4), que o autor já apontou como estranha em 24/10 |
 
-**Aceite A1–A13:** aprovo / não aprovo / pendente: —. Itens com falha: —.
+**Aceite A1–A13:** **aprovo** (autor, 25/10/2026: "A1–A13 ok"). Itens com falha: nenhum. Registro feito pelo Claude a pedido do autor.
 **Liberação explícita para iniciar S2.12 B:** sim / não / pendente: —.
 Se houver falhas em A1–A13, o agente registra, propõe correções e para; não corrige
 sem liberação. O aceite de A não marca a S2.12 completa.
