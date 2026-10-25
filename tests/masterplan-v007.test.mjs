@@ -117,3 +117,24 @@ test('v007: soleiras da estufa têm piso externo em toda a largura e entrada da 
  for(let x=door.x;x<=door.x+1.5;x+=.05)for(let z=door.z-.7;z<=door.z+.7;z+=.05)
   assert.ok(!world.obstacles.some(b=>circleIntersectsRect(x,z,radius,b)),'Oficina faixa de entrada livre');
 });
+
+
+test('v007 aberta: ligações sem cascos/colisores e tiles originais preservados',async()=>{
+ assert.ok(layout.corridors.every(c=>c.kind!=='tunnel'));
+ assert.ok(manifest.parts.every(p=>!p.id.startsWith('TUN_')&&!p.id.startsWith('Anel_')));
+ assert.ok(manifest.colliders.every(c=>!c.id.startsWith('tunnel-')));
+ const roomIds=new Set([...layout.rooms.map(r=>r.id),'orbit-garden']);
+ assert.ok(manifest.parts.filter(p=>['roof','door'].includes(p.papel)).every(p=>roomIds.has(p.ambiente)));
+ const s=await scene(),{nodes}=validateMasterplan(s,manifest);
+ const floor=nodes.get('PISO_v007_Externo');
+ assert.equal(floor.userData.tile_referencia,'ARQ_Lab_Piso_Patio');
+ assert.equal(floor.userData.tile_placa_m,'1.25,1.5');assert.equal(floor.userData.tile_junta_m,.03);
+ assert.equal(floor.material.name,'M_Piso_Patio_Vcol');assert.ok(floor.geometry.attributes.color.count>1000);
+ assert.equal(nodes.get('PISO_v007_Interno').material.name,'M_Piso_Interno');
+ const world=createWorld();
+ // Walk sideways across former tunnel walls into the now-open circulation.
+ for(const [x,z]of [[-5.625,1.6],[5.625,-1.6],[1.6,7.75],[5,-12.5],[12,-5.625]]){
+  assert.ok(!world.obstacles.some(b=>circleIntersectsRect(x,z,.36,b)),`travessia livre ${x},${z}`);
+  for(const dx of[-.36,.36])for(const dz of[-.36,.36])assert.ok(world.walkableAreas.some(b=>x+dx>=b.minX&&x+dx<=b.maxX&&z+dz>=b.minZ&&z+dz<=b.maxZ));
+ }
+});

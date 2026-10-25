@@ -1,6 +1,6 @@
 {
   "version": "v007",
-  "layoutSha256": "abdedcf63d9c535c1feb884ebfd7148bff6efdee2ef4c54fd72f326d822e72ea",
+  "layoutSha256": "b83d0e56b744ad7e118803bfecf0b2f7787f6bc58f69d7985212571690deb591",
   "parts": [
     {
       "id": "TER_Solo",
@@ -4425,2904 +4425,6 @@
       }
     },
     {
-      "id": "TUN_north-connector-brand_-1",
-      "name": "TUN_north-connector-brand_-1",
-      "papel": "wall",
-      "ambiente": "north-connector-brand",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.3700000047683716,
-        "maxX": -1.2299998998641968,
-        "minY": 0.0,
-        "maxY": 2.5,
-        "minZ": -7.25,
-        "maxZ": -4.0
-      }
-    },
-    {
-      "id": "TUN_north-connector-brand_1",
-      "name": "TUN_north-connector-brand_1",
-      "papel": "wall",
-      "ambiente": "north-connector-brand",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 1.2299998998641968,
-        "maxX": 1.3700000047683716,
-        "minY": 0.0,
-        "maxY": 2.5,
-        "minZ": -7.25,
-        "maxZ": -4.0
-      }
-    },
-    {
-      "id": "TET_north-connector-brand",
-      "name": "TET_north-connector-brand",
-      "papel": "roof",
-      "ambiente": "north-connector-brand",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.3799999952316284,
-        "maxX": 1.3799999952316284,
-        "minY": 2.5299999713897705,
-        "maxY": 2.7099997997283936,
-        "minZ": -7.25,
-        "maxZ": -4.0
-      }
-    },
-    {
-      "id": "Anel_north-connector-brand_0_-1",
-      "name": "Anel_north-connector-brand_0_-1",
-      "papel": "detail",
-      "ambiente": "north-connector-brand",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_north-connector-brand_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.4049999713897705,
-        "maxX": -1.1949999332427979,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -7.235000133514404,
-        "maxZ": -7.025000095367432
-      }
-    },
-    {
-      "id": "Anel_north-connector-brand_0_1",
-      "name": "Anel_north-connector-brand_0_1",
-      "papel": "detail",
-      "ambiente": "north-connector-brand",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_north-connector-brand_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 1.1949999332427979,
-        "maxX": 1.4049999713897705,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -7.235000133514404,
-        "maxZ": -7.025000095367432
-      }
-    },
-    {
-      "id": "Anel_north-connector-brand_0_top",
-      "name": "Anel_north-connector-brand_0_top",
-      "papel": "detail",
-      "ambiente": "north-connector-brand",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_north-connector-brand"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.399999976158142,
-        "maxX": 1.399999976158142,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": -7.230000019073486,
-        "maxZ": -7.03000020980835
-      }
-    },
-    {
-      "id": "Anel_north-connector-brand_1_-1",
-      "name": "Anel_north-connector-brand_1_-1",
-      "papel": "detail",
-      "ambiente": "north-connector-brand",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_north-connector-brand_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.4049999713897705,
-        "maxX": -1.1949999332427979,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -6.231666564941406,
-        "maxZ": -6.021666526794434
-      }
-    },
-    {
-      "id": "Anel_north-connector-brand_1_1",
-      "name": "Anel_north-connector-brand_1_1",
-      "papel": "detail",
-      "ambiente": "north-connector-brand",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_north-connector-brand_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 1.1949999332427979,
-        "maxX": 1.4049999713897705,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -6.231666564941406,
-        "maxZ": -6.021666526794434
-      }
-    },
-    {
-      "id": "Anel_north-connector-brand_1_top",
-      "name": "Anel_north-connector-brand_1_top",
-      "papel": "detail",
-      "ambiente": "north-connector-brand",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_north-connector-brand"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.399999976158142,
-        "maxX": 1.399999976158142,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": -6.226666450500488,
-        "maxZ": -6.026666641235352
-      }
-    },
-    {
-      "id": "Anel_north-connector-brand_2_-1",
-      "name": "Anel_north-connector-brand_2_-1",
-      "papel": "detail",
-      "ambiente": "north-connector-brand",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_north-connector-brand_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.4049999713897705,
-        "maxX": -1.1949999332427979,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -5.228333473205566,
-        "maxZ": -5.018333435058594
-      }
-    },
-    {
-      "id": "Anel_north-connector-brand_2_1",
-      "name": "Anel_north-connector-brand_2_1",
-      "papel": "detail",
-      "ambiente": "north-connector-brand",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_north-connector-brand_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 1.1949999332427979,
-        "maxX": 1.4049999713897705,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -5.228333473205566,
-        "maxZ": -5.018333435058594
-      }
-    },
-    {
-      "id": "Anel_north-connector-brand_2_top",
-      "name": "Anel_north-connector-brand_2_top",
-      "papel": "detail",
-      "ambiente": "north-connector-brand",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_north-connector-brand"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.399999976158142,
-        "maxX": 1.399999976158142,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": -5.223333358764648,
-        "maxZ": -5.023333549499512
-      }
-    },
-    {
-      "id": "Anel_north-connector-brand_3_-1",
-      "name": "Anel_north-connector-brand_3_-1",
-      "papel": "detail",
-      "ambiente": "north-connector-brand",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_north-connector-brand_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.4049999713897705,
-        "maxX": -1.1949999332427979,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -4.224999904632568,
-        "maxZ": -4.014999866485596
-      }
-    },
-    {
-      "id": "Anel_north-connector-brand_3_1",
-      "name": "Anel_north-connector-brand_3_1",
-      "papel": "detail",
-      "ambiente": "north-connector-brand",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_north-connector-brand_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 1.1949999332427979,
-        "maxX": 1.4049999713897705,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -4.224999904632568,
-        "maxZ": -4.014999866485596
-      }
-    },
-    {
-      "id": "Anel_north-connector-brand_3_top",
-      "name": "Anel_north-connector-brand_3_top",
-      "papel": "detail",
-      "ambiente": "north-connector-brand",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_north-connector-brand"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.399999976158142,
-        "maxX": 1.399999976158142,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": -4.21999979019165,
-        "maxZ": -4.019999980926514
-      }
-    },
-    {
-      "id": "TUN_eden-lab-connector_-1",
-      "name": "TUN_eden-lab-connector_-1",
-      "papel": "wall",
-      "ambiente": "eden-lab-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 3.5,
-        "maxX": 6.5,
-        "minY": 0.0,
-        "maxY": 2.5,
-        "minZ": -11.869999885559082,
-        "maxZ": -11.730000495910645
-      }
-    },
-    {
-      "id": "TUN_eden-lab-connector_1",
-      "name": "TUN_eden-lab-connector_1",
-      "papel": "wall",
-      "ambiente": "eden-lab-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 3.5,
-        "maxX": 6.5,
-        "minY": 0.0,
-        "maxY": 2.5,
-        "minZ": -9.269999504089355,
-        "maxZ": -9.130000114440918
-      }
-    },
-    {
-      "id": "TET_eden-lab-connector",
-      "name": "TET_eden-lab-connector",
-      "papel": "roof",
-      "ambiente": "eden-lab-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 3.5,
-        "maxX": 6.5,
-        "minY": 2.5299999713897705,
-        "maxY": 2.7099997997283936,
-        "minZ": -11.880000114440918,
-        "maxZ": -9.119999885559082
-      }
-    },
-    {
-      "id": "Anel_eden-lab-connector_0_-1",
-      "name": "Anel_eden-lab-connector_0_-1",
-      "papel": "detail",
-      "ambiente": "eden-lab-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_eden-lab-connector_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 3.5149998664855957,
-        "maxX": 3.7249999046325684,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -11.904999732971191,
-        "maxZ": -11.695000648498535
-      }
-    },
-    {
-      "id": "Anel_eden-lab-connector_0_1",
-      "name": "Anel_eden-lab-connector_0_1",
-      "papel": "detail",
-      "ambiente": "eden-lab-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_eden-lab-connector_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 3.5149998664855957,
-        "maxX": 3.7249999046325684,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -9.304999351501465,
-        "maxZ": -9.095000267028809
-      }
-    },
-    {
-      "id": "Anel_eden-lab-connector_0_top",
-      "name": "Anel_eden-lab-connector_0_top",
-      "papel": "detail",
-      "ambiente": "eden-lab-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_eden-lab-connector"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 3.5199999809265137,
-        "maxX": 3.7199997901916504,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": -11.899999618530273,
-        "maxZ": -9.100000381469727
-      }
-    },
-    {
-      "id": "Anel_eden-lab-connector_1_-1",
-      "name": "Anel_eden-lab-connector_1_-1",
-      "papel": "detail",
-      "ambiente": "eden-lab-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_eden-lab-connector_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 4.434999942779541,
-        "maxX": 4.644999980926514,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -11.904999732971191,
-        "maxZ": -11.695000648498535
-      }
-    },
-    {
-      "id": "Anel_eden-lab-connector_1_1",
-      "name": "Anel_eden-lab-connector_1_1",
-      "papel": "detail",
-      "ambiente": "eden-lab-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_eden-lab-connector_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 4.434999942779541,
-        "maxX": 4.644999980926514,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -9.304999351501465,
-        "maxZ": -9.095000267028809
-      }
-    },
-    {
-      "id": "Anel_eden-lab-connector_1_top",
-      "name": "Anel_eden-lab-connector_1_top",
-      "papel": "detail",
-      "ambiente": "eden-lab-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_eden-lab-connector"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 4.440000057220459,
-        "maxX": 4.639999866485596,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": -11.899999618530273,
-        "maxZ": -9.100000381469727
-      }
-    },
-    {
-      "id": "Anel_eden-lab-connector_2_-1",
-      "name": "Anel_eden-lab-connector_2_-1",
-      "papel": "detail",
-      "ambiente": "eden-lab-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_eden-lab-connector_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 5.355000019073486,
-        "maxX": 5.565000057220459,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -11.904999732971191,
-        "maxZ": -11.695000648498535
-      }
-    },
-    {
-      "id": "Anel_eden-lab-connector_2_1",
-      "name": "Anel_eden-lab-connector_2_1",
-      "papel": "detail",
-      "ambiente": "eden-lab-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_eden-lab-connector_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 5.355000019073486,
-        "maxX": 5.565000057220459,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -9.304999351501465,
-        "maxZ": -9.095000267028809
-      }
-    },
-    {
-      "id": "Anel_eden-lab-connector_2_top",
-      "name": "Anel_eden-lab-connector_2_top",
-      "papel": "detail",
-      "ambiente": "eden-lab-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_eden-lab-connector"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 5.360000133514404,
-        "maxX": 5.559999942779541,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": -11.899999618530273,
-        "maxZ": -9.100000381469727
-      }
-    },
-    {
-      "id": "Anel_eden-lab-connector_3_-1",
-      "name": "Anel_eden-lab-connector_3_-1",
-      "papel": "detail",
-      "ambiente": "eden-lab-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_eden-lab-connector_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 6.275000095367432,
-        "maxX": 6.485000133514404,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -11.904999732971191,
-        "maxZ": -11.695000648498535
-      }
-    },
-    {
-      "id": "Anel_eden-lab-connector_3_1",
-      "name": "Anel_eden-lab-connector_3_1",
-      "papel": "detail",
-      "ambiente": "eden-lab-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_eden-lab-connector_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 6.275000095367432,
-        "maxX": 6.485000133514404,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -9.304999351501465,
-        "maxZ": -9.095000267028809
-      }
-    },
-    {
-      "id": "Anel_eden-lab-connector_3_top",
-      "name": "Anel_eden-lab-connector_3_top",
-      "papel": "detail",
-      "ambiente": "eden-lab-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_eden-lab-connector"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 6.28000020980835,
-        "maxX": 6.480000019073486,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": -11.899999618530273,
-        "maxZ": -9.100000381469727
-      }
-    },
-    {
-      "id": "TUN_lab-quarters-connector_-1",
-      "name": "TUN_lab-quarters-connector_-1",
-      "papel": "wall",
-      "ambiente": "lab-quarters-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 9.130000114440918,
-        "maxX": 9.269999504089355,
-        "minY": 0.0,
-        "maxY": 2.5,
-        "minZ": -8.0,
-        "maxZ": -3.25
-      }
-    },
-    {
-      "id": "TUN_lab-quarters-connector_1",
-      "name": "TUN_lab-quarters-connector_1",
-      "papel": "wall",
-      "ambiente": "lab-quarters-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 11.730000495910645,
-        "maxX": 11.869999885559082,
-        "minY": 0.0,
-        "maxY": 2.5,
-        "minZ": -8.0,
-        "maxZ": -3.25
-      }
-    },
-    {
-      "id": "TET_lab-quarters-connector",
-      "name": "TET_lab-quarters-connector",
-      "papel": "roof",
-      "ambiente": "lab-quarters-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 9.119999885559082,
-        "maxX": 11.880000114440918,
-        "minY": 2.5299999713897705,
-        "maxY": 2.7099997997283936,
-        "minZ": -8.0,
-        "maxZ": -3.25
-      }
-    },
-    {
-      "id": "Anel_lab-quarters-connector_0_-1",
-      "name": "Anel_lab-quarters-connector_0_-1",
-      "papel": "detail",
-      "ambiente": "lab-quarters-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_lab-quarters-connector_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 9.095000267028809,
-        "maxX": 9.304999351501465,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -7.985000133514404,
-        "maxZ": -7.775000095367432
-      }
-    },
-    {
-      "id": "Anel_lab-quarters-connector_0_1",
-      "name": "Anel_lab-quarters-connector_0_1",
-      "papel": "detail",
-      "ambiente": "lab-quarters-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_lab-quarters-connector_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 11.695000648498535,
-        "maxX": 11.904999732971191,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -7.985000133514404,
-        "maxZ": -7.775000095367432
-      }
-    },
-    {
-      "id": "Anel_lab-quarters-connector_0_top",
-      "name": "Anel_lab-quarters-connector_0_top",
-      "papel": "detail",
-      "ambiente": "lab-quarters-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_lab-quarters-connector"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 9.100000381469727,
-        "maxX": 11.899999618530273,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": -7.980000019073486,
-        "maxZ": -7.78000020980835
-      }
-    },
-    {
-      "id": "Anel_lab-quarters-connector_1_-1",
-      "name": "Anel_lab-quarters-connector_1_-1",
-      "papel": "detail",
-      "ambiente": "lab-quarters-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_lab-quarters-connector_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 9.095000267028809,
-        "maxX": 9.304999351501465,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -6.857500076293945,
-        "maxZ": -6.647500038146973
-      }
-    },
-    {
-      "id": "Anel_lab-quarters-connector_1_1",
-      "name": "Anel_lab-quarters-connector_1_1",
-      "papel": "detail",
-      "ambiente": "lab-quarters-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_lab-quarters-connector_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 11.695000648498535,
-        "maxX": 11.904999732971191,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -6.857500076293945,
-        "maxZ": -6.647500038146973
-      }
-    },
-    {
-      "id": "Anel_lab-quarters-connector_1_top",
-      "name": "Anel_lab-quarters-connector_1_top",
-      "papel": "detail",
-      "ambiente": "lab-quarters-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_lab-quarters-connector"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 9.100000381469727,
-        "maxX": 11.899999618530273,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": -6.852499961853027,
-        "maxZ": -6.652500152587891
-      }
-    },
-    {
-      "id": "Anel_lab-quarters-connector_2_-1",
-      "name": "Anel_lab-quarters-connector_2_-1",
-      "papel": "detail",
-      "ambiente": "lab-quarters-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_lab-quarters-connector_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 9.095000267028809,
-        "maxX": 9.304999351501465,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -5.730000019073486,
-        "maxZ": -5.519999980926514
-      }
-    },
-    {
-      "id": "Anel_lab-quarters-connector_2_1",
-      "name": "Anel_lab-quarters-connector_2_1",
-      "papel": "detail",
-      "ambiente": "lab-quarters-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_lab-quarters-connector_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 11.695000648498535,
-        "maxX": 11.904999732971191,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -5.730000019073486,
-        "maxZ": -5.519999980926514
-      }
-    },
-    {
-      "id": "Anel_lab-quarters-connector_2_top",
-      "name": "Anel_lab-quarters-connector_2_top",
-      "papel": "detail",
-      "ambiente": "lab-quarters-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_lab-quarters-connector"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 9.100000381469727,
-        "maxX": 11.899999618530273,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": -5.724999904632568,
-        "maxZ": -5.525000095367432
-      }
-    },
-    {
-      "id": "Anel_lab-quarters-connector_3_-1",
-      "name": "Anel_lab-quarters-connector_3_-1",
-      "papel": "detail",
-      "ambiente": "lab-quarters-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_lab-quarters-connector_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 9.095000267028809,
-        "maxX": 9.304999351501465,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -4.602499961853027,
-        "maxZ": -4.392499923706055
-      }
-    },
-    {
-      "id": "Anel_lab-quarters-connector_3_1",
-      "name": "Anel_lab-quarters-connector_3_1",
-      "papel": "detail",
-      "ambiente": "lab-quarters-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_lab-quarters-connector_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 11.695000648498535,
-        "maxX": 11.904999732971191,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -4.602499961853027,
-        "maxZ": -4.392499923706055
-      }
-    },
-    {
-      "id": "Anel_lab-quarters-connector_3_top",
-      "name": "Anel_lab-quarters-connector_3_top",
-      "papel": "detail",
-      "ambiente": "lab-quarters-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_lab-quarters-connector"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 9.100000381469727,
-        "maxX": 11.899999618530273,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": -4.597499847412109,
-        "maxZ": -4.397500038146973
-      }
-    },
-    {
-      "id": "Anel_lab-quarters-connector_4_-1",
-      "name": "Anel_lab-quarters-connector_4_-1",
-      "papel": "detail",
-      "ambiente": "lab-quarters-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_lab-quarters-connector_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 9.095000267028809,
-        "maxX": 9.304999351501465,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -3.4749999046325684,
-        "maxZ": -3.2649998664855957
-      }
-    },
-    {
-      "id": "Anel_lab-quarters-connector_4_1",
-      "name": "Anel_lab-quarters-connector_4_1",
-      "papel": "detail",
-      "ambiente": "lab-quarters-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_lab-quarters-connector_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 11.695000648498535,
-        "maxX": 11.904999732971191,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -3.4749999046325684,
-        "maxZ": -3.2649998664855957
-      }
-    },
-    {
-      "id": "Anel_lab-quarters-connector_4_top",
-      "name": "Anel_lab-quarters-connector_4_top",
-      "papel": "detail",
-      "ambiente": "lab-quarters-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_lab-quarters-connector"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 9.100000381469727,
-        "maxX": 11.899999618530273,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": -3.4699997901916504,
-        "maxZ": -3.2699999809265137
-      }
-    },
-    {
-      "id": "TUN_west-connector-editorial_-1",
-      "name": "TUN_west-connector-editorial_-1",
-      "papel": "wall",
-      "ambiente": "west-connector-editorial",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -7.25,
-        "maxX": -4.0,
-        "minY": 0.0,
-        "maxY": 2.5,
-        "minZ": -1.3700000047683716,
-        "maxZ": -1.2299998998641968
-      }
-    },
-    {
-      "id": "TUN_west-connector-editorial_1",
-      "name": "TUN_west-connector-editorial_1",
-      "papel": "wall",
-      "ambiente": "west-connector-editorial",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -7.25,
-        "maxX": -4.0,
-        "minY": 0.0,
-        "maxY": 2.5,
-        "minZ": 1.2299998998641968,
-        "maxZ": 1.3700000047683716
-      }
-    },
-    {
-      "id": "TET_west-connector-editorial",
-      "name": "TET_west-connector-editorial",
-      "papel": "roof",
-      "ambiente": "west-connector-editorial",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -7.25,
-        "maxX": -4.0,
-        "minY": 2.5299999713897705,
-        "maxY": 2.7099997997283936,
-        "minZ": -1.3799999952316284,
-        "maxZ": 1.3799999952316284
-      }
-    },
-    {
-      "id": "Anel_west-connector-editorial_0_-1",
-      "name": "Anel_west-connector-editorial_0_-1",
-      "papel": "detail",
-      "ambiente": "west-connector-editorial",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_west-connector-editorial_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -7.235000133514404,
-        "maxX": -7.025000095367432,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -1.4049999713897705,
-        "maxZ": -1.1949999332427979
-      }
-    },
-    {
-      "id": "Anel_west-connector-editorial_0_1",
-      "name": "Anel_west-connector-editorial_0_1",
-      "papel": "detail",
-      "ambiente": "west-connector-editorial",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_west-connector-editorial_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -7.235000133514404,
-        "maxX": -7.025000095367432,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 1.1949999332427979,
-        "maxZ": 1.4049999713897705
-      }
-    },
-    {
-      "id": "Anel_west-connector-editorial_0_top",
-      "name": "Anel_west-connector-editorial_0_top",
-      "papel": "detail",
-      "ambiente": "west-connector-editorial",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_west-connector-editorial"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -7.230000019073486,
-        "maxX": -7.03000020980835,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": -1.399999976158142,
-        "maxZ": 1.399999976158142
-      }
-    },
-    {
-      "id": "Anel_west-connector-editorial_1_-1",
-      "name": "Anel_west-connector-editorial_1_-1",
-      "papel": "detail",
-      "ambiente": "west-connector-editorial",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_west-connector-editorial_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -6.231666564941406,
-        "maxX": -6.021666526794434,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -1.4049999713897705,
-        "maxZ": -1.1949999332427979
-      }
-    },
-    {
-      "id": "Anel_west-connector-editorial_1_1",
-      "name": "Anel_west-connector-editorial_1_1",
-      "papel": "detail",
-      "ambiente": "west-connector-editorial",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_west-connector-editorial_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -6.231666564941406,
-        "maxX": -6.021666526794434,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 1.1949999332427979,
-        "maxZ": 1.4049999713897705
-      }
-    },
-    {
-      "id": "Anel_west-connector-editorial_1_top",
-      "name": "Anel_west-connector-editorial_1_top",
-      "papel": "detail",
-      "ambiente": "west-connector-editorial",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_west-connector-editorial"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -6.226666450500488,
-        "maxX": -6.026666641235352,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": -1.399999976158142,
-        "maxZ": 1.399999976158142
-      }
-    },
-    {
-      "id": "Anel_west-connector-editorial_2_-1",
-      "name": "Anel_west-connector-editorial_2_-1",
-      "papel": "detail",
-      "ambiente": "west-connector-editorial",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_west-connector-editorial_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -5.228333473205566,
-        "maxX": -5.018333435058594,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -1.4049999713897705,
-        "maxZ": -1.1949999332427979
-      }
-    },
-    {
-      "id": "Anel_west-connector-editorial_2_1",
-      "name": "Anel_west-connector-editorial_2_1",
-      "papel": "detail",
-      "ambiente": "west-connector-editorial",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_west-connector-editorial_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -5.228333473205566,
-        "maxX": -5.018333435058594,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 1.1949999332427979,
-        "maxZ": 1.4049999713897705
-      }
-    },
-    {
-      "id": "Anel_west-connector-editorial_2_top",
-      "name": "Anel_west-connector-editorial_2_top",
-      "papel": "detail",
-      "ambiente": "west-connector-editorial",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_west-connector-editorial"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -5.223333358764648,
-        "maxX": -5.023333549499512,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": -1.399999976158142,
-        "maxZ": 1.399999976158142
-      }
-    },
-    {
-      "id": "Anel_west-connector-editorial_3_-1",
-      "name": "Anel_west-connector-editorial_3_-1",
-      "papel": "detail",
-      "ambiente": "west-connector-editorial",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_west-connector-editorial_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -4.224999904632568,
-        "maxX": -4.014999866485596,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -1.4049999713897705,
-        "maxZ": -1.1949999332427979
-      }
-    },
-    {
-      "id": "Anel_west-connector-editorial_3_1",
-      "name": "Anel_west-connector-editorial_3_1",
-      "papel": "detail",
-      "ambiente": "west-connector-editorial",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_west-connector-editorial_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -4.224999904632568,
-        "maxX": -4.014999866485596,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 1.1949999332427979,
-        "maxZ": 1.4049999713897705
-      }
-    },
-    {
-      "id": "Anel_west-connector-editorial_3_top",
-      "name": "Anel_west-connector-editorial_3_top",
-      "papel": "detail",
-      "ambiente": "west-connector-editorial",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_west-connector-editorial"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -4.21999979019165,
-        "maxX": -4.019999980926514,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": -1.399999976158142,
-        "maxZ": 1.399999976158142
-      }
-    },
-    {
-      "id": "TUN_east-connector-design_-1",
-      "name": "TUN_east-connector-design_-1",
-      "papel": "wall",
-      "ambiente": "east-connector-design",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 4.0,
-        "maxX": 7.25,
-        "minY": 0.0,
-        "maxY": 2.5,
-        "minZ": -1.3700000047683716,
-        "maxZ": -1.2299998998641968
-      }
-    },
-    {
-      "id": "TUN_east-connector-design_1",
-      "name": "TUN_east-connector-design_1",
-      "papel": "wall",
-      "ambiente": "east-connector-design",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 4.0,
-        "maxX": 7.25,
-        "minY": 0.0,
-        "maxY": 2.5,
-        "minZ": 1.2299998998641968,
-        "maxZ": 1.3700000047683716
-      }
-    },
-    {
-      "id": "TET_east-connector-design",
-      "name": "TET_east-connector-design",
-      "papel": "roof",
-      "ambiente": "east-connector-design",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 4.0,
-        "maxX": 7.25,
-        "minY": 2.5299999713897705,
-        "maxY": 2.7099997997283936,
-        "minZ": -1.3799999952316284,
-        "maxZ": 1.3799999952316284
-      }
-    },
-    {
-      "id": "Anel_east-connector-design_0_-1",
-      "name": "Anel_east-connector-design_0_-1",
-      "papel": "detail",
-      "ambiente": "east-connector-design",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_east-connector-design_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 4.014999866485596,
-        "maxX": 4.224999904632568,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -1.4049999713897705,
-        "maxZ": -1.1949999332427979
-      }
-    },
-    {
-      "id": "Anel_east-connector-design_0_1",
-      "name": "Anel_east-connector-design_0_1",
-      "papel": "detail",
-      "ambiente": "east-connector-design",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_east-connector-design_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 4.014999866485596,
-        "maxX": 4.224999904632568,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 1.1949999332427979,
-        "maxZ": 1.4049999713897705
-      }
-    },
-    {
-      "id": "Anel_east-connector-design_0_top",
-      "name": "Anel_east-connector-design_0_top",
-      "papel": "detail",
-      "ambiente": "east-connector-design",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_east-connector-design"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 4.019999980926514,
-        "maxX": 4.21999979019165,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": -1.399999976158142,
-        "maxZ": 1.399999976158142
-      }
-    },
-    {
-      "id": "Anel_east-connector-design_1_-1",
-      "name": "Anel_east-connector-design_1_-1",
-      "papel": "detail",
-      "ambiente": "east-connector-design",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_east-connector-design_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 5.018333435058594,
-        "maxX": 5.228333473205566,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -1.4049999713897705,
-        "maxZ": -1.1949999332427979
-      }
-    },
-    {
-      "id": "Anel_east-connector-design_1_1",
-      "name": "Anel_east-connector-design_1_1",
-      "papel": "detail",
-      "ambiente": "east-connector-design",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_east-connector-design_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 5.018333435058594,
-        "maxX": 5.228333473205566,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 1.1949999332427979,
-        "maxZ": 1.4049999713897705
-      }
-    },
-    {
-      "id": "Anel_east-connector-design_1_top",
-      "name": "Anel_east-connector-design_1_top",
-      "papel": "detail",
-      "ambiente": "east-connector-design",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_east-connector-design"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 5.023333549499512,
-        "maxX": 5.223333358764648,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": -1.399999976158142,
-        "maxZ": 1.399999976158142
-      }
-    },
-    {
-      "id": "Anel_east-connector-design_2_-1",
-      "name": "Anel_east-connector-design_2_-1",
-      "papel": "detail",
-      "ambiente": "east-connector-design",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_east-connector-design_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 6.021666526794434,
-        "maxX": 6.231666564941406,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -1.4049999713897705,
-        "maxZ": -1.1949999332427979
-      }
-    },
-    {
-      "id": "Anel_east-connector-design_2_1",
-      "name": "Anel_east-connector-design_2_1",
-      "papel": "detail",
-      "ambiente": "east-connector-design",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_east-connector-design_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 6.021666526794434,
-        "maxX": 6.231666564941406,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 1.1949999332427979,
-        "maxZ": 1.4049999713897705
-      }
-    },
-    {
-      "id": "Anel_east-connector-design_2_top",
-      "name": "Anel_east-connector-design_2_top",
-      "papel": "detail",
-      "ambiente": "east-connector-design",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_east-connector-design"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 6.026666641235352,
-        "maxX": 6.226666450500488,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": -1.399999976158142,
-        "maxZ": 1.399999976158142
-      }
-    },
-    {
-      "id": "Anel_east-connector-design_3_-1",
-      "name": "Anel_east-connector-design_3_-1",
-      "papel": "detail",
-      "ambiente": "east-connector-design",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_east-connector-design_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 7.025000095367432,
-        "maxX": 7.235000133514404,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": -1.4049999713897705,
-        "maxZ": -1.1949999332427979
-      }
-    },
-    {
-      "id": "Anel_east-connector-design_3_1",
-      "name": "Anel_east-connector-design_3_1",
-      "papel": "detail",
-      "ambiente": "east-connector-design",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_east-connector-design_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 7.025000095367432,
-        "maxX": 7.235000133514404,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 1.1949999332427979,
-        "maxZ": 1.4049999713897705
-      }
-    },
-    {
-      "id": "Anel_east-connector-design_3_top",
-      "name": "Anel_east-connector-design_3_top",
-      "papel": "detail",
-      "ambiente": "east-connector-design",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_east-connector-design"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 7.03000020980835,
-        "maxX": 7.230000019073486,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": -1.399999976158142,
-        "maxZ": 1.399999976158142
-      }
-    },
-    {
-      "id": "TUN_southwest-connector-narration_-1",
-      "name": "TUN_southwest-connector-narration_-1",
-      "papel": "wall",
-      "ambiente": "southwest-connector-narration",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -7.5,
-        "maxX": -4.899999618530273,
-        "minY": 0.0,
-        "maxY": 2.5,
-        "minZ": 7.12999963760376,
-        "maxZ": 7.269999980926514
-      }
-    },
-    {
-      "id": "TUN_southwest-connector-narration_1",
-      "name": "TUN_southwest-connector-narration_1",
-      "papel": "wall",
-      "ambiente": "southwest-connector-narration",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -7.5,
-        "maxX": -4.899999618530273,
-        "minY": 0.0,
-        "maxY": 2.5,
-        "minZ": 9.730000495910645,
-        "maxZ": 9.869999885559082
-      }
-    },
-    {
-      "id": "TET_southwest-connector-narration",
-      "name": "TET_southwest-connector-narration",
-      "papel": "roof",
-      "ambiente": "southwest-connector-narration",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -7.5,
-        "maxX": -4.899999618530273,
-        "minY": 2.5299999713897705,
-        "maxY": 2.7099997997283936,
-        "minZ": 7.119999885559082,
-        "maxZ": 9.880000114440918
-      }
-    },
-    {
-      "id": "Anel_southwest-connector-narration_0_-1",
-      "name": "Anel_southwest-connector-narration_0_-1",
-      "papel": "detail",
-      "ambiente": "southwest-connector-narration",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_southwest-connector-narration_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -7.485000133514404,
-        "maxX": -7.275000095367432,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 7.09499979019165,
-        "maxZ": 7.304999828338623
-      }
-    },
-    {
-      "id": "Anel_southwest-connector-narration_0_1",
-      "name": "Anel_southwest-connector-narration_0_1",
-      "papel": "detail",
-      "ambiente": "southwest-connector-narration",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_southwest-connector-narration_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -7.485000133514404,
-        "maxX": -7.275000095367432,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 9.695000648498535,
-        "maxZ": 9.904999732971191
-      }
-    },
-    {
-      "id": "Anel_southwest-connector-narration_0_top",
-      "name": "Anel_southwest-connector-narration_0_top",
-      "papel": "detail",
-      "ambiente": "southwest-connector-narration",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_southwest-connector-narration"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -7.480000019073486,
-        "maxX": -7.28000020980835,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": 7.099999904632568,
-        "maxZ": 9.899999618530273
-      }
-    },
-    {
-      "id": "Anel_southwest-connector-narration_1_-1",
-      "name": "Anel_southwest-connector-narration_1_-1",
-      "papel": "detail",
-      "ambiente": "southwest-connector-narration",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_southwest-connector-narration_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -6.304999828338623,
-        "maxX": -6.09499979019165,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 7.09499979019165,
-        "maxZ": 7.304999828338623
-      }
-    },
-    {
-      "id": "Anel_southwest-connector-narration_1_1",
-      "name": "Anel_southwest-connector-narration_1_1",
-      "papel": "detail",
-      "ambiente": "southwest-connector-narration",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_southwest-connector-narration_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -6.304999828338623,
-        "maxX": -6.09499979019165,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 9.695000648498535,
-        "maxZ": 9.904999732971191
-      }
-    },
-    {
-      "id": "Anel_southwest-connector-narration_1_top",
-      "name": "Anel_southwest-connector-narration_1_top",
-      "papel": "detail",
-      "ambiente": "southwest-connector-narration",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_southwest-connector-narration"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -6.299999713897705,
-        "maxX": -6.099999904632568,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": 7.099999904632568,
-        "maxZ": 9.899999618530273
-      }
-    },
-    {
-      "id": "Anel_southwest-connector-narration_2_-1",
-      "name": "Anel_southwest-connector-narration_2_-1",
-      "papel": "detail",
-      "ambiente": "southwest-connector-narration",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_southwest-connector-narration_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -5.125,
-        "maxX": -4.914999961853027,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 7.09499979019165,
-        "maxZ": 7.304999828338623
-      }
-    },
-    {
-      "id": "Anel_southwest-connector-narration_2_1",
-      "name": "Anel_southwest-connector-narration_2_1",
-      "papel": "detail",
-      "ambiente": "southwest-connector-narration",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_southwest-connector-narration_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -5.125,
-        "maxX": -4.914999961853027,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 9.695000648498535,
-        "maxZ": 9.904999732971191
-      }
-    },
-    {
-      "id": "Anel_southwest-connector-narration_2_top",
-      "name": "Anel_southwest-connector-narration_2_top",
-      "papel": "detail",
-      "ambiente": "southwest-connector-narration",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_southwest-connector-narration"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -5.119999885559082,
-        "maxX": -4.920000076293945,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": 7.099999904632568,
-        "maxZ": 9.899999618530273
-      }
-    },
-    {
-      "id": "TUN_southeast-connector-output_-1",
-      "name": "TUN_southeast-connector-output_-1",
-      "papel": "wall",
-      "ambiente": "southeast-connector-output",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 4.899999618530273,
-        "maxX": 7.5,
-        "minY": 0.0,
-        "maxY": 2.5,
-        "minZ": 7.12999963760376,
-        "maxZ": 7.269999980926514
-      }
-    },
-    {
-      "id": "TUN_southeast-connector-output_1",
-      "name": "TUN_southeast-connector-output_1",
-      "papel": "wall",
-      "ambiente": "southeast-connector-output",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 4.899999618530273,
-        "maxX": 7.5,
-        "minY": 0.0,
-        "maxY": 2.5,
-        "minZ": 9.730000495910645,
-        "maxZ": 9.869999885559082
-      }
-    },
-    {
-      "id": "TET_southeast-connector-output",
-      "name": "TET_southeast-connector-output",
-      "papel": "roof",
-      "ambiente": "southeast-connector-output",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 4.899999618530273,
-        "maxX": 7.5,
-        "minY": 2.5299999713897705,
-        "maxY": 2.7099997997283936,
-        "minZ": 7.119999885559082,
-        "maxZ": 9.880000114440918
-      }
-    },
-    {
-      "id": "Anel_southeast-connector-output_0_-1",
-      "name": "Anel_southeast-connector-output_0_-1",
-      "papel": "detail",
-      "ambiente": "southeast-connector-output",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_southeast-connector-output_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 4.914999961853027,
-        "maxX": 5.125,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 7.09499979019165,
-        "maxZ": 7.304999828338623
-      }
-    },
-    {
-      "id": "Anel_southeast-connector-output_0_1",
-      "name": "Anel_southeast-connector-output_0_1",
-      "papel": "detail",
-      "ambiente": "southeast-connector-output",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_southeast-connector-output_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 4.914999961853027,
-        "maxX": 5.125,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 9.695000648498535,
-        "maxZ": 9.904999732971191
-      }
-    },
-    {
-      "id": "Anel_southeast-connector-output_0_top",
-      "name": "Anel_southeast-connector-output_0_top",
-      "papel": "detail",
-      "ambiente": "southeast-connector-output",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_southeast-connector-output"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 4.920000076293945,
-        "maxX": 5.119999885559082,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": 7.099999904632568,
-        "maxZ": 9.899999618530273
-      }
-    },
-    {
-      "id": "Anel_southeast-connector-output_1_-1",
-      "name": "Anel_southeast-connector-output_1_-1",
-      "papel": "detail",
-      "ambiente": "southeast-connector-output",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_southeast-connector-output_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 6.09499979019165,
-        "maxX": 6.304999828338623,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 7.09499979019165,
-        "maxZ": 7.304999828338623
-      }
-    },
-    {
-      "id": "Anel_southeast-connector-output_1_1",
-      "name": "Anel_southeast-connector-output_1_1",
-      "papel": "detail",
-      "ambiente": "southeast-connector-output",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_southeast-connector-output_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 6.09499979019165,
-        "maxX": 6.304999828338623,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 9.695000648498535,
-        "maxZ": 9.904999732971191
-      }
-    },
-    {
-      "id": "Anel_southeast-connector-output_1_top",
-      "name": "Anel_southeast-connector-output_1_top",
-      "papel": "detail",
-      "ambiente": "southeast-connector-output",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_southeast-connector-output"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 6.099999904632568,
-        "maxX": 6.299999713897705,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": 7.099999904632568,
-        "maxZ": 9.899999618530273
-      }
-    },
-    {
-      "id": "Anel_southeast-connector-output_2_-1",
-      "name": "Anel_southeast-connector-output_2_-1",
-      "papel": "detail",
-      "ambiente": "southeast-connector-output",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_southeast-connector-output_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 7.275000095367432,
-        "maxX": 7.485000133514404,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 7.09499979019165,
-        "maxZ": 7.304999828338623
-      }
-    },
-    {
-      "id": "Anel_southeast-connector-output_2_1",
-      "name": "Anel_southeast-connector-output_2_1",
-      "papel": "detail",
-      "ambiente": "southeast-connector-output",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_southeast-connector-output_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 7.275000095367432,
-        "maxX": 7.485000133514404,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 9.695000648498535,
-        "maxZ": 9.904999732971191
-      }
-    },
-    {
-      "id": "Anel_southeast-connector-output_2_top",
-      "name": "Anel_southeast-connector-output_2_top",
-      "papel": "detail",
-      "ambiente": "southeast-connector-output",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_southeast-connector-output"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 7.28000020980835,
-        "maxX": 7.480000019073486,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": 7.099999904632568,
-        "maxZ": 9.899999618530273
-      }
-    },
-    {
-      "id": "TUN_south-connector-meeting_-1",
-      "name": "TUN_south-connector-meeting_-1",
-      "papel": "wall",
-      "ambiente": "south-connector-meeting",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.3700000047683716,
-        "maxX": -1.2299998998641968,
-        "minY": 0.0,
-        "maxY": 2.5,
-        "minZ": 3.999999761581421,
-        "maxZ": 11.5
-      }
-    },
-    {
-      "id": "D_south-connector-meeting_praca_-1_L",
-      "name": "D_south-connector-meeting_praca_-1_L",
-      "papel": "door",
-      "ambiente": "south-connector-meeting",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_south-connector-meeting_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.3299999237060547,
-        "maxX": -1.2699999809265137,
-        "minY": 0.010000109672546387,
-        "maxY": 2.369999885559082,
-        "minZ": 7.40749979019165,
-        "maxZ": 8.492500305175781
-      }
-    },
-    {
-      "id": "D_south-connector-meeting_praca_-1_R",
-      "name": "D_south-connector-meeting_praca_-1_R",
-      "papel": "door",
-      "ambiente": "south-connector-meeting",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_south-connector-meeting_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.3299999237060547,
-        "maxX": -1.2699999809265137,
-        "minY": 0.010000109672546387,
-        "maxY": 2.369999885559082,
-        "minZ": 8.507499694824219,
-        "maxZ": 9.592500686645508
-      }
-    },
-    {
-      "id": "TUN_south-connector-meeting_1",
-      "name": "TUN_south-connector-meeting_1",
-      "papel": "wall",
-      "ambiente": "south-connector-meeting",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 1.2299998998641968,
-        "maxX": 1.3700000047683716,
-        "minY": 0.0,
-        "maxY": 2.5,
-        "minZ": 3.999999761581421,
-        "maxZ": 11.5
-      }
-    },
-    {
-      "id": "D_south-connector-meeting_praca_1_L",
-      "name": "D_south-connector-meeting_praca_1_L",
-      "papel": "door",
-      "ambiente": "south-connector-meeting",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_south-connector-meeting_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 1.2699999809265137,
-        "maxX": 1.3299999237060547,
-        "minY": 0.010000109672546387,
-        "maxY": 2.369999885559082,
-        "minZ": 7.40749979019165,
-        "maxZ": 8.492500305175781
-      }
-    },
-    {
-      "id": "D_south-connector-meeting_praca_1_R",
-      "name": "D_south-connector-meeting_praca_1_R",
-      "papel": "door",
-      "ambiente": "south-connector-meeting",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_south-connector-meeting_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 1.2699999809265137,
-        "maxX": 1.3299999237060547,
-        "minY": 0.010000109672546387,
-        "maxY": 2.369999885559082,
-        "minZ": 8.507499694824219,
-        "maxZ": 9.592500686645508
-      }
-    },
-    {
-      "id": "TET_south-connector-meeting",
-      "name": "TET_south-connector-meeting",
-      "papel": "roof",
-      "ambiente": "south-connector-meeting",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.3799999952316284,
-        "maxX": 1.3799999952316284,
-        "minY": 2.5299999713897705,
-        "maxY": 2.7099997997283936,
-        "minZ": 4.0,
-        "maxZ": 11.5
-      }
-    },
-    {
-      "id": "Anel_south-connector-meeting_0_-1",
-      "name": "Anel_south-connector-meeting_0_-1",
-      "papel": "detail",
-      "ambiente": "south-connector-meeting",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_south-connector-meeting_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.4049999713897705,
-        "maxX": -1.1949999332427979,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 4.014999866485596,
-        "maxZ": 4.224999904632568
-      }
-    },
-    {
-      "id": "Anel_south-connector-meeting_0_1",
-      "name": "Anel_south-connector-meeting_0_1",
-      "papel": "detail",
-      "ambiente": "south-connector-meeting",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_south-connector-meeting_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 1.1949999332427979,
-        "maxX": 1.4049999713897705,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 4.014999866485596,
-        "maxZ": 4.224999904632568
-      }
-    },
-    {
-      "id": "Anel_south-connector-meeting_0_top",
-      "name": "Anel_south-connector-meeting_0_top",
-      "papel": "detail",
-      "ambiente": "south-connector-meeting",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_south-connector-meeting"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.399999976158142,
-        "maxX": 1.399999976158142,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": 4.019999980926514,
-        "maxZ": 4.21999979019165
-      }
-    },
-    {
-      "id": "Anel_south-connector-meeting_1_-1",
-      "name": "Anel_south-connector-meeting_1_-1",
-      "papel": "detail",
-      "ambiente": "south-connector-meeting",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_south-connector-meeting_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.4049999713897705,
-        "maxX": -1.1949999332427979,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 5.224999904632568,
-        "maxZ": 5.434999942779541
-      }
-    },
-    {
-      "id": "Anel_south-connector-meeting_1_1",
-      "name": "Anel_south-connector-meeting_1_1",
-      "papel": "detail",
-      "ambiente": "south-connector-meeting",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_south-connector-meeting_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 1.1949999332427979,
-        "maxX": 1.4049999713897705,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 5.224999904632568,
-        "maxZ": 5.434999942779541
-      }
-    },
-    {
-      "id": "Anel_south-connector-meeting_1_top",
-      "name": "Anel_south-connector-meeting_1_top",
-      "papel": "detail",
-      "ambiente": "south-connector-meeting",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_south-connector-meeting"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.399999976158142,
-        "maxX": 1.399999976158142,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": 5.230000019073486,
-        "maxZ": 5.429999828338623
-      }
-    },
-    {
-      "id": "Anel_south-connector-meeting_2_-1",
-      "name": "Anel_south-connector-meeting_2_-1",
-      "papel": "detail",
-      "ambiente": "south-connector-meeting",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_south-connector-meeting_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.4049999713897705,
-        "maxX": -1.1949999332427979,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 6.434999942779541,
-        "maxZ": 6.644999980926514
-      }
-    },
-    {
-      "id": "Anel_south-connector-meeting_2_1",
-      "name": "Anel_south-connector-meeting_2_1",
-      "papel": "detail",
-      "ambiente": "south-connector-meeting",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_south-connector-meeting_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 1.1949999332427979,
-        "maxX": 1.4049999713897705,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 6.434999942779541,
-        "maxZ": 6.644999980926514
-      }
-    },
-    {
-      "id": "Anel_south-connector-meeting_2_top",
-      "name": "Anel_south-connector-meeting_2_top",
-      "papel": "detail",
-      "ambiente": "south-connector-meeting",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_south-connector-meeting"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.399999976158142,
-        "maxX": 1.399999976158142,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": 6.440000057220459,
-        "maxZ": 6.639999866485596
-      }
-    },
-    {
-      "id": "Anel_south-connector-meeting_3_top",
-      "name": "Anel_south-connector-meeting_3_top",
-      "papel": "detail",
-      "ambiente": "south-connector-meeting",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_south-connector-meeting"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.399999976158142,
-        "maxX": 1.399999976158142,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": 7.650000095367432,
-        "maxZ": 7.849999904632568
-      }
-    },
-    {
-      "id": "Anel_south-connector-meeting_4_top",
-      "name": "Anel_south-connector-meeting_4_top",
-      "papel": "detail",
-      "ambiente": "south-connector-meeting",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_south-connector-meeting"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.399999976158142,
-        "maxX": 1.399999976158142,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": 8.859999656677246,
-        "maxZ": 9.0600004196167
-      }
-    },
-    {
-      "id": "Anel_south-connector-meeting_5_-1",
-      "name": "Anel_south-connector-meeting_5_-1",
-      "papel": "detail",
-      "ambiente": "south-connector-meeting",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_south-connector-meeting_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.4049999713897705,
-        "maxX": -1.1949999332427979,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 10.065000534057617,
-        "maxZ": 10.274999618530273
-      }
-    },
-    {
-      "id": "Anel_south-connector-meeting_5_1",
-      "name": "Anel_south-connector-meeting_5_1",
-      "papel": "detail",
-      "ambiente": "south-connector-meeting",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_south-connector-meeting_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 1.1949999332427979,
-        "maxX": 1.4049999713897705,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 10.065000534057617,
-        "maxZ": 10.274999618530273
-      }
-    },
-    {
-      "id": "Anel_south-connector-meeting_5_top",
-      "name": "Anel_south-connector-meeting_5_top",
-      "papel": "detail",
-      "ambiente": "south-connector-meeting",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_south-connector-meeting"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.399999976158142,
-        "maxX": 1.399999976158142,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": 10.069999694824219,
-        "maxZ": 10.270000457763672
-      }
-    },
-    {
-      "id": "Anel_south-connector-meeting_6_-1",
-      "name": "Anel_south-connector-meeting_6_-1",
-      "papel": "detail",
-      "ambiente": "south-connector-meeting",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_south-connector-meeting_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.4049999713897705,
-        "maxX": -1.1949999332427979,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 11.27500057220459,
-        "maxZ": 11.484999656677246
-      }
-    },
-    {
-      "id": "Anel_south-connector-meeting_6_1",
-      "name": "Anel_south-connector-meeting_6_1",
-      "papel": "detail",
-      "ambiente": "south-connector-meeting",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_south-connector-meeting_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 1.1949999332427979,
-        "maxX": 1.4049999713897705,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 11.27500057220459,
-        "maxZ": 11.484999656677246
-      }
-    },
-    {
-      "id": "Anel_south-connector-meeting_6_top",
-      "name": "Anel_south-connector-meeting_6_top",
-      "papel": "detail",
-      "ambiente": "south-connector-meeting",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_south-connector-meeting"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.399999976158142,
-        "maxX": 1.399999976158142,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": 11.279999732971191,
-        "maxZ": 11.480000495910645
-      }
-    },
-    {
-      "id": "TUN_meeting-east-connector_-1",
-      "name": "TUN_meeting-east-connector_-1",
-      "papel": "wall",
-      "ambiente": "meeting-east-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 4.5,
-        "maxX": 5.300000190734863,
-        "minY": 0.0,
-        "maxY": 2.5,
-        "minZ": 13.829999923706055,
-        "maxZ": 13.969999313354492
-      }
-    },
-    {
-      "id": "TUN_meeting-east-connector_1",
-      "name": "TUN_meeting-east-connector_1",
-      "papel": "wall",
-      "ambiente": "meeting-east-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 4.5,
-        "maxX": 5.300000190734863,
-        "minY": 0.0,
-        "maxY": 2.5,
-        "minZ": 16.030000686645508,
-        "maxZ": 16.170000076293945
-      }
-    },
-    {
-      "id": "TET_meeting-east-connector",
-      "name": "TET_meeting-east-connector",
-      "papel": "roof",
-      "ambiente": "meeting-east-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 4.5,
-        "maxX": 5.300000190734863,
-        "minY": 2.5299999713897705,
-        "maxY": 2.7099997997283936,
-        "minZ": 13.819999694824219,
-        "maxZ": 16.18000030517578
-      }
-    },
-    {
-      "id": "Anel_meeting-east-connector_0_-1",
-      "name": "Anel_meeting-east-connector_0_-1",
-      "papel": "detail",
-      "ambiente": "meeting-east-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_meeting-east-connector_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 4.514999866485596,
-        "maxX": 4.724999904632568,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 13.795000076293945,
-        "maxZ": 14.004999160766602
-      }
-    },
-    {
-      "id": "Anel_meeting-east-connector_0_1",
-      "name": "Anel_meeting-east-connector_0_1",
-      "papel": "detail",
-      "ambiente": "meeting-east-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_meeting-east-connector_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 4.514999866485596,
-        "maxX": 4.724999904632568,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 15.995000839233398,
-        "maxZ": 16.204999923706055
-      }
-    },
-    {
-      "id": "Anel_meeting-east-connector_0_top",
-      "name": "Anel_meeting-east-connector_0_top",
-      "papel": "detail",
-      "ambiente": "meeting-east-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_meeting-east-connector"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 4.519999980926514,
-        "maxX": 4.71999979019165,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": 13.800000190734863,
-        "maxZ": 16.200000762939453
-      }
-    },
-    {
-      "id": "Anel_meeting-east-connector_1_-1",
-      "name": "Anel_meeting-east-connector_1_-1",
-      "papel": "detail",
-      "ambiente": "meeting-east-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_meeting-east-connector_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 5.074999809265137,
-        "maxX": 5.284999847412109,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 13.795000076293945,
-        "maxZ": 14.004999160766602
-      }
-    },
-    {
-      "id": "Anel_meeting-east-connector_1_1",
-      "name": "Anel_meeting-east-connector_1_1",
-      "papel": "detail",
-      "ambiente": "meeting-east-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_meeting-east-connector_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 5.074999809265137,
-        "maxX": 5.284999847412109,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 15.995000839233398,
-        "maxZ": 16.204999923706055
-      }
-    },
-    {
-      "id": "Anel_meeting-east-connector_1_top",
-      "name": "Anel_meeting-east-connector_1_top",
-      "papel": "detail",
-      "ambiente": "meeting-east-connector",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_meeting-east-connector"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 5.079999923706055,
-        "maxX": 5.279999732971191,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": 13.800000190734863,
-        "maxZ": 16.200000762939453
-      }
-    },
-    {
-      "id": "TUN_meeting-exterior-airlock_-1",
-      "name": "TUN_meeting-exterior-airlock_-1",
-      "papel": "wall",
-      "ambiente": "meeting-exterior-airlock",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.3700000047683716,
-        "maxX": -1.2299998998641968,
-        "minY": 0.0,
-        "maxY": 2.5,
-        "minZ": 17.5,
-        "maxZ": 20.099998474121094
-      }
-    },
-    {
-      "id": "TUN_meeting-exterior-airlock_1",
-      "name": "TUN_meeting-exterior-airlock_1",
-      "papel": "wall",
-      "ambiente": "meeting-exterior-airlock",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 1.2299998998641968,
-        "maxX": 1.3700000047683716,
-        "minY": 0.0,
-        "maxY": 2.5,
-        "minZ": 17.5,
-        "maxZ": 20.099998474121094
-      }
-    },
-    {
-      "id": "TET_meeting-exterior-airlock",
-      "name": "TET_meeting-exterior-airlock",
-      "papel": "roof",
-      "ambiente": "meeting-exterior-airlock",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.3799999952316284,
-        "maxX": 1.3799999952316284,
-        "minY": 2.5299999713897705,
-        "maxY": 2.7099997997283936,
-        "minZ": 17.5,
-        "maxZ": 20.099998474121094
-      }
-    },
-    {
-      "id": "Anel_meeting-exterior-airlock_0_-1",
-      "name": "Anel_meeting-exterior-airlock_0_-1",
-      "papel": "detail",
-      "ambiente": "meeting-exterior-airlock",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_meeting-exterior-airlock_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.4049999713897705,
-        "maxX": -1.1949999332427979,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 17.51500129699707,
-        "maxZ": 17.725000381469727
-      }
-    },
-    {
-      "id": "Anel_meeting-exterior-airlock_0_1",
-      "name": "Anel_meeting-exterior-airlock_0_1",
-      "papel": "detail",
-      "ambiente": "meeting-exterior-airlock",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_meeting-exterior-airlock_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 1.1949999332427979,
-        "maxX": 1.4049999713897705,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 17.51500129699707,
-        "maxZ": 17.725000381469727
-      }
-    },
-    {
-      "id": "Anel_meeting-exterior-airlock_0_top",
-      "name": "Anel_meeting-exterior-airlock_0_top",
-      "papel": "detail",
-      "ambiente": "meeting-exterior-airlock",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_meeting-exterior-airlock"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.399999976158142,
-        "maxX": 1.399999976158142,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": 17.520000457763672,
-        "maxZ": 17.720001220703125
-      }
-    },
-    {
-      "id": "Anel_meeting-exterior-airlock_1_-1",
-      "name": "Anel_meeting-exterior-airlock_1_-1",
-      "papel": "detail",
-      "ambiente": "meeting-exterior-airlock",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_meeting-exterior-airlock_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.4049999713897705,
-        "maxX": -1.1949999332427979,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 18.69499969482422,
-        "maxZ": 18.904998779296875
-      }
-    },
-    {
-      "id": "Anel_meeting-exterior-airlock_1_1",
-      "name": "Anel_meeting-exterior-airlock_1_1",
-      "papel": "detail",
-      "ambiente": "meeting-exterior-airlock",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_meeting-exterior-airlock_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 1.1949999332427979,
-        "maxX": 1.4049999713897705,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 18.69499969482422,
-        "maxZ": 18.904998779296875
-      }
-    },
-    {
-      "id": "Anel_meeting-exterior-airlock_1_top",
-      "name": "Anel_meeting-exterior-airlock_1_top",
-      "papel": "detail",
-      "ambiente": "meeting-exterior-airlock",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_meeting-exterior-airlock"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.399999976158142,
-        "maxX": 1.399999976158142,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": 18.69999885559082,
-        "maxZ": 18.899999618530273
-      }
-    },
-    {
-      "id": "Anel_meeting-exterior-airlock_2_-1",
-      "name": "Anel_meeting-exterior-airlock_2_-1",
-      "papel": "detail",
-      "ambiente": "meeting-exterior-airlock",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_meeting-exterior-airlock_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.4049999713897705,
-        "maxX": -1.1949999332427979,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 19.875,
-        "maxZ": 20.084999084472656
-      }
-    },
-    {
-      "id": "Anel_meeting-exterior-airlock_2_1",
-      "name": "Anel_meeting-exterior-airlock_2_1",
-      "papel": "detail",
-      "ambiente": "meeting-exterior-airlock",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_meeting-exterior-airlock_1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 1.1949999332427979,
-        "maxX": 1.4049999713897705,
-        "minY": -0.029999971389770508,
-        "maxY": 2.5299999713897705,
-        "minZ": 19.875,
-        "maxZ": 20.084999084472656
-      }
-    },
-    {
-      "id": "Anel_meeting-exterior-airlock_2_top",
-      "name": "Anel_meeting-exterior-airlock_2_top",
-      "papel": "detail",
-      "ambiente": "meeting-exterior-airlock",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TET_meeting-exterior-airlock"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.399999976158142,
-        "maxX": 1.399999976158142,
-        "minY": 2.7100000381469727,
-        "maxY": 2.809999942779541,
-        "minZ": 19.8799991607666,
-        "maxZ": 20.079999923706055
-      }
-    },
-    {
-      "id": "D_meeting-exterior-airlock_externa_L",
-      "name": "D_meeting-exterior-airlock_externa_L",
-      "papel": "door",
-      "ambiente": "meeting-exterior-airlock",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_meeting-exterior-airlock_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.0924999713897705,
-        "maxX": -0.007499992847442627,
-        "minY": 0.010000109672546387,
-        "maxY": 2.369999885559082,
-        "minZ": 20.06999969482422,
-        "maxZ": 20.130001068115234
-      }
-    },
-    {
-      "id": "D_meeting-exterior-airlock_externa_R",
-      "name": "D_meeting-exterior-airlock_externa_R",
-      "papel": "door",
-      "ambiente": "meeting-exterior-airlock",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_meeting-exterior-airlock_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 0.007499992847442627,
-        "maxX": 1.0924999713897705,
-        "minY": 0.010000109672546387,
-        "maxY": 2.369999885559082,
-        "minZ": 20.06999969482422,
-        "maxZ": 20.130001068115234
-      }
-    },
-    {
-      "id": "Verga_meeting-exterior-airlock",
-      "name": "Verga_meeting-exterior-airlock",
-      "papel": "wall",
-      "ambiente": "meeting-exterior-airlock",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -1.2999999523162842,
-        "maxX": 1.2999999523162842,
-        "minY": 2.4100000858306885,
-        "maxY": 2.509999990463257,
-        "minZ": 20.030000686645508,
-        "maxZ": 20.170000076293945
-      }
-    },
-    {
-      "id": "D_southwest-connector-narration_externa_L",
-      "name": "D_southwest-connector-narration_externa_L",
-      "papel": "door",
-      "ambiente": "southwest-connector-narration",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_southwest-connector-narration_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -4.930000305175781,
-        "maxX": -4.869999885559082,
-        "minY": 0.010000109672546387,
-        "maxY": 2.369999885559082,
-        "minZ": 7.40749979019165,
-        "maxZ": 8.492500305175781
-      }
-    },
-    {
-      "id": "D_southwest-connector-narration_externa_R",
-      "name": "D_southwest-connector-narration_externa_R",
-      "papel": "door",
-      "ambiente": "southwest-connector-narration",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_southwest-connector-narration_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -4.930000305175781,
-        "maxX": -4.869999885559082,
-        "minY": 0.010000109672546387,
-        "maxY": 2.369999885559082,
-        "minZ": 8.507499694824219,
-        "maxZ": 9.592500686645508
-      }
-    },
-    {
-      "id": "Verga_southwest-connector-narration",
-      "name": "Verga_southwest-connector-narration",
-      "papel": "wall",
-      "ambiente": "southwest-connector-narration",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": -4.970000267028809,
-        "maxX": -4.829999923706055,
-        "minY": 2.4100000858306885,
-        "maxY": 2.509999990463257,
-        "minZ": 7.199999809265137,
-        "maxZ": 9.800000190734863
-      }
-    },
-    {
-      "id": "D_southeast-connector-output_externa_L",
-      "name": "D_southeast-connector-output_externa_L",
-      "papel": "door",
-      "ambiente": "southeast-connector-output",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_southeast-connector-output_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 4.869999885559082,
-        "maxX": 4.930000305175781,
-        "minY": 0.010000109672546387,
-        "maxY": 2.369999885559082,
-        "minZ": 7.40749979019165,
-        "maxZ": 8.492500305175781
-      }
-    },
-    {
-      "id": "D_southeast-connector-output_externa_R",
-      "name": "D_southeast-connector-output_externa_R",
-      "papel": "door",
-      "ambiente": "southeast-connector-output",
-      "estado_inicial": "visivel",
-      "apoiado_em": [
-        "TUN_southeast-connector-output_-1"
-      ],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 4.869999885559082,
-        "maxX": 4.930000305175781,
-        "minY": 0.010000109672546387,
-        "maxY": 2.369999885559082,
-        "minZ": 8.507499694824219,
-        "maxZ": 9.592500686645508
-      }
-    },
-    {
-      "id": "Verga_southeast-connector-output",
-      "name": "Verga_southeast-connector-output",
-      "papel": "wall",
-      "ambiente": "southeast-connector-output",
-      "estado_inicial": "visivel",
-      "apoiado_em": [],
-      "apoiado_em_todos": [],
-      "bounds": {
-        "minX": 4.829999923706055,
-        "maxX": 4.970000267028809,
-        "minY": 2.4100000858306885,
-        "maxY": 2.509999990463257,
-        "minZ": 7.199999809265137,
-        "maxZ": 9.800000190734863
-      }
-    },
-    {
       "id": "Claraboia_Base_central-hub",
       "name": "Claraboia_Base_central-hub",
       "papel": "detail",
@@ -7969,8 +5071,8 @@
       }
     },
     {
-      "id": "PISO_v007",
-      "name": "PISO_v007",
+      "id": "PISO_v007_Externo",
+      "name": "PISO_v007_Externo",
       "papel": "floor",
       "ambiente": "",
       "estado_inicial": "visivel",
@@ -7983,6 +5085,23 @@
         "maxY": 0.0,
         "minZ": -13.75,
         "maxZ": 28.0
+      }
+    },
+    {
+      "id": "PISO_v007_Interno",
+      "name": "PISO_v007_Interno",
+      "papel": "floor",
+      "ambiente": "",
+      "estado_inicial": "visivel",
+      "apoiado_em": [],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": -13.75,
+        "maxX": 14.5,
+        "minY": 0.0,
+        "maxY": 0.0,
+        "minZ": -13.75,
+        "maxZ": 17.5
       }
     },
     {
@@ -12192,160 +9311,6 @@
       "maxZ": 27.900000000000002
     },
     {
-      "id": "tunnel-north-connector-brand--1",
-      "minX": -1.37,
-      "maxX": -1.23,
-      "minZ": -7.25,
-      "maxZ": -4.0
-    },
-    {
-      "id": "tunnel-north-connector-brand-1",
-      "minX": 1.23,
-      "maxX": 1.37,
-      "minZ": -7.25,
-      "maxZ": -4.0
-    },
-    {
-      "id": "tunnel-eden-lab-connector--1",
-      "minX": 3.5,
-      "maxX": 6.5,
-      "minZ": -11.870000000000001,
-      "maxZ": -11.73
-    },
-    {
-      "id": "tunnel-eden-lab-connector-1",
-      "minX": 3.5,
-      "maxX": 6.5,
-      "minZ": -9.27,
-      "maxZ": -9.129999999999999
-    },
-    {
-      "id": "tunnel-lab-quarters-connector--1",
-      "minX": 9.129999999999999,
-      "maxX": 9.27,
-      "minZ": -8.0,
-      "maxZ": -3.25
-    },
-    {
-      "id": "tunnel-lab-quarters-connector-1",
-      "minX": 11.73,
-      "maxX": 11.870000000000001,
-      "minZ": -8.0,
-      "maxZ": -3.25
-    },
-    {
-      "id": "tunnel-west-connector-editorial--1",
-      "minX": -7.25,
-      "maxX": -4.0,
-      "minZ": -1.37,
-      "maxZ": -1.23
-    },
-    {
-      "id": "tunnel-west-connector-editorial-1",
-      "minX": -7.25,
-      "maxX": -4.0,
-      "minZ": 1.23,
-      "maxZ": 1.37
-    },
-    {
-      "id": "tunnel-east-connector-design--1",
-      "minX": 4.0,
-      "maxX": 7.25,
-      "minZ": -1.37,
-      "maxZ": -1.23
-    },
-    {
-      "id": "tunnel-east-connector-design-1",
-      "minX": 4.0,
-      "maxX": 7.25,
-      "minZ": 1.23,
-      "maxZ": 1.37
-    },
-    {
-      "id": "tunnel-southwest-connector-narration--1",
-      "minX": -7.5,
-      "maxX": -4.9,
-      "minZ": 7.13,
-      "maxZ": 7.2700000000000005
-    },
-    {
-      "id": "tunnel-southwest-connector-narration-1",
-      "minX": -7.5,
-      "maxX": -4.9,
-      "minZ": 9.73,
-      "maxZ": 9.870000000000001
-    },
-    {
-      "id": "tunnel-southeast-connector-output--1",
-      "minX": 4.9,
-      "maxX": 7.5,
-      "minZ": 7.13,
-      "maxZ": 7.2700000000000005
-    },
-    {
-      "id": "tunnel-southeast-connector-output-1",
-      "minX": 4.9,
-      "maxX": 7.5,
-      "minZ": 9.73,
-      "maxZ": 9.870000000000001
-    },
-    {
-      "id": "tunnel-south-connector-meeting--1-0",
-      "minX": -1.37,
-      "maxX": -1.23,
-      "minZ": 4.0,
-      "maxZ": 7.4
-    },
-    {
-      "id": "tunnel-south-connector-meeting--1-1",
-      "minX": -1.37,
-      "maxX": -1.23,
-      "minZ": 9.600000000000001,
-      "maxZ": 11.5
-    },
-    {
-      "id": "tunnel-south-connector-meeting-1-0",
-      "minX": 1.23,
-      "maxX": 1.37,
-      "minZ": 4.0,
-      "maxZ": 7.4
-    },
-    {
-      "id": "tunnel-south-connector-meeting-1-1",
-      "minX": 1.23,
-      "maxX": 1.37,
-      "minZ": 9.600000000000001,
-      "maxZ": 11.5
-    },
-    {
-      "id": "tunnel-meeting-east-connector--1",
-      "minX": 4.5,
-      "maxX": 5.300000000000001,
-      "minZ": 13.83,
-      "maxZ": 13.97
-    },
-    {
-      "id": "tunnel-meeting-east-connector-1",
-      "minX": 4.5,
-      "maxX": 5.300000000000001,
-      "minZ": 16.03,
-      "maxZ": 16.17
-    },
-    {
-      "id": "tunnel-meeting-exterior-airlock--1",
-      "minX": -1.37,
-      "maxX": -1.23,
-      "minZ": 17.5,
-      "maxZ": 20.1
-    },
-    {
-      "id": "tunnel-meeting-exterior-airlock-1",
-      "minX": 1.23,
-      "maxX": 1.37,
-      "minZ": 17.5,
-      "maxZ": 20.1
-    },
-    {
       "id": "caixa-a-0",
       "minX": 15.875,
       "maxX": 16.525,
@@ -12598,6 +9563,34 @@
       "maxX": 17.5,
       "minZ": 17.0,
       "maxZ": 28.0
+    },
+    {
+      "id": "open-north-circulation",
+      "minX": -13.75,
+      "maxX": 14.5,
+      "minZ": -8.0,
+      "maxZ": -3.25
+    },
+    {
+      "id": "open-south-circulation",
+      "minX": -13.75,
+      "maxX": 13.75,
+      "minZ": 3.25,
+      "maxZ": 5.75
+    },
+    {
+      "id": "open-eden-lab-circulation",
+      "minX": 3.5,
+      "maxX": 6.5,
+      "minZ": -13.75,
+      "maxZ": -7.25
+    },
+    {
+      "id": "open-cargo-approach",
+      "minX": -7.5,
+      "maxX": 7.5,
+      "minZ": 10.5,
+      "maxZ": 11.5
     }
   ],
   "doors": [
@@ -12752,46 +9745,6 @@
       "axis": "z",
       "width": 2.2,
       "owner": "orbit-garden"
-    },
-    {
-      "id": "D_south-connector-meeting_praca_-1",
-      "x": -1.3,
-      "z": 8.5,
-      "axis": "z",
-      "width": 2.2,
-      "owner": "south-connector-meeting"
-    },
-    {
-      "id": "D_south-connector-meeting_praca_1",
-      "x": 1.3,
-      "z": 8.5,
-      "axis": "z",
-      "width": 2.2,
-      "owner": "south-connector-meeting"
-    },
-    {
-      "id": "D_meeting-exterior-airlock_externa",
-      "x": 0,
-      "z": 20.1,
-      "axis": "x",
-      "width": 2.2,
-      "owner": "meeting-exterior-airlock"
-    },
-    {
-      "id": "D_southwest-connector-narration_externa",
-      "x": -4.9,
-      "z": 8.5,
-      "axis": "z",
-      "width": 2.2,
-      "owner": "southwest-connector-narration"
-    },
-    {
-      "id": "D_southeast-connector-output_externa",
-      "x": 4.9,
-      "z": 8.5,
-      "axis": "z",
-      "width": 2.2,
-      "owner": "southeast-connector-output"
     }
   ],
   "floorCells": [
@@ -13038,6 +9991,48 @@
     [
       -13.75,
       -13.5,
+      -8.0,
+      -7.5
+    ],
+    [
+      -13.75,
+      -13.5,
+      -7.5,
+      -7.25
+    ],
+    [
+      -13.75,
+      -13.5,
+      -7.25,
+      -7
+    ],
+    [
+      -13.75,
+      -13.5,
+      -7,
+      -6
+    ],
+    [
+      -13.75,
+      -13.5,
+      -6,
+      -5
+    ],
+    [
+      -13.75,
+      -13.5,
+      -5,
+      -4.0
+    ],
+    [
+      -13.75,
+      -13.5,
+      -4.0,
+      -3.25
+    ],
+    [
+      -13.75,
+      -13.5,
       -3.25,
       -3
     ],
@@ -13094,6 +10089,24 @@
       -13.5,
       3,
       3.25
+    ],
+    [
+      -13.75,
+      -13.5,
+      3.25,
+      4.0
+    ],
+    [
+      -13.75,
+      -13.5,
+      4.0,
+      5
+    ],
+    [
+      -13.75,
+      -13.5,
+      5,
+      5.75
     ],
     [
       -13.75,
@@ -13146,6 +10159,48 @@
     [
       -13.5,
       -13,
+      -8.0,
+      -7.5
+    ],
+    [
+      -13.5,
+      -13,
+      -7.5,
+      -7.25
+    ],
+    [
+      -13.5,
+      -13,
+      -7.25,
+      -7
+    ],
+    [
+      -13.5,
+      -13,
+      -7,
+      -6
+    ],
+    [
+      -13.5,
+      -13,
+      -6,
+      -5
+    ],
+    [
+      -13.5,
+      -13,
+      -5,
+      -4.0
+    ],
+    [
+      -13.5,
+      -13,
+      -4.0,
+      -3.25
+    ],
+    [
+      -13.5,
+      -13,
       -3.25,
       -3
     ],
@@ -13202,6 +10257,24 @@
       -13,
       3,
       3.25
+    ],
+    [
+      -13.5,
+      -13,
+      3.25,
+      4.0
+    ],
+    [
+      -13.5,
+      -13,
+      4.0,
+      5
+    ],
+    [
+      -13.5,
+      -13,
+      5,
+      5.75
     ],
     [
       -13.5,
@@ -13314,6 +10387,48 @@
     [
       -13,
       -12,
+      -8.0,
+      -7.5
+    ],
+    [
+      -13,
+      -12,
+      -7.5,
+      -7.25
+    ],
+    [
+      -13,
+      -12,
+      -7.25,
+      -7
+    ],
+    [
+      -13,
+      -12,
+      -7,
+      -6
+    ],
+    [
+      -13,
+      -12,
+      -6,
+      -5
+    ],
+    [
+      -13,
+      -12,
+      -5,
+      -4.0
+    ],
+    [
+      -13,
+      -12,
+      -4.0,
+      -3.25
+    ],
+    [
+      -13,
+      -12,
       -3.25,
       -3
     ],
@@ -13370,6 +10485,24 @@
       -12,
       3,
       3.25
+    ],
+    [
+      -13,
+      -12,
+      3.25,
+      4.0
+    ],
+    [
+      -13,
+      -12,
+      4.0,
+      5
+    ],
+    [
+      -13,
+      -12,
+      5,
+      5.75
     ],
     [
       -13,
@@ -13482,6 +10615,48 @@
     [
       -12,
       -11,
+      -8.0,
+      -7.5
+    ],
+    [
+      -12,
+      -11,
+      -7.5,
+      -7.25
+    ],
+    [
+      -12,
+      -11,
+      -7.25,
+      -7
+    ],
+    [
+      -12,
+      -11,
+      -7,
+      -6
+    ],
+    [
+      -12,
+      -11,
+      -6,
+      -5
+    ],
+    [
+      -12,
+      -11,
+      -5,
+      -4.0
+    ],
+    [
+      -12,
+      -11,
+      -4.0,
+      -3.25
+    ],
+    [
+      -12,
+      -11,
       -3.25,
       -3
     ],
@@ -13538,6 +10713,24 @@
       -11,
       3,
       3.25
+    ],
+    [
+      -12,
+      -11,
+      3.25,
+      4.0
+    ],
+    [
+      -12,
+      -11,
+      4.0,
+      5
+    ],
+    [
+      -12,
+      -11,
+      5,
+      5.75
     ],
     [
       -12,
@@ -13650,6 +10843,48 @@
     [
       -11,
       -10,
+      -8.0,
+      -7.5
+    ],
+    [
+      -11,
+      -10,
+      -7.5,
+      -7.25
+    ],
+    [
+      -11,
+      -10,
+      -7.25,
+      -7
+    ],
+    [
+      -11,
+      -10,
+      -7,
+      -6
+    ],
+    [
+      -11,
+      -10,
+      -6,
+      -5
+    ],
+    [
+      -11,
+      -10,
+      -5,
+      -4.0
+    ],
+    [
+      -11,
+      -10,
+      -4.0,
+      -3.25
+    ],
+    [
+      -11,
+      -10,
       -3.25,
       -3
     ],
@@ -13706,6 +10941,24 @@
       -10,
       3,
       3.25
+    ],
+    [
+      -11,
+      -10,
+      3.25,
+      4.0
+    ],
+    [
+      -11,
+      -10,
+      4.0,
+      5
+    ],
+    [
+      -11,
+      -10,
+      5,
+      5.75
     ],
     [
       -11,
@@ -13818,6 +11071,48 @@
     [
       -10,
       -9,
+      -8.0,
+      -7.5
+    ],
+    [
+      -10,
+      -9,
+      -7.5,
+      -7.25
+    ],
+    [
+      -10,
+      -9,
+      -7.25,
+      -7
+    ],
+    [
+      -10,
+      -9,
+      -7,
+      -6
+    ],
+    [
+      -10,
+      -9,
+      -6,
+      -5
+    ],
+    [
+      -10,
+      -9,
+      -5,
+      -4.0
+    ],
+    [
+      -10,
+      -9,
+      -4.0,
+      -3.25
+    ],
+    [
+      -10,
+      -9,
       -3.25,
       -3
     ],
@@ -13874,6 +11169,24 @@
       -9,
       3,
       3.25
+    ],
+    [
+      -10,
+      -9,
+      3.25,
+      4.0
+    ],
+    [
+      -10,
+      -9,
+      4.0,
+      5
+    ],
+    [
+      -10,
+      -9,
+      5,
+      5.75
     ],
     [
       -10,
@@ -13986,6 +11299,48 @@
     [
       -9,
       -8,
+      -8.0,
+      -7.5
+    ],
+    [
+      -9,
+      -8,
+      -7.5,
+      -7.25
+    ],
+    [
+      -9,
+      -8,
+      -7.25,
+      -7
+    ],
+    [
+      -9,
+      -8,
+      -7,
+      -6
+    ],
+    [
+      -9,
+      -8,
+      -6,
+      -5
+    ],
+    [
+      -9,
+      -8,
+      -5,
+      -4.0
+    ],
+    [
+      -9,
+      -8,
+      -4.0,
+      -3.25
+    ],
+    [
+      -9,
+      -8,
       -3.25,
       -3
     ],
@@ -14042,6 +11397,24 @@
       -8,
       3,
       3.25
+    ],
+    [
+      -9,
+      -8,
+      3.25,
+      4.0
+    ],
+    [
+      -9,
+      -8,
+      4.0,
+      5
+    ],
+    [
+      -9,
+      -8,
+      5,
+      5.75
     ],
     [
       -9,
@@ -14154,6 +11527,48 @@
     [
       -8,
       -7.5,
+      -8.0,
+      -7.5
+    ],
+    [
+      -8,
+      -7.5,
+      -7.5,
+      -7.25
+    ],
+    [
+      -8,
+      -7.5,
+      -7.25,
+      -7
+    ],
+    [
+      -8,
+      -7.5,
+      -7,
+      -6
+    ],
+    [
+      -8,
+      -7.5,
+      -6,
+      -5
+    ],
+    [
+      -8,
+      -7.5,
+      -5,
+      -4.0
+    ],
+    [
+      -8,
+      -7.5,
+      -4.0,
+      -3.25
+    ],
+    [
+      -8,
+      -7.5,
       -3.25,
       -3
     ],
@@ -14210,6 +11625,24 @@
       -7.5,
       3,
       3.25
+    ],
+    [
+      -8,
+      -7.5,
+      3.25,
+      4.0
+    ],
+    [
+      -8,
+      -7.5,
+      4.0,
+      5
+    ],
+    [
+      -8,
+      -7.5,
+      5,
+      5.75
     ],
     [
       -8,
@@ -14318,6 +11751,12 @@
       -7.5,
       26,
       27.0
+    ],
+    [
+      -7.5,
+      -7.25,
+      -8.0,
+      -7.5
     ],
     [
       -7.5,
@@ -14484,6 +11923,24 @@
     [
       -7.5,
       -7.25,
+      10.5,
+      11
+    ],
+    [
+      -7.5,
+      -7.25,
+      11,
+      11.25
+    ],
+    [
+      -7.5,
+      -7.25,
+      11.25,
+      11.5
+    ],
+    [
+      -7.5,
+      -7.25,
       21.5,
       22
     ],
@@ -14528,6 +11985,12 @@
       -7.25,
       26,
       27.0
+    ],
+    [
+      -7.25,
+      -7,
+      -8.0,
+      -7.5
     ],
     [
       -7.25,
@@ -14694,6 +12157,24 @@
     [
       -7.25,
       -7,
+      10.5,
+      11
+    ],
+    [
+      -7.25,
+      -7,
+      11,
+      11.25
+    ],
+    [
+      -7.25,
+      -7,
+      11.25,
+      11.5
+    ],
+    [
+      -7.25,
+      -7,
       21.5,
       22
     ],
@@ -14738,6 +12219,12 @@
       -7,
       26,
       27.0
+    ],
+    [
+      -7,
+      -6,
+      -8.0,
+      -7.5
     ],
     [
       -7,
@@ -14904,6 +12391,24 @@
     [
       -7,
       -6,
+      10.5,
+      11
+    ],
+    [
+      -7,
+      -6,
+      11,
+      11.25
+    ],
+    [
+      -7,
+      -6,
+      11.25,
+      11.5
+    ],
+    [
+      -7,
+      -6,
       21.5,
       22
     ],
@@ -14948,6 +12453,12 @@
       -6,
       26,
       27.0
+    ],
+    [
+      -6,
+      -5,
+      -8.0,
+      -7.5
     ],
     [
       -6,
@@ -15114,6 +12625,24 @@
     [
       -6,
       -5,
+      10.5,
+      11
+    ],
+    [
+      -6,
+      -5,
+      11,
+      11.25
+    ],
+    [
+      -6,
+      -5,
+      11.25,
+      11.5
+    ],
+    [
+      -6,
+      -5,
       21.5,
       22
     ],
@@ -15158,6 +12687,12 @@
       -5,
       26,
       27.0
+    ],
+    [
+      -5,
+      -4.9,
+      -8.0,
+      -7.5
     ],
     [
       -5,
@@ -15324,6 +12859,24 @@
     [
       -5,
       -4.9,
+      10.5,
+      11
+    ],
+    [
+      -5,
+      -4.9,
+      11,
+      11.25
+    ],
+    [
+      -5,
+      -4.9,
+      11.25,
+      11.5
+    ],
+    [
+      -5,
+      -4.9,
       21.5,
       22
     ],
@@ -15368,6 +12921,12 @@
       -4.9,
       26,
       27.0
+    ],
+    [
+      -4.9,
+      -4.5,
+      -8.0,
+      -7.5
     ],
     [
       -4.9,
@@ -15534,6 +13093,24 @@
     [
       -4.9,
       -4.5,
+      10.5,
+      11
+    ],
+    [
+      -4.9,
+      -4.5,
+      11,
+      11.25
+    ],
+    [
+      -4.9,
+      -4.5,
+      11.25,
+      11.5
+    ],
+    [
+      -4.9,
+      -4.5,
       21.5,
       22
     ],
@@ -15578,6 +13155,12 @@
       -4.5,
       26,
       27.0
+    ],
+    [
+      -4.5,
+      -4.0,
+      -8.0,
+      -7.5
     ],
     [
       -4.5,
@@ -15740,6 +13323,24 @@
       -4.0,
       10,
       10.5
+    ],
+    [
+      -4.5,
+      -4.0,
+      10.5,
+      11
+    ],
+    [
+      -4.5,
+      -4.0,
+      11,
+      11.25
+    ],
+    [
+      -4.5,
+      -4.0,
+      11.25,
+      11.5
     ],
     [
       -4.5,
@@ -15864,6 +13465,12 @@
     [
       -4.0,
       -3.5,
+      -8.0,
+      -7.5
+    ],
+    [
+      -4.0,
+      -3.5,
       -7.5,
       -7.25
     ],
@@ -16022,6 +13629,24 @@
       -3.5,
       10,
       10.5
+    ],
+    [
+      -4.0,
+      -3.5,
+      10.5,
+      11
+    ],
+    [
+      -4.0,
+      -3.5,
+      11,
+      11.25
+    ],
+    [
+      -4.0,
+      -3.5,
+      11.25,
+      11.5
     ],
     [
       -4.0,
@@ -16368,6 +13993,24 @@
     [
       -3.5,
       -3,
+      10.5,
+      11
+    ],
+    [
+      -3.5,
+      -3,
+      11,
+      11.25
+    ],
+    [
+      -3.5,
+      -3,
+      11.25,
+      11.5
+    ],
+    [
+      -3.5,
+      -3,
       11.5,
       12
     ],
@@ -16710,6 +14353,24 @@
     [
       -3,
       -2.0,
+      10.5,
+      11
+    ],
+    [
+      -3,
+      -2.0,
+      11,
+      11.25
+    ],
+    [
+      -3,
+      -2.0,
+      11.25,
+      11.5
+    ],
+    [
+      -3,
+      -2.0,
       11.5,
       12
     ],
@@ -17048,6 +14709,24 @@
       -1.3,
       10,
       10.5
+    ],
+    [
+      -2.0,
+      -1.3,
+      10.5,
+      11
+    ],
+    [
+      -2.0,
+      -1.3,
+      11,
+      11.25
+    ],
+    [
+      -2.0,
+      -1.3,
+      11.25,
+      11.5
     ],
     [
       -2.0,
@@ -18948,6 +16627,24 @@
     [
       1.3,
       2.0,
+      10.5,
+      11
+    ],
+    [
+      1.3,
+      2.0,
+      11,
+      11.25
+    ],
+    [
+      1.3,
+      2.0,
+      11.25,
+      11.5
+    ],
+    [
+      1.3,
+      2.0,
       11.5,
       12
     ],
@@ -19284,6 +16981,24 @@
     [
       2.0,
       3,
+      10.5,
+      11
+    ],
+    [
+      2.0,
+      3,
+      11,
+      11.25
+    ],
+    [
+      2.0,
+      3,
+      11.25,
+      11.5
+    ],
+    [
+      2.0,
+      3,
       11.5,
       12
     ],
@@ -19626,6 +17341,24 @@
     [
       3,
       3.5,
+      10.5,
+      11
+    ],
+    [
+      3,
+      3.5,
+      11,
+      11.25
+    ],
+    [
+      3,
+      3.5,
+      11.25,
+      11.5
+    ],
+    [
+      3,
+      3.5,
       11.5,
       12
     ],
@@ -19746,6 +17479,24 @@
     [
       3.5,
       4.0,
+      -13.75,
+      -13.0
+    ],
+    [
+      3.5,
+      4.0,
+      -13.0,
+      -12
+    ],
+    [
+      3.5,
+      4.0,
+      -12,
+      -11.8
+    ],
+    [
+      3.5,
+      4.0,
       -11.8,
       -11
     ],
@@ -19766,6 +17517,24 @@
       4.0,
       -10,
       -9.2
+    ],
+    [
+      3.5,
+      4.0,
+      -9.2,
+      -9
+    ],
+    [
+      3.5,
+      4.0,
+      -9,
+      -8.0
+    ],
+    [
+      3.5,
+      4.0,
+      -8.0,
+      -7.5
     ],
     [
       3.5,
@@ -19928,6 +17697,24 @@
       4.0,
       10,
       10.5
+    ],
+    [
+      3.5,
+      4.0,
+      10.5,
+      11
+    ],
+    [
+      3.5,
+      4.0,
+      11,
+      11.25
+    ],
+    [
+      3.5,
+      4.0,
+      11.25,
+      11.5
     ],
     [
       3.5,
@@ -20052,6 +17839,24 @@
     [
       4.0,
       4.5,
+      -13.75,
+      -13.0
+    ],
+    [
+      4.0,
+      4.5,
+      -13.0,
+      -12
+    ],
+    [
+      4.0,
+      4.5,
+      -12,
+      -11.8
+    ],
+    [
+      4.0,
+      4.5,
       -11.8,
       -11
     ],
@@ -20072,6 +17877,24 @@
       4.5,
       -10,
       -9.2
+    ],
+    [
+      4.0,
+      4.5,
+      -9.2,
+      -9
+    ],
+    [
+      4.0,
+      4.5,
+      -9,
+      -8.0
+    ],
+    [
+      4.0,
+      4.5,
+      -8.0,
+      -7.5
     ],
     [
       4.0,
@@ -20234,6 +18057,24 @@
       4.5,
       10,
       10.5
+    ],
+    [
+      4.0,
+      4.5,
+      10.5,
+      11
+    ],
+    [
+      4.0,
+      4.5,
+      11,
+      11.25
+    ],
+    [
+      4.0,
+      4.5,
+      11.25,
+      11.5
     ],
     [
       4.0,
@@ -20358,6 +18199,24 @@
     [
       4.5,
       4.9,
+      -13.75,
+      -13.0
+    ],
+    [
+      4.5,
+      4.9,
+      -13.0,
+      -12
+    ],
+    [
+      4.5,
+      4.9,
+      -12,
+      -11.8
+    ],
+    [
+      4.5,
+      4.9,
       -11.8,
       -11
     ],
@@ -20378,6 +18237,24 @@
       4.9,
       -10,
       -9.2
+    ],
+    [
+      4.5,
+      4.9,
+      -9.2,
+      -9
+    ],
+    [
+      4.5,
+      4.9,
+      -9,
+      -8.0
+    ],
+    [
+      4.5,
+      4.9,
+      -8.0,
+      -7.5
     ],
     [
       4.5,
@@ -20540,6 +18417,24 @@
       4.9,
       10,
       10.5
+    ],
+    [
+      4.5,
+      4.9,
+      10.5,
+      11
+    ],
+    [
+      4.5,
+      4.9,
+      11,
+      11.25
+    ],
+    [
+      4.5,
+      4.9,
+      11.25,
+      11.5
     ],
     [
       4.5,
@@ -20622,6 +18517,24 @@
     [
       4.9,
       5,
+      -13.75,
+      -13.0
+    ],
+    [
+      4.9,
+      5,
+      -13.0,
+      -12
+    ],
+    [
+      4.9,
+      5,
+      -12,
+      -11.8
+    ],
+    [
+      4.9,
+      5,
       -11.8,
       -11
     ],
@@ -20642,6 +18555,24 @@
       5,
       -10,
       -9.2
+    ],
+    [
+      4.9,
+      5,
+      -9.2,
+      -9
+    ],
+    [
+      4.9,
+      5,
+      -9,
+      -8.0
+    ],
+    [
+      4.9,
+      5,
+      -8.0,
+      -7.5
     ],
     [
       4.9,
@@ -20804,6 +18735,24 @@
       5,
       10,
       10.5
+    ],
+    [
+      4.9,
+      5,
+      10.5,
+      11
+    ],
+    [
+      4.9,
+      5,
+      11,
+      11.25
+    ],
+    [
+      4.9,
+      5,
+      11.25,
+      11.5
     ],
     [
       4.9,
@@ -20886,6 +18835,24 @@
     [
       5,
       5.300000000000001,
+      -13.75,
+      -13.0
+    ],
+    [
+      5,
+      5.300000000000001,
+      -13.0,
+      -12
+    ],
+    [
+      5,
+      5.300000000000001,
+      -12,
+      -11.8
+    ],
+    [
+      5,
+      5.300000000000001,
       -11.8,
       -11
     ],
@@ -20906,6 +18873,24 @@
       5.300000000000001,
       -10,
       -9.2
+    ],
+    [
+      5,
+      5.300000000000001,
+      -9.2,
+      -9
+    ],
+    [
+      5,
+      5.300000000000001,
+      -9,
+      -8.0
+    ],
+    [
+      5,
+      5.300000000000001,
+      -8.0,
+      -7.5
     ],
     [
       5,
@@ -21068,6 +19053,24 @@
       5.300000000000001,
       10,
       10.5
+    ],
+    [
+      5,
+      5.300000000000001,
+      10.5,
+      11
+    ],
+    [
+      5,
+      5.300000000000001,
+      11,
+      11.25
+    ],
+    [
+      5,
+      5.300000000000001,
+      11.25,
+      11.5
     ],
     [
       5,
@@ -21150,6 +19153,24 @@
     [
       5.300000000000001,
       6,
+      -13.75,
+      -13.0
+    ],
+    [
+      5.300000000000001,
+      6,
+      -13.0,
+      -12
+    ],
+    [
+      5.300000000000001,
+      6,
+      -12,
+      -11.8
+    ],
+    [
+      5.300000000000001,
+      6,
       -11.8,
       -11
     ],
@@ -21170,6 +19191,24 @@
       6,
       -10,
       -9.2
+    ],
+    [
+      5.300000000000001,
+      6,
+      -9.2,
+      -9
+    ],
+    [
+      5.300000000000001,
+      6,
+      -9,
+      -8.0
+    ],
+    [
+      5.300000000000001,
+      6,
+      -8.0,
+      -7.5
     ],
     [
       5.300000000000001,
@@ -21332,6 +19371,24 @@
       6,
       10,
       10.5
+    ],
+    [
+      5.300000000000001,
+      6,
+      10.5,
+      11
+    ],
+    [
+      5.300000000000001,
+      6,
+      11,
+      11.25
+    ],
+    [
+      5.300000000000001,
+      6,
+      11.25,
+      11.5
     ],
     [
       5.300000000000001,
@@ -21426,6 +19483,24 @@
     [
       6,
       6.5,
+      -13.75,
+      -13.0
+    ],
+    [
+      6,
+      6.5,
+      -13.0,
+      -12
+    ],
+    [
+      6,
+      6.5,
+      -12,
+      -11.8
+    ],
+    [
+      6,
+      6.5,
       -11.8,
       -11
     ],
@@ -21446,6 +19521,24 @@
       6.5,
       -10,
       -9.2
+    ],
+    [
+      6,
+      6.5,
+      -9.2,
+      -9
+    ],
+    [
+      6,
+      6.5,
+      -9,
+      -8.0
+    ],
+    [
+      6,
+      6.5,
+      -8.0,
+      -7.5
     ],
     [
       6,
@@ -21608,6 +19701,24 @@
       6.5,
       10,
       10.5
+    ],
+    [
+      6,
+      6.5,
+      10.5,
+      11
+    ],
+    [
+      6,
+      6.5,
+      11,
+      11.25
+    ],
+    [
+      6,
+      6.5,
+      11.25,
+      11.5
     ],
     [
       6,
@@ -21750,6 +19861,12 @@
     [
       6.5,
       7,
+      -8.0,
+      -7.5
+    ],
+    [
+      6.5,
+      7,
       -7.5,
       -7.25
     ],
@@ -21912,6 +20029,24 @@
     [
       6.5,
       7,
+      10.5,
+      11
+    ],
+    [
+      6.5,
+      7,
+      11,
+      11.25
+    ],
+    [
+      6.5,
+      7,
+      11.25,
+      11.5
+    ],
+    [
+      6.5,
+      7,
       13.1,
       13.9
     ],
@@ -22046,6 +20181,12 @@
       7.25,
       -9,
       -8.0
+    ],
+    [
+      7,
+      7.25,
+      -8.0,
+      -7.5
     ],
     [
       7,
@@ -22212,6 +20353,24 @@
     [
       7,
       7.25,
+      10.5,
+      11
+    ],
+    [
+      7,
+      7.25,
+      11,
+      11.25
+    ],
+    [
+      7,
+      7.25,
+      11.25,
+      11.5
+    ],
+    [
+      7,
+      7.25,
       13.1,
       13.9
     ],
@@ -22346,6 +20505,12 @@
       7.5,
       -9,
       -8.0
+    ],
+    [
+      7.25,
+      7.5,
+      -8.0,
+      -7.5
     ],
     [
       7.25,
@@ -22512,6 +20677,24 @@
     [
       7.25,
       7.5,
+      10.5,
+      11
+    ],
+    [
+      7.25,
+      7.5,
+      11,
+      11.25
+    ],
+    [
+      7.25,
+      7.5,
+      11.25,
+      11.5
+    ],
+    [
+      7.25,
+      7.5,
       13.1,
       13.9
     ],
@@ -22650,6 +20833,48 @@
     [
       7.5,
       8,
+      -8.0,
+      -7.5
+    ],
+    [
+      7.5,
+      8,
+      -7.5,
+      -7.25
+    ],
+    [
+      7.5,
+      8,
+      -7.25,
+      -7
+    ],
+    [
+      7.5,
+      8,
+      -7,
+      -6
+    ],
+    [
+      7.5,
+      8,
+      -6,
+      -5
+    ],
+    [
+      7.5,
+      8,
+      -5,
+      -4.0
+    ],
+    [
+      7.5,
+      8,
+      -4.0,
+      -3.25
+    ],
+    [
+      7.5,
+      8,
       -3.25,
       -3
     ],
@@ -22706,6 +20931,24 @@
       8,
       3,
       3.25
+    ],
+    [
+      7.5,
+      8,
+      3.25,
+      4.0
+    ],
+    [
+      7.5,
+      8,
+      4.0,
+      5
+    ],
+    [
+      7.5,
+      8,
+      5,
+      5.75
     ],
     [
       7.5,
@@ -22908,6 +21151,48 @@
     [
       8,
       9.0,
+      -8.0,
+      -7.5
+    ],
+    [
+      8,
+      9.0,
+      -7.5,
+      -7.25
+    ],
+    [
+      8,
+      9.0,
+      -7.25,
+      -7
+    ],
+    [
+      8,
+      9.0,
+      -7,
+      -6
+    ],
+    [
+      8,
+      9.0,
+      -6,
+      -5
+    ],
+    [
+      8,
+      9.0,
+      -5,
+      -4.0
+    ],
+    [
+      8,
+      9.0,
+      -4.0,
+      -3.25
+    ],
+    [
+      8,
+      9.0,
       -3.25,
       -3
     ],
@@ -22964,6 +21249,24 @@
       9.0,
       3,
       3.25
+    ],
+    [
+      8,
+      9.0,
+      3.25,
+      4.0
+    ],
+    [
+      8,
+      9.0,
+      4.0,
+      5
+    ],
+    [
+      8,
+      9.0,
+      5,
+      5.75
     ],
     [
       8,
@@ -23166,6 +21469,48 @@
     [
       9.0,
       9.1,
+      -8.0,
+      -7.5
+    ],
+    [
+      9.0,
+      9.1,
+      -7.5,
+      -7.25
+    ],
+    [
+      9.0,
+      9.1,
+      -7.25,
+      -7
+    ],
+    [
+      9.0,
+      9.1,
+      -7,
+      -6
+    ],
+    [
+      9.0,
+      9.1,
+      -6,
+      -5
+    ],
+    [
+      9.0,
+      9.1,
+      -5,
+      -4.0
+    ],
+    [
+      9.0,
+      9.1,
+      -4.0,
+      -3.25
+    ],
+    [
+      9.0,
+      9.1,
       -3.25,
       -3
     ],
@@ -23222,6 +21567,24 @@
       9.1,
       3,
       3.25
+    ],
+    [
+      9.0,
+      9.1,
+      3.25,
+      4.0
+    ],
+    [
+      9.0,
+      9.1,
+      4.0,
+      5
+    ],
+    [
+      9.0,
+      9.1,
+      5,
+      5.75
     ],
     [
       9.0,
@@ -23412,6 +21775,48 @@
     [
       9.1,
       9.2,
+      -8.0,
+      -7.5
+    ],
+    [
+      9.1,
+      9.2,
+      -7.5,
+      -7.25
+    ],
+    [
+      9.1,
+      9.2,
+      -7.25,
+      -7
+    ],
+    [
+      9.1,
+      9.2,
+      -7,
+      -6
+    ],
+    [
+      9.1,
+      9.2,
+      -6,
+      -5
+    ],
+    [
+      9.1,
+      9.2,
+      -5,
+      -4.0
+    ],
+    [
+      9.1,
+      9.2,
+      -4.0,
+      -3.25
+    ],
+    [
+      9.1,
+      9.2,
       -3.25,
       -3
     ],
@@ -23468,6 +21873,24 @@
       9.2,
       3,
       3.25
+    ],
+    [
+      9.1,
+      9.2,
+      3.25,
+      4.0
+    ],
+    [
+      9.1,
+      9.2,
+      4.0,
+      5
+    ],
+    [
+      9.1,
+      9.2,
+      5,
+      5.75
     ],
     [
       9.1,
@@ -23718,6 +22141,24 @@
     [
       9.2,
       10,
+      3.25,
+      4.0
+    ],
+    [
+      9.2,
+      10,
+      4.0,
+      5
+    ],
+    [
+      9.2,
+      10,
+      5,
+      5.75
+    ],
+    [
+      9.2,
+      10,
       5.75,
       6
     ],
@@ -23964,6 +22405,24 @@
     [
       10,
       10.5,
+      3.25,
+      4.0
+    ],
+    [
+      10,
+      10.5,
+      4.0,
+      5
+    ],
+    [
+      10,
+      10.5,
+      5,
+      5.75
+    ],
+    [
+      10,
+      10.5,
       5.75,
       6
     ],
@@ -24210,6 +22669,24 @@
     [
       10.5,
       11,
+      3.25,
+      4.0
+    ],
+    [
+      10.5,
+      11,
+      4.0,
+      5
+    ],
+    [
+      10.5,
+      11,
+      5,
+      5.75
+    ],
+    [
+      10.5,
+      11,
       5.75,
       6
     ],
@@ -24528,6 +23005,24 @@
     [
       11,
       11.8,
+      3.25,
+      4.0
+    ],
+    [
+      11,
+      11.8,
+      4.0,
+      5
+    ],
+    [
+      11,
+      11.8,
+      5,
+      5.75
+    ],
+    [
+      11,
+      11.8,
       5.75,
       6
     ],
@@ -24744,6 +23239,48 @@
     [
       11.8,
       12,
+      -8.0,
+      -7.5
+    ],
+    [
+      11.8,
+      12,
+      -7.5,
+      -7.25
+    ],
+    [
+      11.8,
+      12,
+      -7.25,
+      -7
+    ],
+    [
+      11.8,
+      12,
+      -7,
+      -6
+    ],
+    [
+      11.8,
+      12,
+      -6,
+      -5
+    ],
+    [
+      11.8,
+      12,
+      -5,
+      -4.0
+    ],
+    [
+      11.8,
+      12,
+      -4.0,
+      -3.25
+    ],
+    [
+      11.8,
+      12,
       -3.25,
       -3
     ],
@@ -24800,6 +23337,24 @@
       12,
       3,
       3.25
+    ],
+    [
+      11.8,
+      12,
+      3.25,
+      4.0
+    ],
+    [
+      11.8,
+      12,
+      4.0,
+      5
+    ],
+    [
+      11.8,
+      12,
+      5,
+      5.75
     ],
     [
       11.8,
@@ -25020,6 +23575,48 @@
     [
       12,
       13,
+      -8.0,
+      -7.5
+    ],
+    [
+      12,
+      13,
+      -7.5,
+      -7.25
+    ],
+    [
+      12,
+      13,
+      -7.25,
+      -7
+    ],
+    [
+      12,
+      13,
+      -7,
+      -6
+    ],
+    [
+      12,
+      13,
+      -6,
+      -5
+    ],
+    [
+      12,
+      13,
+      -5,
+      -4.0
+    ],
+    [
+      12,
+      13,
+      -4.0,
+      -3.25
+    ],
+    [
+      12,
+      13,
       -3.25,
       -3
     ],
@@ -25076,6 +23673,24 @@
       13,
       3,
       3.25
+    ],
+    [
+      12,
+      13,
+      3.25,
+      4.0
+    ],
+    [
+      12,
+      13,
+      4.0,
+      5
+    ],
+    [
+      12,
+      13,
+      5,
+      5.75
     ],
     [
       12,
@@ -25296,6 +23911,48 @@
     [
       13,
       13.5,
+      -8.0,
+      -7.5
+    ],
+    [
+      13,
+      13.5,
+      -7.5,
+      -7.25
+    ],
+    [
+      13,
+      13.5,
+      -7.25,
+      -7
+    ],
+    [
+      13,
+      13.5,
+      -7,
+      -6
+    ],
+    [
+      13,
+      13.5,
+      -6,
+      -5
+    ],
+    [
+      13,
+      13.5,
+      -5,
+      -4.0
+    ],
+    [
+      13,
+      13.5,
+      -4.0,
+      -3.25
+    ],
+    [
+      13,
+      13.5,
       -3.25,
       -3
     ],
@@ -25352,6 +24009,24 @@
       13.5,
       3,
       3.25
+    ],
+    [
+      13,
+      13.5,
+      3.25,
+      4.0
+    ],
+    [
+      13,
+      13.5,
+      4.0,
+      5
+    ],
+    [
+      13,
+      13.5,
+      5,
+      5.75
     ],
     [
       13,
@@ -25572,6 +24247,48 @@
     [
       13.5,
       13.75,
+      -8.0,
+      -7.5
+    ],
+    [
+      13.5,
+      13.75,
+      -7.5,
+      -7.25
+    ],
+    [
+      13.5,
+      13.75,
+      -7.25,
+      -7
+    ],
+    [
+      13.5,
+      13.75,
+      -7,
+      -6
+    ],
+    [
+      13.5,
+      13.75,
+      -6,
+      -5
+    ],
+    [
+      13.5,
+      13.75,
+      -5,
+      -4.0
+    ],
+    [
+      13.5,
+      13.75,
+      -4.0,
+      -3.25
+    ],
+    [
+      13.5,
+      13.75,
       -3.25,
       -3
     ],
@@ -25632,6 +24349,24 @@
     [
       13.5,
       13.75,
+      3.25,
+      4.0
+    ],
+    [
+      13.5,
+      13.75,
+      4.0,
+      5
+    ],
+    [
+      13.5,
+      13.75,
+      5,
+      5.75
+    ],
+    [
+      13.5,
+      13.75,
       17.0,
       17.5
     ],
@@ -25788,6 +24523,48 @@
     [
       13.75,
       14,
+      -8.0,
+      -7.5
+    ],
+    [
+      13.75,
+      14,
+      -7.5,
+      -7.25
+    ],
+    [
+      13.75,
+      14,
+      -7.25,
+      -7
+    ],
+    [
+      13.75,
+      14,
+      -7,
+      -6
+    ],
+    [
+      13.75,
+      14,
+      -6,
+      -5
+    ],
+    [
+      13.75,
+      14,
+      -5,
+      -4.0
+    ],
+    [
+      13.75,
+      14,
+      -4.0,
+      -3.25
+    ],
+    [
+      13.75,
+      14,
       17.0,
       17.5
     ],
@@ -25940,6 +24717,48 @@
       14.5,
       -9,
       -8.0
+    ],
+    [
+      14,
+      14.5,
+      -8.0,
+      -7.5
+    ],
+    [
+      14,
+      14.5,
+      -7.5,
+      -7.25
+    ],
+    [
+      14,
+      14.5,
+      -7.25,
+      -7
+    ],
+    [
+      14,
+      14.5,
+      -7,
+      -6
+    ],
+    [
+      14,
+      14.5,
+      -6,
+      -5
+    ],
+    [
+      14,
+      14.5,
+      -5,
+      -4.0
+    ],
+    [
+      14,
+      14.5,
+      -4.0,
+      -3.25
     ],
     [
       14,

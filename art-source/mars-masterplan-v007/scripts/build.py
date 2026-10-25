@@ -28,7 +28,7 @@ cream=material('V007_Ceramica','#EAE3D8');green=material('V007_Estrutura','#354E
 dark=material('V007_Tecnico','#303B40',.45);cyan=material('V007_Ciano','#00E6FF',.2,2)
 amber=material('V007_Ambar','#E87A3E',.1,.5);gold=material('V007_AmbarClaro','#F2C94C',.1,.5)
 glass=material('V007_Vidro','#9AC9CC',.1,0,.32);solar=material('V007_Solar','#214B66',.45)
-soil=material('V007_Terracota','#AA7255');floor_mats=[material('V007_Placa_'+str(i),c,.15) for i,c in enumerate(['#555553','#5B5B58','#62605B','#4E504F'])]
+soil=material('V007_Terracota','#AA7255')
 
 def tag(o,id,role='structure',owner='',supports=()):
     o.name=id;o['id_estavel']=id;o['colony_name']=id;o['papel']=role;o['ambiente']=owner
@@ -67,6 +67,19 @@ def join(objs,id,role,owner='',supports=()):
 
 # Reuse only terrain and interior furnishings from the preserved runtime export.
 bpy.ops.import_scene.gltf(filepath=str(ROOT/'src/assets/colony-v006.glb'))
+# Preserve the original patio tile geometry/colors before removing the old layout.
+legacy_tile=next(o for o in bpy.context.scene.objects if o.get('colony_name',o.name)=='ARQ_Lab_Piso_Patio').copy()
+legacy_tile.data=legacy_tile.data.copy()
+legacy_tile.data.color_attributes[0].name='Col'
+for mat in legacy_tile.data.materials:
+    for node in mat.node_tree.nodes:
+        if node.type=='VERTEX_COLOR':node.layer_name='Col'
+# Imported GLB has evaluated bottom/side faces; only upward faces define the tile pattern.
+bm=bmesh.new();bm.from_mesh(legacy_tile.data)
+normals=legacy_tile.matrix_world.to_3x3().inverted().transposed()
+bmesh.ops.delete(bm,geom=[f for f in bm.faces if (normals@f.normal).z<=1e-6],context='FACES')
+bm.to_mesh(legacy_tile.data);bm.free()
+internal_floor_material=bpy.data.materials['M_Piso_Interno']
 oldparts={p['name']:p for p in SOURCE['parts']}; room_by_old={r['sourceName']:r for r in DATA['rooms']}
 old_support_map={}
 for name in oldparts:
@@ -153,46 +166,8 @@ for i in range(5):
     for x in [10.5,17.5]:box(f'Estufa_Portico_{i}_{x}',x,z,1.4,.14,.14,2.8,green,'wall','orbit-garden')
     box(f'Estufa_Viga_{i}',14,z,2.78,7,.10,.12,green,'detail','orbit-garden',['TET_orbit-garden'])
 
-# Pressurised tubes stop at module faces. Rings are real geometry supported by walls/roof.
-for c in DATA['corridors']:
-    if c['kind']!='tunnel':continue
-    id=c['id'];x,z=c['position'].values();w,d=c['size'].values();axis=c['axis'];length=d if axis=='z' else w;width=w if axis=='z' else d
-    for sign in [-1,1]:
-        px,pz=(x+sign*width/2,z) if axis=='z' else (x,z+sign*width/2)
-        wallid='TUN_'+id+'_'+str(sign)
-        if 'sideExitsZ' in c:
-            exit_z=c['sideExitsZ'];objs=[]
-            for j,(lo,hi) in enumerate([(z-length/2,exit_z-1.1),(exit_z+1.1,z+length/2)]):
-                objs.append(box('lateral',px,(lo+hi)/2,1.25,.14,hi-lo,2.5,green))
-                collider('tunnel-'+id+'-'+str(sign)+'-'+str(j),px,(lo+hi)/2,.14,hi-lo)
-            objs.append(box('verga',px,exit_z,2.45,.14,2.2,.1,green));join(objs,wallid,'wall',id)
-            doorid='D_'+id+'_praca_'+str(sign);doors.append(dict(id=doorid,x=px,z=exit_z,axis='z',width=2.2,owner=id))
-            for side,suffix in [(-1,'L'),(1,'R')]:
-                leaf=box(doorid+'_'+suffix,px,exit_z+side*.55,1.19,.06,1.085,2.36,glass,'door',id,[wallid])
-                leaf['slide_x']=0;leaf['slide_z']=side*1.14
-        else:
-            wall=box(wallid,px,pz,1.25,.14 if axis=='z' else length,length if axis=='z' else .14,2.5,green,'wall',id)
-            collider('tunnel-'+id+'-'+str(sign),px,pz,.14 if axis=='z' else length,length if axis=='z' else .14)
-    roof=box('TET_'+id,x,z,2.62,w+.16 if axis=='z' else w,d+.16 if axis=='x' else d,.18,cream,'roof',id)
-    for i in range(max(2,math.ceil(length/1.3)+1)):
-        along=-length/2+.12+(length-.24)*i/(max(2,math.ceil(length/1.3)+1)-1)
-        a,b=(x,z+along) if axis=='z' else (x+along,z)
-        for sign in [-1,1]:
-            if 'sideExitsZ' in c and abs(b-c['sideExitsZ'])<1.25:continue
-            px,pz=(a+sign*width/2,b) if axis=='z' else (a,b+sign*width/2)
-            box(f'Anel_{id}_{i}_{sign}',px,pz,1.25,.21,.21,2.56,dark,'detail',id,['TUN_'+id+'_'+str(sign)])
-        box(f'Anel_{id}_{i}_top',a,b,2.76,width+.2 if axis=='z' else .20,.20 if axis=='z' else width+.2,.10,dark,'detail',id,[roof.name])
-
-# Airlock closure at the exterior end of each pressurised passage to open ground.
-for cid,end in [('meeting-exterior-airlock','south'),('southwest-connector-narration','east'),('southeast-connector-output','west')]:
-    c=next(c for c in DATA['corridors'] if c['id']==cid);x,z=c['position'].values();w,d=c['size'].values()
-    axis='x' if end=='south' else 'z';px=x if axis=='x' else x+(w/2 if end=='east' else -w/2);pz=z+d/2 if axis=='x' else z
-    support='TUN_'+cid+'_-1';doorid='D_'+cid+'_externa'
-    doors.append(dict(id=doorid,x=px,z=pz,axis=axis,width=2.2,owner=cid))
-    for side,suffix in [(-1,'L'),(1,'R')]:
-        leaf=box(doorid+'_'+suffix,px+side*.55 if axis=='x' else px,pz+side*.55 if axis=='z' else pz,1.19,1.085 if axis=='x' else .06,.06 if axis=='x' else 1.085,2.36,glass,'door',cid,[support])
-        leaf['slide_x']=side*1.14 if axis=='x' else 0;leaf['slide_z']=side*1.14 if axis=='z' else 0
-    box('Verga_'+cid,px,pz,2.46,2.6 if axis=='x' else .14,.14 if axis=='x' else 2.6,.1,green,'wall',cid)
+# Circulation is open by author request (25/10): floor only between buildings.
+# No tunnel shell, rings, freestanding doors, lintels or corridor colliders.
 
 # Roof landmarks named in the masterplan, with complete support chains.
 def rooftop(room,kind):
@@ -252,10 +227,24 @@ for xi,(x0,x1) in enumerate(zip(xs,xs[1:])):
     k=len(verts);verts.extend([(x0,-z0,0),(x0,-z1,0),(x1,-z1,0),(x1,-z0,0)]);faces.append(tuple(range(k,k+4)))
     kind=next((a.get('kind') for a in areas if a.get('kind')=='road' and bounds(a)['minX']<x<bounds(a)['maxX'] and bounds(a)['minZ']<z<bounds(a)['maxZ']),None)
     colors.append(0 if kind=='road' else (xi+zi*3)%4);surface_cells.append([x0,x1,z0,z1])
-mesh=bpy.data.meshes.new('PavimentoSemSobreposicao');mesh.from_pydata(verts,[],faces)
-for m in floor_mats:mesh.materials.append(m)
-for p,i in zip(mesh.polygons,colors):p.material_index=i
-floor=bpy.data.objects.new('PISO_v007',mesh);bpy.context.collection.objects.link(floor);tag(floor,floor.name,'floor')
+# Interior retains its original material. Exterior repeats the exact prior patio tile
+# (1.25 x 1.50 m, 30 mm joints, original vertex dust colors), clipped to the new floor.
+sys.path.insert(0,str(ROOT/'scripts'))
+import colony_floor_geometry as legacy_floor
+legacy_tile.name=legacy_floor.REFERENCE
+for inside in [False,True]:
+    selected=[i for i,(x0,x1,z0,z1) in enumerate(surface_cells)
+        if any(bounds(r)['minX']<(x0+x1)/2<bounds(r)['maxX'] and bounds(r)['minZ']<(z0+z1)/2<bounds(r)['maxZ'] for r in DATA['rooms'])==inside]
+    mesh=bpy.data.meshes.new('PavimentoInterior' if inside else 'PavimentoExterno')
+    vv=[];ff=[]
+    for i in selected:
+        k=len(vv);vv.extend(verts[v] for v in faces[i]);ff.append(tuple(range(k,k+4)))
+    mesh.from_pydata(vv,[],ff);mesh.materials.append(internal_floor_material)
+    floor=bpy.data.objects.new('PISO_v007_Interno' if inside else 'PISO_v007_Externo',mesh);bpy.context.collection.objects.link(floor)
+    tag(floor,floor.name,'floor')
+    if not inside:
+        legacy_floor.FLOORS=(floor.name,)
+        legacy_floor.tile_external_floors([floor,legacy_tile])
 
 # Exterior grid zones: cyan dashed demarcation, open road across B, five crates in NE of A.
 for zone in [c for c in DATA['corridors'] if c['kind']=='zone']:
@@ -350,6 +339,6 @@ for screen in bpy.data.screens:
  for area in screen.areas:
     if area.type=='VIEW_3D':area.spaces.active.region_3d.view_distance=60;area.spaces.active.region_3d.view_location=(0,-9,0)
 bpy.ops.object.select_all(action='DESELECT');bpy.context.preferences.filepaths.save_version=0
-bpy.ops.wm.save_as_mainfile(filepath=str(OUT/'blend/mars_colony_masterplan_v007.blend'))
+bpy.ops.wm.save_as_mainfile(filepath=str(OUT/'blend/mars_colony_masterplan_v007_aberto.blend'))
 for path,digest in BASELINE.items():assert hashlib.sha256((ROOT/path).read_bytes()).hexdigest()==digest,path
 print('MASTERPLAN_OK',len(parts),'peças',len(colliders),'colisores',len(surface_cells),'células disjuntas')

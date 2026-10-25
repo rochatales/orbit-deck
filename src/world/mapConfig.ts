@@ -127,7 +127,7 @@ export function getLocationLabelByPosition(x: number, z: number): string {
     if (corridor.id === "orbit-garden") {
       return "Estufa";
     }
-    return EXTERIOR_CORRIDOR_IDS.has(corridor.id) ? "Area externa" : "Corredor";
+    return masterplan.corridors.find(entry => entry.id === corridor.id)?.kind === "path" || EXTERIOR_CORRIDOR_IDS.has(corridor.id) ? "Área externa" : "Corredor";
   }
 
   return "Colônia de Marte";
