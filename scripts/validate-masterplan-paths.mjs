@@ -28,5 +28,5 @@ for(let head=0;head<tail;head++){const i=queue[head],x=i%nx;for(const j of[i-nx,
 const targets=[['EDEN',EDEN.position.x,EDEN.position.z,1.8],['LAB',10.5,-10.5,1.8],['DATA',-10.5,0,1.8],['QUARTERS',10.5,0,1.8],['WAR',-10.5,8.5,1.8],['WORKSHOP',10.5,8.5,1.8],['CARGO',0,14.5,2],['FOOD',7.2,15,1.3],['BUILD_A',18,2,.1],['BUILD_B',-10,24,.1],['GREENHOUSE',14,22.5,.1],['EMBARQUE',MAPS.mars.exit.x,MAPS.mars.exit.z,.1],['GREENHOUSE_EAST',20.7,22.5,.1],['TANK_WEST',12,27,.1],['TANK_EAST',18.5,27,.1],['TANK_SOUTH',16,28.5,.1]];
 const results=targets.map(([id,x,z,tolerance])=>{let nearest=Infinity;for(let q=0;q<tail;q++){const i=queue[q],px=b.minX+(i%nx)*step,pz=b.minZ+Math.floor(i/nx)*step;nearest=Math.min(nearest,Math.hypot(px-x,pz-z));}return{id,reachable:nearest<=tolerance,nearestDistance:nearest,tolerance};});
 const report={step,radius,method:'Inflacao quadrada conservadora; erosao do piso pela uniao; flood-fill 4 direcoes',reachableArea:tail*step*step,spawnClear:!!seen[start],destinations:results};
-fs.writeFileSync('art-source/mars-masterplan-v007/notas/alcancabilidade.json',JSON.stringify(report,null,2));
+fs.writeFileSync(process.argv[2]??'art-source/mars-masterplan-v007/notas/alcancabilidade.json',JSON.stringify(report,null,2));
 console.log(JSON.stringify(report,null,2));if(!report.spawnClear||results.some(r=>!r.reachable))process.exitCode=1;

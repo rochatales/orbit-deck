@@ -1,0 +1,203 @@
+{
+  "base": "e0eef58",
+  "method": "Props v006 clonados/aplicação de layout aprovada; AABBs reais e colisores v007/estufa; rotas de dados; apoio visual comparado com v006 efetivamente visível. Raycast só nesta auditoria de props, nunca no runtime dos anéis ou física.",
+  "props": [
+    {
+      "name": "PLAT_Console_Oeste",
+      "min": [
+        -3.469999998807907,
+        0,
+        25.53849841058254
+      ],
+      "max": [
+        -2.530000001192093,
+        1.1659389734268188,
+        26.261501589417456
+      ],
+      "center": [
+        -3,
+        0.5829694867134094,
+        25.9
+      ],
+      "rotation": [
+        -3.141592653589793,
+        1.2246467991473532e-16,
+        -3.141592653589793,
+        "XYZ"
+      ],
+      "meshes": 4,
+      "colliderConflicts": [],
+      "routeConflicts": [],
+      "geometryConflicts": [],
+      "floors": [
+        "build-zone-b"
+      ],
+      "supportReferenceY": 0,
+      "supportV007Y": 0
+    },
+    {
+      "name": "PLAT_Console_Leste",
+      "min": [
+        6.488498410582542,
+        0,
+        31.330000001192094
+      ],
+      "max": [
+        7.211501589417457,
+        1.1659389734268188,
+        32.26999999880791
+      ],
+      "center": [
+        6.85,
+        0.5829694867134094,
+        31.800000000000004
+      ],
+      "rotation": [
+        0,
+        1.5707963267948966,
+        0,
+        "XYZ"
+      ],
+      "meshes": 4,
+      "colliderConflicts": [],
+      "routeConflicts": [],
+      "geometryConflicts": [],
+      "floors": [],
+      "supportReferenceY": -0.2996477353572846,
+      "supportV007Y": -0.2996477353572846
+    },
+    {
+      "name": "PLAT_Rack_Cilindros",
+      "min": [
+        -7.350000023841858,
+        0,
+        31.340000009536745
+      ],
+      "max": [
+        -6.149999976158142,
+        1.4399999380111694,
+        31.85999999046326
+      ],
+      "center": [
+        -6.75,
+        0.7199999690055847,
+        31.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        "XYZ"
+      ],
+      "meshes": 4,
+      "colliderConflicts": [],
+      "routeConflicts": [],
+      "geometryConflicts": [],
+      "floors": [],
+      "supportReferenceY": -0.2996383690834037,
+      "supportV007Y": -0.2996383690834037
+    },
+    {
+      "name": "PROP_Tanques",
+      "min": [
+        -15.12000036239624,
+        0,
+        29.850000381469727
+      ],
+      "max": [
+        -7.250000953674316,
+        1.7311960458755493,
+        33.349998474121094
+      ],
+      "center": [
+        -11.185000658035278,
+        0.8655980229377747,
+        31.59999942779541
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        "XYZ"
+      ],
+      "meshes": 3,
+      "colliderConflicts": [],
+      "routeConflicts": [],
+      "geometryConflicts": [],
+      "floors": [],
+      "supportReferenceY": -0.11972562497210859,
+      "supportV007Y": -0.11972562497210859
+    },
+    {
+      "name": "PLAT_Carro_1",
+      "min": [
+        7.804192409588107,
+        0,
+        34.47017536630177
+      ],
+      "max": [
+        8.79580797188162,
+        1,
+        35.329827685456046
+      ],
+      "center": [
+        8.300000190734863,
+        0.5,
+        34.900001525878906
+      ],
+      "rotation": [
+        0,
+        0.30000002215088795,
+        0,
+        "XYZ"
+      ],
+      "meshes": 4,
+      "colliderConflicts": [],
+      "routeConflicts": [],
+      "geometryConflicts": [],
+      "floors": [],
+      "supportReferenceY": -0.28854325479660403,
+      "supportV007Y": -0.28854325479660403
+    },
+    {
+      "name": "PLAT_Carro_2",
+      "min": [
+        7.924797488256192,
+        0,
+        37.00293911783856
+      ],
+      "max": [
+        8.875201748804356,
+        1,
+        37.797063933919254
+      ],
+      "center": [
+        8.399999618530273,
+        0.5,
+        37.400001525878906
+      ],
+      "rotation": [
+        0,
+        -0.19999998173353384,
+        0,
+        "XYZ"
+      ],
+      "meshes": 4,
+      "colliderConflicts": [],
+      "routeConflicts": [],
+      "geometryConflicts": [],
+      "floors": [],
+      "supportReferenceY": -0.28641981170053477,
+      "supportV007Y": -0.28641981170053477
+    }
+  ],
+  "hashes": {
+    "colony-v006.glb": "5a6e6d9c754a8d25296b58598859cff0a9c2b4f9c964306d218bf9b8c71c87a8",
+    "colony-v007.glb": "e4af2fdafa365c53d45cb281859c00d38eed4bfd3c14e39bd3d607ad4836b82f",
+    "greenhouse/greenhouse-v001.glb": "a5668881b521a98126ecfb3eef30b5b10c68451478d30981cf3269db10b19c07",
+    "ares-mars/deck-mars.glb": "59b4cb7dbeb09699416207cc97863a42027f2cd131f887b9caf4050bbf121354",
+    "ares-lander/ares-lander.glb": "2491f474d5fd25e81cf08a1eb7810ad53684f9b884a0d6726851c8335cc7e197"
+  },
+  "rackDeckGap": 0.0700000524520874,
+  "westWalkwayGap": 0.5300000011920929
+}

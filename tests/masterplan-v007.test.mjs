@@ -2,6 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import crypto from 'node:crypto';
+import os from 'node:os';
+import path from 'node:path';
 import { performance } from 'node:perf_hooks';
 import { Box3, Vector3 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -89,15 +91,15 @@ test('v007: fontes anteriores e ARES aprovados preservados por SHA-256',()=>{
 
 test('v007: todos os destinos alcançáveis com raio 0,36m e passo 5cm',async()=>{
  const {execFileSync}=await import('node:child_process');
- execFileSync(process.execPath,['scripts/validate-masterplan-paths.mjs']);
- const report=JSON.parse(fs.readFileSync('art-source/mars-masterplan-v007/notas/alcancabilidade.json'));
+ const dir=fs.mkdtempSync(path.join(os.tmpdir(),'exoden-paths-')),out=path.join(dir,'report.json');
+ let report;try {execFileSync(process.execPath,['scripts/validate-masterplan-paths.mjs',out]);report=JSON.parse(fs.readFileSync(out));}finally{fs.rmSync(dir,{recursive:true,force:true})}
  assert.equal(report.destinations.length,16);assert.ok(report.destinations.every(d=>d.reachable));
 });
 
 test('v007: zero faces coplanares sobrepostas na arquitetura e junção com ARES',async()=>{
  const {execFileSync}=await import('node:child_process');
- execFileSync(process.execPath,['scripts/validate-masterplan-surfaces.mjs']);
- const report=JSON.parse(fs.readFileSync('art-source/mars-masterplan-v007/notas/coplanaridade.json'));
+ const dir=fs.mkdtempSync(path.join(os.tmpdir(),'exoden-surfaces-')),out=path.join(dir,'report.json');
+ let report;try {execFileSync(process.execPath,['scripts/validate-masterplan-surfaces.mjs',out]);report=JSON.parse(fs.readFileSync(out));}finally{fs.rmSync(dir,{recursive:true,force:true})}
  assert.equal(report.partPairs,0);assert.equal(report.trianglePairs,0);
 });
 

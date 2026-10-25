@@ -37,10 +37,13 @@ test('S0.4: consoles reais reposicionados na cópia, Oeste voltado à colônia e
  assert.equal(source.getObjectByName('PLAT_Console_Oeste').rotation.y,-Math.PI/2);
 });
 
-test('S0.4: só Oeste ganha colisor; passarela, praça, caminho da colônia e embarque livres',()=>{
+test('S0.4/v007: só Oeste ganha colisor de prop; passarela, colônia e embarque livres',()=>{
  const world=createWorld(),radius=.36;
  assert.deepEqual(world.obstacles.at(-1),{...consoleBox});
- assert.equal(world.obstacles.length,133,'126 da colônia + 6 ARES + 1 console; nenhum para rack/tanques');
+ const colony=JSON.parse(fs.readFileSync('src/assets/colony-v007.manifest.json')),greenhouse=JSON.parse(fs.readFileSync('src/assets/greenhouse/greenhouse-v001.manifest.json'));
+ const base=[...colony.colliders,...greenhouse.colliders].map(({minX,maxX,minZ,maxZ})=>({minX,maxX,minZ,maxZ}));
+ assert.deepEqual(world.obstacles.slice(0,base.length),base,'colisores atuais v007 + estufa preservados');
+ assert.equal(world.obstacles.length,base.length+6+1,'119 v007 + 8 estufa + 6 ARES + 1 Oeste; nenhum para outros props');
  assert.equal(traversable({x:-6.75,z:31.6},world,0),false,'rack fica fora da área caminhável');
  assert.equal(traversable({x:-3,z:25.9},world,radius),false);
  assert.equal(world.obstacles.some(b=>b.minX<=6.85&&b.maxX>=6.85&&b.minZ<=31.8&&b.maxZ>=31.8),false,'Leste sem colisor');

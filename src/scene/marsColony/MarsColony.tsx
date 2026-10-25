@@ -6,6 +6,7 @@ import { playerPosition } from '../../state/playerTransient';
 import colonyUrl from '../../assets/colony-v007.glb';
 import manifest from '../../assets/colony-v007.manifest.json';
 import { MasterplanRuntime } from './masterplanRuntime';
+import { DeckProps } from './DeckProps';
 import { AresLanding } from './AresLanding';
 import { Greenhouse } from './Greenhouse';
 import { removeProvisionalGreenhouse } from './greenhouseRuntime';
@@ -19,5 +20,5 @@ export function MarsColony({ world: _world }: { world: OfficeWorld }) {
     }, [gltf.scene]);
     useEffect(() => () => runtime.dispose(), [runtime]);
     useFrame((_, delta) => runtime.update(playerPosition, delta));
-    return <><primitive object={scene} dispose={null} /><AresLanding /><Greenhouse /></>;
+    return <><primitive object={scene} dispose={null} /><AresLanding /><DeckProps /><Greenhouse /></>;
 }
