@@ -5,9 +5,9 @@ O autor resolveu o portão do ensaio após `c92ed79`: caminho válido até conta
 ≤1,20 m, preservando raio 0,80 m, desembarque e colisores. A sessão usa o build
 da **worktree de fechamento**, porta 4173. [Decisão e reensaio](../handoffs/s2.12-b-proposta.md#decisão-de-contato-após-ares-i--24102026-vigente).
 
-Preparado em 24/10/2026. **Todos os resultados estão pendentes.** Este kit organiza
+Preparado em 24/10/2026. **Resultados parciais registrados: S0.4 e A1–A13 aprovados pelo autor em 25/10/2026; etapa 6.5 e S2.9 pendentes.** Este kit organiza
 as Fases 5 e 6 do [plano de consolidação](../consolidacao/PLANO_SPRINTS_0_2.md)
-conforme o pedido atual do autor. Não encerra sprints nem libera implementação.
+conforme o pedido atual do autor. Sprint 0 encerrado em `a42ff52`; S2.12 B liberada explicitamente pelo autor em 25/10/2026, conforme registro abaixo.
 
 | Referência | Valor |
 |---|---|
@@ -170,7 +170,7 @@ não tem Backward e usa Run no recuo; serve só como comparação de visual.
 
 | Decisão vinculada a A12 | Resultado (passou/falhou/pendente) | Decisão/observação do autor |
 |---|---|---|
-| Corrida W: manter 4,2 m/s ou solicitar outro valor | passou | Mantém 4,2 m/s no piloto (leitura do "A1–A13 ok" de 25/10; o autor pode corrigir) |
+| Corrida W: manter 4,2 m/s ou solicitar outro valor | passou | **Autor confirmou expressamente em 25/10: mantém 4,2 m/s; referência do Run do Explorador Toy.** |
 | Recuo S: manter 1,2 m/s ou solicitar outro valor | passou | Mantém 1,2 m/s no piloto (mesma leitura) |
 | Deslizamento/cadência do Run na câmera real | passou | Aceitável no piloto com o r7. A correção definitiva é a corrida autorada para a velocidade real no Explorador Toy (`docs/sprint-6/ESTUDO_MAIN_PLAYER.md`, 1.2 e 3.4), que o autor já apontou como estranha em 24/10 |
 
@@ -322,17 +322,33 @@ proposta de correção, sem implementar, e **Parada 2**.
 
 S2.12 B mantém as decisões de `222bc5b` do [escopo fechado](../handoffs/s2.12-b-proposta.md):
 raio 0,80 m; spacing/separation/contactRange 1,60/1,90/1,20 m; robô 0–2,75 m;
-caixa `maxY = 1,195 m` fixo, tampa visual; tiro/cano/mira a 0,65 m; depósitos fora
-até S4.3. Após A1–A13 e liberação, sua branch própria parte da ponta então vigente
+caixa `maxY = 1,195 m` fixo, tampa visual; tiro/cano/mira a 0,85 m (retícula 0,86 m); depósitos fora
+até S4.3. A1–A13 aprovados e liberação explícita recebida em 25/10/2026: sua branch própria parte da nova ponta documental
 de `rochatales/fechamento-s0-s2`, conforme o pedido atual, e não da integração.
 Três etapas sequenciais (origem/mira/traçador; colisão com altura; raio/navegação),
 um commit e uma parada com testes/build/diff-check/roteiro em cada, revisão do
 Claude contra a base. S2.11 vem depois, comparativa, sem adoção antes de teste do
-autor; ausência de 120/144 Hz deve ser registrada. Nenhuma dessas etapas começa
-com a entrega deste kit.
+autor; ausência de 120/144 Hz deve ser registrada. A liberação atual autoriza iniciar somente a etapa 1 e parar ao final;
+as etapas 2 e 3 aguardam revisão do Claude e liberação do avanço.
 
 A sessão curta final, **somente para as mudanças de B e de S2.11**, será acrescentada
 a este kit quando as versões estiverem prontas. Sem aceite final, não marcar
 S2.11/S2.12 nem encerrar Sprint 2. Reunião das entregas na branch de fechamento,
 revisão do Claude e avanço `--ff-only` da integração ficam para as etapas futuras;
 o avanço é do autor. **Parada 1 desta entrega: kit e comandos, aguardando o relato.**
+
+## Liberação da S2.12 B — 25/10/2026
+
+Pedido explícito do autor: **S2.12 B LIBERADA**, após A1–A13 aprovados em
+`029f9e7`. A12 confirmado: corrida **4,2 m/s**, recuo **1,2 m/s** ficam; o
+Explorador Toy usa esses valores para autorar Run e Backward. Não alterar
+velocidades, r7, Toy, Orion ou fontes de arte nesta tarefa.
+
+Ponta de fechamento confirmada antes desta preparação documental:
+`029f9e7b37b3728f45ac4dd2f50602a2a7c1a90e`. Inclui `a42ff52` (Sprint 0),
+`f864497` (EXODEN/save), `168d911` (tiro 0,85 m) e `029f9e7` (parte A).
+Criar `rochatales/s2.12-b` a partir do commit deste registro e registrar a base
+imutável no quadro da branch de fechamento. Implementar três etapas sequenciais,
+um commit e uma parada por etapa, com testes/build/diff-check/roteiro. Claude
+revisa cada etapa contra a base antes da próxima; aceite visual/jogabilidade
+continua com o autor. Checkout principal preservado, sem push ou merge.
