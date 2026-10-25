@@ -86,7 +86,7 @@ nav button:hover:not(:disabled), .secondary:hover:not(:disabled) { color: #09232
 .equipment-inventory { flex: 1; min-width: 0; }
 .equipment-inventory h2 { font-size: 13px; color: var(--cyan); letter-spacing: .07em; margin: 0 0 10px; display: flex; justify-content: space-between; align-items: baseline; }
 .equipment-inventory h2 > span { font-size: 6px; letter-spacing: .04em; color: #81a9b1; }
-.item-slots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; }
+.item-slots { display: grid; grid-template-columns: repeat(5, 1fr); gap: 9px; }
 .item-slot { text-align: center; min-width: 0; }
 .item-slot > div { height: 68px; border: 1px solid #82e6db80; display: grid; place-items: center; position: relative; background: linear-gradient(140deg, #31707822, #1a3d4e11); }
 .item-slot > div::after { content: ''; position: absolute; right: 3px; top: 3px; border-top: 7px solid #b693ec; border-left: 7px solid transparent; }

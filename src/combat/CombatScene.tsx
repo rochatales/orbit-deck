@@ -9,8 +9,10 @@ import { playerPosition } from '../state/playerTransient';
 import { combatRuntime, useCombatStore } from '../state/useCombatStore';
 import { simulationBlocked } from '../game/simulationGate';
 import { CombatSimulation, type CombatInput } from './simulation';
-import { COMBAT } from './config';
-import { PATROL_UNIT, PatrolUnitRig } from './patrolUnit';
+import { COMBAT, robotConfig, waveRobotKind } from './config';
+import { PATROL_UNIT, LARGE_PATROL_VISUAL, PatrolUnitRig } from './patrolUnit';
+import { ResourceDrops } from './ResourceDrops';
+import largePatrolUrl from '../assets/enemies/large-patrol-unit.glb';
 import patrolUnitUrl from '../assets/enemies/patrol-unit.glb';
 import { SupplyCrates } from '../game/props/SupplyCrates';
 import { SHANGHAI_SUPPLY_CRATES } from '../game/props/supplyCrate';
@@ -27,10 +29,14 @@ export function CombatScene({ world }: {
     // S6.1: Patrol Unit do autor; um rig (esqueleto, mixer, material) por robô da rodada.
     const patrolUnit = useGLTF(patrolUnitUrl);
     const rigs = useMemo(() => simulation.robots.map(() => new PatrolUnitRig(patrolUnit.scene, patrolUnit.animations)), [simulation, patrolUnit]);
+    const largePatrol = useGLTF(simulation.waves.length ? largePatrolUrl : patrolUnitUrl);
+    const largeRigs = useMemo(() => simulation.robots.map((_, i) =>
+        simulation.waves.some((count, wave) => i < count && waveRobotKind(wave, i) === 'largePatrol')
+            ? new PatrolUnitRig(largePatrol.scene, largePatrol.animations, true) : null), [simulation, largePatrol]);
     // Hordas reutilizam slots: a geração muda a cada nascimento e o rig volta ao Idle.
     const generations = useMemo(() => simulation.robots.map(r => r.generation), [simulation]);
-    useEffect(() => () => rigs.forEach(rig => rig.dispose()), [rigs]);
-    const drops = useRef<(Group | null)[]>([]), hearts = useRef<(Group | null)[]>([]);
+    useEffect(() => () => { rigs.forEach(rig => rig.dispose()); largeRigs.forEach(rig => rig?.dispose()); }, [rigs, largeRigs]);
+    const hearts = useRef<(Group | null)[]>([]);
     const heartShape = useMemo(() => {
         const shape = new Shape();
         shape.moveTo(0, -0.4);
@@ -104,7 +110,10 @@ export function CombatScene({ world }: {
             const mesh = robots.current[i];
             if (!mesh)
                 return;
-            const rig = rigs[i];
+            const large = r.kind === 'largePatrol', rig = large ? largeRigs[i]! : rigs[i];
+            const R = robotConfig(r);
+            rigs[i].root.visible = !large;
+            if (largeRigs[i]) largeRigs[i]!.root.visible = large;
             if (!r.spawned) {
                 mesh.visible = false;
                 return;
@@ -113,20 +122,13 @@ export function CombatScene({ world }: {
                 generations[i] = r.generation;
                 rig.respawn();
             }
-            rig.update(r, playerPosition.x, playerPosition.z, COMBAT.robot.contactRange, blocked ? 0 : Math.min(delta, 0.1));
+            rig.update(r, playerPosition.x, playerPosition.z, R.contactRange, blocked ? 0 : Math.min(delta, 0.1));
             mesh.visible = rig.visible;
             mesh.position.set(r.x, 0, r.z);
             mesh.rotation.y = r.angle;
             const ring = rings.current[i], alert = alerts.current[i];
-            if (ring) ring.visible = r.hp > 0;
-            if (alert) alert.visible = r.hp > 0 && r.alertLeft > 0;
-        });
-        simulation.drops.forEach((drop, i) => {
-            const mesh = drops.current[i];
-            if (mesh) {
-                mesh.visible = drop.active;
-                mesh.position.set(drop.x, 0.22, drop.z);
-            }
+            if (ring) { ring.visible = r.hp > 0; ring.scale.setScalar(R.radius / COMBAT.robot.radius); }
+            if (alert) { alert.visible = r.hp > 0 && r.alertLeft > 0; alert.position.y = (large ? LARGE_PATROL_VISUAL.height : PATROL_UNIT.height) + .45; }
         });
         simulation.hearts.forEach((heart, i) => {
             const mesh = hearts.current[i];
@@ -151,19 +153,16 @@ export function CombatScene({ world }: {
         }
     });
     return <>
+    <ResourceDrops drops={simulation.drops}/>
     {simulation.crates.length > 0 && <SupplyCrates crates={simulation.crates}/>}
     {simulation.robots.map((r, i) => <group key={`${run}-${r.id}`} ref={g => { robots.current[i] = g; }}>
       <primitive object={rigs[i].root}/>
+      {largeRigs[i] && <primitive object={largeRigs[i]!.root}/>}
       <mesh ref={m => { rings.current[i] = m; }} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.025, 0]}><ringGeometry args={[0.43, 0.48, 20]}/><meshBasicMaterial color="#ff6753"/></mesh>
       <Billboard position={[0, PATROL_UNIT.height + 0.45, 0]} ref={g => { alerts.current[i] = g; }} visible={false}>
         <mesh position={[0, 0.13, 0]}><boxGeometry args={[0.12, 0.38, 0.04]}/><meshBasicMaterial color="#ffdb57"/></mesh>
         <mesh position={[0, -0.16, 0]}><sphereGeometry args={[0.075, 8, 6]}/><meshBasicMaterial color="#ffdb57"/></mesh>
       </Billboard>
-    </group>)}
-    {simulation.drops.map((_, i) => <group key={`drop-${run}-${i}`} ref={g => { drops.current[i] = g; }} visible={false}>
-      <mesh position={[-0.17, 0, 0]} rotation={[0.2, 0.4, 0.3]}><boxGeometry args={[0.32, 0.18, 0.4]}/><meshStandardMaterial color="#c4d4df" metalness={0.7} roughness={0.3}/></mesh>
-      <mesh position={[0.17, 0.04, 0.04]} rotation={[0, -0.5, 0.2]}><boxGeometry args={[0.28, 0.16, 0.32]}/><meshStandardMaterial color="#d98c50" metalness={0.65} roughness={0.35}/></mesh>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.18, 0]}><ringGeometry args={[0.35, 0.4, 16]}/><meshBasicMaterial color="#9fe5ff"/></mesh>
     </group>)}
     {simulation.hearts.map((heart, i) => <group key={`heart-${run}-${i}`} position={[heart.x, 0, heart.z]} ref={g => { hearts.current[i] = g; }}>
       <Billboard position={[0, 0.85, 0]}><mesh><shapeGeometry args={[heartShape]}/><meshBasicMaterial color="#ff4564"/></mesh></Billboard>

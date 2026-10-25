@@ -1,0 +1,34 @@
+{
+  "base": "a15af914440577ed1b4e26bdeb44e6dd727a06c8",
+  "copiedWithoutChanges": true,
+  "assets": [
+    {
+      "source": "art-source/ferro/export/ferro_shanghai_v001.glb",
+      "sourceCheckout": "/Users/rochatales/Automations/game-workplace",
+      "runtime": "src/assets/props/ferro.glb",
+      "bytes": 5057552,
+      "sha256": "bdaf53f4b8766c11bb8dce387f07279a3ab7301c20b4f65c81816eb87ff8ad30",
+      "triangles": 3968,
+      "bones": 7
+    },
+    {
+      "source": "art-source/cobre/export/cobre_shanghai_v001.glb",
+      "sourceCheckout": "/Users/rochatales/Automations/game-workplace",
+      "runtime": "src/assets/props/cobre.glb",
+      "bytes": 2435052,
+      "sha256": "6e8aad10f8345bc454ff8e788b655b3d4796c4a99a6511f5a0302c869dace997",
+      "triangles": 4308,
+      "bones": 6
+    },
+    {
+      "source": "art-source/large-patrol-unit/export/large_patrol_unit_shanghai_v001.glb",
+      "sourceCheckout": "/Users/rochatales/Automations/game-workplace",
+      "runtime": "src/assets/enemies/large-patrol-unit.glb",
+      "bytes": 5337172,
+      "sha256": "acb2d8e1846b5bb21e66046549a30170a4de6b5452a4b2f40ea241be1677d6f4",
+      "triangles": 8482,
+      "bones": 23
+    }
+  ],
+  "titanium": "Sem GLB fornecido; lingotes provisórios instanciados, duas draw calls."
+}
