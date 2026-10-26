@@ -10,7 +10,7 @@
 > Exceções explícitas do autor em 25–26/10: registros de recursos e encerramento
 > da S2.12/investigação S2.11 nesta worktree `rochatales/s2.12-b`.
 >
-> Atualizado em 26/10/2026 na `rochatales/s2.12-b`, por pedido explícito do autor: S2.12 A/B concluída e aprovada; S2.11 liberada na mesma linha após commit documental. Revisão Claude sem defeitos, 208/208, build verde. Autor dispõe de tela de 144 Hz.
+> Atualizado em 26/10/2026 na `rochatales/s2.12-b`, por pedido explícito do autor: S2.12 A/B concluída e aprovada; S2.11 investigada, comparada em 144 Hz pelo autor e concluída sem adoção; `?interp=1` permanece só para comparação. Revisão Claude sem defeitos, 208/208, build verde. Autor dispõe de tela de 144 Hz.
 
 ## Situação dos sprints
 
@@ -221,3 +221,7 @@ marcados como concluídos. Sem push/merge; principal e fontes preservados.
 26/10/2026 — Ajustes pós-`2a3370d`, item 3: traçador 3×/0,12 s com núcleo branco e halo amarelo; clarão 2×; impactos 24 partículas/1,8× e flash de contato. Pool 128 mantido (pico técnico 42 na cadência real; sem necessidade de 256). 228/228, build e diff-check verdes; capturas em `docs/handoffs/s3.10-efeitos/ajustes-26-10/`. Aceite visual do autor pendente. Itens da aranha/áudio seguem nesta linha; decisão sobre vielas consultada ao autor após medição do corpo.
 
 26/10/2026 — Ajustes pós-`2a3370d`, item 4: passos pesados com duas vozes reservadas/25 m/volume 0,8 para Patrol grande e aranha; quatro passos comuns preservados. 14 variações da aranha normalizadas a −6,4…−5,5 dBFS por fatiador reproduzível, fontes intactas. Aviso provisório grave/baixo na antecipação; morte grave provisória registrada. Horda 3 assistida: 11 passos + impacto/aviso/golpe/morte (1 cada), todos reproduzidos pelo Web Audio. 231/231, build/diff-check verdes; roteiro auditivo no handoff S3.10. Autor decidiu manter raio 1,66 m e permitir as vielas para a aranha ×2,5; tamanho/investida seguem em entrega própria.
+
+26/10/2026 — **PARADA nos ajustes 1+2 da aranha**, conforme condição do autor. Medida ×2,5: meia-largura corporal 1,558902 m → raio 1,66; hitHeight proposto 0–2,92. Autor decidiu permitir as vielas. Caminhos estáticos válidos em 271/271 bordas, 32/32 spawns e ruas; porém horda 4 fica em 109/115 com seis presos ao norte mesmo após 600 s. Candidato 232/234 (duas falhas de navegação), build/diff-check verdes; nenhum raio reduzido e nenhum critério relaxado. Patch completo e capturas em `docs/handoffs/s3.3-mutante-grande/ajustes-26-10/`; código pendente retirado do runtime, que conserva a aranha anterior sobre `1ade722`. Efeitos (`ee3ddcb`) e áudio (`1ade722`) concluídos tecnicamente. Próximo trabalho: recuperação/desvio do grupo misto mantendo 1,66; itens 1+2 não concluídos. Sem push/merge ou alteração de arte/checkout principal.
+
+Estado final desta parada: runtime restaurado sobre `1ade722`, **231/231 testes**, build e diff-check verdes; patch pendente aplicável (`git apply --check` verde). Candidato ampliado não entregue como código validado: **232/234**, duas falhas registradas. Captura do grupo bloqueado e comparação com Patrol grande salvas em disco.

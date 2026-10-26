@@ -1,0 +1,628 @@
+{
+  "base": "1ade722",
+  "decision": "Autor: manter raio 1,66 m e permitir as vielas (26/10/2026)",
+  "radius": 1.66,
+  "bodyHalfWidth": 1.5589016906402486,
+  "margin": 0.10109830935975128,
+  "spacing": 3.32,
+  "separation": 3.6199999999999997,
+  "contactRange": 2.06,
+  "nodes": 29669,
+  "edges": 271,
+  "validEdges": 271,
+  "patrolSpawns": [
+    {
+      "index": 0,
+      "point": {
+        "id": "SPAWN_Robo_0_0",
+        "x": -14.125,
+        "z": -51,
+        "routeIndex": 0,
+        "waypoint": 1
+      },
+      "valid": true
+    },
+    {
+      "index": 1,
+      "point": {
+        "id": "SPAWN_Robo_0_1",
+        "x": 2.7500000000000036,
+        "z": -51,
+        "routeIndex": 0,
+        "waypoint": 1
+      },
+      "valid": true
+    },
+    {
+      "index": 2,
+      "point": {
+        "id": "SPAWN_Robo_0_2",
+        "x": 17.5,
+        "z": -48.875,
+        "routeIndex": 0,
+        "waypoint": 2
+      },
+      "valid": true
+    },
+    {
+      "index": 3,
+      "point": {
+        "id": "SPAWN_Robo_0_3",
+        "x": 17.5,
+        "z": -32,
+        "routeIndex": 0,
+        "waypoint": 2
+      },
+      "valid": true
+    },
+    {
+      "index": 4,
+      "point": {
+        "id": "SPAWN_Robo_0_4",
+        "x": 14.125,
+        "z": -18.5,
+        "routeIndex": 0,
+        "waypoint": 3
+      },
+      "valid": true
+    },
+    {
+      "index": 5,
+      "point": {
+        "id": "SPAWN_Robo_0_5",
+        "x": -2.7500000000000036,
+        "z": -18.5,
+        "routeIndex": 0,
+        "waypoint": 3
+      },
+      "valid": true
+    },
+    {
+      "index": 6,
+      "point": {
+        "id": "SPAWN_Robo_0_6",
+        "x": -17.5,
+        "z": -20.625,
+        "routeIndex": 0,
+        "waypoint": 0
+      },
+      "valid": true
+    },
+    {
+      "index": 7,
+      "point": {
+        "id": "SPAWN_Robo_0_7",
+        "x": -17.5,
+        "z": -37.5,
+        "routeIndex": 0,
+        "waypoint": 0
+      },
+      "valid": true
+    },
+    {
+      "index": 8,
+      "point": {
+        "id": "SPAWN_Robo_1_0",
+        "x": -17.5,
+        "z": 24.25,
+        "routeIndex": 1,
+        "waypoint": 1
+      },
+      "valid": true
+    },
+    {
+      "index": 9,
+      "point": {
+        "id": "SPAWN_Robo_1_1",
+        "x": -17.5,
+        "z": 40.5,
+        "routeIndex": 1,
+        "waypoint": 1
+      },
+      "valid": true
+    },
+    {
+      "index": 10,
+      "point": {
+        "id": "SPAWN_Robo_1_2",
+        "x": -11.75,
+        "z": 51,
+        "routeIndex": 1,
+        "waypoint": 2
+      },
+      "valid": true
+    },
+    {
+      "index": 11,
+      "point": {
+        "id": "SPAWN_Robo_1_3",
+        "x": 4.5,
+        "z": 51,
+        "routeIndex": 1,
+        "waypoint": 2
+      },
+      "valid": true
+    },
+    {
+      "index": 12,
+      "point": {
+        "id": "SPAWN_Robo_1_4",
+        "x": 17.5,
+        "z": 47.75,
+        "routeIndex": 1,
+        "waypoint": 3
+      },
+      "valid": true
+    },
+    {
+      "index": 13,
+      "point": {
+        "id": "SPAWN_Robo_1_5",
+        "x": 17.5,
+        "z": 31.5,
+        "routeIndex": 1,
+        "waypoint": 3
+      },
+      "valid": true
+    },
+    {
+      "index": 14,
+      "point": {
+        "id": "SPAWN_Robo_1_6",
+        "x": 11.75,
+        "z": 21,
+        "routeIndex": 1,
+        "waypoint": 0
+      },
+      "valid": true
+    },
+    {
+      "index": 15,
+      "point": {
+        "id": "SPAWN_Robo_1_7",
+        "x": -4.5,
+        "z": 21,
+        "routeIndex": 1,
+        "waypoint": 0
+      },
+      "valid": true
+    },
+    {
+      "index": 16,
+      "point": {
+        "id": "SPAWN_Robo_2_0",
+        "x": -44.625,
+        "z": -18.5,
+        "routeIndex": 2,
+        "waypoint": 1
+      },
+      "valid": true
+    },
+    {
+      "index": 17,
+      "point": {
+        "id": "SPAWN_Robo_2_1",
+        "x": -27.75,
+        "z": -18.5,
+        "routeIndex": 2,
+        "waypoint": 1
+      },
+      "valid": true
+    },
+    {
+      "index": 18,
+      "point": {
+        "id": "SPAWN_Robo_2_2",
+        "x": -17.5,
+        "z": -11.875,
+        "routeIndex": 2,
+        "waypoint": 2
+      },
+      "valid": true
+    },
+    {
+      "index": 19,
+      "point": {
+        "id": "SPAWN_Robo_2_3",
+        "x": -17.5,
+        "z": 5,
+        "routeIndex": 2,
+        "waypoint": 2
+      },
+      "valid": true
+    },
+    {
+      "index": 20,
+      "point": {
+        "id": "SPAWN_Robo_2_4",
+        "x": -20.875,
+        "z": 18.5,
+        "routeIndex": 2,
+        "waypoint": 3
+      },
+      "valid": true
+    },
+    {
+      "index": 21,
+      "point": {
+        "id": "SPAWN_Robo_2_5",
+        "x": -37.75,
+        "z": 18.5,
+        "routeIndex": 2,
+        "waypoint": 3
+      },
+      "valid": true
+    },
+    {
+      "index": 22,
+      "point": {
+        "id": "SPAWN_Robo_2_6",
+        "x": -48,
+        "z": 11.875,
+        "routeIndex": 2,
+        "waypoint": 0
+      },
+      "valid": true
+    },
+    {
+      "index": 23,
+      "point": {
+        "id": "SPAWN_Robo_2_7",
+        "x": -48,
+        "z": -5,
+        "routeIndex": 2,
+        "waypoint": 0
+      },
+      "valid": true
+    },
+    {
+      "index": 24,
+      "point": {
+        "id": "SPAWN_Robo_3_0",
+        "x": 20.875,
+        "z": -18.5,
+        "routeIndex": 3,
+        "waypoint": 1
+      },
+      "valid": true
+    },
+    {
+      "index": 25,
+      "point": {
+        "id": "SPAWN_Robo_3_1",
+        "x": 37.75,
+        "z": -18.5,
+        "routeIndex": 3,
+        "waypoint": 1
+      },
+      "valid": true
+    },
+    {
+      "index": 26,
+      "point": {
+        "id": "SPAWN_Robo_3_2",
+        "x": 48,
+        "z": -11.875,
+        "routeIndex": 3,
+        "waypoint": 2
+      },
+      "valid": true
+    },
+    {
+      "index": 27,
+      "point": {
+        "id": "SPAWN_Robo_3_3",
+        "x": 48,
+        "z": 5,
+        "routeIndex": 3,
+        "waypoint": 2
+      },
+      "valid": true
+    },
+    {
+      "index": 28,
+      "point": {
+        "id": "SPAWN_Robo_3_4",
+        "x": 44.625,
+        "z": 18.5,
+        "routeIndex": 3,
+        "waypoint": 3
+      },
+      "valid": true
+    },
+    {
+      "index": 29,
+      "point": {
+        "id": "SPAWN_Robo_3_5",
+        "x": 27.75,
+        "z": 18.5,
+        "routeIndex": 3,
+        "waypoint": 3
+      },
+      "valid": true
+    },
+    {
+      "index": 30,
+      "point": {
+        "id": "SPAWN_Robo_3_6",
+        "x": 17.5,
+        "z": 11.875,
+        "routeIndex": 3,
+        "waypoint": 0
+      },
+      "valid": true
+    },
+    {
+      "index": 31,
+      "point": {
+        "id": "SPAWN_Robo_3_7",
+        "x": 17.5,
+        "z": -5,
+        "routeIndex": 3,
+        "waypoint": 0
+      },
+      "valid": true
+    }
+  ],
+  "alleys": [
+    {
+      "width": 3.480000000000004,
+      "free": true,
+      "clearance": 0.16000000000000414
+    },
+    {
+      "width": 3.6899999999999977,
+      "free": true,
+      "clearance": 0.3699999999999979
+    },
+    {
+      "width": 3.480000000000004,
+      "free": true,
+      "clearance": 0.16000000000000414
+    },
+    {
+      "width": 3.48,
+      "free": true,
+      "clearance": 0.16000000000000014
+    },
+    {
+      "width": 5.4799999999999995,
+      "free": true,
+      "clearance": 2.1599999999999997
+    },
+    {
+      "width": 3.48,
+      "free": true,
+      "clearance": 0.16000000000000014
+    },
+    {
+      "width": 3.480000000000004,
+      "free": true,
+      "clearance": 0.16000000000000414
+    },
+    {
+      "width": 3.6899999999999977,
+      "free": true,
+      "clearance": 0.3699999999999979
+    },
+    {
+      "width": 3.480000000000004,
+      "free": true,
+      "clearance": 0.16000000000000414
+    }
+  ],
+  "streets": [
+    {
+      "index": 0,
+      "segments": [
+        {
+          "from": {
+            "x": -17.5,
+            "z": -51
+          },
+          "to": {
+            "x": 17.5,
+            "z": -51
+          },
+          "direct": true,
+          "pathValid": true
+        },
+        {
+          "from": {
+            "x": 17.5,
+            "z": -51
+          },
+          "to": {
+            "x": 17.5,
+            "z": -18.5
+          },
+          "direct": true,
+          "pathValid": true
+        },
+        {
+          "from": {
+            "x": 17.5,
+            "z": -18.5
+          },
+          "to": {
+            "x": -17.5,
+            "z": -18.5
+          },
+          "direct": true,
+          "pathValid": true
+        },
+        {
+          "from": {
+            "x": -17.5,
+            "z": -18.5
+          },
+          "to": {
+            "x": -17.5,
+            "z": -51
+          },
+          "direct": true,
+          "pathValid": true
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "segments": [
+        {
+          "from": {
+            "x": -17.5,
+            "z": 21
+          },
+          "to": {
+            "x": -17.5,
+            "z": 51
+          },
+          "direct": true,
+          "pathValid": true
+        },
+        {
+          "from": {
+            "x": -17.5,
+            "z": 51
+          },
+          "to": {
+            "x": 17.5,
+            "z": 51
+          },
+          "direct": true,
+          "pathValid": true
+        },
+        {
+          "from": {
+            "x": 17.5,
+            "z": 51
+          },
+          "to": {
+            "x": 17.5,
+            "z": 21
+          },
+          "direct": true,
+          "pathValid": true
+        },
+        {
+          "from": {
+            "x": 17.5,
+            "z": 21
+          },
+          "to": {
+            "x": -17.5,
+            "z": 21
+          },
+          "direct": true,
+          "pathValid": true
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "segments": [
+        {
+          "from": {
+            "x": -48,
+            "z": -18.5
+          },
+          "to": {
+            "x": -17.5,
+            "z": -18.5
+          },
+          "direct": true,
+          "pathValid": true
+        },
+        {
+          "from": {
+            "x": -17.5,
+            "z": -18.5
+          },
+          "to": {
+            "x": -17.5,
+            "z": 18.5
+          },
+          "direct": true,
+          "pathValid": true
+        },
+        {
+          "from": {
+            "x": -17.5,
+            "z": 18.5
+          },
+          "to": {
+            "x": -48,
+            "z": 18.5
+          },
+          "direct": true,
+          "pathValid": true
+        },
+        {
+          "from": {
+            "x": -48,
+            "z": 18.5
+          },
+          "to": {
+            "x": -48,
+            "z": -18.5
+          },
+          "direct": false,
+          "pathValid": true
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "segments": [
+        {
+          "from": {
+            "x": 17.5,
+            "z": -18.5
+          },
+          "to": {
+            "x": 48,
+            "z": -18.5
+          },
+          "direct": true,
+          "pathValid": true
+        },
+        {
+          "from": {
+            "x": 48,
+            "z": -18.5
+          },
+          "to": {
+            "x": 48,
+            "z": 18.5
+          },
+          "direct": true,
+          "pathValid": true
+        },
+        {
+          "from": {
+            "x": 48,
+            "z": 18.5
+          },
+          "to": {
+            "x": 17.5,
+            "z": 18.5
+          },
+          "direct": true,
+          "pathValid": true
+        },
+        {
+          "from": {
+            "x": 17.5,
+            "z": 18.5
+          },
+          "to": {
+            "x": 17.5,
+            "z": -18.5
+          },
+          "direct": true,
+          "pathValid": true
+        }
+      ]
+    }
+  ]
+}

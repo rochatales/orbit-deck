@@ -1,0 +1,218 @@
+diff --git a/src/combat/ChargeWarnings.tsx b/src/combat/ChargeWarnings.tsx
+index d1a23cd..7b599fb 100644
+--- a/src/combat/ChargeWarnings.tsx
++++ b/src/combat/ChargeWarnings.tsx
+@@ -1,7 +1,7 @@
+ import { useEffect, useMemo, useRef } from 'react';
+ import { useFrame } from '@react-three/fiber';
+ import { DoubleSide, Matrix4, PlaneGeometry, Quaternion, ShaderMaterial, Vector3, type InstancedMesh } from 'three';
+-import { LARGE_MUTANT, MUTANT_CHARGE } from './config';
++import { COMBAT, MUTANT_CHARGE } from './config';
+ import type { CombatSimulation } from './simulation';
+ /** Faixa fixa cobre a varredura do círculo do mutante mais a cápsula do jogador. */
+ export function ChargeWarnings({ simulation }: { simulation: CombatSimulation }) {
+@@ -13,8 +13,8 @@ export function ChargeWarnings({ simulation }: { simulation: CombatSimulation })
+     useEffect(()=>()=>{state.geometry.dispose();state.material.dispose();},[state]);
+     useFrame(()=>{if(!mesh.current)return;let n=0;state.material.uniforms.time.value=simulation.elapsed;
+         for(const r of simulation.robots)if(r.hp>0&&r.kind==='largeMutant'&&r.chargePhase==='windup'){
+-            const length=r.chargeDistance+2*(LARGE_MUTANT.radius+MUTANT_CHARGE.playerRadius);
+-            const half=LARGE_MUTANT.radius+MUTANT_CHARGE.playerRadius,segments=Math.ceil(length/.25),size=length/segments;
++            const length=r.chargeDistance+2*MUTANT_CHARGE.warningHalfWidth;
++            const half=MUTANT_CHARGE.warningHalfWidth,segments=Math.ceil(length/.25),size=length/segments;
+             state.q.setFromAxisAngle(state.up,Math.atan2(r.chargeDirX,r.chargeDirZ));state.s.set(2*half,1,size);
+             for(let i=0;i<segments;i++){
+                 const along=-half+(i+.5)*size,x=r.chargeOriginX+r.chargeDirX*along,z=r.chargeOriginZ+r.chargeDirZ*along;
+@@ -24,5 +24,5 @@ export function ChargeWarnings({ simulation }: { simulation: CombatSimulation })
+             }
+         }mesh.current.count=n;mesh.current.instanceMatrix.needsUpdate=true;
+     });
+-    return <instancedMesh name="LargeMutantChargeWarning" ref={mesh} args={[state.geometry,state.material,160]} frustumCulled={false} dispose={null}/>;
++    return <instancedMesh name="LargeMutantChargeWarning" ref={mesh} args={[state.geometry,state.material,Math.max(...COMBAT.hordes.largeMutants)*Math.ceil((MUTANT_CHARGE.distance+2*MUTANT_CHARGE.warningHalfWidth)/.25)]} frustumCulled={false} dispose={null}/>;
+ }
+diff --git a/src/combat/config.ts b/src/combat/config.ts
+index def34d2..47cee5d 100644
+--- a/src/combat/config.ts
++++ b/src/combat/config.ts
+@@ -127,16 +127,16 @@ export const SMALL_MUTANT = {
+     directChase: 9, waypointReach: .5, stuckAdvance: 1.2,
+ } as const;
+ export const MUTANT_PACK = { distance: 6, resetDistance: 8, radius: 1.6, reach: .35, arcStep: .55, approach: .78 } as const;
+-/** Raio circunscrito medido nos clipes vivos (1,336176 m), arredondado para cima. */
++/** Corpo sem patas: meia-largura viva 1,558902 m na escala 2,5 + 0,10 m, arredondado para cima. */
+ export const LARGE_MUTANT = {
+-    hitHeight: { minY: 0, maxY: 1.18 }, hp: 200, speed: 1.4, chaseSpeed: 2.2,
+-    radius: 1.34, spacing: 2.68, separation: 3.0, separationWeight: 1.1,
+-    contactRange: 1.74, damage: 15, contactInterval: 1.2, repath: .5,
++    hitHeight: { minY: 0, maxY: 2.92 }, hp: 200, speed: 1.4, chaseSpeed: 2.2,
++    radius: 1.66, spacing: 3.32, separation: 3.62, separationWeight: 1.1,
++    contactRange: 2.06, damage: 15, contactInterval: 1.2, repath: .5,
+     visionRange: 10, visionCos: Math.cos(Math.PI / 3), nearSense: 3,
+     nearSenseCos: Math.cos(3 * Math.PI / 4), paceRate: 3,
+     sidestep: Math.PI / 5, turnRate: 9, directChase: 9, waypointReach: .5, stuckAdvance: 1.2,
+ } as const;
+-export const MUTANT_CHARGE = { min: 4, max: 9, windup: .8, speed: 9, distance: 6, cooldown: 3, damage: 30, playerRadius: .32, anticipationClip: .24 } as const;
++export const MUTANT_CHARGE = { min: 4, max: 9, windup: .8, speed: 9, distance: 10, warningHalfWidth: 2.58, pushMargin: .08, cooldown: 3, damage: 30, playerRadius: .32, anticipationClip: .24 } as const;
+ export type RobotKind = 'patrol' | 'largePatrol' | 'smallMutant' | 'largeMutant';
+ /** `waves` conserva os números de robôs; estes totais incluem os animais adicionais. */
+ export const HORDE_TOTALS = COMBAT.hordes.waves.map((robots, i) => robots + COMBAT.hordes.smallMutants[i] + COMBAT.hordes.largeMutants[i]);
+diff --git a/src/combat/mutantCharge.ts b/src/combat/mutantCharge.ts
+index ab1b112..ff33a1c 100644
+--- a/src/combat/mutantCharge.ts
++++ b/src/combat/mutantCharge.ts
+@@ -1,4 +1,4 @@
+-import { LARGE_MUTANT, MUTANT_CHARGE as C } from './config';
++import { LARGE_MUTANT, MUTANT_CHARGE as C, robotConfig, type RobotKind } from './config';
+ import { clearSegment, type Position, type Terrain } from './navigation';
+ export interface ChargeState extends Position {
+     chargePhase: 'ready' | 'windup' | 'dash' | 'cooldown';
+@@ -21,3 +21,33 @@ export function prepareCharge(r: ChargeState, player: Position, terrain: Terrain
+     return true;
+ }
+ export function finishCharge(r: ChargeState) { r.chargePhase='cooldown';r.chargeLeft=C.cooldown; }
++
++interface PushedEnemy extends Position {
++    id: number; kind: RobotKind; recoil: number; recoilX: number; recoilZ: number;
++    path: Position[]; repath: number; stuck: number;
++}
++/** Varredura do corpo na corrida. Aliados não bloqueiam; só o terreno limita o empurrão. */
++export function pushChargeEnemy(r: ChargeState, next: Position, other: PushedEnemy, terrain: Terrain, out: Position) {
++    const R=robotConfig(other),dx=next.x-r.x,dz=next.z-r.z,length2=dx*dx+dz*dz;
++    const t=length2?Math.max(0,Math.min(1,((other.x-r.x)*dx+(other.z-r.z)*dz)/length2)):0;
++    if(Math.hypot(other.x-r.x-dx*t,other.z-r.z-dz*t)>LARGE_MUTANT.radius+R.radius)return false;
++    const nx=r.chargeDirZ,nz=-r.chargeDirX,side=(other.x-r.x)*nx+(other.z-r.z)*nz;
++    const sign=side===0?(other.id%2?1:-1):Math.sign(side),edge=C.warningHalfWidth+R.radius+C.pushMargin;
++    let shift=0;
++    // Lado mais próximo primeiro; se não couber, tenta o oposto. Sempre valida o trajeto inteiro.
++    for(let attempt=0;attempt<2;attempt++) {
++        const goal=(attempt?-sign:sign)*edge-side;
++        out.x=other.x+nx*goal;out.z=other.z+nz*goal;
++        if(clearSegment(other,out,terrain,R.radius)){shift=goal;break;}
++    }
++    if(!shift) {
++        // Ambos os lados fechados: maior empurrão seguro no lado próximo; jamais atravessa parede.
++        let low=0,high=Math.abs(sign*edge-side);
++        for(let i=0;i<16;i++){const mid=(low+high)/2;out.x=other.x+nx*sign*mid;out.z=other.z+nz*sign*mid;
++            if(clearSegment(other,out,terrain,R.radius))low=mid;else high=mid;}
++        shift=sign*low;
++    }
++    if(Math.abs(shift)<1e-6)return false;
++    other.x+=nx*shift;other.z+=nz*shift;other.recoil=.12;other.recoilX=nx*Math.sign(shift);other.recoilZ=nz*Math.sign(shift);
++    other.path.length=0;other.repath=0;other.stuck=0;return true;
++}
+diff --git a/src/combat/patrolUnit.ts b/src/combat/patrolUnit.ts
+index 50c3257..ccb7eb7 100644
+--- a/src/combat/patrolUnit.ts
++++ b/src/combat/patrolUnit.ts
+@@ -40,7 +40,7 @@ export const LARGE_PATROL_VISUAL = { height: 3.2, scale: 3.2 / 2.08507967 } as c
+ 
+ export const SMALL_MUTANT_VISUAL = { height: .96201372, scale: 1, walkReferenceSpeed: 2.2, chaseReferenceSpeed: 4.6 } as const;
+ 
+-export const LARGE_MUTANT_VISUAL = { height: 1.18, scale: 1, walkReferenceSpeed: 1.4, chaseReferenceSpeed: 2.2 } as const;
++export const LARGE_MUTANT_VISUAL = { height: 2.92, scale: 2.5, walkReferenceSpeed: 1.4, chaseReferenceSpeed: 2.2 } as const;
+ 
+ export interface PatrolUnitInput {
+     alive: boolean;
+diff --git a/src/combat/simulation.ts b/src/combat/simulation.ts
+index 238b452..2e6dd92 100644
+--- a/src/combat/simulation.ts
++++ b/src/combat/simulation.ts
+@@ -1,4 +1,4 @@
+-import { prepareCharge, finishCharge, type ChargeState } from './mutantCharge';
++import { pushChargeEnemy, prepareCharge, finishCharge, type ChargeState } from './mutantCharge';
+ import { CombatEffects, COMBAT_VFX, impactKind } from './effects';
+ import { enemySpacing, enemySeparation } from './enemySpacing';
+ import { containsShotHeight } from './shotVolume';
+@@ -266,6 +266,7 @@ export class CombatSimulation {
+             && clearSegment(player, pickup, this.terrain, 0);
+     }
+     private nextPosition: Position = { x: 0, z: 0 };
++    private pushPosition: Position = {x:0,z:0};
+     private packTarget: Position = { x: 0, z: 0 };
+     step(dt: number, input: CombatInput, paused = false) {
+         if (paused || this.dead)
+@@ -417,7 +418,8 @@ export class CombatSimulation {
+         }
+         const step=Math.min(MUTANT_CHARGE.speed*dt,r.chargeDistance-r.chargeTraveled),p=this.nextPosition;
+         p.x=r.x+r.chargeDirX*step;p.z=r.z+r.chargeDirZ*step;
+-        if(!clearSegment(r,p,this.terrain,LARGE_MUTANT.radius)||!this.roomAt(r,p)){finishCharge(r);return true;}
++        if(!clearSegment(r,p,this.terrain,LARGE_MUTANT.radius)){finishCharge(r);return true;}
++        for(const other of this.robots)if(other!==r&&other.hp>0)pushChargeEnemy(r,p,other,this.terrain,this.pushPosition);
+         if(!r.chargeHit && rayCircle(r,p,player,LARGE_MUTANT.radius+MUTANT_CHARGE.playerRadius)!==null) {
+             r.chargeHit=true;
+             if(this.invulnerable===0){this.hp=Math.max(0,this.hp-MUTANT_CHARGE.damage);this.invulnerable=LARGE_MUTANT.contactInterval;this.damageFlash=.24;this.sounds.emit('attack',r.x,r.z,r.kind);}
+diff --git a/tests/enemy-size-scenarios.mjs b/tests/enemy-size-scenarios.mjs
+index af2d9a9..0012e84 100644
+--- a/tests/enemy-size-scenarios.mjs
++++ b/tests/enemy-size-scenarios.mjs
+@@ -50,10 +50,10 @@ export function surroundSizeReport() {
+     const distances=s.robots.map(r=>Math.hypot(r.x,r.z)),near=s.robots.filter(r=>Math.hypot(r.x,r.z)<4),sectors=new Set(near.map(r=>Math.floor((Math.atan2(r.x,r.z)+Math.PI)/(Math.PI/4))%8));
+     return {seconds:40,contact:distances.filter(d=>d<=COMBAT.robot.contactRange+.05).length,sectors:sectors.size,nearFour:near.length,maxDistance:Math.max(...distances),chordCapacity:Math.floor(Math.PI/Math.asin(COMBAT.robot.spacing/(2*COMBAT.robot.contactRange)))};
+ }
+-export function clearWavesSizeReport() {
++export function clearWavesSizeReport(maxSeconds=360) {
+     const s=new CombatSimulation(createPhase01Terrain(),'hordas',encounterLayout(true)),player={x:0,z:9.5},input=idle(player),muzzle={x:0,z:0},out={to:{x:0,z:0},robot:null,blocked:false},waves=[];let invalid=0,lastWave=0;
+     // Mira técnica instantânea, mesmo rifle/cadência/munição; HP restaurado para isolar conclusão/navegação.
+-    for(let frame=0;frame<60*360&&!s.cleared;frame++){
++    for(let frame=0;frame<60*maxSeconds&&!s.cleared;frame++){
+         s.hp=100;input.firing=false;input.reload=s.ammo===0;
+         const targets=[...s.robots].sort((a,b)=>Math.hypot(a.x-player.x,a.z-player.z)-Math.hypot(b.x-player.x,b.z-player.z));
+         for(const r of targets){if(r.hp<=0)continue;input.facingAngle=Math.atan2(r.x-player.x,r.z-player.z);writeRifleMuzzle(muzzle,player.x,player.z,input.facingAngle);
+@@ -65,7 +65,7 @@ export function clearWavesSizeReport() {
+         if(s.alive===0&&waves.length&&!waves.at(-1).clearedAt)waves.at(-1).clearedAt=s.elapsed;
+         for(const r of s.robots)if(r.hp>0&&!traversable(r,s.terrain,robotConfig(r).radius))invalid++;
+     }
+-    return {cleared:s.cleared,kills:s.kills,seconds:s.elapsed,remaining:s.alive,invalid,ammo:s.ammo,reserve:s.reserve,waves};
++    return {cleared:s.cleared,kills:s.kills,seconds:s.elapsed,remaining:s.alive,survivors:s.robots.filter(r=>r.hp>0).map(r=>({id:r.id,kind:r.kind,x:r.x,z:r.z,hp:r.hp,phase:r.chargePhase,stuck:r.stuck,path:r.path})),invalid,ammo:s.ammo,reserve:s.reserve,waves};
+ }
+ export function largeArrivalSizeReport() {
+     const t=createPhase01Terrain(),s=new CombatSimulation(t,'hordas',encounterLayout(true)),input=idle(data.exit);s.wave=3;s.waveLeft=.0001;s.step(1/60,input);
+diff --git a/tests/large-mutant.test.mjs b/tests/large-mutant.test.mjs
+index 4bf24eb..25a0ec4 100644
+--- a/tests/large-mutant.test.mjs
++++ b/tests/large-mutant.test.mjs
+@@ -6,10 +6,10 @@ function frames(s,n,input=idle){for(let i=0;i<n;i++)s.step(1/60,input);}
+ function launch(s,r){s.step(1/60,idle);assert.equal(r.chargePhase,'windup');assert.equal(r.chargeLeft,.8);frames(s,48);assert.equal(r.chargePhase,'dash');assert.equal(r.z,-6);}
+ 
+ test('Grande mutante: GLB íntegro, seis clipes, 5.560 triângulos e envelope medido',async()=>{
+- const file='src/assets/enemies/large-mutant.glb',bytes=fs.readFileSync(file),m=JSON.parse(fs.readFileSync('docs/handoffs/s3.3-mutante-grande/measurement.json'));
+- assert.equal(createHash('sha256').update(bytes).digest('hex'),'70470d2d125da7d6356f020538b582feb4133214567f0e21765339c970edae8a');assert.equal(m.triangles,5560);assert.ok(m.radius<=R.radius&&m.radius>1.33);assert.ok(m.max[1]<=R.hitHeight.maxY);assert.equal(R.hitHeight.minY,0);
++ const file='src/assets/enemies/large-mutant.glb',bytes=fs.readFileSync(file),m=JSON.parse(fs.readFileSync('docs/handoffs/s3.3-mutante-grande/ajustes-26-10/measurement.json'));
++ assert.equal(createHash('sha256').update(bytes).digest('hex'),'70470d2d125da7d6356f020538b582feb4133214567f0e21765339c970edae8a');assert.equal(m.triangles,5560);assert.equal(m.scale,2.5);assert.ok(m.body.halfWidth+.10<=R.radius&&R.radius<m.body.halfWidth+.11);assert.ok(m.max[1]<=R.hitHeight.maxY);assert.equal(R.hitHeight.minY,0);
+  const g=await loadGlb(file);assert.deepEqual(g.animations.map(c=>c.name).sort(),['AggressiveLunge','ChaseRun','DamagedDeath','Idle','PatrolWalk','ShockAttack']);
+- const rig=new PatrolUnitRig(g.scene,g.animations,'largeMutant'),uuid=rig.root.uuid,r={x:0,z:0,hp:200,flash:0,alerted:true,chargePhase:'windup',chargeLeft:.4};rig.update(r,0,6,R.contactRange,1/60);assert.equal(rig.clip,'AggressiveLunge');assert.ok(Math.abs(rig.actions.get('AggressiveLunge').time-.12)<1e-8);assert.equal(rig.actions.get('AggressiveLunge').paused,true);rig.respawn();assert.equal(rig.clip,'Idle');assert.equal(rig.root.uuid,uuid);assert.equal(rig.root.scale.x,1);rig.dispose();
++ const rig=new PatrolUnitRig(g.scene,g.animations,'largeMutant'),uuid=rig.root.uuid,r={x:0,z:0,hp:200,flash:0,alerted:true,chargePhase:'windup',chargeLeft:.4};rig.update(r,0,6,R.contactRange,1/60);assert.equal(rig.clip,'AggressiveLunge');assert.ok(Math.abs(rig.actions.get('AggressiveLunge').time-.12)<1e-8);assert.equal(rig.actions.get('AggressiveLunge').paused,true);rig.respawn();assert.equal(rig.clip,'Idle');assert.equal(rig.root.uuid,uuid);assert.equal(rig.root.scale.x,2.5);rig.dispose();
+ });
+ 
+ test('Grande mutante: 13/26/32/44, 115 ameaças, 127 slots de itens e oito acertos por grande',()=>{
+@@ -17,8 +17,8 @@ test('Grande mutante: 13/26/32/44, 115 ameaças, 127 slots de itens e oito acert
+  const s=new CombatSimulation(open,'hordas');for(let w=0;w<4;w++){s.robots.forEach(r=>r.hp=0);s.waveLeft=.001;s.step(1/60,idle);const live=s.robots.filter(r=>r.hp>0);assert.equal(live.filter(r=>r.kind==='largeMutant').length,[0,0,2,4][w]);const hits=live.reduce((n,r)=>n+Math.ceil(robotConfig(r).hp/25),0);assert.ok(s.ammo+s.reserve>=Math.ceil(hits*1.5));}assert.equal(s.total,115);assert.equal(s.drops.length,127);
+ });
+ 
+-test('Investida: aviso 0,8 s parado, direção fixa, corrida ≤6 m e recarga 3 s',()=>{
+- const{s,r}=solo();launch(s,r);const miss={...idle,player:{x:4,z:0}};frames(s,40,miss);assert.equal(s.hp,100);assert.equal(r.chargePhase,'cooldown');assert.ok(r.chargeTraveled<=6+1e-8);assert.equal(r.x,0);assert.ok(r.z<=1e-8);
++test('Investida: aviso 0,8 s parado, direção fixa, corrida ≤10 m e recarga 3 s',()=>{
++ const{s,r}=solo();launch(s,r);const miss={...idle,player:{x:4,z:0}};frames(s,67,miss);assert.equal(s.hp,100);assert.equal(r.chargePhase,'cooldown');assert.ok(r.chargeTraveled<=10+1e-8);assert.equal(r.x,0);assert.ok(r.z<=4+1e-8);
+  frames(s,179,miss);assert.equal(r.chargePhase,'cooldown');frames(s,1,miss);assert.equal(r.chargePhase,'ready');
+ });
+ 
+@@ -60,3 +60,20 @@ test('Grande mutante: espaçamento misto conserva a soma dos raios e margem sim
+  const{enemySpacing,enemySeparation}=loadSource('src/combat/enemySpacing.ts');
+  for(const kind of ['patrol','largePatrol','smallMutant']){const a={kind:'largeMutant'},b={kind},expected=R.radius+robotConfig(b).radius+.08;assert.equal(enemySpacing(a,b),expected);assert.equal(enemySpacing(b,a),expected);assert.ok(enemySeparation(a,b)>=expected);}
+ });
++
++test('Aranha ×2,5: corpo define raio 1,66, contato e faixa conservadora com as patas; investida 10 m',()=>{
++ assert.equal(R.radius,1.66);assert.equal(R.spacing,2*R.radius);assert.equal(R.separation,3.62);assert.equal(R.contactRange,R.radius+.32+.08);assert.equal(R.hitHeight.maxY,2.92);assert.equal(C.distance,10);assert.ok(C.warningHalfWidth>=2.255+.32);
++ const n=JSON.parse(fs.readFileSync('docs/handoffs/s3.3-mutante-grande/ajustes-26-10/navigation.json'));assert.equal(n.validEdges,n.edges);assert.equal(n.edges,271);assert.ok(n.patrolSpawns.every(p=>p.valid));assert.ok(n.alleys.every(p=>p.free),'Autor autorizou as vielas com raio 1,66');
++});
++test('Investida atravessa cinco robôs: deslocamento lateral fora da faixa, sem dano aliado nem sólido',()=>{
++ const{s,r}=solo();launch(s,r);const group=s.robots.filter(o=>o!==r).slice(0,5);group.forEach((o,i)=>Object.assign(o,{kind:'patrol',hp:75,x:i%2?.1:-.1,z:-4+i*1.7,alerted:false,pace:0}));
++ const pushed=new Set();for(let frame=0;frame<67;frame++){s.step(1/60,{...idle,player:{x:0,z:20}});for(const o of group){if(Math.abs(o.x)>C.warningHalfWidth)pushed.add(o.id);assert.ok(traversable(o,s.terrain,COMBAT.robot.radius));assert.equal(o.hp,75);}}
++ assert.equal(pushed.size,5);assert.equal(r.chargePhase,'cooldown');assert.ok(Math.abs(r.chargeTraveled-10)<1e-6);assert.equal(r.x,0);
++});
++test('Empurrão: escolhe o lado próximo, tenta o oposto bloqueado e limita em corredor fechado',()=>{
++ const{pushChargeEnemy}=loadSource('src/combat/mutantCharge.ts');const r={x:0,z:0,chargeDirX:0,chargeDirZ:1},next={x:0,z:.15},out={x:0,z:0};
++ for(const walls of [[],[{minX:1,maxX:5,minZ:-5,maxZ:5}],[{minX:1,maxX:5,minZ:-5,maxZ:5},{minX:-5,maxX:-1,minZ:-5,maxZ:5}]]){
++ const terrain={...open,obstacles:walls},o={id:1,kind:'patrol',x:.1,z:0,recoil:0,recoilX:0,recoilZ:0,path:[],repath:0,stuck:0};pushChargeEnemy(r,next,o,terrain,out);assert.ok(traversable(o,terrain,.67));assert.ok(o.recoil>0);
++ if(!walls.length)assert.ok(o.x>C.warningHalfWidth+.67);else if(walls.length===1)assert.ok(o.x<-C.warningHalfWidth-.67);else assert.ok(o.x<=.33+1e-6&&o.x>=-.33-1e-6);
++ }
++});

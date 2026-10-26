@@ -1,0 +1,147 @@
+{
+  "method": "Rifle real e quatro hordas na fixture, mesmos passos fixos do ensaio automatizado. Câmera reposicionada só para mostrar o grupo preso; HP do jogador restaurado. 600 s simulados, não tempo de GPU.",
+  "cleared": false,
+  "kills": 109,
+  "seconds": 599.999999999783,
+  "remaining": 6,
+  "survivors": [
+    {
+      "id": 25,
+      "kind": "largePatrol",
+      "x": -0.0741741261125119,
+      "z": -41.30742986708373,
+      "hp": 150,
+      "phase": "ready",
+      "stuck": 359.1166666666687,
+      "path": [
+        {
+          "x": 0,
+          "z": 8
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "kind": "patrol",
+      "x": 1.9064315476229505,
+      "z": -39.94146734742464,
+      "hp": 75,
+      "phase": "ready",
+      "stuck": 359.150000000002,
+      "path": [
+        {
+          "x": 0,
+          "z": -40
+        },
+        {
+          "x": 0,
+          "z": 9
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "kind": "patrol",
+      "x": 2.329072559167079,
+      "z": -41.213116400326506,
+      "hp": 75,
+      "phase": "ready",
+      "stuck": 337.11666666668873,
+      "path": [
+        {
+          "x": 0,
+          "z": -39
+        },
+        {
+          "x": 0,
+          "z": 9
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "kind": "largeMutant",
+      "x": 1.5333283122279486,
+      "z": -44.29530769075945,
+      "hp": 200,
+      "phase": "ready",
+      "stuck": 0,
+      "path": [
+        {
+          "x": 0,
+          "z": -41
+        },
+        {
+          "x": 0,
+          "z": 8
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "kind": "patrol",
+      "x": 3.2472506204638436,
+      "z": -39.94812135941734,
+      "hp": 75,
+      "phase": "ready",
+      "stuck": 0.06666666666666667,
+      "path": [
+        {
+          "x": 0,
+          "z": -40
+        },
+        {
+          "x": 0,
+          "z": 9
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "kind": "largePatrol",
+      "x": 4.389935396048659,
+      "z": -42.44948719083748,
+      "hp": 150,
+      "phase": "ready",
+      "stuck": 0.03333333333333333,
+      "path": [
+        {
+          "x": 0,
+          "z": -41
+        },
+        {
+          "x": 0,
+          "z": 8
+        }
+      ]
+    }
+  ],
+  "invalid": 0,
+  "ammo": 2,
+  "reserve": 118,
+  "waves": [
+    {
+      "wave": 1,
+      "spawned": 13,
+      "start": 4.016666666666658,
+      "clearedAt": 48.34999999999854
+    },
+    {
+      "wave": 2,
+      "spawned": 26,
+      "start": 54.36666666666486,
+      "clearedAt": 97.69999999999574
+    },
+    {
+      "wave": 3,
+      "spawned": 32,
+      "start": 103.71666666666206,
+      "clearedAt": 161.40000000002058
+    },
+    {
+      "wave": 4,
+      "spawned": 44,
+      "start": 167.41666666669204
+    }
+  ]
+}
