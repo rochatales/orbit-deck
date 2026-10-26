@@ -10,7 +10,7 @@
 > Exceção explícita do autor em 25/10: registrar estes ajustes de recursos
 > neste quadro da worktree `rochatales/s2.12-b`, sem editar a integração/fechamento.
 >
-> Atualizado em 25/10/2026 na `rochatales/s2.12-b`, por pedido do autor. Mapa v007/deck (`daaff88`), estufa e anel na calçada (`e0eef58`) aprovados no jogo; autor relatou revisão Claude dos três commits anteriores e v007/estufa sem defeitos, 168/168/build verde. Registro separado `f786255`. Animal pequeno e orgânica implementados a partir dele: hordas **13/26/30/40**, total **109**, **176/176 testes**, build/diff-check verdes e capturas. Revisão Claude e aceite do novo animal pendentes; **etapa 2 não iniciada**. Sem push/merge na integração; principal/art-source preservados.
+> Atualizado em 26/10/2026 na `rochatales/s2.12-b`, por pedido explícito do autor: S2.12 A/B concluída e aprovada; S2.11 liberada na mesma linha após commit documental. Revisão Claude sem defeitos, 208/208, build verde. Autor dispõe de tela de 144 Hz.
 
 ## Situação dos sprints
 
@@ -18,7 +18,7 @@
 |---|---|---|
 | 0 · Preservação e baseline | ✅ Encerrado em 25/10/2026 | — (S0.4 aprovada pelo autor; medições no equipamento do autor seguem na S2.9) |
 | 1 · Base local e viagem Marte–Shanghai | ✅ Implementado (S1.1–S1.10) | — |
-| 2 · Movimento, tiro e sobrevivência | ◐ Núcleo implementado (S2.1–S2.8) | S2.12 A, patrulhas de 32 e hordas crescentes integradas, sem aceite; S2.9 com medições pendentes; S2.10 já aceita; revisão de código da S2.12 A concluída sem achados; A1–A13 aprovados e velocidades 4,2/1,2 m/s confirmadas; parte B liberada em 25/10, com paradas por etapa; S2.11 posterior a B. Aceite de jogabilidade na etapa 6.5 do [roteiro consolidado](./sprint-2/VALIDACAO_MANUAL.md) |
+| 2 · Movimento, tiro e sobrevivência | ◐ Núcleo e S2.12 concluídos/aprovados | A1–A13 (25/10), B em três etapas e apoio no piso (26/10). S2.11 liberada com `?interp=1`; S2.9 e aceite geral da etapa 6.5 permanecem |
 | 3 · Ondas, categorias e dispositivos | 🔲 Escopo oficial pendente | Hordas 10→20→30→40 antecipadas pela S2.4; não concluem S3.1/S3.4/S3.8. Defesas e categorias ainda pendentes |
 | 4 · Loot, orientação e retorno | 🔲 Não iniciado | — |
 | 5 · Construção da máquina | 🔲 Não iniciado | — |
@@ -177,3 +177,12 @@ Fase 6. A revisão/validação da parte A vem antes de ambas.
 - 18/10/2026 · codex · S6.13: autor aprovou a caixa e pediu duas instâncias no mapa com munição. Mesma worktree/base de runtime; escopo ampliado para interação, colisores simples, animação, +48 de reserva uma vez por tentativa e testes.
 
 - 22/10/2026 · codex · autor solicitou iniciar modelagem e rig do novo Astro Explorer com cinco ações. Base imutável `10e5ca7`, branch/worktree própria; estudo `414daae` como referência. As fontes soltas `art-source/astro-explorer/`, versões Explorador e GLBs ativos permanecem preservados.
+
+26/10/2026 — **S2.12 concluída**, aceite explícito do autor na branch S2.12 B:
+A1–A13 aprovados em 25/10 (`029f9e7`), velocidades 4,2/1,2 mantidas; B1 `f3a93ff`,
+B2 `aa74335`, B3 `191976c`, apoio `7397c42`. Claude sem defeitos, 208/208/build
+verde; blockout `?shanghaiAtual` funciona em 1/32/hordas. Recursos e Patrol grande,
+animal, mapa v007/estufa/Hangar e áudio (S3.10 antecipado) registrados nesta linha,
+sem encerrar os itens dos sprints futuros. **S2.11 liberada**, mesma branch/worktree,
+base será a ponta deste commit documental. Autor confirmou tela de **144 Hz**.
+Padrão atual preservado; comparar `?interp=1`, passo fixo, medições produção.
