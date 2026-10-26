@@ -335,7 +335,7 @@ export class CombatSimulation {
             const shot = this.shotPool[this.shotCursor++ % this.shotPool.length];
             shot.from.x = from.x; shot.from.z = from.z;
             shot.to.x = hit.to.x; shot.to.z = hit.to.z;
-            shot.life = 0.09; shot.hit = !!hit.robot;
+            shot.life = COMBAT_VFX.tracerLife; shot.hit = !!hit.robot;
             this.shots.push(shot);
             if (hit.robot) {
                 hit.robot.hp = Math.max(0, hit.robot.hp - COMBAT.rifle.damage);

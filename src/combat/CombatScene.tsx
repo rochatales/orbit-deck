@@ -1,3 +1,4 @@
+import { AdditiveBlending } from 'three';
 import { ChargeWarnings } from './ChargeWarnings';
 import { CombatEffects } from './CombatEffects';
 import { COMBAT_VFX } from './effects';
@@ -210,7 +211,7 @@ export function CombatScene({ world }: {
       <Billboard position={[0, 0.85, 0]}><mesh><shapeGeometry args={[heartShape]}/><meshBasicMaterial color="#ff4564"/></mesh></Billboard>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.035, 0]}><ringGeometry args={[0.5, 0.57, 24]}/><meshBasicMaterial color="#ff9bac"/></mesh>
     </group>)}
-    {[0, 1, 2].map(i => <mesh key={i} visible={false} ref={m => { tracers.current[i] = m; }}><cylinderGeometry args={[0.028, 0.028, 1, 5]}/><meshBasicMaterial color="#fff7a0"/></mesh>)}
+    {[0, 1, 2].map(i => <mesh key={i} visible={false} ref={m => { tracers.current[i] = m; }}><cylinderGeometry args={[COMBAT_VFX.tracerRadius, COMBAT_VFX.tracerRadius, 1, 8]}/><meshBasicMaterial color={[2,2,2]} toneMapped={false}/><mesh><cylinderGeometry args={[COMBAT_VFX.tracerHaloRadius,COMBAT_VFX.tracerHaloRadius,1,8]}/><meshBasicMaterial color="#ffe052" toneMapped={false} transparent opacity={COMBAT_VFX.tracerHaloOpacity} blending={AdditiveBlending} depthWrite={false}/></mesh></mesh>)}
     <mesh ref={reticle} rotation={[-Math.PI / 2, 0, 0]} visible={false}><ringGeometry args={[0.2, 0.27, 24]}/><meshBasicMaterial color="#71f4ff" depthTest={false}/></mesh>
   </>;
 }
