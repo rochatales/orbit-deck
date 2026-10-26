@@ -33,17 +33,20 @@ test('fila: patrulhas da fase 01 não travam de frente nos cantos compartilhados
         });
     }
     assert.ok(sim.robots.every(r => !r.alerted), 'patrulha sem ver o jogador');
-    assert.ok(closest > 0.5, `robôs não se sobrepõem (${closest.toFixed(2)} m)`);
+    assert.ok(closest >= COMBAT.robot.spacing - 1e-6, `robôs não se sobrepõem (${closest.toFixed(2)} m)`);
 });
 
 test('fila: na perseguição a horda cerca o jogador em vez de parar em linha atrás do primeiro', () => {
-    // Antes: todos chegavam pelas quatro linhas da grade; só 4 encostavam e 28 ficavam em cruz.
+    // Com spacing 1,34 e contato 1,07, o limite por corda é quatro círculos:
+    // floor(PI / asin(spacing / (2 * contactRange))) = 4. A aproximação por
+    // circunferência sugere cinco, mas ignora a distância entre centros.
+    // Mantemos os seis setores e a chegada de todos; não basta reduzir a contagem.
     const sim = new CombatSimulation(createPhase01Terrain(), 32, encounterLayout(true)), player = { x: 0, z: 0 };
     sim.robots.forEach(r => { r.alerted = true; });
     for (let frame = 0; frame < 60 * 40; frame++) { step(sim, player); sim.hp = 100; }
     const contact = sim.robots.filter(r => Math.hypot(r.x - player.x, r.z - player.z) <= COMBAT.robot.contactRange + 0.05).length;
     const sectors = new Set(sim.robots.filter(r => Math.hypot(r.x, r.z) < 4).map(r => Math.floor((Math.atan2(r.x, r.z) + Math.PI) / (Math.PI / 4)) % 8));
-    assert.ok(contact >= 6, `${contact} robôs em contato`);
+    assert.ok(contact >= 4, `${contact} robôs em contato`);
     assert.ok(sectors.size >= 6, `cerco em ${sectors.size} de 8 setores`);
     assert.ok(sim.robots.every(r => Math.hypot(r.x, r.z) < 6), 'todos chegam ao cerco');
 });

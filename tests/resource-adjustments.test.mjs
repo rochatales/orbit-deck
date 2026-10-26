@@ -54,7 +54,7 @@ test('Três GLBs reais: Idle/PulseGlow sem giro Y/bob interno; anel embutido ocu
  }
 });
 
-test('Comum visual 2,24 m proporcional; grande 3,20 m; raio/contato comuns aguardam etapa 3',()=>{
+test('Comum visual 2,24 m proporcional; grande 3,20 m; raio/contato comuns aplicados na etapa 3',()=>{
  assert.equal(PATROL_UNIT.height,2.24);assert.equal(PATROL_UNIT.scale,2.24/1.49);assert.equal(LARGE_PATROL_VISUAL.height,3.2);
- assert.equal(COMBAT.robot.radius,.42);assert.equal(COMBAT.robot.contactRange,.92);assert.equal(COMBAT.robot.spacing,.75);assert.equal(COMBAT.robot.separation,1.3);
+ assert.equal(COMBAT.robot.radius,.67);assert.equal(COMBAT.robot.contactRange,1.07);assert.equal(COMBAT.robot.spacing,1.34);assert.equal(COMBAT.robot.separation,1.6);
 });

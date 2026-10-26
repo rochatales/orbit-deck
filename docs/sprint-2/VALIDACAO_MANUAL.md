@@ -172,3 +172,27 @@ limitações em `docs/handoffs/s2.12-b/alturas-etapa-2.json` e handoff B.
 etapa; playtest e aceite são do autor. **Parada 2 para revisão Claude contra
 `48e0882`; não iniciar etapa 3.** As restrições anteriores sobre liberação da
 etapa 2 nas seções históricas ficam substituídas por esta liberação expressa.
+
+## S2.12 B — etapa 3, Parada 3 (26/10/2026)
+
+Etapa 2 (`aa74335`) aprovada pelo autor e revisada pelo Claude (199/199, build
+verde, sem defeitos). Contorno preto `48e0882` também revisado sem defeitos.
+Esta etapa parte de `aa74335` na worktree `s2-12-b`; roteiro histórico do checkout
+principal acima não se aplica à entrega ainda não integrada.
+
+- [ ] Observar 32 patrulheiros por 90 s, especialmente (±17,5; −18,5): sem fila
+  permanente, sem atravessar quinas. Comum: raio 0,67, spacing 1,34, separation
+  1,60, contato 1,07 m. Grande e animal conservam perfis próprios.
+- [ ] Alertar o grupo e parar em área livre: cerco de vários lados. Primeira linha
+  comporta quatro comuns pela distância entre centros; dano global preservado.
+- [ ] Encostar o jogador numa parede e contornar quinas: perseguição alcança
+  contato, respeita sólidos; tiro a 0,85 m acerta comum/grande/animal colados.
+- [ ] Jogar hordas 1–4 (13/26/30/40 ativos); conferir animais, grandes e conclusão
+  sem inimigo preso. Grandes têm 0,18 m de folga total na viela mais estreita
+  medida e passam individualmente sem atravessar paredes; conferir visualmente.
+- [ ] Conferir desembarque/ARES-I e acesso às duas caixas, incluindo chegada dos
+  grandes após eliminar a primeira linha de comuns.
+
+Agente: 205/205, build/diff-check verdes; capturas técnicas hordas 1 e 4 e ensaios
+em `docs/handoffs/s2.12-b/etapa-3/`. Revisão Claude e aceite do autor pendentes.
+Parada 3; S2.11 só após aceite do autor.

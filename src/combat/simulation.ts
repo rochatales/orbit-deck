@@ -1,3 +1,4 @@
+import { enemySpacing, enemySeparation } from './enemySpacing';
 import { containsShotHeight } from './shotVolume';
 import { SoundQueue } from '../audio/events';
 import { writeMutantPackTarget } from './mutantPack';
@@ -35,6 +36,18 @@ export interface Robot extends Position {
 function createRobot(id: number, x: number, z: number, routeIndex: number, waypoint: number, angle: number, spawned: boolean): Robot {
     return { kind: 'patrol', packAngle: 0, packReady: false, x, z, routeIndex, waypoint, id, hp: spawned ? COMBAT.robot.hp : 0, angle, path: [], repath: 0, flash: 0, alerted: false, alertLeft: 0, spawned, generation: spawned ? 1 : 0, pace: COMBAT.robot.speed, drop: id, stuck: 0 };
 }
+/** Spawn só vale com caminho inteiro livre e término dentro do contato do tipo. */
+export function validContactSpawn(terrain: Terrain, navigation: Navigation, start: Position, arrival: Position, radius: number, contactRange: number) {
+    if (!traversable(start, terrain, radius)) return false;
+    const path = navigation.path(start, arrival);
+    if (!path.length) return false;
+    let previous = start;
+    for (const point of path) {
+        if (!clearSegment(previous, point, terrain, radius)) return false;
+        previous = point;
+    }
+    return traversable(previous, terrain, radius) && Math.hypot(previous.x - arrival.x, previous.z - arrival.z) <= contactRange;
+}
 /**
  * Pontos de nascimento das hordas: o perímetro do mapa recuado `edgeInset`, a cada
  * `edgeStep` metros, em ordem ao redor do mapa. Só entram pontos livres de prédios e
@@ -50,14 +63,7 @@ export function hordeEdgeSpawns(terrain: Terrain, navigation: Navigation, arriva
                 : s < 2 * w + d ? { x: maxX - (s - w - d), z: maxZ }
                     : { x: minX, z: maxZ - (s - 2 * w - d) };
         if (!traversable(p, terrain, radius + 0.2)) continue;
-        const path = navigation.path(p, arrival);
-        if (!path.length) continue;
-        let previous = p, valid = true;
-        for (const point of path) {
-            if (!clearSegment(previous, point, terrain, radius)) { valid = false; break; }
-            previous = point;
-        }
-        if (valid && traversable(previous, terrain, radius) && Math.hypot(previous.x - arrival.x, previous.z - arrival.z) <= contactRange) result.push(p);
+        if (validContactSpawn(terrain, navigation, p, arrival, radius, contactRange)) result.push(p);
     }
     return result;
 }
@@ -181,6 +187,9 @@ export class CombatSimulation {
         else {
             const size = Number.isFinite(encounter) ? Math.max(1, Math.min(COMBAT.encounterSize, Math.floor(encounter))) : COMBAT.encounterSize;
             const spawns = (size <= 5 ? layout.small : layout.spawns).slice(0, size);
+            for (const spawn of spawns)
+                if (!validContactSpawn(terrain, this.navigation, spawn, layout.arrival, COMBAT.robot.radius, COMBAT.robot.contactRange))
+                    throw new Error('Spawn de patrulha sem caminho válido até contato no desembarque.');
             this.robots = spawns.map(({ x, z, routeIndex, waypoint }, id) => {
                 const target = layout.routes[routeIndex][waypoint];
                 return createRobot(id, x, z, routeIndex, waypoint, Math.atan2(target.x - x, target.z - z), true);
@@ -398,7 +407,9 @@ export class CombatSimulation {
                 const route = this.layout.routes[robot.routeIndex], point = route[robot.waypoint];
                 const away = Math.hypot(robot.x - point.x, robot.z - point.z);
                 // Canto ocupado por outro robô: segue para o próximo ponto em vez de esperar.
-                if (away < R.waypointReach || (robot.stuck > R.stuckAdvance && away < 2.5)) {
+                const following = route[(robot.waypoint + 1) % route.length];
+                const canRound = away < R.spacing && clearSegment(robot, following, this.terrain, R.radius);
+                if (away < R.waypointReach || canRound || (robot.stuck > R.stuckAdvance && away < 2.5)) {
                     robot.waypoint = (robot.waypoint + 1) % route.length;
                     robot.repath = 0;
                     robot.stuck = 0;
@@ -431,7 +442,8 @@ export class CombatSimulation {
                 continue;
             let ox = robot.x - other.x, oz = robot.z - other.z;
             const od = Math.hypot(ox, oz);
-            if (od >= R.separation)
+            const separation = enemySeparation(robot, other);
+            if (od >= separation)
                 continue;
             if (od < 1e-4) {
                 const a = robot.id * 2.399963;
@@ -440,7 +452,7 @@ export class CombatSimulation {
             else {
                 ox /= od; oz /= od;
             }
-            const weight = (R.separation - od) / R.separation;
+            const weight = (separation - od) / separation;
             sx += ox * weight; sz += oz * weight;
             // Vizinho à frente: desvia para a direita do próprio rumo, quebrando a simetria de frente.
             if (ox * dx + oz * dz < -0.5) {
@@ -456,8 +468,8 @@ export class CombatSimulation {
             mx /= ml; mz /= ml;
         }
         const step = Math.min(robot.pace * dt, d), next = this.nextPosition;
-        // 0°, depois ±36° e ±72° começando pela direita; ±108° só depois de um tempo preso.
-        const tries = robot.stuck > 0.3 ? 7 : 5;
+        // Começa pelo avanço e desvios laterais; preso por 0,3 s pode recuar até 180°.
+        const tries = robot.stuck > 0.3 ? 10 : 5;
         for (let k = 0; k < tries; k++) {
             const turn = k === 0 ? 0 : (k % 2 ? 1 : -1) * Math.ceil(k / 2) * R.sidestep, c = Math.cos(turn), s = Math.sin(turn);
             const nx = mx * c + mz * s, nz = mz * c - mx * s;
@@ -476,13 +488,11 @@ export class CombatSimulation {
     }
     /** Passo permitido se não aproxima o robô de outro já a menos de `spacing`. */
     private roomAt(robot: Robot, next: Position) {
-        const R = robotConfig(robot);
         for (const other of this.robots) {
             if (other === robot || other.hp <= 0)
                 continue;
             const after = Math.hypot(other.x - next.x, other.z - next.z);
-            const otherR = robotConfig(other);
-            const spacing = robot.kind !== other.kind || robot.kind === 'largePatrol' ? Math.max(R.radius + otherR.radius, (R.spacing + otherR.spacing) / 2) : R.spacing;
+            const spacing = enemySpacing(robot, other);
             if (after < spacing && after < Math.hypot(other.x - robot.x, other.z - robot.z) - 1e-6)
                 return false;
         }

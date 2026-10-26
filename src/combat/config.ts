@@ -6,7 +6,7 @@ export const COMBAT = {
     rifle: { magazine: 24, reserve: 96, damage: 25, interval: 0.18, reload: 1.5, range: 32 },
     robot: {
         hitHeight: { minY: 0, maxY: 2.31 },
-        hp: 75, speed: 1.65, radius: 0.42, contactRange: 0.92, damage: 15, contactInterval: 0.8, repath: 0.5, visionRange: 10, visionCos: Math.cos(Math.PI / 3),
+        hp: 75, speed: 1.65, radius: 0.67, contactRange: 1.07, damage: 15, contactInterval: 0.8, repath: 0.5, visionRange: 10, visionCos: Math.cos(Math.PI / 3),
         /** Muito perto percebe frente e laterais; costas cegas, sem parede no meio. */
         nearSense: 3,
         nearSenseCos: Math.cos(3 * Math.PI / 4),
@@ -14,7 +14,7 @@ export const COMBAT = {
         chaseSpeed: 2.05, paceRate: 3,
         // Desvio local: distância mínima entre robôs, raio de separação e preferência de lado
         // (todos desviam para o mesmo lado relativo, então dois robôs de frente se cruzam).
-        spacing: 0.75, separation: 1.3, separationWeight: 1.1, sidestep: Math.PI / 5, turnRate: 9,
+        spacing: 1.34, separation: 1.60, separationWeight: 1.1, sidestep: Math.PI / 5, turnRate: 9,
         /** Até esta distância e com caminho livre o robô vai direto ao jogador, em vez da grade. */
         directChase: 9,
         waypointReach: 0.5, stuckAdvance: 1.2,
@@ -110,9 +110,12 @@ export function writeRifleMuzzle(out: { x: number; z: number }, x: number, z: nu
 
 /** S6.1: Patrol grande, apenas nas duas últimas hordas. Tuning inicial do pedido. */
 export const LARGE_PATROL = {
-    ...COMBAT.robot, hitHeight: { minY: 0, maxY: 3.28 }, hp: 150, speed: 1.25, chaseSpeed: 1.55,
+    hitHeight: { minY: 0, maxY: 3.28 }, hp: 150, speed: 1.25, chaseSpeed: 1.55,
     radius: 1.65, spacing: 3.3, separation: 3.6, separationWeight: 0.5,
-    contactRange: 2.5, damage: 25, contactInterval: 1.2,
+    contactRange: 2.5, damage: 25, contactInterval: 1.2, repath: .5,
+    visionRange: 10, visionCos: Math.cos(Math.PI / 3), nearSense: 3,
+    nearSenseCos: Math.cos(3 * Math.PI / 4), paceRate: 3,
+    sidestep: Math.PI / 5, turnRate: 9, directChase: 9, waypointReach: .5, stuckAdvance: 1.2,
 } as const;
 /** Animal pequeno: valores próprios, sem herdar tuning do Patrol. Raio é aproximação circular. */
 export const SMALL_MUTANT = {

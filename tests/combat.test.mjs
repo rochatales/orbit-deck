@@ -70,7 +70,7 @@ test('1, 3 and 5 robot encounters can be cleared with the finite starting loadou
 });
 test('robots still pursue a player hugging a wall with smaller player clearance',()=>{
  const world=createWorld(),sim=new CombatSimulation(world,1),player={x:-7.15,z:1};
- // Player radius .32 fits here, robot radius .42 does not; route to adjacent free cell.
+ // Jogador 0,32 cabe; comum 0,67 precisa terminar em célula livre adjacente.
  assert.ok(traversable(player,world,.32));assert.equal(traversable(player,world,COMBAT.robot.radius),false);
  Object.assign(sim.robots[0],{x:-5,z:-5,alerted:true});
  ticks(sim,15,{...input,player});assert.ok(sim.hp<100,'wall hugging must not disable pursuit');

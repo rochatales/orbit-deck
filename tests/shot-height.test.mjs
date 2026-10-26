@@ -88,12 +88,12 @@ test('S2.12 B2: faixa própria de cada inimigo com extremos inclusivos; cano a 0
     }
 });
 
-test('S2.12 B2: altura não muda movimento, grade, visão nem raios e espaçamentos da etapa 3', () => {
+test('S2.12 B2: metadados de altura não mudam movimento/grade/visão; perfis vigentes da etapa 3', () => {
     const tall={...ground,obstacles:[box(10,20)]},flat={...ground,obstacles:[{minX:-1,maxX:1,minZ:3,maxZ:4}]};
     assert.equal(trace(tall).blocked,false);assert.equal(clearSegment(a,end,tall,.32),false);assert.equal(traversable({x:0,z:3.5},tall,.32),false);
     const observer={x:0,z:0,angle:0,kind:'patrol'};assert.equal(canSeePlayer(observer,end,tall),false);
     const nav=new Navigation(tall,.42,.5),old=new Navigation(flat,.42,.5);assert.deepEqual(nav.points,old.points);assert.deepEqual(nav.edges,old.edges);
-    assert.deepEqual([COMBAT.robot.radius,COMBAT.robot.spacing,COMBAT.robot.separation,COMBAT.robot.contactRange],[.42,.75,1.3,.92]);
+    assert.deepEqual([COMBAT.robot.radius,COMBAT.robot.spacing,COMBAT.robot.separation,COMBAT.robot.contactRange],[.67,1.34,1.6,1.07]);
     assert.deepEqual([LARGE_PATROL.radius,LARGE_PATROL.spacing,LARGE_PATROL.separation,LARGE_PATROL.contactRange],[1.65,3.3,3.6,2.5]);
     assert.deepEqual([SMALL_MUTANT.radius,SMALL_MUTANT.spacing,SMALL_MUTANT.separation,SMALL_MUTANT.contactRange],[.5,.65,1.1,.9]);
 });
