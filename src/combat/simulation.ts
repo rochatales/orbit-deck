@@ -1,3 +1,4 @@
+import { containsShotHeight } from './shotVolume';
 import { SoundQueue } from '../audio/events';
 import { writeMutantPackTarget } from './mutantPack';
 import { placeResourceDrop } from './resourcePlacement';
@@ -91,12 +92,13 @@ export function rayCircle(a: Position, b: Position, c: Position, r: number): num
     return t >= 0 && t <= 1 ? t : null;
 }
 export interface ShotTrace { to: Position; robot: Robot | null; blocked: boolean }
-/** Hitscan uses the same obstacle footprints as movement. Player is excluded by mask. */
-export function traceShot(a: Position, b: Position, terrain: Terrain, robots: Robot[], mask = RIFLE_MASK, out: ShotTrace = { to: { x: 0, z: 0 }, robot: null, blocked: false }) {
+/** Tiro horizontal: filtra a altura antes da pegada X/Z. Movimento e visão seguem 2D. */
+export function traceShot(a: Position, b: Position, terrain: Terrain, robots: Robot[], mask = RIFLE_MASK, out: ShotTrace = { to: { x: 0, z: 0 }, robot: null, blocked: false }, height: number = RIFLE_POSE.height) {
     out.blocked = false;
     let t = 1, robot: Robot | null = null;
     if (mask & HIT_LAYER.world)
         for (const obstacle of terrain.obstacles) {
+            if (!containsShotHeight(obstacle, height)) continue;
             const hit = segmentBox(a, b, obstacle);
             if (hit !== null && hit <= t) {
                 t = hit;
@@ -105,7 +107,7 @@ export function traceShot(a: Position, b: Position, terrain: Terrain, robots: Ro
         }
     if (mask & HIT_LAYER.enemy)
         for (const candidate of robots)
-            if (candidate.hp > 0) {
+            if (candidate.hp > 0 && containsShotHeight(robotConfig(candidate).hitHeight, height)) {
                 const hit = rayCircle(a, b, candidate, robotConfig(candidate).radius);
                 if (hit !== null && hit <= t && (!out.blocked || hit < t - 1e-9)) {
                     t = hit;

@@ -11,7 +11,7 @@ export function createPhase01Terrain(): OfficeWorld {
     const world: OfficeWorld = {
         surfaceHeight: phase01SurfaceHeight,
         group: new Group(), bounds: { ...data.bounds },
-        obstacles: data.obstacles.map(o => ({ minX: o.minX, maxX: o.maxX, minZ: o.minZ, maxZ: o.maxZ })),
+        obstacles: data.obstacles.map(o => ({ minX: o.minX, maxX: o.maxX, minZ: o.minZ, maxZ: o.maxZ, minY: o.minY, maxY: o.maxY })),
         walkableAreas: data.walkableAreas.map(a => ({ ...a })), update: () => { }
     };
     world.obstacles.push(...SHANGHAI_SUPPLY_CRATES.map(crateObstacle));

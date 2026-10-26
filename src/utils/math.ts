@@ -7,6 +7,12 @@ export interface RectBounds {
   maxZ: number;
 }
 
+/** Altura opcional usada apenas no tiro. Os demais consumidores usam a pegada X/Z. */
+export interface ShotVolume extends RectBounds {
+  minY?: number;
+  maxY?: number;
+}
+
 export const clamp = MathUtils.clamp;
 
 export function damp(current: number, target: number, smoothing: number, delta: number) {

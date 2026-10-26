@@ -146,3 +146,29 @@ animal ainda não implementada; envelope do bote chega a 1,180 m, proposta
 0–1,20 m para a etapa 2. Este roteiro não libera a etapa 2.
 Capturas e método assistido em `docs/handoffs/s6.1-mutante-pequeno/`;
 QA técnico não substitui o playtest. **Parar para revisão Claude antes do avanço.**
+
+
+## S2.12 B · etapa 2 — colisão de tiro com altura (25/10/2026)
+
+**Etapa 2 liberada pelo autor e entregue na Parada 2.** Base de revisão
+`48e0882`; build da worktree `/Users/rochatales/.codex/worktrees/s2-12-b/game-workplace`,
+branch `rochatales/s2.12-b`. Registrar SHA testado. A linha contém áudio S3.10
+antecipado e Hangar S6.12 com contorno preto; Hangar aprovado pelo autor,
+revisão Claude de `bdd4abe` sem defeitos (190/190/build), conforme relato.
+O aceite do Hangar não constitui aceite da etapa 2 B.
+
+| Caso | Conferir | Resultado |
+|---|---|---|
+| B2.1 · mundo e centro→cano | Em Shanghai fase 01, atirar contra prédio/carro/monte/ARES-I; repetir encostado em parede e quina. Cano/traçador seguem a 0,85 m e não atingem alvo atrás do bloqueio | pendente |
+| B2.2 · caixas | Nas duas caixas, tiro contra o corpo bloqueia fechado/abrindo/aberto. Tampa visual não amplia a faixa fixa 0–1,195 m; movimento continua bloqueado pelo corpo | pendente |
+| B2.3 · três inimigos | Comum, grande e animal recebem dano na marcha e no bote; mais próximo protege o de trás, parede à frente protege ambos. Faixas simples estáveis: 0–2,31 / 0–3,28 / 0–1,20 m | pendente |
+| B2.4 · regressão | Conferir movimento/visão/navegação 2D, mesmos raios e escala; viajar a Marte e observar Hangar/contorno preto/áudio preservados | pendente |
+
+Extremos abaixo/no limite/acima, ausência de metadados e preservação das 36
+alturas são ensaiados automaticamente; rifle do jogo permanece horizontal a
+0,85 m. Sem ferramenta de mira vertical nova. Medições dos GLBs a 120 Hz e
+limitações em `docs/handoffs/s2.12-b/alturas-etapa-2.json` e handoff B.
+199/199 testes/build/diff-check verdes. Não houve novo QA de navegador nesta
+etapa; playtest e aceite são do autor. **Parada 2 para revisão Claude contra
+`48e0882`; não iniciar etapa 3.** As restrições anteriores sobre liberação da
+etapa 2 nas seções históricas ficam substituídas por esta liberação expressa.
