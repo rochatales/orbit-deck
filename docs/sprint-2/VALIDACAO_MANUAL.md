@@ -225,3 +225,16 @@ handoff B, `apoio-piso/`; aceite visual do autor e revisão Claude pendentes.
 
 227/227, build/diff-check verdes; handoffs `s3.10-efeitos.md` e
 `s3.3-mutante-grande.md`. Aceite visual/jogabilidade é do autor, pendente.
+
+
+## Aranha ×2,5 e recuperação do grupo misto — retomada de 26/10/2026
+
+Base `c7f8bad`, aranha/investida em `d1ac5c6`, recuperação no commit seguinte. Itens abaixo são do autor, permanecem sem marcação.
+
+- [ ] Comparar aranha ao Patrol grande: escala 2,5, corpo com raio 1,66, acerto 0–2,92; conferir vielas (permitidas), tiro a 0,85 m e apoio no piso.
+- [ ] Provocar aviso de 0,8 s, largura 5,16 m e investida de até 10 m em rua ampla com cinco comuns; observar empurrão lateral sem dano aliado.
+- [ ] Repetir numa rua estreita: alguns podem ficar na faixa e são atravessados; ninguém entra em prédio. Parede transversal deve parar a corrida.
+- [ ] Hordas 13→26→32→44 (115): experimentar desembarque (0;9,5), rua norte (0;−41) e parede (9,60;−5); observar inversão de desvio, recuo curto dos menores e eventual passagem entre aliados somente no aperto, sem alterar sólidos do mapa/jogador.
+- [ ] Conferir o antigo grupo preso ao norte agora liberado e os Patrol grandes alcançando a ARES-I após neutralizar comuns; repetir pausa/retry/viagem.
+
+Agente: **245/245**, build/diff-check verdes. Ensaios completos nas três posições em **224,08 / 247,20 / 225,35 s**, 115/115, zero invasões, falta de progresso máxima **4,833 s**; critérios de 360 s/contato mantidos. Capturas e contadores por horda em `docs/handoffs/s3.3-mutante-grande/retomada-26-10/`. Revisão Claude e aceite do autor desta retomada pendentes.

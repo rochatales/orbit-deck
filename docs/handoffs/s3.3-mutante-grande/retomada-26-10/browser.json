@@ -1,0 +1,138 @@
+{
+  "base": "c7f8bad",
+  "method": "Fixture Shanghai em horda 3 (32); posicionamento técnico para comparação de escala e cinco robôs no caminho da investida; passos reais, HP do jogador restaurado só para o ensaio. Captura com passo congelado, sem aceite visual.",
+  "errors": [],
+  "comparison": {
+    "composition": {
+      "patrol": 25,
+      "largePatrol": 5,
+      "largeMutant": 2
+    },
+    "spider": {
+      "x": -4,
+      "z": 4
+    },
+    "patrol": {
+      "x": 4,
+      "z": 4
+    }
+  },
+  "scale": {
+    "scale": 2.5
+  },
+  "push": {
+    "before": [
+      {
+        "id": 0,
+        "x": -0.1,
+        "z": -4
+      },
+      {
+        "id": 1,
+        "x": 0.1,
+        "z": -2.3
+      },
+      {
+        "id": 2,
+        "x": -0.1,
+        "z": -0.6000000000000001
+      },
+      {
+        "id": 3,
+        "x": 0.1,
+        "z": 1.0999999999999996
+      },
+      {
+        "id": 4,
+        "x": -0.1,
+        "z": 2.8
+      }
+    ],
+    "after": [
+      {
+        "id": 0,
+        "x": -1.4026267168172288,
+        "z": -2.739299021833431,
+        "hp": 75,
+        "free": true
+      },
+      {
+        "id": 1,
+        "x": 1.4208138106970551,
+        "z": -1.2887207814399508,
+        "hp": 75,
+        "free": true
+      },
+      {
+        "id": 2,
+        "x": -1.4579529518148904,
+        "z": -0.4729887721792802,
+        "hp": 75,
+        "free": true
+      },
+      {
+        "id": 3,
+        "x": 2.541086781691874,
+        "z": 0.8459235377073663,
+        "hp": 75,
+        "free": true
+      },
+      {
+        "id": 4,
+        "x": -2.6734684261930552,
+        "z": 1.5636547010677486,
+        "hp": 75,
+        "free": true
+      }
+    ],
+    "pushed": 2,
+    "spider": {
+      "x": 0,
+      "z": 3.9999999999999885,
+      "phase": "cooldown",
+      "traveled": 10
+    }
+  },
+  "wide": {
+    "pushed": 5,
+    "invalid": 0,
+    "after": [
+      {
+        "id": 0,
+        "x": -19.782772638414396,
+        "z": -26.753362712280396,
+        "hp": 75
+      },
+      {
+        "id": 1,
+        "x": -15.417822632078266,
+        "z": -25.26890560691488,
+        "hp": 75
+      },
+      {
+        "id": 2,
+        "x": -19.857375249033772,
+        "z": -24.4693740221891,
+        "hp": 75
+      },
+      {
+        "id": 3,
+        "x": -14.958913218308128,
+        "z": -23.154076462292632,
+        "hp": 75
+      },
+      {
+        "id": 4,
+        "x": -20.173468426193054,
+        "z": -22.43634529893226,
+        "hp": 75
+      }
+    ],
+    "spider": {
+      "x": -17.5,
+      "z": -20.000000000000107,
+      "traveled": 10,
+      "phase": "cooldown"
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "method": "Rifle real e quatro hordas na fixture, mesmos passos fixos do ensaio automatizado. Câmera na mesma posição da evidência do bloqueio antigo; HP do jogador restaurado. Ensaio encerra ao neutralizar 115; não tempo de GPU.",
+  "player": {
+    "x": 0,
+    "z": 9.5
+  },
+  "maxIdle": 0.8166666666666675,
+  "maxNoProgress": 4.816666666666655,
+  "recovery": {
+    "repath": 13,
+    "yieldRequests": 6,
+    "yield": 4,
+    "pass": 5
+  },
+  "cleared": true,
+  "kills": 115,
+  "seconds": 224.0833333334038,
+  "remaining": 0,
+  "survivors": [],
+  "invalid": 0,
+  "ammo": 21,
+  "reserve": 70,
+  "waves": [
+    {
+      "wave": 1,
+      "spawned": 13,
+      "start": 4.016666666666658,
+      "clearedAt": 48.34999999999854,
+      "recovery": {
+        "repath": 0,
+        "yieldRequests": 0,
+        "yield": 0,
+        "pass": 0
+      }
+    },
+    {
+      "wave": 2,
+      "spawned": 26,
+      "start": 54.36666666666486,
+      "clearedAt": 97.69999999999574,
+      "recovery": {
+        "repath": 0,
+        "yieldRequests": 0,
+        "yield": 0,
+        "pass": 0
+      }
+    },
+    {
+      "wave": 3,
+      "spawned": 32,
+      "start": 103.71666666666206,
+      "clearedAt": 161.40000000002058,
+      "recovery": {
+        "repath": 3,
+        "yieldRequests": 1,
+        "yield": 1,
+        "pass": 1
+      }
+    },
+    {
+      "wave": 4,
+      "spawned": 44,
+      "start": 167.41666666669204,
+      "clearedAt": 224.0833333334038,
+      "recovery": {
+        "repath": 10,
+        "yieldRequests": 5,
+        "yield": 3,
+        "pass": 4
+      }
+    }
+  ]
+}

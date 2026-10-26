@@ -1,3 +1,4 @@
+import { newMovementRecovery, resetMovementRecovery, trackMovementGoal, updateMovementRecovery, movementPriority, MOVEMENT_RECOVERY, type MovementRecovery } from './movementRecovery';
 import { pushChargeEnemy, prepareCharge, finishCharge, type ChargeState } from './mutantCharge';
 import { CombatEffects, COMBAT_VFX, impactKind } from './effects';
 import { enemySpacing, enemySeparation } from './enemySpacing';
@@ -9,7 +10,7 @@ import { COMBAT, LARGE_PATROL, LARGE_MUTANT, MUTANT_CHARGE, SMALL_MUTANT, HORDE_
 import { Navigation, clearSegment, segmentBox, smoothPath, traversable, type Position, type Terrain } from './navigation';
 import { advanceCrate, openCrate, SUPPLY_CRATE, type CratePlacement, type CrateState } from '../game/props/supplyCrate';
 export interface SupplyCrate extends CrateState, CratePlacement { marker: Position; rewarded: boolean }
-export interface Robot extends Position, ChargeState {
+export interface Robot extends Position, ChargeState, MovementRecovery {
     recoil: number; recoilX: number; recoilZ: number;
     kind: RobotKind;
     packAngle: number;
@@ -37,7 +38,7 @@ export interface Robot extends Position, ChargeState {
     stuck: number;
 }
 function createRobot(id: number, x: number, z: number, routeIndex: number, waypoint: number, angle: number, spawned: boolean): Robot {
-    return { chargePhase: 'ready', chargeLeft:0, chargeDirX:0, chargeDirZ:1, chargeOriginX:0, chargeOriginZ:0, chargeDistance:0, chargeTraveled:0, chargeHit:false, recoil:0, recoilX:0, recoilZ:0, kind: 'patrol', packAngle: 0, packReady: false, x, z, routeIndex, waypoint, id, hp: spawned ? COMBAT.robot.hp : 0, angle, path: [], repath: 0, flash: 0, alerted: false, alertLeft: 0, spawned, generation: spawned ? 1 : 0, pace: COMBAT.robot.speed, drop: id, stuck: 0 };
+    return { ...newMovementRecovery(), chargePhase: 'ready', chargeLeft:0, chargeDirX:0, chargeDirZ:1, chargeOriginX:0, chargeOriginZ:0, chargeDistance:0, chargeTraveled:0, chargeHit:false, recoil:0, recoilX:0, recoilZ:0, kind: 'patrol', packAngle: 0, packReady: false, x, z, routeIndex, waypoint, id, hp: spawned ? COMBAT.robot.hp : 0, angle, path: [], repath: 0, flash: 0, alerted: false, alertLeft: 0, spawned, generation: spawned ? 1 : 0, pace: COMBAT.robot.speed, drop: id, stuck: 0 };
 }
 /** Spawn só vale com caminho inteiro livre e término dentro do contato do tipo. */
 export function validContactSpawn(terrain: Terrain, navigation: Navigation, start: Position, arrival: Position, radius: number, contactRange: number) {
@@ -240,7 +241,7 @@ export class CombatSimulation {
             requiredHits += Math.ceil(R.hp / COMBAT.rifle.damage); r.spawned = true; r.generation++;
             r.alerted = false; r.alertLeft = 0; r.flash = 0; r.recoil=0; r.stuck = 0; r.pace = R.speed;
             r.routeIndex = -1; r.waypoint = 0; r.path.length = 0; r.drop = this.dropCursor; this.dropCursor += kind === 'largeMutant' ? 3 : 1;
-            r.chargePhase='ready';r.chargeLeft=0;r.chargeHit=false;
+            r.chargePhase='ready';r.chargeLeft=0;r.chargeHit=false;resetMovementRecovery(r);r.avoidSide=1;
             // Caminhos em quadros alternados: 40 robôs não calculam rota no mesmo passo.
             r.repath = (i % 10) * COMBAT.fixedStep;
             r.angle = Math.atan2(player.x - p.x, player.z - p.z);
@@ -362,7 +363,8 @@ export class CombatSimulation {
             const player = input.player, distance = Math.hypot(robot.x - player.x, robot.z - player.z);
             if (!robot.alerted && canSeePlayer(robot, player, this.terrain))
                 alertRobot(robot);
-            if (robot.kind === 'largeMutant' && this.stepCharge(robot, input.player, dt)) continue;
+            if (robot.kind === 'largeMutant' && this.stepCharge(robot, input.player, dt)) {resetMovementRecovery(robot);continue;}
+            if(robot.yieldLeft>0){this.moveYield(robot,player,dt);continue;}
             if (robot.alerted && distance <= R.contactRange && clearSegment(robot, player, this.terrain, 0)) {
                 if (this.invulnerable === 0) {
                     this.hp = Math.max(0, this.hp - R.damage);
@@ -370,7 +372,7 @@ export class CombatSimulation {
                     this.damageFlash = 0.24;
                     this.sounds.emit('attack', robot.x, robot.z, robot.kind);
                 }
-                robot.stuck = 0;
+                robot.stuck = 0;resetMovementRecovery(robot);
                 turnToward(robot, player.x - robot.x, player.z - robot.z, dt);
                 continue;
             }
@@ -438,6 +440,11 @@ export class CombatSimulation {
      * quando a linha está livre e caminhos da grade suavizados.
      */
     private moveRobot(robot: Robot, player: Position, distance: number, dt: number) {
+        const action=updateMovementRecovery(robot,dt);
+        if(action===1)robot.repath=0;
+        if(action===2)this.requestYield(robot);
+        if(action===-1&&robot.passing&&this.alliesClear(robot)){robot.passing=false;robot.recoveryStage=0;}
+        if(robot.yieldLeft>0){this.moveYield(robot,player,dt,false);return;}
         const R = robotConfig(robot), navigation = robot.kind === 'largeMutant' ? this.largeMutantNavigation! : robot.kind === 'smallMutant' ? this.mutantNavigation! : robot.kind === 'largePatrol' ? this.largeNavigation! : this.navigation;
         robot.pace += ((robot.alerted ? R.chaseSpeed : R.speed) - robot.pace) * Math.min(1, R.paceRate * dt);
         const hunting = robot.alerted || robot.routeIndex < 0;
@@ -472,10 +479,10 @@ export class CombatSimulation {
                 || robot.path.length > 1 && clearSegment(robot, robot.path[1], this.terrain, R.radius)))
                 robot.path.shift();
             const target = robot.path[0];
-            if (!target)
-                return;
+            if (!target){trackMovementGoal(robot,chaseGoal.x,chaseGoal.z);return;}
             tx = target.x; tz = target.z;
         }
+        trackMovementGoal(robot,hunting?player.x:tx,hunting?player.z:tz);
         let dx = tx - robot.x, dz = tz - robot.z;
         const d = Math.hypot(dx, dz);
         if (d < 1e-6)
@@ -483,7 +490,7 @@ export class CombatSimulation {
         dx /= d; dz /= d;
         let sx = 0, sz = 0;
         for (const other of this.robots) {
-            if (other === robot || other.hp <= 0)
+            if (other === robot || other.hp <= 0 || robot.passing || other.passing)
                 continue;
             let ox = robot.x - other.x, oz = robot.z - other.z;
             const od = Math.hypot(ox, oz);
@@ -501,7 +508,7 @@ export class CombatSimulation {
             sx += ox * weight; sz += oz * weight;
             // Vizinho à frente: desvia para a direita do próprio rumo, quebrando a simetria de frente.
             if (ox * dx + oz * dz < -0.5) {
-                sx += dz * weight; sz -= dx * weight;
+                sx += dz * weight * robot.avoidSide; sz -= dx * weight * robot.avoidSide;
             }
         }
         let mx = dx + sx * R.separationWeight, mz = dz + sz * R.separationWeight;
@@ -516,11 +523,11 @@ export class CombatSimulation {
         // Começa pelo avanço e desvios laterais; preso por 0,3 s pode recuar até 180°.
         const tries = robot.stuck > 0.3 ? 10 : 5;
         for (let k = 0; k < tries; k++) {
-            const turn = k === 0 ? 0 : (k % 2 ? 1 : -1) * Math.ceil(k / 2) * R.sidestep, c = Math.cos(turn), s = Math.sin(turn);
+            const turn = k === 0 ? 0 : (k % 2 ? 1 : -1) * robot.avoidSide * Math.ceil(k / 2) * R.sidestep, c = Math.cos(turn), s = Math.sin(turn);
             const nx = mx * c + mz * s, nz = mz * c - mx * s;
             next.x = robot.x + nx * step;
             next.z = robot.z + nz * step;
-            if (clearSegment(robot, next, this.terrain, R.radius) && this.roomAt(robot, next)) {
+            if (clearSegment(robot, next, this.terrain, R.radius) && this.clearPlayerStep(robot,next,player) && this.roomAt(robot, next)) {
                 robot.x = next.x;
                 robot.z = next.z;
                 robot.stuck = 0;
@@ -531,10 +538,50 @@ export class CombatSimulation {
         robot.stuck += dt;
         turnToward(robot, dx, dz, dt);
     }
+    private clearPlayerStep(r: Robot, next: Position, player: Position) {
+        const radius=robotConfig(r).radius+MUTANT_CHARGE.playerRadius;
+        if(rayCircle(r,next,player,radius)===null)return true;
+        const before=Math.hypot(r.x-player.x,r.z-player.z),after=Math.hypot(next.x-player.x,next.z-player.z);
+        return before<radius && after>before+1e-6; // Uma sobreposição preexistente só pode diminuir.
+    }
+    private alliesClear(r: Robot) {
+        for(const other of this.robots)if(other!==r&&other.hp>0&&Math.hypot(other.x-r.x,other.z-r.z)<enemySpacing(r,other))return false;
+        return true;
+    }
+    /** A prioridade pode pedir ao menor que recue mesmo se ele próprio já estiver em contato. */
+    private requestYield(r: Robot) {
+        let smaller: Robot|undefined,bigger: Robot|undefined;
+        for(const other of this.robots){
+            if(other===r||other.hp<=0||Math.hypot(other.x-r.x,other.z-r.z)>enemySeparation(r,other)+.5)continue;
+            const dx=r.progressX-r.x,dz=r.progressZ-r.z;
+            if((other.x-r.x)*dx+(other.z-r.z)*dz<=0)continue;
+            if(movementPriority(other.kind)>movementPriority(r.kind))bigger=other;
+            if(movementPriority(other.kind)<movementPriority(r.kind)&&(!smaller||movementPriority(other.kind)<movementPriority(smaller.kind)))smaller=other;
+        }
+        const yielding=bigger?r:smaller;if(!yielding||yielding.yieldLeft>0||yielding.passing)return;
+        const dx=yielding.progressX-yielding.x,dz=yielding.progressZ-yielding.z,d=Math.hypot(dx,dz);
+        yielding.yieldX=yielding.x-(d>1e-6?dx/d:Math.sin(yielding.angle))*MOVEMENT_RECOVERY.yieldDistance;
+        yielding.yieldZ=yielding.z-(d>1e-6?dz/d:Math.cos(yielding.angle))*MOVEMENT_RECOVERY.yieldDistance;
+        yielding.yieldLeft=MOVEMENT_RECOVERY.yieldDuration;yielding.recoveryYields++;
+    }
+    private moveYield(r: Robot, player: Position, dt: number, update=true) {
+        r.yieldLeft=Math.max(0,r.yieldLeft-dt);
+        // O relógio de progresso não é apagado por recuo, inclusive quando ordenado por outro slot.
+        if(update)updateMovementRecovery(r,dt);
+        const dx=r.yieldX-r.x,dz=r.yieldZ-r.z,d=Math.hypot(dx,dz),R=robotConfig(r);
+        if(d<.08||r.passing){r.yieldLeft=0;r.repath=0;return;}
+        const step=Math.min(R.speed*dt,d),next=this.nextPosition;
+        for(let i=0;i<5;i++){
+            const angle=i===0?0:(i%2?1:-1)*Math.ceil(i/2)*Math.PI/4,c=Math.cos(angle),s=Math.sin(angle);
+            next.x=r.x+(dx*c+dz*s)/d*step;next.z=r.z+(dz*c-dx*s)/d*step;
+            if(clearSegment(r,next,this.terrain,R.radius)&&this.clearPlayerStep(r,next,player)&&this.roomAt(r,next)){r.x=next.x;r.z=next.z;break;}
+        }
+        if(r.yieldLeft===0)r.repath=0;
+    }
     /** Passo permitido se não aproxima o robô de outro já a menos de `spacing`. */
     private roomAt(robot: Robot, next: Position) {
         for (const other of this.robots) {
-            if (other === robot || other.hp <= 0)
+            if (other === robot || other.hp <= 0 || robot.passing || other.passing)
                 continue;
             const after = Math.hypot(other.x - next.x, other.z - next.z);
             const spacing = enemySpacing(robot, other);

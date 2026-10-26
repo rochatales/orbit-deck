@@ -50,8 +50,11 @@ export function surroundSizeReport() {
     const distances=s.robots.map(r=>Math.hypot(r.x,r.z)),near=s.robots.filter(r=>Math.hypot(r.x,r.z)<4),sectors=new Set(near.map(r=>Math.floor((Math.atan2(r.x,r.z)+Math.PI)/(Math.PI/4))%8));
     return {seconds:40,contact:distances.filter(d=>d<=COMBAT.robot.contactRange+.05).length,sectors:sectors.size,nearFour:near.length,maxDistance:Math.max(...distances),chordCapacity:Math.floor(Math.PI/Math.asin(COMBAT.robot.spacing/(2*COMBAT.robot.contactRange)))};
 }
-export function clearWavesSizeReport(maxSeconds=360) {
-    const s=new CombatSimulation(createPhase01Terrain(),'hordas',encounterLayout(true)),player={x:0,z:9.5},input=idle(player),muzzle={x:0,z:0},out={to:{x:0,z:0},robot:null,blocked:false},waves=[];let invalid=0,lastWave=0;
+export function clearWavesSizeReport(maxSeconds=360,player={x:0,z:9.5}) {
+    const s=new CombatSimulation(createPhase01Terrain(),'hordas',encounterLayout(true)),input=idle(player),muzzle={x:0,z:0},out={to:{x:0,z:0},robot:null,blocked:false},waves=[];let invalid=0,lastWave=0,maxIdle=0,maxNoProgress=0;
+    const previous=s.robots.map(r=>({x:r.x,z:r.z,generation:r.generation,idle:0}));
+    const counts=()=>s.robots.reduce((a,r)=>({repath:a.repath+r.recoveryRepaths,yieldRequests:a.yieldRequests+r.recoveryYieldAttempts,yield:a.yield+r.recoveryYields,pass:a.pass+r.recoveryPasses}),{repath:0,yieldRequests:0,yield:0,pass:0});
+    let waveCounts=counts();
     // Mira técnica instantânea, mesmo rifle/cadência/munição; HP restaurado para isolar conclusão/navegação.
     for(let frame=0;frame<60*maxSeconds&&!s.cleared;frame++){
         s.hp=100;input.firing=false;input.reload=s.ammo===0;
@@ -61,11 +64,11 @@ export function clearWavesSizeReport(maxSeconds=360) {
             if(traceShot(muzzle,r,s.terrain,s.robots,RIFLE_MASK,out).robot){input.aim.x=r.x;input.aim.z=r.z;input.firing=true;break;}
         }
         s.step(1/60,input);
-        if(s.wave!==lastWave){lastWave=s.wave;waves.push({wave:s.wave,spawned:s.alive,start:s.elapsed});}
-        if(s.alive===0&&waves.length&&!waves.at(-1).clearedAt)waves.at(-1).clearedAt=s.elapsed;
-        for(const r of s.robots)if(r.hp>0&&!traversable(r,s.terrain,robotConfig(r).radius))invalid++;
+        if(s.wave!==lastWave){lastWave=s.wave;waveCounts=counts();waves.push({wave:s.wave,spawned:s.alive,start:s.elapsed});}
+        if(s.alive===0&&waves.length&&!waves.at(-1).clearedAt){const now=counts();waves.at(-1).clearedAt=s.elapsed;waves.at(-1).recovery={repath:now.repath-waveCounts.repath,yieldRequests:now.yieldRequests-waveCounts.yieldRequests,yield:now.yield-waveCounts.yield,pass:now.pass-waveCounts.pass};}
+        for(const r of s.robots){const last=previous[r.id];last.idle=r.hp>0&&last.generation===r.generation&&Math.hypot(r.x-last.x,r.z-last.z)<1e-5?last.idle+1/60:0;maxIdle=Math.max(maxIdle,last.idle);maxNoProgress=Math.max(maxNoProgress,r.noProgress);last.x=r.x;last.z=r.z;last.generation=r.generation;if(r.hp>0&&!traversable(r,s.terrain,robotConfig(r).radius))invalid++;}
     }
-    return {cleared:s.cleared,kills:s.kills,seconds:s.elapsed,remaining:s.alive,survivors:s.robots.filter(r=>r.hp>0).map(r=>({id:r.id,kind:r.kind,x:r.x,z:r.z,hp:r.hp,phase:r.chargePhase,stuck:r.stuck,path:r.path})),invalid,ammo:s.ammo,reserve:s.reserve,waves};
+    return {player,maxIdle,maxNoProgress,recovery:counts(),cleared:s.cleared,kills:s.kills,seconds:s.elapsed,remaining:s.alive,survivors:s.robots.filter(r=>r.hp>0).map(r=>({id:r.id,kind:r.kind,x:r.x,z:r.z,hp:r.hp,phase:r.chargePhase,stuck:r.stuck,path:r.path})),invalid,ammo:s.ammo,reserve:s.reserve,waves};
 }
 export function largeArrivalSizeReport() {
     const t=createPhase01Terrain(),s=new CombatSimulation(t,'hordas',encounterLayout(true)),input=idle(data.exit);s.wave=3;s.waveLeft=.0001;s.step(1/60,input);
