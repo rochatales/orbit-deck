@@ -36,6 +36,8 @@ test('Simulação: morte amostra apoio uma vez; passos seguintes e coleta mantê
  const sim=new CombatSimulation(world,1),r=sim.robots[0];Object.assign(r,{x:0,z:0,hp:25});
  const input={player:{x:0,z:8},aim:{x:0,z:0},facingAngle:Math.PI,firing:true,reload:false};
  sim.step(1/60,input);assert.equal(sim.kills,1);assert.equal(queries,2);assert.equal(sim.drops[0].surfaceIron,.12);assert.equal(sim.drops[0].surfaceCopper,0);
+ // O ricochete consulta a mesma grade durante o voo; isola aqui o contrato de apoio do drop.
+ sim.effects.clear();
  for(let i=0;i<120;i++)sim.step(1/60,{...input,firing:false});assert.equal(queries,2);
  sim.step(1/60,{...input,player:{x:0,z:0},firing:false});assert.equal(sim.iron,1);assert.equal(queries,2);
 });

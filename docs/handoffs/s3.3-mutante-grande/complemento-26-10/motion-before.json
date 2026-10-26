@@ -1,0 +1,250 @@
+{
+  "label": "before",
+  "method": "12 s a 60 Hz na Shanghai real: um alvo central de cada tipo entre 9 robôs (7 comuns/2 grandes) na posição do congestionamento antigo, incluindo quatro atrás do grupo original; mesmos pontos/seed sem tiro, perseguição, carga desabilitada para isolar marcha. Medidas físicas e visuais por quadro. Trocas de locomoção não incluem ataque/morte.",
+  "cases": [
+    {
+      "kind": "largeMutant",
+      "neighbors": 9,
+      "maxVisualAngleDegrees": 8.59436692696235,
+      "maxPhysicalAngleDegrees": 8.59436692696235,
+      "blockedFrames": 227,
+      "locomotionChanges": 13,
+      "minClipInterval": 0.08333333333333304,
+      "switches": [
+        {
+          "frame": 20,
+          "clip": "ChaseRun"
+        },
+        {
+          "frame": 25,
+          "clip": "Idle"
+        },
+        {
+          "frame": 41,
+          "clip": "ChaseRun"
+        },
+        {
+          "frame": 46,
+          "clip": "Idle"
+        },
+        {
+          "frame": 61,
+          "clip": "ChaseRun"
+        },
+        {
+          "frame": 66,
+          "clip": "Idle"
+        },
+        {
+          "frame": 91,
+          "clip": "ChaseRun"
+        },
+        {
+          "frame": 103,
+          "clip": "Idle"
+        },
+        {
+          "frame": 141,
+          "clip": "ChaseRun"
+        },
+        {
+          "frame": 146,
+          "clip": "Idle"
+        },
+        {
+          "frame": 151,
+          "clip": "ChaseRun"
+        },
+        {
+          "frame": 173,
+          "clip": "Idle"
+        },
+        {
+          "frame": 241,
+          "clip": "ChaseRun"
+        }
+      ]
+    },
+    {
+      "kind": "largePatrol",
+      "neighbors": 9,
+      "maxVisualAngleDegrees": 8.59436692696235,
+      "maxPhysicalAngleDegrees": 8.59436692696235,
+      "blockedFrames": 212,
+      "locomotionChanges": 13,
+      "minClipInterval": 0.1166666666666667,
+      "switches": [
+        {
+          "frame": 2,
+          "clip": "ChaseRun"
+        },
+        {
+          "frame": 13,
+          "clip": "Idle"
+        },
+        {
+          "frame": 24,
+          "clip": "ChaseRun"
+        },
+        {
+          "frame": 32,
+          "clip": "Idle"
+        },
+        {
+          "frame": 63,
+          "clip": "ChaseRun"
+        },
+        {
+          "frame": 73,
+          "clip": "Idle"
+        },
+        {
+          "frame": 153,
+          "clip": "ChaseRun"
+        },
+        {
+          "frame": 160,
+          "clip": "Idle"
+        },
+        {
+          "frame": 186,
+          "clip": "ChaseRun"
+        },
+        {
+          "frame": 203,
+          "clip": "Idle"
+        },
+        {
+          "frame": 212,
+          "clip": "ChaseRun"
+        },
+        {
+          "frame": 233,
+          "clip": "Idle"
+        },
+        {
+          "frame": 241,
+          "clip": "ChaseRun"
+        }
+      ]
+    },
+    {
+      "kind": "patrol",
+      "neighbors": 9,
+      "maxVisualAngleDegrees": 8.59436692696235,
+      "maxPhysicalAngleDegrees": 8.59436692696235,
+      "blockedFrames": 247,
+      "locomotionChanges": 13,
+      "minClipInterval": 0.08333333333333304,
+      "switches": [
+        {
+          "frame": 1,
+          "clip": "PatrolWalk"
+        },
+        {
+          "frame": 71,
+          "clip": "Idle"
+        },
+        {
+          "frame": 77,
+          "clip": "PatrolWalk"
+        },
+        {
+          "frame": 86,
+          "clip": "Idle"
+        },
+        {
+          "frame": 152,
+          "clip": "PatrolWalk"
+        },
+        {
+          "frame": 157,
+          "clip": "Idle"
+        },
+        {
+          "frame": 243,
+          "clip": "PatrolWalk"
+        },
+        {
+          "frame": 397,
+          "clip": "Idle"
+        },
+        {
+          "frame": 406,
+          "clip": "PatrolWalk"
+        },
+        {
+          "frame": 415,
+          "clip": "Idle"
+        },
+        {
+          "frame": 420,
+          "clip": "PatrolWalk"
+        },
+        {
+          "frame": 468,
+          "clip": "Idle"
+        },
+        {
+          "frame": 474,
+          "clip": "PatrolWalk"
+        }
+      ]
+    },
+    {
+      "kind": "smallMutant",
+      "neighbors": 9,
+      "maxVisualAngleDegrees": 8.59436692696235,
+      "maxPhysicalAngleDegrees": 8.59436692696235,
+      "blockedFrames": 200,
+      "locomotionChanges": 11,
+      "minClipInterval": 0.033333333333333215,
+      "switches": [
+        {
+          "frame": 1,
+          "clip": "ChaseRun"
+        },
+        {
+          "frame": 56,
+          "clip": "Idle"
+        },
+        {
+          "frame": 64,
+          "clip": "ChaseRun"
+        },
+        {
+          "frame": 77,
+          "clip": "Idle"
+        },
+        {
+          "frame": 85,
+          "clip": "ChaseRun"
+        },
+        {
+          "frame": 98,
+          "clip": "Idle"
+        },
+        {
+          "frame": 101,
+          "clip": "ChaseRun"
+        },
+        {
+          "frame": 111,
+          "clip": "Idle"
+        },
+        {
+          "frame": 235,
+          "clip": "ChaseRun"
+        },
+        {
+          "frame": 240,
+          "clip": "Idle"
+        },
+        {
+          "frame": 242,
+          "clip": "ChaseRun"
+        }
+      ]
+    }
+  ]
+}

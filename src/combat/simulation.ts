@@ -1,3 +1,4 @@
+import { ENEMY_MOTION } from './enemyMotion';
 import { newMovementRecovery, resetMovementRecovery, trackMovementGoal, updateMovementRecovery, movementPriority, MOVEMENT_RECOVERY, type MovementRecovery } from './movementRecovery';
 import { pushChargeEnemy, prepareCharge, finishCharge, type ChargeState } from './mutantCharge';
 import { CombatEffects, COMBAT_VFX, impactKind } from './effects';
@@ -132,7 +133,7 @@ export function traceShot(a: Position, b: Position, terrain: Terrain, robots: Ro
 }
 export class CombatSimulation {
     readonly sounds = new SoundQueue();
-    readonly effects = new CombatEffects();
+    readonly effects = new CombatEffects((x,z)=>this.terrain.surfaceHeight?.(x,z)??0);
     hp: number = COMBAT.playerHp;
     ammo: number = COMBAT.rifle.magazine;
     reserve: number = COMBAT.rifle.reserve;
@@ -380,7 +381,7 @@ export class CombatSimulation {
                 hit = traceShot(muzzle, rifleEnd, this.terrain, this.robots, RIFLE_MASK, this.shotTrace);
             }
             this.effects.fire(muzzle.x,muzzle.z);
-            if(hit.blocked) this.effects.impact(hit.to.x,hit.to.z,impactKind(hit.robot?.kind));
+            if(hit.blocked) this.effects.impact(hit.to.x,hit.to.z,impactKind(hit.robot?.kind),-dx/length,-dz/length);
             this.sounds.emit('shot', muzzle.x, muzzle.z);
             this.ammo--;
             this.cooldown = COMBAT.rifle.interval;
@@ -538,7 +539,7 @@ export class CombatSimulation {
         if (d < 1e-6)
             return;
         dx /= d; dz /= d;
-        let sx = 0, sz = 0;
+        let sx = 0, sz = 0, neighbors = 0;
         for (const other of this.robots) {
             if (other === robot || other.hp <= 0 || robot.passing || other.passing)
                 continue;
@@ -547,6 +548,7 @@ export class CombatSimulation {
             const separation = enemySeparation(robot, other);
             if (od >= separation)
                 continue;
+            neighbors++;
             if (od < 1e-4) {
                 const a = robot.id * 2.399963;
                 ox = Math.sin(a); oz = Math.cos(a);
@@ -570,6 +572,27 @@ export class CombatSimulation {
             mx /= ml; mz /= ml;
         }
         const step = Math.min(robot.pace * dt, d), next = this.nextPosition;
+        const committing=neighbors>=2&&distance>R.directChase;
+        if(!committing)robot.steerLeft=0; // Cruzamento simples e aproximação final precisam reagir sem espera.
+        if(robot.steerLeft>0){
+            robot.steerLeft=Math.max(0,robot.steerLeft-dt);
+            const c=Math.cos(robot.steerTurn),s=Math.sin(robot.steerTurn),nx=mx*c+mz*s,nz=mz*c-mx*s;
+            next.x=robot.x+nx*step;next.z=robot.z+nz*step;
+            if(!clearSegment(robot,next,this.terrain,R.radius)||!this.clearPlayerStep(robot,next,player))robot.steerLeft=0;
+            else if(this.roomAt(robot,next)){robot.x=next.x;robot.z=next.z;robot.stuck=0;turnToward(robot,nx,nz,dt);return;}
+            else{
+                // Mantém o lado escolhido; se um aliado fecha o passo, abre mais o arco do mesmo lado.
+                const side=robot.steerTurn===0?robot.avoidSide:Math.sign(robot.steerTurn);
+                for(let j=1;j<=5;j++){
+                    const turn=side*Math.min(Math.PI,Math.abs(robot.steerTurn)+j*R.sidestep),c=Math.cos(turn),s=Math.sin(turn),nx=mx*c+mz*s,nz=mz*c-mx*s;
+                    next.x=robot.x+nx*step;next.z=robot.z+nz*step;
+                    if(clearSegment(robot,next,this.terrain,R.radius)&&this.clearPlayerStep(robot,next,player)&&this.roomAt(robot,next)){
+                        robot.x=next.x;robot.z=next.z;robot.stuck=0;robot.steerTurn=turn;turnToward(robot,nx,nz,dt);return;
+                    }
+                }
+                robot.stuck+=dt;return;
+            }
+        }
         // Começa pelo avanço e desvios laterais; preso por 0,3 s pode recuar até 180°.
         const tries = robot.stuck > 0.3 ? 10 : 5;
         for (let k = 0; k < tries; k++) {
@@ -580,13 +603,12 @@ export class CombatSimulation {
             if (clearSegment(robot, next, this.terrain, R.radius) && this.clearPlayerStep(robot,next,player) && this.roomAt(robot, next)) {
                 robot.x = next.x;
                 robot.z = next.z;
-                robot.stuck = 0;
+                robot.stuck = 0;robot.steerTurn=turn;robot.steerLeft=committing?ENEMY_MOTION.steerHold:0;
                 turnToward(robot, nx, nz, dt);
                 return;
             }
         }
-        robot.stuck += dt;
-        turnToward(robot, dx, dz, dt);
+        robot.stuck += dt; // Bloqueio não faz o corpo alternar rumo do alvo/desvio.
     }
     private clearPlayerStep(r: Robot, next: Position, player: Position) {
         const radius=robotConfig(r).radius+MUTANT_CHARGE.playerRadius;
@@ -612,7 +634,7 @@ export class CombatSimulation {
         const dx=yielding.progressX-yielding.x,dz=yielding.progressZ-yielding.z,d=Math.hypot(dx,dz);
         yielding.yieldX=yielding.x-(d>1e-6?dx/d:Math.sin(yielding.angle))*MOVEMENT_RECOVERY.yieldDistance;
         yielding.yieldZ=yielding.z-(d>1e-6?dz/d:Math.cos(yielding.angle))*MOVEMENT_RECOVERY.yieldDistance;
-        yielding.yieldLeft=MOVEMENT_RECOVERY.yieldDuration;yielding.recoveryYields++;
+        yielding.steerLeft=0;yielding.yieldLeft=MOVEMENT_RECOVERY.yieldDuration;yielding.recoveryYields++;
     }
     private moveYield(r: Robot, player: Position, dt: number, update=true) {
         r.yieldLeft=Math.max(0,r.yieldLeft-dt);
