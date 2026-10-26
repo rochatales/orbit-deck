@@ -1,3 +1,5 @@
+import { recordPhysicsStep } from '../../physics/interpolationTelemetry';
+import { INTERPOLATE, PLAYER_POSE_PRIORITY } from '../../physics/interpolation';
 import { approachSupportHeight } from '../../game/supportHeight';
 import { useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
@@ -11,7 +13,7 @@ import { GameControl } from "../../controls/keyboardControls";
 import { EDEN } from "../../game/config";
 import { useExpeditionStore } from "../../state/useExpeditionStore";
 import { useGameStore } from "../../state/useGameStore";
-import { publishPlayerFrame } from "../../state/playerTransient";
+import { publishPlayerFrame, writePlayerVisualPosition } from "../../state/playerTransient";
 import { clamp, damp, type RectBounds } from "../../utils/math";
 import type { OfficeWorld } from "../../world/createOfficeMap";
 import {
@@ -93,7 +95,8 @@ export function PlayerController({
   officeWorld,
   motionRef
 }: PlayerControllerProps) {
-  const { world } = useRapier();
+  const { world, rigidBodyStates } = useRapier();
+  const revision = useRef(useExpeditionStore.getState().session.revision);
   const isPaused = useGameStore((state) => state.isPaused);
   const isDialogOpen = useExpeditionStore((state) => state.panel !== null);
   const activeNpcId = useExpeditionStore((state) => state.panel === "eden" ? "eden" : null);
@@ -143,6 +146,7 @@ export function PlayerController({
     }
 
     const dt = stepWorld.integrationParameters.dt;
+    recordPhysicsStep(dt);
     if (simulationBlocked()) {
       // menus, diálogos, pausa, morte e transições: sem deslocamento e sem locomoção no lugar
       velocityRef.current.set(0, 0, 0); speedRef.current = 0; kindRef.current = "idle"; motionRef.current.planarSpeed = 0;
@@ -243,9 +247,15 @@ export function PlayerController({
     }
 
     // Posição frequente fora do React; a store só recebe a mudança de condição de interação.
+    if (INTERPOLATE && revision.current !== useExpeditionStore.getState().session.revision) return;
     const translation = body.translation();
     publishPlayerFrame(translation.x, translation.y - PLAYER_COLLIDER_CENTER_Y + motionRef.current.visualBob, translation.z, useExpeditionStore.getState().session.map, facingAngleRef.current);
-  });
+    const visual = INTERPOLATE ? rigidBodyStates.get(body.handle)?.object : null;
+    if (visual) {
+      visual.getWorldPosition(movementRef.current);
+      writePlayerVisualPosition(movementRef.current.x, movementRef.current.y - PLAYER_COLLIDER_CENTER_Y, movementRef.current.z);
+    } else writePlayerVisualPosition(translation.x, translation.y - PLAYER_COLLIDER_CENTER_Y, translation.z);
+  }, PLAYER_POSE_PRIORITY);
 
   return null;
 }

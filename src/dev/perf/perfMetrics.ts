@@ -311,6 +311,7 @@ export function readHeapMemory(memory: Partial<{ usedJSHeapSize: number; totalJS
 export interface Size2D { width: number; height: number }
 
 export interface MeasurementContext {
+  interpolation?: ReturnType<typeof import('../../physics/interpolationTelemetry').interpolationSnapshot>;
   capturedAt: string;
   build: 'development' | 'production';
   userAgent: string | null;

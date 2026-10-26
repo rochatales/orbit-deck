@@ -13,6 +13,12 @@ export const SHIP_INTERACTION_RADIUS = 2.7;
  */
 export const playerPosition: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0.8 };
 
+/** Pés do grupo interpolado do Rapier; apenas câmera/desenho, nunca combate. */
+export const playerVisualPosition = { x: 0, y: 0, z: .8 };
+export function writePlayerVisualPosition(x: number, y: number, z: number) {
+    playerVisualPosition.x = x; playerVisualPosition.y = y; playerVisualPosition.z = z;
+}
+
 /** Rumo real suavizado do corpo, fora do React; resetado junto da posição. */
 export const playerFacing = { angle: 0 };
 
@@ -25,6 +31,7 @@ export function writePlayerPosition(x: number, y: number, z: number) {
 /** Reposição explícita (spawn, viagem, retry): vale já para o próximo leitor. */
 export function placePlayer(spawn: Point) {
     writePlayerPosition(spawn.x, spawn.y, spawn.z);
+    writePlayerVisualPosition(spawn.x, spawn.y, spawn.z);
     playerFacing.angle = 0;
 }
 

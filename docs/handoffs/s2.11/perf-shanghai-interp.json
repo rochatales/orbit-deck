@@ -1,0 +1,417 @@
+{
+  "version": 2,
+  "context": {
+    "interpolation": {
+      "enabled": true,
+      "timeStep": 0.016666666666666666,
+      "frames": 937,
+      "steps": 931,
+      "minStep": 0.01666666753590107,
+      "maxStep": 0.01666666753590107,
+      "maxOffset": 0.05922465120560421,
+      "maxHorizontal": 0.05922465120560421,
+      "physical": {
+        "x": 0.32432007789611816,
+        "y": 0,
+        "z": 9.639900207519531
+      },
+      "visual": {
+        "x": 0.32432007789611816,
+        "y": 0,
+        "z": 9.639902488708621
+      },
+      "cameraSource": {
+        "x": 0.32432007789611816,
+        "y": 0,
+        "z": 9.639902488708621
+      },
+      "cameraTarget": {
+        "x": 0.32431998552745867,
+        "y": 0.55,
+        "z": 9.634678343938155
+      },
+      "cameraAngle": 0.7853981633974483,
+      "cameraZoom": 61.53846153846155
+    },
+    "capturedAt": "2026-10-26T15:19:46.196Z",
+    "build": "production",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36",
+    "browserBrands": "Not:A-Brand 8, Chromium 156, HeadlessChrome 156",
+    "gpuRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Pro, Unspecified Version)",
+    "hardwareConcurrency": 12,
+    "deviceMemoryGb": 16,
+    "screen": {
+      "width": 1440,
+      "height": 1000
+    },
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "canvasCss": {
+      "width": 1440,
+      "height": 1000
+    },
+    "canvasBuffer": {
+      "width": 1440,
+      "height": 1000
+    },
+    "devicePixelRatio": 1,
+    "rendererPixelRatio": 1
+  },
+  "pageLoad": {
+    "responseEndMs": 9.700000047683716,
+    "domContentLoadedMs": 148,
+    "loadEventEndMs": 148,
+    "documentTransferBytes": 695
+  },
+  "resources": {
+    "count": 61,
+    "transferBytes": 112762569,
+    "encodedBytes": 117345773,
+    "models": [
+      {
+        "file": "colony-v007-e4af2fda.glb",
+        "startMs": 447,
+        "responseEndMs": 487.2000000476837,
+        "durationMs": 40.200000047683716,
+        "transferBytes": 11573012,
+        "encodedBytes": 11572712
+      },
+      {
+        "file": "brand-brain-f7c02996.glb",
+        "startMs": 447.39999997615814,
+        "responseEndMs": 598.3000000715256,
+        "durationMs": 150.90000009536743,
+        "transferBytes": 20737632,
+        "encodedBytes": 20737332
+      },
+      {
+        "file": "explorador-r7-143a14d0.glb",
+        "startMs": 476.2000000476837,
+        "responseEndMs": 530.8000000715256,
+        "durationMs": 54.60000002384186,
+        "transferBytes": 6537404,
+        "encodedBytes": 6537104
+      },
+      {
+        "file": "ares-lander-2491f474.glb",
+        "startMs": 526.8999999761581,
+        "responseEndMs": 561.3999999761581,
+        "durationMs": 34.5,
+        "transferBytes": 4601804,
+        "encodedBytes": 4601504
+      },
+      {
+        "file": "deck-mars-59b4cb7d.glb",
+        "startMs": 527,
+        "responseEndMs": 536.5,
+        "durationMs": 9.5,
+        "transferBytes": 1395200,
+        "encodedBytes": 1394900
+      },
+      {
+        "file": "colony-v006-5a6e6d9c.glb",
+        "startMs": 527.1000000238419,
+        "responseEndMs": 566.7000000476837,
+        "durationMs": 39.60000002384186,
+        "transferBytes": 7025972,
+        "encodedBytes": 7025672
+      },
+      {
+        "file": "greenhouse-v001-a5668881.glb",
+        "startMs": 527.2000000476837,
+        "responseEndMs": 555.5,
+        "durationMs": 28.299999952316284,
+        "transferBytes": 2591708,
+        "encodedBytes": 2591408
+      },
+      {
+        "file": "hangar-v002-efdecfb3.glb",
+        "startMs": 527.3000000715256,
+        "responseEndMs": 565,
+        "durationMs": 37.699999928474426,
+        "transferBytes": 3340288,
+        "encodedBytes": 3339988
+      },
+      {
+        "file": "shanghai-fase01-e1061fcc.glb",
+        "startMs": 20531.200000047684,
+        "responseEndMs": 20771.899999976158,
+        "durationMs": 240.69999992847443,
+        "transferBytes": 11099584,
+        "encodedBytes": 11099284
+      },
+      {
+        "file": "ares-lander-2491f474.glb",
+        "startMs": 20531.399999976158,
+        "responseEndMs": 20693.300000071526,
+        "durationMs": 161.90000009536743,
+        "transferBytes": 300,
+        "encodedBytes": 4601504
+      },
+      {
+        "file": "patrol-unit-c01d3ea6.glb",
+        "startMs": 21291.399999976158,
+        "responseEndMs": 21370.399999976158,
+        "durationMs": 79,
+        "transferBytes": 9353544,
+        "encodedBytes": 9353244
+      },
+      {
+        "file": "large-patrol-unit-acb2d8e1.glb",
+        "startMs": 21711.700000047684,
+        "responseEndMs": 21725.5,
+        "durationMs": 13.799999952316284,
+        "transferBytes": 5337472,
+        "encodedBytes": 5337172
+      },
+      {
+        "file": "mutant-animal-6680135e.glb",
+        "startMs": 22045.100000023842,
+        "responseEndMs": 22060.5,
+        "durationMs": 15.399999976158142,
+        "transferBytes": 10624616,
+        "encodedBytes": 10624316
+      },
+      {
+        "file": "cobre-6e8aad10.glb",
+        "startMs": 22402.800000071526,
+        "responseEndMs": 22413.100000023842,
+        "durationMs": 10.299999952316284,
+        "transferBytes": 2435352,
+        "encodedBytes": 2435052
+      },
+      {
+        "file": "caixa-suprimentos-v001-c4fde32f.glb",
+        "startMs": 22403.200000047684,
+        "responseEndMs": 22419,
+        "durationMs": 15.799999952316284,
+        "transferBytes": 3775664,
+        "encodedBytes": 3775364
+      },
+      {
+        "file": "ferro-bdaf53f4.glb",
+        "startMs": 22714.899999976158,
+        "responseEndMs": 22733.700000047684,
+        "durationMs": 18.800000071525574,
+        "transferBytes": 5057852,
+        "encodedBytes": 5057552
+      },
+      {
+        "file": "titanio-1bf1c024.glb",
+        "startMs": 23054.200000047684,
+        "responseEndMs": 23123.100000023842,
+        "durationMs": 68.89999997615814,
+        "transferBytes": 4984228,
+        "encodedBytes": 4983928
+      },
+      {
+        "file": "materia-organica-35ab8351.glb",
+        "startMs": 23475.899999976158,
+        "responseEndMs": 23489.5,
+        "durationMs": 13.600000023841858,
+        "transferBytes": 770280,
+        "encodedBytes": 769980
+      }
+    ]
+  },
+  "sceneEvents": [
+    {
+      "kind": "canvas-mounted",
+      "map": "mars",
+      "atMs": 532.3000000715256,
+      "sinceMapLoadingMs": null,
+      "inferred": false
+    },
+    {
+      "kind": "map-data-ready",
+      "map": "mars",
+      "atMs": 532.3000000715256,
+      "sinceMapLoadingMs": null,
+      "inferred": true
+    },
+    {
+      "kind": "canvas-first-frame",
+      "map": "mars",
+      "atMs": 538.5,
+      "sinceMapLoadingMs": null,
+      "inferred": false
+    },
+    {
+      "kind": "scene-first-draw",
+      "map": "mars",
+      "atMs": 1049.6000000238419,
+      "sinceMapLoadingMs": null,
+      "inferred": false
+    },
+    {
+      "kind": "scene-assets-ready",
+      "map": "mars",
+      "atMs": 1150.1000000238419,
+      "sinceMapLoadingMs": null,
+      "inferred": false
+    },
+    {
+      "kind": "map-loading",
+      "map": "shanghai",
+      "atMs": 19984.100000023842,
+      "sinceMapLoadingMs": 0,
+      "inferred": false
+    },
+    {
+      "kind": "map-data-ready",
+      "map": "shanghai",
+      "atMs": 20438.5,
+      "sinceMapLoadingMs": 454.39999997615814,
+      "inferred": false
+    },
+    {
+      "kind": "canvas-mounted",
+      "map": "shanghai",
+      "atMs": 20686.5,
+      "sinceMapLoadingMs": 702.3999999761581,
+      "inferred": false
+    },
+    {
+      "kind": "canvas-first-frame",
+      "map": "shanghai",
+      "atMs": 20697.399999976158,
+      "sinceMapLoadingMs": 713.2999999523163,
+      "inferred": false
+    },
+    {
+      "kind": "scene-first-draw",
+      "map": "shanghai",
+      "atMs": 24211.100000023842,
+      "sinceMapLoadingMs": 4227,
+      "inferred": false
+    },
+    {
+      "kind": "scene-assets-ready",
+      "map": "shanghai",
+      "atMs": 24231.100000023842,
+      "sinceMapLoadingMs": 4247,
+      "inferred": false
+    }
+  ],
+  "latestCounters": {
+    "sampledAtMs": 39831.10000002384,
+    "drawCalls": 79,
+    "triangles": 183313,
+    "geometries": 93,
+    "textures": 29,
+    "programs": 28
+  },
+  "heap": {
+    "usedBytes": 10600000,
+    "totalBytes": 12700000,
+    "limitBytes": 3760000000
+  },
+  "samples": [
+    {
+      "status": "valid",
+      "invalidReason": null,
+      "warnings": [],
+      "startedAtMs": 2170.8000000715256,
+      "requestedMs": 10000,
+      "elapsedMs": 10011.5,
+      "map": "mars",
+      "coverage": {
+        "intervalsCollected": 600,
+        "intervalsCapacity": 5016,
+        "intervalsSaturated": false,
+        "countersCollected": 92,
+        "countersCapacity": 116,
+        "countersSaturated": false
+      },
+      "rafIntervals": {
+        "count": 600,
+        "p50": 16.699999999999818,
+        "p95": 16.700000000000728,
+        "max": 16.80000000000109,
+        "mean": 16.666000000000004,
+        "rafOver33": 0,
+        "rafOver50": 0
+      },
+      "longAnimationFrames": {
+        "supported": true,
+        "count": 0,
+        "maxDurationMs": null
+      },
+      "renderer": {
+        "samples": 92,
+        "firstSampledAtMs": 2183.100000023842,
+        "lastSampledAtMs": 12082.300000071526,
+        "drawCalls": {
+          "min": 536,
+          "max": 543,
+          "mean": 539.0326086956521
+        },
+        "triangles": {
+          "min": 572939,
+          "max": 574013,
+          "mean": 573672.1521739131
+        }
+      }
+    },
+    {
+      "status": "valid",
+      "invalidReason": null,
+      "warnings": [],
+      "startedAtMs": 29817.800000071526,
+      "requestedMs": 10000,
+      "elapsedMs": 10012.699999928474,
+      "map": "shanghai",
+      "coverage": {
+        "intervalsCollected": 599,
+        "intervalsCapacity": 5016,
+        "intervalsSaturated": false,
+        "countersCollected": 93,
+        "countersCapacity": 116,
+        "countersSaturated": false
+      },
+      "rafIntervals": {
+        "count": 599,
+        "p50": 16.69999999999709,
+        "p95": 16.799999999995634,
+        "max": 33.400000000001455,
+        "mean": 16.693823038397333,
+        "rafOver33": 1,
+        "rafOver50": 0
+      },
+      "longAnimationFrames": {
+        "supported": true,
+        "count": 1,
+        "maxDurationMs": 61.299999952316284
+      },
+      "renderer": {
+        "samples": 93,
+        "firstSampledAtMs": 29830.899999976158,
+        "lastSampledAtMs": 39780.800000071526,
+        "drawCalls": {
+          "min": 77,
+          "max": 80,
+          "mean": 79.91397849462365
+        },
+        "triangles": {
+          "min": 183217,
+          "max": 183359,
+          "mean": 183354.97849462365
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "Intervalos medidos entre callbacks de requestAnimationFrame: incluem CPU, espera de vsync e agendamento do navegador. Não são tempo de GPU.",
+    "A cadência mínima é limitada pela taxa de atualização da tela; 8,3 ms em 120 Hz não indica folga de GPU.",
+    "Intervalos de rAF acima de 33,3 ms e de 50 ms são contagens próprias, distintas dos eventos da API Long Animation Frames.",
+    "Draw calls e triângulos vêm de renderer.info e refletem o render imediatamente anterior à leitura. Na three 0.165 o reset automático ocorre depois do shadow map, então os passes de sombra não entram nessas contagens.",
+    "Geometrias e texturas são contagens de objetos vivos no renderer, não memória em bytes.",
+    "Memória de heap JS vem de performance.memory, API não padronizada e quantizada (Chromium); ausente nos demais navegadores.",
+    "Medições no servidor de desenvolvimento não são benchmark; prefira o build de produção (npm run preview).",
+    "Aba oculta durante uma amostra a invalida; pausa do jogo durante a amostra é registrada como aviso.",
+    "\"map-data-ready\" indica dados do mapa disponíveis (store da expedição), não cena renderizada. A cena renderizada é \"scene-first-draw\" e, com os personagens GLB, \"scene-assets-ready\".",
+    "Na entrada inicial, \"map-data-ready\" é inferido na montagem do canvas (marcado como inferido); os tempos da entrada inicial contam a partir do início da navegação."
+  ]
+}
