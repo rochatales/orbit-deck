@@ -1,3 +1,4 @@
+import { approachSupportHeight } from '../../game/supportHeight';
 import { useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useBeforePhysicsStep, useRapier, type RapierCollider, type RapierRigidBody } from "@react-three/rapier";
@@ -190,7 +191,7 @@ export function PlayerController({
       collider,
       {
         x: desiredTranslation.x,
-        y: PLAYER_COLLIDER_CENTER_Y + (officeWorld.supportHeight?.(translation.x + desiredTranslation.x, translation.z + desiredTranslation.z) ?? 0) - translation.y,
+        y: PLAYER_COLLIDER_CENTER_Y + approachSupportHeight(translation.y - PLAYER_COLLIDER_CENTER_Y, officeWorld.supportHeight?.(translation.x + desiredTranslation.x, translation.z + desiredTranslation.z) ?? 0, dt, officeWorld.supportTransition) - translation.y,
         z: desiredTranslation.z
       },
       undefined,
@@ -201,7 +202,7 @@ export function PlayerController({
     const correctedMovement = controller.computedMovement();
     body.setNextKinematicTranslation({
       x: translation.x + correctedMovement.x,
-      y: PLAYER_COLLIDER_CENTER_Y + (officeWorld.supportHeight?.(translation.x + correctedMovement.x, translation.z + correctedMovement.z) ?? 0),
+      y: PLAYER_COLLIDER_CENTER_Y + approachSupportHeight(translation.y - PLAYER_COLLIDER_CENTER_Y, officeWorld.supportHeight?.(translation.x + correctedMovement.x, translation.z + correctedMovement.z) ?? 0, dt, officeWorld.supportTransition),
       z: translation.z + correctedMovement.z
     });
 

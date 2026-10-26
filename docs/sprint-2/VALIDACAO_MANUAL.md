@@ -196,3 +196,18 @@ principal acima não se aplica à entrega ainda não integrada.
 Agente: 205/205, build/diff-check verdes; capturas técnicas hordas 1 e 4 e ensaios
 em `docs/handoffs/s2.12-b/etapa-3/`. Revisão Claude e aceite do autor pendentes.
 Parada 3; S2.11 só após aceite do autor.
+
+### Complemento B3 — apoio no piso de Shanghai (26/10/2026)
+
+- [ ] Correr e recuar rua↔calçada, canteiro e grama: pés apoiados, transição
+  curta sem salto perceptível ou travamento no meio-fio.
+- [ ] Observar comum, grande e animal nos mesmos pisos, durante marcha e morte;
+  coletar os drops e conferir anéis acima da superfície.
+- [ ] Conferir caixas Oeste/Nordeste (ambas na rua) e corações apoiados.
+- [ ] Conferir cano visual 12 cm acima do tiro sobre calçada (14,8 cm no canteiro,
+  25 cm na grama). Tiro permanece a 0,85 m da rua por decisão de escopo; avaliar
+  proposta futura de torná-lo relativo ao piso, sem aprová-la implicitamente.
+- [ ] Voltar a Marte e percorrer o Hangar/rampa: apoio anterior preservado.
+
+208/208, build/diff-check verdes. Capturas comparativas e medições técnicas no
+handoff B, `apoio-piso/`; aceite visual do autor e revisão Claude pendentes.

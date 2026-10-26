@@ -1,0 +1,128 @@
+{
+  "stage": "depois",
+  "method": "Fixture técnica: slots isolados e imóveis no mesmo ponto de calçada, câmera próxima; não é aceite do autor.",
+  "errors": [],
+  "types": {
+    "patrol": {
+      "y": 0.12
+    },
+    "largePatrol": {
+      "y": 0.12
+    },
+    "smallMutant": {
+      "y": 0.12
+    }
+  },
+  "support": [
+    {
+      "kind": "patrol",
+      "x": -17.5,
+      "z": 10,
+      "expected": 0,
+      "y": 0
+    },
+    {
+      "kind": "patrol",
+      "x": -24.8,
+      "z": 5,
+      "expected": 0.12,
+      "y": 0.12
+    },
+    {
+      "kind": "patrol",
+      "x": -44.55,
+      "z": -28.9,
+      "expected": 0.148,
+      "y": 0.148
+    },
+    {
+      "kind": "patrol",
+      "x": -44.144267376547816,
+      "z": -27.661831820686604,
+      "expected": 0.25,
+      "y": 0.25
+    },
+    {
+      "kind": "largePatrol",
+      "x": -17.5,
+      "z": 10,
+      "expected": 0,
+      "y": 0
+    },
+    {
+      "kind": "largePatrol",
+      "x": -24.8,
+      "z": 5,
+      "expected": 0.12,
+      "y": 0.12
+    },
+    {
+      "kind": "largePatrol",
+      "x": -44.55,
+      "z": -28.9,
+      "expected": 0.148,
+      "y": 0.148
+    },
+    {
+      "kind": "largePatrol",
+      "x": -44.144267376547816,
+      "z": -27.661831820686604,
+      "expected": 0.25,
+      "y": 0.25
+    },
+    {
+      "kind": "smallMutant",
+      "x": -17.5,
+      "z": 10,
+      "expected": 0,
+      "y": 0
+    },
+    {
+      "kind": "smallMutant",
+      "x": -24.8,
+      "z": 5,
+      "expected": 0.12,
+      "y": 0.12
+    },
+    {
+      "kind": "smallMutant",
+      "x": -44.55,
+      "z": -28.9,
+      "expected": 0.148,
+      "y": 0.148
+    },
+    {
+      "kind": "smallMutant",
+      "x": -44.144267376547816,
+      "z": -27.661831820686604,
+      "expected": 0.25,
+      "y": 0.25
+    }
+  ],
+  "player": [
+    {
+      "x": -17.5,
+      "z": 10,
+      "expected": 0,
+      "y": 0
+    },
+    {
+      "x": -24.8,
+      "z": 5,
+      "expected": 0.12,
+      "y": 0.12000000476837158
+    },
+    {
+      "x": -44.55,
+      "z": -28.9,
+      "expected": 0.148,
+      "y": 0.14800000190734863
+    },
+    {
+      "x": -44.144267376547816,
+      "z": -27.661831820686604,
+      "expected": 0.25,
+      "y": 0.2500000000000001
+    }
+  ]
+}

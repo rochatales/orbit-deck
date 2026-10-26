@@ -1,5 +1,5 @@
 import data from '../../assets/shanghai-fase01/layout.json';
-import { phase01SurfaceHeight } from './surfaces';
+import { phase01SurfaceGrid, SURFACE_TRANSITION } from './surfaceGrid';
 import type { OfficeWorld } from '../../world/createOfficeMap';
 import type { RectBounds } from '../../utils/math';
 import { Group } from 'three';
@@ -8,8 +8,9 @@ import { SHANGHAI_SUPPLY_CRATES, crateObstacle } from '../props/supplyCrate';
 /** Dados separados do GLB: nenhum triângulo visual entra na física. */
 export const SHANGHAI_PHASE01 = data;
 export function createPhase01Terrain(): OfficeWorld {
+    const height = phase01SurfaceGrid();
     const world: OfficeWorld = {
-        surfaceHeight: phase01SurfaceHeight,
+        surfaceHeight: height, supportHeight: height, supportTransition: SURFACE_TRANSITION,
         group: new Group(), bounds: { ...data.bounds },
         obstacles: data.obstacles.map(o => ({ minX: o.minX, maxX: o.maxX, minZ: o.minZ, maxZ: o.maxZ, minY: o.minY, maxY: o.maxY })),
         walkableAreas: data.walkableAreas.map(a => ({ ...a })), update: () => { }

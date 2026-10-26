@@ -1,3 +1,4 @@
+import { approachSupportHeight } from '../game/supportHeight';
 import { AUDIO } from '../audio/config';
 import { useExpeditionStore } from '../state/useExpeditionStore';
 import { useEffect, useMemo, useRef } from 'react';
@@ -40,7 +41,7 @@ export function CombatScene({ world }: {
         simulation.waves.some((count, wave) => i < count && waveRobotKind(wave, i) === 'smallMutant')
             ? new PatrolUnitRig(mutant.scene, mutant.animations, 'smallMutant') : null), [simulation, mutant]);
     // Hordas reutilizam slots: a geração muda a cada nascimento e o rig volta ao Idle.
-    const generations = useMemo(() => simulation.robots.map(r => r.generation), [simulation]);
+    const generations = useMemo(() => simulation.robots.map(() => -1), [simulation]);
     useEffect(() => () => { rigs.forEach(rig => rig.dispose()); largeRigs.forEach(rig => rig?.dispose()); mutantRigs.forEach(rig => rig?.dispose()); }, [rigs, largeRigs, mutantRigs]);
     const stepSlots = useMemo(() => new Int32Array(4), []), stepDistances = useMemo(() => new Float64Array(4), []);
     const hearts = useRef<(Group | null)[]>([]);
@@ -131,6 +132,7 @@ export function CombatScene({ world }: {
             if (generations[i] !== r.generation) {
                 generations[i] = r.generation;
                 rig.respawn();
+                mesh.position.y = world.surfaceHeight?.(r.x, r.z) ?? 0;
             }
             rig.update(r, playerPosition.x, playerPosition.z, R.contactRange, blocked ? 0 : Math.min(delta, 0.1));
             if (!blocked && !animal && r.hp > 0 && (rig.clip === 'PatrolWalk' || rig.clip === 'ChaseRun')) {
@@ -142,7 +144,8 @@ export function CombatScene({ world }: {
                 }
             }
             mesh.visible = rig.visible;
-            mesh.position.set(r.x, 0, r.z);
+            mesh.position.set(r.x, approachSupportHeight(mesh.position.y, world.surfaceHeight?.(r.x, r.z) ?? 0,
+                blocked ? 0 : Math.min(delta, .1), world.supportTransition), r.z);
             mesh.rotation.y = r.angle;
             const ring = rings.current[i], alert = alerts.current[i];
             if (ring) { ring.visible = r.hp > 0; ring.scale.setScalar(R.radius / COMBAT.robot.radius); }
@@ -177,7 +180,7 @@ export function CombatScene({ world }: {
     });
     return <>
     <ResourceDrops drops={simulation.drops}/>
-    {simulation.crates.length > 0 && <SupplyCrates crates={simulation.crates}/>}
+    {simulation.crates.length > 0 && <SupplyCrates crates={simulation.crates} surfaceHeight={world.surfaceHeight}/>}
     {simulation.robots.map((r, i) => <group key={`${run}-${r.id}`} ref={g => { robots.current[i] = g; }}>
       <primitive object={rigs[i].root}/>
       {largeRigs[i] && <primitive object={largeRigs[i]!.root}/>}
@@ -188,7 +191,7 @@ export function CombatScene({ world }: {
         <mesh position={[0, -0.16, 0]}><sphereGeometry args={[0.075, 8, 6]}/><meshBasicMaterial color="#ffdb57"/></mesh>
       </Billboard>
     </group>)}
-    {simulation.hearts.map((heart, i) => <group key={`heart-${run}-${i}`} position={[heart.x, 0, heart.z]} ref={g => { hearts.current[i] = g; }}>
+    {simulation.hearts.map((heart, i) => <group key={`heart-${run}-${i}`} position={[heart.x, world.surfaceHeight?.(heart.x, heart.z) ?? 0, heart.z]} ref={g => { hearts.current[i] = g; }}>
       <Billboard position={[0, 0.85, 0]}><mesh><shapeGeometry args={[heartShape]}/><meshBasicMaterial color="#ff4564"/></mesh></Billboard>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.035, 0]}><ringGeometry args={[0.5, 0.57, 24]}/><meshBasicMaterial color="#ff9bac"/></mesh>
     </group>)}

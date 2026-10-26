@@ -47,6 +47,8 @@ import {
 export interface OfficeWorld {
   /** Apoio simples de superfícies elevadas, independente da malha visual. */
   supportHeight?: (x: number, z: number) => number;
+  /** Suavização vertical opcional; Marte conserva apoio imediato. */
+  supportTransition?: number;
   surfaceHeight?: (x: number, z: number) => number;
   group: Group;
   bounds: RectBounds;

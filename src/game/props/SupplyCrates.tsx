@@ -7,10 +7,10 @@ import type { SupplyCrate } from '../../combat/simulation';
 import { SUPPLY_CRATE, revealIntensity } from './supplyCrate';
 import crateUrl from '../../assets/props/caixa-suprimentos/caixa-suprimentos-v001.glb';
 
-function createRig(source: Group, animations: AnimationClip[], crate: SupplyCrate) {
+function createRig(source: Group, animations: AnimationClip[], crate: SupplyCrate, surfaceY: number) {
     const root = source.clone(true), materials = new Map<Material, Material>(), ids = new Set<string>();
     root.name = crate.id;
-    root.position.set(crate.x, .015, crate.z);
+    root.position.set(crate.x, surfaceY + .015, crate.z);
     root.traverse(object => {
         const id = object.userData.id_estavel;
         if (id) {
@@ -52,9 +52,9 @@ function createRig(source: Group, animations: AnimationClip[], crate: SupplyCrat
 }
 
 /** Duas instâncias compartilham geometrias/texturas; animação e luz são independentes. Sem física automática. */
-export function SupplyCrates({ crates }: { crates: SupplyCrate[] }) {
+export function SupplyCrates({ crates, surfaceHeight }: { crates: SupplyCrate[]; surfaceHeight?: (x: number, z: number) => number }) {
     const asset = useGLTF(crateUrl);
-    const rigs = useMemo(() => crates.map(crate => createRig(asset.scene, asset.animations, crate)), [asset, crates]);
+    const rigs = useMemo(() => crates.map(crate => createRig(asset.scene, asset.animations, crate, surfaceHeight?.(crate.x, crate.z) ?? 0)), [asset, crates, surfaceHeight]);
     useEffect(() => () => rigs.forEach(rig => rig.dispose()), [rigs]);
     useFrame(() => { for (const rig of rigs) rig.update(); });
     return <>{rigs.map(rig => <primitive key={rig.root.name} object={rig.root} dispose={null}/>)}</>;
