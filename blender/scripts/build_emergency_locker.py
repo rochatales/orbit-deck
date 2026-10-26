@@ -213,7 +213,6 @@ class Builder:
 
     def finish(self, parent=None, collection=None):
         me = bpy.data.meshes.new(self.name)
-        bmesh.ops.recalc_face_normals(self.bm, faces=self.bm.faces)
         self.bm.to_mesh(me)
         self.bm.free()
         for s in self.slots:
