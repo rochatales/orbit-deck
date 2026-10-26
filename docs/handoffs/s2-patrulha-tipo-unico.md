@@ -2,7 +2,7 @@
 
 Pedido do autor em 26/10/2026 (item 9 do lote da aranha). Implementação: Claude, a pedido do autor.
 Base: `72b5b00` (`rochatales/s2.12-b`, aranha 2,5× e recuperação de travamento). Branch:
-`claude/s2-patrulha-tipo-unico`. Aceite visual e de jogabilidade: autor, pendente.
+`claude/s2-patrulha-tipo-unico`. Aceite visual e de jogabilidade: **aprovado pelo autor em 26/10/2026** (registro abaixo).
 
 ## O que mudou
 
@@ -39,8 +39,19 @@ Base: `72b5b00` (`rochatales/s2.12-b`, aranha 2,5× e recuperação de travament
 3. Na vitória ou na derrota, trocar o tipo/quantidade e usar "Reiniciar encontro": a escolha vale.
 4. Voltar a "Hordas": as 4 hordas seguem como antes.
 
-## Pendências
+## Pendências da entrega original (resolvidas no registro abaixo)
 
 - Base `72b5b00` não inclui `7e67128` do Codex (marcha estável e glitch da aranha); juntar as duas linhas
   antes da consolidação. Conflitos prováveis só em `simulation.ts`.
 - Sem push nem merge.
+
+## Reunião e aceite — 26/10/2026
+
+Autor confirmou aprovação no jogo da implementação `53829eb` e da linha reunida
+em **`62a7040`**, que já incorpora `5ee7aa7` e `7e67128`. A pendência de reunião
+com a marcha estabilizada está resolvida pelo merge feito pelo Claude, sem novo
+merge desta tarefa. A pedido do autor, Codex avançou `rochatales/s2.12-b` por
+`--ff-only` até `62a7040` e confirmou **256/256**, build e diff-check verdes.
+
+Kit final 6.5/S2.9 atualizado na linha S2.12 B; aceite geral do ciclo e medições
+S44 do autor ainda pendentes. Não encerra itens futuros. Sem push ou merge na integração.
