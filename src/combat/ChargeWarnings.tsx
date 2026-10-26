@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { DoubleSide, Matrix4, PlaneGeometry, Quaternion, ShaderMaterial, Vector3, type InstancedMesh } from 'three';
-import { LARGE_MUTANT, MUTANT_CHARGE } from './config';
+import { COMBAT, MUTANT_CHARGE } from './config';
 import type { CombatSimulation } from './simulation';
 /** Faixa fixa cobre a varredura do círculo do mutante mais a cápsula do jogador. */
 export function ChargeWarnings({ simulation }: { simulation: CombatSimulation }) {
@@ -13,8 +13,8 @@ export function ChargeWarnings({ simulation }: { simulation: CombatSimulation })
     useEffect(()=>()=>{state.geometry.dispose();state.material.dispose();},[state]);
     useFrame(()=>{if(!mesh.current)return;let n=0;state.material.uniforms.time.value=simulation.elapsed;
         for(const r of simulation.robots)if(r.hp>0&&r.kind==='largeMutant'&&r.chargePhase==='windup'){
-            const length=r.chargeDistance+2*(LARGE_MUTANT.radius+MUTANT_CHARGE.playerRadius);
-            const half=LARGE_MUTANT.radius+MUTANT_CHARGE.playerRadius,segments=Math.ceil(length/.25),size=length/segments;
+            const length=r.chargeDistance+2*MUTANT_CHARGE.warningHalfWidth;
+            const half=MUTANT_CHARGE.warningHalfWidth,segments=Math.ceil(length/.25),size=length/segments;
             state.q.setFromAxisAngle(state.up,Math.atan2(r.chargeDirX,r.chargeDirZ));state.s.set(2*half,1,size);
             for(let i=0;i<segments;i++){
                 const along=-half+(i+.5)*size,x=r.chargeOriginX+r.chargeDirX*along,z=r.chargeOriginZ+r.chargeDirZ*along;
@@ -24,5 +24,5 @@ export function ChargeWarnings({ simulation }: { simulation: CombatSimulation })
             }
         }mesh.current.count=n;mesh.current.instanceMatrix.needsUpdate=true;
     });
-    return <instancedMesh name="LargeMutantChargeWarning" ref={mesh} args={[state.geometry,state.material,160]} frustumCulled={false} dispose={null}/>;
+    return <instancedMesh name="LargeMutantChargeWarning" ref={mesh} args={[state.geometry,state.material,Math.max(...COMBAT.hordes.largeMutants)*Math.ceil((MUTANT_CHARGE.distance+2*MUTANT_CHARGE.warningHalfWidth)/.25)]} frustumCulled={false} dispose={null}/>;
 }

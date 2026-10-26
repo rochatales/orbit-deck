@@ -127,16 +127,16 @@ export const SMALL_MUTANT = {
     directChase: 9, waypointReach: .5, stuckAdvance: 1.2,
 } as const;
 export const MUTANT_PACK = { distance: 6, resetDistance: 8, radius: 1.6, reach: .35, arcStep: .55, approach: .78 } as const;
-/** Raio circunscrito medido nos clipes vivos (1,336176 m), arredondado para cima. */
+/** Corpo sem patas: meia-largura viva 1,558902 m na escala 2,5 + 0,10 m, arredondado para cima. */
 export const LARGE_MUTANT = {
-    hitHeight: { minY: 0, maxY: 1.18 }, hp: 200, speed: 1.4, chaseSpeed: 2.2,
-    radius: 1.34, spacing: 2.68, separation: 3.0, separationWeight: 1.1,
-    contactRange: 1.74, damage: 15, contactInterval: 1.2, repath: .5,
+    hitHeight: { minY: 0, maxY: 2.92 }, hp: 200, speed: 1.4, chaseSpeed: 2.2,
+    radius: 1.66, spacing: 3.32, separation: 3.62, separationWeight: 1.1,
+    contactRange: 2.06, damage: 15, contactInterval: 1.2, repath: .5,
     visionRange: 10, visionCos: Math.cos(Math.PI / 3), nearSense: 3,
     nearSenseCos: Math.cos(3 * Math.PI / 4), paceRate: 3,
     sidestep: Math.PI / 5, turnRate: 9, directChase: 9, waypointReach: .5, stuckAdvance: 1.2,
 } as const;
-export const MUTANT_CHARGE = { min: 4, max: 9, windup: .8, speed: 9, distance: 6, cooldown: 3, damage: 30, playerRadius: .32, anticipationClip: .24 } as const;
+export const MUTANT_CHARGE = { min: 4, max: 9, windup: .8, speed: 9, distance: 10, warningHalfWidth: 2.58, pushMargin: .08, cooldown: 3, damage: 30, playerRadius: .32, anticipationClip: .24 } as const;
 export type RobotKind = 'patrol' | 'largePatrol' | 'smallMutant' | 'largeMutant';
 /** `waves` conserva os números de robôs; estes totais incluem os animais adicionais. */
 export const HORDE_TOTALS = COMBAT.hordes.waves.map((robots, i) => robots + COMBAT.hordes.smallMutants[i] + COMBAT.hordes.largeMutants[i]);

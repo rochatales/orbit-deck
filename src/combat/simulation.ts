@@ -1,4 +1,4 @@
-import { prepareCharge, finishCharge, type ChargeState } from './mutantCharge';
+import { pushChargeEnemy, prepareCharge, finishCharge, type ChargeState } from './mutantCharge';
 import { CombatEffects, COMBAT_VFX, impactKind } from './effects';
 import { enemySpacing, enemySeparation } from './enemySpacing';
 import { containsShotHeight } from './shotVolume';
@@ -266,6 +266,7 @@ export class CombatSimulation {
             && clearSegment(player, pickup, this.terrain, 0);
     }
     private nextPosition: Position = { x: 0, z: 0 };
+    private pushPosition: Position = {x:0,z:0};
     private packTarget: Position = { x: 0, z: 0 };
     step(dt: number, input: CombatInput, paused = false) {
         if (paused || this.dead)
@@ -417,7 +418,8 @@ export class CombatSimulation {
         }
         const step=Math.min(MUTANT_CHARGE.speed*dt,r.chargeDistance-r.chargeTraveled),p=this.nextPosition;
         p.x=r.x+r.chargeDirX*step;p.z=r.z+r.chargeDirZ*step;
-        if(!clearSegment(r,p,this.terrain,LARGE_MUTANT.radius)||!this.roomAt(r,p)){finishCharge(r);return true;}
+        if(!clearSegment(r,p,this.terrain,LARGE_MUTANT.radius)){finishCharge(r);return true;}
+        for(const other of this.robots)if(other!==r&&other.hp>0)pushChargeEnemy(r,p,other,this.terrain,this.pushPosition);
         if(!r.chargeHit && rayCircle(r,p,player,LARGE_MUTANT.radius+MUTANT_CHARGE.playerRadius)!==null) {
             r.chargeHit=true;
             if(this.invulnerable===0){this.hp=Math.max(0,this.hp-MUTANT_CHARGE.damage);this.invulnerable=LARGE_MUTANT.contactInterval;this.damageFlash=.24;this.sounds.emit('attack',r.x,r.z,r.kind);}

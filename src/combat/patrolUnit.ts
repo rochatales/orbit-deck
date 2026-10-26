@@ -40,7 +40,7 @@ export const LARGE_PATROL_VISUAL = { height: 3.2, scale: 3.2 / 2.08507967 } as c
 
 export const SMALL_MUTANT_VISUAL = { height: .96201372, scale: 1, walkReferenceSpeed: 2.2, chaseReferenceSpeed: 4.6 } as const;
 
-export const LARGE_MUTANT_VISUAL = { height: 1.18, scale: 1, walkReferenceSpeed: 1.4, chaseReferenceSpeed: 2.2 } as const;
+export const LARGE_MUTANT_VISUAL = { height: 2.92, scale: 2.5, walkReferenceSpeed: 1.4, chaseReferenceSpeed: 2.2 } as const;
 
 export interface PatrolUnitInput {
     alive: boolean;
