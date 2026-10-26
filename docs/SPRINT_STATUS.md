@@ -232,3 +232,22 @@ Estado final desta parada: runtime restaurado sobre `1ade722`, **231/231 testes*
 26/10/2026 — **Retomada da aranha concluída tecnicamente**, base `c7f8bad`, commit A **`d1ac5c6`** (escala ×2,5 e investida), seguido pelo commit B de recuperação. Progresso real de 0,30 m; A 1,5 s repath/lado oposto → B 3 s recuo do menor (1 m/≤1,5 s) → C 4 s passagem só entre aliados; mapa/jogador sólidos. Valores aprovados preservados (raio 1,66, contato 2,06 etc.). Hordas 115/115: desembarque **224,08 s**, rua norte **247,20 s**, parede **225,35 s**; falta de progresso máxima **4,833 s**, zero invasões. Contadores A/B pedidos/cessões/C: **13/6/4/5**, **19/5/3/5**, **7/2/1/2**. Patrulha 32/90 s e teste misto ARES-I/90 s passam com critérios antigos. **245/245**, build/diff-check verdes; capturas, ensaios por horda e roteiro no handoff S3.3, `retomada-26-10/`. Substitui a pendência da parada anterior: código ampliado agora ativo. Revisão Claude e aceite visual/jogabilidade desta retomada pendentes; S3.3 futura não encerrada. Sem push/merge ou alteração de fontes/checkout principal.
 
 26/10/2026 — Complemento 5–7 da aranha sobre `72b5b00`: traçador 0,056/0,095, estilhaços metal/orgânico 40/4–7 m/s/0,35–0,5 s com ricochete no piso O(1), pool 256 (pico técnico 119), poeira/clarão preservados. Aranha **280 HP / 12 tiros**, munição de horda 3/4 **194/297**. **247/247**, build/diff-check verdes. `?perf` produção antes/depois no pico 40 robôs+4 aranhas: p95 16,7/16,7 → 16,8/16,7 ms; draw máximo 172 igual, triângulos +1.424 (~0,24%), sem rAF>33 ms. Limites e JSONs no handoff de efeitos. Item 8 de caminhada reproduzido, segue em commit próprio sem reescrever `72b5b00`.
+
+26/10/2026 — Complemento 5–7 commitado em **`5ee7aa7`**. Item 8 concluído
+tecnicamente sobre essa base, mesma branch/worktree: aranha entre nove robôs
+passa de 13 para 1 troca de clipe em 12 s; giro visual máximo 8,594°→2,292° por
+quadro a 60 Hz. Mesmo defeito nos outros tipos, filtro compartilhado. Rumo e
+velocidade visuais suavizados, locomoção com intervalo ≥1 s, lado de desvio
+mantido por 0,25 s na marcha em grupo; mapa/jogador continuam sólidos e ataques
+imediatos. Critérios antigos preservados: 115/115 nas três posições em
+**226,00/249,32/225,35 s**, maior falta de progresso **5,917 s**, zero invasões;
+A/B pedidos/recuos/C **13/4/3/4**, **23/8/4/6**, **8/3/2/3**. Patrulha 32/90 s
+e ARES-I/90 s passam. **251/251**, build/diff-check verdes. Handoff, CSVs por
+quadro, JSONs, captura da marcha e traçador em
+`docs/handoffs/s3.3-mutante-grande/complemento-26-10/`. Recuperação histórica
+`72b5b00` mantida; sem push/merge nem alterações no principal/art-source.
+Parada para revisão Claude e aceite visual do autor; sprints futuros não encerrados.
+
+Repetição `?perf` do build final com item 8: pico **120/256**, p95 **16,7/16,8 ms**,
+zero rAF>33 ms, draw máximo 172 e +1.500 triângulos sobre o baseline (~0,25%).
+JSON `complemento-26-10/perf-final.json`; sem testes/build concorrentes na medição.

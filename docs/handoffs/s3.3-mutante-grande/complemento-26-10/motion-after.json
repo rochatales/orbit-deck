@@ -1,0 +1,70 @@
+{
+  "label": "after",
+  "method": "12 s a 60 Hz na Shanghai real: um alvo central de cada tipo entre 9 robôs (7 comuns/2 grandes) na posição do congestionamento antigo, incluindo quatro atrás do grupo original; mesmos pontos/seed sem tiro, perseguição, carga desabilitada para isolar marcha. Medidas físicas e visuais por quadro. Trocas de locomoção não incluem ataque/morte.",
+  "cases": [
+    {
+      "kind": "largeMutant",
+      "neighbors": 9,
+      "invalid": 0,
+      "maxVisualAngleDegrees": 2.291831180523295,
+      "maxPhysicalAngleDegrees": 8.594366926962357,
+      "blockedFrames": 179,
+      "locomotionChanges": 1,
+      "minClipInterval": null,
+      "switches": [
+        {
+          "frame": 22,
+          "clip": "ChaseRun"
+        }
+      ]
+    },
+    {
+      "kind": "largePatrol",
+      "neighbors": 9,
+      "invalid": 0,
+      "maxVisualAngleDegrees": 2.291831180523295,
+      "maxPhysicalAngleDegrees": 8.594366926962383,
+      "blockedFrames": 91,
+      "locomotionChanges": 1,
+      "minClipInterval": null,
+      "switches": [
+        {
+          "frame": 3,
+          "clip": "ChaseRun"
+        }
+      ]
+    },
+    {
+      "kind": "patrol",
+      "neighbors": 9,
+      "invalid": 0,
+      "maxVisualAngleDegrees": 2.291831180523295,
+      "maxPhysicalAngleDegrees": 8.594366926962383,
+      "blockedFrames": 87,
+      "locomotionChanges": 1,
+      "minClipInterval": null,
+      "switches": [
+        {
+          "frame": 2,
+          "clip": "PatrolWalk"
+        }
+      ]
+    },
+    {
+      "kind": "smallMutant",
+      "neighbors": 9,
+      "invalid": 0,
+      "maxVisualAngleDegrees": 2.291831180523295,
+      "maxPhysicalAngleDegrees": 8.59436692696235,
+      "blockedFrames": 64,
+      "locomotionChanges": 1,
+      "minClipInterval": null,
+      "switches": [
+        {
+          "frame": 2,
+          "clip": "ChaseRun"
+        }
+      ]
+    }
+  ]
+}

@@ -160,8 +160,8 @@ export function CombatScene({ world }: {
                 blocked ? 0 : Math.min(delta, .1), world.supportTransition), r.z);
             const kick=Math.sin(Math.PI*r.recoil/COMBAT_VFX.recoil);
             mesh.position.x+=r.recoilX*COMBAT_VFX.recoilDistance*kick;mesh.position.z+=r.recoilZ*COMBAT_VFX.recoilDistance*kick;
-            mesh.rotation.set((r.recoilZ*Math.cos(r.angle)+r.recoilX*Math.sin(r.angle))*COMBAT_VFX.recoilTilt*kick,r.angle,
-                -(r.recoilX*Math.cos(r.angle)-r.recoilZ*Math.sin(r.angle))*COMBAT_VFX.recoilTilt*kick);
+            mesh.rotation.set((r.recoilZ*Math.cos(rig.visualAngle)+r.recoilX*Math.sin(rig.visualAngle))*COMBAT_VFX.recoilTilt*kick,rig.visualAngle,
+                -(r.recoilX*Math.cos(rig.visualAngle)-r.recoilZ*Math.sin(rig.visualAngle))*COMBAT_VFX.recoilTilt*kick);
             const ring = rings.current[i], alert = alerts.current[i];
             if (ring) { ring.visible = r.hp > 0; ring.scale.setScalar(R.radius / COMBAT.robot.radius); }
             if (alert) { alert.visible = r.hp > 0 && r.alertLeft > 0; alert.position.y = (bigAnimal ? LARGE_MUTANT_VISUAL.height : animal ? SMALL_MUTANT_VISUAL.height : large ? LARGE_PATROL_VISUAL.height : PATROL_UNIT.height) + .45; }

@@ -238,3 +238,29 @@ Base `c7f8bad`, aranha/investida em `d1ac5c6`, recuperação no commit seguinte.
 - [ ] Conferir o antigo grupo preso ao norte agora liberado e os Patrol grandes alcançando a ARES-I após neutralizar comuns; repetir pausa/retry/viagem.
 
 Agente: **245/245**, build/diff-check verdes. Ensaios completos nas três posições em **224,08 / 247,20 / 225,35 s**, 115/115, zero invasões, falta de progresso máxima **4,833 s**; critérios de 360 s/contato mantidos. Capturas e contadores por horda em `docs/handoffs/s3.3-mutante-grande/retomada-26-10/`. Revisão Claude e aceite do autor desta retomada pendentes.
+
+## Complemento da aranha — efeitos, vida e marcha (26/10/2026)
+
+Sobre `72b5b00`; efeitos/vida em `5ee7aa7`, filtros de marcha no commit seguinte.
+Este roteiro atualiza os valores de vida/tiro das entregas históricas acima.
+
+- [ ] Aranha entre 8–10 robôs, especialmente no antigo gargalo norte: conferir
+  rumo suave, caminhada sem Idle intermitente e retomada depois do bloqueio.
+- [ ] Repetir com os outros tipos; ataque, antecipação da investida e morte
+  continuam imediatos. Não deve continuar marchando no lugar ao parar.
+- [ ] Traçador 0,056/halo 0,095, vida 0,12 s, brilho e clarão preservados;
+  faíscas metálicas alongadas ricocheteiam no piso e gotas verdes maiores têm
+  menos quique, inclusive em calçada/canteiro. Poeira de parede igual.
+- [ ] Aranha morre com **12 tiros** (280 HP); reposição das hordas 3/4 agora
+  considera mínimo **194/297**. Hordas permanecem 13/26/32/44, total 115.
+- [ ] Pausa congela efeitos/animação; retry/viagem limpam estados transitórios.
+  Testar também a aproximação dos grandes à ARES-I ao retirar a primeira linha.
+
+Agente: **251/251**, build/diff-check verdes; 115/115 nas três posições em
+**226,00 / 249,32 / 225,35 s**, zero invasões, maior falta de progresso 5,917 s
+(limite original 10 s). Aranha 13→1 trocas em 12 s, giro visual até 2,292°/quadro
+a 60 Hz. `?perf` produção no pico 40 robôs+4 aranhas: pool 119/256, p95 até
+16,8 ms nas duas amostras de 10 s; repetição com item 8: pico 120/256 e
+p95 16,7/16,8 ms. CSVs/JSONs/capturas em
+`docs/handoffs/s3.3-mutante-grande/complemento-26-10/`. Aprovação visual do autor
+e revisão Claude pendentes; nenhuma checkbox marcada pelo agente.

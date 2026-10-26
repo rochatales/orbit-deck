@@ -23,7 +23,7 @@ export function prepareCharge(r: ChargeState, player: Position, terrain: Terrain
 export function finishCharge(r: ChargeState) { r.chargePhase='cooldown';r.chargeLeft=C.cooldown; }
 
 interface PushedEnemy extends Position {
-    id: number; kind: RobotKind; recoil: number; recoilX: number; recoilZ: number;
+    steerLeft?: number; id: number; kind: RobotKind; recoil: number; recoilX: number; recoilZ: number;
     path: Position[]; repath: number; stuck: number;
 }
 /** Varredura do corpo na corrida. Aliados não bloqueiam; só o terreno limita o empurrão. */
@@ -49,5 +49,6 @@ export function pushChargeEnemy(r: ChargeState, next: Position, other: PushedEne
     }
     if(Math.abs(shift)<1e-6)return false;
     other.x+=nx*shift;other.z+=nz*shift;other.recoil=.12;other.recoilX=nx*Math.sign(shift);other.recoilZ=nz*Math.sign(shift);
+    if(other.steerLeft!==undefined)other.steerLeft=0;
     other.path.length=0;other.repath=0;other.stuck=0;return true;
 }
