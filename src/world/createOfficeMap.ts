@@ -45,6 +45,8 @@ import {
 } from "./mapConfig";
 
 export interface OfficeWorld {
+  /** Apoio simples de superfícies elevadas, independente da malha visual. */
+  supportHeight?: (x: number, z: number) => number;
   surfaceHeight?: (x: number, z: number) => number;
   group: Group;
   bounds: RectBounds;

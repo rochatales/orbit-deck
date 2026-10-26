@@ -1,0 +1,510 @@
+{
+  "base": "604b7bb",
+  "method": "Chromium GPU, 1600×1000 DPR1; App/física/controller reais. Fixture reposiciona apenas no início dos casos e das capturas. Rotas dirigidas por W e mouse, sem setar posição durante percurso. Não é aceite do autor.",
+  "errors": [],
+  "httpErrors": [],
+  "routes": [
+    {
+      "label": "praça → norte → interior → rampa → deck → embarque",
+      "samples": [
+        {
+          "target": {
+            "x": 0,
+            "z": 7
+          },
+          "position": {
+            "x": 0.0000024248909085144987,
+            "y": 0,
+            "z": 6.814046859741211
+          },
+          "tick": 10
+        },
+        {
+          "target": {
+            "x": 0,
+            "z": 11.8
+          },
+          "position": {
+            "x": -5.674147587342304e-7,
+            "y": 0.1600000262260437,
+            "z": 11.874869346618652
+          },
+          "tick": 15
+        },
+        {
+          "target": {
+            "x": 0,
+            "z": 14
+          },
+          "position": {
+            "x": -4.013452326034894e-7,
+            "y": 0.1600000262260437,
+            "z": 13.858403205871582
+          },
+          "tick": 6
+        },
+        {
+          "target": {
+            "x": 0,
+            "z": 17
+          },
+          "position": {
+            "x": 5.043550643790695e-8,
+            "y": 0.1600000262260437,
+            "z": 16.817697525024414
+          },
+          "tick": 9
+        },
+        {
+          "target": {
+            "x": 0,
+            "z": 19
+          },
+          "position": {
+            "x": 9.16563465125364e-8,
+            "y": 0.08362102508544922,
+            "z": 19.079803466796875
+          },
+          "tick": 7
+        },
+        {
+          "target": {
+            "x": 0,
+            "z": 21
+          },
+          "position": {
+            "x": -4.0528095723857405e-7,
+            "y": 0,
+            "z": 20.992891311645508
+          },
+          "tick": 6
+        },
+        {
+          "target": {
+            "x": 0,
+            "z": 24
+          },
+          "position": {
+            "x": -9.307589721174736e-8,
+            "y": 0,
+            "z": 23.951974868774414
+          },
+          "tick": 9
+        },
+        {
+          "target": {
+            "x": 0,
+            "z": 29.5
+          },
+          "position": {
+            "x": -2.540970456266223e-7,
+            "y": 0,
+            "z": 29.502756118774414
+          },
+          "tick": 16
+        }
+      ],
+      "end": {
+        "position": {
+          "x": -0.000006328976269287523,
+          "y": 0,
+          "z": 29.639806747436523
+        },
+        "session": {
+          "map": "mars",
+          "phase": "walking",
+          "destination": null,
+          "revision": 2
+        },
+        "hangar": {
+          "rampOpen": 2.6433208484082564e-11,
+          "roofOpacity": 0.9999999999999999,
+          "alert": false,
+          "idleTime": 0.9393999999761562,
+          "craneTime": 1.339399856925009,
+          "departures": 0,
+          "landings": 0,
+          "roof": true,
+          "body": true
+        },
+        "removed": [],
+        "refectoryParts": 11
+      }
+    },
+    {
+      "label": "Refeitório → porta leste → interior",
+      "samples": [
+        {
+          "target": {
+            "x": 4.5,
+            "z": 15
+          },
+          "position": {
+            "x": 4.599305152893066,
+            "y": 0.08623939752578735,
+            "z": 15.009852409362793
+          },
+          "tick": 5
+        },
+        {
+          "target": {
+            "x": 3.1,
+            "z": 15.5
+          },
+          "position": {
+            "x": 3.1211180686950684,
+            "y": 0.1600000262260437,
+            "z": 15.472280502319336
+          },
+          "tick": 5
+        },
+        {
+          "target": {
+            "x": 3.1,
+            "z": 16.5
+          },
+          "position": {
+            "x": 3.26990008354187,
+            "y": 0.1600000262260437,
+            "z": 16.475067138671875
+          },
+          "tick": 15
+        },
+        {
+          "target": {
+            "x": 0,
+            "z": 16.5
+          },
+          "position": {
+            "x": 0.2221950888633728,
+            "y": 0.1600000262260437,
+            "z": 16.47819709777832
+          },
+          "tick": 10
+        }
+      ],
+      "end": {
+        "position": {
+          "x": -0.0021005626767873764,
+          "y": 0.1600000262260437,
+          "z": 16.49728775024414
+        },
+        "session": {
+          "map": "mars",
+          "phase": "walking",
+          "destination": null,
+          "revision": 5
+        },
+        "hangar": {
+          "rampOpen": 0.9999628847956719,
+          "roofOpacity": 1.4161565979067657e-17,
+          "alert": false,
+          "idleTime": 0.8884999999999955,
+          "craneTime": 0.8884997615814162,
+          "departures": 0,
+          "landings": 0,
+          "roof": false,
+          "body": true
+        },
+        "removed": [],
+        "refectoryParts": 11
+      }
+    },
+    {
+      "label": "interior → porta leste → Refeitório",
+      "samples": [
+        {
+          "target": {
+            "x": 3.1,
+            "z": 16.5
+          },
+          "position": {
+            "x": 3.029555082321167,
+            "y": 0.1600000262260437,
+            "z": 16.504837036132812
+          },
+          "tick": 10
+        },
+        {
+          "target": {
+            "x": 3.1,
+            "z": 15.5
+          },
+          "position": {
+            "x": 3.038769483566284,
+            "y": 0.1600000262260437,
+            "z": 15.431394577026367
+          },
+          "tick": 12
+        },
+        {
+          "target": {
+            "x": 4.5,
+            "z": 15
+          },
+          "position": {
+            "x": 4.523524284362793,
+            "y": 0.09556621313095093,
+            "z": 15.024066925048828
+          },
+          "tick": 6
+        },
+        {
+          "target": {
+            "x": 5.9,
+            "z": 15
+          },
+          "position": {
+            "x": 5.718812942504883,
+            "y": 0,
+            "z": 14.945499420166016
+          },
+          "tick": 4
+        }
+      ],
+      "end": {
+        "position": {
+          "x": 5.923351764678955,
+          "y": 0,
+          "z": 14.963674545288086
+        },
+        "session": {
+          "map": "mars",
+          "phase": "walking",
+          "destination": null,
+          "revision": 5
+        },
+        "hangar": {
+          "rampOpen": 3.057629734682475e-7,
+          "roofOpacity": 0.9999938484101645,
+          "alert": false,
+          "idleTime": 1.0720999999046266,
+          "craneTime": 0.2720996899604729,
+          "departures": 0,
+          "landings": 0,
+          "roof": true,
+          "body": true
+        },
+        "removed": [],
+        "refectoryParts": 11
+      }
+    }
+  ],
+  "initial": {
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 3
+    },
+    "session": {
+      "map": "mars",
+      "phase": "walking",
+      "destination": null,
+      "revision": 2
+    },
+    "hangar": {
+      "rampOpen": 0,
+      "roofOpacity": 1,
+      "alert": false,
+      "idleTime": 1.3623000000715253,
+      "craneTime": 1.3623000000715253,
+      "departures": 0,
+      "landings": 0,
+      "roof": true,
+      "body": true
+    },
+    "removed": [],
+    "refectoryParts": 11
+  },
+  "boarded": {
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 33
+    },
+    "session": {
+      "map": "mars",
+      "phase": "aboard",
+      "destination": null,
+      "revision": 3
+    },
+    "hangar": {
+      "rampOpen": 2.1737113894968925e-11,
+      "roofOpacity": 0.9999999999999999,
+      "alert": false,
+      "idleTime": 0.9556999999284724,
+      "craneTime": 1.3556998568773253,
+      "departures": 0,
+      "landings": 0,
+      "roof": true,
+      "body": true
+    },
+    "removed": [],
+    "refectoryParts": 11
+  },
+  "northEntry": {
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 10
+    },
+    "session": {
+      "map": "mars",
+      "phase": "walking",
+      "destination": null,
+      "revision": 6
+    },
+    "hangar": {
+      "rampOpen": 1.2638159417283471e-14,
+      "roofOpacity": 0.9999999999997458,
+      "alert": false,
+      "idleTime": 0.48889999997615224,
+      "craneTime": 0.08889966619014097,
+      "departures": 0,
+      "landings": 0,
+      "roof": true,
+      "body": true
+    },
+    "removed": [],
+    "refectoryParts": 11
+  },
+  "interior": {
+    "position": {
+      "x": 0,
+      "y": 0.1600000262260437,
+      "z": 15.800000190734863
+    },
+    "session": {
+      "map": "mars",
+      "phase": "walking",
+      "destination": null,
+      "revision": 7
+    },
+    "hangar": {
+      "rampOpen": 0.9999999492523234,
+      "roofOpacity": 5.074767663963816e-8,
+      "alert": false,
+      "idleTime": 0.1553999999761521,
+      "craneTime": 0.155399642348283,
+      "departures": 0,
+      "landings": 0,
+      "roof": false,
+      "body": true
+    },
+    "removed": [],
+    "refectoryParts": 11
+  },
+  "ramp": {
+    "position": {
+      "x": 0,
+      "y": 0.08836519718170166,
+      "z": 19
+    },
+    "session": {
+      "map": "mars",
+      "phase": "walking",
+      "destination": null,
+      "revision": 8
+    },
+    "hangar": {
+      "rampOpen": 0.9999999999999998,
+      "roofOpacity": 0.999999958815341,
+      "alert": false,
+      "idleTime": 1.8054999999999934,
+      "craneTime": 0.2054996185302668,
+      "departures": 0,
+      "landings": 0,
+      "roof": true,
+      "body": true
+    },
+    "removed": [],
+    "refectoryParts": 11
+  },
+  "southwest": {
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 24.299999237060547
+    },
+    "session": {
+      "map": "mars",
+      "phase": "walking",
+      "destination": null,
+      "revision": 9
+    },
+    "hangar": {
+      "rampOpen": 5.062602829561242e-8,
+      "roofOpacity": 0.9999999999999998,
+      "alert": false,
+      "idleTime": 1.4548999999761512,
+      "craneTime": 0.2548995946645662,
+      "departures": 0,
+      "landings": 0,
+      "roof": true,
+      "body": true
+    },
+    "removed": [],
+    "refectoryParts": 11
+  },
+  "departure": {
+    "rampOpen": 2.882945223656552e-26,
+    "roofOpacity": 0.8067027648280659,
+    "alert": false,
+    "idleTime": 0.9556999999284661,
+    "craneTime": 0.5556995469331658,
+    "departures": 1,
+    "landings": 0
+  },
+  "landing": {
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 33
+    },
+    "session": {
+      "map": "mars",
+      "phase": "aboard",
+      "destination": null,
+      "revision": 14
+    },
+    "hangar": {
+      "rampOpen": 0,
+      "roofOpacity": 1,
+      "alert": true,
+      "idleTime": 0.1127999999523163,
+      "craneTime": 0.1127999999523163,
+      "departures": 0,
+      "landings": 1,
+      "roof": true,
+      "body": true
+    },
+    "removed": [],
+    "refectoryParts": 11
+  },
+  "afterLanding": {
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 33
+    },
+    "session": {
+      "map": "mars",
+      "phase": "aboard",
+      "destination": null,
+      "revision": 14
+    },
+    "hangar": {
+      "rampOpen": 0,
+      "roofOpacity": 1,
+      "alert": false,
+      "idleTime": 1.0113999999761576,
+      "craneTime": 1.4113999761343001,
+      "departures": 0,
+      "landings": 1,
+      "roof": true,
+      "body": true
+    },
+    "removed": [],
+    "refectoryParts": 11
+  }
+}

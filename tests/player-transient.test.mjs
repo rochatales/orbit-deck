@@ -70,7 +70,7 @@ test('S2.10: consumidores ativos não leem a posição da store nem a assinam po
  const map=fs.readFileSync('src/world/OfficeMap.tsx','utf8');
  assert.doesNotMatch(map,/useGameStore/,'o mapa não re-renderiza pela posição');
  const controller=fs.readFileSync('src/characters/player/PlayerController.tsx','utf8');
- assert.match(controller,/publishPlayerFrame\(translation\.x, motionRef\.current\.visualBob, translation\.z,/);
+ assert.match(controller,/publishPlayerFrame\(translation\.x, translation\.y - PLAYER_COLLIDER_CENTER_Y \+ motionRef\.current\.visualBob, translation\.z,/);
 });
 
 test('S2.12 B1: pose segue o corpo sem notificação e reseta em spawn, viagem e retry',()=>{

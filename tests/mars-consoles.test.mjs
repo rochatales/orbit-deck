@@ -41,9 +41,10 @@ test('S0.4/v007: só Oeste ganha colisor de prop; passarela, colônia e embarque
  const world=createWorld(),radius=.36;
  assert.deepEqual(world.obstacles.at(-1),{...consoleBox});
  const colony=JSON.parse(fs.readFileSync('src/assets/colony-v007.manifest.json')),greenhouse=JSON.parse(fs.readFileSync('src/assets/greenhouse/greenhouse-v001.manifest.json'));
- const base=[...colony.colliders,...greenhouse.colliders].map(({minX,maxX,minZ,maxZ})=>({minX,maxX,minZ,maxZ}));
- assert.deepEqual(world.obstacles.slice(0,base.length),base,'colisores atuais v007 + estufa preservados');
- assert.equal(world.obstacles.length,base.length+6+1,'119 v007 + 8 estufa + 6 ARES + 1 Oeste; nenhum para outros props');
+ const {HANGAR,retainColonyCollider}=loadSource('src/game/hangarLayout.ts');
+ const base=[...colony.colliders.filter(retainColonyCollider),...greenhouse.colliders,...HANGAR.colliders].map(({minX,maxX,minZ,maxZ})=>({minX,maxX,minZ,maxZ}));
+ assert.deepEqual(world.obstacles.slice(0,base.length),base,'colisores v007 fora da Doca, estufa e Hangar aprovado preservados');
+ assert.equal(world.obstacles.length,base.length+6+1,'base filtrada + Hangar + 6 ARES + 1 Oeste; nenhum para outros props');
  assert.equal(traversable({x:-6.75,z:31.6},world,0),false,'rack fica fora da área caminhável');
  assert.equal(traversable({x:-3,z:25.9},world,radius),false);
  assert.equal(world.obstacles.some(b=>b.minX<=6.85&&b.maxX>=6.85&&b.minZ<=31.8&&b.maxZ>=31.8),false,'Leste sem colisor');

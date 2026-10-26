@@ -29,7 +29,7 @@ export function Player({ officeWorld, spawn }: PlayerProps) {
       <PlayerPhysicsBody
         rigidBodyRef={rigidBodyRef}
         colliderRef={colliderRef}
-        position={[spawn.x, PLAYER_COLLIDER_CENTER_Y, spawn.z]}
+        position={[spawn.x, PLAYER_COLLIDER_CENTER_Y + (officeWorld.supportHeight?.(spawn.x, spawn.z) ?? 0), spawn.z]}
       >
         <PlayerModel motionRef={motionRef} />
         {combat && <group name="PlayerRifle" position={[RIFLE_POSE.side, RIFLE_POSE.height - PLAYER_COLLIDER_CENTER_Y, RIFLE_POSE.gripForward]}>

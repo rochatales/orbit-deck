@@ -190,7 +190,7 @@ export function PlayerController({
       collider,
       {
         x: desiredTranslation.x,
-        y: 0,
+        y: PLAYER_COLLIDER_CENTER_Y + (officeWorld.supportHeight?.(translation.x + desiredTranslation.x, translation.z + desiredTranslation.z) ?? 0) - translation.y,
         z: desiredTranslation.z
       },
       undefined,
@@ -201,7 +201,7 @@ export function PlayerController({
     const correctedMovement = controller.computedMovement();
     body.setNextKinematicTranslation({
       x: translation.x + correctedMovement.x,
-      y: PLAYER_COLLIDER_CENTER_Y,
+      y: PLAYER_COLLIDER_CENTER_Y + (officeWorld.supportHeight?.(translation.x + correctedMovement.x, translation.z + correctedMovement.z) ?? 0),
       z: translation.z + correctedMovement.z
     });
 
@@ -243,7 +243,7 @@ export function PlayerController({
 
     // Posição frequente fora do React; a store só recebe a mudança de condição de interação.
     const translation = body.translation();
-    publishPlayerFrame(translation.x, motionRef.current.visualBob, translation.z, useExpeditionStore.getState().session.map, facingAngleRef.current);
+    publishPlayerFrame(translation.x, translation.y - PLAYER_COLLIDER_CENTER_Y + motionRef.current.visualBob, translation.z, useExpeditionStore.getState().session.map, facingAngleRef.current);
   });
 
   return null;

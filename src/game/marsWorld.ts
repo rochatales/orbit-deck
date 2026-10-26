@@ -1,3 +1,4 @@
+import { addHangarTerrain, retainColonyCollider, retainColonyFloor } from './hangarLayout';
 import { Group } from 'three';
 import type { OfficeWorld } from '../world/createOfficeMap';
 import { MAPS } from './config';
@@ -12,10 +13,11 @@ export function createWorld(): OfficeWorld {
     const world: OfficeWorld = {
         group: new Group(),
         bounds: { ...MAPS.mars.bounds },
-        obstacles: [...manifest.colliders, ...greenhouse.colliders].map(({ minX, maxX, minZ, maxZ }) => ({ minX, maxX, minZ, maxZ })),
-        walkableAreas: manifest.walkableAreas.map(({ minX, maxX, minZ, maxZ }) => ({ minX, maxX, minZ, maxZ })),
+        obstacles: [...manifest.colliders.filter(retainColonyCollider), ...greenhouse.colliders].map(({ minX, maxX, minZ, maxZ }) => ({ minX, maxX, minZ, maxZ })),
+        walkableAreas: manifest.walkableAreas.filter(retainColonyFloor).map(({ minX, maxX, minZ, maxZ }) => ({ minX, maxX, minZ, maxZ })),
         update: () => {}
     };
+    addHangarTerrain(world);
     addMarsLanding(world);
     return world;
 }

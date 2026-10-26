@@ -1,6 +1,9 @@
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { useEffect, useMemo } from 'react';
+import { useLayoutEffect, useRef } from 'react';
+import { type Group, type BufferGeometry } from 'three';
+import { Hangar } from './Hangar';
+import { removeDockForHangar } from './hangarColony';
 import type { OfficeWorld } from '../../world/createOfficeMap';
 import { playerPosition } from '../../state/playerTransient';
 import colonyUrl from '../../assets/colony-v007.glb';
@@ -14,11 +17,14 @@ import { removeProvisionalGreenhouse } from './greenhouseRuntime';
 /** GLB estritamente visual. Física vem de OfficeWorld via CuboidCollider. */
 export function MarsColony({ world: _world }: { world: OfficeWorld }) {
     const gltf = useGLTF(colonyUrl);
-    const { scene, runtime } = useMemo(() => {
-        const scene = gltf.scene.clone(true);
-        return { scene, runtime: new MasterplanRuntime(scene, removeProvisionalGreenhouse(scene, manifest)) };
+    const visual = useRef<Group>(null), runtime = useRef<MasterplanRuntime>();
+    useLayoutEffect(() => {
+        const scene = gltf.scene.clone(true), geometry: BufferGeometry[] = [];
+        const filtered = removeDockForHangar(scene, removeProvisionalGreenhouse(scene, manifest), geometry);
+        const instance = new MasterplanRuntime(scene, filtered);
+        runtime.current = instance; visual.current!.add(scene);
+        return () => { scene.removeFromParent(); instance.dispose(); geometry.forEach(g => g.dispose()); runtime.current = undefined; };
     }, [gltf.scene]);
-    useEffect(() => () => runtime.dispose(), [runtime]);
-    useFrame((_, delta) => runtime.update(playerPosition, delta));
-    return <><primitive object={scene} dispose={null} /><AresLanding /><DeckProps /><Greenhouse /></>;
+    useFrame((_, delta) => runtime.current?.update(playerPosition, delta));
+    return <><group ref={visual} dispose={null} /><AresLanding /><DeckProps /><Greenhouse /><Hangar /></>;
 }
