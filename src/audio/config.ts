@@ -17,6 +17,7 @@ const PLAYER_STEP = binding('Main_character_step', 'playerSteps'), COLLECT = bin
 const PROFILES = {
     patrol: { step: binding('Patrol_small_step', 'enemySteps'), hit: binding('Patrol_small_bullet_hit', 'impacts'), death: binding('Patrol_small_death_hit', 'deaths'), attack: binding('Patrol_small_attack_hit', 'attacks') },
     largePatrol: { step: binding('Patrol_big_step', 'enemySteps'), hit: binding('Patrol_big_bullet_hit', 'impacts'), death: binding('Patrol_big_death_hit', 'deaths'), attack: binding('Patrol_small_attack_hit', 'attacks', .8) },
+    largeMutant: { step: binding('Mutant_big_step', 'enemySteps'), hit: binding('Mutant_big_bullet_hit', 'impacts'), death: binding('Mutant_small_death_hit', 'deaths', .8), attack: binding('Mutant_big_attack_hit', 'attacks') },
     smallMutant: { step: null, hit: binding('Mutant_small_bullet_hit', 'impacts'), death: binding('Mutant_small_death_hit', 'deaths'), attack: binding('Mutant_small_attack_hit', 'attacks') },
 };
 export function soundFor(e: SoundEvent): SoundBinding | null {

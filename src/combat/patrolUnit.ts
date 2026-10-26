@@ -1,3 +1,4 @@
+import { MUTANT_CHARGE } from './config';
 import { FootstepClock } from '../audio/events';
 import { AnimationMixer, Color, LoopOnce, LoopRepeat, MeshStandardMaterial, SkinnedMesh, type AnimationAction, type AnimationClip, type Object3D } from 'three';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
@@ -39,6 +40,8 @@ export const LARGE_PATROL_VISUAL = { height: 3.2, scale: 3.2 / 2.08507967 } as c
 
 export const SMALL_MUTANT_VISUAL = { height: .96201372, scale: 1, walkReferenceSpeed: 2.2, chaseReferenceSpeed: 4.6 } as const;
 
+export const LARGE_MUTANT_VISUAL = { height: 1.18, scale: 1, walkReferenceSpeed: 1.4, chaseReferenceSpeed: 2.2 } as const;
+
 export interface PatrolUnitInput {
     alive: boolean;
     speed: number;              // m/s medidos entre quadros
@@ -58,7 +61,7 @@ export function walkTimeScale(speed: number, reference = PATROL_UNIT.walkReferen
     return Math.min(max, Math.max(min, speed / reference));
 }
 
-export interface PatrolUnitRobot { x: number; z: number; hp: number; flash: number; alerted: boolean }
+export interface PatrolUnitRobot { x: number; z: number; hp: number; flash: number; alerted: boolean; chargePhase?: string; chargeLeft?: number }
 
 /**
  * Uma instância por robô: esqueleto e material próprios; malha e texturas
@@ -80,9 +83,9 @@ export class PatrolUnitRig {
     private speed = 0;          // suavizada: a simulação anda em passos fixos, 0–2 por quadro
 
     private readonly stateInput: PatrolUnitInput = { alive: true, speed: 0, attacking: false, chasing: false };
-    constructor(source: Object3D, clips: AnimationClip[], private readonly variant: boolean | 'smallMutant' = false) {
+    constructor(source: Object3D, clips: AnimationClip[], private readonly variant: boolean | 'smallMutant' | 'largeMutant' = false) {
         this.root = clone(source);
-        this.root.scale.setScalar(variant === 'smallMutant' ? SMALL_MUTANT_VISUAL.scale : variant ? LARGE_PATROL_VISUAL.scale : PATROL_UNIT.scale);
+        this.root.scale.setScalar(variant === 'largeMutant' ? LARGE_MUTANT_VISUAL.scale : variant === 'smallMutant' ? SMALL_MUTANT_VISUAL.scale : variant ? LARGE_PATROL_VISUAL.scale : PATROL_UNIT.scale);
         this.root.traverse(object => {
             const mesh = object as SkinnedMesh;
             if (!mesh.isMesh) return;
@@ -116,8 +119,10 @@ export class PatrolUnitRig {
             this.lastZ = robot.z;
         }
         const speed = this.speed;
-        const attacking = alive && robot.alerted && Math.hypot(robot.x - playerX, robot.z - playerZ) <= contactRange;
-        this.stateInput.alive = alive; this.stateInput.speed = speed; this.stateInput.attacking = attacking; this.stateInput.chasing = !!this.variant && robot.alerted;
+        const winding = this.variant === 'largeMutant' && robot.chargePhase === 'windup';
+        const dashing = this.variant === 'largeMutant' && robot.chargePhase === 'dash';
+        const attacking = winding || alive && robot.alerted && Math.hypot(robot.x - playerX, robot.z - playerZ) <= contactRange;
+        this.stateInput.alive = alive; this.stateInput.speed = speed; this.stateInput.attacking = attacking && !dashing; this.stateInput.chasing = !!this.variant && robot.alerted;
         const next = nextPatrolUnitClip(this.clip, this.stateInput);
         if (next !== this.clip) {
             const from = this.actions.get(this.clip)!, to = this.actions.get(next)!;
@@ -125,8 +130,8 @@ export class PatrolUnitRig {
             from.crossFadeTo(to, PATROL_UNIT.fade, false);
             this.clip = next;
         }
-        if (next === 'PatrolWalk') this.actions.get(next)!.timeScale = walkTimeScale(speed, this.variant === 'smallMutant' ? SMALL_MUTANT_VISUAL.walkReferenceSpeed : this.variant ? 1.25 : PATROL_UNIT.walkReferenceSpeed);
-        if (next === 'ChaseRun') this.actions.get(next)!.timeScale = walkTimeScale(speed, this.variant === 'smallMutant' ? SMALL_MUTANT_VISUAL.chaseReferenceSpeed : 1.55);
+        if (next === 'PatrolWalk') this.actions.get(next)!.timeScale = walkTimeScale(speed, this.variant === 'largeMutant' ? LARGE_MUTANT_VISUAL.walkReferenceSpeed : this.variant === 'smallMutant' ? SMALL_MUTANT_VISUAL.walkReferenceSpeed : this.variant ? 1.25 : PATROL_UNIT.walkReferenceSpeed);
+        if (next === 'ChaseRun') this.actions.get(next)!.timeScale = walkTimeScale(speed, this.variant === 'largeMutant' ? LARGE_MUTANT_VISUAL.chaseReferenceSpeed : this.variant === 'smallMutant' ? SMALL_MUTANT_VISUAL.chaseReferenceSpeed : 1.55);
         this.deadFor = alive ? 0 : this.deadFor + dt;
         this.visible = alive || this.deadFor < PATROL_UNIT.deathVisible;
         for (let i = 0; i < this.materials.length; i++) {
@@ -134,6 +139,9 @@ export class PatrolUnitRig {
             material.color.copy(this.baseColors[i]).multiplyScalar(robot.flash > 0 ? PATROL_UNIT.flashColor : 1);
             material.emissive.copy(robot.alerted && alive ? PATROL_UNIT.alertTint : PATROL_UNIT.calmTint);
         }
+        const lunge=this.actions.get('AggressiveLunge')!;
+        lunge.paused=winding;
+        if(winding)lunge.time=Math.min(MUTANT_CHARGE.anticipationClip,Math.max(0,(MUTANT_CHARGE.windup-(robot.chargeLeft??0))/MUTANT_CHARGE.windup*MUTANT_CHARGE.anticipationClip));
         if (this.visible) this.mixer.update(dt);
         const action = this.actions.get(next)!;
         const stepping = alive && dt > 0 && (next === 'PatrolWalk' || next === 'ChaseRun');
@@ -145,6 +153,7 @@ export class PatrolUnitRig {
     respawn() {
         this.mixer.stopAllAction();
         this.stepClock.reset(); this.stepSound = false;
+        this.actions.get('AggressiveLunge')!.paused=false;
         this.actions.get('Idle')!.reset().play();
         this.clip = 'Idle';
         this.lastX = Number.NaN;

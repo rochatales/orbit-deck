@@ -1,5 +1,6 @@
 {
-  "base": "2d9b45f",
+  "base": "53b358d",
+  "supplement": "Recaptura após integração do mutante grande, mesma fixture de tiro; parede vista pela frente",
   "method": "Fixture App Shanghai. Tiro real chamado uma vez por caso e passo congelado após o tiro para capturar efeitos de 50 ms; posicionamento técnico, sem aceite visual.",
   "cases": [
     {

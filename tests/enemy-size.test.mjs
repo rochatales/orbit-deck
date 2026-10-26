@@ -39,9 +39,10 @@ test('S2.12 B3: caminho não vazio ainda rejeita origem, segmento ou término in
     assert.equal(validContactSpawn(terrain,{path:()=>[{x:3,z:0}]},start,goal,.67,1.07),true);
 });
 
-test('S2.12 B3: quatro hordas completas com rifle real, 109 baixas e nenhuma invasão de sólido',()=>{
-    const r=clearWavesSizeReport();assert.ok(r.cleared);assert.equal(r.kills,109);assert.equal(r.invalid,0);
-    assert.deepEqual(r.waves.map(w=>w.spawned),[13,26,30,40]);assert.ok(r.seconds<300);assert.ok(r.ammo>=0&&r.reserve>=0);
+test('S2.12 B3: quatro hordas completas com rifle real, 115 baixas e nenhuma invasão de sólido',()=>{
+    const r=clearWavesSizeReport();assert.ok(r.cleared);assert.equal(r.kills,115);assert.equal(r.invalid,0);
+    assert.deepEqual(r.waves.map(w=>w.spawned),[13,26,32,44]);assert.ok(r.seconds<360); // Novo elenco: seis grandes mutantes de oito tiros, além dos 109 anteriores.
+    assert.ok(r.ammo>=0&&r.reserve>=0);
 });
 
 test('S2.12 B3: dez grandes chegam ao contato pelos caminhos reais sem atravessar sólidos',()=>{

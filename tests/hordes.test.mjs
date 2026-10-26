@@ -79,11 +79,11 @@ test('caminho suavizado continua livre de prédios e corta a escada da grade', (
     assert.deepEqual(path.at(-1), goal);
 });
 
-test('hordas 13 → 26 → 30 → 40 nascem na borda, em pontos distintos, longe do jogador e uma por vez', () => {
+test('hordas 13 → 26 → 32 → 44 nascem na borda, em pontos distintos, longe do jogador e uma por vez', () => {
     const terrain = createPhase01Terrain(), sim = new CombatSimulation(terrain, HORDE_ENCOUNTER, encounterLayout(true));
     const player = { x: data.exit.x, z: data.exit.z }, b = terrain.bounds, waves = HORDE_TOTALS;
-    assert.deepEqual([...waves], [13, 26, 30, 40]);
-    assert.equal(sim.total, 109); assert.equal(sim.robots.length, 40); assert.equal(sim.drops.length, 109);
+    assert.deepEqual([...waves], [13, 26, 32, 44]);
+    assert.equal(sim.total, 115); assert.equal(sim.robots.length, 44); assert.equal(sim.drops.length, 127);
     assert.ok(sim.robots.every(r => !r.spawned && r.hp === 0), 'nenhum robô antes da primeira horda');
     assert.deepEqual([sim.snapshot.wave, sim.snapshot.waves, sim.snapshot.nextWave, sim.snapshot.cleared], [0, 4, COMBAT.hordes.firstDelay, false]);
     step(sim, player, 2, true);
@@ -134,10 +134,10 @@ test('horda marcha da borda até o jogador e acelera ao avistá-lo', () => {
 test('seletor aceita hordas como padrão e mantém as patrulhas de teste', () => {
     const store = useCombatStore;
     assert.equal(store.getState().encounter, HORDE_ENCOUNTER);
-    assert.equal(encounterTotal(HORDE_ENCOUNTER), 109);
+    assert.equal(encounterTotal(HORDE_ENCOUNTER), 115);
     store.getState().selectEncounter(32); assert.equal(store.getState().encounter, 32);
     store.getState().selectEncounter(7); assert.equal(store.getState().encounter, 32, 'valor fora da lista é ignorado');
     store.getState().restart(); assert.equal(store.getState().total, 32);
     store.getState().selectEncounter(HORDE_ENCOUNTER); store.getState().restart();
-    assert.equal(store.getState().total, 109); assert.equal(store.getState().wave, 0);
+    assert.equal(store.getState().total, 115); assert.equal(store.getState().wave, 0);
 });

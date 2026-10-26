@@ -27,7 +27,7 @@ test('Recursos/Patrol grande: GLBs do autor preservados, rigs e clipes esperados
  }
 });
 
-test('Hordas: robôs preservados, animais adicionais 3/6, com 109 ameaças totais',()=>{
+test('Hordas: robôs preservados, animais adicionais 3/6, com 115 ameaças totais',()=>{
  assert.deepEqual([...COMBAT.hordes.waves],[10,20,30,40]);
  for(let w=0;w<4;w++)assert.equal(Array.from({length:HORDE_TOTALS[w]},(_,i)=>waveRobotKind(w,i)).filter(k=>k==='largePatrol').length,[0,0,5,10][w]);
  const sim=new CombatSimulation(createPhase01Terrain(),'hordas',encounterLayout(true));
@@ -35,11 +35,11 @@ test('Hordas: robôs preservados, animais adicionais 3/6, com 109 ameaças totai
  for(let w=1;w<=4;w++){
   for(let guard=0;sim.wave<w;guard++){assert.ok(guard<650);sim.hp=100;sim.step(1/60,input);}
   const live=sim.robots.filter(r=>r.hp>0);assert.equal(live.length,HORDE_TOTALS[w-1]);assert.equal(live.filter(r=>r.kind==='largePatrol').length,[0,0,5,10][w-1]);
-  for(const r of live){assert.equal(r.hp,robotConfig(r).hp);assert.ok(!usedDrops.has(r.drop));usedDrops.add(r.drop);assertRoute(r.kind==='smallMutant'?sim.mutantNavigation:r.kind==='largePatrol'?sim.largeNavigation:sim.navigation,r,d.exit,robotConfig(r).contactRange);}
+  for(const r of live){assert.equal(r.hp,robotConfig(r).hp);assert.ok(!usedDrops.has(r.drop));usedDrops.add(r.drop);assertRoute(r.kind==='largeMutant'?sim.largeMutantNavigation:r.kind==='smallMutant'?sim.mutantNavigation:r.kind==='largePatrol'?sim.largeNavigation:sim.navigation,r,d.exit,robotConfig(r).contactRange);}
   const need=Math.ceil(live.reduce((s,r)=>s+Math.ceil(robotConfig(r).hp/COMBAT.rifle.damage),0)*COMBAT.hordes.ammoMargin);assert.ok(sim.ammo+sim.reserve>=need);
   live.forEach(r=>{r.hp=0});
  }
- assert.equal(usedDrops.size,109);assert.equal(sim.total,109);assert.equal(sim.drops.length,109);
+ assert.equal(usedDrops.size,115);assert.equal(sim.total,115);assert.equal(sim.drops.length,127);
 });
 
 test('Patrol grande: perímetro recuado respeita raio, todos os segmentos e alcance de contato ARES-I',()=>{

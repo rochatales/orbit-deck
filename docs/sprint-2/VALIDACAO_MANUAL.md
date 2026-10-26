@@ -211,3 +211,17 @@ Parada 3; S2.11 só após aceite do autor.
 
 208/208, build/diff-check verdes. Capturas comparativas e medições técnicas no
 handoff B, `apoio-piso/`; aceite visual do autor e revisão Claude pendentes.
+
+## Entregas antecipadas após S2.11 — 26/10/2026
+
+- [ ] Clarão no cano, metal laranja/branco nos robôs, verde nos animais e poeira
+  na parede; tranco curto sem interromper movimento/dano; pausa/retry sem resíduo.
+- [ ] Hordas 13/26/32/44, total 115; grandes mutantes 0/0/2/4, oito tiros e três
+  orgânicas independentes com anéis apoiados no piso.
+- [ ] Com áudio mudo, aviso de 0,8 s a 4–9 m; desviar saindo de lado, permanecer
+  para conferir 30 de dano, provocar parede e observar recarga de 3 s/contato 15.
+- [ ] Conferir sons grandes, morte provisória grave e legibilidade do aviso quando
+  há outros inimigos na frente. S2.11 segue opcional, sem adoção automática.
+
+227/227, build/diff-check verdes; handoffs `s3.10-efeitos.md` e
+`s3.3-mutante-grande.md`. Aceite visual/jogabilidade é do autor, pendente.

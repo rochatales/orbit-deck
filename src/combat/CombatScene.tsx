@@ -1,3 +1,4 @@
+import { ChargeWarnings } from './ChargeWarnings';
 import { CombatEffects } from './CombatEffects';
 import { COMBAT_VFX } from './effects';
 import { approachSupportHeight } from '../game/supportHeight';
@@ -14,8 +15,9 @@ import { combatRuntime, useCombatStore } from '../state/useCombatStore';
 import { simulationBlocked } from '../game/simulationGate';
 import { CombatSimulation, type CombatInput } from './simulation';
 import { COMBAT, RIFLE_POSE, robotConfig, waveRobotKind } from './config';
-import { PATROL_UNIT, LARGE_PATROL_VISUAL, SMALL_MUTANT_VISUAL, PatrolUnitRig } from './patrolUnit';
+import { PATROL_UNIT, LARGE_PATROL_VISUAL, SMALL_MUTANT_VISUAL, LARGE_MUTANT_VISUAL, PatrolUnitRig } from './patrolUnit';
 import { ResourceDrops } from './ResourceDrops';
+import largeMutantUrl from '../assets/enemies/large-mutant.glb';
 import mutantUrl from '../assets/enemies/mutant-animal.glb';
 import largePatrolUrl from '../assets/enemies/large-patrol-unit.glb';
 import patrolUnitUrl from '../assets/enemies/patrol-unit.glb';
@@ -42,9 +44,13 @@ export function CombatScene({ world }: {
     const mutantRigs = useMemo(() => simulation.robots.map((_, i) =>
         simulation.waves.some((count, wave) => i < count && waveRobotKind(wave, i) === 'smallMutant')
             ? new PatrolUnitRig(mutant.scene, mutant.animations, 'smallMutant') : null), [simulation, mutant]);
+    const largeMutant = useGLTF(simulation.waves.length ? largeMutantUrl : patrolUnitUrl);
+    const largeMutantRigs = useMemo(() => simulation.robots.map((_, i) =>
+        simulation.waves.some((count, wave) => i < count && waveRobotKind(wave, i) === 'largeMutant')
+            ? new PatrolUnitRig(largeMutant.scene, largeMutant.animations, 'largeMutant') : null), [simulation, largeMutant]);
     // Hordas reutilizam slots: a geração muda a cada nascimento e o rig volta ao Idle.
     const generations = useMemo(() => simulation.robots.map(() => -1), [simulation]);
-    useEffect(() => () => { rigs.forEach(rig => rig.dispose()); largeRigs.forEach(rig => rig?.dispose()); mutantRigs.forEach(rig => rig?.dispose()); }, [rigs, largeRigs, mutantRigs]);
+    useEffect(() => () => { rigs.forEach(rig => rig.dispose()); largeRigs.forEach(rig => rig?.dispose()); mutantRigs.forEach(rig => rig?.dispose()); largeMutantRigs.forEach(rig=>rig?.dispose()); }, [rigs, largeRigs, mutantRigs, largeMutantRigs]);
     const stepSlots = useMemo(() => new Int32Array(4), []), stepDistances = useMemo(() => new Float64Array(4), []);
     const hearts = useRef<(Group | null)[]>([]);
     const heartShape = useMemo(() => {
@@ -122,10 +128,11 @@ export function CombatScene({ world }: {
             const mesh = robots.current[i];
             if (!mesh)
                 return;
-            const large = r.kind === 'largePatrol', animal = r.kind === 'smallMutant', rig = animal ? mutantRigs[i]! : large ? largeRigs[i]! : rigs[i];
+            const large = r.kind === 'largePatrol', bigAnimal=r.kind==='largeMutant', animal = r.kind === 'smallMutant', rig = bigAnimal ? largeMutantRigs[i]! : animal ? mutantRigs[i]! : large ? largeRigs[i]! : rigs[i];
             const R = robotConfig(r);
-            rigs[i].root.visible = !large && !animal;
+            rigs[i].root.visible = !large && !animal && !bigAnimal;
             if (largeRigs[i]) largeRigs[i]!.root.visible = large;
+            if (largeMutantRigs[i]) largeMutantRigs[i]!.root.visible=bigAnimal;
             if (mutantRigs[i]) mutantRigs[i]!.root.visible = animal;
             if (!r.spawned) {
                 mesh.visible = false;
@@ -154,11 +161,11 @@ export function CombatScene({ world }: {
                 -(r.recoilX*Math.cos(r.angle)-r.recoilZ*Math.sin(r.angle))*COMBAT_VFX.recoilTilt*kick);
             const ring = rings.current[i], alert = alerts.current[i];
             if (ring) { ring.visible = r.hp > 0; ring.scale.setScalar(R.radius / COMBAT.robot.radius); }
-            if (alert) { alert.visible = r.hp > 0 && r.alertLeft > 0; alert.position.y = (animal ? SMALL_MUTANT_VISUAL.height : large ? LARGE_PATROL_VISUAL.height : PATROL_UNIT.height) + .45; }
+            if (alert) { alert.visible = r.hp > 0 && r.alertLeft > 0; alert.position.y = (bigAnimal ? LARGE_MUTANT_VISUAL.height : animal ? SMALL_MUTANT_VISUAL.height : large ? LARGE_PATROL_VISUAL.height : PATROL_UNIT.height) + .45; }
         });
         for (let slot = 0; slot < 4; slot++) {
             const i = stepSlots[slot]; if (i < 0) continue;
-            const r = simulation.robots[i], rig = r.kind === 'largePatrol' ? largeRigs[i]! : rigs[i];
+            const r = simulation.robots[i], rig = r.kind === 'largeMutant' ? largeMutantRigs[i]! : r.kind === 'largePatrol' ? largeRigs[i]! : rigs[i];
             if (rig.stepSound) simulation.sounds.emit('enemyStep', r.x, r.z, r.kind);
         }
         simulation.hearts.forEach((heart, i) => {
@@ -184,12 +191,14 @@ export function CombatScene({ world }: {
         }
     });
     return <>
+    <ChargeWarnings simulation={simulation}/>
     <CombatEffects effects={simulation.effects}/>
     <ResourceDrops drops={simulation.drops}/>
     {simulation.crates.length > 0 && <SupplyCrates crates={simulation.crates} surfaceHeight={world.surfaceHeight}/>}
     {simulation.robots.map((r, i) => <group key={`${run}-${r.id}`} ref={g => { robots.current[i] = g; }}>
       <primitive object={rigs[i].root}/>
       {largeRigs[i] && <primitive object={largeRigs[i]!.root}/>}
+      {largeMutantRigs[i] && <primitive object={largeMutantRigs[i]!.root}/>}
       {mutantRigs[i] && <primitive object={mutantRigs[i]!.root}/>}
       <mesh ref={m => { rings.current[i] = m; }} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.025, 0]}><ringGeometry args={[0.43, 0.48, 20]}/><meshBasicMaterial color="#ff6753"/></mesh>
       <Billboard position={[0, PATROL_UNIT.height + 0.45, 0]} ref={g => { alerts.current[i] = g; }} visible={false}>

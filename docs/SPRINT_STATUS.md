@@ -202,3 +202,16 @@ mutante grande (S3.3 parcial), sem encerrar esses itens futuros. Primeira entreg
 pool instanciado de 128, clarão no cano 50 ms, impactos metal/orgânico/poeira e
 tranco visual 120 ms. Base `2d9b45f`; 216/216, build/diff-check verdes, capturas
 e roteiro no handoff `s3.10-efeitos.md`. Aceite visual e revisão Claude pendentes.
+
+26/10/2026 — Entrega 1 commitada em **`53b358d`** (efeitos visuais). Entrega 2
+sobre essa base: mutante grande, GLB escala 1, SHA-256
+`70470d2d125da7d6356f020538b582feb4133214567f0e21765339c970edae8a`.
+Raio medido 1,336176 → **1,34 m**, altura de tiro **0–1,18 m**. Hordas
+**13/26/32/44**, total **115**; 200 HP, oito tiros, três orgânicas independentes.
+Aviso vermelho de 0,8 s, investida 9 m/s/6 m, recarga 3 s, dano 30 com intervalo
+global e contato 15. Três sons grandes ativados; lacunas de aviso/morte própria
+registradas no handoff `s3.3-mutante-grande.md`. 227/227/build/diff-check verdes,
+272 candidatos e 32 spawns válidos no raio próprio; quatro hordas concluídas no
+ensaio em 345,85 s, zero posições inválidas. QA horda 3 com 32 ativos e faixa
+visível, captura em disco. Revisão Claude/aceite pendentes; sprints futuros não
+marcados como concluídos. Sem push/merge; principal e fontes preservados.
