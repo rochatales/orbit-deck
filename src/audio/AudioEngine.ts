@@ -10,7 +10,7 @@ export class AudioEngine {
     muted = false;
     unlocked = false;
     blocked = true;
-    readonly stats = { events: {} as Record<string, number>, played: {} as Record<string, number>, stolen: 0, discarded: 0, decodeErrors: 0 };
+    readonly stats = { events: {} as Record<string, number>, played: {} as Record<string, number>, playedEvents: {} as Record<string, number>, stolen: 0, discarded: 0, decodeErrors: 0 };
     readonly voices: Voice[] = [];
     readonly buffers = new Map<string, AudioBuffer[]>();
     private previous = new Map<string, number>();
@@ -83,7 +83,7 @@ export class AudioEngine {
     play(event: SoundEvent, distance = 0, pan = 0) {
         const sound = soundFor(event), c = this.context;
         if (!sound || !c || !this.ready || !this.unlocked || this.blocked || this.muted || c.state !== 'running'
-            || distance >= AUDIO.far || (sound.category === 'enemySteps' && distance > AUDIO.enemyStepDistance)) { this.stats.discarded++; return; }
+            || distance >= AUDIO.far || (sound.category === 'enemySteps' && distance > AUDIO.enemyStepDistance) || (sound.category === 'heavySteps' && distance > AUDIO.heavyStepDistance)) { this.stats.discarded++; return; }
         const buffers = this.buffers.get(sound.name);
         if (!buffers?.length) { this.stats.discarded++; return; }
         const category = AUDIO.categories[sound.category];
@@ -94,7 +94,7 @@ export class AudioEngine {
         this.previous.set(sound.name, index);
         const source = c.createBufferSource(), gain = c.createGain(), stereo = c.createStereoPanner();
         source.buffer = buffers[index]; source.playbackRate.value = sound.rate;
-        gain.gain.value = category.volume * distanceGain(distance); stereo.pan.value = pan;
+        gain.gain.value = category.volume * sound.gain * distanceGain(distance); stereo.pan.value = pan;
         source.connect(gain); gain.connect(stereo); stereo.connect(this.master!);
         const voice: Voice = { source, gain, pan: stereo, category: sound.category, retiring: false };
         this.voices.push(voice);
@@ -102,7 +102,7 @@ export class AudioEngine {
             source.disconnect(); gain.disconnect(); stereo.disconnect();
             const at = this.voices.indexOf(voice); if (at >= 0) this.voices.splice(at, 1);
         };
-        source.start(); this.stats.played[sound.name] = (this.stats.played[sound.name] ?? 0) + 1;
+        source.start(); const key=`${event.type}:${event.kind}`;this.stats.playedEvents[key]=(this.stats.playedEvents[key]??0)+1; this.stats.played[sound.name] = (this.stats.played[sound.name] ?? 0) + 1;
     }
     private retire(voice: Voice) {
         if (voice.retiring || !this.context) return;

@@ -41,15 +41,17 @@ export function joinFragments(ranges, gap) {
     }
     return result;
 }
-export function generate(source = resolve(root, 'art-source/audio/combate-v001/originais')) {
+export const HEAVY_STEP_PEAK_DB = -6;
+export function generate(source = resolve(root, 'art-source/audio/combate-v001/originais'), onlyHeavy = false) {
     const originals = resolve(root, 'art-source/audio/combate-v001/originais');
     const output = resolve(root, 'src/assets/audio/sfx');
-    mkdirSync(originals, { recursive: true }); mkdirSync(output, { recursive: true });
+    if(!onlyHeavy)mkdirSync(originals, { recursive: true }); mkdirSync(output, { recursive: true });
     const names = readdirSync(source).filter(n => /^SFX_.*\.mp3$/i.test(n)).sort();
     if (names.length !== 17) throw new Error(`Esperados 17 originais, encontrados ${names.length}`);
     const old = existsSync(resolve(output, 'manifesto.json')) ? JSON.parse(readFileSync(resolve(output, 'manifesto.json'))) : null;
     const manifest = { version: 1, detector: { db: -38, seconds: .06 }, encoding: { sampleRate: 48000, channels: 1, kbps: 96 }, sources: [] };
     for (const name of names) {
+        if(onlyHeavy && name !== 'SFX_Mutant_big_step.mp3'){const entry=old?.sources.find(s=>s.name===basename(name,'.mp3'));if(!entry)throw new Error(`Manifesto incompleto: ${name}`);manifest.sources.push(entry);continue;}
         const bytes = readFileSync(resolve(source, name)), sha256 = createHash('sha256').update(bytes).digest('hex');
         const original = resolve(originals, name);
         if (existsSync(original) && createHash('sha256').update(readFileSync(original)).digest('hex') !== sha256) throw new Error(`Cópia existente diferente: ${name}`);
@@ -74,8 +76,20 @@ export function generate(source = resolve(root, 'art-source/audio/combate-v001/o
             while (ratio > 2) { tempo += 'atempo=2,'; ratio /= 2; }
             if (ratio > 1) tempo += `atempo=${ratio},`;
             const fade = Math.min(.025, target / 4);
-            const filter = `${trims};${concat};[all]${tempo}atrim=duration=${target},afade=t=out:st=${Math.max(0, target - fade)}:d=${fade},aformat=channel_layouts=mono[out]`;
+            let filter = `${trims};${concat};[all]${tempo}atrim=duration=${target},afade=t=out:st=${Math.max(0, target - fade)}:d=${fade},aformat=channel_layouts=mono[out]`;
+            if(stem==='SFX_Mutant_big_step') {
+                const measure=run('ffmpeg',['-hide_banner','-i',original,'-filter_complex',filter.replace('[out]','[pre]')+';[pre]volumedetect[out]','-map','[out]','-f','null','-']).stderr;
+                const peak=Number(measure.match(/max_volume: ([-\d.]+) dB/)?.[1]);if(!Number.isFinite(peak))throw new Error('Pico indisponível');
+                filter=filter.replace('[out]',`,volume=${HEAVY_STEP_PEAK_DB-peak}dB[out]`);entry.normalization={targetPeakDb:HEAVY_STEP_PEAK_DB,method:'Pico PCM mono após corte/fade, ganho por variação antes do MP3'};
+            }
             run('ffmpeg', ['-y', '-hide_banner', '-loglevel', 'error', '-i', original, '-filter_complex', filter, '-map', '[out]', '-ar', '48000', '-ac', '1', '-b:a', '96k', '-map_metadata', '-1', resolve(output, file)]);
+            if(stem==='SFX_Mutant_big_step') {
+                const encoded=run('ffmpeg',['-hide_banner','-i',resolve(output,file),'-af','volumedetect','-f','null','-']).stderr;
+                const peak=Number(encoded.match(/max_volume: ([-\d.]+) dB/)?.[1]);if(!Number.isFinite(peak))throw new Error('Pico MP3 indisponível');
+                filter=filter.replace('[out]',`,volume=${HEAVY_STEP_PEAK_DB-peak}dB[out]`);
+                run('ffmpeg',['-y','-hide_banner','-loglevel','error','-i',original,'-filter_complex',filter,'-map','[out]','-ar','48000','-ac','1','-b:a','96k','-map_metadata','-1',resolve(output,file)]);
+                entry.normalization.method='Pico mono por variação, com segunda passagem corrigindo o pico decodificado do MP3';
+            }
             const info = JSON.parse(run('ffprobe', ['-v', 'error', '-show_format', '-show_streams', '-of', 'json', resolve(output, file)]).stdout);
             const peakLog = run('ffmpeg', ['-hide_banner', '-i', resolve(output, file), '-af', 'volumedetect', '-f', 'null', '-']).stderr;
             const measured = Number(info.format.duration);
@@ -90,4 +104,4 @@ export function generate(source = resolve(root, 'art-source/audio/combate-v001/o
     writeFileSync(resolve(output, 'manifesto.json'), JSON.stringify(manifest, null, 2) + '\n');
     return manifest;
 }
-if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) generate(process.argv[2]);
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) generate(process.argv[2]==='--normalize-heavy-only'?undefined:process.argv[2],process.argv.includes('--normalize-heavy-only'));

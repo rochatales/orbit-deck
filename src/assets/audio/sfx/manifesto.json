@@ -164,7 +164,7 @@
         {
           "file": "SFX_Mutant_big_step_v01.mp3",
           "duration": 0.218479,
-          "peakDb": -14.7,
+          "peakDb": -6,
           "ranges": [
             [
               0,
@@ -175,7 +175,7 @@
         {
           "file": "SFX_Mutant_big_step_v02.mp3",
           "duration": 0.173479,
-          "peakDb": -15.1,
+          "peakDb": -6.3,
           "ranges": [
             [
               0.423687,
@@ -186,7 +186,7 @@
         {
           "file": "SFX_Mutant_big_step_v03.mp3",
           "duration": 0.234208,
-          "peakDb": -12.5,
+          "peakDb": -5.9,
           "ranges": [
             [
               0.9585,
@@ -197,7 +197,7 @@
         {
           "file": "SFX_Mutant_big_step_v04.mp3",
           "duration": 0.124063,
-          "peakDb": -21.5,
+          "peakDb": -5.6,
           "ranges": [
             [
               1.300854,
@@ -208,7 +208,7 @@
         {
           "file": "SFX_Mutant_big_step_v05.mp3",
           "duration": 0.217417,
-          "peakDb": -7,
+          "peakDb": -6,
           "ranges": [
             [
               1.921625,
@@ -219,7 +219,7 @@
         {
           "file": "SFX_Mutant_big_step_v06.mp3",
           "duration": 0.192979,
-          "peakDb": -8.5,
+          "peakDb": -5.8,
           "ranges": [
             [
               2.354979,
@@ -230,7 +230,7 @@
         {
           "file": "SFX_Mutant_big_step_v07.mp3",
           "duration": 0.241875,
-          "peakDb": -5.7,
+          "peakDb": -5.6,
           "ranges": [
             [
               2.866667,
@@ -241,7 +241,7 @@
         {
           "file": "SFX_Mutant_big_step_v08.mp3",
           "duration": 0.134021,
-          "peakDb": -18.5,
+          "peakDb": -6.4,
           "ranges": [
             [
               3.248479,
@@ -252,7 +252,7 @@
         {
           "file": "SFX_Mutant_big_step_v09.mp3",
           "duration": 0.118021,
-          "peakDb": -20.3,
+          "peakDb": -5.9,
           "ranges": [
             [
               3.835667,
@@ -263,7 +263,7 @@
         {
           "file": "SFX_Mutant_big_step_v10.mp3",
           "duration": 0.166688,
-          "peakDb": -9.4,
+          "peakDb": -6.1,
           "ranges": [
             [
               4.197354,
@@ -274,7 +274,7 @@
         {
           "file": "SFX_Mutant_big_step_v11.mp3",
           "duration": 0.315,
-          "peakDb": -15.9,
+          "peakDb": -6,
           "ranges": [
             [
               4.711667,
@@ -285,7 +285,7 @@
         {
           "file": "SFX_Mutant_big_step_v12.mp3",
           "duration": 0.203229,
-          "peakDb": -17.4,
+          "peakDb": -6.2,
           "ranges": [
             [
               5.683271,
@@ -296,7 +296,7 @@
         {
           "file": "SFX_Mutant_big_step_v13.mp3",
           "duration": 0.145875,
-          "peakDb": -9.6,
+          "peakDb": -5.5,
           "ranges": [
             [
               6.137875,
@@ -307,7 +307,7 @@
         {
           "file": "SFX_Mutant_big_step_v14.mp3",
           "duration": 0.238625,
-          "peakDb": -9.4,
+          "peakDb": -6,
           "ranges": [
             [
               6.599854,
@@ -315,7 +315,11 @@
             ]
           ]
         }
-      ]
+      ],
+      "normalization": {
+        "targetPeakDb": -6,
+        "method": "Pico mono por variação, com segunda passagem corrigindo o pico decodificado do MP3"
+      }
     },
     {
       "name": "SFX_Mutant_small_attack_hit",

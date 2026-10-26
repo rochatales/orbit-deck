@@ -1,5 +1,5 @@
 import type { RobotKind } from '../combat/config';
-export type SoundEventType = 'shot' | 'reload' | 'playerStep' | 'enemyStep' | 'bulletHit' | 'death' | 'attack' | 'collect';
+export type SoundEventType = 'shot' | 'reload' | 'playerStep' | 'enemyStep' | 'bulletHit' | 'death' | 'attack' | 'collect' | 'chargeWarning';
 export interface SoundEvent { type: SoundEventType; kind: RobotKind; x: number; z: number }
 /** Anel pré-alocado: nenhum objeto por evento da simulação/locomoção. */
 export class SoundQueue {

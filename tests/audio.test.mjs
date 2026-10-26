@@ -126,3 +126,24 @@ test('S3.10: 17 fontes intactas, detecção reproduzível, variações/duraçõe
     assert.equal(outputs.size, 55);
     assert.equal(fs.readdirSync('src/assets/audio/sfx').filter(n => n.endsWith('.mp3')).length, outputs.size);
 });
+
+test('Passos pesados: duas vozes reservadas, até 25 m, sem disputar quatro passos comuns; aviso grave/baixo',async()=>{
+ const context=fakeContext(),oldFetch=globalThis.fetch;globalThis.fetch=async()=>({ok:true,arrayBuffer:async()=>new ArrayBuffer(8)});
+ try{const files=manifest.sources.flatMap(s=>s.variations.map(v=>({name:s.name,url:v.file}))),engine=new AudioEngine(()=>context,files);engine.setBlocked(false);await engine.unlock();
+ for(let i=0;i<4;i++)engine.play(event('enemyStep'),10);
+ for(let i=0;i<3;i++)engine.play(event('enemyStep',i%2?'largePatrol':'largeMutant'),20);
+ assert.equal(engine.voices.filter(v=>v.category==='enemySteps'&&!v.retiring).length,4);assert.equal(engine.voices.filter(v=>v.category==='heavySteps'&&!v.retiring).length,2);
+ assert.equal(engine.stats.stolen,1);assert.equal(soundFor(event('enemyStep','largePatrol')).category,'heavySteps');assert.equal(soundFor(event('enemyStep','largeMutant')).category,'heavySteps');assert.ok(AUDIO.categories.heavySteps.volume>AUDIO.categories.enemySteps.volume);
+ engine.play(event('chargeWarning','largeMutant'),2);const warning=engine.voices.at(-1);assert.equal(warning.source.playbackRate.value,.65);assert.equal(warning.gain.gain.value,.75*.25);assert.equal(engine.stats.playedEvents['chargeWarning:largeMutant'],1);
+ engine.play(event('attack','largeMutant'),2);assert.equal(engine.voices.at(-1).source.playbackRate.value,1);assert.equal(engine.voices.at(-1).gain.gain.value,.75);
+ }finally{globalThis.fetch=oldFetch;}
+});
+test('Passos pesados: 14 variações normalizadas por pico, fontes e durações preservadas',()=>{
+ const source=manifest.sources.find(s=>s.name==='SFX_Mutant_big_step');assert.equal(source.variations.length,14);assert.equal(source.normalization.targetPeakDb,-6);
+ const peaks=source.variations.map(v=>v.peakDb);assert.ok(Math.max(...peaks)-Math.min(...peaks)<1);assert.ok(peaks.every(p=>p>=-7&&p<=-5));
+});
+test('Investida: aviso de áudio ocorre uma vez ao começar a antecipação e não repete durante os 0,8 s',()=>{
+ const b={minX:-30,maxX:30,minZ:-30,maxZ:30},s=new CombatSimulation({bounds:b,walkableAreas:[b],obstacles:[]},'hordas'),input={player:{x:0,z:0},aim:{x:0,z:10},facingAngle:0,firing:false,reload:false};
+ s.wave=2;s.waveLeft=.001;s.step(1/60,input);s.robots.forEach(r=>r.hp=0);const r=s.robots.find(r=>r.kind==='largeMutant');Object.assign(r,{x:0,z:-6,hp:200,alerted:true,chargePhase:'ready'});s.sounds.clear();
+ for(let i=0;i<40;i++)s.step(1/60,input);assert.equal(s.sounds.slots.slice(0,s.sounds.count).filter(e=>e.type==='chargeWarning').length,1);
+});

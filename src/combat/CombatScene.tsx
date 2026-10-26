@@ -53,6 +53,7 @@ export function CombatScene({ world }: {
     const generations = useMemo(() => simulation.robots.map(() => -1), [simulation]);
     useEffect(() => () => { rigs.forEach(rig => rig.dispose()); largeRigs.forEach(rig => rig?.dispose()); mutantRigs.forEach(rig => rig?.dispose()); largeMutantRigs.forEach(rig=>rig?.dispose()); }, [rigs, largeRigs, mutantRigs, largeMutantRigs]);
     const stepSlots = useMemo(() => new Int32Array(4), []), stepDistances = useMemo(() => new Float64Array(4), []);
+    const heavySlots=useMemo(()=>new Int32Array(2),[]),heavyDistances=useMemo(()=>new Float64Array(2),[]);
     const hearts = useRef<(Group | null)[]>([]);
     const heartShape = useMemo(() => {
         const shape = new Shape();
@@ -124,7 +125,7 @@ export function CombatScene({ world }: {
             }
             useCombatStore.getState().publish(simulation.snapshot);
         }
-        stepSlots.fill(-1); stepDistances.fill(Infinity);
+        stepSlots.fill(-1); stepDistances.fill(Infinity);heavySlots.fill(-1);heavyDistances.fill(Infinity);
         simulation.robots.forEach((r, i) => {
             const mesh = robots.current[i];
             if (!mesh)
@@ -147,10 +148,11 @@ export function CombatScene({ world }: {
             rig.update(r, playerPosition.x, playerPosition.z, R.contactRange, blocked ? 0 : Math.min(delta, 0.1));
             if (!blocked && !animal && r.hp > 0 && (rig.clip === 'PatrolWalk' || rig.clip === 'ChaseRun')) {
                 const d = Math.hypot(r.x - playerPosition.x, r.z - playerPosition.z);
-                if (d <= AUDIO.enemyStepDistance) for (let slot = 0; slot < 4; slot++) {
-                    if (d >= stepDistances[slot]) continue;
-                    for (let shift = 3; shift > slot; shift--) { stepSlots[shift] = stepSlots[shift - 1]; stepDistances[shift] = stepDistances[shift - 1]; }
-                    stepSlots[slot] = i; stepDistances[slot] = d; break;
+                const heavy=large||bigAnimal,slots=heavy?heavySlots:stepSlots,distances=heavy?heavyDistances:stepDistances;
+                if (d <= (heavy?AUDIO.heavyStepDistance:AUDIO.enemyStepDistance)) for (let slot = 0; slot < slots.length; slot++) {
+                    if (d >= distances[slot]) continue;
+                    for (let shift = slots.length-1; shift > slot; shift--) { slots[shift] = slots[shift - 1]; distances[shift] = distances[shift - 1]; }
+                    slots[slot] = i; distances[slot] = d; break;
                 }
             }
             mesh.visible = rig.visible;
@@ -164,8 +166,8 @@ export function CombatScene({ world }: {
             if (ring) { ring.visible = r.hp > 0; ring.scale.setScalar(R.radius / COMBAT.robot.radius); }
             if (alert) { alert.visible = r.hp > 0 && r.alertLeft > 0; alert.position.y = (bigAnimal ? LARGE_MUTANT_VISUAL.height : animal ? SMALL_MUTANT_VISUAL.height : large ? LARGE_PATROL_VISUAL.height : PATROL_UNIT.height) + .45; }
         });
-        for (let slot = 0; slot < 4; slot++) {
-            const i = stepSlots[slot]; if (i < 0) continue;
+        for (let slot = 0; slot < stepSlots.length+heavySlots.length; slot++) {
+            const i = slot<stepSlots.length?stepSlots[slot]:heavySlots[slot-stepSlots.length]; if (i < 0) continue;
             const r = simulation.robots[i], rig = r.kind === 'largeMutant' ? largeMutantRigs[i]! : r.kind === 'largePatrol' ? largeRigs[i]! : rigs[i];
             if (rig.stepSound) simulation.sounds.emit('enemyStep', r.x, r.z, r.kind);
         }

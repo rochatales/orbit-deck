@@ -408,6 +408,7 @@ export class CombatSimulation {
         }
         if(r.chargePhase==='ready') {
             if(!r.alerted||!prepareCharge(r,player,this.terrain,this.nextPosition))return false;
+            this.sounds.emit('chargeWarning',r.x,r.z,r.kind);
             r.angle=Math.atan2(r.chargeDirX,r.chargeDirZ);return true;
         }
         if(r.chargePhase==='windup') {
