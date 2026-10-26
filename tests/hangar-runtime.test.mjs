@@ -71,10 +71,10 @@ test('Hangar runtime: corte do teto, portas por proximidade, rampa e canais comp
 });
 
 test('Hangar runtime: alerta em decolagem/pouso compõe com guindaste e pausa; descarte de recursos privados',()=>{
- const scene=clone(glb.scene),runtime=new HangarRuntime(scene,glb.animations),body=scene.getObjectByName('HangarMesh'),base=body.material.emissiveIntensity;
- runtime.setDeparture(true);step(runtime,0,25,13);assert.equal(runtime.status.alert,true);assert.notEqual(body.material.emissiveIntensity,base);
+ const scene=clone(glb.scene),runtime=new HangarRuntime(scene,glb.animations),body=scene.getObjectByName('HangarMesh'),atlas=body.material[0],base=atlas.emissiveIntensity;
+ runtime.setDeparture(true);step(runtime,0,25,13);assert.equal(runtime.status.alert,true);assert.notEqual(atlas.emissiveIntensity,base);
  const time=runtime.status.craneTime,amount=runtime.status.rampOpen;runtime.update({x:0,z:18},0);assert.equal(runtime.status.craneTime,time);assert.equal(runtime.status.rampOpen,amount);
- runtime.setDeparture(false);step(runtime,0,25,1);assert.equal(runtime.status.alert,false);assert.equal(body.material.emissiveIntensity,base);
+ runtime.setDeparture(false);step(runtime,0,25,1);assert.equal(runtime.status.alert,false);assert.equal(atlas.emissiveIntensity,base);
  runtime.startLanding();step(runtime,0,25,60);assert.equal(runtime.status.alert,true);step(runtime,0,25,180);assert.equal(runtime.status.alert,false);
  let sharedDisposed=0;glb.scene.getObjectByName('HangarMesh').geometry.addEventListener('dispose',()=>sharedDisposed++);
  const materials=new Set();scene.traverse(n=>{if(n.isMesh)for(const m of Array.isArray(n.material)?n.material:[n.material])materials.add(m);});const counts=new Map();for(const m of materials){counts.set(m,0);m.addEventListener('dispose',()=>counts.set(m,counts.get(m)+1));}
@@ -108,4 +108,26 @@ test('Hangar runtime: envelopes simples contêm carga e ganchos ao compor Idle e
   }
  }
  runtime.dispose();
+});
+
+
+test('Hangar runtime: quatro lados dos dois vãos pretos, sem atlas/emissão; cache e contagem de faces preservados',()=>{
+ const source=glb.scene.getObjectByName('HangarMesh'),index=Array.from(source.geometry.index.array),scene=clone(glb.scene),runtime=new HangarRuntime(scene,glb.animations),body=scene.getObjectByName('HangarMesh');
+ assert.notEqual(body.geometry,source.geometry);assert.deepEqual(Array.from(source.geometry.index.array),index);
+ assert.equal(body.geometry.index.count,source.geometry.index.count);
+ const black=body.material[1];assert.equal(black.name,'HangarDoorRevealBlack');assert.equal(black.color.getHex(),0x050505);
+ assert.equal(black.side,2);assert.equal(black.map,null);assert.equal(black.emissiveMap,null);assert.equal(black.emissive.getHex(),0);assert.equal(black.transparent,false);assert.equal(black.depthWrite,true);assert.equal(black.polygonOffset,true);
+ const group=body.geometry.groups[1];assert.equal(group.materialIndex,1);assert.equal(group.count/3,62);
+ const counts=[0,0,0,0,0,0,0,0],p=body.geometry.attributes.position;
+ for(let at=group.start;at<group.start+group.count;at+=3){
+  const vertices=[0,1,2].map(k=>body.geometry.index.getX(at+k));
+  const near=(axis,value)=>vertices.every(i=>Math.abs(p.getComponent(i,axis)-value)<.0001);
+  const north=vertices.every(i=>p.getZ(i)<-2.65);
+  const side=north?(near(0,-1.1)?0:near(0,1.1)?1:near(1,.16)?2:3):(near(2,-.675)?4:near(2,1.525)?5:near(1,.16)?6:7);
+  counts[side]++;
+ }
+ assert.ok(counts.every(n=>n>0),'ambas as laterais, soleira e verga de cada porta');
+ runtime.setDeparture(true);step(runtime,0,15.8);assert.equal(black.emissiveIntensity,1);assert.equal(black.emissive.getHex(),0);
+ let disposed=0;body.geometry.addEventListener('dispose',()=>disposed++);runtime.dispose();runtime.dispose();assert.equal(disposed,1);
+ assert.equal(source.geometry.groups.length,0);assert.equal(Array.isArray(source.material),false);
 });
