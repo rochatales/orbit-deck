@@ -195,3 +195,10 @@ piso elevado; horizontal até 7 cm. Produção: comparação Marte e Shanghai ho
 212/212, build/diff-check verdes. Autor confirmou tela 144 Hz; comparação nela,
 revisão Claude e decisão de adoção pendentes. S2.11 não marcada como aceita;
 padrão mantido. Encerramento da S2.12 já documentado em `0f8d485`.
+
+26/10/2026 — S2.11 já commitada em `2d9b45f`. Autor autorizou duas entregas
+sequenciais na mesma worktree: efeitos visuais (S3.10/S3.11 parciais), depois
+mutante grande (S3.3 parcial), sem encerrar esses itens futuros. Primeira entrega:
+pool instanciado de 128, clarão no cano 50 ms, impactos metal/orgânico/poeira e
+tranco visual 120 ms. Base `2d9b45f`; 216/216, build/diff-check verdes, capturas
+e roteiro no handoff `s3.10-efeitos.md`. Aceite visual e revisão Claude pendentes.

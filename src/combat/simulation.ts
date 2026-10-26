@@ -1,3 +1,4 @@
+import { CombatEffects, COMBAT_VFX, impactKind } from './effects';
 import { enemySpacing, enemySeparation } from './enemySpacing';
 import { containsShotHeight } from './shotVolume';
 import { SoundQueue } from '../audio/events';
@@ -8,6 +9,7 @@ import { Navigation, clearSegment, segmentBox, smoothPath, traversable, type Pos
 import { advanceCrate, openCrate, SUPPLY_CRATE, type CratePlacement, type CrateState } from '../game/props/supplyCrate';
 export interface SupplyCrate extends CrateState, CratePlacement { marker: Position; rewarded: boolean }
 export interface Robot extends Position {
+    recoil: number; recoilX: number; recoilZ: number;
     kind: RobotKind;
     packAngle: number;
     packReady: boolean;
@@ -34,7 +36,7 @@ export interface Robot extends Position {
     stuck: number;
 }
 function createRobot(id: number, x: number, z: number, routeIndex: number, waypoint: number, angle: number, spawned: boolean): Robot {
-    return { kind: 'patrol', packAngle: 0, packReady: false, x, z, routeIndex, waypoint, id, hp: spawned ? COMBAT.robot.hp : 0, angle, path: [], repath: 0, flash: 0, alerted: false, alertLeft: 0, spawned, generation: spawned ? 1 : 0, pace: COMBAT.robot.speed, drop: id, stuck: 0 };
+    return { recoil:0, recoilX:0, recoilZ:0, kind: 'patrol', packAngle: 0, packReady: false, x, z, routeIndex, waypoint, id, hp: spawned ? COMBAT.robot.hp : 0, angle, path: [], repath: 0, flash: 0, alerted: false, alertLeft: 0, spawned, generation: spawned ? 1 : 0, pace: COMBAT.robot.speed, drop: id, stuck: 0 };
 }
 /** Spawn só vale com caminho inteiro livre e término dentro do contato do tipo. */
 export function validContactSpawn(terrain: Terrain, navigation: Navigation, start: Position, arrival: Position, radius: number, contactRange: number) {
@@ -128,6 +130,7 @@ export function traceShot(a: Position, b: Position, terrain: Terrain, robots: Ro
 }
 export class CombatSimulation {
     readonly sounds = new SoundQueue();
+    readonly effects = new CombatEffects();
     hp: number = COMBAT.playerHp;
     ammo: number = COMBAT.rifle.magazine;
     reserve: number = COMBAT.rifle.reserve;
@@ -230,7 +233,7 @@ export class CombatSimulation {
             r.packAngle = kind === 'smallMutant' ? mutantSlot++ * Math.PI * 2 / COMBAT.hordes.smallMutants[waveIndex] + this.wave * 2.399963 : 0;
             r.kind = kind; r.x = p.x; r.z = p.z; r.hp = R.hp;
             requiredHits += Math.ceil(R.hp / COMBAT.rifle.damage); r.spawned = true; r.generation++;
-            r.alerted = false; r.alertLeft = 0; r.flash = 0; r.stuck = 0; r.pace = R.speed;
+            r.alerted = false; r.alertLeft = 0; r.flash = 0; r.recoil=0; r.stuck = 0; r.pace = R.speed;
             r.routeIndex = -1; r.waypoint = 0; r.path.length = 0; r.drop = this.dropCursor++;
             // Caminhos em quadros alternados: 40 robôs não calculam rota no mesmo passo.
             r.repath = (i % 10) * COMBAT.fixedStep;
@@ -262,6 +265,7 @@ export class CombatSimulation {
         if (paused || this.dead)
             return;
         this.elapsed += dt;
+        this.effects.step(dt);
         for (const crate of this.crates) {
             advanceCrate(crate, dt);
             if (!crate.rewarded && crate.elapsed >= SUPPLY_CRATE.rewardAt) {
@@ -281,6 +285,7 @@ export class CombatSimulation {
         }
         this.shots.length = visibleShots;
         for (const r of this.robots) {
+            r.recoil = Math.max(0,r.recoil-dt);
             r.flash = Math.max(0, r.flash - dt);
             r.alertLeft = Math.max(0, r.alertLeft - dt);
         }
@@ -316,6 +321,8 @@ export class CombatSimulation {
                 from = muzzle;
                 hit = traceShot(muzzle, rifleEnd, this.terrain, this.robots, RIFLE_MASK, this.shotTrace);
             }
+            this.effects.fire(muzzle.x,muzzle.z);
+            if(hit.blocked) this.effects.impact(hit.to.x,hit.to.z,impactKind(hit.robot?.kind));
             this.sounds.emit('shot', muzzle.x, muzzle.z);
             this.ammo--;
             this.cooldown = COMBAT.rifle.interval;
@@ -327,6 +334,7 @@ export class CombatSimulation {
             if (hit.robot) {
                 hit.robot.hp = Math.max(0, hit.robot.hp - COMBAT.rifle.damage);
                 this.sounds.emit(hit.robot.hp > 0 ? 'bulletHit' : 'death', hit.robot.x, hit.robot.z, hit.robot.kind);
+                hit.robot.recoil=COMBAT_VFX.recoil;hit.robot.recoilX=dx/length;hit.robot.recoilZ=dz/length;
                 hit.robot.flash = 0.15;
                 this.hitFlash = 0.15;
                 // O primeiro tiro recebido identifica o jogador, mesmo fora do campo de visão.

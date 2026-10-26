@@ -1,3 +1,5 @@
+import { CombatEffects } from './CombatEffects';
+import { COMBAT_VFX } from './effects';
 import { approachSupportHeight } from '../game/supportHeight';
 import { AUDIO } from '../audio/config';
 import { useExpeditionStore } from '../state/useExpeditionStore';
@@ -146,7 +148,10 @@ export function CombatScene({ world }: {
             mesh.visible = rig.visible;
             mesh.position.set(r.x, approachSupportHeight(mesh.position.y, world.surfaceHeight?.(r.x, r.z) ?? 0,
                 blocked ? 0 : Math.min(delta, .1), world.supportTransition), r.z);
-            mesh.rotation.y = r.angle;
+            const kick=Math.sin(Math.PI*r.recoil/COMBAT_VFX.recoil);
+            mesh.position.x+=r.recoilX*COMBAT_VFX.recoilDistance*kick;mesh.position.z+=r.recoilZ*COMBAT_VFX.recoilDistance*kick;
+            mesh.rotation.set((r.recoilZ*Math.cos(r.angle)+r.recoilX*Math.sin(r.angle))*COMBAT_VFX.recoilTilt*kick,r.angle,
+                -(r.recoilX*Math.cos(r.angle)-r.recoilZ*Math.sin(r.angle))*COMBAT_VFX.recoilTilt*kick);
             const ring = rings.current[i], alert = alerts.current[i];
             if (ring) { ring.visible = r.hp > 0; ring.scale.setScalar(R.radius / COMBAT.robot.radius); }
             if (alert) { alert.visible = r.hp > 0 && r.alertLeft > 0; alert.position.y = (animal ? SMALL_MUTANT_VISUAL.height : large ? LARGE_PATROL_VISUAL.height : PATROL_UNIT.height) + .45; }
@@ -179,6 +184,7 @@ export function CombatScene({ world }: {
         }
     });
     return <>
+    <CombatEffects effects={simulation.effects}/>
     <ResourceDrops drops={simulation.drops}/>
     {simulation.crates.length > 0 && <SupplyCrates crates={simulation.crates} surfaceHeight={world.surfaceHeight}/>}
     {simulation.robots.map((r, i) => <group key={`${run}-${r.id}`} ref={g => { robots.current[i] = g; }}>
