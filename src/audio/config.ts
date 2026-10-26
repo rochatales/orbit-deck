@@ -6,7 +6,7 @@ export const AUDIO = {
         shot: { voices: 4, volume: .65 }, reload: { voices: 1, volume: .65 },
         impacts: { voices: 6, volume: .7 }, deaths: { voices: 6, volume: .8 },
         attacks: { voices: 3, volume: .75 }, enemySteps: { voices: 4, volume: .45 },
-        playerSteps: { voices: 2, volume: .4 }, collect: { voices: 2, volume: .65 },
+        playerSteps: { voices: 2, volume: .28 }, collect: { voices: 2, volume: .65 },
     },
 } as const;
 export type Category = keyof typeof AUDIO.categories;
