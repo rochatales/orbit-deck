@@ -41,7 +41,7 @@ test('S2.12 B3: caminho não vazio ainda rejeita origem, segmento ou término in
 
 test('S2.12 B3: quatro hordas completas com rifle real, 115 baixas e nenhuma invasão de sólido',()=>{
     const r=clearWavesSizeReport();assert.ok(r.cleared);assert.equal(r.kills,115);assert.equal(r.invalid,0);
-    assert.deepEqual(r.waves.map(w=>w.spawned),[13,26,32,44]);assert.ok(r.seconds<360); // Novo elenco: seis grandes mutantes de oito tiros, além dos 109 anteriores.
+    assert.deepEqual(r.waves.map(w=>w.spawned),[13,26,32,44]);assert.ok(r.seconds<360); // Novo elenco: seis grandes mutantes de 12 tiros, além dos 109 anteriores.
     assert.ok(r.ammo>=0&&r.reserve>=0);
 });
 

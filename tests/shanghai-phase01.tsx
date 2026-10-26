@@ -15,6 +15,8 @@ expedition.setState({profile:{displayName:'QA S6.3',color:'#66e6ff'},session:{ma
 combat.setState({encounter:1});placePlayer(spawn);
 (window as any).__shanghaiQA = {
  viewpoints:data.viewpoints,
+ simulation:()=>combatRuntime.simulation,
+ hordes(){combat.getState().selectEncounter('hordas');expedition.getState().restartMission();},
  disableCombat(){ if(combatRuntime.simulation) combatRuntime.simulation.robots.length=0; combat.setState({hp:100,dead:false}); },
  place(x:number,z:number,angle:number) {
   const state=expedition.getState(),spawn={x,y:0,z};placePlayer(spawn);

@@ -30,7 +30,7 @@ test('Hordas: 10+3, 20+6, 25+5+2 e 30+10+4, total 115 e munição por tipo',()=>
   s.robots.forEach(r=>r.hp=0);s.waveLeft=.0001;s.ammo=s.reserve=0;s.step(1/60,idle);
   const live=s.robots.filter(r=>r.hp>0);assert.equal(live.length,HORDE_TOTALS[w]);assert.equal(s.snapshot.alive,HORDE_TOTALS[w]);
   assert.deepEqual(['patrol','largePatrol','smallMutant'].map(k=>live.filter(r=>r.kind===k).length),[[10,0,3],[20,0,6],[25,5,0],[30,10,0]][w]);
-  assert.equal(s.ammo+s.reserve,[54,108,182,273][w]);for(const r of live){assert.ok(!seen.has(r.drop));seen.add(r.drop)}
+  assert.equal(s.ammo+s.reserve,[54,108,194,297][w]);for(const r of live){assert.ok(!seen.has(r.drop));seen.add(r.drop)}
   const animals=live.filter(r=>r.kind==='smallMutant');if(animals.length){
    const bounds=s.terrain.bounds;const edges=new Set(animals.map(r=>{const v=[r.x-bounds.minX,bounds.maxX-r.x,r.z-bounds.minZ,bounds.maxZ-r.z];return v.indexOf(Math.min(...v))}));assert.ok(edges.size>=3,'animais distribuídos por lados');assert.equal(new Set(animals.map(r=>r.packAngle)).size,animals.length)}
  }

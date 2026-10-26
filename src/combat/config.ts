@@ -129,7 +129,7 @@ export const SMALL_MUTANT = {
 export const MUTANT_PACK = { distance: 6, resetDistance: 8, radius: 1.6, reach: .35, arcStep: .55, approach: .78 } as const;
 /** Corpo sem patas: meia-largura viva 1,558902 m na escala 2,5 + 0,10 m, arredondado para cima. */
 export const LARGE_MUTANT = {
-    hitHeight: { minY: 0, maxY: 2.92 }, hp: 200, speed: 1.4, chaseSpeed: 2.2,
+    hitHeight: { minY: 0, maxY: 2.92 }, hp: 280, speed: 1.4, chaseSpeed: 2.2,
     radius: 1.66, spacing: 3.32, separation: 3.62, separationWeight: 1.1,
     contactRange: 2.06, damage: 15, contactInterval: 1.2, repath: .5,
     visionRange: 10, visionCos: Math.cos(Math.PI / 3), nearSense: 3,

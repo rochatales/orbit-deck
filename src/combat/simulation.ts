@@ -132,7 +132,7 @@ export function traceShot(a: Position, b: Position, terrain: Terrain, robots: Ro
 }
 export class CombatSimulation {
     readonly sounds = new SoundQueue();
-    readonly effects = new CombatEffects();
+    readonly effects = new CombatEffects((x,z)=>this.terrain.surfaceHeight?.(x,z)??0);
     hp: number = COMBAT.playerHp;
     ammo: number = COMBAT.rifle.magazine;
     reserve: number = COMBAT.rifle.reserve;
@@ -330,7 +330,7 @@ export class CombatSimulation {
                 hit = traceShot(muzzle, rifleEnd, this.terrain, this.robots, RIFLE_MASK, this.shotTrace);
             }
             this.effects.fire(muzzle.x,muzzle.z);
-            if(hit.blocked) this.effects.impact(hit.to.x,hit.to.z,impactKind(hit.robot?.kind));
+            if(hit.blocked) this.effects.impact(hit.to.x,hit.to.z,impactKind(hit.robot?.kind),-dx/length,-dz/length);
             this.sounds.emit('shot', muzzle.x, muzzle.z);
             this.ammo--;
             this.cooldown = COMBAT.rifle.interval;
