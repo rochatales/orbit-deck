@@ -6,7 +6,7 @@ import { containsShotHeight } from './shotVolume';
 import { SoundQueue } from '../audio/events';
 import { writeMutantPackTarget } from './mutantPack';
 import { placeResourceDrop } from './resourcePlacement';
-import { COMBAT, LARGE_PATROL, LARGE_MUTANT, MUTANT_CHARGE, SMALL_MUTANT, HORDE_TOTALS, robotConfig, waveRobotKind, type RobotKind, HIT_LAYER, HORDE_ENCOUNTER, RIFLE_MASK, RIFLE_POSE, writeRifleMuzzle, encounterLayout, type EncounterChoice, type EncounterLayout } from './config';
+import { COMBAT, LARGE_PATROL, LARGE_MUTANT, MUTANT_CHARGE, SMALL_MUTANT, HORDE_TOTALS, robotConfig, waveRobotKind, parseEncounter, type RobotKind, HIT_LAYER, HORDE_ENCOUNTER, RIFLE_MASK, RIFLE_POSE, writeRifleMuzzle, encounterLayout, type EncounterChoice, type EncounterLayout } from './config';
 import { Navigation, clearSegment, segmentBox, smoothPath, traversable, type Position, type Terrain } from './navigation';
 import { advanceCrate, openCrate, SUPPLY_CRATE, type CratePlacement, type CrateState } from '../game/props/supplyCrate';
 export interface SupplyCrate extends CrateState, CratePlacement { marker: Position; rewarded: boolean }
@@ -194,18 +194,68 @@ export class CombatSimulation {
             this.waveLeft = COMBAT.hordes.firstDelay;
         }
         else {
-            const size = Number.isFinite(encounter) ? Math.max(1, Math.min(COMBAT.encounterSize, Math.floor(encounter))) : COMBAT.encounterSize;
-            const spawns = (size <= 5 ? layout.small : layout.spawns).slice(0, size);
-            for (const spawn of spawns)
-                if (!validContactSpawn(terrain, this.navigation, spawn, layout.arrival, COMBAT.robot.radius, COMBAT.robot.contactRange))
-                    throw new Error('Spawn de patrulha sem caminho válido até contato no desembarque.');
-            this.robots = spawns.map(({ x, z, routeIndex, waypoint }, id) => {
-                const target = layout.routes[routeIndex][waypoint];
-                return createRobot(id, x, z, routeIndex, waypoint, Math.atan2(target.x - x, target.z - z), true);
-            });
+            const patrol = parseEncounter(encounter)!, kind = patrol.kind;
+            if (kind === 'patrol') {
+                const size = Number.isFinite(patrol.count) ? Math.max(1, Math.min(COMBAT.encounterSize, Math.floor(patrol.count))) : COMBAT.encounterSize;
+                const spawns = (size <= 5 ? layout.small : layout.spawns).slice(0, size);
+                for (const spawn of spawns)
+                    if (!validContactSpawn(terrain, this.navigation, spawn, layout.arrival, COMBAT.robot.radius, COMBAT.robot.contactRange))
+                        throw new Error('Spawn de patrulha sem caminho válido até contato no desembarque.');
+                this.robots = spawns.map(({ x, z, routeIndex, waypoint }, id) => {
+                    const target = layout.routes[routeIndex][waypoint];
+                    return createRobot(id, x, z, routeIndex, waypoint, Math.atan2(target.x - x, target.z - z), true);
+                });
+            }
+            else this.robots = this.singleKindPatrol(kind, Math.max(1, Math.min(5, Math.floor(patrol.count))));
             this.total = this.robots.length;
+            // Patrulha de um tipo: munição suficiente para o tipo escolhido, pela mesma margem das hordas.
+            const need = Math.ceil(this.robots.reduce((hits, r) => hits + Math.ceil(r.hp / COMBAT.rifle.damage), 0) * COMBAT.hordes.ammoMargin);
+            if (this.ammo + this.reserve < need) this.reserve = need - this.ammo;
         }
-        this.drops = Array.from({ length: this.total + (this.waves.length ? COMBAT.hordes.largeMutants.reduce<number>((a,b)=>a+b,0)*2 : 0) }, () => ({ x: 0, z: 0, active: false, kind: 'metals', spawned: false, surfaceIron: 0, surfaceCopper: 0, surfaceTitanium: 0, surfaceOrganic: 0 }));
+        const extraDrops = this.waves.length ? COMBAT.hordes.largeMutants.reduce<number>((a, b) => a + b, 0) * 2
+            : this.robots.filter(r => r.kind === 'largeMutant').length * 2;
+        this.drops = Array.from({ length: this.total + extraDrops }, () => ({ x: 0, z: 0, active: false, kind: 'metals', spawned: false, surfaceIron: 0, surfaceCopper: 0, surfaceTitanium: 0, surfaceOrganic: 0 }));
+    }
+    /** Grade de navegação no raio do tipo; criada só quando o encontro usa esse tipo. */
+    private navigationFor(kind: Exclude<RobotKind, 'patrol'>) {
+        const R = robotConfig({ kind }), create = () => new Navigation(this.terrain, R.radius, COMBAT.grid);
+        if (kind === 'largePatrol') return this.largeNavigation ??= create();
+        if (kind === 'smallMutant') return this.mutantNavigation ??= create();
+        return this.largeMutantNavigation ??= create();
+    }
+    /**
+     * Patrulha de teste com um só tipo: usa os spawns/rotas da fase que forem válidos no raio do
+     * tipo (caminho livre até o contato no desembarque), alternando rotas. Sem pontos suficientes,
+     * completa pela borda, como nas hordas; esses marcham até o jogador.
+     */
+    private singleKindPatrol(kind: Exclude<RobotKind, 'patrol'>, count: number): Robot[] {
+        const R = robotConfig({ kind }), layout = this.layout, navigation = this.navigationFor(kind);
+        const candidates = [...layout.small, ...layout.spawns].filter((spawn, i, all) =>
+            all.findIndex(other => other.x === spawn.x && other.z === spawn.z) === i
+            && validContactSpawn(this.terrain, navigation, spawn, layout.arrival, R.radius, R.contactRange));
+        const byRoute = new Map<number, typeof candidates>();
+        for (const spawn of candidates) byRoute.set(spawn.routeIndex, [...(byRoute.get(spawn.routeIndex) ?? []), spawn]);
+        const picked: typeof candidates = [], queues = [...byRoute.values()];
+        for (let round = 0; picked.length < count && queues.some(q => q.length > round); round++)
+            for (const queue of queues) if (picked.length < count && queue[round]) picked.push(queue[round]);
+        const robots = picked.map(({ x, z, routeIndex, waypoint }, id) => {
+            const target = layout.routes[routeIndex][waypoint];
+            return createRobot(id, x, z, routeIndex, waypoint, Math.atan2(target.x - x, target.z - z), true);
+        });
+        if (robots.length < count) {
+            const edge = hordeEdgeSpawns(this.terrain, navigation, layout.arrival, R.radius, R.contactRange);
+            if (!edge.length) throw new Error(`Mapa sem ponto livre e alcançável para a patrulha de ${kind}.`);
+            for (let i = robots.length; i < count; i++) {
+                const p = edge[Math.floor((i + .5) * edge.length / count) % edge.length];
+                robots.push(createRobot(i, p.x, p.z, -1, 0, Math.atan2(layout.arrival.x - p.x, layout.arrival.z - p.z), true));
+            }
+        }
+        let drop = 0;
+        robots.forEach((r, slot) => {
+            r.kind = kind; r.hp = R.hp; r.pace = R.speed; r.drop = drop; drop += kind === 'largeMutant' ? 3 : 1;
+            r.packAngle = kind === 'smallMutant' ? slot * Math.PI * 2 / robots.length : 0;
+        });
+        return robots;
     }
     get dead() { return this.hp <= 0; }
     get alive() {

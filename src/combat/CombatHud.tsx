@@ -1,15 +1,25 @@
 import type { CSSProperties } from 'react';
 import { Heart, Layers, Boxes, Crosshair, Shell, Siren, Leaf } from 'lucide-react';
-import { COMBAT, HORDE_TOTALS, HORDE_ENCOUNTER } from './config';
+import { COMBAT, HORDE_TOTALS, HORDE_ENCOUNTER, PATROL_COUNTS, PATROL_KINDS, parseEncounter, patrolChoice, type RobotKind } from './config';
 import { useCombatStore } from '../state/useCombatStore';
 import { useExpeditionStore } from '../state/useExpeditionStore';
 import { useGameStore } from '../state/useGameStore';
+const KIND_LABEL: Record<RobotKind, string> = { patrol: 'Patrol comum', largePatrol: 'Patrol grande', smallMutant: 'Mutante pequeno', largeMutant: 'Mutante grande' };
+const COUNT_LABEL: Record<number, string> = { 1: '1 · Aprender a mirar', 3: '3 · Patrulha pequena', 5: '5 · Pressão de combate', 32: '32 · Patrulhas (~30 s)' };
+/** Hordas ou patrulha de teste com um só tipo de inimigo e quantidade 1/3/5 (32 só no Patrol comum). */
 export function EncounterSelect() {
     const choice = useCombatStore(s => s.encounter), select = useCombatStore(s => s.selectEncounter);
-    return <label>Robôs no encontro de teste<select aria-label="Robôs no encontro" value={String(choice)} onChange={e => select(e.target.value === HORDE_ENCOUNTER ? HORDE_ENCOUNTER : Number(e.target.value))}>
-      <option value={HORDE_ENCOUNTER}>Hordas · {HORDE_TOTALS.join(' → ')} pela borda</option>
-      <option value={1}>1 · Aprender a mirar</option><option value={3}>3 · Patrulha pequena</option><option value={5}>5 · Pressão de combate</option><option value={32}>32 · Patrulhas (~30 s)</option>
-    </select></label>;
+    const patrol = parseEncounter(choice), counts: readonly number[] = patrol?.kind === 'patrol' ? [...PATROL_COUNTS, COMBAT.encounterSize] : PATROL_COUNTS;
+    return <>
+      <label>Encontro de teste<select aria-label="Tipo de encontro" value={patrol?.kind ?? HORDE_ENCOUNTER} onChange={e => select(e.target.value === HORDE_ENCOUNTER ? HORDE_ENCOUNTER
+        : patrolChoice(e.target.value as RobotKind, Math.min(patrol?.count ?? 3, 5)))}>
+        <option value={HORDE_ENCOUNTER}>Hordas · {HORDE_TOTALS.join(' → ')} pela borda</option>
+        {PATROL_KINDS.map(kind => <option key={kind} value={kind}>Patrulha · {KIND_LABEL[kind]}</option>)}
+      </select></label>
+      {patrol && <label>Quantidade<select aria-label="Quantidade na patrulha" value={patrol.count} onChange={e => select(patrolChoice(patrol.kind, Number(e.target.value)))}>
+        {counts.map(count => <option key={count} value={count}>{COUNT_LABEL[count]}</option>)}
+      </select></label>}
+    </>;
 }
 function StatusMeter({ label, value, max, detail, kind }: { label: string; value: number; max: number; detail: string; kind: string }) {
     const percent = Math.max(0, Math.min(100, value / max * 100));

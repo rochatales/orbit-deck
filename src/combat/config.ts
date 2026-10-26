@@ -37,10 +37,31 @@ export const COMBAT = {
 } as const;
 /** Valor do seletor de encontro para o combate em hordas. */
 export const HORDE_ENCOUNTER = 'hordas' as const;
-export type EncounterChoice = number | typeof HORDE_ENCOUNTER;
-export const ENCOUNTER_CHOICES: readonly EncounterChoice[] = [1, 3, 5, COMBAT.encounterSize, HORDE_ENCOUNTER];
+/**
+ * Patrulha de teste com um só tipo de inimigo (pedido do autor, 26/10/2026). O Patrol comum
+ * continua como número (1/3/5/32), preservando as escolhas já existentes; os demais tipos
+ * usam `tipo:quantidade`, só com 1, 3 ou 5.
+ */
+export type PatrolChoice = `${Exclude<RobotKind, 'patrol'>}:${number}`;
+export type EncounterChoice = number | typeof HORDE_ENCOUNTER | PatrolChoice;
+export const PATROL_KINDS: readonly RobotKind[] = ['patrol', 'largePatrol', 'smallMutant', 'largeMutant'];
+export const PATROL_COUNTS = [1, 3, 5] as const;
+export function patrolChoice(kind: RobotKind, count: number): EncounterChoice {
+    return kind === 'patrol' ? count : `${kind}:${count}`;
+}
+/** Hordas devolvem null; patrulhas devolvem o tipo e a quantidade. */
+export function parseEncounter(choice: EncounterChoice): { kind: RobotKind; count: number } | null {
+    if (choice === HORDE_ENCOUNTER) return null;
+    if (typeof choice === 'number') return { kind: 'patrol', count: choice };
+    const [kind, count] = choice.split(':');
+    return { kind: kind as RobotKind, count: Number(count) };
+}
+export const ENCOUNTER_CHOICES: readonly EncounterChoice[] = [
+    ...PATROL_COUNTS, COMBAT.encounterSize, HORDE_ENCOUNTER,
+    ...PATROL_KINDS.filter(kind => kind !== 'patrol').flatMap(kind => PATROL_COUNTS.map(count => patrolChoice(kind, count))),
+];
 export function encounterTotal(choice: EncounterChoice) {
-    return choice === HORDE_ENCOUNTER ? HORDE_TOTALS.reduce((a, b) => a + b, 0) : choice;
+    return choice === HORDE_ENCOUNTER ? HORDE_TOTALS.reduce((a, b) => a + b, 0) : parseEncounter(choice)!.count;
 }
 export const HIT_LAYER = { world: 1, enemy: 2, player: 4 } as const;
 export const RIFLE_MASK = HIT_LAYER.world | HIT_LAYER.enemy;

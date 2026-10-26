@@ -15,7 +15,7 @@ import { playerPosition, playerFacing } from '../state/playerTransient';
 import { combatRuntime, useCombatStore } from '../state/useCombatStore';
 import { simulationBlocked } from '../game/simulationGate';
 import { CombatSimulation, type CombatInput } from './simulation';
-import { COMBAT, RIFLE_POSE, robotConfig, waveRobotKind } from './config';
+import { COMBAT, RIFLE_POSE, robotConfig, waveRobotKind, type RobotKind } from './config';
 import { PATROL_UNIT, LARGE_PATROL_VISUAL, SMALL_MUTANT_VISUAL, LARGE_MUTANT_VISUAL, PatrolUnitRig } from './patrolUnit';
 import { ResourceDrops } from './ResourceDrops';
 import largeMutantUrl from '../assets/enemies/large-mutant.glb';
@@ -37,17 +37,22 @@ export function CombatScene({ world }: {
     // S6.1: Patrol Unit do autor; um rig (esqueleto, mixer, material) por robô da rodada.
     const patrolUnit = useGLTF(patrolUnitUrl);
     const rigs = useMemo(() => simulation.robots.map(() => new PatrolUnitRig(patrolUnit.scene, patrolUnit.animations)), [simulation, patrolUnit]);
-    const largePatrol = useGLTF(simulation.waves.length ? largePatrolUrl : patrolUnitUrl);
+    // Hordas usam o tipo nos slots das ondas; a patrulha de teste usa o tipo escolhido em cada robô.
+    const usesKind = (kind: RobotKind, i: number) => simulation.waves.length
+        ? simulation.waves.some((count, wave) => i < count && waveRobotKind(wave, i) === kind)
+        : simulation.robots[i].kind === kind;
+    const loads = (kind: RobotKind) => simulation.waves.length > 0 || simulation.robots.some(r => r.kind === kind);
+    const largePatrol = useGLTF(loads('largePatrol') ? largePatrolUrl : patrolUnitUrl);
     const largeRigs = useMemo(() => simulation.robots.map((_, i) =>
-        simulation.waves.some((count, wave) => i < count && waveRobotKind(wave, i) === 'largePatrol')
+        usesKind('largePatrol', i)
             ? new PatrolUnitRig(largePatrol.scene, largePatrol.animations, true) : null), [simulation, largePatrol]);
-    const mutant = useGLTF(simulation.waves.length ? mutantUrl : patrolUnitUrl);
+    const mutant = useGLTF(loads('smallMutant') ? mutantUrl : patrolUnitUrl);
     const mutantRigs = useMemo(() => simulation.robots.map((_, i) =>
-        simulation.waves.some((count, wave) => i < count && waveRobotKind(wave, i) === 'smallMutant')
+        usesKind('smallMutant', i)
             ? new PatrolUnitRig(mutant.scene, mutant.animations, 'smallMutant') : null), [simulation, mutant]);
-    const largeMutant = useGLTF(simulation.waves.length ? largeMutantUrl : patrolUnitUrl);
+    const largeMutant = useGLTF(loads('largeMutant') ? largeMutantUrl : patrolUnitUrl);
     const largeMutantRigs = useMemo(() => simulation.robots.map((_, i) =>
-        simulation.waves.some((count, wave) => i < count && waveRobotKind(wave, i) === 'largeMutant')
+        usesKind('largeMutant', i)
             ? new PatrolUnitRig(largeMutant.scene, largeMutant.animations, 'largeMutant') : null), [simulation, largeMutant]);
     // Hordas reutilizam slots: a geração muda a cada nascimento e o rig volta ao Idle.
     const generations = useMemo(() => simulation.robots.map(() => -1), [simulation]);
