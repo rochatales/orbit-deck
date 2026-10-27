@@ -1,6 +1,6 @@
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { useLayoutEffect, useRef } from 'react';
+import { lazy, Suspense, useLayoutEffect, useRef } from 'react';
 import { type Group, type BufferGeometry } from 'three';
 import { Hangar } from './Hangar';
 import { removeDockForHangar } from './hangarColony';
@@ -13,10 +13,13 @@ import { DeckProps } from './DeckProps';
 import { AresLanding } from './AresLanding';
 import { Greenhouse } from './Greenhouse';
 import { removeProvisionalGreenhouse } from './greenhouseRuntime';
+import { sandwindPreviewEnabled } from './sandwindPolicy';
+const ColonySandwind = lazy(() => import('./ColonySandwind').then(m => ({ default: m.ColonySandwind })));
 
 /** GLB estritamente visual. Física vem de OfficeWorld via CuboidCollider. */
 export function MarsColony({ world: _world }: { world: OfficeWorld }) {
     const gltf = useGLTF(colonyUrl);
+    const preview = sandwindPreviewEnabled(window.location.search), scope = useRef<Group>(null);
     const visual = useRef<Group>(null), runtime = useRef<MasterplanRuntime>();
     useLayoutEffect(() => {
         const scene = gltf.scene.clone(true), geometry: BufferGeometry[] = [];
@@ -26,5 +29,9 @@ export function MarsColony({ world: _world }: { world: OfficeWorld }) {
         return () => { scene.removeFromParent(); instance.dispose(); geometry.forEach(g => g.dispose()); runtime.current = undefined; };
     }, [gltf.scene]);
     useFrame((_, delta) => runtime.current?.update(playerPosition, delta));
-    return <><group ref={visual} dispose={null} /><AresLanding /><DeckProps /><Greenhouse /><Hangar /></>;
+    const visuals = <><group ref={visual} dispose={null}/><AresLanding/><DeckProps/><Greenhouse/><Hangar/></>;
+    // Sem flag: mesma árvore anterior. Só o Sandwind possui estes pais de descarte.
+    return preview ? <group ref={scope} name="SandwindColonyV007">{visuals}
+        <Suspense fallback={null}><ColonySandwind scope={scope} masterplan={visual}/></Suspense>
+    </group> : visuals;
 }

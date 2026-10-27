@@ -2,7 +2,7 @@ import { AudioControls, AudioLifecycle } from '../audio/AudioRuntime';
 import { audio } from '../audio/runtime';
 import { CombatHud, EncounterSelect } from '../combat/CombatHud';
 import { useCombatStore } from '../state/useCombatStore';
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { GameCanvas } from './GameCanvas';
 import { useExpeditionStore } from '../state/useExpeditionStore';
 import { useGameStore } from '../state/useGameStore';
@@ -16,6 +16,8 @@ import type { OfficeWorld } from '../world/createOfficeMap';
 import type { MapId } from '../game/session';
 import { interactWithSupplyCrate } from '../game/props/crateInteraction';
 import { SUPPLY_CRATE } from '../game/props/supplyCrate';
+import { sandwindPreviewEnabled } from '../scene/marsColony/sandwindPolicy';
+const SandwindPanel = lazy(() => import('../scene/marsColony/ColonySandwind').then(m => ({ default: m.SandwindPanel })));
 function Welcome() {
     const [name, setName] = useState(''), [color, setColor] = useState('#66e6ff');
     const start = useExpeditionStore(s => s.start);
@@ -103,6 +105,7 @@ function Runtime() {
     }, []);
     return <main className={`runtime ${s.session.map === 'shanghai' ? 'in-combat' : 'in-hub'}`}>
     {world && <GameCanvas key={world.map} world={world.data} map={world.map}/>}
+    {world?.map === 'mars' && s.session.map === 'mars' && sandwindPreviewEnabled(window.location.search) && <Suspense fallback={null}><SandwindPanel/></Suspense>}
     <header className="hud-top"><div><p className="eyebrow">{MAPS[s.session.map].title}</p><strong>{s.profile?.displayName}</strong></div>
       <nav><button onClick={() => setControls(!controls)}>Controles</button><button disabled={!s.ready || s.session.phase !== 'walking' || !!s.panel || (s.session.map === 'shanghai' && dead)} onClick={() => useGameStore.getState().togglePaused()}>{paused ? 'Retomar' : 'Pausar'}</button></nav>
     </header>
