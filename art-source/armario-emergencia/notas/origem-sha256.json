@@ -1,0 +1,43 @@
+{
+  "sourceBranch": "claude/zealous-goodall-mo0y2u",
+  "sourceSHA": "7c6b2cab394b279eee1ccd392f975e94d9802960",
+  "taskBase": "6184b7c9f4cebb994b566319cba748e062e3f1db",
+  "method": "git show (somente blobs de arte; nenhum merge ou cherry-pick)",
+  "files": [
+    {
+      "source": "blender/props/emergency_locker.blend",
+      "copy": "art-source/armario-emergencia/blend/emergency_locker.blend",
+      "bytes": 166043,
+      "sha256": "a0e5a7da790b11a6aaa7261f561129ece14734c88eaf3ab2098a95e2872a31d5",
+      "gitBlob": "97c24e95e9d0e00156feed0aab19f854b33e0d18"
+    },
+    {
+      "source": "blender/scripts/build_emergency_locker.py",
+      "copy": "art-source/armario-emergencia/scripts/build_emergency_locker.py",
+      "bytes": 30321,
+      "sha256": "0049a3febd73f63f6d0174df81c4cdf09c3c96c9adf4671cadf61a24d83fd4e1",
+      "gitBlob": "86c24e098d4249eb82e643e6b8c7f961cb855727"
+    },
+    {
+      "source": "src/assets/props/emergency-locker.glb",
+      "copy": "art-source/armario-emergencia/export/emergency-locker.glb",
+      "bytes": 206112,
+      "sha256": "4a716ae65dfc01351fa6804800f77a1236a169f83eb0c0be2b3a021e0091dde1",
+      "gitBlob": "9b5c8a3ddefdbfc2fa743d281e43375d8406eb5e"
+    },
+    {
+      "source": "blender/props/_preview_emergency_locker_active.png",
+      "copy": "art-source/armario-emergencia/referencias/_preview_emergency_locker_active.png",
+      "bytes": 819820,
+      "sha256": "adb11e9e41021761aba28e99097568ff7e6a38f05a89efefb4cd9eece717e54c",
+      "gitBlob": "78663fdb8a2ee06d5498627dee4b8b003879fb44"
+    },
+    {
+      "source": "blender/props/_preview_emergency_locker_empty.png",
+      "copy": "art-source/armario-emergencia/referencias/_preview_emergency_locker_empty.png",
+      "bytes": 798997,
+      "sha256": "b8bbb02e557928301b4108113cf1d44d265e2259ff5699de86e0b01ceb6edc3c",
+      "gitBlob": "fec84fb484e8a9ca9e1be618250d9fb3d1928bc5"
+    }
+  ]
+}

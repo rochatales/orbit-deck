@@ -1,0 +1,243 @@
+{
+  "blenderVersion": "5.1.1",
+  "sourceFile": "barracks.blend",
+  "axes": "Blender: X leste, Y norte, Z cima. glTF/Three: x=X, y=Z, z=-Y.",
+  "visualTriangles": 8414,
+  "visualTrianglesNoGround": 8010,
+  "colliderTriangles": 0,
+  "visualMaterialCount": 23,
+  "visualBoundsNoGround": {
+    "min": [
+      -8.011284828186035,
+      -5.519999980926514,
+      0.0
+    ],
+    "max": [
+      6.449999809265137,
+      5.449999809265137,
+      4.684999942779541
+    ]
+  },
+  "objects": [
+    {
+      "name": "Anchor_Entrance",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -8.399999618530273,
+        0.0,
+        0.0
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "Anchor_Interior",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -1.0,
+        -0.6000000238418579,
+        0.3499999940395355
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "Barracks",
+      "type": "EMPTY",
+      "parent": null,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "Building_Interior",
+      "type": "MESH",
+      "parent": "Barracks",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false,
+      "min": [
+        -5.75,
+        -4.75,
+        0.3449999690055847
+      ],
+      "max": [
+        5.75,
+        4.75,
+        3.2200000286102295
+      ],
+      "size": [
+        11.5,
+        9.5,
+        2.8750000596046448
+      ],
+      "triangles": 4544,
+      "materials": [
+        "Floor_Grey",
+        "Floor_Dark",
+        "Interior_Wall",
+        "Locker_Grey",
+        "Graphite",
+        "Glow_Accent",
+        "Sanitary_White",
+        "Metal_Light",
+        "Glass",
+        "Glow_Warm",
+        "Metal_Dark",
+        "Mattress_Teal",
+        "Fabric_Light",
+        "Curtain_Teal",
+        "Wood",
+        "Glow_Screen"
+      ]
+    },
+    {
+      "name": "Building_Roof",
+      "type": "MESH",
+      "parent": "Barracks",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false,
+      "min": [
+        -6.079999923706055,
+        -5.079999923706055,
+        3.2200000286102295
+      ],
+      "max": [
+        6.079999923706055,
+        5.079999923706055,
+        4.684999942779541
+      ],
+      "size": [
+        12.15999984741211,
+        10.15999984741211,
+        1.4649999141693115
+      ],
+      "triangles": 800,
+      "materials": [
+        "Shell_Ivory",
+        "Roof_Grey",
+        "Interior_Wall",
+        "Roof_Seam",
+        "Graphite",
+        "Metal_Light",
+        "Metal_Dark",
+        "Shell_Warm"
+      ]
+    },
+    {
+      "name": "Building_Shell",
+      "type": "MESH",
+      "parent": "Barracks",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false,
+      "min": [
+        -8.011284828186035,
+        -5.519999980926514,
+        0.0
+      ],
+      "max": [
+        6.449999809265137,
+        5.449999809265137,
+        3.2200000286102295
+      ],
+      "size": [
+        14.461284637451172,
+        10.96999979019165,
+        3.2200000286102295
+      ],
+      "triangles": 2530,
+      "materials": [
+        "Concrete",
+        "Shell_Ivory",
+        "Graphite",
+        "Shell_Warm",
+        "Glow_Accent",
+        "Glass",
+        "Interior_Wall",
+        "Metal_Dark",
+        "Glow_Screen",
+        "Metal_Light"
+      ]
+    },
+    {
+      "name": "EntranceDoor",
+      "type": "MESH",
+      "parent": "Barracks",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false,
+      "min": [
+        -6.300000190734863,
+        -0.7099999785423279,
+        0.3250000476837158
+      ],
+      "max": [
+        -6.139999866485596,
+        0.7099999785423279,
+        2.625
+      ],
+      "size": [
+        0.16000032424926758,
+        1.4199999570846558,
+        2.299999952316284
+      ],
+      "triangles": 136,
+      "materials": [
+        "Shell_Warm",
+        "Shell_Ivory",
+        "Glass",
+        "Glow_Accent",
+        "Metal_Dark",
+        "Graphite"
+      ]
+    },
+    {
+      "name": "Ground",
+      "type": "MESH",
+      "parent": "Barracks",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false,
+      "min": [
+        -8.5,
+        -7.5,
+        -0.20000000298023224
+      ],
+      "max": [
+        8.5,
+        7.5,
+        0.12804345786571503
+      ],
+      "size": [
+        17.0,
+        15.0,
+        0.32804346084594727
+      ],
+      "triangles": 404,
+      "materials": [
+        "Soil_Red",
+        "Soil_Dark"
+      ]
+    }
+  ]
+}

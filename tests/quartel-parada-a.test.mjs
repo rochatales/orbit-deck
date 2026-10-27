@@ -1,0 +1,82 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import { Box3, Group } from 'three';
+import { loadGlb } from './load-glb.mjs';
+const root = 'art-source/quartel/';
+const read = name => JSON.parse(fs.readFileSync(root + 'notas/' + name, 'utf8'));
+const hash = path => crypto.createHash('sha256').update(fs.readFileSync(path)).digest('hex');
+const bytes = fs.readFileSync(root + 'export/barracks-v002.glb');
+const gltf = JSON.parse(bytes.subarray(20, 20 + bytes.readUInt32LE(12)));
+
+test('Quartel A: doze blobs de origem e seus hashes permanecem intactos, incluindo armário guardado', () => {
+    const origin = read('origem-sha256.json');
+    assert.equal(origin.sourceSHA, '7c6b2cab394b279eee1ccd392f975e94d9802960');
+    assert.equal(origin.taskBase, '6184b7c9f4cebb994b566319cba748e062e3f1db');
+    assert.equal(origin.files.length, 12);
+    for (const file of origin.files) {
+        assert.equal(hash(file.copy), file.sha256, file.copy);
+        assert.equal(fs.statSync(file.copy).size, file.bytes);
+        assert.doesNotMatch(file.source, /supply.crate|src\/world|mapConfig|OfficeScene/);
+    }
+});
+
+test('Quartel A: GLB v002 mantém casco em escala 1, dois acessos, teto/interior próprios e COL sem geometria', () => {
+    assert.equal(gltf.scenes.length, 1);
+    const node = name => gltf.nodes.find(n => n.name === name);
+    for (const name of ['Building_Roof', 'Building_Interior', 'Wall_S', 'Wall_E', 'Wall_N', 'Wall_W', 'EntranceDoor', 'EntranceDoor_S']) {
+        assert.notEqual(node(name)?.mesh, undefined, name);
+        assert.ok(node('Barracks').children.includes(gltf.nodes.indexOf(node(name))));
+    }
+    assert.equal(node('Ground'), undefined);
+    assert.equal(node('Cube'), undefined);
+    assert.deepEqual(node('Barracks').scale ?? [1, 1, 1], [1, 1, 1]);
+    assert.deepEqual(node('Barracks').translation ?? [0, 0, 0], [0, 0, 0]);
+    assert.deepEqual(node('Barracks').rotation ?? [0, 0, 0, 1], [0, 0, 0, 1]);
+    const cols = gltf.nodes.filter(n => n.name?.startsWith('COL_'));
+    assert.equal(cols.length, 33);
+    assert.ok(cols.every(n => n.mesh === undefined && n.extras.shape));
+    assert.equal(node('COL_Floor').extras.shape, 'rounded_rect_floor');
+    assert.equal(node('COL_Ramp_W').extras.shape, 'analytic_ramp');
+    assert.equal(gltf.animations.length, 2);
+});
+
+test('Quartel A: paleta PBR reduz para um material sem aumentar a geometria na conversão', () => {
+    assert.equal(gltf.materials.length, 1);
+    assert.equal(gltf.images.length, 3);
+    const primitives = gltf.meshes.flatMap(m => m.primitives);
+    assert.equal(primitives.length, 13);
+    assert.ok(primitives.every(p => p.material === 0));
+    const triangles = primitives.reduce((n, p) => n + gltf.accessors[p.indices].count / 3, 0);
+    assert.equal(triangles, 8278);
+    assert.equal(read('build-v002.json').trianglesBeforeAtlas, triangles);
+    assert.equal(read('build-v002.json').materialsBeforeAtlas, 21);
+    assert.equal(triangles, read('medidas-v002.json').visualTriangles);
+    assert.equal(read('medidas-origem.json').visualTriangles, 8414);
+    assert.equal(read('medidas-origem.json').visualMaterialCount, 23);
+    assert.equal(gltf.materials[0].extensions.KHR_materials_emissive_strength.emissiveStrength, 4);
+});
+
+test('Quartel A: estudo usa medidas reais do GLB; validação Blender corresponde à fonte da variante', async () => {
+    const fit = read('encaixe-v002.json'), validation = read('validacao-v002.json');
+    const asset = await loadGlb(root + 'export/barracks-v002.glb');
+    assert.equal(validation.blendSHA256, hash(root + 'blend/barracks-v002.blend'));
+    assert.equal(validation.passed, true);
+    assert.ok(validation.checks.every(c => c.passed));
+    assert.equal(fit.notAppliedToBlendOrGLB, true);
+    const placement = new Group(); placement.add(asset.scene);
+    for (const option of fit.options) {
+        placement.position.set(option.x, 0, option.z);
+        placement.rotation.y = -Math.PI / 2;
+        placement.scale.setScalar(option.scale);
+        placement.updateMatrixWorld(true);
+        const box = new Box3().setFromObject(placement);
+        for (const [value, expected] of [[box.min.x, option.fullVisualAABB[0]], [box.min.z, option.fullVisualAABB[1]], [box.max.x, option.fullVisualAABB[2]], [box.max.z, option.fullVisualAABB[3]]]) assert.ok(Math.abs(value - expected) < 1e-5);
+    }
+    assert.ok(fit.options[0].interferences.Oficina.plinthProjectionAreaM2 > 5);
+    assert.equal(fit.options[1].interferences.Oficina.plinthProjectionAreaM2, 0);
+    for (const option of fit.options.slice(1)) for (const neighbor of ['Laboratório', 'Oficina', 'Praça / hub']) assert.deepEqual(option.interferences[neighbor].componentAABBIntersections, []);
+    assert.ok(fit.options[1].eastBeyondZoneAM > 4.4);
+    assert.equal(fit.options[2].zoneAPlinthAreaM2, 0);
+});

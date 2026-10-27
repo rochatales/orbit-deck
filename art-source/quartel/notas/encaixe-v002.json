@@ -1,0 +1,738 @@
+{
+  "base": "6184b7c9f4cebb994b566319cba748e062e3f1db",
+  "rotationYProposalDeg": -90,
+  "transform": "jogo.x=cx+Blender.Y*escala; jogo.z=cz+Blender.X*escala",
+  "notAppliedToBlendOrGLB": true,
+  "neighbors": {
+    "Laboratório": [
+      6.389999866485596,
+      -13.109999656677246,
+      14.610000610351562,
+      -7.890000343322754
+    ],
+    "Oficina": [
+      7.390000343322754,
+      5.640000343322754,
+      13.609999656677246,
+      11.359999656677246
+    ],
+    "Praça / hub": [
+      -4.110000133514404,
+      -4.110000133514404,
+      4.110000133514404,
+      4.110000133514404
+    ],
+    "Conector Lab–Alojamentos": [
+      9.2,
+      -8.0,
+      11.8,
+      -3.25
+    ],
+    "Conector leste da praça": [
+      4.0,
+      -1.3,
+      7.25,
+      1.3
+    ],
+    "Zona A": [
+      15.5,
+      -10.5,
+      20.5,
+      14.5
+    ]
+  },
+  "options": [
+    {
+      "id": "A",
+      "label": "Centro antigo · não cabe",
+      "x": 10.5,
+      "z": 0,
+      "scale": 1,
+      "fullVisualAABB": [
+        3.488715171813965,
+        -8.011284828186035,
+        15.949999809265137,
+        6.449999809265137
+      ],
+      "plinthAABB": [
+        5.05,
+        -6.45,
+        15.95,
+        6.45
+      ],
+      "doorNorth": [
+        10.5,
+        -6
+      ],
+      "doorWest": [
+        5.5,
+        0
+      ],
+      "rampNorthTip": [
+        10.5,
+        -8.011284828186035
+      ],
+      "rampWestTip": [
+        3.488715171813965,
+        0
+      ],
+      "doorClearWidth": 1.3,
+      "doorClearHeightAboveThreshold": 2.22,
+      "height": 4.685,
+      "interferences": {
+        "Laboratório": {
+          "componentAABBIntersections": [
+            {
+              "name": "Entrance_W_Ramp",
+              "overlapXZ": [
+                1.899999976158142,
+                0.12128448486328125
+              ]
+            }
+          ],
+          "envelopeOverlapXZ": [
+            8.220000743865967,
+            0.12128448486328125
+          ],
+          "plinthProjectionAreaM2": 0,
+          "plinthAABBGapM": 1.4400003433227537,
+          "rampNorthProjectionAreaM2": 0.23044051834858692,
+          "rampWestProjectionAreaM2": 0
+        },
+        "Oficina": {
+          "componentAABBIntersections": [
+            {
+              "name": "Building_Interior",
+              "overlapXZ": [
+                6.219999313354492,
+                0.1099996566772461
+              ]
+            },
+            {
+              "name": "Building_Roof",
+              "overlapXZ": [
+                6.219999313354492,
+                0.4399995803833008
+              ]
+            },
+            {
+              "name": "Building_Shell",
+              "overlapXZ": [
+                6.219999313354492,
+                0.8099994659423828
+              ]
+            },
+            {
+              "name": "Wall_Corners",
+              "overlapXZ": [
+                6.219999313354492,
+                0.4099998474121094
+              ]
+            },
+            {
+              "name": "Wall_E",
+              "overlapXZ": [
+                6.219999313354492,
+                0.3000001907348633
+              ]
+            }
+          ],
+          "envelopeOverlapXZ": [
+            6.219999313354492,
+            0.8099994659423828
+          ],
+          "plinthProjectionAreaM2": 5.038197308349847,
+          "plinthAABBGapM": 0.0,
+          "rampNorthProjectionAreaM2": 0,
+          "rampWestProjectionAreaM2": 0
+        },
+        "Praça / hub": {
+          "componentAABBIntersections": [
+            {
+              "name": "Entrance_S_Ramp",
+              "overlapXZ": [
+                0.6212849617004395,
+                1.899999976158142
+              ]
+            }
+          ],
+          "envelopeOverlapXZ": [
+            0.6212849617004395,
+            8.220000267028809
+          ],
+          "plinthProjectionAreaM2": 0,
+          "plinthAABBGapM": 0.9399998664855955,
+          "rampNorthProjectionAreaM2": 0,
+          "rampWestProjectionAreaM2": 1.1804414124182472
+        },
+        "Conector Lab–Alojamentos": {
+          "componentAABBIntersections": [
+            {
+              "name": "Building_Interior",
+              "overlapXZ": [
+                2.6000000000000014,
+                2.5
+              ]
+            },
+            {
+              "name": "Building_Roof",
+              "overlapXZ": [
+                2.6000000000000014,
+                2.8299999237060547
+              ]
+            },
+            {
+              "name": "Building_Shell",
+              "overlapXZ": [
+                2.6000000000000014,
+                3.2300000190734863
+              ]
+            },
+            {
+              "name": "EntranceDoor",
+              "overlapXZ": [
+                1.4199999570846558,
+                0.16000032424926758
+              ]
+            },
+            {
+              "name": "Entrance_W_Ramp",
+              "overlapXZ": [
+                1.899999976158142,
+                1.6112852096557617
+              ]
+            },
+            {
+              "name": "Wall_Corners",
+              "overlapXZ": [
+                2.6000000000000014,
+                2.8000001907348633
+              ]
+            },
+            {
+              "name": "Wall_W",
+              "overlapXZ": [
+                2.6000000000000014,
+                0.3000001907348633
+              ]
+            }
+          ],
+          "envelopeOverlapXZ": [
+            2.6000000000000014,
+            4.75
+          ],
+          "plinthProjectionAreaM2": 8.320000000000013,
+          "plinthAABBGapM": 0.0,
+          "rampNorthProjectionAreaM2": 3.0614418599299142,
+          "rampWestProjectionAreaM2": 0
+        },
+        "Conector leste da praça": {
+          "componentAABBIntersections": [
+            {
+              "name": "Building_Interior",
+              "overlapXZ": [
+                1.5,
+                2.6
+              ]
+            },
+            {
+              "name": "Building_Roof",
+              "overlapXZ": [
+                1.8299999237060547,
+                2.6
+              ]
+            },
+            {
+              "name": "Building_Shell",
+              "overlapXZ": [
+                2.2699999809265137,
+                2.6
+              ]
+            },
+            {
+              "name": "EntranceDoor_S",
+              "overlapXZ": [
+                0.16000032424926758,
+                1.4199999570846558
+              ]
+            },
+            {
+              "name": "Entrance_S_Frame",
+              "overlapXZ": [
+                0.7600002288818359,
+                2.0399999618530273
+              ]
+            },
+            {
+              "name": "Entrance_S_Ramp",
+              "overlapXZ": [
+                1.1112852096557617,
+                1.899999976158142
+              ]
+            },
+            {
+              "name": "Wall_Corners",
+              "overlapXZ": [
+                1.8000001907348633,
+                2.6
+              ]
+            },
+            {
+              "name": "Wall_S",
+              "overlapXZ": [
+                0.3000001907348633,
+                2.6
+              ]
+            }
+          ],
+          "envelopeOverlapXZ": [
+            3.25,
+            2.6
+          ],
+          "plinthProjectionAreaM2": 5.720000000000001,
+          "plinthAABBGapM": 0.0,
+          "rampNorthProjectionAreaM2": 0,
+          "rampWestProjectionAreaM2": 2.111441871850843
+        },
+        "Zona A": {
+          "componentAABBIntersections": [
+            {
+              "name": "Building_Roof",
+              "overlapXZ": [
+                0.07999992370605469,
+                12.15999984741211
+              ]
+            },
+            {
+              "name": "Building_Shell",
+              "overlapXZ": [
+                0.4499998092651367,
+                12.929999828338623
+              ]
+            },
+            {
+              "name": "Wall_Corners",
+              "overlapXZ": [
+                0.05000019073486328,
+                12.100000381469727
+              ]
+            },
+            {
+              "name": "Wall_N",
+              "overlapXZ": [
+                0.050000667572021484,
+                9.399999618530273
+              ]
+            }
+          ],
+          "envelopeOverlapXZ": [
+            0.4499998092651367,
+            14.461284637451172
+          ],
+          "plinthProjectionAreaM2": 4.918016431423375,
+          "plinthAABBGapM": 0.0,
+          "rampNorthProjectionAreaM2": 0,
+          "rampWestProjectionAreaM2": 0
+        }
+      },
+      "zoneAPlinthAreaM2": 4.918016431423375,
+      "zoneAOccupiedPercent": 3.9344131451387003,
+      "eastBeyondZoneAM": 0
+    },
+    {
+      "id": "B",
+      "label": "Escala original · expansão leste",
+      "x": 19.5,
+      "z": 0.6,
+      "scale": 1,
+      "fullVisualAABB": [
+        12.488715171813965,
+        -7.4112848281860355,
+        24.949999809265137,
+        7.049999809265136
+      ],
+      "plinthAABB": [
+        14.05,
+        -5.8500000000000005,
+        24.95,
+        7.05
+      ],
+      "doorNorth": [
+        19.5,
+        -5.4
+      ],
+      "doorWest": [
+        14.5,
+        0.6
+      ],
+      "rampNorthTip": [
+        19.5,
+        -7.4112848281860355
+      ],
+      "rampWestTip": [
+        12.488715171813965,
+        0.6
+      ],
+      "doorClearWidth": 1.3,
+      "doorClearHeightAboveThreshold": 2.22,
+      "height": 4.685,
+      "interferences": {
+        "Laboratório": {
+          "componentAABBIntersections": [],
+          "envelopeOverlapXZ": [
+            2.1212854385375977,
+            0
+          ],
+          "plinthProjectionAreaM2": 0,
+          "plinthAABBGapM": 2.0400003433227534,
+          "rampNorthProjectionAreaM2": 0,
+          "rampWestProjectionAreaM2": 0
+        },
+        "Oficina": {
+          "componentAABBIntersections": [],
+          "envelopeOverlapXZ": [
+            1.1212844848632812,
+            1.4099994659423825
+          ],
+          "plinthProjectionAreaM2": 0,
+          "plinthAABBGapM": 0.4400003433227546,
+          "rampNorthProjectionAreaM2": 0,
+          "rampWestProjectionAreaM2": 0
+        },
+        "Praça / hub": {
+          "componentAABBIntersections": [],
+          "envelopeOverlapXZ": [
+            0,
+            8.220000267028809
+          ],
+          "plinthProjectionAreaM2": 0,
+          "plinthAABBGapM": 9.939999866485596,
+          "rampNorthProjectionAreaM2": 0,
+          "rampWestProjectionAreaM2": 0
+        },
+        "Conector Lab–Alojamentos": {
+          "componentAABBIntersections": [],
+          "envelopeOverlapXZ": [
+            0,
+            4.1612848281860355
+          ],
+          "plinthProjectionAreaM2": 0,
+          "plinthAABBGapM": 2.25,
+          "rampNorthProjectionAreaM2": 0,
+          "rampWestProjectionAreaM2": 0
+        },
+        "Conector leste da praça": {
+          "componentAABBIntersections": [],
+          "envelopeOverlapXZ": [
+            0,
+            2.6
+          ],
+          "plinthProjectionAreaM2": 0,
+          "plinthAABBGapM": 6.800000000000001,
+          "rampNorthProjectionAreaM2": 0,
+          "rampWestProjectionAreaM2": 0
+        },
+        "Zona A": {
+          "componentAABBIntersections": [
+            {
+              "name": "Building_Interior",
+              "overlapXZ": [
+                5.0,
+                11.5
+              ]
+            },
+            {
+              "name": "Building_Roof",
+              "overlapXZ": [
+                5.0,
+                12.15999984741211
+              ]
+            },
+            {
+              "name": "Building_Shell",
+              "overlapXZ": [
+                5.0,
+                12.929999828338623
+              ]
+            },
+            {
+              "name": "EntranceDoor",
+              "overlapXZ": [
+                1.4199999570846558,
+                0.16000032424926758
+              ]
+            },
+            {
+              "name": "Entrance_W_Ramp",
+              "overlapXZ": [
+                1.899999976158142,
+                1.6225700378417969
+              ]
+            },
+            {
+              "name": "Wall_Corners",
+              "overlapXZ": [
+                5.0,
+                12.100000381469727
+              ]
+            },
+            {
+              "name": "Wall_E",
+              "overlapXZ": [
+                4.700000047683716,
+                0.3000001907348633
+              ]
+            },
+            {
+              "name": "Wall_W",
+              "overlapXZ": [
+                4.700000047683716,
+                0.3000001907348633
+              ]
+            }
+          ],
+          "envelopeOverlapXZ": [
+            5.0,
+            14.461284637451172
+          ],
+          "plinthProjectionAreaM2": 64.48574540037082,
+          "plinthAABBGapM": 0.0,
+          "rampNorthProjectionAreaM2": 3.0828830332143298,
+          "rampWestProjectionAreaM2": 0
+        }
+      },
+      "zoneAPlinthAreaM2": 64.48574540037082,
+      "zoneAOccupiedPercent": 51.58859632029665,
+      "eastBeyondZoneAM": 4.449999809265137
+    },
+    {
+      "id": "C",
+      "label": "Escala 0,75× · só opção",
+      "x": 10.5,
+      "z": 0,
+      "scale": 0.75,
+      "fullVisualAABB": [
+        5.241536378860474,
+        -6.008463621139526,
+        14.587499856948853,
+        4.8374998569488525
+      ],
+      "plinthAABB": [
+        6.4125,
+        -4.8375,
+        14.5875,
+        4.8375
+      ],
+      "doorNorth": [
+        10.5,
+        -4.5
+      ],
+      "doorWest": [
+        6.75,
+        0.0
+      ],
+      "rampNorthTip": [
+        10.5,
+        -6.008463621139526
+      ],
+      "rampWestTip": [
+        5.241536378860474,
+        0.0
+      ],
+      "doorClearWidth": 0.9750000000000001,
+      "doorClearHeightAboveThreshold": 1.665,
+      "height": 3.51375,
+      "interferences": {
+        "Laboratório": {
+          "componentAABBIntersections": [],
+          "envelopeOverlapXZ": [
+            8.197499990463257,
+            0
+          ],
+          "plinthProjectionAreaM2": 0,
+          "plinthAABBGapM": 3.0525003433227536,
+          "rampNorthProjectionAreaM2": 0,
+          "rampWestProjectionAreaM2": 0
+        },
+        "Oficina": {
+          "componentAABBIntersections": [],
+          "envelopeOverlapXZ": [
+            6.219999313354492,
+            0
+          ],
+          "plinthProjectionAreaM2": 0,
+          "plinthAABBGapM": 0.8025003433227536,
+          "rampNorthProjectionAreaM2": 0,
+          "rampWestProjectionAreaM2": 0
+        },
+        "Praça / hub": {
+          "componentAABBIntersections": [],
+          "envelopeOverlapXZ": [
+            0,
+            8.220000267028809
+          ],
+          "plinthProjectionAreaM2": 0,
+          "plinthAABBGapM": 2.3024998664855953,
+          "rampNorthProjectionAreaM2": 0,
+          "rampWestProjectionAreaM2": 0
+        },
+        "Conector Lab–Alojamentos": {
+          "componentAABBIntersections": [
+            {
+              "name": "Building_Interior",
+              "overlapXZ": [
+                2.6000000000000014,
+                1.0625
+              ]
+            },
+            {
+              "name": "Building_Roof",
+              "overlapXZ": [
+                2.6000000000000014,
+                1.309999942779541
+              ]
+            },
+            {
+              "name": "Building_Shell",
+              "overlapXZ": [
+                2.6000000000000014,
+                1.6100000143051147
+              ]
+            },
+            {
+              "name": "EntranceDoor",
+              "overlapXZ": [
+                1.0649999678134918,
+                0.12000024318695068
+              ]
+            },
+            {
+              "name": "Entrance_W_Ramp",
+              "overlapXZ": [
+                1.4249999821186066,
+                1.2169275283813477
+              ]
+            },
+            {
+              "name": "Wall_Corners",
+              "overlapXZ": [
+                2.6000000000000014,
+                1.2875001430511475
+              ]
+            },
+            {
+              "name": "Wall_W",
+              "overlapXZ": [
+                2.6000000000000014,
+                0.22500014305114746
+              ]
+            }
+          ],
+          "envelopeOverlapXZ": [
+            2.6000000000000014,
+            2.7584636211395264
+          ],
+          "plinthProjectionAreaM2": 4.127500000000005,
+          "plinthAABBGapM": 0.0,
+          "rampNorthProjectionAreaM2": 1.7341217061830605,
+          "rampWestProjectionAreaM2": 0
+        },
+        "Conector leste da praça": {
+          "componentAABBIntersections": [
+            {
+              "name": "Building_Interior",
+              "overlapXZ": [
+                0.3125,
+                2.6
+              ]
+            },
+            {
+              "name": "Building_Roof",
+              "overlapXZ": [
+                0.559999942779541,
+                2.6
+              ]
+            },
+            {
+              "name": "Building_Shell",
+              "overlapXZ": [
+                0.8899999856948853,
+                2.6
+              ]
+            },
+            {
+              "name": "EntranceDoor_S",
+              "overlapXZ": [
+                0.12000024318695068,
+                1.0649999678134918
+              ]
+            },
+            {
+              "name": "Entrance_S_Frame",
+              "overlapXZ": [
+                0.570000171661377,
+                1.5299999713897705
+              ]
+            },
+            {
+              "name": "Entrance_S_Ramp",
+              "overlapXZ": [
+                1.2169275283813477,
+                1.4249999821186066
+              ]
+            },
+            {
+              "name": "Wall_Corners",
+              "overlapXZ": [
+                0.5375001430511475,
+                2.6
+              ]
+            },
+            {
+              "name": "Wall_S",
+              "overlapXZ": [
+                0.22500014305114746,
+                2.6
+              ]
+            }
+          ],
+          "envelopeOverlapXZ": [
+            2.0084636211395264,
+            2.6
+          ],
+          "plinthProjectionAreaM2": 2.177500000000002,
+          "plinthAABBGapM": 0.0,
+          "rampNorthProjectionAreaM2": 0,
+          "rampWestProjectionAreaM2": 1.7341217061830605
+        },
+        "Zona A": {
+          "componentAABBIntersections": [],
+          "envelopeOverlapXZ": [
+            0,
+            10.845963478088379
+          ],
+          "plinthProjectionAreaM2": 0,
+          "plinthAABBGapM": 0.9124999999999996,
+          "rampNorthProjectionAreaM2": 0,
+          "rampWestProjectionAreaM2": 0
+        }
+      },
+      "zoneAPlinthAreaM2": 0,
+      "zoneAOccupiedPercent": 0.0,
+      "eastBeyondZoneAM": 0
+    }
+  ],
+  "method": "Interseções em projeção X/Z: plinto arredondado e AABBs individuais medidos das rampas vs AABBs conservadoras do v007. Sobreposição de envelope não é teste de triângulo/colisão Rapier.",
+  "playerReference": {
+    "radius": 0.32,
+    "controllerOffset": 0.06,
+    "referenceDiameter": 0.76,
+    "visualHeight": 1.5
+  },
+  "constraints": [
+    "O conector sozinho não resolve a interferência com a Oficina na opção A.",
+    "Escala para caber nos 6,5 m antigos exigiria <=0,5417: vão 0,704 m, menor que a faixa de referência 0,76 m.",
+    "A opção C é representação na planta, nunca exportação redimensionada.",
+    "Pisos/apoio da rampa têm que transicionar do v007 para 0,35 m (ou 0,2625 m em C), em entrega posterior."
+  ]
+}
