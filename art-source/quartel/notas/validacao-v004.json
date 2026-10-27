@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "blendSHA256": "b2a6681d721575730595be3a3ce8372e0998374faea8bd8351e6c85ea5a6800f",
+  "sourceV003SHA256": "5bed60912e08c019ae16b8962fbf641a4f8321d53a957f6bbec1be7cdaaca625",
+  "unchangedGeometry": [
+    "Building_Roof",
+    "Building_Interior",
+    "Wall_N",
+    "Wall_E",
+    "Wall_Corners"
+  ],
+  "freeOpeningRaySamples": 40,
+  "leafSweepSamples": 160,
+  "leafCOLMaxErrorM": 4.76837158203125e-07,
+  "pocketMaxU": 1.115,
+  "windowHoodMinU": 1.1775,
+  "windowGapM": 0.0625,
+  "triangles": 9054,
+  "materials": 1,
+  "doorWidth": 1.4,
+  "doorHeightAboveThreshold": 1.665,
+  "rampWidth": 1.6,
+  "rampRise": 0.2625,
+  "rampRun": 1.2
+}

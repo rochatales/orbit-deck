@@ -1,0 +1,17 @@
+{
+  "variant": "v004",
+  "sourceV003SHA256": "5bed60912e08c019ae16b8962fbf641a4f8321d53a957f6bbec1be7cdaaca625",
+  "sourceTriangles": 8278,
+  "triangles": 9054,
+  "materials": 1,
+  "doorWidth": 1.4,
+  "doorUsefulHeight": 1.665,
+  "rampWidth": 1.6,
+  "rampRun": 1.2,
+  "rampRise": 0.2625,
+  "removedWestFrameComponents": 8,
+  "telescopicPocketMaxU": 1.115,
+  "windowHoodMinU": 1.1775,
+  "pedestalColliderHeight": 0.75,
+  "pedestalColliderReason": "autostep 0,26 + apoio desejado 0,2625 + offset 0,06; borda bloqueada sem mudar controller"
+}

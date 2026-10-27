@@ -111,3 +111,20 @@ test('Quartel opção 2: v002 permanece intacta; v003 incorpora 0,75× sem escal
         assert.ok(Math.abs(Math.max(...track.values.map(Math.abs)) - 1.0875) < 1e-5);
     }
 });
+
+test('Quartel v004: v003 e anteriores intactas; apenas acessos ampliados, atlas único e encaixe sem conflito',()=>{
+    for(const version of ['v003','v004'])for(const file of read('arte-'+version+'-sha256.json').files) assert.equal(hash(file.path),file.sha256,file.path);
+    const data=fs.readFileSync(root+'export/barracks-v004.glb'),json=JSON.parse(data.subarray(20,20+data.readUInt32LE(12)));
+    const validation=read('validacao-v004.json'),build=read('build-v004.json'),fit=read('encaixe-v004.json');
+    assert.equal(validation.blendSHA256,hash(root+'blend/barracks-v004.blend'));assert.equal(validation.passed,true);
+    assert.equal(validation.sourceV003SHA256,hash(root+'blend/barracks-v003.blend'));
+    assert.deepEqual(validation.unchangedGeometry,['Building_Roof','Building_Interior','Wall_N','Wall_E','Wall_Corners']);
+    assert.equal(validation.freeOpeningRaySamples,40);assert.equal(validation.leafSweepSamples,160);assert.ok(validation.leafCOLMaxErrorM<1e-6);assert.equal(validation.windowGapM,.0625);
+    assert.equal(build.sourceTriangles,8278);assert.equal(build.triangles,9054);assert.equal(json.materials.length,1);assert.equal(json.meshes.length,20);
+    assert.equal(json.meshes.flatMap(m=>m.primitives).reduce((n,p)=>n+json.accessors[p.indices].count/3,0),9054);
+    assert.equal(json.nodes.filter(n=>n.name?.startsWith('COL_')).length,65);
+    assert.equal(build.doorWidth,1.4);assert.equal(build.doorUsefulHeight,1.665);assert.equal(build.rampWidth,1.6);assert.equal(build.rampRun,1.2);assert.equal(build.rampRise,.2625);
+    assert.equal(fit.doorClearWidth,1.4);assert.ok(Object.values(fit.componentAABBIntersections).every(a=>a.length===0));assert.ok(fit.workshopGapM>.8&&fit.zoneAGapM>.91);
+    for(const name of ['Building_Roof','Building_Interior'])assert.ok(json.nodes.some(n=>n.name===name&&n.mesh!==undefined));
+    assert.deepEqual(json.animations.map(a=>a.name).sort(),['Door_Open','Door_S_Open']);assert.ok(json.animations.every(a=>a.channels.length===4));
+});
