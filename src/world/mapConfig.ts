@@ -1,3 +1,4 @@
+import { QUARTEL } from '../game/quartelLayout';
 import masterplan from './marsMasterplan.json';
 import { Vector3 } from "three";
 import type { RectBounds } from "../utils/math";
@@ -54,23 +55,33 @@ export const OFFICE_MAP_BOUNDS: RectBounds = {
 };
 
 // Masterplan v007: posições e dimensões exatas, sem arredondar para ladrilhos.
-export const MAP_ROOMS: MapRoomConfig[] = masterplan.rooms.map(room => ({
-  id: room.id, name: room.name, position: room.position, size: room.size,
-  type: room.id === 'central-hub' ? 'hub' : room.id === 'smart-lab' ? 'lab' : 'station',
-  accentColor: room.id === 'brand-brain' ? '#F2C94C' : '#00E6FF',
-  npcId: room.id === 'brand-brain' ? 'eden' : undefined,
-  doorSides: room.doorSides as DoorSide[],
-  desk: { position: new Vector3(room.position.x, 0, room.position.z - 0.6), rotationY: Math.PI },
-  anchors: {
-    roomLabel: new Vector3(room.position.x, 2.95, room.position.z - room.size.depth / 2 + 0.5),
-    deskLabel: new Vector3(room.position.x, 1.15, room.position.z - 0.2),
-    panel: new Vector3(room.position.x + 1, 2.05, room.position.z),
-    npcNameplate: new Vector3(room.position.x, 2.45, room.position.z)
-  }
-}));
-export const MAP_CORRIDORS: CorridorConfig[] = masterplan.corridors.map(corridor => ({
-  id: corridor.id, position: corridor.position, size: corridor.size, railings: false
-}));
+export const MAP_ROOMS: MapRoomConfig[] = masterplan.rooms.map(room => {
+  // ID design preservado para consumidores e saves anteriores; nome/pegada atuais.
+  const size = room.id === 'design' ? { width: 7.5, depth: 9 } : room.size;
+  return {
+    id: room.id, name: room.id === 'design' ? 'Quartel' : room.name, position: room.position, size,
+    type: room.id === 'central-hub' ? 'hub' : room.id === 'smart-lab' ? 'lab' : 'station',
+    accentColor: room.id === 'brand-brain' ? '#F2C94C' : '#00E6FF',
+    npcId: room.id === 'brand-brain' ? 'eden' : undefined,
+    doorSides: room.doorSides as DoorSide[],
+    desk: { position: new Vector3(room.position.x, 0, room.position.z - 0.6), rotationY: Math.PI },
+    anchors: {
+      roomLabel: new Vector3(room.position.x, 2.95, room.position.z - size.depth / 2 + 0.5),
+      deskLabel: new Vector3(room.position.x, 1.15, room.position.z - 0.2),
+      panel: new Vector3(room.position.x + 1, 2.05, room.position.z),
+      npcNameplate: new Vector3(room.position.x, 2.45, room.position.z)
+    }
+  };
+});
+export const MAP_CORRIDORS: CorridorConfig[] = masterplan.corridors.map(corridor => {
+  const current = QUARTEL.connectors.find(c => c.id === corridor.id);
+  return {
+    id: corridor.id,
+    position: current ? { x: (current.minX + current.maxX) / 2, z: (current.minZ + current.maxZ) / 2 } : corridor.position,
+    size: current ? { width: current.maxX - current.minX, depth: current.maxZ - current.minZ } : corridor.size,
+    railings: false
+  };
+});
 
 export function getRoomByNpcId(npcId: string) {
   return MAP_ROOMS.find((room) => room.npcId === npcId);

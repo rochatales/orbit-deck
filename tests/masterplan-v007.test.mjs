@@ -18,7 +18,7 @@ const file=fs.readFileSync('src/assets/colony-v007.glb');
 async function scene(){return (await new GLTFLoader().parseAsync(file.buffer.slice(file.byteOffset,file.byteOffset+file.byteLength),'')).scene;}
 
 test('v007: módulos exatos, nomes, eixos, portas e conexão EDEN/Lab independentes',()=>{
- const expected=[['central-hub',0,0,8,8],['brand-brain',0,-10.5,7,6.5],['smart-lab',10.5,-10.5,8,5],['editorial',-10.5,0,6.5,6.5],['design',10.5,0,6.5,6.5],['narration',-10.5,8.5,6,5.5],['output-review',10.5,8.5,6,5.5],['meeting-suite',0,14.5,9,6],['coffee-nook',7.2,15,3.8,3.8]];
+ const expected=[['central-hub',0,0,8,8],['brand-brain',0,-10.5,7,6.5],['smart-lab',10.5,-10.5,8,5],['editorial',-10.5,0,6.5,6.5],['design',10.5,0,7.5,9],['narration',-10.5,8.5,6,5.5],['output-review',10.5,8.5,6,5.5],['meeting-suite',0,14.5,9,6],['coffee-nook',7.2,15,3.8,3.8]];
  for(const [id,x,z,w,d]of expected){const r=MAP_ROOMS.find(r=>r.id===id);assert.deepEqual([r.position.x,r.position.z,r.size.width,r.size.depth],[x,z,w,d]);assert.equal(getLocationLabelByPosition(x,z),r.name);}
  assert.deepEqual([...MAP_ROOMS.find(r=>r.id==='smart-lab').doorSides],['west','south']);
  assert.deepEqual([...MAP_ROOMS.find(r=>r.id==='narration').doorSides],['east']);

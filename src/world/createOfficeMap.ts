@@ -44,7 +44,15 @@ import {
   type MapRoomConfig
 } from "./mapConfig";
 
+export interface SimpleCuboid {
+  id: string;
+  position: { x: number; y: number; z: number };
+  halfExtents: number[];
+  rotation: { x: number; y: number; z: number; w: number };
+}
 export interface OfficeWorld {
+  simpleCuboids?: SimpleCuboid[];
+  movingCuboids?: SimpleCuboid[];
   /** Apoio simples de superfícies elevadas, independente da malha visual. */
   supportHeight?: (x: number, z: number) => number;
   /** Suavização vertical opcional; Marte conserva apoio imediato. */

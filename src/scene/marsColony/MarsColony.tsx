@@ -1,3 +1,5 @@
+import { Quartel } from './Quartel';
+import { removeRoomForQuartel } from './quartelColony';
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { lazy, Suspense, useLayoutEffect, useRef } from 'react';
@@ -17,19 +19,19 @@ import { sandwindPreviewEnabled } from './sandwindPolicy';
 const ColonySandwind = lazy(() => import('./ColonySandwind').then(m => ({ default: m.ColonySandwind })));
 
 /** GLB estritamente visual. Física vem de OfficeWorld via CuboidCollider. */
-export function MarsColony({ world: _world }: { world: OfficeWorld }) {
+export function MarsColony({ world }: { world: OfficeWorld }) {
     const gltf = useGLTF(colonyUrl);
     const preview = sandwindPreviewEnabled(window.location.search), scope = useRef<Group>(null);
     const visual = useRef<Group>(null), runtime = useRef<MasterplanRuntime>();
     useLayoutEffect(() => {
         const scene = gltf.scene.clone(true), geometry: BufferGeometry[] = [];
-        const filtered = removeDockForHangar(scene, removeProvisionalGreenhouse(scene, manifest), geometry);
+        const filtered = removeRoomForQuartel(scene, removeDockForHangar(scene, removeProvisionalGreenhouse(scene, manifest), geometry), geometry);
         const instance = new MasterplanRuntime(scene, filtered);
         runtime.current = instance; visual.current!.add(scene);
         return () => { scene.removeFromParent(); instance.dispose(); geometry.forEach(g => g.dispose()); runtime.current = undefined; };
     }, [gltf.scene]);
     useFrame((_, delta) => runtime.current?.update(playerPosition, delta));
-    const visuals = <><group ref={visual} dispose={null}/><AresLanding/><DeckProps/><Greenhouse/><Hangar/></>;
+    const visuals = <><group ref={visual} dispose={null}/><AresLanding/><DeckProps/><Greenhouse/><Hangar/><Quartel world={world}/></>;
     // Sem flag: mesma árvore anterior. Só o Sandwind possui estes pais de descarte.
     return preview ? <group ref={scope} name="SandwindColonyV007">{visuals}
         <Suspense fallback={null}><ColonySandwind scope={scope} masterplan={visual}/></Suspense>

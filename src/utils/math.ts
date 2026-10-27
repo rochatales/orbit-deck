@@ -9,6 +9,8 @@ export interface RectBounds {
 
 /** Altura opcional usada apenas no tiro. Os demais consumidores usam a pegada X/Z. */
 export interface ShotVolume extends RectBounds {
+  /** Pegada de consulta; false quando a física usa cuboide 3D separado. */
+  physics?: false;
   minY?: number;
   maxY?: number;
 }

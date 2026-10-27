@@ -12,10 +12,13 @@ const { GreenhouseRuntime, removeProvisionalGreenhouse } = loadSource('src/scene
 const { HangarRuntime } = loadSource('src/scene/marsColony/hangarRuntime.ts');
 const { removeDockForHangar } = loadSource('src/scene/marsColony/hangarColony.ts');
 const { createDeckProps } = loadSource('src/scene/marsColony/landingProps.ts');
+const { QuartelRuntime } = loadSource('src/scene/marsColony/quartelRuntime.ts');
+const { removeRoomForQuartel } = loadSource('src/scene/marsColony/quartelColony.ts');
+const { QUARTEL } = loadSource('src/game/quartelLayout.ts');
 const { HANGAR } = loadSource('src/game/hangarLayout.ts');
 const manifest = JSON.parse(fs.readFileSync('src/assets/colony-v007.manifest.json'));
 const greenManifest = JSON.parse(fs.readFileSync('src/assets/greenhouse/greenhouse-v001.manifest.json'));
-const urls = ['colony-v007.glb', 'hangar/hangar-v002.glb', 'greenhouse/greenhouse-v001.glb', 'colony-v006.glb', 'ares-lander/ares-lander.glb', 'ares-mars/deck-mars.glb'];
+const urls = ['colony-v007.glb', 'hangar/hangar-v002.glb', 'greenhouse/greenhouse-v001.glb', 'colony-v006.glb', 'ares-lander/ares-lander.glb', 'ares-mars/deck-mars.glb', 'quartel/barracks-v004.glb'];
 const sources = await Promise.all(urls.map(url => loadGlb(`src/assets/${url}`)));
 const settings = { enabled: true, culling: true, wind: true, profile: 'compact' };
 const eachMaterial = (root, fn) => root.traverse(n => { if (n.isMesh) for (const m of Array.isArray(n.material) ? n.material : [n.material]) fn(m, n); });
@@ -23,7 +26,7 @@ const visible = node => { for (let n = node; n; n = n.parent) if (!n.visible) re
 
 function fixture() {
     const scope = new Group(), architecture = sources[0].scene.clone(true), geometries = [];
-    const filtered = removeDockForHangar(architecture, removeProvisionalGreenhouse(architecture, manifest), geometries);
+    const filtered = removeRoomForQuartel(architecture, removeDockForHangar(architecture, removeProvisionalGreenhouse(architecture, manifest), geometries), geometries);
     const master = new MasterplanRuntime(architecture, filtered); scope.add(architecture);
     const hangar = clone(sources[1].scene); hangar.name = 'Hangar';
     const hangarRuntime = new HangarRuntime(hangar, sources[1].animations);
@@ -40,11 +43,13 @@ function fixture() {
     });
     ares.name = 'MarsARES'; ares.position.set(.72, .012, 33.52);
     deck.name = 'MarsARESDeck'; deck.position.set(0, 0, 33); scope.add(ares, deck);
-    const targets = sandwindTargets(scope, architecture, manifest);
+    const quartel = sources[6].scene.clone(true), qRoot = new Group(); qRoot.name='Quartel'; qRoot.position.set(10.5,0,0); qRoot.rotation.y=QUARTEL.placement.rotationY; qRoot.add(quartel); scope.add(qRoot);
+    const quartelRuntime = new QuartelRuntime(quartel,sources[6].animations);
+    const targets = sandwindTargets(scope, architecture, filtered);
     const install = () => new SandwindController(scope, sources.map(s => s.scene), targets, SRGBColorSpace);
-    const update = (p, dt) => { master.update(p, dt); greenRuntime.update(p, dt); hangarRuntime.update(p, dt); };
-    const dispose = () => { master.dispose(); greenRuntime.dispose(); hangarRuntime.dispose(); geometries.forEach(g => g.dispose()); privateAres.forEach(m => m.dispose()); };
-    return { scope, architecture, master, hangar, hangarRuntime, green, greenRuntime, props, ares, deck, targets, install, update, dispose };
+    const update = (p, dt) => { master.update(p, dt); greenRuntime.update(p, dt); hangarRuntime.update(p, dt); quartelRuntime.update(p,dt); };
+    const dispose = () => { master.dispose(); quartelRuntime.dispose(); greenRuntime.dispose(); hangarRuntime.dispose(); geometries.forEach(g => g.dispose()); privateAres.forEach(m => m.dispose()); };
+    return { scope, architecture, master, quartel, quartelRuntime, qRoot, hangar, hangarRuntime, green, greenRuntime, props, ares, deck, targets, install, update, dispose };
 }
 
 test('Sandwind v007: prédios, telhados, portas, estufa, ARES e DeckProps recebem pais completos sem mudar transforms', () => {
@@ -53,12 +58,12 @@ test('Sandwind v007: prédios, telhados, portas, estufa, ARES e DeckProps recebe
     const originalChildren = f.architecture.children.slice();
     const controller = f.install(); f.scope.updateMatrixWorld(true);
     for (const [node, matrix] of matrices) assert.ok(node.matrixWorld.equals(matrix), node.name);
-    for (const id of ['hangar', 'greenhouse', 'deck-props', 'ares', 'room_brand-brain']) assert.ok(f.scope.getObjectByName(`SandwindDistance_${id}`), id);
+    for (const id of ['hangar', 'greenhouse', 'deck-props', 'ares', 'room_brand-brain', 'quartel']) assert.ok(f.scope.getObjectByName(`SandwindDistance_${id}`), id);
     controller.update(200, 200, .2, settings, false);
     for (let i = 0; i < 60; i++) {
         f.update({ x: 0, z: 0 }, 1/60);
         controller.update(200, 200, 1/60, settings, false);
-        for (const root of [f.hangar, f.green, f.props, f.ares, f.deck]) {
+        for (const root of [f.hangar, f.green, f.props, f.ares, f.deck, f.qRoot]) {
             assert.equal(root.visible, true, 'Sandwind não escreve nos filhos');
             assert.equal(visible(root), false, root.name);
         }
@@ -68,10 +73,10 @@ test('Sandwind v007: prédios, telhados, portas, estufa, ARES e DeckProps recebe
     assert.equal(visible(f.green), false); assert.equal(visible(f.hangar), false);
     assert.equal(f.hangar.getObjectByName('HangarFloorBridge').parent, f.hangar);
     controller.update(0, 20, .2, settings, false);
-    for (const root of [f.hangar, f.green, f.props, f.ares, f.deck]) assert.equal(visible(root), true, root.name);
+    for (const root of [f.hangar, f.green, f.props, f.ares, f.deck, f.qRoot]) assert.equal(visible(root), true, root.name);
     controller.dispose();
     assert.deepEqual(f.architecture.children, originalChildren);
-    for (const root of [f.hangar, f.green, f.props, f.ares, f.deck]) assert.ok(!root.parent.name.startsWith('SandwindDistance'));
+    for (const root of [f.hangar, f.green, f.props, f.ares, f.deck, f.qRoot]) assert.ok(!root.parent.name.startsWith('SandwindDistance'));
     f.dispose();
 });
 
@@ -134,7 +139,7 @@ test('Sandwind v007: caixa completa protege prédio grande, terreno e passarelas
     const gate = f.scope.getObjectByName('SandwindDistance_hangar');
     controller.update(HANGAR.bridge.maxX, (HANGAR.bridge.minZ + HANGAR.bridge.maxZ) / 2, .2, settings, false);
     assert.equal(gate.visible, true);
-    for (const part of manifest.parts.filter(p => p.papel === 'floor' || p.id === 'TER_Solo')) {
+    for (const part of manifest.parts.filter(p => (p.papel === 'floor' || p.id === 'TER_Solo') && p.ambiente !== 'design')) {
         const node = f.architecture.children.find(n => n.userData.id_estavel === part.id);
         assert.ok(node, part.id); assert.equal(node.parent, f.architecture);
     }
@@ -185,8 +190,31 @@ test('Sandwind v007: poses de QA exigem três flags e não alteram sessão fora 
         assert.equal(useExpeditionStore.getState().spawn.z, 29.5);
         assert.equal(useExpeditionStore.getState().session.revision, 11);
         assert.equal(useGameStore.getState().nearShip, true);
+        assert.equal(sandwindQAPose('?perf&sandwindQA','quartel'),false);
+        assert.equal(sandwindQAPose(query,'quartel'),true);
+        assert.deepEqual(useExpeditionStore.getState().spawn,{x:10.5,y:.2625,z:0});
+        assert.equal(useGameStore.getState().nearShip, false);
         useExpeditionStore.setState({ session: { map: 'shanghai', phase: 'walking', destination: null, revision: 12 } });
         assert.equal(sandwindQAPose(query, 'plaza'), false);
         assert.equal(useExpeditionStore.getState().session.revision, 12);
     } finally { useExpeditionStore.setState(state, true); useGameStore.setState(game, true); }
+});
+
+test('Quartel/Sandwind: fade, portas e caixas de colisão continuam sob descarte do pai, com material privado final',()=>{
+ const f=fixture(),baseline=fixture(),roof=f.quartel.getObjectByName('Building_Roof'),original=sources[6].scene.getObjectByName('Building_Roof').material;
+ const material=roof.material,controller=f.install();assert.equal(roof.material,material);assert.notEqual(material,original);
+ for(let i=0;i<6;i++){f.update({x:10.5,z:0},1/60);baseline.update({x:10.5,z:0},1/60);}
+ assert.ok(material.opacity>.01&&material.opacity<.9);
+ for(let i=0;i<60;i++){
+  const p=i<20?{x:10.5,z:0}:i<40?{x:6.75,z:0}:{x:0,z:0};
+  controller.update(i%2?200:10.5,i%2?200:0,.2,settings,false);
+  f.update(p,1/60);baseline.update(p,1/60);
+  assert.deepEqual(f.quartelRuntime.status,baseline.quartelRuntime.status);
+  assert.deepEqual(f.quartelRuntime.motions,baseline.quartelRuntime.motions);
+  assert.equal(material.opacity,baseline.quartel.getObjectByName('Building_Roof').material.opacity);
+  assert.equal(roof.visible,baseline.quartel.getObjectByName('Building_Roof').visible);
+ }
+ assert.equal(original.opacity,1);
+ const shader={uniforms:{},vertexShader:'#include <project_vertex>',fragmentShader:'#include <fog_fragment>'};material.onBeforeCompile(shader,{});assert.equal(shader.uniforms.swCenter,controller.uniforms.swCenter);
+ controller.dispose();f.dispose();baseline.dispose();
 });

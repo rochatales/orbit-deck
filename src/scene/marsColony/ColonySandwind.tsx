@@ -11,6 +11,7 @@ import { SANDWIND_PROFILES, type SandwindProfile } from './sandwindPolicy';
 import { SandwindController, sandwindResources, type SandwindSettings } from './SandwindController';
 import manifest from '../../assets/colony-v007.manifest.json';
 import { sandwindTargets } from './sandwindTargets';
+import quartelUrl from '../../assets/quartel/barracks-v004.glb';
 import colonyUrl from '../../assets/colony-v007.glb';
 import hangarUrl from '../../assets/hangar/hangar-v002.glb';
 import greenhouseUrl from '../../assets/greenhouse/greenhouse-v001.glb';
@@ -24,21 +25,22 @@ let activeController: SandwindController | null = null;
 
 export function ColonySandwind({ scope, masterplan }: { scope: RefObject<Group>; masterplan: RefObject<Group> }) {
     const scene = useThree(s => s.scene), gl = useThree(s => s.gl);
-    // Os seis caches já usados pelos componentes permitem distinguir materiais
+    // Os caches já usados pelos componentes permitem distinguir materiais
     // compartilhados dos privados finais, sem modificar nenhum runtime.
     // useLoader usa a lista de URLs como chave: chamadas individuais devem casar
     // com Masterplan/Hangar/Greenhouse/DeckProps; AresLanding usa o par de URLs.
     const colony = useGLTF(colonyUrl), hangar = useGLTF(hangarUrl), greenhouse = useGLTF(greenhouseUrl), legacy = useGLTF(legacyUrl);
+    const quartel = useGLTF(quartelUrl);
     const [ship, deck] = useGLTF([shipUrl, deckUrl]);
     const controller = useRef<SandwindController | null>(null);
     const enabled = usePreview(s => s.enabled);
     useEffect(() => {
         const root = scope.current!, architecture = masterplan.current!.children[0];
-        const next = new SandwindController(root, [colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene],
+        const next = new SandwindController(root, [colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene],
             sandwindTargets(root, architecture, manifest), gl.outputColorSpace);
         controller.current = next; activeController = next;
         return () => { if (activeController === next) activeController = null; controller.current = null; next.dispose(); };
-    }, [scope, masterplan, colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, gl]);
+    }, [scope, masterplan, colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene, gl]);
     useEffect(() => {
         if (!enabled) return;
         const original = scene.fog;
@@ -83,6 +85,7 @@ export function SandwindPanel() {
         {sandwindQAEnabled(window.location.search) && <fieldset style={{ margin: '10px 0' }}><legend>Poses de QA · sem salvar</legend>
             <button onClick={() => sandwindQAPose(window.location.search, 'plaza')}>QA · Praça</button>
             <button onClick={() => sandwindQAPose(window.location.search, 'deck')}>QA · Deck</button>
+            {(['quartel', 'quartel-west', 'quartel-north'] as const).map(pose => <button key={pose} onClick={() => sandwindQAPose(window.location.search, pose)}>QA · {pose}</button>)}
             <button onClick={() => useGameStore.getState().setZoom(useGameStore.getState().minZoom)}>QA · Afastar</button>
         </fieldset>}
         {report && <textarea aria-label="Relatório QA Sandwind" readOnly value={report} style={{ width: '100%', height: 100, fontSize: 10 }}/>}
