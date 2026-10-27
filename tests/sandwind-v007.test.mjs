@@ -169,3 +169,24 @@ test('Sandwind v007: caminho desativado preserva contratos visuais e está restr
     assert.match(fs.readFileSync('src/scene/OfficeScene.tsx', 'utf8'), /map === 'mars' \? <MarsColony/);
     controller.dispose(); f.dispose(); baseline.dispose();
 });
+
+test('Sandwind v007: poses de QA exigem três flags e não alteram sessão fora de Marte caminhando', () => {
+    const { sandwindQAEnabled, sandwindQAPose } = loadSource('src/scene/marsColony/sandwindQA.ts');
+    const { useExpeditionStore } = loadSource('src/state/useExpeditionStore.ts');
+    const { useGameStore } = loadSource('src/state/useGameStore.ts');
+    const state = useExpeditionStore.getState(), game = useGameStore.getState();
+    const query = '?sandwindPreview&perf&sandwindQA';
+    assert.equal(sandwindQAEnabled('?perf&sandwindQA'), false);
+    assert.equal(sandwindQAEnabled('?sandwindPreview&perf'), false);
+    try {
+        useExpeditionStore.setState({ ready: true, session: { map: 'mars', phase: 'walking', destination: null, revision: 10 } });
+        assert.equal(sandwindQAPose('?sandwindPreview', 'deck'), false);
+        assert.equal(sandwindQAPose(query, 'deck'), true);
+        assert.equal(useExpeditionStore.getState().spawn.z, 29.5);
+        assert.equal(useExpeditionStore.getState().session.revision, 11);
+        assert.equal(useGameStore.getState().nearShip, true);
+        useExpeditionStore.setState({ session: { map: 'shanghai', phase: 'walking', destination: null, revision: 12 } });
+        assert.equal(sandwindQAPose(query, 'plaza'), false);
+        assert.equal(useExpeditionStore.getState().session.revision, 12);
+    } finally { useExpeditionStore.setState(state, true); useGameStore.setState(game, true); }
+});

@@ -5,8 +5,10 @@ import { create } from 'zustand';
 import type { Group } from 'three';
 import { simulationBlocked } from '../../game/simulationGate';
 import { playerPosition } from '../../state/playerTransient';
+import { useGameStore } from '../../state/useGameStore';
+import { sandwindQAEnabled, sandwindQAPose } from './sandwindQA';
 import { SANDWIND_PROFILES, type SandwindProfile } from './sandwindPolicy';
-import { SandwindController, type SandwindSettings } from './SandwindController';
+import { SandwindController, sandwindResources, type SandwindSettings } from './SandwindController';
 import manifest from '../../assets/colony-v007.manifest.json';
 import { sandwindTargets } from './sandwindTargets';
 import colonyUrl from '../../assets/colony-v007.glb';
@@ -53,6 +55,7 @@ const panelStyle: CSSProperties = {
     color: '#f3e5d2', fontSize: 13, boxShadow: '0 8px 30px #0006'
 };
 export function SandwindPanel() {
+    const [report, setReport] = useState('');
     const settings = usePreview(), [stats, setStats] = useState({ total: 0, hidden: 0, retained: 0, hiddenTriangles: 0, materials: 0, clones: 0 });
     useEffect(() => {
         const timer = window.setInterval(() => { if (activeController) setStats({ ...activeController.stats }); }, 500);
@@ -76,6 +79,13 @@ export function SandwindPanel() {
         <p style={{ margin: '6px 0' }}>Grupos descartados: <b>{stats.hidden}/{stats.total}</b></p>
         <p style={{ margin: '6px 0' }}>Triângulos nos grupos descartados: <b>{Math.round(stats.hiddenTriangles).toLocaleString('pt-BR')}</b></p>
         <p style={{ margin: '6px 0' }}>Materiais do efeito: {stats.materials} · Clones próprios: {stats.clones}</p>
+        {new URLSearchParams(window.location.search).has('perf') && <button type="button" onClick={() => setReport(JSON.stringify({ perf: window.__hordaPerf?.report(), sandwind: { settings: usePreview.getState(), resources: { ...sandwindResources }, stats: activeController ? { ...activeController.stats } : null } }, null, 2))}>Gerar relatório QA</button>}
+        {sandwindQAEnabled(window.location.search) && <fieldset style={{ margin: '10px 0' }}><legend>Poses de QA · sem salvar</legend>
+            <button onClick={() => sandwindQAPose(window.location.search, 'plaza')}>QA · Praça</button>
+            <button onClick={() => sandwindQAPose(window.location.search, 'deck')}>QA · Deck</button>
+            <button onClick={() => useGameStore.getState().setZoom(useGameStore.getState().minZoom)}>QA · Afastar</button>
+        </fieldset>}
+        {report && <textarea aria-label="Relatório QA Sandwind" readOnly value={report} style={{ width: '100%', height: 100, fontSize: 10 }}/>}
         <small style={{ display: 'block', color: '#b8b3ad', lineHeight: 1.5 }}>Contagem geométrica; não é medição de GPU. GLB continua na memória. Builder, LODs e NPCs ainda não implementados nesta prévia.</small>
     </details></aside>;
 }

@@ -1,0 +1,272 @@
+{
+  "perf": {
+    "version": 2,
+    "context": {
+      "interpolation": {
+        "enabled": false,
+        "timeStep": 0.016666666666666666,
+        "frames": 2074,
+        "steps": 1062,
+        "minStep": 0.01666666753590107,
+        "maxStep": 0.01666666753590107,
+        "maxOffset": 0,
+        "maxHorizontal": 0,
+        "physical": {
+          "x": 0,
+          "y": 0,
+          "z": 0.800000011920929
+        },
+        "visual": {
+          "x": 0,
+          "y": 0,
+          "z": 0.800000011920929
+        },
+        "cameraSource": {
+          "x": 0,
+          "y": 0,
+          "z": 0.800000011920929
+        },
+        "cameraTarget": {
+          "x": 0,
+          "y": 0.55,
+          "z": 0.800000011920929
+        },
+        "cameraAngle": 0.7853981633974483,
+        "cameraZoom": 32.82051282051282
+      },
+      "capturedAt": "2026-10-27T00:47:43.871Z",
+      "build": "production",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "browserBrands": "Google Chrome 155, Chromium 155, Not(A:Brand 24",
+      "gpuRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Pro, Unspecified Version)",
+      "hardwareConcurrency": 12,
+      "deviceMemoryGb": 16,
+      "screen": {
+        "width": 1512,
+        "height": 982
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "canvasCss": {
+        "width": 1280,
+        "height": 720
+      },
+      "canvasBuffer": {
+        "width": 1920,
+        "height": 1080
+      },
+      "devicePixelRatio": 2,
+      "rendererPixelRatio": 1.5
+    },
+    "pageLoad": {
+      "responseEndMs": 4.299999998882413,
+      "domContentLoadedMs": 81.59999999962747,
+      "loadEventEndMs": 95.5,
+      "documentTransferBytes": 695
+    },
+    "resources": {
+      "count": 53,
+      "transferBytes": 20530,
+      "encodedBytes": 59318172,
+      "models": [
+        {
+          "file": "colony-v007-e4af2fda.glb",
+          "startMs": 163.69999999925494,
+          "responseEndMs": 195.19999999925494,
+          "durationMs": 31.5,
+          "transferBytes": 300,
+          "encodedBytes": 11572712
+        },
+        {
+          "file": "brand-brain-f7c02996.glb",
+          "startMs": 163.89999999850988,
+          "responseEndMs": 200,
+          "durationMs": 36.100000001490116,
+          "transferBytes": 300,
+          "encodedBytes": 20737332
+        },
+        {
+          "file": "explorador-r7-143a14d0.glb",
+          "startMs": 183.19999999925494,
+          "responseEndMs": 196.59999999962747,
+          "durationMs": 13.400000000372529,
+          "transferBytes": 300,
+          "encodedBytes": 6537104
+        },
+        {
+          "file": "deck-mars-59b4cb7d.glb",
+          "startMs": 283.69999999925494,
+          "responseEndMs": 305.69999999925494,
+          "durationMs": 22,
+          "transferBytes": 300,
+          "encodedBytes": 1394900
+        },
+        {
+          "file": "ares-lander-2491f474.glb",
+          "startMs": 283.69999999925494,
+          "responseEndMs": 359.7999999988824,
+          "durationMs": 76.09999999962747,
+          "transferBytes": 300,
+          "encodedBytes": 4601504
+        },
+        {
+          "file": "greenhouse-v001-a5668881.glb",
+          "startMs": 283.7999999988824,
+          "responseEndMs": 450.8999999985099,
+          "durationMs": 167.09999999962747,
+          "transferBytes": 300,
+          "encodedBytes": 2591408
+        },
+        {
+          "file": "colony-v006-5a6e6d9c.glb",
+          "startMs": 283.7999999988824,
+          "responseEndMs": 453.69999999925494,
+          "durationMs": 169.90000000037253,
+          "transferBytes": 300,
+          "encodedBytes": 7025672
+        },
+        {
+          "file": "hangar-v002-efdecfb3.glb",
+          "startMs": 283.8999999985099,
+          "responseEndMs": 450.2999999988824,
+          "durationMs": 166.40000000037253,
+          "transferBytes": 300,
+          "encodedBytes": 3339988
+        }
+      ]
+    },
+    "sceneEvents": [
+      {
+        "kind": "canvas-mounted",
+        "map": "mars",
+        "atMs": 500.19999999925494,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "map-data-ready",
+        "map": "mars",
+        "atMs": 500.19999999925494,
+        "sinceMapLoadingMs": null,
+        "inferred": true
+      },
+      {
+        "kind": "canvas-first-frame",
+        "map": "mars",
+        "atMs": 510.2999999988824,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "scene-first-draw",
+        "map": "mars",
+        "atMs": 953,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "scene-assets-ready",
+        "map": "mars",
+        "atMs": 966.5,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      }
+    ],
+    "latestCounters": {
+      "sampledAtMs": 18223.599999999627,
+      "drawCalls": 578,
+      "triangles": 660621,
+      "geometries": 540,
+      "textures": 14,
+      "programs": 29
+    },
+    "heap": {
+      "usedBytes": 214352186,
+      "totalBytes": 272254046,
+      "limitBytes": 4395630592
+    },
+    "samples": [
+      {
+        "status": "valid",
+        "invalidReason": null,
+        "warnings": [],
+        "startedAtMs": 6405.299999998882,
+        "requestedMs": 10000,
+        "elapsedMs": 10001.200000001118,
+        "map": "mars",
+        "coverage": {
+          "intervalsCollected": 1200,
+          "intervalsCapacity": 5016,
+          "intervalsSaturated": false,
+          "countersCollected": 97,
+          "countersCapacity": 116,
+          "countersSaturated": false
+        },
+        "rafIntervals": {
+          "count": 1200,
+          "p50": 8.300000000001091,
+          "p95": 9.199999999998909,
+          "max": 9.400000000001455,
+          "mean": 8.333749999999998,
+          "rafOver33": 0,
+          "rafOver50": 0
+        },
+        "longAnimationFrames": {
+          "supported": true,
+          "count": 0,
+          "maxDurationMs": null
+        },
+        "renderer": {
+          "samples": 97,
+          "firstSampledAtMs": 6406,
+          "lastSampledAtMs": 16373.099999999627,
+          "drawCalls": {
+            "min": 578,
+            "max": 578,
+            "mean": 578
+          },
+          "triangles": {
+            "min": 660621,
+            "max": 660621,
+            "mean": 660621
+          }
+        }
+      }
+    ],
+    "limitations": [
+      "Intervalos medidos entre callbacks de requestAnimationFrame: incluem CPU, espera de vsync e agendamento do navegador. Não são tempo de GPU.",
+      "A cadência mínima é limitada pela taxa de atualização da tela; 8,3 ms em 120 Hz não indica folga de GPU.",
+      "Intervalos de rAF acima de 33,3 ms e de 50 ms são contagens próprias, distintas dos eventos da API Long Animation Frames.",
+      "Draw calls e triângulos vêm de renderer.info e refletem o render imediatamente anterior à leitura. Na three 0.165 o reset automático ocorre depois do shadow map, então os passes de sombra não entram nessas contagens.",
+      "Geometrias e texturas são contagens de objetos vivos no renderer, não memória em bytes.",
+      "Memória de heap JS vem de performance.memory, API não padronizada e quantizada (Chromium); ausente nos demais navegadores.",
+      "Medições no servidor de desenvolvimento não são benchmark; prefira o build de produção (npm run preview).",
+      "Aba oculta durante uma amostra a invalida; pausa do jogo durante a amostra é registrada como aviso.",
+      "\"map-data-ready\" indica dados do mapa disponíveis (store da expedição), não cena renderizada. A cena renderizada é \"scene-first-draw\" e, com os personagens GLB, \"scene-assets-ready\".",
+      "Na entrada inicial, \"map-data-ready\" é inferido na montagem do canvas (marcado como inferido); os tempos da entrada inicial contam a partir do início da navegação."
+    ]
+  },
+  "sandwind": {
+    "settings": {
+      "enabled": true,
+      "culling": false,
+      "wind": true,
+      "profile": "compact"
+    },
+    "resources": {
+      "controllers": 1,
+      "clones": 45,
+      "patches": 136
+    },
+    "stats": {
+      "total": 269,
+      "hidden": 0,
+      "retained": 269,
+      "hiddenTriangles": 0,
+      "materials": 136,
+      "clones": 45
+    }
+  }
+}
