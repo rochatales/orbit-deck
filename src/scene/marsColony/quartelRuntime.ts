@@ -13,7 +13,7 @@ export class QuartelRuntime {
 
     constructor(private scene: Object3D, clips: AnimationClip[], private motions: SimpleCuboid[] = createQuartelDoorColliders()) {
         this.roof = scene.getObjectByName('Building_Roof')!;
-        if (!this.roof || !scene.getObjectByName('Building_Interior')) throw new Error('Quartel v004 incompleto');
+        if (!this.roof || !scene.getObjectByName('Building_Interior')) throw new Error('Quartel v005 incompleto');
         scene.traverse(node => {
             const mesh = node as Mesh;
             if (mesh.isMesh) { mesh.castShadow = true; mesh.receiveShadow = true; }

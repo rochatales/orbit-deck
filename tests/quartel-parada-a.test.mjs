@@ -128,3 +128,19 @@ test('Quartel v004: v003 e anteriores intactas; apenas acessos ampliados, atlas 
     for(const name of ['Building_Roof','Building_Interior'])assert.ok(json.nodes.some(n=>n.name===name&&n.mesh!==undefined));
     assert.deepEqual(json.animations.map(a=>a.name).sort(),['Door_Open','Door_S_Open']);assert.ok(json.animations.every(a=>a.channels.length===4));
 });
+
+test('Quartel v005: amplia para leste sem reescalar runtime, móveis +10%, v004 preservada e novos vãos livres',()=>{
+    for(const file of read('arte-v005-sha256.json').files)assert.equal(hash(file.path),file.sha256,file.path);
+    for(const file of read('arte-v004-sha256.json').files)assert.equal(hash(file.path),file.sha256,file.path);
+    const data=fs.readFileSync(root+'export/barracks-v005.glb'),json=JSON.parse(data.subarray(20,20+data.readUInt32LE(12)));
+    const build=read('build-v005.json'),validation=read('validacao-v005.json'),fit=read('encaixe-v005.json');
+    assert.equal(validation.blendSHA256,hash(root+'blend/barracks-v005.blend'));assert.equal(validation.sourceV004SHA256,hash(root+'blend/barracks-v004.blend'));assert.equal(validation.passed,true);
+    assert.deepEqual(build.wallsMapXZ,[10.5,9]);assert.deepEqual(build.placement,{x:12,z:0,rotationYDeg:-90,scale:1});
+    assert.equal(build.doorWidth,1.8);assert.ok(Math.abs(build.doorHeight-1.998)<1e-10);assert.equal(build.rampWidth,2);assert.equal(build.rampRun,1.2);assert.equal(build.rampRise,.2625);
+    assert.equal(build.furnitureGroups.length,15);for(const group of build.furnitureGroups)for(let i=0;i<3;i++)assert.ok(Math.abs(group.sizeAfter[i]-group.sizeBefore[i]*1.1)<2e-6,group.name);
+    assert.equal(validation.freeOpeningRaySamples,40);assert.equal(validation.leafSweepSamples,160);assert.ok(validation.windowGapM>.043);assert.ok(validation.leafCOLMaxErrorM<1e-6);
+    assert.equal(json.materials.length,1);assert.equal(json.meshes.length,20);assert.equal(json.meshes.flatMap(m=>m.primitives).reduce((n,p)=>n+json.accessors[p.indices].count/3,0),9078);assert.equal(json.nodes.filter(n=>n.name?.startsWith('COL_')).length,65);
+    const node=name=>json.nodes.find(n=>n.name===name);assert.deepEqual(node('Barracks').scale??[1,1,1],[1,1,1]);assert.ok(node('Building_Roof')&&node('Building_Interior'));
+    for(const name of ['Laboratório','Oficina','Praça / hub'])assert.deepEqual(fit.componentAABBIntersections[name],[]);
+    assert.equal(fit.eastAdvanceFromV004M,3);assert.ok(fit.zoneAOccupiedM2>19&&fit.zoneAOccupiedM2<20);assert.ok(fit.workshopGapM>.8);assert.equal(fit.removedZoneMarkers.length,12);
+});

@@ -1,3 +1,4 @@
+import { QUARTEL } from '../../game/quartelLayout';
 import { useExpeditionStore } from '../../state/useExpeditionStore';
 import { useGameStore } from '../../state/useGameStore';
 import { placePlayer, isNearEden, isNearShip } from '../../state/playerTransient';
@@ -11,7 +12,7 @@ export function sandwindQAPose(search: string, pose: 'plaza' | 'deck' | 'quartel
     if (!sandwindQAEnabled(search)) return false;
     const state = useExpeditionStore.getState();
     if (!state.ready || state.session.map !== 'mars' || state.session.phase !== 'walking') return false;
-    const poses = { plaza: {x:0,y:0,z:.8}, deck: {x:0,y:0,z:29.5}, quartel: {x:10.5,y:.2625,z:0}, 'quartel-west': {x:5.7,y:.0984375,z:0}, 'quartel-north': {x:10.5,y:.13125,z:-5.4} };
+    const poses = { plaza: {x:0,y:0,z:.8}, deck: {x:0,y:0,z:29.5}, quartel: {x:QUARTEL.placement.x,y:QUARTEL.plinth.top,z:QUARTEL.placement.z}, 'quartel-west': {x:5.7,y:.0984375,z:0}, 'quartel-north': {x:10.5,y:.13125,z:-5.4} };
     const spawn = poses[pose];
     placePlayer(spawn);
     useExpeditionStore.setState({ spawn, panel: null, session: { ...state.session, revision: state.session.revision + 1 } });

@@ -1,0 +1,80 @@
+{
+  "variant": "v005",
+  "chosenBy": "autor em 27/10/2026",
+  "placement": {
+    "x": 12,
+    "y": 0,
+    "z": 0,
+    "rotationY": -1.5707963267948966,
+    "scale": 1
+  },
+  "wallsMapXZ": [
+    10.5,
+    9
+  ],
+  "fullVisualAABB": [
+    5.2415361404418945,
+    -6.0084638595581055,
+    17.587499618530273,
+    4.837499618530273
+  ],
+  "plinthAABB": [
+    6.4125,
+    -4.8375,
+    17.5875,
+    4.8375
+  ],
+  "componentAABBIntersections": {
+    "Laboratório": [],
+    "Oficina": [],
+    "Praça / hub": [],
+    "Zona A": [
+      "Building_Interior",
+      "Building_Roof",
+      "Building_Shell",
+      "Wall_Corners",
+      "Wall_E",
+      "Wall_N",
+      "Wall_W"
+    ]
+  },
+  "connectors": [
+    {
+      "id": "east-connector-design",
+      "minX": 4,
+      "maxX": 5.2415361404418945,
+      "minZ": -1.3,
+      "maxZ": 1.3
+    },
+    {
+      "id": "lab-quarters-connector",
+      "minX": 9.2,
+      "maxX": 11.8,
+      "minZ": -8,
+      "maxZ": -6.0084638595581055
+    }
+  ],
+  "workshopGapM": 0.8025003433227536,
+  "zoneAOccupiedM2": 19.45719210983026,
+  "zoneATotalM2": 125,
+  "zoneAOccupiedPercent": 15.565753687864209,
+  "eastAdvanceFromV004M": 3,
+  "doorClearWidth": 1.8,
+  "doorClearHeight": 1.998,
+  "rampWidth": 2,
+  "furnitureScale": 1.1,
+  "removedZoneMarkers": [
+    "Demarcacao_build-zone-a_z_7_0",
+    "Demarcacao_build-zone-a_z_8_0",
+    "Demarcacao_build-zone-a_z_9_0",
+    "Demarcacao_build-zone-a_z_10_0",
+    "Demarcacao_build-zone-a_z_11_0",
+    "Demarcacao_build-zone-a_z_12_0",
+    "Demarcacao_build-zone-a_z_13_0",
+    "Demarcacao_build-zone-a_z_14_0",
+    "Demarcacao_build-zone-a_z_15_0",
+    "Demarcacao_build-zone-a_z_16_0",
+    "Demarcacao_build-zone-a_z_17_0",
+    "Demarcacao_build-zone-a_z_18_0"
+  ]
+}

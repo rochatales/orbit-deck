@@ -11,20 +11,20 @@ const {QuartelRuntime}=loadSource('src/scene/marsColony/quartelRuntime.ts');
 const {removeRoomForQuartel}=loadSource('src/scene/marsColony/quartelColony.ts');
 const {validateMasterplan}=loadSource('src/scene/marsColony/masterplanRuntime.ts');
 const {PLAYER_COLLIDER_CENTER_Y:Y,PLAYER_COLLIDER_HALF_HEIGHT:half,PLAYER_MOVEMENT:M,PLAYER_PHYSICS:P}=loadSource('src/characters/player/playerConfig.ts');
-const gltf=await loadGlb('src/assets/quartel/barracks-v004.glb');
+const gltf=await loadGlb('src/assets/quartel/barracks-v005.glb');
 const base=JSON.parse(fs.readFileSync('src/assets/colony-v007.manifest.json'));
 const step=(r,x,z,n=120)=>{for(let i=0;i<n;i++)r.update({x,z},1/60);};
-function scene(){const placement=new Group(),s=gltf.scene.clone(true);placement.position.x=10.5;placement.rotation.y=-Math.PI/2;placement.add(s);placement.updateMatrixWorld(true);return {placement,s};}
-test('Quartel v004: escala única, COL orientados batem com GLB e telescópicas liberam ambos os vãos',()=>{
- assert.deepEqual(fs.readFileSync('src/assets/quartel/barracks-v004.glb'),fs.readFileSync('art-source/quartel/export/barracks-v004.glb'));
- assert.deepEqual(Q.placement,{x:10.5,y:0,z:0,rotationY:-Math.PI/2,scale:1});
+function scene(){const placement=new Group(),s=gltf.scene.clone(true);placement.position.x=12;placement.rotation.y=-Math.PI/2;placement.add(s);placement.updateMatrixWorld(true);return {placement,s};}
+test('Quartel v005: escala única, COL orientados batem com GLB e telescópicas liberam ambos os vãos',()=>{
+ assert.deepEqual(fs.readFileSync('src/assets/quartel/barracks-v005.glb'),fs.readFileSync('art-source/quartel/export/barracks-v005.glb'));
+ assert.deepEqual(Q.placement,{x:12,y:0,z:0,rotationY:-Math.PI/2,scale:1});
  const {placement,s}=scene(),w=createWorld(),r=new QuartelRuntime(s,gltf.animations,w.movingCuboids);
  assert.deepEqual(s.getObjectByName('Barracks').scale.toArray(),[1,1,1]);
  for(const c of [...Q.staticCuboids,...Q.dynamicCuboids]){const o=s.getObjectByName(c.id),p=o.getWorldPosition(new Vector3()),q=o.getWorldQuaternion(new Quaternion()),scale=o.getWorldScale(new Vector3());assert.ok(p.distanceTo(new Vector3(c.position.x,c.position.y,c.position.z))<1e-6,c.id);assert.ok(q.angleTo(new Quaternion(c.rotation.x,c.rotation.y,c.rotation.z,c.rotation.w))<1e-6);assert.ok(scale.distanceTo(new Vector3(...c.halfExtents))<1e-6);}
  for(const door of Q.doors){step(r,door.x,door.z);placement.updateMatrixWorld(true);
   for(const c of Q.dynamicCuboids.filter(c=>c.side===door.side)){
    const leaf=s.getObjectByName(c.panel),b=new Box3().setFromObject(leaf),axis=door.side==='north'?'x':'z',center=door.side==='north'?10.5:0;
-   assert.ok(b.max[axis]<center-.7||b.min[axis]>center+.7,JSON.stringify({panel:c.panel,b}));
+   assert.ok(b.max[axis]<center-.9||b.min[axis]>center+.9,JSON.stringify({panel:c.panel,b}));
    const col=s.getObjectByName(c.id),p=col.getWorldPosition(new Vector3()),motion=w.movingCuboids.find(m=>m.id===c.id);assert.ok(p.distanceTo(new Vector3(motion.position.x,motion.position.y,motion.position.z))<1e-5);
   }
  }
@@ -33,6 +33,9 @@ test('Quartel v004: escala única, COL orientados batem com GLB e telescópicas 
 test('Quartel: design sai só da cópia montada; HUD mantém id compatível e save exoden v1 carrega',async()=>{
  const original=await loadGlb('src/assets/colony-v007.glb'),s=original.scene.clone(true),geometry=[],filtered=removeRoomForQuartel(s,base,geometry);validateMasterplan(s,filtered);
  const ids=[];s.traverse(n=>{if(n.userData.ambiente==='design')ids.push(n.name);});assert.deepEqual(ids,[]);assert.ok(original.scene.getObjectByName('TET_design'));
+ const removed=new Set(Q.removedParts),current=new Map();s.traverse(n=>{if(n.userData.id_estavel)current.set(n.userData.id_estavel,n);});
+ for(const id of Q.removedZoneMarkers)assert.equal(current.has(id),false,id);
+ for(const part of base.parts.filter(p=>!removed.has(p.id)))assert.ok(current.has(part.id),part.id);
  const {MAP_ROOMS,getLocationLabelByPosition}=loadSource('src/world/mapConfig.ts');assert.equal(MAP_ROOMS.find(r=>r.id==='design').name,'Quartel');assert.equal(getLocationLabelByPosition(10.5,0),'Quartel');
  const {loadHubSave}=loadSource('src/state/useExpeditionStore.ts');const old={version:1,profile:{displayName:'Morador',color:'#66e6ff'},briefingSeen:true,room:'design'};
  assert.deepEqual(loadHubSave(()=>({getItem:k=>k==='exoden:hub:v1'?JSON.stringify(old):null})),{version:1,profile:old.profile,briefingSeen:true});
@@ -54,7 +57,7 @@ test('Quartel: Rapier percorre praça → rampa oeste → interior → rampa nor
 });
 test('Quartel: borda do pedestal bloqueia autostep inclusive com apoio elevado desejado, parâmetros intactos',async()=>{
  assert.equal(P.autostepMaxHeight,.26);assert.equal(M.colliderRadius,.32);
- for(const [start,target]of [[[15.3,1],[13.5,1]],[[10.5,5.6],[10.5,4]],[[5.6,2],[7.1,2]],[[12,-5.5],[12,-4]]]){
+ for(const [start,target]of [[[18.3,1],[16.5,1]],[[10.5,5.6],[10.5,4]],[[5.6,2],[7.1,2]],[[12,-5.5],[12,-4]]]){
   const f=await physicsFixture(start);try{const end=f.moveTo(...target,180);assert.ok(Math.hypot(end.x-target[0],end.z-target[1])>.5,JSON.stringify({start,target,end}));assert.equal(f.source.supportHeight(end.x,end.z),0,'não sobe pela lateral');}finally{f.dispose();}
  }
 });

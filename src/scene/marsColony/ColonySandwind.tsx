@@ -11,7 +11,7 @@ import { SANDWIND_PROFILES, type SandwindProfile } from './sandwindPolicy';
 import { SandwindController, sandwindResources, type SandwindSettings } from './SandwindController';
 import manifest from '../../assets/colony-v007.manifest.json';
 import { sandwindTargets } from './sandwindTargets';
-import quartelUrl from '../../assets/quartel/barracks-v004.glb';
+import quartelUrl from '../../assets/quartel/barracks-v005.glb';
 import colonyUrl from '../../assets/colony-v007.glb';
 import hangarUrl from '../../assets/hangar/hangar-v002.glb';
 import greenhouseUrl from '../../assets/greenhouse/greenhouse-v001.glb';

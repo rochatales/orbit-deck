@@ -1,4 +1,4 @@
-import manifest from '../assets/quartel/barracks-v004.manifest.json';
+import manifest from '../assets/quartel/barracks-v005.manifest.json';
 import type { OfficeWorld, SimpleCuboid } from '../world/createOfficeMap';
 import type { RectBounds } from '../utils/math';
 export const QUARTEL = manifest;

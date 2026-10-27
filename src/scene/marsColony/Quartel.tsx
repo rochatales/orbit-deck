@@ -6,7 +6,7 @@ import { playerPosition } from '../../state/playerTransient';
 import { simulationBlocked } from '../../game/simulationGate';
 import { QUARTEL } from '../../game/quartelLayout';
 import type { OfficeWorld } from '../../world/createOfficeMap';
-import url from '../../assets/quartel/barracks-v004.glb';
+import url from '../../assets/quartel/barracks-v005.glb';
 import { QuartelRuntime } from './quartelRuntime';
 
 export function Quartel({ world }: { world: OfficeWorld }) {

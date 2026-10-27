@@ -18,7 +18,7 @@ const { QUARTEL } = loadSource('src/game/quartelLayout.ts');
 const { HANGAR } = loadSource('src/game/hangarLayout.ts');
 const manifest = JSON.parse(fs.readFileSync('src/assets/colony-v007.manifest.json'));
 const greenManifest = JSON.parse(fs.readFileSync('src/assets/greenhouse/greenhouse-v001.manifest.json'));
-const urls = ['colony-v007.glb', 'hangar/hangar-v002.glb', 'greenhouse/greenhouse-v001.glb', 'colony-v006.glb', 'ares-lander/ares-lander.glb', 'ares-mars/deck-mars.glb', 'quartel/barracks-v004.glb'];
+const urls = ['colony-v007.glb', 'hangar/hangar-v002.glb', 'greenhouse/greenhouse-v001.glb', 'colony-v006.glb', 'ares-lander/ares-lander.glb', 'ares-mars/deck-mars.glb', 'quartel/barracks-v005.glb'];
 const sources = await Promise.all(urls.map(url => loadGlb(`src/assets/${url}`)));
 const settings = { enabled: true, culling: true, wind: true, profile: 'compact' };
 const eachMaterial = (root, fn) => root.traverse(n => { if (n.isMesh) for (const m of Array.isArray(n.material) ? n.material : [n.material]) fn(m, n); });
@@ -43,7 +43,7 @@ function fixture() {
     });
     ares.name = 'MarsARES'; ares.position.set(.72, .012, 33.52);
     deck.name = 'MarsARESDeck'; deck.position.set(0, 0, 33); scope.add(ares, deck);
-    const quartel = sources[6].scene.clone(true), qRoot = new Group(); qRoot.name='Quartel'; qRoot.position.set(10.5,0,0); qRoot.rotation.y=QUARTEL.placement.rotationY; qRoot.add(quartel); scope.add(qRoot);
+    const quartel = sources[6].scene.clone(true), qRoot = new Group(); qRoot.name='Quartel'; qRoot.position.set(QUARTEL.placement.x,0,0); qRoot.rotation.y=QUARTEL.placement.rotationY; qRoot.add(quartel); scope.add(qRoot);
     const quartelRuntime = new QuartelRuntime(quartel,sources[6].animations);
     const targets = sandwindTargets(scope, architecture, filtered);
     const install = () => new SandwindController(scope, sources.map(s => s.scene), targets, SRGBColorSpace);
@@ -192,7 +192,7 @@ test('Sandwind v007: poses de QA exigem três flags e não alteram sessão fora 
         assert.equal(useGameStore.getState().nearShip, true);
         assert.equal(sandwindQAPose('?perf&sandwindQA','quartel'),false);
         assert.equal(sandwindQAPose(query,'quartel'),true);
-        assert.deepEqual(useExpeditionStore.getState().spawn,{x:10.5,y:.2625,z:0});
+        assert.deepEqual(useExpeditionStore.getState().spawn,{x:12,y:.2625,z:0});
         assert.equal(useGameStore.getState().nearShip, false);
         useExpeditionStore.setState({ session: { map: 'shanghai', phase: 'walking', destination: null, revision: 12 } });
         assert.equal(sandwindQAPose(query, 'plaza'), false);

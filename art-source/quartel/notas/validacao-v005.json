@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "blendSHA256": "15a52b8218fbe291854d5548e7177f840a9a5586182ce78bd79dd4f9f4933b73",
+  "sourceV004SHA256": "b2a6681d721575730595be3a3ce8372e0998374faea8bd8351e6c85ea5a6800f",
+  "triangles": 9078,
+  "materials": 1,
+  "freeOpeningRaySamples": 40,
+  "leafSweepSamples": 160,
+  "leafCOLMaxErrorM": 4.76837158203125e-07,
+  "telescopicPocketMaxU": 1.4335714285714287,
+  "windowHoodMinU": 1.4775,
+  "windowGapM": 0.04392857142857132,
+  "furnitureGroupsChecked": 15,
+  "furnitureFactor": 1.1,
+  "rootScale": [
+    1,
+    1,
+    1
+  ]
+}

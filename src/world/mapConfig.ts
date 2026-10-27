@@ -57,19 +57,20 @@ export const OFFICE_MAP_BOUNDS: RectBounds = {
 // Masterplan v007: posições e dimensões exatas, sem arredondar para ladrilhos.
 export const MAP_ROOMS: MapRoomConfig[] = masterplan.rooms.map(room => {
   // ID design preservado para consumidores e saves anteriores; nome/pegada atuais.
-  const size = room.id === 'design' ? { width: 7.5, depth: 9 } : room.size;
+  const size = room.id === 'design' ? QUARTEL.dimensions : room.size;
+  const position = room.id === 'design' ? QUARTEL.placement : room.position;
   return {
-    id: room.id, name: room.id === 'design' ? 'Quartel' : room.name, position: room.position, size,
+    id: room.id, name: room.id === 'design' ? 'Quartel' : room.name, position, size,
     type: room.id === 'central-hub' ? 'hub' : room.id === 'smart-lab' ? 'lab' : 'station',
     accentColor: room.id === 'brand-brain' ? '#F2C94C' : '#00E6FF',
     npcId: room.id === 'brand-brain' ? 'eden' : undefined,
     doorSides: room.doorSides as DoorSide[],
-    desk: { position: new Vector3(room.position.x, 0, room.position.z - 0.6), rotationY: Math.PI },
+    desk: { position: new Vector3(position.x, 0, position.z - 0.6), rotationY: Math.PI },
     anchors: {
-      roomLabel: new Vector3(room.position.x, 2.95, room.position.z - size.depth / 2 + 0.5),
-      deskLabel: new Vector3(room.position.x, 1.15, room.position.z - 0.2),
-      panel: new Vector3(room.position.x + 1, 2.05, room.position.z),
-      npcNameplate: new Vector3(room.position.x, 2.45, room.position.z)
+      roomLabel: new Vector3(position.x, 2.95, position.z - size.depth / 2 + 0.5),
+      deskLabel: new Vector3(position.x, 1.15, position.z - 0.2),
+      panel: new Vector3(position.x + 1, 2.05, position.z),
+      npcNameplate: new Vector3(position.x, 2.45, position.z)
     }
   };
 });
