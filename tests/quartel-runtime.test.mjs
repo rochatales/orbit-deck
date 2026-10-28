@@ -5,6 +5,9 @@ import {createRequire} from 'node:module';
 import {Box3,Group,Vector3,Quaternion} from 'three';
 import {loadGlb} from './load-glb.mjs';
 import {loadSource} from './load-source.mjs';
+const {LaboratorioRuntime}=loadSource('src/scene/marsColony/laboratorioRuntime.ts');
+const {clone}=await import('three/examples/jsm/utils/SkeletonUtils.js');
+const labGltf=await loadGlb('src/assets/laboratorio/laboratorio-v001.glb');
 const {QUARTEL:Q}=loadSource('src/game/quartelLayout.ts');
 const {createWorld}=loadSource('src/game/marsWorld.ts');
 const {QuartelRuntime}=loadSource('src/scene/marsColony/quartelRuntime.ts');
@@ -42,17 +45,17 @@ test('Quartel: design sai só da cópia montada; HUD mantém id compatível e sa
  for(const g of geometry)g.dispose();
 });
 const require=createRequire(import.meta.url),R=createRequire(require.resolve('@react-three/rapier'))('@dimforge/rapier3d-compat');
-async function physicsFixture(start,auditWalkable=false,automaticDoors=true){await R.init();const source=createWorld(),world=new R.World({x:0,y:0,z:0}),visual=scene(),runtime=new QuartelRuntime(visual.s,gltf.animations,source.movingCuboids),moving=[];
+async function physicsFixture(start,auditWalkable=false,automaticDoors=true){await R.init();const source=createWorld(),world=new R.World({x:0,y:0,z:0}),visual=scene(),runtime=new QuartelRuntime(visual.s,gltf.animations,source.movingCuboids),moving=[],labScene=clone(labGltf.scene),labRuntime=new LaboratorioRuntime(labScene,labGltf.animations,source.movingCuboids);
  for(const o of source.obstacles.filter(o=>o.physics!==false))world.createCollider(R.ColliderDesc.cuboid((o.maxX-o.minX)/2,P.obstacleHeight/2,(o.maxZ-o.minZ)/2).setTranslation((o.minX+o.maxX)/2,P.obstacleHeight/2,(o.minZ+o.maxZ)/2));
  for(const c of source.simpleCuboids)world.createCollider(R.ColliderDesc.cuboid(...c.halfExtents).setTranslation(c.position.x,c.position.y,c.position.z).setRotation(c.rotation));
  for(const c of source.movingCuboids){const body=world.createRigidBody(R.RigidBodyDesc.kinematicPositionBased().setTranslation(c.position.x,c.position.y,c.position.z).setRotation(c.rotation));world.createCollider(R.ColliderDesc.cuboid(...c.halfExtents),body);moving.push([body,c]);}
  const body=world.createRigidBody(R.RigidBodyDesc.kinematicPositionBased().setTranslation(start[0],Y+source.supportHeight(...start),start[1])),collider=world.createCollider(R.ColliderDesc.capsule(half,M.colliderRadius),body),controller=world.createCharacterController(P.controllerOffset);
  controller.enableAutostep(P.autostepMaxHeight,P.autostepMinWidth,false);controller.enableSnapToGround(P.snapToGroundDistance);controller.setMaxSlopeClimbAngle(Math.PI*.34);controller.setMinSlopeSlideAngle(Math.PI*.45);world.step();
- function moveTo(x,z,frames=1200){for(let i=0;i<frames;i++){const p=body.translation(),distance=Math.hypot(x-p.x,z-p.z);if(distance<.02)break;runtime.update(p,automaticDoors?1/60:0);for(const [b,c]of moving)b.setNextKinematicTranslation(c.position);const d=Math.min(distance,M.runSpeed/60),dx=(x-p.x)/distance*d,dz=(z-p.z)/distance*d;controller.computeColliderMovement(collider,{x:dx,y:Y+source.supportHeight(p.x+dx,p.z+dz)-p.y,z:dz});const out=controller.computedMovement(),nx=p.x+out.x,nz=p.z+out.z;body.setNextKinematicTranslation({x:nx,y:Y+source.supportHeight(nx,nz),z:nz});world.step();if(auditWalkable)assert.ok(source.walkableAreas.some(a=>nx>=a.minX&&nx<=a.maxX&&nz>=a.minZ&&nz<=a.maxZ),JSON.stringify({nx,nz}));}return body.translation();}
- return {world,source,body,runtime,moveTo,dispose(){runtime.dispose();world.free();}};
+ function moveTo(x,z,frames=1200){for(let i=0;i<frames;i++){const p=body.translation(),distance=Math.hypot(x-p.x,z-p.z);if(distance<.02)break;runtime.update(p,automaticDoors?1/60:0);labRuntime.update(p,automaticDoors?1/60:0);for(const [b,c]of moving)b.setNextKinematicTranslation(c.position);const d=Math.min(distance,M.runSpeed/60),dx=(x-p.x)/distance*d,dz=(z-p.z)/distance*d;controller.computeColliderMovement(collider,{x:dx,y:Y+source.supportHeight(p.x+dx,p.z+dz)-p.y,z:dz});const out=controller.computedMovement(),nx=p.x+out.x,nz=p.z+out.z;body.setNextKinematicTranslation({x:nx,y:Y+source.supportHeight(nx,nz),z:nz});world.step();if(auditWalkable)assert.ok(source.walkableAreas.some(a=>nx>=a.minX&&nx<=a.maxX&&nz>=a.minZ&&nz<=a.maxZ),JSON.stringify({nx,nz}));}return body.translation();}
+ return {world,source,body,runtime,moveTo,dispose(){runtime.dispose();labRuntime.dispose();world.free();}};
 }
 test('Quartel: Rapier percorre praça → rampa oeste → interior → rampa norte → Lab, nos dois sentidos',async()=>{
- const route=[[3,0],[5.5,0],[6.8,0],[10.5,0],[10.5,-4.6],[10.5,-6.3],[10.5,-8.6]];
+ const route=[[3,0],[5.5,0],[6.8,0],[10.5,0],[10.5,-4.6],[10.5,-6.4],[15.5,-6.4],[15.5,-9]];
  for(const reverse of [false,true]){const path=reverse?[...route].reverse():route,f=await physicsFixture(path[0],true);try{for(const [x,z]of path.slice(1)){const end=f.moveTo(x,z);assert.ok(Math.hypot(x-end.x,z-end.z)<.03,JSON.stringify({reverse,x,z,end}));assert.ok(Math.abs(end.y-Y-f.source.supportHeight(end.x,end.z))<1e-6);assert.ok(f.source.walkableAreas.some(a=>end.x>=a.minX&&end.x<=a.maxX&&end.z>=a.minZ&&end.z<=a.maxZ));}}finally{f.dispose();}}
 });
 test('Quartel: borda do pedestal bloqueia autostep inclusive com apoio elevado desejado, parâmetros intactos',async()=>{

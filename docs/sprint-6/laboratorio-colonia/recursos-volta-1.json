@@ -1,0 +1,405 @@
+{
+  "perf": {
+    "version": 2,
+    "context": {
+      "interpolation": {
+        "enabled": false,
+        "timeStep": 0.016666666666666666,
+        "frames": 3104,
+        "steps": 0,
+        "minStep": null,
+        "maxStep": null,
+        "maxOffset": 0,
+        "maxHorizontal": 0,
+        "physical": {
+          "x": 0,
+          "y": 0,
+          "z": 33
+        },
+        "visual": {
+          "x": 0,
+          "y": 0,
+          "z": 33
+        },
+        "cameraSource": {
+          "x": 0,
+          "y": 0,
+          "z": 33
+        },
+        "cameraTarget": {
+          "x": 0,
+          "y": 0.55,
+          "z": 33
+        },
+        "cameraAngle": 0.7853981633974483,
+        "cameraZoom": 40.36074270557029
+      },
+      "capturedAt": "2026-10-28T21:52:09.658Z",
+      "build": "production",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+      "browserBrands": "Not:A-Brand 8, Chromium 156, Google Chrome 156",
+      "gpuRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Pro, Unspecified Version)",
+      "hardwareConcurrency": 12,
+      "deviceMemoryGb": 16,
+      "screen": {
+        "width": 2560,
+        "height": 1440
+      },
+      "viewport": {
+        "width": 966,
+        "height": 951
+      },
+      "canvasCss": {
+        "width": 966,
+        "height": 951
+      },
+      "canvasBuffer": {
+        "width": 966,
+        "height": 951
+      },
+      "devicePixelRatio": 1,
+      "rendererPixelRatio": 1
+    },
+    "pageLoad": {
+      "responseEndMs": 15.900000005960464,
+      "domContentLoadedMs": 284.09999999403954,
+      "loadEventEndMs": 288.80000001192093,
+      "documentTransferBytes": 695
+    },
+    "resources": {
+      "count": 68,
+      "transferBytes": 125990886,
+      "encodedBytes": 130571990,
+      "models": [
+        {
+          "file": "colony-v007-e4af2fda.glb",
+          "startMs": 367.80000001192093,
+          "responseEndMs": 802.1999999880791,
+          "durationMs": 434.39999997615814,
+          "transferBytes": 11573012,
+          "encodedBytes": 11572712
+        },
+        {
+          "file": "brand-brain-f7c02996.glb",
+          "startMs": 368.09999999403954,
+          "responseEndMs": 1026.699999988079,
+          "durationMs": 658.5999999940395,
+          "transferBytes": 20737632,
+          "encodedBytes": 20737332
+        },
+        {
+          "file": "explorador-r7-143a14d0.glb",
+          "startMs": 399,
+          "responseEndMs": 575.5999999940395,
+          "durationMs": 176.59999999403954,
+          "transferBytes": 6537404,
+          "encodedBytes": 6537104
+        },
+        {
+          "file": "ares-lander-2491f474.glb",
+          "startMs": 833.4000000059605,
+          "responseEndMs": 963.5,
+          "durationMs": 130.09999999403954,
+          "transferBytes": 4601804,
+          "encodedBytes": 4601504
+        },
+        {
+          "file": "deck-mars-59b4cb7d.glb",
+          "startMs": 833.5,
+          "responseEndMs": 880,
+          "durationMs": 46.5,
+          "transferBytes": 1395200,
+          "encodedBytes": 1394900
+        },
+        {
+          "file": "colony-v006-5a6e6d9c.glb",
+          "startMs": 833.5,
+          "responseEndMs": 1046.199999988079,
+          "durationMs": 212.69999998807907,
+          "transferBytes": 7025972,
+          "encodedBytes": 7025672
+        },
+        {
+          "file": "greenhouse-v001-a5668881.glb",
+          "startMs": 833.6999999880791,
+          "responseEndMs": 915.8000000119209,
+          "durationMs": 82.10000002384186,
+          "transferBytes": 2591708,
+          "encodedBytes": 2591408
+        },
+        {
+          "file": "hangar-v002-efdecfb3.glb",
+          "startMs": 833.8000000119209,
+          "responseEndMs": 951.4000000059605,
+          "durationMs": 117.59999999403954,
+          "transferBytes": 3340288,
+          "encodedBytes": 3339988
+        },
+        {
+          "file": "barracks-v006-af8fa852.glb",
+          "startMs": 833.9000000059605,
+          "responseEndMs": 915,
+          "durationMs": 81.09999999403954,
+          "transferBytes": 723240,
+          "encodedBytes": 722940
+        },
+        {
+          "file": "laboratorio-v001-d4d1694d.glb",
+          "startMs": 834.0999999940395,
+          "responseEndMs": 984.9000000059605,
+          "durationMs": 150.80000001192093,
+          "transferBytes": 1921776,
+          "encodedBytes": 1921476
+        },
+        {
+          "file": "shanghai-fase01-e1061fcc.glb",
+          "startMs": 119566.90000000596,
+          "responseEndMs": 119593.40000000596,
+          "durationMs": 26.5,
+          "transferBytes": 11099584,
+          "encodedBytes": 11099284
+        },
+        {
+          "file": "ares-lander-2491f474.glb",
+          "startMs": 119567.09999999404,
+          "responseEndMs": 119579.19999998808,
+          "durationMs": 12.099999994039536,
+          "transferBytes": 300,
+          "encodedBytes": 4601504
+        },
+        {
+          "file": "patrol-unit-c01d3ea6.glb",
+          "startMs": 120380.19999998808,
+          "responseEndMs": 120421.69999998808,
+          "durationMs": 41.5,
+          "transferBytes": 9353544,
+          "encodedBytes": 9353244
+        },
+        {
+          "file": "large-patrol-unit-acb2d8e1.glb",
+          "startMs": 120799,
+          "responseEndMs": 120811.80000001192,
+          "durationMs": 12.800000011920929,
+          "transferBytes": 5337472,
+          "encodedBytes": 5337172
+        },
+        {
+          "file": "mutant-animal-6680135e.glb",
+          "startMs": 121173.69999998808,
+          "responseEndMs": 121194.90000000596,
+          "durationMs": 21.200000017881393,
+          "transferBytes": 10624616,
+          "encodedBytes": 10624316
+        },
+        {
+          "file": "large-mutant-70470d2d.glb",
+          "startMs": 121571.90000000596,
+          "responseEndMs": 121595.30000001192,
+          "durationMs": 23.400000005960464,
+          "transferBytes": 10535256,
+          "encodedBytes": 10534956
+        },
+        {
+          "file": "cobre-6e8aad10.glb",
+          "startMs": 121968.5,
+          "responseEndMs": 121976.69999998808,
+          "durationMs": 8.199999988079071,
+          "transferBytes": 2435352,
+          "encodedBytes": 2435052
+        },
+        {
+          "file": "caixa-suprimentos-v001-c4fde32f.glb",
+          "startMs": 121968.69999998808,
+          "responseEndMs": 121982.30000001192,
+          "durationMs": 13.600000023841858,
+          "transferBytes": 3775664,
+          "encodedBytes": 3775364
+        },
+        {
+          "file": "ferro-bdaf53f4.glb",
+          "startMs": 122324.30000001192,
+          "responseEndMs": 122339.5,
+          "durationMs": 15.199999988079071,
+          "transferBytes": 5057852,
+          "encodedBytes": 5057552
+        },
+        {
+          "file": "titanio-1bf1c024.glb",
+          "startMs": 122675,
+          "responseEndMs": 122687.09999999404,
+          "durationMs": 12.099999994039536,
+          "transferBytes": 4984228,
+          "encodedBytes": 4983928
+        }
+      ]
+    },
+    "sceneEvents": [
+      {
+        "kind": "canvas-mounted",
+        "map": "mars",
+        "atMs": 500.80000001192093,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "map-data-ready",
+        "map": "mars",
+        "atMs": 500.80000001192093,
+        "sinceMapLoadingMs": null,
+        "inferred": true
+      },
+      {
+        "kind": "canvas-first-frame",
+        "map": "mars",
+        "atMs": 504.59999999403954,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "scene-first-draw",
+        "map": "mars",
+        "atMs": 1897.300000011921,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "scene-assets-ready",
+        "map": "mars",
+        "atMs": 2002.300000011921,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "map-loading",
+        "map": "shanghai",
+        "atMs": 119222.59999999404,
+        "sinceMapLoadingMs": 0,
+        "inferred": false
+      },
+      {
+        "kind": "map-data-ready",
+        "map": "shanghai",
+        "atMs": 119518.09999999404,
+        "sinceMapLoadingMs": 295.5,
+        "inferred": false
+      },
+      {
+        "kind": "canvas-mounted",
+        "map": "shanghai",
+        "atMs": 120380.80000001192,
+        "sinceMapLoadingMs": 1158.2000000178814,
+        "inferred": false
+      },
+      {
+        "kind": "canvas-first-frame",
+        "map": "shanghai",
+        "atMs": 120381.5,
+        "sinceMapLoadingMs": 1158.9000000059605,
+        "inferred": false
+      },
+      {
+        "kind": "scene-first-draw",
+        "map": "shanghai",
+        "atMs": 123669.19999998808,
+        "sinceMapLoadingMs": 4446.5999999940395,
+        "inferred": false
+      },
+      {
+        "kind": "scene-assets-ready",
+        "map": "shanghai",
+        "atMs": 123913.90000000596,
+        "sinceMapLoadingMs": 4691.300000011921,
+        "inferred": false
+      },
+      {
+        "kind": "map-loading",
+        "map": "mars",
+        "atMs": 125261,
+        "sinceMapLoadingMs": 0,
+        "inferred": false
+      },
+      {
+        "kind": "map-data-ready",
+        "map": "mars",
+        "atMs": 125267.80000001192,
+        "sinceMapLoadingMs": 6.800000011920929,
+        "inferred": false
+      },
+      {
+        "kind": "canvas-mounted",
+        "map": "mars",
+        "atMs": 125404.09999999404,
+        "sinceMapLoadingMs": 143.09999999403954,
+        "inferred": false
+      },
+      {
+        "kind": "canvas-first-frame",
+        "map": "mars",
+        "atMs": 125404.5,
+        "sinceMapLoadingMs": 143.5,
+        "inferred": false
+      },
+      {
+        "kind": "scene-first-draw",
+        "map": "mars",
+        "atMs": 125694.69999998808,
+        "sinceMapLoadingMs": 433.69999998807907,
+        "inferred": false
+      },
+      {
+        "kind": "scene-assets-ready",
+        "map": "mars",
+        "atMs": 125694.69999998808,
+        "sinceMapLoadingMs": 433.69999998807907,
+        "inferred": false
+      }
+    ],
+    "latestCounters": {
+      "sampledAtMs": 147233.09999999404,
+      "drawCalls": 158,
+      "triangles": 291826,
+      "geometries": 472,
+      "textures": 12,
+      "programs": 27
+    },
+    "heap": {
+      "usedBytes": 327322767,
+      "totalBytes": 439242143,
+      "limitBytes": 4395630592
+    },
+    "samples": [],
+    "limitations": [
+      "Intervalos medidos entre callbacks de requestAnimationFrame: incluem CPU, espera de vsync e agendamento do navegador. Não são tempo de GPU.",
+      "A cadência mínima é limitada pela taxa de atualização da tela; 8,3 ms em 120 Hz não indica folga de GPU.",
+      "Intervalos de rAF acima de 33,3 ms e de 50 ms são contagens próprias, distintas dos eventos da API Long Animation Frames.",
+      "Draw calls e triângulos vêm de renderer.info e refletem o render imediatamente anterior à leitura. Na three 0.165 o reset automático ocorre depois do shadow map, então os passes de sombra não entram nessas contagens.",
+      "Geometrias e texturas são contagens de objetos vivos no renderer, não memória em bytes.",
+      "Memória de heap JS vem de performance.memory, API não padronizada e quantizada (Chromium); ausente nos demais navegadores.",
+      "Medições no servidor de desenvolvimento não são benchmark; prefira o build de produção (npm run preview).",
+      "Aba oculta durante uma amostra a invalida; pausa do jogo durante a amostra é registrada como aviso.",
+      "\"map-data-ready\" indica dados do mapa disponíveis (store da expedição), não cena renderizada. A cena renderizada é \"scene-first-draw\" e, com os personagens GLB, \"scene-assets-ready\".",
+      "Na entrada inicial, \"map-data-ready\" é inferido na montagem do canvas (marcado como inferido); os tempos da entrada inicial contam a partir do início da navegação."
+    ]
+  },
+  "sandwind": {
+    "settings": {
+      "enabled": true,
+      "culling": true,
+      "wind": true,
+      "profile": "balanced"
+    },
+    "resources": {
+      "controllers": 1,
+      "clones": 46,
+      "patches": 133
+    },
+    "stats": {
+      "total": 229,
+      "hidden": 18,
+      "retained": 211,
+      "hiddenTriangles": 7722,
+      "materials": 133,
+      "clones": 46
+    }
+  }
+}

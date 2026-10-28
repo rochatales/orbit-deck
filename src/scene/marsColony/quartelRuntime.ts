@@ -14,6 +14,11 @@ export class QuartelRuntime {
     private disposed = false;
 
     constructor(private scene: Object3D, clips: AnimationClip[], private motions: SimpleCuboid[] = createQuartelDoorColliders()) {
+        this.motions = QUARTEL.dynamicCuboids.map(source => {
+            const collider = motions.find(c => c.id === source.id);
+            if (!collider) throw new Error(`Colisor do quartel ausente: ${source.id}`);
+            return collider;
+        });
         this.roof = scene.getObjectByName('Building_Roof')!;
         if (!this.roof || !scene.getObjectByName('Building_Interior')) throw new Error('Quartel v006 incompleto');
         scene.traverse(node => {
