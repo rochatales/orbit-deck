@@ -8,3 +8,5 @@ dist/
 
 archive/**/node_modules/
 archive/**/dist/
+
+__pycache__/

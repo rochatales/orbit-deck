@@ -7,7 +7,7 @@ import { playerPosition } from '../../state/playerTransient';
 import { simulationBlocked, useSimulationBlocked } from '../../game/simulationGate';
 import { LABORATORIO } from '../../game/laboratorioLayout';
 import type { OfficeWorld } from '../../world/createOfficeMap';
-import url from '../../assets/laboratorio/laboratorio-v001.glb';
+import url from '../../assets/laboratorio/laboratorio-v002.glb';
 import { createLaboratorioWalkways } from './laboratorioWalkways';
 import { LaboratorioRuntime, type LaboratorioMode } from './laboratorioRuntime';
 const modes: { mode: LaboratorioMode; label: string }[] = [
@@ -23,9 +23,9 @@ export function Laboratorio({ world }: { world: OfficeWorld }) {
         const scene = clone(gltf.scene); scene.name = 'LaboratorioVisual';
         const next = new LaboratorioRuntime(scene, gltf.animations, world.movingCuboids);
         runtime.current = next; visual.current!.add(scene);
-        const paving = createLaboratorioWalkways(); walkways.current!.add(paving);
+        const paving = createLaboratorioWalkways(scene); walkways.current!.add(paving);
         return () => {
-            paving.removeFromParent(); paving.geometry.dispose(); paving.userData.ownedMaterial.dispose();
+            paving.removeFromParent();
             scene.removeFromParent(); next.dispose(); runtime.current = undefined;
             scene.traverse(node => { const mesh = node as SkinnedMesh; if (mesh.isSkinnedMesh) mesh.skeleton.dispose(); });
         };
@@ -55,5 +55,5 @@ export function Laboratorio({ world }: { world: OfficeWorld }) {
                 </>}
             </aside>
         </Html>}
-    </group><group ref={walkways} name="LaboratorioPassarelas" dispose={null}/></>;
+    </group><group ref={walkways} name="LaboratorioPassarelas" position={[LABORATORIO.placement.x, 0, LABORATORIO.placement.z]} dispose={null}/></>;
 }

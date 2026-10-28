@@ -21,7 +21,7 @@ const { QUARTEL } = loadSource('src/game/quartelLayout.ts');
 const { HANGAR } = loadSource('src/game/hangarLayout.ts');
 const manifest = JSON.parse(fs.readFileSync('src/assets/colony-v007.manifest.json'));
 const greenManifest = JSON.parse(fs.readFileSync('src/assets/greenhouse/greenhouse-v001.manifest.json'));
-const urls = ['colony-v007.glb', 'hangar/hangar-v002.glb', 'greenhouse/greenhouse-v001.glb', 'colony-v006.glb', 'ares-lander/ares-lander.glb', 'ares-mars/deck-mars.glb', 'quartel/barracks-v006.glb', 'laboratorio/laboratorio-v001.glb'];
+const urls = ['colony-v007.glb', 'hangar/hangar-v002.glb', 'greenhouse/greenhouse-v001.glb', 'colony-v006.glb', 'ares-lander/ares-lander.glb', 'ares-mars/deck-mars.glb', 'quartel/barracks-v006.glb', 'laboratorio/laboratorio-v002.glb'];
 const sources = await Promise.all(urls.map(url => loadGlb(`src/assets/${url}`)));
 const settings = { enabled: true, culling: true, wind: true, profile: 'compact' };
 const eachMaterial = (root, fn) => root.traverse(n => { if (n.isMesh) for (const m of Array.isArray(n.material) ? n.material : [n.material]) fn(m, n); });
@@ -50,6 +50,8 @@ function fixture() {
     const quartel = sources[6].scene.clone(true), qRoot = new Group(); qRoot.name='Quartel'; qRoot.position.set(QUARTEL.placement.x,0,0); qRoot.rotation.y=QUARTEL.placement.rotationY; qRoot.add(quartel); scope.add(qRoot);
     const quartelRuntime = new QuartelRuntime(quartel,sources[6].animations);
     const labRoot=new Group(), lab=clone(sources[7].scene);labRoot.name='Laboratorio';labRoot.position.set(LABORATORIO.placement.x,0,LABORATORIO.placement.z);labRoot.add(lab);scope.add(labRoot);
+    const {createLaboratorioWalkways}=loadSource('src/scene/marsColony/laboratorioWalkways.ts');
+    const paving=createLaboratorioWalkways(lab),pavingRoot=new Group();pavingRoot.position.copy(labRoot.position);pavingRoot.add(paving);scope.add(pavingRoot);
     const labRuntime=new LaboratorioRuntime(lab,sources[7].animations);
     const targets = sandwindTargets(scope, architecture, filtered);
     const install = () => new SandwindController(scope, sources.map(s => s.scene), targets, SRGBColorSpace);

@@ -7,7 +7,7 @@ import {loadGlb} from './load-glb.mjs';
 import {loadSource} from './load-source.mjs';
 const {LaboratorioRuntime}=loadSource('src/scene/marsColony/laboratorioRuntime.ts');
 const {clone}=await import('three/examples/jsm/utils/SkeletonUtils.js');
-const labGltf=await loadGlb('src/assets/laboratorio/laboratorio-v001.glb');
+const labGltf=await loadGlb('src/assets/laboratorio/laboratorio-v002.glb');
 const {QUARTEL:Q}=loadSource('src/game/quartelLayout.ts');
 const {createWorld}=loadSource('src/game/marsWorld.ts');
 const {QuartelRuntime}=loadSource('src/scene/marsColony/quartelRuntime.ts');

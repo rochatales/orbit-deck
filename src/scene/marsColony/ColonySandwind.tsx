@@ -1,4 +1,4 @@
-import laboratorioUrl from '../../assets/laboratorio/laboratorio-v001.glb';
+import laboratorioUrl from '../../assets/laboratorio/laboratorio-v002.glb';
 import { useEffect, useRef, useState, type CSSProperties, type RefObject } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';

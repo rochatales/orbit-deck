@@ -1,0 +1,947 @@
+{
+  "placement": {
+    "x": 13.5,
+    "y": 0,
+    "z": -12.5,
+    "rotationY": 0,
+    "scale": 1
+  },
+  "dimensions": {
+    "width": 14,
+    "depth": 10
+  },
+  "triangles": 8620,
+  "materials": 2,
+  "staticCuboids": [
+    {
+      "id": "LAB_COL_NorthWall",
+      "position": {
+        "x": 13.5,
+        "y": 1.8,
+        "z": -17.5
+      },
+      "halfExtents": [
+        7.0,
+        1.8,
+        0.225
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 6.5,
+        "maxX": 20.5,
+        "minY": 0.0,
+        "maxY": 3.6,
+        "minZ": -17.725,
+        "maxZ": -17.275
+      }
+    },
+    {
+      "id": "LAB_COL_EastWall",
+      "position": {
+        "x": 20.5,
+        "y": 1.8,
+        "z": -12.5
+      },
+      "halfExtents": [
+        0.225,
+        1.8,
+        5.0
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 20.275,
+        "maxX": 20.725,
+        "minY": 0.0,
+        "maxY": 3.6,
+        "minZ": -17.5,
+        "maxZ": -7.5
+      }
+    },
+    {
+      "id": "LAB_COL_SouthWestWall",
+      "position": {
+        "x": 10.5,
+        "y": 1.8,
+        "z": -7.72
+      },
+      "halfExtents": [
+        3.825,
+        1.8,
+        0.255
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 6.675,
+        "maxX": 14.325,
+        "minY": 0,
+        "maxY": 3.6,
+        "minZ": -7.975,
+        "maxZ": -7.465
+      }
+    },
+    {
+      "id": "LAB_COL_SouthEastWall",
+      "position": {
+        "x": 18.5,
+        "y": 1.8,
+        "z": -7.72
+      },
+      "halfExtents": [
+        1.825,
+        1.8,
+        0.255
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 16.675,
+        "maxX": 20.325,
+        "minY": 0,
+        "maxY": 3.6,
+        "minZ": -7.975,
+        "maxZ": -7.465
+      }
+    },
+    {
+      "id": "LAB_COL_WestSouthWall",
+      "position": {
+        "x": 6.72,
+        "y": 1.8,
+        "z": -9.65
+      },
+      "halfExtents": [
+        0.255,
+        1.8,
+        1.975
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 6.465,
+        "maxX": 6.975,
+        "minY": 0,
+        "maxY": 3.6,
+        "minZ": -11.625,
+        "maxZ": -7.675000000000001
+      }
+    },
+    {
+      "id": "LAB_COL_WestNorthWall",
+      "position": {
+        "x": 6.72,
+        "y": 1.8,
+        "z": -15.55
+      },
+      "halfExtents": [
+        0.255,
+        1.8,
+        1.775
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 6.465,
+        "maxX": 6.975,
+        "minY": 0,
+        "maxY": 3.6,
+        "minZ": -17.325,
+        "maxZ": -13.775
+      }
+    },
+    {
+      "id": "LAB_COL_SouthFrameW",
+      "position": {
+        "x": 14.35,
+        "y": 1.25,
+        "z": -7.72
+      },
+      "halfExtents": [
+        0.11,
+        1.25,
+        0.245
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 14.24,
+        "maxX": 14.459999999999999,
+        "minY": 0.0,
+        "maxY": 2.5,
+        "minZ": -7.965,
+        "maxZ": -7.475
+      }
+    },
+    {
+      "id": "LAB_COL_SouthFrameE",
+      "position": {
+        "x": 16.65,
+        "y": 1.25,
+        "z": -7.72
+      },
+      "halfExtents": [
+        0.11,
+        1.25,
+        0.245
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 16.54,
+        "maxX": 16.759999999999998,
+        "minY": 0.0,
+        "maxY": 2.5,
+        "minZ": -7.965,
+        "maxZ": -7.475
+      }
+    },
+    {
+      "id": "LAB_COL_SouthLintel",
+      "position": {
+        "x": 15.5,
+        "y": 2.995,
+        "z": -7.72
+      },
+      "halfExtents": [
+        1.25,
+        0.605,
+        0.245
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 14.25,
+        "maxX": 16.75,
+        "minY": 2.39,
+        "maxY": 3.6,
+        "minZ": -7.965,
+        "maxZ": -7.475
+      }
+    },
+    {
+      "id": "LAB_COL_WestFrameS",
+      "position": {
+        "x": 6.72,
+        "y": 1.25,
+        "z": -11.65
+      },
+      "halfExtents": [
+        0.245,
+        1.25,
+        0.11
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 6.475,
+        "maxX": 6.965,
+        "minY": 0.0,
+        "maxY": 2.5,
+        "minZ": -11.76,
+        "maxZ": -11.540000000000001
+      }
+    },
+    {
+      "id": "LAB_COL_WestFrameN",
+      "position": {
+        "x": 6.72,
+        "y": 1.25,
+        "z": -13.75
+      },
+      "halfExtents": [
+        0.245,
+        1.25,
+        0.11
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 6.475,
+        "maxX": 6.965,
+        "minY": 0.0,
+        "maxY": 2.5,
+        "minZ": -13.86,
+        "maxZ": -13.64
+      }
+    },
+    {
+      "id": "LAB_COL_WestLintel",
+      "position": {
+        "x": 6.72,
+        "y": 2.995,
+        "z": -12.7
+      },
+      "halfExtents": [
+        0.245,
+        0.605,
+        1.15
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 6.475,
+        "maxX": 6.965,
+        "minY": 2.39,
+        "maxY": 3.6,
+        "minZ": -13.85,
+        "maxZ": -11.549999999999999
+      }
+    },
+    {
+      "id": "LAB_COL_CornerNE",
+      "position": {
+        "x": 20.15,
+        "y": 1.8,
+        "z": -17.15
+      },
+      "halfExtents": [
+        0.35,
+        1.8,
+        0.35
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 19.799999999999997,
+        "maxX": 20.5,
+        "minY": 0.0,
+        "maxY": 3.6,
+        "minZ": -17.5,
+        "maxZ": -16.799999999999997
+      }
+    },
+    {
+      "id": "LAB_COL_CornerSW",
+      "position": {
+        "x": 6.85,
+        "y": 1.8,
+        "z": -7.85
+      },
+      "halfExtents": [
+        0.35,
+        1.8,
+        0.35
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 6.5,
+        "maxX": 7.199999999999999,
+        "minY": 0,
+        "maxY": 3.6,
+        "minZ": -8.2,
+        "maxZ": -7.5
+      }
+    },
+    {
+      "id": "LAB_COL_Machine",
+      "position": {
+        "x": 13.5,
+        "y": 1.23,
+        "z": -12.5
+      },
+      "halfExtents": [
+        1.725,
+        1.23,
+        1.325
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 11.775,
+        "maxX": 15.225,
+        "minY": 0.0,
+        "maxY": 2.46,
+        "minZ": -13.825,
+        "maxZ": -11.175
+      }
+    },
+    {
+      "id": "LAB_COL_AnalysisBench",
+      "position": {
+        "x": 11.1,
+        "y": 0.445,
+        "z": -16.8
+      },
+      "halfExtents": [
+        1.45,
+        0.445,
+        0.38
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 9.65,
+        "maxX": 12.549999999999999,
+        "minY": 0.0,
+        "maxY": 0.89,
+        "minZ": -17.18,
+        "maxZ": -16.42
+      }
+    },
+    {
+      "id": "LAB_COL_ReceptionBench",
+      "position": {
+        "x": 8.0,
+        "y": 0.445,
+        "z": -9.9
+      },
+      "halfExtents": [
+        0.38,
+        0.445,
+        1.25
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 7.62,
+        "maxX": 8.38,
+        "minY": 0.0,
+        "maxY": 0.89,
+        "minZ": -11.15,
+        "maxZ": -8.65
+      }
+    },
+    {
+      "id": "LAB_COL_Crate0",
+      "position": {
+        "x": 8.7,
+        "y": 0.43,
+        "z": -8.7
+      },
+      "halfExtents": [
+        0.325,
+        0.43,
+        0.325
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 8.375,
+        "maxX": 9.024999999999999,
+        "minY": 0.0,
+        "maxY": 0.86,
+        "minZ": -9.024999999999999,
+        "maxZ": -8.375
+      }
+    },
+    {
+      "id": "LAB_COL_Crate1",
+      "position": {
+        "x": 8.7,
+        "y": 0.22,
+        "z": -9.5
+      },
+      "halfExtents": [
+        0.275,
+        0.22,
+        0.275
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 8.424999999999999,
+        "maxX": 8.975,
+        "minY": 0.0,
+        "maxY": 0.44,
+        "minZ": -9.775,
+        "maxZ": -9.225
+      }
+    },
+    {
+      "id": "LAB_COL_Crate2",
+      "position": {
+        "x": 13.1,
+        "y": 0.28,
+        "z": -16.85
+      },
+      "halfExtents": [
+        0.325,
+        0.28,
+        0.325
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 12.775,
+        "maxX": 13.424999999999999,
+        "minY": 0.0,
+        "maxY": 0.56,
+        "minZ": -17.175,
+        "maxZ": -16.525000000000002
+      }
+    },
+    {
+      "id": "LAB_COL_Crate3",
+      "position": {
+        "x": 13.85,
+        "y": 0.24,
+        "z": -16.85
+      },
+      "halfExtents": [
+        0.275,
+        0.24,
+        0.275
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 13.575,
+        "maxX": 14.125,
+        "minY": 0.0,
+        "maxY": 0.48,
+        "minZ": -17.125,
+        "maxZ": -16.575000000000003
+      }
+    },
+    {
+      "id": "LAB_COL_Locker0",
+      "position": {
+        "x": 19.71,
+        "y": 1.1,
+        "z": -14.5
+      },
+      "halfExtents": [
+        0.315,
+        1.1,
+        0.4
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 19.395,
+        "maxX": 20.025000000000002,
+        "minY": 0.0,
+        "maxY": 2.2,
+        "minZ": -14.9,
+        "maxZ": -14.1
+      }
+    },
+    {
+      "id": "LAB_COL_Locker1",
+      "position": {
+        "x": 19.71,
+        "y": 1.1,
+        "z": -15.4
+      },
+      "halfExtents": [
+        0.315,
+        1.1,
+        0.4
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 19.395,
+        "maxX": 20.025000000000002,
+        "minY": 0.0,
+        "maxY": 2.2,
+        "minZ": -15.8,
+        "maxZ": -15.0
+      }
+    },
+    {
+      "id": "LAB_COL_Locker2",
+      "position": {
+        "x": 19.71,
+        "y": 1.1,
+        "z": -16.3
+      },
+      "halfExtents": [
+        0.315,
+        1.1,
+        0.4
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 19.395,
+        "maxX": 20.025000000000002,
+        "minY": 0.0,
+        "maxY": 2.2,
+        "minZ": -16.7,
+        "maxZ": -15.9
+      }
+    },
+    {
+      "id": "LAB_COL_Console",
+      "position": {
+        "x": 19.4,
+        "y": 0.55,
+        "z": -12.7
+      },
+      "halfExtents": [
+        0.375,
+        0.55,
+        0.6
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 19.025,
+        "maxX": 19.775,
+        "minY": 0.0,
+        "maxY": 1.1,
+        "minZ": -13.299999999999999,
+        "maxZ": -12.1
+      }
+    }
+  ],
+  "dynamicCuboids": [
+    {
+      "id": "LAB_COL_ServiceDoor",
+      "position": {
+        "x": 15.5,
+        "y": 1.2,
+        "z": -7.725
+      },
+      "halfExtents": [
+        1.025,
+        1.175,
+        0.065
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 14.475,
+        "maxX": 16.525,
+        "minY": 0.02499999999999991,
+        "maxY": 2.375,
+        "minZ": -7.79,
+        "maxZ": -7.659999999999999
+      }
+    },
+    {
+      "id": "LAB_COL_AirlockDoor",
+      "position": {
+        "x": 6.725,
+        "y": 1.2,
+        "z": -12.7
+      },
+      "halfExtents": [
+        0.065,
+        1.175,
+        0.925
+      ],
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "bounds": {
+        "minX": 6.659999999999999,
+        "maxX": 6.79,
+        "minY": 0.02499999999999991,
+        "maxY": 2.375,
+        "minZ": -13.625,
+        "maxZ": -11.774999999999999
+      }
+    }
+  ],
+  "doors": [
+    {
+      "bone": "Lab_ServiceDoor",
+      "collider": "LAB_COL_ServiceDoor",
+      "x": 15.5,
+      "z": -7.74,
+      "slide": [
+        2.3,
+        0,
+        0
+      ]
+    },
+    {
+      "bone": "Lab_AirlockDoor",
+      "collider": "LAB_COL_AirlockDoor",
+      "x": 6.74,
+      "z": -12.7,
+      "slide": [
+        0,
+        0,
+        -2.1
+      ]
+    }
+  ],
+  "console": {
+    "x": 18.4,
+    "z": -12.7,
+    "radius": 1.7
+  },
+  "areas": [
+    {
+      "id": "smart-lab",
+      "minX": 6.2,
+      "maxX": 20.8,
+      "minZ": -17.8,
+      "maxZ": -7.2
+    },
+    {
+      "id": "lab-west-pad",
+      "minX": 5.3,
+      "maxX": 6.5,
+      "minZ": -13.7,
+      "maxZ": -11.7
+    },
+    {
+      "id": "lab-south-pad",
+      "minX": 14.3,
+      "maxX": 16.7,
+      "minZ": -7.5,
+      "maxZ": -6
+    }
+  ],
+  "connectors": [
+    {
+      "id": "lab-quarters-connector",
+      "minX": 9.8,
+      "maxX": 16.2,
+      "minZ": -7,
+      "maxZ": -5.8
+    },
+    {
+      "id": "eden-lab-connector",
+      "minX": 3.5,
+      "maxX": 6.2,
+      "minZ": -11.2,
+      "maxZ": -9.8
+    },
+    {
+      "id": "lab-west-elbow",
+      "minX": 4.8,
+      "maxX": 6.2,
+      "minZ": -13.4,
+      "maxZ": -11.2
+    }
+  ],
+  "removedParts": [
+    "PROP_Lab_VolumeTecnico_Provisorio",
+    "PROP_Lab_VolumeTecnico_Texto",
+    "PROP_Lab_Bancada_Equipamentos",
+    "PROP_Lab_Tela_Parede",
+    "W_smart-lab_north",
+    "D_smart-lab_south_L",
+    "D_smart-lab_south_R",
+    "D_smart-lab_south_luz",
+    "W_smart-lab_south",
+    "W_smart-lab_east",
+    "D_smart-lab_west_L",
+    "D_smart-lab_west_R",
+    "D_smart-lab_west_luz",
+    "W_smart-lab_west",
+    "TET_smart-lab",
+    "Escotilha_Lab",
+    "Demarcacao_build-zone-a_x_0_0",
+    "Demarcacao_build-zone-a_x_1_0",
+    "Demarcacao_build-zone-a_x_2_0",
+    "Demarcacao_build-zone-a_x_3_0",
+    "Demarcacao_build-zone-a_x_4_0",
+    "Demarcacao_build-zone-a_x_5_0",
+    "Demarcacao_build-zone-a_z_0_0",
+    "Demarcacao_build-zone-a_z_0_1",
+    "Demarcacao_build-zone-a_z_1_0",
+    "Demarcacao_build-zone-a_z_1_1",
+    "Demarcacao_build-zone-a_z_2_0",
+    "Demarcacao_build-zone-a_z_2_1",
+    "Demarcacao_build-zone-a_z_3_0",
+    "Demarcacao_build-zone-a_z_3_1",
+    "Demarcacao_build-zone-a_z_4_0",
+    "Demarcacao_build-zone-a_z_4_1",
+    "Demarcacao_build-zone-a_z_5_0",
+    "Demarcacao_build-zone-a_z_5_1",
+    "Suprimentos_A_0",
+    "Suprimentos_A_1",
+    "Suprimentos_A_2",
+    "Suprimentos_A_3",
+    "Suprimentos_A_4",
+    "Cerca_Poste_15.5",
+    "Cerca_Poste_18",
+    "Cerca_Poste_20.5",
+    "Cerca_Norte",
+    "Grade_build-zone-a"
+  ],
+  "removedColliders": [
+    "interior-37",
+    "interior-38",
+    "wall-smart-lab-north-0",
+    "wall-smart-lab-south-0",
+    "wall-smart-lab-south-1",
+    "wall-smart-lab-east-0",
+    "wall-smart-lab-west-0",
+    "wall-smart-lab-west-1",
+    "caixa-a-0",
+    "caixa-a-1",
+    "caixa-a-2",
+    "caixa-a-3",
+    "caixa-a-4",
+    "cerca-15.5",
+    "cerca-18",
+    "cerca-20.5",
+    "cerca-norte"
+  ],
+  "removedAreas": [
+    "smart-lab",
+    "lab-quarters-connector",
+    "eden-lab-connector",
+    "open-eden-lab-circulation"
+  ],
+  "floorCutAreas": [
+    {
+      "id": "smart-lab",
+      "minX": 6.2,
+      "maxX": 20.8,
+      "minZ": -17.8,
+      "maxZ": -7.2
+    },
+    {
+      "id": "lab-quarters-connector",
+      "minX": 9.8,
+      "maxX": 16.2,
+      "minZ": -7,
+      "maxZ": -5.8
+    },
+    {
+      "id": "eden-lab-connector",
+      "minX": 3.5,
+      "maxX": 6.2,
+      "minZ": -11.2,
+      "maxZ": -9.8
+    },
+    {
+      "id": "lab-west-elbow",
+      "minX": 4.8,
+      "maxX": 6.2,
+      "minZ": -13.4,
+      "maxZ": -11.2
+    },
+    {
+      "id": "lab-west-pad",
+      "minX": 5.3,
+      "maxX": 6.5,
+      "minZ": -13.7,
+      "maxZ": -11.7
+    },
+    {
+      "id": "lab-south-pad",
+      "minX": 14.3,
+      "maxX": 16.7,
+      "minZ": -7.5,
+      "maxZ": -6
+    }
+  ],
+  "sourceSha256": "4dfd07a28d6a6d017233a0a085a80a60e8a4275345070b90f9fdb2d0a32502c8",
+  "version": "v002",
+  "roofArea": {
+    "minX": 6.975,
+    "maxX": 20.275,
+    "minZ": -17.275,
+    "maxZ": -7.975
+  },
+  "pavingTriangles": 1092
+}

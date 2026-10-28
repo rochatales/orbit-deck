@@ -1,5 +1,5 @@
 import { QUARTEL } from './quartelLayout';
-import manifest from '../assets/laboratorio/laboratorio-v001.manifest.json';
+import manifest from '../assets/laboratorio/laboratorio-v002.manifest.json';
 import type { OfficeWorld, SimpleCuboid } from '../world/createOfficeMap';
 import type { RectBounds } from '../utils/math';
 export const LABORATORIO = manifest;
