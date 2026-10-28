@@ -18,7 +18,7 @@ const { QUARTEL } = loadSource('src/game/quartelLayout.ts');
 const { HANGAR } = loadSource('src/game/hangarLayout.ts');
 const manifest = JSON.parse(fs.readFileSync('src/assets/colony-v007.manifest.json'));
 const greenManifest = JSON.parse(fs.readFileSync('src/assets/greenhouse/greenhouse-v001.manifest.json'));
-const urls = ['colony-v007.glb', 'hangar/hangar-v002.glb', 'greenhouse/greenhouse-v001.glb', 'colony-v006.glb', 'ares-lander/ares-lander.glb', 'ares-mars/deck-mars.glb', 'quartel/barracks-v005.glb'];
+const urls = ['colony-v007.glb', 'hangar/hangar-v002.glb', 'greenhouse/greenhouse-v001.glb', 'colony-v006.glb', 'ares-lander/ares-lander.glb', 'ares-mars/deck-mars.glb', 'quartel/barracks-v006.glb'];
 const sources = await Promise.all(urls.map(url => loadGlb(`src/assets/${url}`)));
 const settings = { enabled: true, culling: true, wind: true, profile: 'compact' };
 const eachMaterial = (root, fn) => root.traverse(n => { if (n.isMesh) for (const m of Array.isArray(n.material) ? n.material : [n.material]) fn(m, n); });
@@ -194,6 +194,9 @@ test('Sandwind v007: poses de QA exigem três flags e não alteram sessão fora 
         assert.equal(sandwindQAPose(query,'quartel'),true);
         assert.deepEqual(useExpeditionStore.getState().spawn,{x:12,y:.2625,z:0});
         assert.equal(useGameStore.getState().nearShip, false);
+        assert.equal(sandwindQAPose('?perf&sandwindQA','bathroom-inside'),false);
+        assert.equal(sandwindQAPose(query,'bathroom-inside'),true);
+        assert.deepEqual(useExpeditionStore.getState().spawn,{x:15.225,y:.2625,z:2.9});
         useExpeditionStore.setState({ session: { map: 'shanghai', phase: 'walking', destination: null, revision: 12 } });
         assert.equal(sandwindQAPose(query, 'plaza'), false);
         assert.equal(useExpeditionStore.getState().session.revision, 12);
@@ -206,7 +209,7 @@ test('Quartel/Sandwind: fade, portas e caixas de colisão continuam sob descarte
  for(let i=0;i<6;i++){f.update({x:10.5,z:0},1/60);baseline.update({x:10.5,z:0},1/60);}
  assert.ok(material.opacity>.01&&material.opacity<.9);
  for(let i=0;i<60;i++){
-  const p=i<20?{x:10.5,z:0}:i<40?{x:6.75,z:0}:{x:0,z:0};
+  const p=i<15?{x:10.5,z:0}:i<30?{x:6.75,z:0}:i<45?{x:13.125,z:2.9}:{x:0,z:0};
   controller.update(i%2?200:10.5,i%2?200:0,.2,settings,false);
   f.update(p,1/60);baseline.update(p,1/60);
   assert.deepEqual(f.quartelRuntime.status,baseline.quartelRuntime.status);

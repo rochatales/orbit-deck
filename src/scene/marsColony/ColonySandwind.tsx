@@ -11,7 +11,7 @@ import { SANDWIND_PROFILES, type SandwindProfile } from './sandwindPolicy';
 import { SandwindController, sandwindResources, type SandwindSettings } from './SandwindController';
 import manifest from '../../assets/colony-v007.manifest.json';
 import { sandwindTargets } from './sandwindTargets';
-import quartelUrl from '../../assets/quartel/barracks-v005.glb';
+import quartelUrl from '../../assets/quartel/barracks-v006.glb';
 import colonyUrl from '../../assets/colony-v007.glb';
 import hangarUrl from '../../assets/hangar/hangar-v002.glb';
 import greenhouseUrl from '../../assets/greenhouse/greenhouse-v001.glb';
@@ -86,6 +86,8 @@ export function SandwindPanel() {
             <button onClick={() => sandwindQAPose(window.location.search, 'plaza')}>QA · Praça</button>
             <button onClick={() => sandwindQAPose(window.location.search, 'deck')}>QA · Deck</button>
             {(['quartel', 'quartel-west', 'quartel-north'] as const).map(pose => <button key={pose} onClick={() => sandwindQAPose(window.location.search, pose)}>QA · {pose}</button>)}
+            <button onClick={() => sandwindQAPose(window.location.search, 'bathroom-front')}>QA · Banheiro (fora)</button>
+            <button onClick={() => sandwindQAPose(window.location.search, 'bathroom-inside')}>QA · Banheiro (dentro)</button>
             <button onClick={() => useGameStore.getState().setZoom(useGameStore.getState().minZoom)}>QA · Afastar</button>
         </fieldset>}
         {report && <textarea aria-label="Relatório QA Sandwind" readOnly value={report} style={{ width: '100%', height: 100, fontSize: 10 }}/>}
