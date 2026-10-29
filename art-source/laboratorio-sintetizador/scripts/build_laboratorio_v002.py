@@ -93,6 +93,8 @@ bpy.ops.wm.save_as_mainfile(filepath=str(ROOT/'blend/laboratorio_sintetizador_v0
 bpy.ops.export_scene.gltf(filepath=str(ROOT/'export/laboratorio_sintetizador_v002.glb'),export_format='GLB',export_animations=True,export_nla_strips=True,export_extras=True)
 export=ROOT/'export/laboratorio_sintetizador_v002.glb'
 (PROJECT/'src/assets/laboratorio/laboratorio-v002.glb').write_bytes(export.read_bytes())
+# O corredor aberto EDEN/Lab continua caminhável por toda a faixa pavimentada.
+manifest['removedAreas']=[id for id in manifest['removedAreas'] if id!='open-eden-lab-circulation']
 manifest['version']='v002';manifest['sourceSha256']=hashlib.sha256(export.read_bytes()).hexdigest()
 manifest['floorCutAreas']=[manifest['areas'][0]]+rects
 manifest['roofArea']={'minX':6.975,'maxX':20.275,'minZ':-17.275,'maxZ':-7.975}

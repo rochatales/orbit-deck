@@ -888,8 +888,7 @@
   "removedAreas": [
     "smart-lab",
     "lab-quarters-connector",
-    "eden-lab-connector",
-    "open-eden-lab-circulation"
+    "eden-lab-connector"
   ],
   "floorCutAreas": [
     {
