@@ -200,3 +200,10 @@ test('Laboratório/EDEN: corredor pavimentado inteiro permite circulação norte
   try{for(const[x,z]of route.slice(1)){const p=f.move(x,z);assert.ok(Math.hypot(p.x-x,p.z-z)<.03,JSON.stringify({reverse,x,z,p}));}}finally{f.dispose();}
  }
 });
+
+test('Quartel: contorno externo completo é contínuo nos dois sentidos, inclusive ligações leste',async()=>{
+ const path=[[5.25,-5.5],[8.5,-5.5],[12.5,-5.5],[15,-5.5],[18.25,-5.5],[18.25,5.25],[15,5.25],[13.8,5.25],[7.9,5.25],[5.25,5.25],[5.25,-5.5]];
+ for(const reverse of [false,true]){const route=reverse?[...path].reverse():path,f=await physics(route[0]);
+  try{for(const[x,z]of route.slice(1)){const p=f.move(x,z);assert.ok(Math.hypot(p.x-x,p.z-z)<.03,JSON.stringify({reverse,x,z,p}));}}finally{f.dispose();}
+ }
+});

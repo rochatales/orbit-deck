@@ -1,5 +1,5 @@
 import { LABORATORIO } from '../game/laboratorioLayout';
-import { QUARTEL } from '../game/quartelLayout';
+import { QUARTEL, QUARTEL_CIRCULATION } from '../game/quartelLayout';
 import masterplan from './marsMasterplan.json';
 import { Vector3 } from "three";
 import type { RectBounds } from "../utils/math";
@@ -83,7 +83,10 @@ export const MAP_CORRIDORS: CorridorConfig[] = masterplan.corridors.map(corridor
     size: current ? { width: current.maxX - current.minX, depth: current.maxZ - current.minZ } : corridor.size,
     railings: false
   };
-});
+}).concat(QUARTEL_CIRCULATION.areas.map(a => ({
+  id: a.id, position: { x: (a.minX + a.maxX) / 2, z: (a.minZ + a.maxZ) / 2 },
+  size: { width: a.maxX - a.minX, depth: a.maxZ - a.minZ }, railings: false
+})));
 
 export function getRoomByNpcId(npcId: string) {
   return MAP_ROOMS.find((room) => room.npcId === npcId);

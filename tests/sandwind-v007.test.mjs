@@ -21,7 +21,7 @@ const { QUARTEL } = loadSource('src/game/quartelLayout.ts');
 const { HANGAR } = loadSource('src/game/hangarLayout.ts');
 const manifest = JSON.parse(fs.readFileSync('src/assets/colony-v007.manifest.json'));
 const greenManifest = JSON.parse(fs.readFileSync('src/assets/greenhouse/greenhouse-v001.manifest.json'));
-const urls = ['colony-v007.glb', 'hangar/hangar-v002.glb', 'greenhouse/greenhouse-v001.glb', 'colony-v006.glb', 'ares-lander/ares-lander.glb', 'ares-mars/deck-mars.glb', 'quartel/barracks-v006.glb', 'laboratorio/laboratorio-v002.glb'];
+const urls = ['colony-v007.glb', 'hangar/hangar-v002.glb', 'greenhouse/greenhouse-v001.glb', 'colony-v006.glb', 'ares-lander/ares-lander.glb', 'ares-mars/deck-mars.glb', 'quartel/barracks-v006.glb', 'laboratorio/laboratorio-v002.glb', 'quartel/quartel-circulation-v001.glb'];
 const sources = await Promise.all(urls.map(url => loadGlb(`src/assets/${url}`)));
 const settings = { enabled: true, culling: true, wind: true, profile: 'compact' };
 const eachMaterial = (root, fn) => root.traverse(n => { if (n.isMesh) for (const m of Array.isArray(n.material) ? n.material : [n.material]) fn(m, n); });
@@ -53,6 +53,7 @@ function fixture() {
     const {createLaboratorioWalkways}=loadSource('src/scene/marsColony/laboratorioWalkways.ts');
     const paving=createLaboratorioWalkways(lab),pavingRoot=new Group();pavingRoot.position.copy(labRoot.position);pavingRoot.add(paving);scope.add(pavingRoot);
     const labRuntime=new LaboratorioRuntime(lab,sources[7].animations);
+    const circulation=sources[8].scene.clone(true); circulation.name='QuartelCirculation';scope.add(circulation);
     const targets = sandwindTargets(scope, architecture, filtered);
     const install = () => new SandwindController(scope, sources.map(s => s.scene), targets, SRGBColorSpace);
     const update = (p, dt) => { master.update(p, dt); greenRuntime.update(p, dt); hangarRuntime.update(p, dt); quartelRuntime.update(p,dt); labRuntime.update(p,dt); };

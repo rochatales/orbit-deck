@@ -1,3 +1,4 @@
+import circulationUrl from '../../assets/quartel/quartel-circulation-v001.glb';
 import laboratorioUrl from '../../assets/laboratorio/laboratorio-v002.glb';
 import { useEffect, useRef, useState, type CSSProperties, type RefObject } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
@@ -31,17 +32,17 @@ export function ColonySandwind({ scope, masterplan }: { scope: RefObject<Group>;
     // useLoader usa a lista de URLs como chave: chamadas individuais devem casar
     // com Masterplan/Hangar/Greenhouse/DeckProps; AresLanding usa o par de URLs.
     const colony = useGLTF(colonyUrl), hangar = useGLTF(hangarUrl), greenhouse = useGLTF(greenhouseUrl), legacy = useGLTF(legacyUrl);
-    const quartel = useGLTF(quartelUrl), laboratorio = useGLTF(laboratorioUrl);
+    const circulation = useGLTF(circulationUrl), quartel = useGLTF(quartelUrl), laboratorio = useGLTF(laboratorioUrl);
     const [ship, deck] = useGLTF([shipUrl, deckUrl]);
     const controller = useRef<SandwindController | null>(null);
     const enabled = usePreview(s => s.enabled);
     useEffect(() => {
         const root = scope.current!, architecture = masterplan.current!.children[0];
-        const next = new SandwindController(root, [colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene, laboratorio.scene],
+        const next = new SandwindController(root, [colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene, laboratorio.scene, circulation.scene],
             sandwindTargets(root, architecture, manifest), gl.outputColorSpace);
         controller.current = next; activeController = next;
         return () => { if (activeController === next) activeController = null; controller.current = null; next.dispose(); };
-    }, [scope, masterplan, colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene, laboratorio.scene, gl]);
+    }, [scope, masterplan, colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene, laboratorio.scene, circulation.scene, gl]);
     useEffect(() => {
         if (!enabled) return;
         const original = scene.fog;

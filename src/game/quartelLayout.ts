@@ -1,7 +1,9 @@
+import circulation from '../assets/quartel/quartel-circulation-v001.manifest.json';
 import manifest from '../assets/quartel/barracks-v006.manifest.json';
 import type { OfficeWorld, SimpleCuboid } from '../world/createOfficeMap';
 import type { RectBounds } from '../utils/math';
 export const QUARTEL = manifest;
+export const QUARTEL_CIRCULATION = circulation;
 const removed = new Set(manifest.removedColliders), areas = new Set(manifest.removedAreas);
 export const retainQuartelCollider = (c: RectBounds & { id: string }) => !removed.has(c.id);
 export const retainQuartelFloor = (a: RectBounds & { id: string }) => !areas.has(a.id);
@@ -30,5 +32,5 @@ export function addQuartelTerrain(world: OfficeWorld) {
     world.movingCuboids = createQuartelDoorColliders();
     // Obstáculos para consulta/navegação; a física usa caixas 3D orientadas exatas.
     for (const c of manifest.staticCuboids) if (c.kind !== 'support' && c.bounds.minY < 1.5) world.obstacles.push({ ...c.bounds, physics: false });
-    world.walkableAreas.push(manifest.plinth, ...manifest.ramps, ...manifest.connectors);
+    world.walkableAreas.push(manifest.plinth, ...manifest.ramps, ...manifest.connectors, ...circulation.areas);
 }
