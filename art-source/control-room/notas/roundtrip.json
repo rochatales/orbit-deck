@@ -1,0 +1,124 @@
+{
+  "objects": 26,
+  "triangles": 8096,
+  "max_error_m": 0,
+  "parts": {
+    "PIS_Control": {
+      "max_bidirectional_error_m": 0,
+      "triangles": 206
+    },
+    "ARQ_Control_Parede_S": {
+      "max_bidirectional_error_m": 0,
+      "triangles": 884
+    },
+    "ARQ_Control_Parede_N": {
+      "max_bidirectional_error_m": 0,
+      "triangles": 356
+    },
+    "ARQ_Control_Parede_O": {
+      "max_bidirectional_error_m": 0,
+      "triangles": 728
+    },
+    "ARQ_Control_Parede_L": {
+      "max_bidirectional_error_m": 0,
+      "triangles": 620
+    },
+    "ARQ_Control_Cantos": {
+      "max_bidirectional_error_m": 0,
+      "triangles": 88
+    },
+    "VID_Control": {
+      "max_bidirectional_error_m": 0,
+      "triangles": 140
+    },
+    "ARQ_Control_Portal_S": {
+      "max_bidirectional_error_m": 0,
+      "triangles": 132
+    },
+    "D_Control_S_A": {
+      "max_bidirectional_error_m": 0,
+      "triangles": 84
+    },
+    "D_Control_S_B": {
+      "max_bidirectional_error_m": 0,
+      "triangles": 84
+    },
+    "PROP_Control_Status_S": {
+      "max_bidirectional_error_m": 0,
+      "triangles": 12
+    },
+    "ARQ_Control_Portal_L": {
+      "max_bidirectional_error_m": 0,
+      "triangles": 132
+    },
+    "D_Control_L_A": {
+      "max_bidirectional_error_m": 0,
+      "triangles": 84
+    },
+    "D_Control_L_B": {
+      "max_bidirectional_error_m": 0,
+      "triangles": 84
+    },
+    "PROP_Control_Status_L": {
+      "max_bidirectional_error_m": 0,
+      "triangles": 12
+    },
+    "TET_Control": {
+      "max_bidirectional_error_m": 0,
+      "triangles": 262
+    },
+    "PROP_Control_Telhado": {
+      "max_bidirectional_error_m": 0,
+      "triangles": 796
+    },
+    "TET_Control_Luminarias": {
+      "max_bidirectional_error_m": 0,
+      "triangles": 112
+    },
+    "PROP_Control_Console": {
+      "max_bidirectional_error_m": 0,
+      "triangles": 508
+    },
+    "PROP_Control_EDEN_Emissor": {
+      "max_bidirectional_error_m": 0,
+      "triangles": 184
+    },
+    "PROP_Control_EDEN_Projecao": {
+      "max_bidirectional_error_m": 0,
+      "triangles": 1456
+    },
+    "PROP_Control_Interacao": {
+      "max_bidirectional_error_m": 0,
+      "triangles": 24
+    },
+    "PROP_Control_Rack": {
+      "max_bidirectional_error_m": 0,
+      "triangles": 380
+    },
+    "PROP_Control_Consoles_N": {
+      "max_bidirectional_error_m": 0,
+      "triangles": 296
+    },
+    "PROP_Control_Telas": {
+      "max_bidirectional_error_m": 0,
+      "triangles": 128
+    },
+    "PROP_Control_Conduites": {
+      "max_bidirectional_error_m": 0,
+      "triangles": 304
+    }
+  },
+  "roof_hidden_ids": [
+    "PROP_Control_Telhado",
+    "TET_Control",
+    "TET_Control_Luminarias"
+  ],
+  "wall_cut": false,
+  "max_geometric_normal_deviation_degrees": 0.031278627784669236,
+  "normals": "Split corner normals matched by world vertex position; finite, no zero-area faces",
+  "sha256": {
+    "blend/control_room_v001.blend": "c6a0cc06f69e88d5921c27eff6b3eb7053a85cdbfbeff274c95c7e2c9119ba3a",
+    "export/control_room_v001.glb": "297602e7bbe01ab7fa2a56df765d8494fc9fb2d59d03b1d31b9f8ab5df76fffe",
+    "export/manifesto_control_room_v001.json": "33171f69cc0c22b6d361f19f5e2a346afc5619c90763df6ecf03da1efd6a5865"
+  }
+}
