@@ -1,6 +1,6 @@
 {
   "objects": 26,
-  "triangles": 8176,
+  "triangles": 8212,
   "max_error_m": 0,
   "parts": {
     "PIS_Control": {
@@ -97,7 +97,7 @@
     },
     "PROP_Control_Consoles_N": {
       "max_bidirectional_error_m": 0,
-      "triangles": 332
+      "triangles": 368
     },
     "PROP_Control_Telas": {
       "max_bidirectional_error_m": 0,
@@ -117,8 +117,8 @@
   "max_geometric_normal_deviation_degrees": 0.031278627784669236,
   "normals": "Split corner normals matched by world vertex position; finite, no zero-area faces",
   "sha256": {
-    "blend/control_room_v001.blend": "cd4346485acaf859805c53ce267c3eae69ed7657764ed43044b3edca864c0dd6",
-    "export/control_room_v001.glb": "9b08d585efcd7440e95d3aa13209d0001b14b68acfddfb4e9a3331ca6ef577a2",
-    "export/manifesto_control_room_v001.json": "2e6c0ebfdd228c43ca10ed83402026e33c74068d9cb5e03cf35fe0c86f984047"
+    "blend/control_room_v001.blend": "cebd20cbd558d2bc61e5961b48966451562c86a68aff1882fa0cadb8e853b101",
+    "export/control_room_v001.glb": "47373e449a9a5b8ac4fb965a03098592bf51d0329c3945f020a7f7edad179f5a",
+    "export/manifesto_control_room_v001.json": "eeb68cf679ae864648ed49d27320536948bae278241f60fb8447b102e8a76520"
   }
 }
