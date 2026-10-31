@@ -1,6 +1,6 @@
 {
   "objects": 26,
-  "triangles": 8096,
+  "triangles": 8140,
   "max_error_m": 0,
   "parts": {
     "PIS_Control": {
@@ -69,7 +69,7 @@
     },
     "PROP_Control_Telhado": {
       "max_bidirectional_error_m": 0,
-      "triangles": 796
+      "triangles": 840
     },
     "TET_Control_Luminarias": {
       "max_bidirectional_error_m": 0,
@@ -117,8 +117,8 @@
   "max_geometric_normal_deviation_degrees": 0.031278627784669236,
   "normals": "Split corner normals matched by world vertex position; finite, no zero-area faces",
   "sha256": {
-    "blend/control_room_v001.blend": "c6a0cc06f69e88d5921c27eff6b3eb7053a85cdbfbeff274c95c7e2c9119ba3a",
-    "export/control_room_v001.glb": "297602e7bbe01ab7fa2a56df765d8494fc9fb2d59d03b1d31b9f8ab5df76fffe",
-    "export/manifesto_control_room_v001.json": "33171f69cc0c22b6d361f19f5e2a346afc5619c90763df6ecf03da1efd6a5865"
+    "blend/control_room_v001.blend": "5099ee642cbcbc8f1ea024d0b8931297392b235ffdf29402184095ac0e48c8fd",
+    "export/control_room_v001.glb": "ca5d6112d25e776b923f0927fd8125410ffe770f207894456332d8f5272c3790",
+    "export/manifesto_control_room_v001.json": "406a5fe567213b4510f9e583c750f1d6cd40092c67d8824be3c81bae83d27a4a"
   }
 }

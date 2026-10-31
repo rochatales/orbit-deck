@@ -69,3 +69,19 @@ test('Control Room: implantação, interação e circulação propostas sem malh
   }
   assert.ok(circulation.interaction_distance_m < man.interaction.existingRadius);
 });
+
+test('Control Room: implantação medida, piso nivelado e portas fechadas sem sobreposição na verga', () => {
+  const floor=man.parts.find(p=>p.id==='PIS_Control').bounds;
+  assert.ok(Math.abs(floor.minX+3.5)<1e-5 && Math.abs(floor.maxX-3.5)<1e-5);
+  assert.ok(Math.abs(floor.minZ+13.75)<1e-5 && Math.abs(floor.maxZ+7.25)<1e-5);
+  assert.ok(Math.abs(floor.maxY)<.006);
+  for (const p of man.parts.filter(p=>p.papel==='wall')) {
+    assert.ok(p.bounds.minX>=-3.75 && p.bounds.maxX<=3.75);
+    assert.ok(p.bounds.minZ>=-14 && p.bounds.maxZ<=-7);
+  }
+  for (const side of ['S','L']) for (const leaf of ['A','B']) {
+    const door=man.parts.find(p=>p.id===`D_Control_${side}_${leaf}`).bounds;
+    assert.ok(Math.abs(door.minY)<1e-5);
+    assert.ok(door.maxY<=2.21);
+  }
+});

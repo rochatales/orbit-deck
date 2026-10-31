@@ -4,9 +4,9 @@ Candidato isolado de modelagem/exportação para S6.12. Base **f1756c4**, a pont
 
 ## Resultado e implantação
 
-**8.096 triângulos**, 26 objetos semânticos, dois materiais compartilhados, atlas PBR 2048². A contagem inclui arquitetura, interior, console e projeção. Nenhum mesh antigo ou personagem foi reutilizado no GLB. A sala anterior só é importada para os renders de comparação.
+**8.140 triângulos**, 26 objetos semânticos, dois materiais compartilhados, atlas PBR 2048². A contagem inclui arquitetura, interior, console e projeção. Nenhum mesh antigo ou personagem foi reutilizado no GLB. A sala anterior só é importada para os renders de comparação.
 
-Dimensão nominal 7 × 6,5 m, centro mundial do jogo **(0; −10,5)**, portas de 2,2 m ao sul e a leste. Mantida a segunda entrada funcional, embora a referência ilustre principalmente a fachada sul. Corpo/pedestal respeitam a implantação; caixilhos, conduítes e portal têm pequenas saliências além do casco, documentadas nos bounds do manifesto. Altura da cobertura ~3,2 m, antena ~4,28 m.
+Dimensão nominal 7 × 6,5 m, centro mundial do jogo **(0; −10,5)**, vãos nominais de 2,2 m ao sul e a leste (os batentes deixam ~2,14 m de passagem geométrica e ~2,20 m de altura). Mantida a segunda entrada funcional, embora a referência ilustre principalmente a fachada sul. Corpo/pedestal respeitam a implantação; caixilhos, conduítes e portal têm pequenas saliências além do casco, documentadas nos bounds do manifesto. Altura da cobertura ~3,04 m, antena ~4,13 m. Piso estrutural em Y=0, com linhas decorativas até 5 mm acima; pedestal enterrado de −0,15 a 0 m. Todos os móveis e folhas de porta assentam no nível 0, permitindo omitir `PIS_Control` ao reutilizar o piso original sem deixar a sala suspensa.
 
 Blender em metros: X = jogo X, Y = −jogo Z, Z = jogo Y. O GLB sai Y-up, nas coordenadas mundiais do jogo. Não reaplicar translação (0; −10,5) ao integrá-lo.
 
@@ -22,13 +22,13 @@ Na base examinada, `src/scene/OfficeScene.tsx` instancia EDEN por `EDEN_CHARACTE
 
 O menu disponível no local é o painel de briefing, `openEden()` em `useExpeditionStore.ts`, exibido no `App.tsx`. O painel de nave concentra destino/viagem e seleção de encontro; pausa/áudio também são interfaces separadas. Não existe nesta base um hub de menus já operável pelo console central. O manifesto prepara `INTERACT_Control_EDEN` para reutilizar `openEden`; não antecipa menus ou funcionalidades novas.
 
-Ponto proposto: jogo (0; 0,15; −8,9), a 1,6 m do centro atual de EDEN, dentro do raio existente de 2,7 m. A raiz do jogador não deve ser colocada dentro do pedestal. Não há `[E]` pintado: o indicador pertence à UI do jogo.
+Ponto proposto: jogo (0; 0; −8,9), a 1,6 m do centro atual de EDEN, dentro do raio existente de 2,7 m. A raiz do jogador não deve ser colocada dentro do pedestal. Não há `[E]` pintado: o indicador pertence à UI do jogo.
 
 ## Estados e visibilidade
 
 - Repouso: console, emissor e projeção visíveis; `PROP_Control_Interacao` inicialmente oculto.
 - Interação: o runtime pode mostrar os dois indicadores adicionais. Essa mudança usa metadados, não uma animação glTF de intensidade luminosa.
-- As quatro folhas das portas são objetos separados, inicialmente fechados; não há clipes ou código de abertura nesta entrega.
+- As quatro folhas das portas são objetos separados, inicialmente fechados e sem sobreposição na verga. **São folhas estáticas para edição, não portas prontas para deslizar**: não há bolso lateral nem mecanismo projetado. A integração deve definir um mecanismo que não atravesse janelas/batentes antes de movimentá-las. Não há clipes ou código de abertura nesta entrega.
 - Teto `TET_Control`; antena, ventilação e letreiros em `PROP_Control_Telhado`; luminárias em `TET_Control_Luminarias`. Os dois últimos dependem explicitamente do teto.
 - O fechamento de suporte esconde os três IDs do conjunto, mantendo todas as paredes visíveis. Não foi alterado o contrato de ocultação do runtime.
 - A maquete `07_maquete_interior.png` remove paredes sul/oeste para explicar o interior. É exclusivamente uma vista de estudo; `06_interior_sem_teto.png` mostra a condição com paredes preservadas.
@@ -61,3 +61,7 @@ A comparação anterior extrai arquitetura e props com `ambiente=brand-brain` do
 6. Python com Pillow: `scripts/compose_sheets.py`.
 
 Scripts resolvem diretórios pelo próprio arquivo. A comparação anterior depende de `src/assets/colony-v007.glb`/manifesto da base indicada; o atlas usa a referência no caminho original apenas para copiá-la. Renderizar e validar não salva sobre a fonte. Reconstrução é determinística, mas substitui os arquivos gerados: preserve qualquer revisão manual em uma nova versão antes de executá-la.
+
+## Revisão técnica
+
+Revisão Claude do commit inicial `31e8b29`: letreiro EDEN, nível do piso, descrição das portas, estado inicial na fonte, envelopes dos tampos, cache Python e verificações de implantação. Letreiro recebeu suporte visível; fonte abre em repouso; piso/móveis foram alinhados ao nível 0; portas fechadas tiveram largura/altura ajustadas para evitar sobreposição. Abertura fica explicitamente fora da preparação deste candidato estático. Envelopes dos tampos foram ampliados; teste passou a ler bounds reais. Cache gerado localmente foi retirado do Git e ignorado, sem apagar arquivo.

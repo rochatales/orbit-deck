@@ -1,5 +1,6 @@
 """Blender 5.1.1. Candidato modular, não altera o jogo ou fontes anteriores."""
 import bpy,bmesh,sys,math,json,hashlib
+sys.dont_write_bytecode=True
 from pathlib import Path
 from mathutils import Vector
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
@@ -16,12 +17,13 @@ def end(name):
  for o in objects:o.select_set(True)
  bpy.context.view_layer.objects.active=objects[0];bpy.ops.object.join();o=bpy.context.object;o.name=name
  bpy.context.scene.cursor.location=(0,0,0);bpy.ops.object.origin_set(type='ORIGIN_CURSOR')
+ o.location.z-=.15 # finished floor matches current colony ground (0).
  o.location.y+=10.5 # Blender -Y maps to game +Z: center (0,-10.5).
  for key,value in {'id_estavel':name,'papel':spec['papel'],'ambiente':'brand-brain','estado_inicial':spec['state'],'estado_operacao':spec['operation']}.items():o[key]=value
  o['apoiado_em']=json.dumps(spec['support']);o['apoiado_em_todos']='[]'
  meshes.append(o);return o
 
-def col(n,p,h):colliders.append({'id':'COL_CR_'+n,'center':{'x':p[0],'y':p[2],'z':-p[1]-10.5},'halfExtents':{'x':h[0],'y':h[2],'z':h[1]},'type':'CuboidCollider','proposal':True})
+def col(n,p,h):colliders.append({'id':'COL_CR_'+n,'center':{'x':p[0],'y':p[2]-.15,'z':-p[1]-10.5},'halfExtents':{'x':h[0],'y':h[2],'z':h[1]},'type':'CuboidCollider','proposal':True})
 def wallspan(n,p,s):box(n,p,s,10,bev=.025)
 def frame(n,p,size,t=1,bev=.015):
  p=Vector(p);thin=0 if size[0]<size[1] else 1;wide=1-thin
@@ -97,7 +99,7 @@ for x in [-2.2,2.2]:box('Glass',(x,-3.272,1.62),(1.65,.025,.75),14,bev=.06)
 box('Glass',(-3.52,0,1.64),(.025,3.44,.84),14,bev=.06)
 for y in [-2.05,2.05]:box('Glass',(3.522,y,1.67),(.025,1.15,.57),14,bev=.05)
 end('VID_Control')
-# Door leaves separate by stable ID; closed start, prepared for slide in future runtime.
+# Static door leaves, separate for editing. No sliding pocket or opening mechanism is claimed.
 for side in ['S','L']:
  group('ARQ_Control_Portal_'+side,'wall')
  for sx in [-1,1]:
@@ -110,13 +112,13 @@ for side in ['S','L']:
  for sx in [-1,1]:
   leaf='D_Control_'+side+('_A' if sx<0 else '_B')
   group(leaf,'door')
-  if side=='S':p=(sx*.545,-3.15,1.30);size=(1.075,.09,2.30)
-  else:p=(3.4,sx*.545,1.30);size=(.09,1.075,2.30)
+  if side=='S':p=(sx*.535,-3.15,1.25);size=(1.055,.09,2.20)
+  else:p=(3.4,sx*.535,1.25);size=(.09,1.055,2.20)
   box('DoorLeaf',p,size,1,bev=.055)
-  if side=='S':box('DoorPanel',(sx*.545,-3.205,1.29),(.91,.025,2.12),0,bev=.04)
-  else:box('DoorPanel',(3.455,sx*.545,1.29),(.025,.91,2.12),0,bev=.04)
-  if side=='S':box('DoorGlazing',(sx*.545,-3.225,1.75),(.5,.025,.48),14,bev=.05)
-  else:box('DoorGlazing',(3.475,sx*.545,1.75),(.025,.5,.48),14,bev=.05)
+  if side=='S':box('DoorPanel',(sx*.535,-3.205,1.24),(.91,.025,2.02),0,bev=.04)
+  else:box('DoorPanel',(3.455,sx*.535,1.24),(.025,.91,2.02),0,bev=.04)
+  if side=='S':box('DoorGlazing',(sx*.535,-3.225,1.75),(.5,.025,.48),14,bev=.05)
+  else:box('DoorGlazing',(3.475,sx*.535,1.75),(.025,.5,.48),14,bev=.05)
   end(leaf)
  group('PROP_Control_Status_'+side,'detail',('ARQ_Control_Portal_'+side,))
  if side=='S':box('Status',(0,-3.41,2.49),(.53,.025,.055),5)
@@ -144,7 +146,8 @@ def text(n,body,p,rot,size,t):
  bpy.ops.object.convert(target='MESH');g.finish(bpy.context.object,n,t)
 box('ControlSign',(0,-2.87,3.20),(2.05,.25,.32),0,bev=.04)
 text('CONTROL','CONTROL',(0,-3.005,3.09),(math.pi/2,0,0),.23,1)
-text('EDEN','EDEN',(1.70,-3.005,2.93),(math.pi/2,0,0),.16,1)
+box('EdenSign',(1.70,-2.87,3.20),(.84,.25,.32),2,bev=.04)
+text('EDEN','EDEN',(1.70,-3.005,3.09),(math.pi/2,0,0),.16,1)
 end('PROP_Control_Telhado')
 group('TET_Control_Luminarias','detail',('TET_Control',))
 for x in [-1.5,1.5]:
@@ -164,7 +167,7 @@ for x in [-.43,-.22,0,.22,.43]:
  o=box('PhysicalControl',(x,-.70,1.053),(.12,.11,.032),4,bev=.015);o.rotation_euler.x=math.radians(18)
 for x in [-.42,-.2,.02,.24]:box('StatusBar',(x,-.59,.82),(.09,.01,.025),5)
 box('RearPedestal',(0,.36,1.05),(1.12,.42,.27),0,bev=.07)
-end('PROP_Control_Console');col('Console',(0,-.03,.65),(.75,.70,.50))
+end('PROP_Control_Console');col('Console',(0,-.03,.65),(.75,.80,.50))
 group('PROP_Control_EDEN_Emissor','furniture')
 cyl('EmitterHousing',(0,.36,1.185),(0,.36,1.235),.30,1,verts=24)
 cyl('EmitterAperture',(0,.36,1.238),(0,.36,1.25),.23,5,verts=24)
@@ -194,7 +197,7 @@ for x in [.42,1.2,1.98]:
  o=box('PeripheralScreen',(x,2.32,1.40),(.64,.11,.39),1,bev=.025);o.rotation_euler.x=math.radians(18)
  o=box('PeripheralGlass',(x,2.253,1.41),(.54,.02,.29),5,bev=.015);o.rotation_euler.x=math.radians(18)
  box('PeripheralKeys',(x,2.19,1.16),(.49,.22,.03),4)
-end('PROP_Control_Consoles_N');col('Consoles_N',(1.20,2.60,.82),(1.2,.45,.67))
+end('PROP_Control_Consoles_N');col('Consoles_N',(1.20,2.56,.82),(1.2,.49,.67))
 group('PROP_Control_Telas','detail',('ARQ_Control_Parede_N','ARQ_Control_Parede_O'))
 box('MainWallDisplay',(1.22,3.025,2.07),(2.8,.045,.72),1,bev=.015)
 box('MainWallGlass',(1.22,2.992,2.07),(2.61,.02,.54),14,bev=.04)
@@ -236,7 +239,7 @@ for o in meshes:
  spec=groups[o.name]
  manifest.append({'id':o.name,'name':o.name,'papel':spec['papel'],'ambiente':'brand-brain','estado_inicial':spec['state'],'estado_operacao':spec['operation'],'apoiado_em':spec['support'],'apoiado_em_todos':[],'bounds':bounds,'triangles':len(o.data.loop_triangles)})
 tri=sum(p['triangles'] for p in manifest);assert tri<=10000,tri
-report={'version':'control-room-v001','base':'f1756c4','position':{'x':0,'z':-10.5},'size':{'width':7,'depth':6.5},'entrances':['south','east'],'parts':manifest,'triangles':tri,'materials':2,'colliders_proposed':colliders,'interaction':{'id':'INTERACT_Control_EDEN','position':{'x':0,'y':.15,'z':-8.9},'existingAction':'openEden','existingRadius':2.7},'states':['idle','interaction'],'statesRuntimeOnly':True}
+report={'version':'control-room-v001','base':'f1756c4','position':{'x':0,'z':-10.5},'size':{'width':7,'depth':6.5},'entrances':['south','east'],'parts':manifest,'triangles':tri,'materials':2,'colliders_proposed':colliders,'interaction':{'id':'INTERACT_Control_EDEN','position':{'x':0,'y':0,'z':-8.9},'existingAction':'openEden','existingRadius':2.7},'states':['idle','interaction'],'statesRuntimeOnly':True}
 (ROOT/'export/manifesto_control_room_v001.json').write_text(json.dumps(report,indent=2))
 # Clean opening: no rig, select console and frame architecture in Material Preview.
 bpy.ops.object.select_all(action='DESELECT');bpy.context.view_layer.objects.active=bpy.data.objects['PROP_Control_Console']
@@ -245,7 +248,8 @@ for area in bpy.context.screen.areas:
   area.spaces.active.shading.type='MATERIAL';area.spaces.active.region_3d.view_distance=12;area.spaces.active.region_3d.view_location=(0,10.5,1.4);area.spaces.active.region_3d.view_rotation=Vector((10,-13,10)).to_track_quat('Z','Y')
 for im in bpy.data.images:
  if im.source=='FILE':im.pack()
+bpy.data.objects['PROP_Control_Interacao'].hide_set(True)
 bpy.context.preferences.filepaths.save_version=0;bpy.ops.wm.save_as_mainfile(filepath=str(ROOT/'blend/control_room_v001.blend'))
-for o in meshes:o.select_set(True)
+for o in meshes:o.hide_set(False);o.select_set(True)
 bpy.ops.export_scene.gltf(filepath=str(ROOT/'export/control_room_v001.glb'),use_selection=True,export_format='GLB',export_yup=True,export_extras=True,export_animations=False)
 print('CONTROL ROOM:',tri,'triangles;',len(meshes),'objects')
