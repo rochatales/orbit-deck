@@ -23,8 +23,7 @@ Toda arma do jogo sai com o mesmo contrato, para trocar de arma sem mexer em có
   com 0,65 / 0,75 / 0,85 m). Altura 0,45 m, largura 0,13 m.
 - Vazios em metros, relativos ao punho: `Grip_L` (0; 0,064; 0,401), `Muzzle` (0,004; 0,171; 0,535).
 - GLB 3,0 MB. Medidas e SHA-256 em `notas/medidas-v001.json`.
-- No jogo (`src/characters/player/PlayerRifle.tsx`), o `Muzzle` é alinhado à ponta do cano da
-  simulação (`writeRifleMuzzle`: lado 0,34 m, altura 0,85 m, 0,95 m à frente). O tiro não mudou.
+- **Fora do jogo** por decisão do autor: entra só depois de encaixado na mão do novo explorador e aprovado nos renders.
 
 ## Reprodução
 
@@ -33,5 +32,4 @@ Toda arma do jogo sai com o mesmo contrato, para trocar de arma sem mexer em có
 /Applications/Blender.app/Contents/MacOS/Blender -b --factory-startup -P art-source/armas/rifle-laser/scripts/comparar_tamanho.py -- "<explorador>.glb"
 ```
 
-`--comprimento 0.8` muda o tamanho; depois copiar `export/rifle-laser-v001.glb` para `src/assets/weapons/`
-e atualizar o hash no teste (`tests/rifle-laser.test.mjs` lê `notas/medidas-v001.json`).
+`--comprimento 0.8` muda o tamanho; o teste `tests/rifle-laser.test.mjs` lê `notas/medidas-v001.json`.

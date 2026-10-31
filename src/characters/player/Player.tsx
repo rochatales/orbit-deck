@@ -10,7 +10,8 @@ import {
   createInitialPlayerMotionState,
   PLAYER_COLLIDER_CENTER_Y
 } from "./playerConfig";
-import { PlayerRifle } from "./PlayerRifle";
+
+import { RIFLE_POSE } from "../../combat/config";
 
 interface PlayerProps {
   officeWorld: OfficeWorld;
@@ -31,7 +32,10 @@ export function Player({ officeWorld, spawn }: PlayerProps) {
         position={[spawn.x, PLAYER_COLLIDER_CENTER_Y + (officeWorld.supportHeight?.(spawn.x, spawn.z) ?? 0), spawn.z]}
       >
         <PlayerModel motionRef={motionRef} />
-        {combat && <PlayerRifle/>}
+        {combat && <group name="PlayerRifle" position={[RIFLE_POSE.side, RIFLE_POSE.height - PLAYER_COLLIDER_CENTER_Y, RIFLE_POSE.gripForward]}>
+          <mesh castShadow><boxGeometry args={[0.16, 0.18, 0.7]}/><meshStandardMaterial color="#243842"/></mesh>
+          <mesh name="RifleBarrel" position={[0,0,RIFLE_POSE.barrelForward]}><boxGeometry args={[0.08,0.08,RIFLE_POSE.barrelLength]}/><meshStandardMaterial color="#78cddd"/></mesh>
+        </group>}
       </PlayerPhysicsBody>
 
       <PlayerController
