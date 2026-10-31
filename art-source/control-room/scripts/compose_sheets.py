@@ -10,7 +10,7 @@ def sheet(name,items,cols,title):
  for i,(file,label) in enumerate(items):
   pic=ImageOps.contain(Image.open(file).convert('RGB'),(w-16,h-55));x=i%cols*w;y=80+i//cols*h;im.paste(pic,(x+(w-pic.width)//2,y));d.text((x+16,y+h-42),label,fill='#B8DADD',font=small)
  im.save(R/name)
-sheet('folha_exterior_interior.png',[(R/'04_exterior.png','Exterior • portas sul e leste preservadas'),(R/'07_maquete_interior.png','Maquete de estudo • paredes frontais removidas')],2,'CONTROL ROOM — candidato v001 | 8.140 triângulos')
+sheet('folha_exterior_interior.png',[(R/'04_exterior.png','Exterior • portas sul e leste preservadas'),(R/'07_maquete_interior.png','Maquete de estudo • paredes frontais removidas')],2,'CONTROL ROOM — candidato v001 | 8.176 triângulos')
 sheet('folha_turnaround.png',[(R/'01_front.png','Sul'),(R/'02_side.png','Leste'),(R/'03_back.png','Norte'),(R/'05_top.png','Cobertura')],2,'CONTROL ROOM — vistas ortográficas')
 sheet('folha_referencia_modelo.png',[(ROOT/'referencia/control_room_ref.jpg','Referência fornecida pelo autor'),(R/'04_exterior.png','Modelo v001 — exterior'),(R/'07_maquete_interior.png','Modelo v001 — maquete de interior')],3,'CONTROL ROOM — referência × modelo')
 sheet('folha_anterior_candidato.png',[(R/'12_sala_anterior.png','Anterior • extração do GLB v007'),(R/'04_exterior.png','Candidato • exterior'),(R/'13_anterior_interior.png','Anterior • sem teto'),(R/'06_interior_sem_teto.png','Candidato • sem teto, paredes preservadas')],2,'CONTROL ROOM — comparação de implantação')

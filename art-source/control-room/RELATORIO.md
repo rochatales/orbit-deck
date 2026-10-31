@@ -4,7 +4,7 @@ Candidato isolado de modelagem/exportação para S6.12. Base **f1756c4**, a pont
 
 ## Resultado e implantação
 
-**8.140 triângulos**, 26 objetos semânticos, dois materiais compartilhados, atlas PBR 2048². A contagem inclui arquitetura, interior, console e projeção. Nenhum mesh antigo ou personagem foi reutilizado no GLB. A sala anterior só é importada para os renders de comparação.
+**8.176 triângulos**, 26 objetos semânticos, dois materiais compartilhados, atlas PBR 2048². A contagem inclui arquitetura, interior, console e projeção. Nenhum mesh antigo ou personagem foi reutilizado no GLB. A sala anterior só é importada para os renders de comparação. O Explorador r7 foi importado separadamente no estudo `14_escala_explorador.png`, com a escala real 0,857: altura avaliada em Idle **1,48985 m**. Seu mesh não integra o GLB da sala; referência e hash estão em `notas/escala_explorador.json`.
 
 Dimensão nominal 7 × 6,5 m, centro mundial do jogo **(0; −10,5)**, vãos nominais de 2,2 m ao sul e a leste (os batentes deixam ~2,14 m de passagem geométrica e ~2,20 m de altura). Mantida a segunda entrada funcional, embora a referência ilustre principalmente a fachada sul. Corpo/pedestal respeitam a implantação; caixilhos, conduítes e portal têm pequenas saliências além do casco, documentadas nos bounds do manifesto. Altura da cobertura ~3,04 m, antena ~4,13 m. Piso estrutural em Y=0, com linhas decorativas até 5 mm acima; pedestal enterrado de −0,15 a 0 m. Todos os móveis e folhas de porta assentam no nível 0, permitindo omitir `PIS_Control` ao reutilizar o piso original sem deixar a sala suspensa.
 
@@ -59,9 +59,12 @@ A comparação anterior extrai arquitetura e props com `ambiente=brand-brain` do
 4. Python: `scripts/validate_circulation.py`.
 5. Blender headless: `--factory-startup --python scripts/render_control_room.py`.
 6. Python com Pillow: `scripts/compose_sheets.py`.
+7. Blender headless: `--factory-startup --python scripts/render_scale.py`, para a conferência adicional com o personagem padrão.
 
 Scripts resolvem diretórios pelo próprio arquivo. A comparação anterior depende de `src/assets/colony-v007.glb`/manifesto da base indicada; o atlas usa a referência no caminho original apenas para copiá-la. Renderizar e validar não salva sobre a fonte. Reconstrução é determinística, mas substitui os arquivos gerados: preserve qualquer revisão manual em uma nova versão antes de executá-la.
 
 ## Revisão técnica
 
 Revisão Claude do commit inicial `31e8b29`: letreiro EDEN, nível do piso, descrição das portas, estado inicial na fonte, envelopes dos tampos, cache Python e verificações de implantação. Letreiro recebeu suporte visível; fonte abre em repouso; piso/móveis foram alinhados ao nível 0; portas fechadas tiveram largura/altura ajustadas para evitar sobreposição. Abertura fica explicitamente fora da preparação deste candidato estático. Envelopes dos tampos foram ampliados; teste passou a ler bounds reais. Cache gerado localmente foi retirado do Git e ignorado, sem apagar arquivo.
+
+Confirmação intermediária revisou as primeiras correções e encontrou um gabinete 3 cm suspenso e o envelope do rack 3 cm curto. O gabinete foi assentado e ganhou suportes de monitores; os envelopes agora cobrem os limites reais de console, rack e consoles norte em três eixos. Novo teste verifica base dos móveis, volumes e afastamento entre folhas. Letras receberam altura/assentamento ajustados, luminárias de status foram embutidas no suporte e o estado oculto passou a valer também em render F12 da fonte.

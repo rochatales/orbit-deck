@@ -85,3 +85,19 @@ test('Control Room: implantação medida, piso nivelado e portas fechadas sem so
     assert.ok(door.maxY<=2.21);
   }
 });
+
+test('Control Room: móveis assentados, envelopes completos e folgas das folhas', () => {
+  for (const [partId,colId] of [['PROP_Control_Console','COL_CR_Console'],['PROP_Control_Rack','COL_CR_Rack'],['PROP_Control_Consoles_N','COL_CR_Consoles_N']]) {
+    const b=man.parts.find(p=>p.id===partId).bounds,c=man.colliders_proposed.find(c=>c.id===colId);
+    assert.ok(Math.abs(b.minY)<1e-5,partId);
+    for (const [axis,min,max] of [['x','minX','maxX'],['y','minY','maxY'],['z','minZ','maxZ']]) {
+      assert.ok(c.center[axis]-c.halfExtents[axis]<=b[min]+1e-5,`${partId} ${min}`);
+      assert.ok(c.center[axis]+c.halfExtents[axis]>=b[max]-1e-5,`${partId} ${max}`);
+    }
+  }
+  for (const side of ['S','L']) {
+    const a=man.parts.find(p=>p.id===`D_Control_${side}_A`).bounds,b=man.parts.find(p=>p.id===`D_Control_${side}_B`).bounds;
+    if(side==='S')assert.ok(b.minX-a.maxX>=.014);
+    else assert.ok(a.minZ-b.maxZ>=.014);
+  }
+});

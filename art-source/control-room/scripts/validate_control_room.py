@@ -16,6 +16,8 @@ for o in objects:
 source={o['id_estavel']:capture(o) for o in objects};normals={o['id_estavel']:[p.normal.copy() for p in o.data.polygons] for o in objects};source_tri=sum(len(o.data.loop_triangles) for o in objects)
 assert len(source)==len(objects)
 for o in objects:
+ assert o.hide_get()==(o.get('estado_inicial')=='oculto')
+ assert o.hide_render==(o.get('estado_inicial')=='oculto')
  assert all(math.isfinite(c) for v in o.data.vertices for c in v.co)
  assert all(p.area>1e-10 for p in o.data.polygons),(o.name,'degenerate face')
 bpy.ops.wm.read_factory_settings(use_empty=True);bpy.ops.import_scene.gltf(filepath=str(glb));imported={o['id_estavel']:o for o in bpy.context.scene.objects if o.type=='MESH'}

@@ -4,7 +4,7 @@ from pathlib import Path
 from mathutils import Vector
 ROOT=Path(__file__).resolve().parents[1];REPO=ROOT.parents[1]
 bpy.ops.wm.open_mainfile(filepath=str(ROOT/'blend/control_room_v001.blend'))
-s=bpy.context.scene;s.render.engine='CYCLES';s.cycles.samples=12;s.cycles.use_denoising=True;s.render.threads_mode='FIXED';s.render.threads=4;s.render.resolution_x=1000;s.render.resolution_y=900;s.render.resolution_percentage=100;s.view_settings.view_transform='AgX'
+s=bpy.context.scene;s.render.engine='CYCLES';s.cycles.samples=8;s.cycles.use_denoising=True;s.render.threads_mode='FIXED';s.render.threads=4;s.render.resolution_x=1000;s.render.resolution_y=900;s.render.resolution_percentage=100;s.view_settings.view_transform='AgX'
 s.world.use_nodes=True;s.world.node_tree.nodes.get('Background').inputs[0].default_value=(.22,.26,.28,1);s.world.node_tree.nodes.get('Background').inputs[1].default_value=.5
 asset=list(bpy.context.scene.objects);parts={o.name:o for o in asset};origin=Vector((0,10.5,0))
 def material(n,col):
