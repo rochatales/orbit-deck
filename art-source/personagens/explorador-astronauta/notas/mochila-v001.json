@@ -1,0 +1,31 @@
+{
+  "altura_m": 1.5,
+  "caixa_mochila_fonte": {
+    "minY": 0.025,
+    "minZ": -0.16,
+    "maxZ": 0.2,
+    "maxAbsX": 0.17
+  },
+  "corpo": {
+    "triangulos": 7986,
+    "dimensoes_xyz_m": [
+      1.216,
+      0.522,
+      1.5
+    ]
+  },
+  "mochila": {
+    "triangulos": 2014,
+    "dimensoes_xyz_m": [
+      0.497,
+      0.271,
+      0.503
+    ]
+  },
+  "sha256": {
+    "fonte_glb": "d6b2478a92c16337ba41f5c3a0ae50af083ae3d97d51ea5a9f7a4c678a9a9767",
+    "fbx": "bc77ce0df536e519d57d67ba85401db3b553ea4c3508bea1e3ec4a5b3290174d",
+    "corpo_glb": "62f801c79dbf7c1a4eca42a0a9141c42dee760cd3b45bc2432bed8e34d95568a",
+    "mochila_glb": "a5c05a9211bce49d7ca81a8416243c3a5174fa4fb00c16fe3d577f5b70b77312"
+  }
+}
