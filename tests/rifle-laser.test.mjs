@@ -2,7 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import crypto from 'node:crypto';
-import { Box3, Vector3 } from 'three';
+import { AnimationMixer, Box3, Vector3 } from 'three';
+import { loadSource } from './load-source.mjs';
 import { loadGlb } from './load-glb.mjs';
 
 const art = 'art-source/armas/rifle-laser/';
@@ -35,11 +36,36 @@ test('Rifle laser: escala real, cano para +Z, origem no punho e vazios Grip_R/Gr
     assert.deepEqual(report.vazios_gltf_m.Muzzle.map(v => Math.round(v * 100)), [muzzle.x, muzzle.y, muzzle.z].map(v => Math.round(v * 100)));
 });
 
-test('Rifle laser: fica fora do jogo até o encaixe na mão do novo explorador', () => {
-    const player = fs.readFileSync('src/characters/player/Player.tsx', 'utf8');
-    assert.doesNotMatch(player, /rifle-laser|from "\.\/PlayerRifle"/);
-    assert.equal(fs.existsSync('src/assets/weapons/rifle-laser-v001.glb'), false);
-    assert.match(player, /name="RifleBarrel"/);
+test('Rifle laser: encaixe real no RightHand em Aim_Rifle t=0; tiro físico permanece a 0,85 m', async () => {
+    const character = await loadGlb('src/assets/characters/player/explorador-astronauta.glb');
+    const weapon = await loadGlb('src/assets/weapons/rifle-laser-v001.glb');
+    const { attachRifle, detachRifle } = loadSource('src/characters/player/rifleAttachment.ts');
+    const mixer = new AnimationMixer(character.scene);
+    mixer.clipAction(character.animations.find(c => c.name === 'Aim_Rifle')).play();
+    mixer.update(0);
+    assert.equal(attachRifle(character.scene, weapon.scene), true);
+    character.scene.updateMatrixWorld(true);
+    const at = name => character.scene.getObjectByName(name).getWorldPosition(new Vector3());
+    const palm = side => ['Hand', 'HandIndex1', 'HandMiddle1', 'HandRing1']
+        .reduce((sum, suffix) => sum.add(at('mixamorig' + side + suffix)), new Vector3()).multiplyScalar(.25);
+    assert.ok(at('Grip_R').distanceTo(palm('Right')) < .0001, 'punho fecha na palma direita');
+    assert.ok(at('Grip_L').distanceTo(palm('Left')) < .05, 'apoio a menos de 5 cm da palma esquerda');
+    const muzzle = at('Muzzle'), direction = weapon.scene.getObjectByName('Muzzle').getWorldDirection(new Vector3());
+    assert.ok(Math.abs(muzzle.x - .001) < .005 && Math.abs(muzzle.y - 1.071) < .01 && Math.abs(muzzle.z - .718) < .01, `Muzzle ${muzzle.toArray()}`);
+    assert.ok(direction.z > .94 && Math.abs(direction.x) < .30 && Math.abs(direction.y) < .15, `cano +Z: ${direction.toArray()}`);
+    const { RIFLE_POSE, writeRifleMuzzle } = loadSource('src/combat/config.ts');
+    assert.equal(RIFLE_POSE.height, .85);
+    const physical = { x: 0, z: 0 }; writeRifleMuzzle(physical, 0, 0, 0);
+    assert.equal(physical.x, .34); assert.equal(physical.z, .95);
+    assert.equal(hash('src/assets/weapons/rifle-laser-v001.glb'), hash(exported));
+    const initial = muzzle.clone(); mixer.update(.1); character.scene.updateMatrixWorld(true);
+    assert.ok(at('Muzzle').distanceTo(initial) > 1e-5, 'cano acompanha a mão animada');
+    detachRifle(weapon.scene); assert.equal(weapon.scene.parent, null);
+    const hand = character.scene.getObjectByName('mixamorigRightHand');
+    hand.name = 'mixamorig:RightHand'; // também aceita o nome original, antes da sanitização do loader
+    assert.equal(attachRifle(character.scene, weapon.scene), true);
+    detachRifle(weapon.scene);
+    assert.equal(attachRifle(weapon.scene, character.scene), false, 'rig sem RightHand conserva fallback');
 });
 
 test('Rifle laser: encaixe no explorador rigado fecha as duas mãos na pose de tiro', () => {

@@ -2,15 +2,13 @@ import { FootstepClock, playerSounds } from '../../audio/events';
 import { playerPosition } from '../../state/playerTransient';
 import { simulationBlocked } from '../../game/simulationGate';
 import { useFrame } from "@react-three/fiber";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { LoopOnce, LoopRepeat, type AnimationAction } from "three";
 import type { GLBActionMap } from "../GLBCharacter";
-import { playbackRate } from "./aimMovement";
-import { crossfadeFor, pickTargetAction } from "./locomotionClips";
+import type { CharacterAssetConfig } from "../characterAssetConfig";
+import { crossfadeFor, locomotionCalibration, pickTargetAction, updateLocomotionRates } from "./locomotionClips";
 import {
-  PLAYER_BACKWARD_REFERENCE_SPEED,
   PLAYER_LOCOMOTION,
-  PLAYER_RUN_REFERENCE_SPEED,
   type PlayerAnimationState,
   type PlayerMotionState
 } from "./playerConfig";
@@ -18,6 +16,8 @@ import {
 interface LocomotionControllerProps {
   motionRef: React.MutableRefObject<PlayerMotionState>;
   actions: GLBActionMap;
+  asset: CharacterAssetConfig;
+  combat: boolean;
 }
 
 /**
@@ -26,7 +26,8 @@ interface LocomotionControllerProps {
  * in-place: a taxa acompanha a velocidade real (planarSpeed, depois das colisões) para o pé
  * de apoio não deslizar.
  */
-export function LocomotionController({ motionRef, actions }: LocomotionControllerProps) {
+export function LocomotionController({ motionRef, actions, asset, combat }: LocomotionControllerProps) {
+  const calibration = useMemo(() => locomotionCalibration(asset), [asset]);
   const stepClock = useRef(new FootstepClock());
   const currentRef = useRef<AnimationAction | null>(null);
   const stateRef = useRef<PlayerAnimationState | null>(null);
@@ -38,7 +39,7 @@ export function LocomotionController({ motionRef, actions }: LocomotionControlle
       fall.setLoop(LoopOnce, 1);
       fall.clampWhenFinished = true;
     }
-    [actions.Idle, actions.Run, actions.Talk, actions.Backward].forEach((action) => {
+    [actions.Idle, actions.Run, actions.Talk, actions.Backward, actions.Aim_Rifle].forEach((action) => {
       if (action) {
         action.setLoop(LoopRepeat, Infinity);
         action.clampWhenFinished = false;
@@ -46,17 +47,17 @@ export function LocomotionController({ motionRef, actions }: LocomotionControlle
     });
 
     // Kick off Idle so the character isn't stuck in T-pose during the first frame.
-    const idle = actions.Idle;
+    const idle = pickTargetAction("idle", actions, combat);
     if (idle && !currentRef.current) {
       idle.reset().fadeIn(PLAYER_LOCOMOTION.crossfade).play();
       currentRef.current = idle;
       stateRef.current = "idle";
     }
-  }, [actions.Fall, actions.Idle, actions.Run, actions.Talk, actions.Backward]);
+  }, [actions.Fall, actions.Idle, actions.Run, actions.Talk, actions.Backward, actions.Aim_Rifle, combat]);
 
   useFrame(() => {
     const motion = motionRef.current;
-    const target = pickTargetAction(motion.animationState, actions);
+    const target = pickTargetAction(motion.animationState, actions, combat);
     const current = currentRef.current;
 
     if (target && target !== current) {
@@ -80,14 +81,7 @@ export function LocomotionController({ motionRef, actions }: LocomotionControlle
 
     // Taxa dos ciclos in-place pela velocidade real.
     const active = currentRef.current;
-    const run = actions.Run, back = actions.Backward;
-    if (run) run.timeScale = active === run && motion.animationState === "walking"
-      ? playbackRate(motion.planarSpeed, PLAYER_RUN_REFERENCE_SPEED, PLAYER_LOCOMOTION.runTimeScale) : 1;
-    if (back) back.timeScale = active === back
-      ? playbackRate(motion.planarSpeed, PLAYER_BACKWARD_REFERENCE_SPEED, PLAYER_LOCOMOTION.backwardTimeScale) : 1;
-    // asset sem Backward (comparação): o Run, quando usado no recuo, segue a velocidade real
-    if (run && !back && active === run && motion.animationState === "backward")
-      run.timeScale = playbackRate(motion.planarSpeed, PLAYER_RUN_REFERENCE_SPEED, PLAYER_LOCOMOTION.runTimeScale);
+    updateLocomotionRates(actions, active, motion.animationState, motion.planarSpeed, calibration);
     if (!simulationBlocked() && active && motion.planarSpeed >= PLAYER_LOCOMOTION.stopSpeed && (motion.animationState === "walking" || motion.animationState === "backward")) {
       if (stepClock.current.advance(motion.animationState, active.time, active.getClip().duration))
         playerSounds.emit('playerStep', playerPosition.x, playerPosition.z);

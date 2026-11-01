@@ -1,5 +1,6 @@
 import edenAsset from '../assets/characters/npcs/brand-brain.glb';
 import playerAsset from '../assets/characters/player/player-main.glb';
+import astronautaAsset from '../assets/characters/player/explorador-astronauta.glb';
 import exploradorR7Asset from '../assets/characters/player/explorador-r7.glb';
 export type CharacterFallbackType = 'player' | 'brand-brain' | 'editorial' | 'narration' | 'design' | 'output-review' | 'smart-lab' | 'orbit-garden';
 export interface CharacterAssetConfig {
@@ -24,6 +25,10 @@ export interface CharacterAssetConfig {
      * 'preservar': materiais do GLB como exportados (normais suaves, cor e ORM bakeados).
      */
     materialProfile?: 'estilizado' | 'preservar';
+    /** Velocidades da passada do GLB, sem alterar a velocidade física. */
+    runReferenceSpeed?: number;
+    backwardReferenceSpeed?: number;
+    backwardTimeScale?: readonly [number, number];
 }
 export const PLAYER_CHARACTER_ASSET: CharacterAssetConfig = {
     id: 'player', name: 'Explorador', assetPath: playerAsset, scale: 0.857, positionOffset: [0, 0, 0], rotationOffset: [0, 0, 0], accentColor: '#66e6ff', fallbackType: 'player', materialProfile: 'estilizado'
@@ -36,8 +41,15 @@ export const PLAYER_CHARACTER_ASSET: CharacterAssetConfig = {
 export const EXPLORADOR_R7_ASSET: CharacterAssetConfig = {
     id: 'player-r7', name: 'Explorador', assetPath: exploradorR7Asset, scale: 0.857, positionOffset: [0, 0, 0], rotationOffset: [0, 0, 0], accentColor: '#66e6ff', fallbackType: 'player', materialProfile: 'preservar'
 };
-export type PlayerAssetVariant = 'r7' | 'atual';
-export const PLAYER_ASSET_VARIANTS: Record<PlayerAssetVariant, CharacterAssetConfig> = { r7: EXPLORADOR_R7_ASSET, atual: PLAYER_CHARACTER_ASSET };
+/** F1 v003: 57 ossos Mixamo, pés na origem, 1,5 m e materiais exportados. */
+export const EXPLORADOR_ASTRONAUTA_ASSET: CharacterAssetConfig = {
+    id: 'player-astronauta', name: 'Explorador astronauta', assetPath: astronautaAsset,
+    scale: 1, positionOffset: [0, 0, 0], rotationOffset: [0, 0, 0],
+    accentColor: '#66e6ff', fallbackType: 'player', materialProfile: 'preservar',
+    runReferenceSpeed: 3.0637, backwardReferenceSpeed: 4.3849, backwardTimeScale: [0.2, 2.0]
+};
+export type PlayerAssetVariant = 'astronauta' | 'r7' | 'atual';
+export const PLAYER_ASSET_VARIANTS: Record<PlayerAssetVariant, CharacterAssetConfig> = { astronauta: EXPLORADOR_ASTRONAUTA_ASSET, r7: EXPLORADOR_R7_ASSET, atual: PLAYER_CHARACTER_ASSET };
 export const EDEN_CHARACTER_ASSET: CharacterAssetConfig = {
     id: 'eden', name: 'EDEN', assetPath: edenAsset, scale: 1.3, positionOffset: [0.06, 0.68, 0], rotationOffset: [0, 0.06, 0], accentColor: '#f2c94c', fallbackType: 'brand-brain'
 };

@@ -1,5 +1,7 @@
 import type { AnimationAction } from "three";
-import { PLAYER_LOCOMOTION, type PlayerAnimationState } from "./playerConfig";
+import type { CharacterAssetConfig } from "../characterAssetConfig";
+import { playbackRate } from "./aimMovement";
+import { PLAYER_BACKWARD_REFERENCE_SPEED, PLAYER_RUN_REFERENCE_SPEED, PLAYER_LOCOMOTION, type PlayerAnimationState } from "./playerConfig";
 
 /** Ações por nome de clipe (sem depender do componente que carrega o GLB). */
 type ActionMap = Partial<Record<string, AnimationAction | null>>;
@@ -10,7 +12,7 @@ type ActionMap = Partial<Record<string, AnimationAction | null>>;
  * queda > interação > locomoção. O GLB anterior não tem Backward: na comparação ele
  * usa o Run (limitação registrada no handoff da S2.12); o Run nunca toca ao contrário.
  */
-export function pickTargetAction(state: PlayerAnimationState, actions: ActionMap): AnimationAction | null {
+export function pickTargetAction(state: PlayerAnimationState, actions: ActionMap, combat = false): AnimationAction | null {
   switch (state) {
     case "falling":
       return actions.Fall ?? actions.Idle ?? null;
@@ -23,7 +25,7 @@ export function pickTargetAction(state: PlayerAnimationState, actions: ActionMap
       return actions.Backward ?? actions.Run ?? actions.Idle ?? null;
     case "idle":
     default:
-      return actions.Idle ?? null;
+      return (combat ? actions.Aim_Rifle : null) ?? actions.Idle ?? null;
   }
 }
 
@@ -32,4 +34,22 @@ export function crossfadeFor(from: PlayerAnimationState | null, to: PlayerAnimat
   if (to === "falling") return PLAYER_LOCOMOTION.crossfadeFall;
   if ((from === "walking" && to === "backward") || (from === "backward" && to === "walking")) return PLAYER_LOCOMOTION.crossfadeReverse;
   return PLAYER_LOCOMOTION.crossfade;
+}
+
+/** Uma configuração por variante, preparada fora do quadro. */
+export function locomotionCalibration(asset: Pick<CharacterAssetConfig, 'runReferenceSpeed' | 'backwardReferenceSpeed' | 'backwardTimeScale'>) {
+  return {
+    runReferenceSpeed: asset.runReferenceSpeed ?? PLAYER_RUN_REFERENCE_SPEED,
+    backwardReferenceSpeed: asset.backwardReferenceSpeed ?? PLAYER_BACKWARD_REFERENCE_SPEED,
+    backwardTimeScale: asset.backwardTimeScale ?? PLAYER_LOCOMOTION.backwardTimeScale
+  };
+}
+
+/** Atualiza as ações já existentes, sem criar objetos no quadro. */
+export function updateLocomotionRates(actions: ActionMap, active: AnimationAction | null, state: PlayerAnimationState, speed: number, calibration: ReturnType<typeof locomotionCalibration>) {
+  const run = actions.Run, back = actions.Backward;
+  if (run) run.timeScale = active === run && (state === 'walking' || (!back && state === 'backward'))
+    ? playbackRate(speed, calibration.runReferenceSpeed, PLAYER_LOCOMOTION.runTimeScale) : 1;
+  if (back) back.timeScale = active === back
+    ? playbackRate(speed, calibration.backwardReferenceSpeed, calibration.backwardTimeScale) : 1;
 }

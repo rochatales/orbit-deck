@@ -47,6 +47,7 @@ interface GLBCharacterProps {
 
 interface PreparedScene {
   scene: Object3D;
+  materials: Material[];
   visorMaterials: MeshStandardMaterial[];
   techMaterials: MeshStandardMaterial[];
 }
@@ -158,6 +159,7 @@ function polishMaterial(material: MeshStandardMaterial, accentColor: Color, viso
 
 function prepareScene(scene: Object3D, accentColor: string, materialProfile: "estilizado" | "preservar"): PreparedScene {
   const cloned = clone(scene);
+  const materials: Material[] = [];
   const visorMaterials: MeshStandardMaterial[] = [];
   const techMaterials: MeshStandardMaterial[] = [];
   const accent = new Color(accentColor);
@@ -176,13 +178,14 @@ function prepareScene(scene: Object3D, accentColor: string, materialProfile: "es
       // 'preservar': cor, normal map e ORM já vêm bakeados; normais suaves do asset,
       // vidro sem segundo escurecimento nem transparência. Só o clone por instância.
       if (materialProfile === "estilizado") polishMaterial(standardMaterial, accent, visorMaterials, techMaterials);
+      materials.push(standardMaterial);
       return standardMaterial;
     });
 
     child.material = polishedMaterials.length === 1 ? polishedMaterials[0] : polishedMaterials;
   });
 
-  return { scene: cloned, visorMaterials, techMaterials };
+  return { scene: cloned, materials, visorMaterials, techMaterials };
 }
 
 function getAnimationBlend(animationState: GLBCharacterAnimationState) {
@@ -215,14 +218,9 @@ function GLBCharacterContent({
 }: Omit<GLBCharacterProps, "fallbackType" | "fallbackLabel">) {
   const gltf = useGLTF(assetPath);
   const prepared = useMemo(() => prepareScene(gltf.scene, accentColor, materialProfile), [accentColor, gltf.scene, materialProfile]);
+  // Só os materiais criados por este personagem; acessórios anexados depois possuem outro ciclo.
   useEffect(() => () => {
-    const materials = new Set<Material>();
-    prepared.scene.traverse(object => {
-      if (object instanceof Mesh) {
-        for (const material of Array.isArray(object.material) ? object.material : [object.material]) materials.add(material);
-      }
-    });
-    materials.forEach(material => material.dispose());
+    prepared.materials.forEach(material => material.dispose());
   }, [prepared]);
   // Drive the AnimationMixer against the cloned scene root so each character
   // instance has its own mixer/actions and clips play independently.
