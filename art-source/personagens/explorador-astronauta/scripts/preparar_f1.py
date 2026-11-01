@@ -1,4 +1,4 @@
-"""S6.8 F1 / Parada A: FBX Mixamo intactos -> um GLB, medidas e renders. Sem runtime.
+"""S6.8 F1 v002 / Parada A: Dash Jump Over com aterrissagem corrigida. Sem runtime.
 Blender -b --factory-startup -P art-source/personagens/explorador-astronauta/scripts/preparar_f1.py -- --render
 --ingest <pasta> copia somente as fontes de comparação usadas, recusando sobrescrever divergências.
 """
@@ -12,16 +12,19 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--ingest', type=Path)
 parser.add_argument('--render', action='store_true')
 args = parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
-SOURCES = ['Idle.fbx','Running.fbx','Standard_Run.fbx','Sprint Backward.fbx','Jumping Down.fbx','Jumping_Down.fbx','Death From The Front.fbx','Dying.fbx','Firing_Rifle.fbx','Reloading.fbx','Rifle_Start_Run.fbx','Running Dive Roll.fbx','Rifle Jump.fbx']
+SOURCES = ['Idle.fbx','Running.fbx','Standard_Run.fbx','Sprint Backward.fbx','Jumping Down.fbx','Jumping_Down.fbx','Death From The Front.fbx','Dying.fbx','Firing_Rifle.fbx','Reloading.fbx','Rifle_Start_Run.fbx','Running Dive Roll.fbx','Rifle Jump.fbx','dash_Jump_Over.fbx']
 MAP = {'Idle':('Idle.fbx',True), 'Run':('Running.fbx',True), 'Backward':('Sprint Backward.fbx',True),
        'Fall':('Jumping Down.fbx',False), 'Death':('Death From The Front.fbx',False),
        'Aim_Rifle':('Firing_Rifle.fbx',True), 'Reload_Rifle':('Reloading.fbx',False),
-       'Run_Rifle_Start':('Rifle_Start_Run.fbx',False), 'Dash':('Running Dive Roll.fbx',False), 'Jump_Rifle':('Rifle Jump.fbx',False)}
+       'Run_Rifle_Start':('Rifle_Start_Run.fbx',False), 'Dash':('dash_Jump_Over.fbx',False), 'Jump_Rifle':('Rifle Jump.fbx',False)}
 OUTSIDE = ['Stable Sword Outward Slash.fbx','Standing Melee Attack Downward.fbx','Turn Left 45 Degrees.fbx','Turning.fbx','Walk Forward Left.fbx']
 BONES = ['Hips','Head','LeftFoot','RightFoot','LeftToeBase','RightToeBase']
 FPS, TARGET = 30, 1.5
 sha = lambda p: hashlib.sha256(Path(p).read_bytes()).hexdigest()
-for folder in ['mixamo','notas','export','texturas/f1-v001','renders/f1-v001']:
+VERSION='v002'
+REPORT_PATH=BASE/f'notas/f1-{VERSION}.json'
+previous_renders=json.loads(REPORT_PATH.read_text()).get('renders',[]) if REPORT_PATH.exists() else []
+for folder in ['mixamo','notas',f'notas/f1-{VERSION}','export',f'texturas/f1-{VERSION}',f'renders/f1-{VERSION}']:
     (BASE/folder).mkdir(parents=True,exist_ok=True)
 if args.ingest:
     sources=[]
@@ -73,7 +76,11 @@ floor=min(p.z for p in raw_points)
 rest={b.name:[list(row)for row in b.matrix_local]for b in master.data.bones}
 assert len(rest)==57 and all(n.startswith('mixamorig:')for n in rest)
 assert master.pose.bones['mixamorig:Hips'].parent is None
-report={'base':'96d8ea5','blender':bpy.app.version_string,'fps':FPS,'altura_idle_fonte_m':raw_height,
+report={'base':'8257cdb','base_original':'96d8ea5','versao':VERSION,
+        'anterior':{'glb':'export/explorador-astronauta-rig-v001.glb','sha256':sha(BASE/'export/explorador-astronauta-rig-v001.glb'),'notas':'notas/f1-v001.json'},
+        'escala_referencia_coordenacao':1.6714,
+        'decisao_escala':'Mantida a escala do Idle v001 para preservar as outras nove ações. Root fonte medido no Hips em mundo Blender, antes de aplicar K.',
+        'blender':bpy.app.version_string,'fps':FPS,'altura_idle_fonte_m':raw_height,
         'escala':K,'alvo_m':TARGET,'origem':'piso sob Idle quadro 1; quadril projetado em X/Z=0',
         'eixos':'Blender frente -Y, Z cima; glTF frente +Z, Y cima; rotação importada do armature mantida',
         'ossos':list(rest),'triangulos':sum(len(p.vertices)-2 for p in mesh.data.polygons),'fontes':manifest,
@@ -81,7 +88,7 @@ report={'base':'96d8ea5','blender':bpy.app.version_string,'fps':FPS,'altura_idle
         'escolhas':{'Run':'Running: apoio do pé mais rápido e taxa menor que Standard_Run para 4,2 m/s.', 'Fall':'Jumping Down (com espaço): retorno dos dois pés mais próximo do piso e menor deslocamento horizontal que Jumping_Down.', 'Death':'Death From The Front: 3,433 s em vez de 5,767 s de Dying, menor deslocamento e cabeça final mais alta; ainda requer revisar interpenetração do capacete.'},
         'faltam':['Talk','Hit','Idle armado em loop','Corrida armada em loop','Recuo armado em loop'],
         'metodo_passada':'ToeBase com dois extremos do intervalo a <=1 cm da altura mínima desse pé; componente de recuo do pé relativo ao Hips, na direção de apoio; mediana das velocidades a 30 Hz. Passada efetiva = mediana × duração. Taxa = velocidade de jogo / mediana. Excursão geométrica por pé também registrada.',
-        'root_motion':'Remove horizontal do Hips em todas as ações, inclusive Dash; preserva altura e rotações. Guarda trajetória original escalada e distância para F3; nenhum deslocamento de gameplay implementado.'}
+        'root_motion':'Remove horizontal do Hips em todas as ações; somente Dash recebe correção vertical documentada. Preserva rotações e as outras nove ações. Guarda trajetória original escalada e distância para F3; nenhum deslocamento de gameplay implementado.'}
 actions={}
 for name in SOURCES:
     if name=='Idle.fbx': arm,source,objects=master,idle_source,[]
@@ -130,10 +137,55 @@ for name in SOURCES:
         # Evita uma interpolação Bezier reintroduzir deriva entre chaves constantes.
         info={**info,'clipe':clip,'loop':MAP[clip][1]}
         report['clipes'].append(info);actions[clip]=action
-        (BASE/f'notas/trajetoria-{clip}.json').write_text(json.dumps(samples,indent=2)+'\n')
+        info['trajetoria']=f'notas/f1-{VERSION}/trajetoria-{clip}.json'
+        (BASE/info['trajetoria']).write_text(json.dumps(samples,indent=2)+'\n')
     if arm==master:set_action(master,idle_source)
     else:
         for obj in objects:bpy.data.objects.remove(obj,do_unlink=True)
+# Corrige só a aterrissagem do Dash sobre a malha final, antes de escalar o master.
+# O Z do mundo Blender vira um vetor no espaço local do Hips; a matriz aqui ainda não tem K.
+set_action(master,actions['Dash']);dash=next(c for c in report['clipes'] if c['clipe']=='Dash')
+assert dash['quadros']==[1,39]
+hips=master.pose.bones['mixamorig:Hips'];before_min=[];before_locations=[]
+for frame in range(1,40):
+    scene.frame_set(frame);bpy.context.view_layer.update()
+    before_min.append(min(p.z for p in points(mesh))*K-floor*K)
+    before_locations.append(hips.location.copy())
+def window(values,i): return values[max(0,i-1):min(len(values),i+2)]
+deficits=[-z if z<-.01 else 0. for z in before_min]
+dilated=[max(window(deficits,i)) for i in range(39)]
+lifts=[statistics.mean(window(dilated,i)) for i in range(39)]
+vertical=(master.data.bones['mixamorig:Hips'].matrix_local.inverted().to_3x3()
+          @ master.matrix_world.inverted().to_3x3() @ Vector((0,0,1/K)))
+vertical_indices=[i for i in range(3) if abs(vertical[i])>1e-7]
+assert len(vertical_indices)==1,('Canal vertical não alinhado',list(vertical))
+vertical_index=vertical_indices[0]
+def protected_digest(action):
+    data=sorted((fc.data_path,fc.array_index,[(list(k.co),k.interpolation) for k in fc.keyframe_points])
+                for fc in curves(action) if not(fc.data_path=='pose.bones["mixamorig:Hips"].location' and fc.array_index==vertical_index))
+    return hashlib.sha256(json.dumps(data,separators=(',',':')).encode()).hexdigest()
+protected_before=protected_digest(actions['Dash'])
+for frame in range(1,40):
+    scene.frame_set(frame);hips.location=before_locations[frame-1]+vertical*lifts[frame-1]
+    hips.keyframe_insert('location',index=vertical_index,frame=frame,group='mixamorig:Hips')
+protected_after=protected_digest(actions['Dash'])
+assert protected_before==protected_after,'Curvas fora do canal vertical foram alteradas'
+profile=[]
+for frame in range(1,40):
+    scene.frame_set(frame);bpy.context.view_layer.update()
+    after=min(p.z for p in points(mesh))*K-floor*K
+    profile.append({'quadro':frame,'min_z_antes_m':before_min[frame-1],'falta_m':deficits[frame-1],
+                    'max_janela_m':dilated[frame-1],'elevacao_aplicada_m':lifts[frame-1],'min_z_depois_m':after})
+assert min(p['min_z_depois_m']for p in profile)>=-.01
+contact_heights=[p['min_z_depois_m']for p in profile if p['min_z_antes_m']<0]
+assert max(contact_heights)<=.12
+report['dash_altura']={'fonte':dash['fonte'],'metodo':'falta abaixo de -1 cm; máximo ±1 quadro; média ±1 quadro (janelas disponíveis nas bordas)',
+    'perfil':profile,'elevacao_maxima_aplicada_m':max(lifts),'quadros_elevados':[i+1 for i,v in enumerate(lifts)if v>1e-8],
+    'min_z_antes_m':min(before_min),'min_z_depois_m':min(p['min_z_depois_m']for p in profile),
+    'max_altura_sobre_solo_em_quadros_antes_negativos_m':max(contact_heights),
+    'canal_local_vertical':vertical_index,'vetor_local_por_metro_mundo':list(vertical),
+    'curvas_protegidas_sha256_antes':protected_before,'curvas_protegidas_sha256_depois':protected_after}
+
 # Exporta apenas as dez ações selecionadas, sem reaproveitar ou alterar FBX originais.
 for action in list(bpy.data.actions):
     if action not in actions.values():bpy.data.actions.remove(action)
@@ -151,7 +203,7 @@ for material in mesh.data.materials:
             im.scale(1024,1024)
             # FBX contém packed_file de 2048²: pack() sozinho reutilizaria os bytes antigos.
             # Salva e recarrega outra imagem para garantir pixels/bytes finais de 1024².
-            reference=BASE/'texturas/f1-v001'/f'{im.name}.png'
+            reference=BASE/f'texturas/f1-{VERSION}'/f'{im.name}.png'
             im.filepath_raw=str(reference);im.file_format='PNG';im.save()
             color='base_color' in im.name
             destination=reference
@@ -179,35 +231,37 @@ for item in report['clipes']:
     item['altura_quadril_min_max_m']=[min(p.z for p in positions),max(p.z for p in positions)]
 set_action(master,actions['Idle']);scene.frame_set(1);bpy.context.view_layer.update()
 bpy.ops.object.select_all(action='DESELECT');master.select_set(True);mesh.select_set(True);bpy.context.view_layer.objects.active=master
-output=BASE/'export/explorador-astronauta-rig-v001.glb'
+output=BASE/f'export/explorador-astronauta-rig-{VERSION}.glb'
 bpy.ops.export_scene.gltf(filepath=str(output),export_format='GLB',use_selection=True,export_yup=True,
  export_animations=True,export_animation_mode='ACTIONS',export_anim_single_armature=True,export_anim_slide_to_zero=True,
  export_force_sampling=True,export_frame_range=False,export_optimize_animation_size=True,export_image_format='AUTO',export_skins=True)
 report['glb']={'arquivo':str(output.relative_to(BASE)),'bytes':output.stat().st_size,'sha256':sha(output),'alvo_bytes':3000000}
-report['renders']=[]
+report['renders']=previous_renders
 if args.render:
     scene.render.engine='BLENDER_EEVEE';scene.render.resolution_x=1024;scene.render.resolution_y=1024;scene.render.resolution_percentage=100
     scene.render.image_settings.file_format='PNG';scene.render.film_transparent=False
     world=bpy.data.worlds.new('Estudio_F1');scene.world=world;world.use_nodes=True;world.node_tree.nodes['Background'].inputs[0].default_value=(.2,.23,.28,1);world.node_tree.nodes['Background'].inputs[1].default_value=.5
     for name,position,power,size in [('Principal',(3,-4,5),450,4),('Preenchimento',(-3,-2,3),200,3),('Recorte',(0,3,4),350,3)]:
         light=bpy.data.objects.new(name,bpy.data.lights.new(name,'AREA'));scene.collection.objects.link(light);light.location=position;light.data.energy=power;light.data.shape='DISK';light.data.size=size;light.rotation_euler=(Vector((0,0,.8))-light.location).to_track_quat('-Z','Y').to_euler()
-    bpy.ops.mesh.primitive_plane_add(size=200,location=(0,0,-.012));ground=bpy.context.object;ground.name='Piso_Estudio'
+    bpy.ops.mesh.primitive_plane_add(size=200,location=(0,0,0));ground=bpy.context.object;ground.name='Piso_Estudio'
     mat=bpy.data.materials.new('Cinza_Estudio');mat.diffuse_color=(.12,.14,.17,1);ground.data.materials.append(mat)
     camera=bpy.data.objects.new('Camera_F1',bpy.data.cameras.new('Camera_F1'));scene.collection.objects.link(camera);scene.camera=camera;camera.data.type='ORTHO'
-    for clip in ['Idle','Run','Backward','Aim_Rifle','Fall','Dash']:
-        row=next(i for i in report['clipes']if i['clipe']==clip)
-        trajectory=json.loads((BASE/f'notas/trajetoria-{clip}.json').read_text())
-        if clip in ['Run','Backward']:frame=max(trajectory,key=lambda s:abs(s['LeftToeBase'][1]-s['RightToeBase'][1]))['frame']
-        elif clip=='Fall':frame=max(trajectory,key=lambda s:(s['LeftFoot'][2]+s['RightFoot'][2])/2)['frame']
-        elif clip=='Dash':frame=min(trajectory,key=lambda s:s['Head'][2]-s['Hips'][2])['frame']
-        else:frame=1
-        set_action(master,actions[clip]);scene.frame_set(frame);bpy.context.view_layer.update();pts=points(mesh)
-        center=Vector(tuple((min(p[i]for p in pts)+max(p[i]for p in pts))/2 for i in range(3)))
-        camera.data.ortho_scale=max(1.9,max(max(p[i]for p in pts)-min(p[i]for p in pts)for i in range(3))*1.2)
+    report['renders']=[]
+    # A cópia para o comparativo é criada depois da exportação e não entra no GLB.
+    before_action=actions['Dash'].copy();before_action.name='DashAntes_Correcao'
+    set_action(master,before_action)
+    for frame in range(1,40):
+        scene.frame_set(frame);hips.location=before_locations[frame-1]
+        hips.keyframe_insert('location',index=vertical_index,frame=frame,group='mixamorig:Hips')
+    render_cases=[(frame,'depois',actions['Dash'])for frame in [15,*range(20,33)]]+[(26,'antes',before_action)]
+    for frame,state,action in render_cases:
+        set_action(master,action);scene.frame_set(frame);bpy.context.view_layer.update()
+        center=Vector((0,0,1.05));camera.data.ortho_scale=2.8
         for view,offset in [('frente',(0,-6,.25)),('lado',(-6,0,.25))]:
             camera.location=center+Vector(offset);camera.rotation_euler=(center-camera.location).to_track_quat('-Z','Y').to_euler()
-            path=BASE/f'renders/f1-v001/{clip}-{view}.png';scene.render.filepath=str(path);bpy.ops.render.render(write_still=True)
-            report['renders'].append({'clipe':clip,'quadro':frame,'vista':view,'arquivo':str(path.relative_to(BASE)),'escala_ortografica':camera.data.ortho_scale,'sha256':sha(path)})
+            path=BASE/f'renders/f1-{VERSION}/Dash-q{frame:02d}-{state}-{view}.png'
+            scene.render.filepath=str(path);bpy.ops.render.render(write_still=True)
+            report['renders'].append({'clipe':'Dash','quadro':frame,'estado':state,'vista':view,'arquivo':str(path.relative_to(BASE)),'escala_ortografica':camera.data.ortho_scale,'sha256':sha(path)})
 report['script_sha256']=sha(__file__)
-(BASE/'notas/f1-v001.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+REPORT_PATH.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
 print('F1_FINAL',json.dumps({'glb':report['glb'],'altura':raw_height,'escala':K,'clipes':list(actions)},ensure_ascii=False))

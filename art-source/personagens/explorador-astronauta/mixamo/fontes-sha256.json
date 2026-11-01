@@ -65,6 +65,11 @@
       "file": "Rifle Jump.fbx",
       "bytes": 7224992,
       "sha256": "4c35abafd4e5d7b1756a6a09d541c64fe87d975769813f4af1c6c2533e1b4d0b"
+    },
+    {
+      "file": "dash_Jump_Over.fbx",
+      "bytes": 7128192,
+      "sha256": "3498697c73bb2a84c71b252b8c8bd4409aefc418f8c126c13fc8d95d0957ff67"
     }
   ]
 }

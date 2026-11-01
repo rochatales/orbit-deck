@@ -1,5 +1,8 @@
 # Explorador astronauta
 
+**Pipeline ativo: F1 v002 (Dash Jump Over), ainda na Parada A sem runtime.**
+O registro da v001 abaixo é histórico; ela permanece intacta.
+
 Fonte do autor (31/10/2026): `Orange Lowpoly Astronaut` (GLB e FBX), copiada sem alteração para `fontes/`.
 Uma malha de 10.000 triângulos, feita de 201 peças soltas, sem rig.
 
@@ -52,3 +55,24 @@ queda/morte têm penetração no piso do corpo chibi com a curva vertical origin
 precisam de decisão/correção antes da integração. Detalhes e tabela no
 [handoff F1](../../../docs/handoffs/s6.8-explorador-astronauta.md).
 Aceite visual do autor pendente; **sem mudanças em src/**.
+
+## F1 v002 — Dash Jump Over / aterrissagem (01/11/2026)
+
+Sobre `8257cdb`: Dash agora usa **`dash_Jump_Over.fbx`**, 39 quadros/1,2667 s.
+Fonte intacta e SHA-256 completo no manifesto de `mixamo/` (14 arquivos);
+`Running Dive Roll.fbx` permanece como histórico. O comando de reprodução acima
+agora gera `export/explorador-astronauta-rig-v002.glb` e `notas/f1-v002.json`.
+Para reproduzir a v001, usar o script do commit `8257cdb` num checkout separado.
+
+Só o Hips vertical do Dash é corrigido: falta abaixo de −1 cm, máximo ±1 e média
+±1 quadro. **q26: −34,07 cm → ~0**; mínimo global **−2,29 mm**; maior altura de
+aterrissagem antes negativa **10,98 cm**. **q15 mantém o salto natural +87,72 cm**.
+As outras nove ações, inclusive Fall/Death, continuam idênticas ao GLB v001.
+
+- GLB v002: **2.703.108 bytes**, 1,5 m no Idle; v001 preservado.
+- Perfil completo antes/depois, máximos, curvas protegidas e SHA-256 no JSON v002.
+- `renders/f1-v002/`: 30 PNGs, frente/lado em q15 e q20–32, mais q26 antes.
+- `--render` regenera imagens/inventário; sem essa flag, o inventário é preservado.
+  Após renderizar, ambos os modos devem produzir o mesmo JSON e o mesmo GLB.
+- Fall/Death e os cinco clipes faltantes seguem aguardando o autor; não integrar
+  ainda. Ver [handoff](../../../docs/handoffs/s6.8-explorador-astronauta.md).
