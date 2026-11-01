@@ -25,11 +25,18 @@ Toda arma do jogo sai com o mesmo contrato, para trocar de arma sem mexer em có
 - GLB 3,0 MB. Medidas e SHA-256 em `notas/medidas-v001.json`.
 - **Fora do jogo** por decisão do autor: entra só depois de encaixado na mão do novo explorador e aprovado nos renders.
 
+## Encaixe no explorador
+
+`scripts/encaixar_explorador.py` encaixa o rifle na mão direita do explorador rigado no Mixamo (pose `Firing_Rifle`),
+grava o deslocamento no osso `mixamorig:RightHand` em `notas/encaixe-explorador-v001.json` e renderiza
+`renders/encaixe-explorador/`. Lê os clipes da pasta do autor (`--pasta` muda o caminho).
+
 ## Reprodução
 
 ```bash
 /Applications/Blender.app/Contents/MacOS/Blender -b --factory-startup -P art-source/armas/rifle-laser/scripts/build_rifle_laser.py -- --render
 /Applications/Blender.app/Contents/MacOS/Blender -b --factory-startup -P art-source/armas/rifle-laser/scripts/comparar_tamanho.py -- "<explorador>.glb"
+/Applications/Blender.app/Contents/MacOS/Blender -b --factory-startup -P art-source/armas/rifle-laser/scripts/encaixar_explorador.py -- --render
 ```
 
 `--comprimento 0.8` muda o tamanho; o teste `tests/rifle-laser.test.mjs` lê `notas/medidas-v001.json`.

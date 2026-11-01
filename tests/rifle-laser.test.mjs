@@ -41,3 +41,12 @@ test('Rifle laser: fica fora do jogo até o encaixe na mão do novo explorador',
     assert.equal(fs.existsSync('src/assets/weapons/rifle-laser-v001.glb'), false);
     assert.match(player, /name="RifleBarrel"/);
 });
+
+test('Rifle laser: encaixe no explorador rigado fecha as duas mãos na pose de tiro', () => {
+    const fit = JSON.parse(fs.readFileSync(art + 'notas/encaixe-explorador-v001.json', 'utf8'));
+    assert.equal(fit.osso, 'mixamorig:RightHand');
+    const pose = fit.conferencia.find(c => c.clip === fit.pose_de_encaixe.clip && c.quadro === fit.pose_de_encaixe.quadro);
+    assert.ok(pose.folga_mao_esquerda_m < 0.05);
+    const [, altura, frente] = pose.muzzle_lado_altura_frente_m;
+    assert.ok(altura > 0.8 && altura < 1.3 && frente > 0.4);
+});
