@@ -36,7 +36,7 @@ test('Rifle laser: escala real, cano para +Z, origem no punho e vazios Grip_R/Gr
     assert.deepEqual(report.vazios_gltf_m.Muzzle.map(v => Math.round(v * 100)), [muzzle.x, muzzle.y, muzzle.z].map(v => Math.round(v * 100)));
 });
 
-test('Rifle laser: encaixe real no RightHand em Aim_Rifle t=0; tiro físico permanece a 0,85 m', async () => {
+test('Rifle laser: encaixe real no RightHand em Aim_Rifle t=0; mira/tiro na altura da boca a 1,09 m', async () => {
     const character = await loadGlb('src/assets/characters/player/explorador-astronauta.glb');
     const weapon = await loadGlb('src/assets/weapons/rifle-laser-v001.glb');
     const { attachRifle, detachRifle } = loadSource('src/characters/player/rifleAttachment.ts');
@@ -54,7 +54,10 @@ test('Rifle laser: encaixe real no RightHand em Aim_Rifle t=0; tiro físico perm
     assert.ok(Math.abs(muzzle.x - .001) < .005 && Math.abs(muzzle.y - 1.071) < .01 && Math.abs(muzzle.z - .718) < .01, `Muzzle ${muzzle.toArray()}`);
     assert.ok(direction.z > .94 && Math.abs(direction.x) < .30 && Math.abs(direction.y) < .15, `cano +Z: ${direction.toArray()}`);
     const { RIFLE_POSE, writeRifleMuzzle } = loadSource('src/combat/config.ts');
-    assert.equal(RIFLE_POSE.height, .85);
+    const { PLAYER_COLLIDER_CENTER_Y, PLAYER_MODEL_ROOT_Y } = loadSource('src/characters/player/playerConfig.ts');
+    assert.equal(RIFLE_POSE.height, 1.09);
+    const worldMuzzleHeight = muzzle.y + PLAYER_COLLIDER_CENTER_Y + PLAYER_MODEL_ROOT_Y;
+    assert.ok(Math.abs(RIFLE_POSE.height - worldMuzzleHeight) < .002, `altura do cano real ${worldMuzzleHeight}`);
     const physical = { x: 0, z: 0 }; writeRifleMuzzle(physical, 0, 0, 0);
     assert.equal(physical.x, .34); assert.equal(physical.z, .95);
     assert.equal(hash('src/assets/weapons/rifle-laser-v001.glb'), hash(exported));

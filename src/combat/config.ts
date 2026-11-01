@@ -115,9 +115,10 @@ export function encounterLayout(phase = isShanghaiPhase01()): EncounterLayout {
     return phase ? PHASE01_LAYOUT : CURRENT_LAYOUT;
 }
 
-/** S2.12 B: arma provisória. Alturas sobre o chão; offsets no corpo, frente +Z. */
+/** F2: altura da boca do rifle laser em Aim_Rifle (1,071 m + offset visual de 0,02 m).
+ * Decisão do autor em 01/11/2026: mira/tiro/efeitos nesta altura; offsets X/Z preservados. */
 export const RIFLE_POSE = {
-    height: 0.85, reticleLift: 0.01,
+    height: 1.09, reticleLift: 0.01,
     side: 0.34, gripForward: 0.42, barrelForward: 0.42, barrelLength: 0.22,
     nearAim: 0.9,
 } as const;

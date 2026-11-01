@@ -36,8 +36,9 @@ test('S2.12 B2: mais próximo válido vence, ignorando volumes fora da altura; e
     assert.equal(trace(ground, .85, [{ ...robot, hp: 0 }]).blocked, false);
 });
 
-test('S2.12 B2: centro→cano usa os mesmos limites inclusivos a 0,85 m; alvo atrás só sofre dano se livre', () => {
-    for (const [minY, maxY, blocked] of [[0, .85, true], [.85, 2, true], [0, .85 - 1e-6, false], [.85 + 1e-6, 2, false]]) {
+test('S2.12 B2: centro→cano usa os mesmos limites inclusivos na altura atual do rifle; alvo atrás só sofre dano se livre', () => {
+    const h = RIFLE_POSE.height;
+    for (const [minY, maxY, blocked] of [[0, h, true], [h, 2, true], [0, h - 1e-6, false], [h + 1e-6, 2, false]]) {
         const terrain = { ...ground, obstacles: [{ ...box(minY, maxY), minZ: .5, maxZ: .6 }] };
         const sim = new CombatSimulation(terrain, 1), robot = sim.robots[0];
         Object.assign(robot, { x: .34, z: 4, hp: 75 });
@@ -48,18 +49,24 @@ test('S2.12 B2: centro→cano usa os mesmos limites inclusivos a 0,85 m; alvo at
     }
 });
 
-test('S2.12 B2: 36 alturas exportadas preservadas; caixas e seis volumes ARES-I bloqueiam o tiro real', () => {
+test('S2.12 B2: 36 alturas preservadas: 30 bloqueiam a 1,09 m, seis montes ficam abaixo; caixas e ARES-I bloqueiam', () => {
     const world = createPhase01Terrain(), exported = SHANGHAI_PHASE01.obstacles;
     assert.equal(exported.length, 36); assert.equal(world.obstacles.length, 44);
+    const below = exported.filter(o => o.maxY < RIFLE_POSE.height);
+    assert.deepEqual(below.map(o => o.id), Array.from({length:6}, (_,i) => `COL_Monte_${i}`));
+    assert.ok(below.every(o => o.maxY === .96));
     for (let i = 0; i < exported.length; i++) {
         const o = exported[i], actual = world.obstacles[i];
         assert.deepEqual(actual, { minX:o.minX, maxX:o.maxX, minZ:o.minZ, maxZ:o.maxZ, minY:o.minY, maxY:o.maxY });
-        assert.ok(Number.isFinite(o.minY) && Number.isFinite(o.maxY)); assert.ok(o.minY <= .85 && o.maxY >= .85);
+        assert.ok(Number.isFinite(o.minY) && Number.isFinite(o.maxY)); assert.ok(o.minY <= RIFLE_POSE.height);
     }
     for (let i = 0; i < world.obstacles.length; i++) {
         const o = world.obstacles[i], x = (o.minX + o.maxX) / 2;
         const hit = traceShot({x,z:o.minZ-1}, {x,z:o.maxZ+1}, {...world,obstacles:[o]}, []);
-        assert.equal(hit.blocked, true); close(hit.to.z,o.minZ);
+        const blocks = (o.minY ?? -Infinity) <= RIFLE_POSE.height && (o.maxY ?? Infinity) >= RIFLE_POSE.height;
+        assert.equal(hit.blocked, blocks);
+        if (blocks) close(hit.to.z,o.minZ);
+        else assert.ok(o.maxY === .96 && i < 36);
         if (i >= 38) { assert.equal(o.minY, undefined); assert.equal(o.maxY, undefined); }
     }
 });
@@ -68,7 +75,7 @@ test('S2.12 B2: caixas têm corpo fixo 0–1,195 m, tampa/estado não ampliam vo
     for (const p of SHANGHAI_SUPPLY_CRATES) {
         const before = crateObstacle(p), state = { phase:'closed', elapsed:0 }, x=p.x;
         assert.deepEqual([before.minY,before.maxY],[0,1.195]);
-        for (const height of [0,.85,1.195]) assert.equal(traceShot({x,z:p.z+2},{x,z:p.z-2},{...ground,obstacles:[before]},[],RIFLE_MASK,undefined,height).blocked,true);
+        for (const height of [0,RIFLE_POSE.height,1.195]) assert.equal(traceShot({x,z:p.z+2},{x,z:p.z-2},{...ground,obstacles:[before]},[],RIFLE_MASK,undefined,height).blocked,true);
         assert.equal(traceShot({x,z:p.z+2},{x,z:p.z-2},{...ground,obstacles:[before]},[],RIFLE_MASK,undefined,1.195+1e-6).blocked,false);
         assert.equal(openCrate(state,p.x,p.z+1.1,p.x,p.z+1.1),true);
         advanceCrate(state,1); assert.equal(state.phase,'opening'); assert.deepEqual(crateObstacle(p),before);
@@ -76,10 +83,10 @@ test('S2.12 B2: caixas têm corpo fixo 0–1,195 m, tampa/estado não ampliam vo
     }
 });
 
-test('S2.12 B2: faixa própria de cada inimigo com extremos inclusivos; cano a 0,85 m fere os três tipos', () => {
-    for (const [kind,maxY] of [['patrol',2.31],['largePatrol',3.28],['smallMutant',1.20]]) {
+test('S2.12 B2: faixa própria de cada inimigo com extremos inclusivos; cano a 1,09 m fere os quatro tipos', () => {
+    for (const [kind,maxY] of [['patrol',2.31],['largePatrol',3.28],['smallMutant',1.20],['largeMutant',2.92]]) {
         const r={x:0,z:5,hp:75,kind};assert.deepEqual({...robotConfig(r).hitHeight},{minY:0,maxY});
-        for (const height of [0,.85,maxY]) assert.equal(trace(ground,height,[r]).robot,r);
+        for (const height of [0,RIFLE_POSE.height,maxY]) assert.equal(trace(ground,height,[r]).robot,r);
         for (const height of [-1e-6,maxY+1e-6]) assert.equal(trace(ground,height,[r]).robot,null);
         const sim=new CombatSimulation(ground,1),live=sim.robots[0],hp=robotConfig(r).hp;
         Object.assign(live,{kind,x:.34,z:5,hp});

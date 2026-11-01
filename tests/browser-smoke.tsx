@@ -1,5 +1,6 @@
 /** Development-only fixture. Not imported by the application or the production build. */
 import { OrthographicCamera, Vector3 } from 'three';
+import { RIFLE_POSE } from '../src/combat/config';
 import { combatRuntime, useCombatStore as combat } from '../src/state/useCombatStore';
 import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
@@ -48,7 +49,7 @@ function QA() {
         const camera=new OrthographicCamera(-r.width/2,r.width/2,r.height/2,-r.height/2,.1,160);
         camera.zoom=state.targetZoom;camera.position.set(p.x+Math.cos(a)*18.38,13.55,p.z+Math.sin(a)*18.38);
         camera.lookAt(p.x,.55,p.z);camera.updateProjectionMatrix();camera.updateMatrixWorld();
-        const point=new Vector3(x,.9,z).project(camera);
+        const point=new Vector3(x,RIFLE_POSE.height,z).project(camera);
         const event={clientX:r.left+(point.x+1)*r.width/2,clientY:r.top+(1-point.y)*r.height/2,button:0,bubbles:true};
         canvas.dispatchEvent(new PointerEvent('pointermove',event));
         if(down)canvas.dispatchEvent(new PointerEvent('pointerdown',event));

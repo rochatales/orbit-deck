@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import {createSourceLoader,loadSource} from './load-source.mjs';
 const {isInterpolationEnabled,PHYSICS_STEP}=loadSource('src/physics/interpolation.ts');
 const transient=loadSource('src/state/playerTransient.ts');
-const {COMBAT}=loadSource('src/combat/config.ts');
+const {COMBAT,RIFLE_POSE}=loadSource('src/combat/config.ts');
 const {CombatSimulation}=loadSource('src/combat/simulation.ts');
 
 test('S2.11: apenas ?interp=1 habilita; passo permanece 1/60 e padrão conserva prioridades',()=>{
@@ -31,7 +31,7 @@ test('S2.11: reposição reseta físico e visual no mesmo instante, sem substitu
 test('S2.11: tiro real e checagem centro→cano continuam físicos com visual deslocado',()=>{
  const bounds={minX:-20,maxX:20,minZ:-20,maxZ:20};
  for(const blocked of [false,true]){
-  const terrain={bounds,walkableAreas:[bounds],obstacles:blocked?[{minX:.1,maxX:.3,minZ:.4,maxZ:.6,minY:0,maxY:1}]:[]};
+  const terrain={bounds,walkableAreas:[bounds],obstacles:blocked?[{minX:.1,maxX:.3,minZ:.4,maxZ:.6,minY:0,maxY:RIFLE_POSE.height}]:[]};
   const s=new CombatSimulation(terrain,1),r=s.robots[0];Object.assign(r,{x:.34,z:5,hp:75});
   transient.placePlayer({x:0,y:0,z:0});transient.writePlayerVisualPosition(10,.25,10);
   s.step(1/60,{player:transient.playerPosition,aim:{x:.34,z:10},facingAngle:0,firing:true,reload:false});

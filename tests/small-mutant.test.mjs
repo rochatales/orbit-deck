@@ -45,7 +45,7 @@ test('Mutante: spawns e todos os segmentos válidos no próprio raio, com contat
 
 test('Mutante: dois tiros de 25 pelo cano a 0,85 m, alerta e um único drop orgânico',()=>{
  const{s,animals}=animalsOnly(),r=animals[0];animals.slice(1).forEach(r=>r.hp=0);Object.assign(r,{x:0,z:0,hp:50,alerted:false});
- const input={...idle,player:{x:0,z:7},facingAngle:Math.PI,firing:true};assert.equal(RIFLE_POSE.height,.85);
+ const input={...idle,player:{x:0,z:7},facingAngle:Math.PI,firing:true};assert.equal(RIFLE_POSE.height,1.09);
  s.step(1/60,input);assert.equal(r.hp,25);assert.ok(r.alerted);assert.equal(s.kills,0);assert.equal(s.drops[r.drop].spawned,false);assert.ok(Math.hypot(s.shots[0].from.x,s.shots[0].from.z-7)>.9,'origem no cano, não centro');
  s.cooldown=0;s.step(1/60,input);assert.equal(r.hp,0);assert.equal(s.kills,1);const drop=s.drops[r.drop];assert.equal(drop.kind,'organic');assert.equal(drop.active,true);
  s.step(1/60,{...idle,player:drop},true);assert.equal(s.organic,0);s.step(1/60,{...idle,player:drop});assert.equal(s.organic,1);assert.deepEqual([s.iron,s.copper,s.titanium],[0,0,0]);advance(s,.5,{...idle,player:drop});assert.equal(s.organic,1);assert.equal(s.snapshot.organic,1);
