@@ -6,7 +6,7 @@ import { AnimationMixer, Box3, LoopOnce, PropertyBinding, Vector3 } from 'three'
 import { loadGlb } from './load-glb.mjs';
 
 const base = 'art-source/personagens/explorador-astronauta/';
-const report = JSON.parse(fs.readFileSync(base + 'notas/f1-v002.json'));
+const report = JSON.parse(fs.readFileSync(base + 'notas/f1-v003.json'));
 const file = base + report.glb.arquivo;
 const bytes = fs.readFileSync(file), jsonSize = bytes.readUInt32LE(12);
 const raw = JSON.parse(bytes.subarray(20, 20 + jsonSize));
@@ -165,20 +165,88 @@ function animationData(buffer){
     }).sort((a,b)=>(a.node+a.path).localeCompare(b.node+b.path))]));
 }
 
-test('S6.8 F1 v002: outras nove ações idênticas ao v001 e arquivo histórico preservado',()=>{
-    const historical=JSON.parse(fs.readFileSync(base+'notas/f1-v001.json'));
-    assert.equal(hash(base+historical.glb.arquivo),historical.glb.sha256);
+test('S6.8 F1 v003: outras oito ações idênticas ao v002; v001/v002 preservados e só Hips translada',()=>{
+    for(const version of ['v001','v002']){
+        const historical=JSON.parse(fs.readFileSync(base+`notas/f1-${version}.json`));
+        assert.equal(hash(base+historical.glb.arquivo),historical.glb.sha256,version);
+        assert.ok(report.preservados.some(p=>p.sha256===historical.glb.sha256));
+    }
+    const historical=JSON.parse(fs.readFileSync(base+'notas/f1-v002.json'));
     assert.equal(report.anterior.sha256,historical.glb.sha256);
     assert.equal(report.escala,historical.escala,'altura do Idle não foi recalibrada');
     const before=animationData(fs.readFileSync(base+historical.glb.arquivo)),after=animationData(bytes);
-    for(const name of expected.filter(n=>n!=='Dash'))assert.deepEqual(after[name],before[name],name);
+    for(const name of expected.filter(n=>!['Fall','Death'].includes(n)))assert.deepEqual(after[name],before[name],name);
+    for(const name of ['Fall','Death']){
+        for(const channel of after[name]){
+            if(channel.node==='mixamorig:Hips'&&channel.path==='translation')continue;
+            const original=before[name].find(c=>c.node===channel.node&&c.path===channel.path);
+            if(channel.path!=='translation')assert.deepEqual(channel,original,`${name}: ${channel.node} ${channel.path}`);
+            else{
+                // O exportador decompõe matrizes com novo Hips: arredondamento Float32 submicrométrico.
+                assert.deepEqual({...channel,values:undefined},{...original,values:undefined});
+                assert.equal(channel.values.length,original.values.length);
+                channel.values.forEach((v,i)=>assert.ok(Math.abs(v-original.values[i])<=3e-7,`${name}: ${channel.node} translação local`));
+            }
+        }
+    }
 });
 
-test('S6.8 F1 v002: relatório conserva renders do salto/aterrissagem e comparação q26',()=>{
-    assert.equal(report.renders.length,30);
+test('S6.8 F1 v003: relatório conserva os 24 renders críticos antes/depois',()=>{
+    assert.equal(report.renders.length,24);
     for(const r of report.renders)assert.equal(hash(base+r.arquivo),r.sha256);
-    for(const frame of [15,...Array.from({length:13},(_,i)=>i+20)])for(const view of ['frente','lado']){
-        assert.ok(report.renders.some(r=>r.quadro===frame&&r.vista===view&&r.estado==='depois'));
+    for(const[clip,frames]of [['Fall',[1,7,46,80]],['Death',[87,104]]])
+        for(const frame of frames)for(const view of ['frente','lado'])for(const state of ['antes','depois']){
+            assert.ok(report.renders.some(r=>r.clipe===clip&&r.quadro===frame&&r.vista===view&&r.estado===state));
+        }
+});
+
+function minY(g){
+    g.scene.traverse(o=>{if(o.isSkinnedMesh)o.computeBoundingBox();});
+    return new Box3().setFromObject(g.scene).min.y;
+}
+
+test('S6.8 F1 v003: Fall sem borda, solo ≥-1 cm, pernas naturais ≤25 cm e flutuação induzida ≤8 cm',async()=>{
+    const g=await loadGlb(file),at=play(g,'Fall'),data=report.fall_altura;
+    assert.equal(data.perfil.length,81);
+    assert.equal(data.curvas_protegidas_sha256_antes,data.curvas_protegidas_sha256_depois);
+    const idle=await loadGlb(file);play(idle,'Idle')(0);
+    const anchor=bone(idle,'Hips').getWorldPosition(new Vector3()).y;
+    let lowest=Infinity,highest=-Infinity,highestContact=-Infinity;
+    for(const sample of data.perfil){
+        at((sample.quadro-1)/30);const y=minY(g);
+        lowest=Math.min(lowest,y);highest=Math.max(highest,y);
+        assert.ok(y>=-.01,`Fall q${sample.quadro}: ${y}`);
+        assert.ok(y<=.25,`Fall q${sample.quadro}: borda não removida ${y}`);
+        assert.ok(Math.abs(y-sample.min_z_depois_m)<1e-4);
+        if(sample.min_z_antes_m<0){highestContact=Math.max(highestContact,y);assert.ok(y<=.08,`Fall q${sample.quadro}: flutuação ${y}`);}
+        const hip=bone(g,'Hips').getWorldPosition(new Vector3()).y;
+        assert.ok(Math.abs(sample.quadril_z_base_m-anchor)<1e-5,'base no anchor do Idle');
+        assert.ok(Math.abs(hip-anchor-sample.elevacao_aplicada_m)<1e-4,'Hips sem o desnível vertical da borda');
+        const p=bone(g,'Hips').getWorldPosition(new Vector3());assert.ok(Math.hypot(p.x,p.z)<1e-5);
     }
-    for(const view of ['frente','lado'])assert.ok(report.renders.some(r=>r.quadro===26&&r.vista===view&&r.estado==='antes'));
+    assert.ok(lowest>-.004&&lowest<0);
+    assert.ok(highest>.20&&highest<.25,'encolhimento natural das pernas preservado');
+    assert.ok(highestContact>.05&&highestContact<.08);
+});
+
+test('S6.8 F1 v003: Death mantém queda natural, solo ≥-1 cm e flutuação induzida ≤6 cm',async()=>{
+    const g=await loadGlb(file),at=play(g,'Death'),data=report.death_altura;
+    assert.equal(data.perfil.length,104);
+    assert.equal(data.quadros_elevados.length,66);
+    assert.equal(data.curvas_protegidas_sha256_antes,data.curvas_protegidas_sha256_depois);
+    let lowest=Infinity,highestContact=-Infinity;
+    for(const sample of data.perfil){
+        at((sample.quadro-1)/30);const y=minY(g);lowest=Math.min(lowest,y);
+        assert.ok(y>=-.01,`Death q${sample.quadro}: ${y}`);
+        assert.ok(Math.abs(y-sample.min_z_depois_m)<1e-4);
+        if(sample.min_z_antes_m<0){highestContact=Math.max(highestContact,y);assert.ok(y<=.06,`Death q${sample.quadro}: flutuação ${y}`);}
+        assert.ok(Math.abs(sample.quadril_z_base_m-sample.quadril_z_original_m)<1e-5,'queda original preservada na base');
+        const hip=bone(g,'Hips').getWorldPosition(new Vector3());
+        assert.ok(Math.abs(hip.y-sample.quadril_z_original_m-sample.elevacao_aplicada_m)<1e-4);
+        assert.ok(Math.hypot(hip.x,hip.z)<1e-5);
+    }
+    assert.ok(lowest>-.009&&lowest<0);
+    assert.ok(highestContact>.04&&highestContact<.06);
+    const base=data.perfil.map(p=>p.quadril_z_base_m);
+    assert.ok(Math.max(...base)-Math.min(...base)>.3,'queda vertical não virou pose fixa');
 });

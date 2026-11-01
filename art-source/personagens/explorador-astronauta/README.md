@@ -1,6 +1,6 @@
 # Explorador astronauta
 
-**Pipeline ativo: F1 v002 (Dash Jump Over), ainda na Parada A sem runtime.**
+**Pipeline ativo: F1 v003 (Fall/Death com apoio corrigido), ainda na Parada A sem runtime.**
 O registro da v001 abaixo é histórico; ela permanece intacta.
 
 Fonte do autor (31/10/2026): `Orange Lowpoly Astronaut` (GLB e FBX), copiada sem alteração para `fontes/`.
@@ -76,3 +76,23 @@ As outras nove ações, inclusive Fall/Death, continuam idênticas ao GLB v001.
   Após renderizar, ambos os modos devem produzir o mesmo JSON e o mesmo GLB.
 - Fall/Death e os cinco clipes faltantes seguem aguardando o autor; não integrar
   ainda. Ver [handoff](../../../docs/handoffs/s6.8-explorador-astronauta.md).
+
+## F1 v003 — Fall sem borda e Death apoiado (01/11/2026)
+
+Sobre `983da4a`, sem runtime. `preparar_f1.py` agora gera
+`export/explorador-astronauta-rig-v003.glb` (**2.703.108 bytes**) e
+`notas/f1-v003.json`, preservando v001/v002. Usa as mesmas fontes intactas.
+
+- **Fall:** remove toda a translação do Hips para o anchor do Idle e aplica
+  falta abaixo de −1 cm → máximo ±1 quadro → média ±1. Piso mínimo **−3,11 mm**,
+  flexão natural até **22,28 cm**, flutuação induzida até **6,11 cm**.
+- **Death:** mantém queda natural + mesma elevação suave. Piso mínimo **−8,09 mm**,
+  flutuação induzida até **4,29 cm**, 66 quadros elevados.
+- As outras **oito ações**, incluindo Dash, são idênticas ao v002. Rotações de
+  Fall/Death preservadas; JSON guarda perfis, Hips original/base e curvas protegidas.
+- `renders/f1-v003/`: **24 PNGs antes/depois**, Fall q1/q7/q46/q80 e Death
+  q87/q104, frente/lado. Sem `--render`, JSON e inventário são preservados.
+
+Os registros acima de afundamento de Fall/Death são históricos das versões
+anteriores. Esta correção técnica não constitui aceite visual ou liberação de
+runtime. Ver [handoff](../../../docs/handoffs/s6.8-explorador-astronauta.md).
