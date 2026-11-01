@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import crypto from 'node:crypto';
 import { AnimationMixer } from 'three';
+import ts from 'typescript';
 import { loadGlb } from './load-glb.mjs';
 import { loadPlayerRuntime } from './load-player-runtime.mjs';
 import { loadSource } from './load-source.mjs';
@@ -54,4 +55,36 @@ test('S6.8 F2: ações reais seguem passada calibrada; variantes antigas mantêm
     assert.equal(locomotion.pickTargetAction('walking', actions, true), actions.Run);
     assert.equal(locomotion.pickTargetAction('falling', actions, true), actions.Fall);
     assert.equal(locomotion.pickTargetAction('idle', { Idle: actions.Idle }, true), actions.Idle);
+});
+
+
+test('S6.8 PBR: cópia runtime e prepareScene preservar mantêm MeshStandardMaterial com metalness zero', async () => {
+    const file = config.EXPLORADOR_ASTRONAUTA_ASSET.assetPath;
+    const bytes = fs.readFileSync(file), raw = JSON.parse(bytes.subarray(20, 20 + bytes.readUInt32LE(12)));
+    for (const material of raw.materials) {
+        assert.equal(material.pbrMetallicRoughness.metallicFactor, 0);
+        assert.ok((material.pbrMetallicRoughness.roughnessFactor ?? 1) >= .8);
+        assert.ok((material.extensions?.KHR_materials_specular?.specularColorFactor ?? [1, 1, 1]).every(v => v <= 1));
+    }
+    // Carrega ESM, como o GLTFLoader: duas instâncias CJS/ESM do Three quebram instanceof Mesh.
+    const code = ts.transpileModule(fs.readFileSync('src/characters/prepareCharacterScene.ts', 'utf8'), {
+        compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2020 }
+    }).outputText.replace(/from "([^"]+)"/g, (_, name) => `from "${import.meta.resolve(name)}"`);
+    const { prepareScene } = await import('data:text/javascript;base64,' + Buffer.from(code).toString('base64'));
+    assert.match(fs.readFileSync('src/characters/GLBCharacter.tsx', 'utf8'), /import \{ prepareScene \} from "\.\/prepareCharacterScene"/);
+    const gltf = await loadGlb(file), originalMaterials = [];
+    gltf.scene.traverse(o => { if (o.isMesh) originalMaterials.push(...(Array.isArray(o.material) ? o.material : [o.material])); });
+    const prepared = prepareScene(gltf.scene, '#66e6ff', 'preservar');
+    assert.notEqual(prepared.scene, gltf.scene);
+    assert.ok(prepared.materials.length > 0);
+    for (const material of prepared.materials) {
+        assert.equal(material.isMeshStandardMaterial, true);
+        assert.equal(material.metalness, 0);
+        assert.ok(material.roughness >= .8);
+        assert.ok(!originalMaterials.includes(material), 'material clonado por instância');
+        assert.ok(originalMaterials.some(m => m.color.equals(material.color)), 'cor da fonte preservada');
+        material.dispose();
+    }
+    assert.ok(originalMaterials.every(m => m.metalness === 0));
+    assert.equal(prepared.visorMaterials.length, 0, 'sem escurecimento adicional do visor');
 });

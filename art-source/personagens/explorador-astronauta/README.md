@@ -96,3 +96,15 @@ Sobre `983da4a`, sem runtime. `preparar_f1.py` agora gera
 Os registros acima de afundamento de Fall/Death são históricos das versões
 anteriores. Esta correção técnica não constitui aceite visual ou liberação de
 runtime. Ver [handoff](../../../docs/handoffs/s6.8-explorador-astronauta.md).
+
+
+## PBR v003 corrigido (01/11/2026)
+
+A geração atual restaura no Principled BSDF os parâmetros da fonte: Metallic 0,
+Roughness 1, Specular IOR Level 0,5 e Tint branco. Corrige o metal puro introduzido
+pelo FBX do Mixamo, sem alterar malha, skin, animações ou texturas.
+GLB atual: **2.702.968 bytes**, SHA-256
+`4777b703632b7761f55bea4f3fc0cfba45d5b006128b248a6852ab25b66d9ba9`.
+Os valores/tamanhos anteriores acima são históricos; v001/v002 e fontes intactos.
+A seção `material_pbr` do JSON registra antes/depois. Os renders de pose continuam
+históricos; capturas do runtime atualizadas no handoff da F2.

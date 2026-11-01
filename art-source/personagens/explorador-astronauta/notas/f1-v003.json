@@ -3564,6 +3564,52 @@
       1.5000001192092896
     ]
   },
+  "material_pbr": {
+    "base_correcao": "31aef0b",
+    "fonte": "explorador-astronauta-original.glb",
+    "materiais": [
+      {
+        "nome": "material_0",
+        "antes_fbx": {
+          "Metallic": 1.0,
+          "Roughness": 0.5527864098548889,
+          "Specular IOR Level": 1.0,
+          "Specular Tint": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "depois": {
+          "Metallic": 0.0,
+          "Roughness": 1.0,
+          "Specular IOR Level": 0.5,
+          "Specular Tint": [
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      }
+    ],
+    "exportados": [
+      {
+        "doubleSided": true,
+        "name": "material_0",
+        "normalTexture": {
+          "index": 0
+        },
+        "pbrMetallicRoughness": {
+          "baseColorTexture": {
+            "index": 1
+          },
+          "metallicFactor": 0
+        }
+      }
+    ]
+  },
   "texturas": [
     {
       "nome": "base_color",
@@ -3662,8 +3708,8 @@
   "observacao_mascara": "Ações completas preservadas; nomes de ossos separados para futuro filtro de tronco/pernas S6.11, sem mixer/runtime nesta parada.",
   "glb": {
     "arquivo": "export/explorador-astronauta-rig-v003.glb",
-    "bytes": 2703108,
-    "sha256": "5f5ac79bed28b0bb70676da6d66e1b2fd389089ea2c573003576c5aec9df7668",
+    "bytes": 2702968,
+    "sha256": "4777b703632b7761f55bea4f3fc0cfba45d5b006128b248a6852ab25b66d9ba9",
     "alvo_bytes": 3000000
   },
   "renders": [
@@ -3908,5 +3954,5 @@
       "sha256": "8c6e3b3e57bdec04850812c64d9ac5cb5b8047066806a03fffa250947e10266f"
     }
   ],
-  "script_sha256": "dce8ea418044486c23487b63977e29ac7c3f49ad05c05948d8553fbe717663a6"
+  "script_sha256": "e2cce68f858b43f4c7c3c56a8b1709420ea33cadbc5690021b44040694fb977d"
 }

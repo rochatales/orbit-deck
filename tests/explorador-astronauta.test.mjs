@@ -250,3 +250,17 @@ test('S6.8 F1 v003: Death mantém queda natural, solo ≥-1 cm e flutuação ind
     const base=data.perfil.map(p=>p.quadril_z_base_m);
     assert.ok(Math.max(...base)-Math.min(...base)>.3,'queda vertical não virou pose fixa');
 });
+
+
+test('S6.8 PBR: v003 exporta o dielétrico original, rugoso e sem specular acima de 1', () => {
+    assert.ok(raw.materials.length > 0);
+    for (const material of raw.materials) {
+        assert.equal(material.pbrMetallicRoughness.metallicFactor, 0);
+        assert.ok((material.pbrMetallicRoughness.roughnessFactor ?? 1) >= .8);
+        const specular = material.extensions?.KHR_materials_specular;
+        assert.ok((specular?.specularColorFactor ?? [1, 1, 1]).every(v => v <= 1));
+        assert.ok((specular?.specularFactor ?? 1) <= 1);
+    }
+    assert.equal(report.material_pbr.materiais[0].depois.Metallic, 0);
+    assert.equal(report.material_pbr.materiais[0].depois.Roughness, 1);
+});

@@ -212,6 +212,21 @@ scene.frame_set(1);bpy.context.view_layer.update()
 report['ajuste_origem_blender_m']=list(master.location)
 idle_points=points(mesh)
 report['idle_export_m']={'min': [min(p[i]for p in idle_points)for i in range(3)],'max':[max(p[i]for p in idle_points)for i in range(3)]}
+# O FBX do Mixamo introduz metal puro e specular ampliado. Restaura o PBR da fonte glTF:
+# traje dielétrico (metallic 0, roughness 1), inclusive no export sem environment map.
+report['material_pbr']={'base_correcao':'31aef0b','fonte':'explorador-astronauta-original.glb', 'materiais':[]}
+for material in mesh.data.materials:
+    nodes=[node for node in material.node_tree.nodes if node.type=='BSDF_PRINCIPLED']
+    assert nodes,('Principled ausente',material.name)
+    for bsdf in nodes:
+        before={name:list(bsdf.inputs[name].default_value) if name=='Specular Tint' else bsdf.inputs[name].default_value
+                for name in ['Metallic','Roughness','Specular IOR Level','Specular Tint']}
+        values={'Metallic':0.0,'Roughness':1.0,'Specular IOR Level':0.5,'Specular Tint':(1,1,1,1)}
+        for name,value in values.items():
+            socket=bsdf.inputs[name]
+            for link in list(socket.links):material.node_tree.links.remove(link)
+            socket.default_value=value
+        report['material_pbr']['materiais'].append({'nome':material.name,'antes_fbx':before,'depois':values})
 report['texturas']=[]
 for material in mesh.data.materials:
     for node in material.node_tree.nodes:
@@ -252,6 +267,13 @@ output=BASE/f'export/explorador-astronauta-rig-{VERSION}.glb'
 bpy.ops.export_scene.gltf(filepath=str(output),export_format='GLB',use_selection=True,export_yup=True,
  export_animations=True,export_animation_mode='ACTIONS',export_anim_single_armature=True,export_anim_slide_to_zero=True,
  export_force_sampling=True,export_frame_range=False,export_optimize_animation_size=True,export_image_format='AUTO',export_skins=True)
+glb_bytes=output.read_bytes()
+exported=json.loads(glb_bytes[20:20+int.from_bytes(glb_bytes[12:16],'little')])
+for material in exported['materials']:
+    pbr=material['pbrMetallicRoughness']
+    assert pbr.get('metallicFactor',1)==0 and pbr.get('roughnessFactor',1)>=.8
+    assert max(material.get('extensions',{}).get('KHR_materials_specular',{}).get('specularColorFactor',[1,1,1]))<=1
+report['material_pbr']['exportados']=exported['materials']
 report['glb']={'arquivo':str(output.relative_to(BASE)),'bytes':output.stat().st_size,'sha256':sha(output),'alvo_bytes':3000000}
 report['renders']=previous_renders
 if args.render:
