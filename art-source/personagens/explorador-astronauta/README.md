@@ -136,3 +136,17 @@ Exporta v003, 2.699.200 bytes, SHA-256
 v001/v002/v004 permanecem intactos; notas e trajetórias atuais em f1-v003.
 
 [Handoff da consolidação](../../../docs/handoffs/s6.8-consolidacao-lab-dash-atmosfera.md).
+
+
+## v005 — Run_Backward para Shanghai (01/11/2026)
+
+`preparar_f1.py -- --shanghai --ingest <pasta do autor>` gera v005 com
+17 fontes e adiciona Backward_Rifle (Run_Backward.fbx) às dez ações do v003,
+sem alterar essas ações ou os GLBs anteriores. Recuo: 16 quadros, 0,5 s,
+referência de apoio 2,8689273214 m/s; 0,418274799× a 1,2 m/s.
+Firing_Rifle/Reloading continuam como Aim_Rifle/Reload_Rifle; runtime separa
+tronco/pernas uma vez no carregamento. GLB 2.745.732 bytes, SHA-256
+`fce21089d0d0e66ae07111282d271a1db9f5416c04293625b02c941b0bfa4bb7`.
+Sem a flag, a receita v003 permanece disponível.
+
+[Handoff e roteiro](../../../docs/handoffs/s6.8-animacoes-shanghai.md).

@@ -27,7 +27,11 @@ function HandRifle({ scene, onAttached, motionRef }: PlayerRifleProps) {
   }, [gltf.scene]);
   const rig = useMemo(() => new RifleAimRig(scene, rifle, PLAYER_COLLIDER_CENTER_Y + PLAYER_MODEL_ROOT_Y, VISOR_LIGHT.headOffset), [scene, rifle]);
   useFrame(() => {
-    if (!simulationBlocked() && rifle.parent) rig.update(playerWeaponPose, playerPosition, playerFacing.angle, combatRuntime.aimValid ? combatRuntime.aim : null, motionRef.current.animationState === 'idle', playerHeadPose);
+    if (!simulationBlocked() && rifle.parent) rig.update(
+      playerWeaponPose, playerPosition, playerFacing.angle, combatRuntime.aimValid ? combatRuntime.aim : null,
+      !(combatRuntime.simulation?.reloadLeft) && (motionRef.current.animationState === 'idle' ||
+        motionRef.current.animationState === 'backward' || (motionRef.current.animationState === 'walking' &&
+          (combatRuntime.simulation?.cooldown ?? 0) > 0)), playerHeadPose);
   }, -20);
   useEffect(() => {
     onAttached(attachRifle(scene, rifle));

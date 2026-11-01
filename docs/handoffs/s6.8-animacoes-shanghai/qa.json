@@ -1,0 +1,11 @@
+{
+  "recuo": "Backward_Pernas | 1.20 m/s | 0.418× | deslocamento 1.16 m em 1 s",
+  "corridaAtirando": "Firing_Rifle_Tronco | t=1.013 | recarga=0.000 | velocidade=4.20",
+  "recarga": "Reloading_Tronco | t=1.181 | recarga restante 1.017 s | velocidade 4.17 m/s",
+  "final": {
+    "pente": 24,
+    "reserva": 85
+  },
+  "fixture": "http://127.0.0.1:5188/tests/browser-smoke.html?comparar",
+  "observacao": "QA técnico DEV; aceite visual pendente do autor."
+}

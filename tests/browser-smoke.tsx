@@ -27,13 +27,32 @@ function QA() {
         if (forward) pointerAt(before.x,before.z-12);
         window.dispatchEvent(new KeyboardEvent('keydown', { key: forward ? 'w' : 's', code: forward ? 'KeyW' : 'KeyS', bubbles: true }));
         await new Promise(r => setTimeout(r, 1000));
-        const debug=window as unknown as {__hordaPlayerActions?:Record<string,import('three').AnimationAction>;__hordaPlayerMotion?:{planarSpeed:number}};
-        const active=Object.values(debug.__hordaPlayerActions??{}).find(a=>a.getEffectiveWeight()>.5&&a.isRunning());
+        const debug=window as unknown as {__hordaPlayerActions?:Record<string,import('three').AnimationAction>;__hordaPlayerBaseActions?:Record<string,import('three').AnimationAction>;__hordaPlayerMotion?:{planarSpeed:number}};
+        const active=Object.values(debug.__hordaPlayerBaseActions??debug.__hordaPlayerActions??{}).find(a=>a.getEffectiveWeight()>.5&&a.isRunning());
         const clip=active?.getClip().name,rate=active?.timeScale,speed=debug.__hordaPlayerMotion?.planarSpeed;
         window.dispatchEvent(new KeyboardEvent('keyup', { key: forward ? 'w' : 's', code: forward ? 'KeyW' : 'KeyS', bubbles: true }));
         await new Promise(r => setTimeout(r, 300));
         const after = playerPosition;
         setResult(`${forward?'Corrida':'Recuo'}: ${clip} | ${speed?.toFixed(2)} m/s | ${rate?.toFixed(3)}× | `+'Deslocamento em 1s: ' + Math.hypot(after.x - before.x, after.z - before.z).toFixed(2) + ' m');
+    }
+    async function armedAnimation(reload = false) {
+        if (s.session.map !== 'shanghai' || s.session.phase !== 'walking') return;
+        const sim = combatRuntime.simulation; if (!sim) return;
+        pointerAt(playerPosition.x, playerPosition.z - 12, true);
+        await new Promise(r => setTimeout(r, 300));
+        if (reload) {
+            window.dispatchEvent(new PointerEvent('pointerup', {button:0,bubbles:true}));
+            window.dispatchEvent(new KeyboardEvent('keydown', {code:'KeyR',bubbles:true}));
+            window.dispatchEvent(new KeyboardEvent('keyup', {code:'KeyR',bubbles:true}));
+        }
+        window.dispatchEvent(new KeyboardEvent('keydown', {code:'KeyW',key:'w',bubbles:true}));
+        await new Promise(r => setTimeout(r, 500));
+        const debug = window as unknown as {__hordaRifleLayers?:import('../src/characters/player/rifleAnimationLayers').RifleAnimationLayers; __hordaPlayerMotion?:{planarSpeed:number}};
+        const upper=debug.__hordaRifleLayers?.upperAction;
+        setResult(`Arma: ${upper?.getClip().name} | t=${upper?.time.toFixed(3)} | recarga=${sim.reloadLeft.toFixed(3)} | velocidade=${debug.__hordaPlayerMotion?.planarSpeed.toFixed(2)}`);
+        await new Promise(r => setTimeout(r, 900));
+        window.dispatchEvent(new KeyboardEvent('keyup', {code:'KeyW',key:'w',bubbles:true}));
+        window.dispatchEvent(new PointerEvent('pointerup', {button:0,bubbles:true}));
     }
     async function dash() {
         if(!s.ready||s.session.phase!=='walking'||game.getState().isPaused){setResult('Dash: desembarque e retome a sessão');return;}
@@ -141,7 +160,7 @@ function QA() {
   <button onClick={() => setHidden(!hidden)}>{hidden ? 'Mostrar QA' : 'Ocultar QA'}</button>
   {!hidden && <><p>Fixture DEV · posições preparadas para teste, sem alterar o mapa do produto</p>
   <button onClick={() => place('eden')}>Preparar perto de EDEN</button><button onClick={() => place('deck')}>Preparar no deck</button>
-  <button onClick={()=>movement()}>Testar movimento 1s</button><button onClick={()=>movement(true)}>Testar corrida armada</button><button onClick={rifleAim}>Testar mira/cano</button><button onClick={dash}>Testar Dash Space</button><button onClick={sample}>Medir frames 5s</button>
+  <button onClick={()=>movement()}>Testar movimento 1s</button><button onClick={()=>movement(true)}>Testar corrida armada</button><button onClick={rifleAim}>Testar mira/cano</button><button onClick={dash}>Testar Dash Space</button><button onClick={()=>armedAnimation()}>Testar corrida com tiro</button><button onClick={()=>armedAnimation(true)}>Testar Reloading</button><button onClick={sample}>Medir frames 5s</button>
   <button onClick={()=>encounter(1)}>Combate assistido 1</button><button onClick={()=>encounter(3)}>Combate assistido 3</button><button onClick={()=>encounter(5)}>Combate assistido 5</button>
   <button onClick={pauseCombat}>Testar pausa e recarga</button><button onClick={focusTest}>Testar movimento e foco</button><button onClick={death}>Testar morte natural</button>
   <p role="status">{result}</p><p>{s.session.map} / {s.session.phase} / pronto: {String(s.ready)}</p></>}

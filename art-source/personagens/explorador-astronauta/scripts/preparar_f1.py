@@ -11,6 +11,7 @@ BASE = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser()
 parser.add_argument('--ingest', type=Path)
 parser.add_argument('--render', action='store_true')
+parser.add_argument('--shanghai', action='store_true', help='v005: recuo Run_Backward para combate; v003 preservado')
 args = parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
 SOURCES = ['Idle.fbx','Running.fbx','Standard_Run.fbx','Sprint Backward.fbx','Jumping Down.fbx','Jumping_Down.fbx','Death From The Front.fbx','Dying.fbx','Firing_Rifle.fbx','Reloading.fbx','Rifle_Start_Run.fbx','Running Dive Roll.fbx','Rifle Jump.fbx','dash_Jump_Over.fbx','Rifle_Run_00.fbx','Backwards_Rifle_Run.fbx']
 MAP = {'Idle':('Idle.fbx',True), 'Run':('Rifle_Run_00.fbx',True), 'Backward':('Backwards_Rifle_Run.fbx',True),
@@ -21,7 +22,10 @@ OUTSIDE = ['Stable Sword Outward Slash.fbx','Standing Melee Attack Downward.fbx'
 BONES = ['Hips','Head','LeftFoot','RightFoot','LeftToeBase','RightToeBase']
 FPS, TARGET = 30, 1.5
 sha = lambda p: hashlib.sha256(Path(p).read_bytes()).hexdigest()
-VERSION='v003'
+if args.shanghai:
+    SOURCES.append('Run_Backward.fbx')
+    MAP['Backward_Rifle']=('Run_Backward.fbx',True)
+VERSION='v005' if args.shanghai else 'v003'
 REPORT_PATH=BASE/f'notas/f1-{VERSION}.json'
 previous_renders=json.loads(REPORT_PATH.read_text()).get('renders',[]) if REPORT_PATH.exists() else []
 for folder in ['mixamo','notas',f'notas/f1-{VERSION}','export',f'texturas/f1-{VERSION}',f'renders/f1-{VERSION}']:
@@ -77,9 +81,9 @@ floor=min(p.z for p in raw_points)
 rest={b.name:[list(row)for row in b.matrix_local]for b in master.data.bones}
 assert len(rest)==57 and all(n.startswith('mixamorig:')for n in rest)
 assert master.pose.bones['mixamorig:Hips'].parent is None
-report={'base':'ab46ac2','base_original':'96d8ea5','versao':VERSION,
+report={'base':'150a063' if args.shanghai else 'ab46ac2','base_original':'96d8ea5','versao':VERSION,
         'anterior':{'glb':'export/explorador-astronauta-rig-v004.glb','sha256':sha(BASE/'export/explorador-astronauta-rig-v004.glb'),'notas':'notas/f1-v004.json'},
-        'preservados':[{'glb':f'export/explorador-astronauta-rig-{v}.glb','sha256':sha(BASE/f'export/explorador-astronauta-rig-{v}.glb'),'notas':f'notas/f1-{v}.json'} for v in ['v001','v002','v004']],
+        'preservados':[{'glb':f'export/explorador-astronauta-rig-{v}.glb','sha256':sha(BASE/f'export/explorador-astronauta-rig-{v}.glb'),'notas':f'notas/f1-{v}.json'} for v in (['v001','v002','v003','v004'] if args.shanghai else ['v001','v002','v004'])],
         'escala_referencia_coordenacao':1.6714,
         'decisao_escala':'Mantida a escala do Idle v001; só Run e Backward trocam a fonte nesta consolidação. Root fonte medido no Hips em mundo Blender, antes de aplicar K.',
         'blender':bpy.app.version_string,'fps':FPS,'altura_idle_fonte_m':raw_height,
@@ -87,7 +91,7 @@ report={'base':'ab46ac2','base_original':'96d8ea5','versao':VERSION,
         'eixos':'Blender frente -Y, Z cima; glTF frente +Z, Y cima; rotação importada do armature mantida',
         'ossos':list(rest),'triangulos':sum(len(p.vertices)-2 for p in mesh.data.polygons),'fontes':manifest,
         'comparacoes':[], 'clipes':[], 'fora_do_escopo':OUTSIDE,
-        'escolhas':{'Run':'Rifle_Run_00: loop armado para Marte e Shanghai, decisão do autor em 01/11/2026.', 'Backward':'Backwards_Rifle_Run: recuo armado, decisão do autor em 01/11/2026.', 'Fall':'Jumping Down (com espaço): retorno dos dois pés mais próximo do piso e menor deslocamento horizontal que Jumping_Down.', 'Death':'Death From The Front: 3,433 s, queda natural com elevação suave autorizada na v003.'},
+        'escolhas':{'Run':'Rifle_Run_00: loop armado para Marte e Shanghai, decisão do autor em 01/11/2026.', 'Backward':'Backwards_Rifle_Run: recuo armado preservado em Marte.', 'Backward_Rifle':'Run_Backward: novo recuo apontado para Shanghai, pedido do autor em 01/11/2026.' if args.shanghai else 'Fora deste export.', 'Fall':'Jumping Down (com espaço): retorno dos dois pés mais próximo do piso e menor deslocamento horizontal que Jumping_Down.', 'Death':'Death From The Front: 3,433 s, queda natural com elevação suave autorizada na v003.'},
         'faltam':['Talk','Hit','Idle armado em loop'],
         'metodo_passada':'ToeBase com dois extremos do intervalo a <=1 cm da altura mínima desse pé; componente de recuo do pé relativo ao Hips, na direção de apoio; mediana das velocidades a 30 Hz. Passada efetiva = mediana × duração. Taxa = velocidade de jogo / mediana. Excursão geométrica por pé também registrada.',
         'root_motion':'Remove horizontal do Hips em todas as ações; Dash, Fall e Death recebem elevação suave; Fall também neutraliza o desnível vertical de borda. Preserva Dash/Fall/Death corrigidos e as ações que não são Run/Backward. Guarda trajetória original escalada e distância para F3; nenhum deslocamento de gameplay implementado.'}
@@ -112,7 +116,7 @@ for name in SOURCES:
     info={'fonte':name,'quadros':[start,end],'quantidade_quadros':end-start+1,'duracao_s':duration,
           'root_fonte_delta_xyz_blender_m':[v/K for v in delta],'root_fonte_horizontal_reta_m':math.hypot(delta[0],delta[1])/K,'root_original_delta_xyz_blender_m':delta,'root_original_horizontal_reta_m':math.hypot(delta[0],delta[1]),'root_original_horizontal_percurso_m':horizontal,
           'passada':None,'taxa_sugerida':None}
-    if name in ['Running.fbx','Standard_Run.fbx','Sprint Backward.fbx','Rifle_Run_00.fbx','Backwards_Rifle_Run.fbx']:
+    if name in ['Running.fbx','Standard_Run.fbx','Sprint Backward.fbx','Rifle_Run_00.fbx','Backwards_Rifle_Run.fbx','Run_Backward.fbx']:
         sign=-1 if 'Backward' in name else 1
         velocities=[];excursions={};support={}
         for side in ['LeftToeBase','RightToeBase']:

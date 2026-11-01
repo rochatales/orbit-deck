@@ -1,3 +1,5 @@
+import { combatRuntime } from '../../state/useCombatStore';
+import { RifleAnimationLayers } from './rifleAnimationLayers';
 import { FootstepClock, playerSounds } from '../../audio/events';
 import { playerPosition } from '../../state/playerTransient';
 import { simulationBlocked } from '../../game/simulationGate';
@@ -27,7 +29,15 @@ interface LocomotionControllerProps {
  * de apoio não deslizar.
  */
 export function LocomotionController({ motionRef, actions, asset, combat }: LocomotionControllerProps) {
-  const calibration = useMemo(() => locomotionCalibration(asset), [asset]);
+  const layers = useMemo(() => combat && asset.id === 'player-astronauta' && actions.Backward_Rifle && actions.Run
+    ? new RifleAnimationLayers(actions) : null, [combat, asset.id, actions]);
+  useEffect(() => () => layers?.dispose(), [layers]);
+  const baseActions = layers?.legs ?? actions;
+  useEffect(() => {
+    if (import.meta.env.DEV) Object.assign(window, { __hordaPlayerBaseActions: baseActions, __hordaRifleLayers: layers });
+  }, [baseActions, layers]);
+  const calibration = useMemo(() => locomotionCalibration(combat && asset.combatBackwardReferenceSpeed
+    ? { ...asset, backwardReferenceSpeed: asset.combatBackwardReferenceSpeed } : asset), [asset, combat]);
   const stepClock = useRef(new FootstepClock());
   const currentRef = useRef<AnimationAction | null>(null);
   const stateRef = useRef<PlayerAnimationState | null>(null);
@@ -43,17 +53,17 @@ export function LocomotionController({ motionRef, actions, asset, combat }: Loco
     });
 
     // Kick off Idle so the character isn't stuck in T-pose during the first frame.
-    const idle = pickTargetAction("idle", actions, combat);
+    const idle = pickTargetAction("idle", baseActions, combat);
     if (idle && !currentRef.current) {
       idle.reset().fadeIn(PLAYER_LOCOMOTION.crossfade).play();
       currentRef.current = idle;
       stateRef.current = "idle";
     }
-  }, [actions.Fall, actions.Dash, actions.Idle, actions.Run, actions.Talk, actions.Backward, actions.Aim_Rifle, actions.Run_Rifle, combat]);
+  }, [actions.Fall, actions.Dash, actions.Idle, actions.Run, actions.Talk, actions.Backward, actions.Aim_Rifle, actions.Run_Rifle, combat, baseActions]);
 
   useFrame(() => {
     const motion = motionRef.current;
-    const target = pickTargetAction(motion.animationState, actions, combat);
+    const target = pickTargetAction(motion.animationState, baseActions, combat);
     const current = currentRef.current;
 
     const onceChanged = motion.animationState !== stateRef.current &&
@@ -73,7 +83,9 @@ export function LocomotionController({ motionRef, actions, asset, combat }: Loco
 
     // Taxa dos ciclos in-place pela velocidade real.
     const active = currentRef.current;
-    updateLocomotionRates(actions, active, motion.animationState, motion.planarSpeed, calibration);
+    updateLocomotionRates(baseActions, active, motion.animationState, motion.planarSpeed, calibration);
+    const simulation = combatRuntime.simulation;
+    layers?.update(motion.animationState, simulation?.reloadLeft ?? 0, (simulation?.cooldown ?? 0) > 0, active, simulationBlocked());
     if (!simulationBlocked() && active && motion.planarSpeed >= PLAYER_LOCOMOTION.stopSpeed && (motion.animationState === "walking" || motion.animationState === "backward")) {
       if (stepClock.current.advance(motion.animationState, active.time, active.getClip().duration))
         playerSounds.emit('playerStep', playerPosition.x, playerPosition.z);

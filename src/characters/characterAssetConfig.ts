@@ -29,6 +29,7 @@ export interface CharacterAssetConfig {
     runReferenceSpeed?: number;
     combatRunReferenceSpeed?: number;
     backwardReferenceSpeed?: number;
+    combatBackwardReferenceSpeed?: number;
     backwardTimeScale?: readonly [number, number];
 }
 export const PLAYER_CHARACTER_ASSET: CharacterAssetConfig = {
@@ -48,7 +49,7 @@ export const EXPLORADOR_ASTRONAUTA_ASSET: CharacterAssetConfig = {
     id: 'player-astronauta', name: 'Explorador astronauta', assetPath: astronautaAsset,
     scale: 1, positionOffset: [0, 0, 0], rotationOffset: [0, 0, 0],
     accentColor: '#66e6ff', fallbackType: 'player', materialProfile: 'preservar',
-    runReferenceSpeed: 2.7706, combatRunReferenceSpeed: 2.7706, backwardReferenceSpeed: 1.4012, backwardTimeScale: [0.2, 2.0]
+    runReferenceSpeed: 2.7706, combatRunReferenceSpeed: 2.7706, backwardReferenceSpeed: 1.4012, combatBackwardReferenceSpeed: 2.8689273214, backwardTimeScale: [0.2, 2.0]
 };
 export type PlayerAssetVariant = 'astronauta' | 'r7' | 'atual';
 export const PLAYER_ASSET_VARIANTS: Record<PlayerAssetVariant, CharacterAssetConfig> = { astronauta: EXPLORADOR_ASTRONAUTA_ASSET, r7: EXPLORADOR_R7_ASSET, atual: PLAYER_CHARACTER_ASSET };
