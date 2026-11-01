@@ -11,17 +11,21 @@ BASE = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser()
 parser.add_argument('--ingest', type=Path)
 parser.add_argument('--render', action='store_true')
+parser.add_argument('--combat', action='store_true', help='v004: inclui corrida armada Rifle_Run_00, preservando o modo v003')
 args = parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
 SOURCES = ['Idle.fbx','Running.fbx','Standard_Run.fbx','Sprint Backward.fbx','Jumping Down.fbx','Jumping_Down.fbx','Death From The Front.fbx','Dying.fbx','Firing_Rifle.fbx','Reloading.fbx','Rifle_Start_Run.fbx','Running Dive Roll.fbx','Rifle Jump.fbx','dash_Jump_Over.fbx']
 MAP = {'Idle':('Idle.fbx',True), 'Run':('Running.fbx',True), 'Backward':('Sprint Backward.fbx',True),
        'Fall':('Jumping Down.fbx',False), 'Death':('Death From The Front.fbx',False),
        'Aim_Rifle':('Firing_Rifle.fbx',True), 'Reload_Rifle':('Reloading.fbx',False),
        'Run_Rifle_Start':('Rifle_Start_Run.fbx',False), 'Dash':('dash_Jump_Over.fbx',False), 'Jump_Rifle':('Rifle Jump.fbx',False)}
+if args.combat:
+    SOURCES.append('Rifle_Run_00.fbx')
+    MAP['Run_Rifle']=('Rifle_Run_00.fbx',True)
 OUTSIDE = ['Stable Sword Outward Slash.fbx','Standing Melee Attack Downward.fbx','Turn Left 45 Degrees.fbx','Turning.fbx','Walk Forward Left.fbx']
 BONES = ['Hips','Head','LeftFoot','RightFoot','LeftToeBase','RightToeBase']
 FPS, TARGET = 30, 1.5
 sha = lambda p: hashlib.sha256(Path(p).read_bytes()).hexdigest()
-VERSION='v003'
+VERSION='v004' if args.combat else 'v003'
 REPORT_PATH=BASE/f'notas/f1-{VERSION}.json'
 previous_renders=json.loads(REPORT_PATH.read_text()).get('renders',[]) if REPORT_PATH.exists() else []
 for folder in ['mixamo','notas',f'notas/f1-{VERSION}','export',f'texturas/f1-{VERSION}',f'renders/f1-{VERSION}']:
@@ -37,6 +41,7 @@ if args.ingest:
         sources.append(dict(file=name,bytes=target.stat().st_size,sha256=sha(target)))
     (BASE/'mixamo/fontes-sha256.json').write_text(json.dumps({'fonte':str(args.ingest.resolve()),'arquivos':sources},ensure_ascii=False,indent=2)+'\n')
 manifest=json.loads((BASE/'mixamo/fontes-sha256.json').read_text())
+manifest={**manifest,'arquivos':[item for item in manifest['arquivos'] if item['file'] in SOURCES]}
 for item in manifest['arquivos']: assert sha(BASE/'mixamo'/item['file'])==item['sha256']
 
 bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -76,9 +81,9 @@ floor=min(p.z for p in raw_points)
 rest={b.name:[list(row)for row in b.matrix_local]for b in master.data.bones}
 assert len(rest)==57 and all(n.startswith('mixamorig:')for n in rest)
 assert master.pose.bones['mixamorig:Hips'].parent is None
-report={'base':'983da4a','base_original':'96d8ea5','versao':VERSION,
-        'anterior':{'glb':'export/explorador-astronauta-rig-v002.glb','sha256':sha(BASE/'export/explorador-astronauta-rig-v002.glb'),'notas':'notas/f1-v002.json'},
-        'preservados':[{'glb':f'export/explorador-astronauta-rig-{v}.glb','sha256':sha(BASE/f'export/explorador-astronauta-rig-{v}.glb'),'notas':f'notas/f1-{v}.json'} for v in ['v001','v002']],
+report={'base':'b56a8e4' if args.combat else '983da4a','base_original':'96d8ea5','versao':VERSION,
+        'anterior':{'glb':f"export/explorador-astronauta-rig-{'v003' if args.combat else 'v002'}.glb",'sha256':sha(BASE/f"export/explorador-astronauta-rig-{'v003' if args.combat else 'v002'}.glb"),'notas':f"notas/f1-{'v003' if args.combat else 'v002'}.json"},
+        'preservados':[{'glb':f'export/explorador-astronauta-rig-{v}.glb','sha256':sha(BASE/f'export/explorador-astronauta-rig-{v}.glb'),'notas':f'notas/f1-{v}.json'} for v in (['v001','v002','v003'] if args.combat else ['v001','v002'])],
         'escala_referencia_coordenacao':1.6714,
         'decisao_escala':'Mantida a escala do Idle v001 para preservar as outras oito ações. Root fonte medido no Hips em mundo Blender, antes de aplicar K.',
         'blender':bpy.app.version_string,'fps':FPS,'altura_idle_fonte_m':raw_height,
@@ -90,6 +95,9 @@ report={'base':'983da4a','base_original':'96d8ea5','versao':VERSION,
         'faltam':['Talk','Hit','Idle armado em loop','Corrida armada em loop','Recuo armado em loop'],
         'metodo_passada':'ToeBase com dois extremos do intervalo a <=1 cm da altura mínima desse pé; componente de recuo do pé relativo ao Hips, na direção de apoio; mediana das velocidades a 30 Hz. Passada efetiva = mediana × duração. Taxa = velocidade de jogo / mediana. Excursão geométrica por pé também registrada.',
         'root_motion':'Remove horizontal do Hips em todas as ações; Dash, Fall e Death recebem elevação suave; Fall também neutraliza o desnível vertical de borda. Preserva rotações e as outras oito ações da v002. Guarda trajetória original escalada e distância para F3; nenhum deslocamento de gameplay implementado.'}
+if args.combat:
+    report['faltam'].remove('Corrida armada em loop')
+    report['escolhas']['Run_Rifle']='Rifle_Run_00.fbx: corrida em combate escolhida pelo autor; Run desarmado permanece em Marte.'
 actions={}
 original_fall_locations=[]
 for name in SOURCES:
@@ -111,7 +119,7 @@ for name in SOURCES:
     info={'fonte':name,'quadros':[start,end],'quantidade_quadros':end-start+1,'duracao_s':duration,
           'root_fonte_delta_xyz_blender_m':[v/K for v in delta],'root_fonte_horizontal_reta_m':math.hypot(delta[0],delta[1])/K,'root_original_delta_xyz_blender_m':delta,'root_original_horizontal_reta_m':math.hypot(delta[0],delta[1]),'root_original_horizontal_percurso_m':horizontal,
           'passada':None,'taxa_sugerida':None}
-    if name in ['Running.fbx','Standard_Run.fbx','Sprint Backward.fbx']:
+    if name in ['Running.fbx','Standard_Run.fbx','Sprint Backward.fbx','Rifle_Run_00.fbx']:
         sign=-1 if 'Backward' in name else 1
         velocities=[];excursions={};support={}
         for side in ['LeftToeBase','RightToeBase']:

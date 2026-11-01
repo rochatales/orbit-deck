@@ -46,6 +46,7 @@ function PlayerVariant({ motionRef, combat, variant }: PlayerModelProps & { vari
         <group>
           <GLBCharacter
             key={variant}
+            animationPriority={-30}
             assetPath={asset.assetPath}
             scale={asset.scale}
             positionOffset={asset.positionOffset}
@@ -61,7 +62,7 @@ function PlayerVariant({ motionRef, combat, variant }: PlayerModelProps & { vari
           />
         </group>
         <LocomotionController motionRef={motionRef} actions={actions} asset={asset} combat={combat} />
-        {combat && variant === 'astronauta' && scene && <PlayerRifle scene={scene} onAttached={setRifleAttached} />}
+        {combat && variant === 'astronauta' && scene && <PlayerRifle scene={scene} motionRef={motionRef} onAttached={setRifleAttached} />}
       </group>
       {combat && !rifleAttached && <group name="PlayerRifle" position={[RIFLE_POSE.side, RIFLE_POSE.height - PLAYER_COLLIDER_CENTER_Y, RIFLE_POSE.gripForward]}>
         <mesh castShadow><boxGeometry args={[0.16, 0.18, 0.7]} /><meshStandardMaterial color="#243842" /></mesh>

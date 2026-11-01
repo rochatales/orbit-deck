@@ -264,3 +264,26 @@ test('S6.8 PBR: v003 exporta o dielétrico original, rugoso e sem specular acima
     assert.equal(report.material_pbr.materiais[0].depois.Metallic, 0);
     assert.equal(report.material_pbr.materiais[0].depois.Roughness, 1);
 });
+
+test('S6.8 F2 v004: Rifle_Run_00 em loop, root in-place e dez ações anteriores intactas', async () => {
+    const next = JSON.parse(fs.readFileSync(base + 'notas/f1-v004.json'));
+    const exported = base + next.glb.arquivo;
+    assert.equal(hash(exported), next.glb.sha256);
+    assert.equal(hash(base + 'scripts/preparar_f1.py'), next.script_sha256);
+    assert.ok(next.glb.bytes < 3_000_000);
+    for (const source of next.fontes.arquivos) assert.equal(hash(base + 'mixamo/' + source.file), source.sha256);
+    assert.equal(next.fontes.arquivos.length, 15);
+    for (const previous of next.preservados) assert.equal(hash(base + previous.glb), previous.sha256);
+    const data = animationData(fs.readFileSync(exported)), original = animationData(bytes);
+    assert.equal(Object.keys(data).length, 11);
+    for (const name of expected) assert.deepEqual(data[name], original[name], name);
+    const run = next.clipes.find(c => c.clipe === 'Run_Rifle');
+    assert.equal(run.fonte, 'Rifle_Run_00.fbx'); assert.equal(run.loop, true);
+    assert.deepEqual(run.quadros, [1, 21]);
+    assert.ok(Math.abs(run.passada.velocidade_apoio_mediana_m_s - 2.7706128358840942) < 1e-7);
+    const g = await loadGlb(exported), at = play(g, 'Run_Rifle');
+    for (let f = 0; f < 21; f++) {
+        at(f / 30); const p = bone(g, 'Hips').getWorldPosition(new Vector3());
+        assert.ok(Math.hypot(p.x, p.z) < 1e-5, `Run_Rifle q${f + 1}`);
+    }
+});

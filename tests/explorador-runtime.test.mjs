@@ -13,14 +13,14 @@ const locomotion = loadSource('src/characters/player/locomotionClips.ts');
 const hash = file => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 const close = (a, b) => assert.ok(Math.abs(a - b) < 1e-6, `${a} != ${b}`);
 
-test('S6.8 F2: astronauta v003 padrão, r7/atual reversíveis na mesma cápsula', () => {
+test('S6.8 F2: astronauta v004 padrão, r7/atual reversíveis na mesma cápsula', () => {
     for (const query of ['', '?personagem=astronauta', '?personagem=invalido']) assert.equal(choice.varianteInicial(query), 'astronauta');
     for (const variant of ['r7', 'atual']) assert.equal(choice.varianteInicial('?personagem=' + variant), variant);
     const asset = config.PLAYER_ASSET_VARIANTS.astronauta;
     assert.equal(asset.id, 'player-astronauta'); assert.equal(asset.scale, 1);
     assert.deepEqual(asset.positionOffset, [0, 0, 0]); assert.deepEqual(asset.rotationOffset, [0, 0, 0]);
     assert.equal(asset.materialProfile, 'preservar');
-    assert.equal(hash(asset.assetPath), hash('art-source/personagens/explorador-astronauta/export/explorador-astronauta-rig-v003.glb'));
+    assert.equal(hash(asset.assetPath), hash('art-source/personagens/explorador-astronauta/export/explorador-astronauta-rig-v004.glb'));
     // Troca em runtime afeta só escolha/clipes, sem remount do PlayerPhysicsBody.
     for (const variant of ['r7', 'atual', 'astronauta']) {
         choice.usePlayerAsset.getState().setVariant(variant);
@@ -52,7 +52,10 @@ test('S6.8 F2: ações reais seguem passada calibrada; variantes antigas mantêm
     assert.equal(actions.Run.timeScale, 1); assert.equal(actions.Backward.timeScale, 1);
     assert.equal(locomotion.pickTargetAction('idle', actions, true), actions.Aim_Rifle);
     assert.equal(locomotion.pickTargetAction('idle', actions, false), actions.Idle);
-    assert.equal(locomotion.pickTargetAction('walking', actions, true), actions.Run);
+    assert.equal(locomotion.pickTargetAction('walking', actions, true), actions.Run_Rifle);
+    locomotion.updateLocomotionRates(actions, actions.Run_Rifle, 'walking', 4.2, calibration);
+    close(actions.Run_Rifle.timeScale, 4.2 / 2.7706128358840942);
+    assert.equal(locomotion.pickTargetAction('walking', actions, false), actions.Run);
     assert.equal(locomotion.pickTargetAction('falling', actions, true), actions.Fall);
     assert.equal(locomotion.pickTargetAction('idle', { Idle: actions.Idle }, true), actions.Idle);
 });

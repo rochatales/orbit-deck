@@ -115,19 +115,30 @@ export function encounterLayout(phase = isShanghaiPhase01()): EncounterLayout {
     return phase ? PHASE01_LAYOUT : CURRENT_LAYOUT;
 }
 
-/** F2: altura da boca do rifle laser em Aim_Rifle (1,071 m + offset visual de 0,02 m).
- * Decisão do autor em 01/11/2026: mira/tiro/efeitos nesta altura; offsets X/Z preservados. */
+/** Fallback da arma provisória/GLB em carregamento. O astronauta publica a boca animada real. */
 export const RIFLE_POSE = {
     height: 1.09, reticleLift: 0.01,
     side: 0.34, gripForward: 0.42, barrelForward: 0.42, barrelLength: 0.22,
-    nearAim: 0.9,
+    nearAim: 0.9, reticleMinDistance: 1,
 } as const;
 /** Ponta do cano a partir da mesma pose suavizada que gira o corpo. Sem alocação. */
-export function writeRifleMuzzle(out: { x: number; z: number }, x: number, z: number, angle: number) {
-    const forward = RIFLE_POSE.gripForward + RIFLE_POSE.barrelForward + RIFLE_POSE.barrelLength / 2;
+export function writeRifleMuzzle(out: { x: number; z: number }, x: number, z: number, angle: number, pose?: { side: number; forward: number }) {
+    const side = pose?.side ?? RIFLE_POSE.side;
+    const forward = pose?.forward ?? RIFLE_POSE.gripForward + RIFLE_POSE.barrelForward + RIFLE_POSE.barrelLength / 2;
     const sin = Math.sin(angle), cos = Math.cos(angle);
-    out.x = x + RIFLE_POSE.side * cos + forward * sin;
-    out.z = z - RIFLE_POSE.side * sin + forward * cos;
+    out.x = x + side * cos + forward * sin;
+    out.z = z - side * sin + forward * cos;
+}
+
+/** Retícula e disparo compartilham o alvo: cursor atrás/perto não inverte o cano. */
+export function writeRifleAimTarget(out: { x: number; z: number }, player: { x: number; z: number }, aim: { x: number; z: number }, angle: number, muzzle: { x: number; z: number }) {
+    const forwardX = Math.sin(angle), forwardZ = Math.cos(angle);
+    const dx = aim.x - muzzle.x, dz = aim.z - muzzle.z;
+    if (Math.hypot(aim.x - player.x, aim.z - player.z) <= RIFLE_POSE.nearAim
+        || Math.hypot(dx, dz) < 1e-8 || dx * forwardX + dz * forwardZ <= 0) {
+        out.x = muzzle.x + forwardX * RIFLE_POSE.reticleMinDistance;
+        out.z = muzzle.z + forwardZ * RIFLE_POSE.reticleMinDistance;
+    } else { out.x = aim.x; out.z = aim.z; }
 }
 
 /** S6.1: Patrol grande, apenas nas duas últimas hordas. Tuning inicial do pedido. */

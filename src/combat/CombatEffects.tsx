@@ -1,3 +1,6 @@
+import { playerPosition, playerFacing } from '../state/playerTransient';
+import { playerWeaponPose, weaponShotHeight } from '../state/playerWeaponPose';
+import { RIFLE_POSE, writeRifleMuzzle } from './config';
 import { useEffect, useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { AdditiveBlending, Color, Matrix4, Quaternion, ShaderMaterial, Vector3, type InstancedMesh, type Mesh, type PointLight } from 'three';
@@ -20,8 +23,11 @@ export function CombatEffects({ effects }: { effects: Effects }) {
         }mesh.count=n;mesh.instanceMatrix.needsUpdate=true;if(mesh.instanceColor)mesh.instanceColor.needsUpdate=true;}
         const contactMesh=contacts.current;if(contactMesh){let n=0;for(const p of effects.contacts)if(p.life>0){const alpha=p.life/COMBAT_VFX.contactFlash;pose.p.set(p.x,p.y,p.z);pose.s.setScalar(COMBAT_VFX.contactSize*Math.sqrt(alpha));pose.matrix.compose(pose.p,camera.quaternion,pose.s);contactMesh.setMatrixAt(n,pose.matrix);pose.color.copy(colors[p.kind]).multiplyScalar(2*alpha);contactMesh.setColorAt(n++,pose.color);}contactMesh.count=n;contactMesh.instanceMatrix.needsUpdate=true;if(contactMesh.instanceColor)contactMesh.instanceColor.needsUpdate=true;}
         const m=effects.muzzle,visible=m.life>0;
-        if(flash.current){flash.current.visible=visible;flash.current.position.set(m.x,m.y,m.z);flash.current.quaternion.copy(camera.quaternion);material.uniforms.alpha.value=m.life/COMBAT_VFX.flash;}
-        if(light.current){light.current.visible=visible;light.current.position.set(m.x,m.y,m.z);light.current.intensity=visible?COMBAT_VFX.muzzleLight*m.life/COMBAT_VFX.flash:0;}
+        // O clarão acompanha a boca nos 50 ms de vida; traçador/impacto mantêm o ponto do disparo.
+        if(visible&&playerWeaponPose.valid){writeRifleMuzzle(pose.p,playerPosition.x,playerPosition.z,playerFacing.angle,playerWeaponPose);pose.p.y=weaponShotHeight(playerPosition.y,RIFLE_POSE.height);}
+        else pose.p.set(m.x,m.y,m.z);
+        if(flash.current){flash.current.visible=visible;flash.current.position.copy(pose.p);flash.current.quaternion.copy(camera.quaternion);material.uniforms.alpha.value=m.life/COMBAT_VFX.flash;}
+        if(light.current){light.current.visible=visible;light.current.position.copy(pose.p);light.current.intensity=visible?COMBAT_VFX.muzzleLight*m.life/COMBAT_VFX.flash:0;}
     });
     return <><instancedMesh name="CombatImpactParticles" ref={particles} args={[undefined,undefined,COMBAT_VFX.capacity]} frustumCulled={false}>
       <icosahedronGeometry args={[1,0]}/><meshBasicMaterial toneMapped={false}/>

@@ -108,3 +108,14 @@ GLB atual: **2.702.968 bytes**, SHA-256
 Os valores/tamanhos anteriores acima são históricos; v001/v002 e fontes intactos.
 A seção `material_pbr` do JSON registra antes/depois. Os renders de pose continuam
 históricos; capturas do runtime atualizadas no handoff da F2.
+
+
+## v004 — corrida armada (01/11/2026)
+
+`preparar_f1.py --combat` adiciona `Run_Rifle` de `Rifle_Run_00.fbx` (21 quadros,
+0,6667 s, loop in-place), sem mudar as dez ações da v003. Referência da passada
+2,770613 m/s; reprodução **1,515910×** a 4,2 m/s. Originais preservados e 15 hashes
+no manifesto. Exporta `explorador-astronauta-rig-v004.glb`, **2.751.716 bytes**, SHA-256
+`714cc97b621fd860abac539af9997c1a462bdc467b6038f0366ca968502400be`.
+Sem a flag, o gerador continua reproduzindo v003. Runtime usa v004; Marte mantém
+Run e Shanghai usa Run_Rifle. Ver notas `f1-v004.json` e handoff para a mira animada.

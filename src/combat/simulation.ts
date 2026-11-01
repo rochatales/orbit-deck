@@ -1,3 +1,4 @@
+import type { WeaponMuzzleOffset } from '../state/playerWeaponPose';
 import { ENEMY_MOTION } from './enemyMotion';
 import { newMovementRecovery, resetMovementRecovery, trackMovementGoal, updateMovementRecovery, movementPriority, MOVEMENT_RECOVERY, type MovementRecovery } from './movementRecovery';
 import { pushChargeEnemy, prepareCharge, finishCharge, type ChargeState } from './mutantCharge';
@@ -7,7 +8,7 @@ import { containsShotHeight } from './shotVolume';
 import { SoundQueue } from '../audio/events';
 import { writeMutantPackTarget } from './mutantPack';
 import { placeResourceDrop } from './resourcePlacement';
-import { COMBAT, LARGE_PATROL, LARGE_MUTANT, MUTANT_CHARGE, SMALL_MUTANT, HORDE_TOTALS, robotConfig, waveRobotKind, parseEncounter, type RobotKind, HIT_LAYER, HORDE_ENCOUNTER, RIFLE_MASK, RIFLE_POSE, writeRifleMuzzle, encounterLayout, type EncounterChoice, type EncounterLayout } from './config';
+import { COMBAT, LARGE_PATROL, LARGE_MUTANT, MUTANT_CHARGE, SMALL_MUTANT, HORDE_TOTALS, robotConfig, waveRobotKind, parseEncounter, type RobotKind, HIT_LAYER, HORDE_ENCOUNTER, RIFLE_MASK, RIFLE_POSE, writeRifleMuzzle, writeRifleAimTarget, encounterLayout, type EncounterChoice, type EncounterLayout } from './config';
 import { Navigation, clearSegment, segmentBox, smoothPath, traversable, type Position, type Terrain } from './navigation';
 import { advanceCrate, openCrate, SUPPLY_CRATE, type CratePlacement, type CrateState } from '../game/props/supplyCrate';
 export interface SupplyCrate extends CrateState, CratePlacement { marker: Position; rewarded: boolean }
@@ -77,13 +78,15 @@ export interface Pickup extends Position {
     active: boolean;
 }
 export interface Shot {
+    height: number;
     from: Position;
     to: Position;
     life: number;
     hit: boolean;
 }
 export interface CombatInput {
-    player: Position;
+    player: Position & { y?: number };
+    muzzle?: WeaponMuzzleOffset;
     aim: Position;
     /** Rumo suavizado do corpo publicado pelo controller; nunca o ângulo instantâneo do cursor. */
     facingAngle: number;
@@ -118,7 +121,7 @@ export function traceShot(a: Position, b: Position, terrain: Terrain, robots: Ro
         }
     if (mask & HIT_LAYER.enemy)
         for (const candidate of robots)
-            if (candidate.hp > 0 && containsShotHeight(robotConfig(candidate).hitHeight, height)) {
+            if (candidate.hp > 0 && containsShotHeight(robotConfig(candidate).hitHeight, height - (terrain.surfaceHeight?.(candidate.x, candidate.z) ?? 0))) {
                 const hit = rayCircle(a, b, candidate, robotConfig(candidate).radius);
                 if (hit !== null && hit <= t && (!out.blocked || hit < t - 1e-9)) {
                     t = hit;
@@ -147,7 +150,7 @@ export class CombatSimulation {
     private muzzle: Position = { x: 0, z: 0 };
     private rifleEnd: Position = { x: 0, z: 0 };
     private shotTrace: ShotTrace = { to: { x: 0, z: 0 }, robot: null, blocked: false };
-    private shotPool: Shot[] = Array.from({ length: 3 }, () => ({ from: { x: 0, z: 0 }, to: { x: 0, z: 0 }, life: 0, hit: false }));
+    private shotPool: Shot[] = Array.from({ length: 3 }, () => ({ from: { x: 0, z: 0 }, to: { x: 0, z: 0 }, height: RIFLE_POSE.height, life: 0, hit: false }));
     private shotCursor = 0;
     robots: Robot[];
     navigation: Navigation;
@@ -363,31 +366,29 @@ export class CombatSimulation {
         if (input.firing && this.reloadLeft === 0 && this.cooldown === 0 && this.ammo > 0
             && Number.isFinite(input.facingAngle) && Number.isFinite(input.player.x + input.player.z + input.aim.x + input.aim.z)) {
             const { muzzle, rifleEnd } = this;
-            writeRifleMuzzle(muzzle, input.player.x, input.player.z, input.facingAngle);
-            const forwardX = Math.sin(input.facingAngle), forwardZ = Math.cos(input.facingAngle);
-            let dx = input.aim.x - muzzle.x, dz = input.aim.z - muzzle.z, length = Math.hypot(dx, dz);
-            // Cursor próximo do corpo ou atrás do cano: mantém o rumo do corpo, sem inverter.
-            if (Math.hypot(input.aim.x - input.player.x, input.aim.z - input.player.z) <= RIFLE_POSE.nearAim
-                || length < 1e-8 || dx * forwardX + dz * forwardZ <= 0) {
-                dx = forwardX; dz = forwardZ; length = 1;
-            }
+            const pose = input.muzzle?.valid ? input.muzzle : undefined;
+            const height = pose ? pose.height + (input.player.y ?? 0) : RIFLE_POSE.height;
+            writeRifleMuzzle(muzzle, input.player.x, input.player.z, input.facingAngle, pose);
+            writeRifleAimTarget(rifleEnd, input.player, input.aim, input.facingAngle, muzzle);
+            const dx = rifleEnd.x - muzzle.x, dz = rifleEnd.z - muzzle.z, length = Math.hypot(dx, dz);
             rifleEnd.x = muzzle.x + dx / length * COMBAT.rifle.range;
             rifleEnd.z = muzzle.z + dz / length * COMBAT.rifle.range;
             // O cano não pode nascer do outro lado de uma parede/quina. Esta checagem só vê mundo.
             let from: Position = input.player;
-            let hit = traceShot(input.player, muzzle, this.terrain, this.robots, HIT_LAYER.world, this.shotTrace);
+            let hit = traceShot(input.player, muzzle, this.terrain, this.robots, HIT_LAYER.world, this.shotTrace, height);
             if (!hit.blocked) {
                 from = muzzle;
-                hit = traceShot(muzzle, rifleEnd, this.terrain, this.robots, RIFLE_MASK, this.shotTrace);
+                hit = traceShot(muzzle, rifleEnd, this.terrain, this.robots, RIFLE_MASK, this.shotTrace, height);
             }
-            this.effects.fire(muzzle.x,muzzle.z);
-            if(hit.blocked) this.effects.impact(hit.to.x,hit.to.z,impactKind(hit.robot?.kind),-dx/length,-dz/length);
+            this.effects.fire(muzzle.x,muzzle.z,height);
+            if(hit.blocked) this.effects.impact(hit.to.x,hit.to.z,impactKind(hit.robot?.kind),-dx/length,-dz/length,height);
             this.sounds.emit('shot', muzzle.x, muzzle.z);
             this.ammo--;
             this.cooldown = COMBAT.rifle.interval;
             const shot = this.shotPool[this.shotCursor++ % this.shotPool.length];
             shot.from.x = from.x; shot.from.z = from.z;
             shot.to.x = hit.to.x; shot.to.z = hit.to.z;
+            shot.height = height;
             shot.life = COMBAT_VFX.tracerLife; shot.hit = !!hit.robot;
             this.shots.push(shot);
             if (hit.robot) {

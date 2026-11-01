@@ -39,7 +39,7 @@ export function LocomotionController({ motionRef, actions, asset, combat }: Loco
       fall.setLoop(LoopOnce, 1);
       fall.clampWhenFinished = true;
     }
-    [actions.Idle, actions.Run, actions.Talk, actions.Backward, actions.Aim_Rifle].forEach((action) => {
+    [actions.Idle, actions.Run, actions.Talk, actions.Backward, actions.Aim_Rifle, actions.Run_Rifle].forEach((action) => {
       if (action) {
         action.setLoop(LoopRepeat, Infinity);
         action.clampWhenFinished = false;
@@ -53,7 +53,7 @@ export function LocomotionController({ motionRef, actions, asset, combat }: Loco
       currentRef.current = idle;
       stateRef.current = "idle";
     }
-  }, [actions.Fall, actions.Idle, actions.Run, actions.Talk, actions.Backward, actions.Aim_Rifle, combat]);
+  }, [actions.Fall, actions.Idle, actions.Run, actions.Talk, actions.Backward, actions.Aim_Rifle, actions.Run_Rifle, combat]);
 
   useFrame(() => {
     const motion = motionRef.current;
@@ -86,7 +86,7 @@ export function LocomotionController({ motionRef, actions, asset, combat }: Loco
       if (stepClock.current.advance(motion.animationState, active.time, active.getClip().duration))
         playerSounds.emit('playerStep', playerPosition.x, playerPosition.z);
     } else stepClock.current.reset();
-  });
+  }, -40);
 
   return null;
 }

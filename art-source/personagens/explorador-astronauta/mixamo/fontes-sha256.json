@@ -70,6 +70,11 @@
       "file": "dash_Jump_Over.fbx",
       "bytes": 7128192,
       "sha256": "3498697c73bb2a84c71b252b8c8bd4409aefc418f8c126c13fc8d95d0957ff67"
+    },
+    {
+      "file": "Rifle_Run_00.fbx",
+      "bytes": 7047008,
+      "sha256": "bc694cd51d02f99a89a608a6fab58ae5f889b8c1acb722c9c198adf7bc06a81b"
     }
   ]
 }

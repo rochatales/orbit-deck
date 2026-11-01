@@ -1,3 +1,4 @@
+import { weaponShotHeight } from '../src/state/playerWeaponPose';
 /** Development-only fixture. Not imported by the application or the production build. */
 import { OrthographicCamera, Vector3 } from 'three';
 import { RIFLE_POSE } from '../src/combat/config';
@@ -21,14 +22,30 @@ function QA() {
         game.setState({ isPaused: false });
         expedition.setState({ spawn: point, panel: null, session: { ...s.session, phase: 'walking', destination: null, revision: s.session.revision + 1 } });
     }
-    async function movement() {
+    async function movement(forward = false) {
         const before = { ...playerPosition };
-        window.dispatchEvent(new KeyboardEvent('keydown', { key: 's', code: 'KeyS', bubbles: true }));
+        if (forward) pointerAt(before.x,before.z-12);
+        window.dispatchEvent(new KeyboardEvent('keydown', { key: forward ? 'w' : 's', code: forward ? 'KeyW' : 'KeyS', bubbles: true }));
         await new Promise(r => setTimeout(r, 1000));
-        window.dispatchEvent(new KeyboardEvent('keyup', { key: 's', code: 'KeyS', bubbles: true }));
+        const debug=window as unknown as {__hordaPlayerActions?:Record<string,import('three').AnimationAction>;__hordaPlayerMotion?:{planarSpeed:number}};
+        const active=Object.values(debug.__hordaPlayerActions??{}).find(a=>a.getEffectiveWeight()>.5&&a.isRunning());
+        const clip=active?.getClip().name,rate=active?.timeScale,speed=debug.__hordaPlayerMotion?.planarSpeed;
+        window.dispatchEvent(new KeyboardEvent('keyup', { key: forward ? 'w' : 's', code: forward ? 'KeyW' : 'KeyS', bubbles: true }));
         await new Promise(r => setTimeout(r, 300));
         const after = playerPosition;
-        setResult('Deslocamento em 1s: ' + Math.hypot(after.x - before.x, after.z - before.z).toFixed(2) + ' m');
+        setResult((forward?`Corrida: ${clip} | ${speed?.toFixed(2)} m/s | ${rate?.toFixed(3)}× | `:'')+'Deslocamento em 1s: ' + Math.hypot(after.x - before.x, after.z - before.z).toFixed(2) + ' m');
+    }
+    async function rifleAim() {
+        pointerAt(playerPosition.x,playerPosition.z-10);
+        await new Promise(r=>setTimeout(r,900));
+        const scene=(window as unknown as {__hordaPlayerScene?:import('three').Object3D}).__hordaPlayerScene;
+        const muzzle=scene?.getObjectByName('Muzzle');let root=scene;while(root?.parent)root=root.parent;
+        const reticle=root?.getObjectByName('CombatReticle');
+        if(!muzzle||!reticle){setResult('Mira: aguardando boca e retícula');return;}
+        const p=muzzle.getWorldPosition(new Vector3()),d=muzzle.getWorldDirection(new Vector3());
+        const target=reticle.getWorldPosition(new Vector3());target.y-=RIFLE_POSE.reticleLift;
+        const angle=d.angleTo(target.clone().sub(p).normalize())*180/Math.PI;
+        setResult(`Mira: erro de altura ${Math.abs(target.y-p.y).toFixed(4)} m | desvio do cano ${angle.toFixed(3)}°`);
     }
     async function sample() {
         setResult('Medindo 5s…');
@@ -49,7 +66,7 @@ function QA() {
         const camera=new OrthographicCamera(-r.width/2,r.width/2,r.height/2,-r.height/2,.1,160);
         camera.zoom=state.targetZoom;camera.position.set(p.x+Math.cos(a)*18.38,13.55,p.z+Math.sin(a)*18.38);
         camera.lookAt(p.x,.55,p.z);camera.updateProjectionMatrix();camera.updateMatrixWorld();
-        const point=new Vector3(x,RIFLE_POSE.height,z).project(camera);
+        const point=new Vector3(x,weaponShotHeight(playerPosition.y,RIFLE_POSE.height),z).project(camera);
         const event={clientX:r.left+(point.x+1)*r.width/2,clientY:r.top+(1-point.y)*r.height/2,button:0,bubbles:true};
         canvas.dispatchEvent(new PointerEvent('pointermove',event));
         if(down)canvas.dispatchEvent(new PointerEvent('pointerdown',event));
@@ -109,7 +126,7 @@ function QA() {
   <button onClick={() => setHidden(!hidden)}>{hidden ? 'Mostrar QA' : 'Ocultar QA'}</button>
   {!hidden && <><p>Fixture DEV · posições preparadas para teste, sem alterar o mapa do produto</p>
   <button onClick={() => place('eden')}>Preparar perto de EDEN</button><button onClick={() => place('deck')}>Preparar no deck</button>
-  <button onClick={movement}>Testar movimento 1s</button><button onClick={sample}>Medir frames 5s</button>
+  <button onClick={()=>movement()}>Testar movimento 1s</button><button onClick={()=>movement(true)}>Testar corrida armada</button><button onClick={rifleAim}>Testar mira/cano</button><button onClick={sample}>Medir frames 5s</button>
   <button onClick={()=>encounter(1)}>Combate assistido 1</button><button onClick={()=>encounter(3)}>Combate assistido 3</button><button onClick={()=>encounter(5)}>Combate assistido 5</button>
   <button onClick={pauseCombat}>Testar pausa e recarga</button><button onClick={focusTest}>Testar movimento e foco</button><button onClick={death}>Testar morte natural</button>
   <p role="status">{result}</p><p>{s.session.map} / {s.session.phase} / pronto: {String(s.ready)}</p></>}

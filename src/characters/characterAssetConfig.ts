@@ -27,6 +27,7 @@ export interface CharacterAssetConfig {
     materialProfile?: 'estilizado' | 'preservar';
     /** Velocidades da passada do GLB, sem alterar a velocidade física. */
     runReferenceSpeed?: number;
+    combatRunReferenceSpeed?: number;
     backwardReferenceSpeed?: number;
     backwardTimeScale?: readonly [number, number];
 }
@@ -41,12 +42,13 @@ export const PLAYER_CHARACTER_ASSET: CharacterAssetConfig = {
 export const EXPLORADOR_R7_ASSET: CharacterAssetConfig = {
     id: 'player-r7', name: 'Explorador', assetPath: exploradorR7Asset, scale: 0.857, positionOffset: [0, 0, 0], rotationOffset: [0, 0, 0], accentColor: '#66e6ff', fallbackType: 'player', materialProfile: 'preservar'
 };
-/** F1 v003: 57 ossos Mixamo, pés na origem, 1,5 m e materiais exportados. */
+/** F1 v004: corrida armada Rifle_Run_00, demais ações do v003 preservadas.
+ * 57 ossos Mixamo, pés na origem, 1,5 m e materiais exportados. */
 export const EXPLORADOR_ASTRONAUTA_ASSET: CharacterAssetConfig = {
     id: 'player-astronauta', name: 'Explorador astronauta', assetPath: astronautaAsset,
     scale: 1, positionOffset: [0, 0, 0], rotationOffset: [0, 0, 0],
     accentColor: '#66e6ff', fallbackType: 'player', materialProfile: 'preservar',
-    runReferenceSpeed: 3.0637, backwardReferenceSpeed: 4.3849, backwardTimeScale: [0.2, 2.0]
+    runReferenceSpeed: 3.0637, combatRunReferenceSpeed: 2.7706128358840942, backwardReferenceSpeed: 4.3849, backwardTimeScale: [0.2, 2.0]
 };
 export type PlayerAssetVariant = 'astronauta' | 'r7' | 'atual';
 export const PLAYER_ASSET_VARIANTS: Record<PlayerAssetVariant, CharacterAssetConfig> = { astronauta: EXPLORADOR_ASTRONAUTA_ASSET, r7: EXPLORADOR_R7_ASSET, atual: PLAYER_CHARACTER_ASSET };

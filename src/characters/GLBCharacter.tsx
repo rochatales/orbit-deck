@@ -1,8 +1,9 @@
 import { useSimulationBlocked } from "../game/simulationGate";
-import { useAnimations, useGLTF } from "@react-three/drei";
-import { Suspense, useEffect, useMemo, useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import { useGLTF } from "@react-three/drei";
+import { Suspense, useEffect, useMemo } from "react";
 import { Component, type ErrorInfo, type ReactNode } from "react";
-import { Group, type AnimationAction, type AnimationMixer, type Object3D } from "three";
+import { AnimationMixer, type AnimationAction, type Object3D } from "three";
 import { prepareScene } from "./prepareCharacterScene";
 import { debugGLBHierarchy } from "./debugGLBHierarchy";
 import { FallbackCharacter } from "./fallback/FallbackCharacter";
@@ -32,6 +33,7 @@ interface GLBCharacterProps {
   fallbackLabel?: string;
   /** Ver `CharacterAssetConfig.materialProfile`; padrão 'estilizado' (comportamento anterior). */
   materialProfile?: "estilizado" | "preservar";
+  animationPriority?: number;
   onSceneReady?: (scene: Object3D) => void;
   onAnimationsReady?: (actions: GLBActionMap, mixer: AnimationMixer) => void;
 }
@@ -89,6 +91,7 @@ function GLBCharacterContent({
   accentColor,
   animationState = "idle",
   materialProfile = "estilizado",
+  animationPriority = 0,
   onSceneReady,
   onAnimationsReady
 }: Omit<GLBCharacterProps, "fallbackType" | "fallbackLabel">) {
@@ -98,10 +101,11 @@ function GLBCharacterContent({
   useEffect(() => () => {
     prepared.materials.forEach(material => material.dispose());
   }, [prepared]);
-  // Drive the AnimationMixer against the cloned scene root so each character
-  // instance has its own mixer/actions and clips play independently.
-  const animationRootRef = useRef<Group>(null);
-  const { actions, mixer } = useAnimations(gltf.animations, animationRootRef);
+  // Ações criadas uma vez. O player anima antes da leitura da boca do rifle e do combate.
+  const mixer = useMemo(() => new AnimationMixer(prepared.scene), [prepared.scene]);
+  const actions = useMemo(() => Object.fromEntries(gltf.animations.map(clip => [clip.name, mixer.clipAction(clip)])), [gltf.animations, mixer]);
+  useFrame((_, delta) => { mixer.update(delta); }, animationPriority);
+  useEffect(() => () => { mixer.stopAllAction(); mixer.uncacheRoot(prepared.scene); }, [mixer, prepared.scene]);
   const paused = useSimulationBlocked();
   useEffect(() => { mixer.timeScale = paused ? 0 : 1; }, [mixer, paused]);
 
@@ -137,7 +141,7 @@ function GLBCharacterContent({
 
   return (
     <group name={name} scale={scale} position={positionOffset} rotation={rotationOffset}>
-      <group ref={animationRootRef}>
+      <group>
         <primitive object={prepared.scene} />
       </group>
     </group>
@@ -155,6 +159,7 @@ export function GLBCharacter({
   fallbackType,
   fallbackLabel,
   materialProfile,
+  animationPriority = 0,
   onSceneReady,
   onAnimationsReady
 }: GLBCharacterProps) {
@@ -172,6 +177,7 @@ export function GLBCharacter({
           accentColor={accentColor}
           animationState={animationState}
           materialProfile={materialProfile}
+          animationPriority={animationPriority}
           onSceneReady={onSceneReady}
           onAnimationsReady={onAnimationsReady}
         />

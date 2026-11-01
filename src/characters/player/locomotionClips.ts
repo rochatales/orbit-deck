@@ -20,7 +20,7 @@ export function pickTargetAction(state: PlayerAnimationState, actions: ActionMap
     case "actionTriggered":
       return actions.Talk ?? actions.Idle ?? null;
     case "walking":
-      return actions.Run ?? actions.Idle ?? null;
+      return (combat ? actions.Run_Rifle : null) ?? actions.Run ?? actions.Idle ?? null;
     case "backward":
       return actions.Backward ?? actions.Run ?? actions.Idle ?? null;
     case "idle":
@@ -37,8 +37,9 @@ export function crossfadeFor(from: PlayerAnimationState | null, to: PlayerAnimat
 }
 
 /** Uma configuração por variante, preparada fora do quadro. */
-export function locomotionCalibration(asset: Pick<CharacterAssetConfig, 'runReferenceSpeed' | 'backwardReferenceSpeed' | 'backwardTimeScale'>) {
+export function locomotionCalibration(asset: Pick<CharacterAssetConfig, 'runReferenceSpeed' | 'combatRunReferenceSpeed' | 'backwardReferenceSpeed' | 'backwardTimeScale'>) {
   return {
+    combatRunReferenceSpeed: asset.combatRunReferenceSpeed ?? asset.runReferenceSpeed ?? PLAYER_RUN_REFERENCE_SPEED,
     runReferenceSpeed: asset.runReferenceSpeed ?? PLAYER_RUN_REFERENCE_SPEED,
     backwardReferenceSpeed: asset.backwardReferenceSpeed ?? PLAYER_BACKWARD_REFERENCE_SPEED,
     backwardTimeScale: asset.backwardTimeScale ?? PLAYER_LOCOMOTION.backwardTimeScale
@@ -47,9 +48,11 @@ export function locomotionCalibration(asset: Pick<CharacterAssetConfig, 'runRefe
 
 /** Atualiza as ações já existentes, sem criar objetos no quadro. */
 export function updateLocomotionRates(actions: ActionMap, active: AnimationAction | null, state: PlayerAnimationState, speed: number, calibration: ReturnType<typeof locomotionCalibration>) {
-  const run = actions.Run, back = actions.Backward;
+  const run = actions.Run, armed = actions.Run_Rifle, back = actions.Backward;
   if (run) run.timeScale = active === run && (state === 'walking' || (!back && state === 'backward'))
     ? playbackRate(speed, calibration.runReferenceSpeed, PLAYER_LOCOMOTION.runTimeScale) : 1;
+  if (armed) armed.timeScale = active === armed && state === 'walking'
+    ? playbackRate(speed, calibration.combatRunReferenceSpeed, PLAYER_LOCOMOTION.runTimeScale) : 1;
   if (back) back.timeScale = active === back
     ? playbackRate(speed, calibration.backwardReferenceSpeed, calibration.backwardTimeScale) : 1;
 }
