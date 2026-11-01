@@ -1,3 +1,4 @@
+import { playerActions } from './playerActions';
 import { resetPlayerWeaponPose } from './playerWeaponPose';
 import { EDEN, MAPS, near, type Point } from '../game/config';
 import type { MapId } from '../game/session';
@@ -32,6 +33,7 @@ export function writePlayerPosition(x: number, y: number, z: number) {
 /** Reposição explícita (spawn, viagem, retry): vale já para o próximo leitor. */
 export function placePlayer(spawn: Point) {
     resetPlayerWeaponPose();
+    playerActions.dashing = false;
     writePlayerPosition(spawn.x, spawn.y, spawn.z);
     writePlayerVisualPosition(spawn.x, spawn.y, spawn.z);
     playerFacing.angle = 0;

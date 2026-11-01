@@ -119,3 +119,20 @@ no manifesto. Exporta `explorador-astronauta-rig-v004.glb`, **2.751.716 bytes**,
 `714cc97b621fd860abac539af9997c1a462bdc467b6038f0366ca968502400be`.
 Sem a flag, o gerador continua reproduzindo v003. Runtime usa v004; Marte mantém
 Run e Shanghai usa Run_Rifle. Ver notas `f1-v004.json` e handoff para a mira animada.
+
+
+## Receita atual — v003 consolidado (01/11/2026)
+
+O pipeline padrão substitui Run por Rifle_Run_00 e Backward por
+Backwards_Rifle_Run, ambos in-place, mantendo as outras oito ações do v004.
+São 16 fontes intactas no manifesto; referências 2,7706 / 1,4012 m/s,
+taxas 1,52× / 0,86× a 4,2 / 1,2 m/s. PBR 0 metal / 1 roughness.
+
+Geração: `preparar_f1.py -- --ingest '/Users/rochatales/Game Development/Horda Survivor/Personagens/3D'`
+via Blender, conforme comando completo no handoff da consolidação.
+A opção `--combat` não integra a receita atual; a seção v004 acima é histórica.
+Exporta v003, 2.699.200 bytes, SHA-256
+`477ef7b591ad7a1e02d9e2ad79cfa8bdd934c1b3aa2f33e9019da0a679a4dd4d`.
+v001/v002/v004 permanecem intactos; notas e trajetórias atuais em f1-v003.
+
+[Handoff da consolidação](../../../docs/handoffs/s6.8-consolidacao-lab-dash-atmosfera.md).

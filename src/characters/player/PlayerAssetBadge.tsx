@@ -7,7 +7,7 @@ import { usePlayerAsset } from './playerAssetChoice';
 export function PlayerAssetBadge() {
     const variant = usePlayerAsset(s => s.variant), clips = usePlayerAsset(s => s.clips);
     const setVariant = usePlayerAsset(s => s.setVariant);
-    const nome = variant === 'astronauta' ? 'Explorador astronauta (F1 v004)' : variant === 'r7' ? 'Explorador r7 (S6.8 · 4c0ecfd)' : 'Personagem atual (player-main.glb)';
+    const nome = variant === 'astronauta' ? 'Explorador astronauta (loops armados)' : variant === 'r7' ? 'Explorador r7 (S6.8 · 4c0ecfd)' : 'Personagem atual (player-main.glb)';
     const backward = clips.includes('Backward');
     return <aside className="qa-asset" aria-live="polite">
     <p className="eyebrow">PRÉVIA DE TESTE · PERSONAGEM</p>
@@ -15,7 +15,7 @@ export function PlayerAssetBadge() {
     <small>{clips.length ? `Clipes: ${clips.join(', ')}` : 'Carregando o GLB…'}{clips.length > 0 && !backward ? ' · sem Backward (recuo usa Run)' : ''}</small>
     {(['astronauta', 'r7', 'atual'] as const).map(option => <button key={option} className="secondary" disabled={variant === option}
       onClick={e => { setVariant(option); e.currentTarget.blur(); }}>
-      {option === 'astronauta' ? 'Astronauta v004' : option === 'r7' ? 'Explorador r7' : 'Personagem anterior'}
+      {option === 'astronauta' ? 'Astronauta armado' : option === 'r7' ? 'Explorador r7' : 'Personagem anterior'}
     </button>)}
   </aside>;
 }

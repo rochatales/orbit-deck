@@ -1,4 +1,3 @@
-import ts from 'typescript';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -20,13 +19,9 @@ const {sandwindTargets}=loadSource('src/scene/marsColony/sandwindTargets.ts');
 const {PLAYER_COLLIDER_CENTER_Y:Y,PLAYER_COLLIDER_HALF_HEIGHT:half,PLAYER_MOVEMENT:M,PLAYER_PHYSICS:P}=loadSource('src/characters/player/playerConfig.ts');
 const gltf=await loadGlb('src/assets/laboratorio/laboratorio-v002.glb'),qGltf=await loadGlb('src/assets/quartel/barracks-v006.glb');
 const base=JSON.parse(fs.readFileSync('src/assets/colony-v007.manifest.json'));
-// Exercita também o limite de piso do controller real antes do passo Rapier.
-// Seleciona as duas funções pelo AST; não replica sua implementação na fixture.
-const controllerText=fs.readFileSync('src/characters/player/PlayerController.tsx','utf8');
-const controllerAst=ts.createSourceFile('PlayerController.tsx',controllerText,ts.ScriptTarget.Latest,true,ts.ScriptKind.TSX);
-const controllerHelpers=controllerAst.statements.filter(node=>ts.isFunctionDeclaration(node)&&['fitsWalkableAreas','constrainToWalkableAreas'].includes(node.name?.text)).map(node=>node.getText(controllerAst)).join('\n');
-const controllerJs=ts.transpileModule(controllerHelpers,{compilerOptions:{target:ts.ScriptTarget.ES2020}}).outputText;
-const constrainMovement=new Function('clamp',controllerJs+'\nreturn constrainToWalkableAreas;')(loadSource('src/utils/math.ts').clamp);
+// Exercita o mesmo helper exportado usado no controller, com saída pré-alocada.
+const {constrainToWalkableAreas:constrainMovement}=loadSource('src/characters/player/playerMovement.ts');
+const constrainOut={x:0,z:0};
 
 function fixture(world=createWorld()){
  const root=new Group();root.name='Laboratorio';const s=clone(gltf.scene);s.position.set(L.placement.x,0,L.placement.z);root.add(s);root.updateMatrixWorld(true);
@@ -104,7 +99,7 @@ async function physics(start,automaticDoors=true){await R.init();const source=cr
  controller.enableAutostep(P.autostepMaxHeight,P.autostepMinWidth,false);controller.enableSnapToGround(P.snapToGroundDistance);world.step();
  function move(x,z,frames=900){for(let i=0;i<frames;i++){const p=body.translation(),distance=Math.hypot(x-p.x,z-p.z);if(distance<.02)break;
   qr.update(p,1/60);f.runtime.update(p,automaticDoors?1/60:0);for(const[b,c]of moving)b.setNextKinematicTranslation(c.position);
-  const d=Math.min(distance,M.runSpeed/60),desiredX=(x-p.x)/distance*d,desiredZ=(z-p.z)/distance*d,allowed=constrainMovement(p.x,p.z,desiredX,desiredZ,source.bounds,source.walkableAreas,M.colliderRadius),dx=allowed.x,dz=allowed.z;controller.computeColliderMovement(collider,{x:dx,y:Y+source.supportHeight(p.x+dx,p.z+dz)-p.y,z:dz});const out=controller.computedMovement(),nx=p.x+out.x,nz=p.z+out.z;
+  const d=Math.min(distance,M.runSpeed/60),desiredX=(x-p.x)/distance*d,desiredZ=(z-p.z)/distance*d,allowed=constrainMovement(p.x,p.z,desiredX,desiredZ,source.bounds,source.walkableAreas,M.colliderRadius,constrainOut),dx=allowed.x,dz=allowed.z;controller.computeColliderMovement(collider,{x:dx,y:Y+source.supportHeight(p.x+dx,p.z+dz)-p.y,z:dz});const out=controller.computedMovement(),nx=p.x+out.x,nz=p.z+out.z;
   body.setNextKinematicTranslation({x:nx,y:Y+source.supportHeight(nx,nz),z:nz});world.step();
   assert.ok(source.walkableAreas.some(a=>nx>=a.minX&&nx<=a.maxX&&nz>=a.minZ&&nz<=a.maxZ),JSON.stringify({nx,nz}));
  }return body.translation();}

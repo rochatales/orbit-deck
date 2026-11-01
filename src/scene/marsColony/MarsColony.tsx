@@ -1,3 +1,4 @@
+import { PerimeterSoftLights } from './PerimeterSoftLights';
 import { QuartelCirculation } from './QuartelCirculation';
 import { Laboratorio } from './Laboratorio';
 import { removeRoomForLaboratorio } from './laboratorioColony';
@@ -35,8 +36,8 @@ export function MarsColony({ world }: { world: OfficeWorld }) {
         return () => { scene.removeFromParent(); instance.dispose(); geometry.forEach(g => g.dispose()); runtime.current = undefined; };
     }, [gltf.scene]);
     useFrame((_, delta) => runtime.current?.update(playerPosition, delta));
-    const visuals = <><group ref={visual} dispose={null}/><AresLanding/><DeckProps/><Greenhouse/><Hangar/><Quartel world={world}/><QuartelCirculation/><Laboratorio world={world}/></>;
-    // Sem flag: mesma árvore anterior. Só o Sandwind possui estes pais de descarte.
+    const visuals = <><group ref={visual} dispose={null}/><AresLanding/><DeckProps/><Greenhouse/><Hangar/><Quartel world={world}/><QuartelCirculation/><Laboratorio world={world}/><PerimeterSoftLights/></>;
+    // Atmosfera fixa por padrão; ?sandwindPreview=0 conserva a comparação sem descarte.
     return preview ? <group ref={scope} name="SandwindColonyV007">{visuals}
         <Suspense fallback={null}><ColonySandwind scope={scope} masterplan={visual}/></Suspense>
     </group> : visuals;

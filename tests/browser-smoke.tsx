@@ -33,7 +33,22 @@ function QA() {
         window.dispatchEvent(new KeyboardEvent('keyup', { key: forward ? 'w' : 's', code: forward ? 'KeyW' : 'KeyS', bubbles: true }));
         await new Promise(r => setTimeout(r, 300));
         const after = playerPosition;
-        setResult((forward?`Corrida: ${clip} | ${speed?.toFixed(2)} m/s | ${rate?.toFixed(3)}× | `:'')+'Deslocamento em 1s: ' + Math.hypot(after.x - before.x, after.z - before.z).toFixed(2) + ' m');
+        setResult(`${forward?'Corrida':'Recuo'}: ${clip} | ${speed?.toFixed(2)} m/s | ${rate?.toFixed(3)}× | `+'Deslocamento em 1s: ' + Math.hypot(after.x - before.x, after.z - before.z).toFixed(2) + ' m');
+    }
+    async function dash() {
+        if(!s.ready||s.session.phase!=='walking'||game.getState().isPaused){setResult('Dash: desembarque e retome a sessão');return;}
+        pointerAt(playerPosition.x,playerPosition.z-10);
+        await new Promise(r=>setTimeout(r,700));
+        const before={...playerPosition},start=performance.now();let frames=0,speed=0,clip=false;
+        window.dispatchEvent(new KeyboardEvent('keydown',{code:'Space',key:' ',bubbles:true}));
+        await new Promise<void>(resolve=>{function frame(){
+            const debug=window as unknown as {__hordaPlayerMotion?:{animationState:string;planarSpeed:number};__hordaPlayerActions?:Record<string,import('three').AnimationAction>};
+            if(debug.__hordaPlayerMotion?.animationState==='dashing'){frames++;speed=Math.max(speed,debug.__hordaPlayerMotion.planarSpeed);}
+            clip ||= !!debug.__hordaPlayerActions?.Dash?.isRunning() && (debug.__hordaPlayerActions.Dash.getEffectiveWeight()??0)>.5;
+            if(performance.now()-start<1000)requestAnimationFrame(frame);else resolve();
+        }requestAnimationFrame(frame);});
+        window.dispatchEvent(new KeyboardEvent('keyup',{code:'Space',key:' ',bubbles:true}));
+        setResult(`Dash Space: ${Math.hypot(playerPosition.x-before.x,playerPosition.z-before.z).toFixed(3)} m | pico ${speed.toFixed(2)} m/s | clipe ${clip?'Dash':'não visto'} | ${frames} quadros ativos`);
     }
     async function rifleAim() {
         pointerAt(playerPosition.x,playerPosition.z-10);
@@ -126,7 +141,7 @@ function QA() {
   <button onClick={() => setHidden(!hidden)}>{hidden ? 'Mostrar QA' : 'Ocultar QA'}</button>
   {!hidden && <><p>Fixture DEV · posições preparadas para teste, sem alterar o mapa do produto</p>
   <button onClick={() => place('eden')}>Preparar perto de EDEN</button><button onClick={() => place('deck')}>Preparar no deck</button>
-  <button onClick={()=>movement()}>Testar movimento 1s</button><button onClick={()=>movement(true)}>Testar corrida armada</button><button onClick={rifleAim}>Testar mira/cano</button><button onClick={sample}>Medir frames 5s</button>
+  <button onClick={()=>movement()}>Testar movimento 1s</button><button onClick={()=>movement(true)}>Testar corrida armada</button><button onClick={rifleAim}>Testar mira/cano</button><button onClick={dash}>Testar Dash Space</button><button onClick={sample}>Medir frames 5s</button>
   <button onClick={()=>encounter(1)}>Combate assistido 1</button><button onClick={()=>encounter(3)}>Combate assistido 3</button><button onClick={()=>encounter(5)}>Combate assistido 5</button>
   <button onClick={pauseCombat}>Testar pausa e recarga</button><button onClick={focusTest}>Testar movimento e foco</button><button onClick={death}>Testar morte natural</button>
   <p role="status">{result}</p><p>{s.session.map} / {s.session.phase} / pronto: {String(s.ready)}</p></>}

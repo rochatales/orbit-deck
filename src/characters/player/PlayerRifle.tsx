@@ -6,8 +6,9 @@ import rifleAsset from '../../assets/weapons/rifle-laser-v001.glb';
 import { attachRifle, detachRifle, RifleAimRig } from './rifleAttachment';
 
 import { playerPosition, playerFacing } from '../../state/playerTransient';
-import { playerWeaponPose, resetPlayerWeaponPose } from '../../state/playerWeaponPose';
+import { playerWeaponPose, playerHeadPose, resetPlayerWeaponPose } from '../../state/playerWeaponPose';
 import { combatRuntime } from '../../state/useCombatStore';
+import { VISOR_LIGHT } from '../../scene/lightingConfig';
 import { simulationBlocked } from '../../game/simulationGate';
 import { PLAYER_COLLIDER_CENTER_Y, PLAYER_MODEL_ROOT_Y, type PlayerMotionState } from './playerConfig';
 
@@ -24,9 +25,9 @@ function HandRifle({ scene, onAttached, motionRef }: PlayerRifleProps) {
     copy.traverse(node => { if (node instanceof Mesh) { node.castShadow = true; node.receiveShadow = true; } });
     return copy;
   }, [gltf.scene]);
-  const rig = useMemo(() => new RifleAimRig(scene, rifle, PLAYER_COLLIDER_CENTER_Y + PLAYER_MODEL_ROOT_Y), [scene, rifle]);
+  const rig = useMemo(() => new RifleAimRig(scene, rifle, PLAYER_COLLIDER_CENTER_Y + PLAYER_MODEL_ROOT_Y, VISOR_LIGHT.headOffset), [scene, rifle]);
   useFrame(() => {
-    if (!simulationBlocked() && rifle.parent) rig.update(playerWeaponPose, playerPosition, playerFacing.angle, combatRuntime.aimValid ? combatRuntime.aim : null, motionRef.current.animationState === 'idle');
+    if (!simulationBlocked() && rifle.parent) rig.update(playerWeaponPose, playerPosition, playerFacing.angle, combatRuntime.aimValid ? combatRuntime.aim : null, motionRef.current.animationState === 'idle', playerHeadPose);
   }, -20);
   useEffect(() => {
     onAttached(attachRifle(scene, rifle));

@@ -39,7 +39,7 @@ test('S6.8 F1: fontes usadas intactas, pipeline e GLB conferem SHA-256; pacote a
     assert.equal(hash(base + 'scripts/preparar_f1.py'), report.script_sha256);
     assert.equal(bytes.length, report.glb.bytes);
     assert.ok(bytes.length <= 3_000_000);
-    assert.equal(report.fontes.arquivos.length, 14);
+    assert.equal(report.fontes.arquivos.length, 16);
     for (const source of report.fontes.arquivos) {
         assert.equal(hash(base + 'mixamo/' + source.file), source.sha256, source.file);
         assert.equal(fs.statSync(base + 'mixamo/' + source.file).size, source.bytes);
@@ -124,7 +124,7 @@ test('S6.8 F1: texturas embutidas 1024² e Dash in place guarda o percurso origi
     assert.ok(clip.root_original_horizontal_reta_m > 5.19 && clip.root_original_horizontal_reta_m < 5.22);
     assert.ok(clip.root_original_horizontal_percurso_m > 5.20 && clip.root_original_horizontal_percurso_m < 5.22);
     for (let f = 0; f < 39; f++) { at(f / 30); const p = bone(g, 'Hips').getWorldPosition(new Vector3()); assert.ok(Math.hypot(p.x, p.z) < 1e-5); }
-    assert.deepEqual(report.faltam, ['Talk', 'Hit', 'Idle armado em loop', 'Corrida armada em loop', 'Recuo armado em loop']);
+    assert.deepEqual(report.faltam, ['Talk', 'Hit', 'Idle armado em loop']);
     assert.equal(report.fora_do_escopo.length, 5);
 });
 
@@ -165,17 +165,17 @@ function animationData(buffer){
     }).sort((a,b)=>(a.node+a.path).localeCompare(b.node+b.path))]));
 }
 
-test('S6.8 F1 v003: outras oito ações idênticas ao v002; v001/v002 preservados e só Hips translada',()=>{
+test('S6.8 F1 v003: ações preservadas após troca dos loops armados; v001/v002 preservados e só Hips translada',()=>{
     for(const version of ['v001','v002']){
         const historical=JSON.parse(fs.readFileSync(base+`notas/f1-${version}.json`));
         assert.equal(hash(base+historical.glb.arquivo),historical.glb.sha256,version);
         assert.ok(report.preservados.some(p=>p.sha256===historical.glb.sha256));
     }
     const historical=JSON.parse(fs.readFileSync(base+'notas/f1-v002.json'));
-    assert.equal(report.anterior.sha256,historical.glb.sha256);
+    assert.equal(report.anterior.sha256,JSON.parse(fs.readFileSync(base+'notas/f1-v004.json')).glb.sha256);
     assert.equal(report.escala,historical.escala,'altura do Idle não foi recalibrada');
     const before=animationData(fs.readFileSync(base+historical.glb.arquivo)),after=animationData(bytes);
-    for(const name of expected.filter(n=>!['Fall','Death'].includes(n)))assert.deepEqual(after[name],before[name],name);
+    for(const name of expected.filter(n=>!['Run','Backward','Fall','Death'].includes(n)))assert.deepEqual(after[name],before[name],name);
     for(const name of ['Fall','Death']){
         for(const channel of after[name]){
             if(channel.node==='mixamorig:Hips'&&channel.path==='translation')continue;
@@ -265,18 +265,18 @@ test('S6.8 PBR: v003 exporta o dielétrico original, rugoso e sem specular acima
     assert.equal(report.material_pbr.materiais[0].depois.Roughness, 1);
 });
 
-test('S6.8 F2 v004: Rifle_Run_00 em loop, root in-place e dez ações anteriores intactas', async () => {
+test('S6.8 histórico v004: preservado; oito ações continuam idênticas na consolidação', async () => {
     const next = JSON.parse(fs.readFileSync(base + 'notas/f1-v004.json'));
     const exported = base + next.glb.arquivo;
     assert.equal(hash(exported), next.glb.sha256);
-    assert.equal(hash(base + 'scripts/preparar_f1.py'), next.script_sha256);
+    assert.equal(next.glb.sha256, '714cc97b621fd860abac539af9997c1a462bdc467b6038f0366ca968502400be');
     assert.ok(next.glb.bytes < 3_000_000);
     for (const source of next.fontes.arquivos) assert.equal(hash(base + 'mixamo/' + source.file), source.sha256);
     assert.equal(next.fontes.arquivos.length, 15);
-    for (const previous of next.preservados) assert.equal(hash(base + previous.glb), previous.sha256);
+    for (const previous of next.preservados.filter(p=>!p.glb.endsWith('v003.glb'))) assert.equal(hash(base + previous.glb), previous.sha256);
     const data = animationData(fs.readFileSync(exported)), original = animationData(bytes);
     assert.equal(Object.keys(data).length, 11);
-    for (const name of expected) assert.deepEqual(data[name], original[name], name);
+    for (const name of expected.filter(n=>!['Run','Backward'].includes(n))) assert.deepEqual(data[name], original[name], name);
     const run = next.clipes.find(c => c.clipe === 'Run_Rifle');
     assert.equal(run.fonte, 'Rifle_Run_00.fbx'); assert.equal(run.loop, true);
     assert.deepEqual(run.quadros, [1, 21]);

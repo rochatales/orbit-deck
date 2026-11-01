@@ -1,7 +1,7 @@
-import type { AnimationAction } from "three";
+import { LoopOnce, LoopRepeat, type AnimationAction } from "three";
 import type { CharacterAssetConfig } from "../characterAssetConfig";
 import { playbackRate } from "./aimMovement";
-import { PLAYER_BACKWARD_REFERENCE_SPEED, PLAYER_RUN_REFERENCE_SPEED, PLAYER_LOCOMOTION, type PlayerAnimationState } from "./playerConfig";
+import { PLAYER_BACKWARD_REFERENCE_SPEED, PLAYER_RUN_REFERENCE_SPEED, PLAYER_LOCOMOTION, PLAYER_MOVEMENT, type PlayerAnimationState } from "./playerConfig";
 
 /** Ações por nome de clipe (sem depender do componente que carrega o GLB). */
 type ActionMap = Partial<Record<string, AnimationAction | null>>;
@@ -14,13 +14,15 @@ type ActionMap = Partial<Record<string, AnimationAction | null>>;
  */
 export function pickTargetAction(state: PlayerAnimationState, actions: ActionMap, combat = false): AnimationAction | null {
   switch (state) {
+    case "dashing":
+      return actions.Dash ?? actions.Run ?? actions.Idle ?? null;
     case "falling":
       return actions.Fall ?? actions.Idle ?? null;
     case "interacting":
     case "actionTriggered":
       return actions.Talk ?? actions.Idle ?? null;
     case "walking":
-      return (combat ? actions.Run_Rifle : null) ?? actions.Run ?? actions.Idle ?? null;
+      return actions.Run ?? actions.Idle ?? null;
     case "backward":
       return actions.Backward ?? actions.Run ?? actions.Idle ?? null;
     case "idle":
@@ -31,6 +33,7 @@ export function pickTargetAction(state: PlayerAnimationState, actions: ActionMap
 
 /** Duração do crossfade entre dois estados (Run ↔ Backward um pouco mais curto). */
 export function crossfadeFor(from: PlayerAnimationState | null, to: PlayerAnimationState) {
+  if (to === "dashing" || from === "dashing") return PLAYER_LOCOMOTION.crossfadeDash;
   if (to === "falling") return PLAYER_LOCOMOTION.crossfadeFall;
   if ((from === "walking" && to === "backward") || (from === "backward" && to === "walking")) return PLAYER_LOCOMOTION.crossfadeReverse;
   return PLAYER_LOCOMOTION.crossfade;
@@ -55,4 +58,12 @@ export function updateLocomotionRates(actions: ActionMap, active: AnimationActio
     ? playbackRate(speed, calibration.combatRunReferenceSpeed, PLAYER_LOCOMOTION.runTimeScale) : 1;
   if (back) back.timeScale = active === back
     ? playbackRate(speed, calibration.backwardReferenceSpeed, calibration.backwardTimeScale) : 1;
+}
+
+/** O mesmo fallback pode servir Dash e Run; restaura o loop mesmo sem trocar de ação. */
+export function configureLocomotionAction(action: AnimationAction, state: PlayerAnimationState) {
+  const once = state === 'dashing' || state === 'falling';
+  action.setLoop(once ? LoopOnce : LoopRepeat, once ? 1 : Infinity);
+  action.clampWhenFinished = once;
+  action.timeScale = state === 'dashing' ? action.getClip().duration / PLAYER_MOVEMENT.dashDuration : 1;
 }

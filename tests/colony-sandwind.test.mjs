@@ -23,9 +23,9 @@ function fixture() {
     return { colony, world, geometry, shared, cutMaterial, near, far, removed, ground, door, controller };
 }
 
-test('S6.19c: flag explícita e fronteiras de descarte sempre sob areia opaca', () => {
-    assert.equal(policy.sandwindPreviewEnabled(''), false);
-    assert.equal(policy.sandwindPreviewEnabled('?perf'), false);
+test('S6.19c: atmosfera padrão e fronteiras de descarte sempre sob areia opaca', () => {
+    assert.equal(policy.sandwindPreviewEnabled(''), true);
+    assert.equal(policy.sandwindPreviewEnabled('?perf'), true);
     assert.equal(policy.sandwindPreviewEnabled('?sandwindPreview&perf'), true);
     for (const p of Object.values(policy.SANDWIND_PROFILES)) {
         assert.ok(p.clear > 0 && p.clear < p.opaque && p.opaque < p.reveal && p.reveal < p.hide);

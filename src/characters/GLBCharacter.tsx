@@ -14,6 +14,7 @@ export type GLBCharacterAnimationState =
   | "walking"
   | "interacting"
   | "actionTriggered"
+  | "dashing"
   | "falling"
   | "backward"
   | "highlighted"

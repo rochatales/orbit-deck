@@ -6,7 +6,7 @@ import { useEffect, useMemo, useRef } from "react";
 import { LoopOnce, LoopRepeat, type AnimationAction } from "three";
 import type { GLBActionMap } from "../GLBCharacter";
 import type { CharacterAssetConfig } from "../characterAssetConfig";
-import { crossfadeFor, locomotionCalibration, pickTargetAction, updateLocomotionRates } from "./locomotionClips";
+import { configureLocomotionAction, crossfadeFor, locomotionCalibration, pickTargetAction, updateLocomotionRates } from "./locomotionClips";
 import {
   PLAYER_LOCOMOTION,
   type PlayerAnimationState,
@@ -34,11 +34,7 @@ export function LocomotionController({ motionRef, actions, asset, combat }: Loco
 
   // Configure each action's loop behavior once when actions become available.
   useEffect(() => {
-    const fall = actions.Fall;
-    if (fall) {
-      fall.setLoop(LoopOnce, 1);
-      fall.clampWhenFinished = true;
-    }
+    for (const action of [actions.Fall, actions.Dash]) if (action) { action.setLoop(LoopOnce,1); action.clampWhenFinished = true; }
     [actions.Idle, actions.Run, actions.Talk, actions.Backward, actions.Aim_Rifle, actions.Run_Rifle].forEach((action) => {
       if (action) {
         action.setLoop(LoopRepeat, Infinity);
@@ -53,26 +49,22 @@ export function LocomotionController({ motionRef, actions, asset, combat }: Loco
       currentRef.current = idle;
       stateRef.current = "idle";
     }
-  }, [actions.Fall, actions.Idle, actions.Run, actions.Talk, actions.Backward, actions.Aim_Rifle, actions.Run_Rifle, combat]);
+  }, [actions.Fall, actions.Dash, actions.Idle, actions.Run, actions.Talk, actions.Backward, actions.Aim_Rifle, actions.Run_Rifle, combat]);
 
   useFrame(() => {
     const motion = motionRef.current;
     const target = pickTargetAction(motion.animationState, actions, combat);
     const current = currentRef.current;
 
-    if (target && target !== current) {
+    const onceChanged = motion.animationState !== stateRef.current &&
+      (motion.animationState === 'dashing' || stateRef.current === 'dashing' || motion.animationState === 'falling' || stateRef.current === 'falling');
+    if (target && (target !== current || onceChanged)) {
       const fade = crossfadeFor(stateRef.current, motion.animationState);
       target.reset();
-      if (motion.animationState === "falling") {
-        target.setLoop(LoopOnce, 1);
-        target.clampWhenFinished = true;
-      } else {
-        target.setLoop(LoopRepeat, Infinity);
-        target.clampWhenFinished = false;
-      }
+      configureLocomotionAction(target, motion.animationState);
       target.fadeIn(fade);
       target.play();
-      if (current) {
+      if (current && current !== target) {
         current.fadeOut(fade);
       }
       currentRef.current = target;

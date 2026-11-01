@@ -9,7 +9,7 @@ import { simulationBlocked } from '../../game/simulationGate';
 import { playerPosition } from '../../state/playerTransient';
 import { useGameStore } from '../../state/useGameStore';
 import { sandwindQAEnabled, sandwindQAPose } from './sandwindQA';
-import { SANDWIND_PROFILES, type SandwindProfile } from './sandwindPolicy';
+import { SANDWIND_PROFILES, defaultSandwindSettings, type SandwindProfile } from './sandwindPolicy';
 import { SandwindController, sandwindResources, type SandwindSettings } from './SandwindController';
 import manifest from '../../assets/colony-v007.manifest.json';
 import { sandwindTargets } from './sandwindTargets';
@@ -22,7 +22,7 @@ import shipUrl from '../../assets/ares-lander/ares-lander.glb';
 import deckUrl from '../../assets/ares-mars/deck-mars.glb';
 
 const reducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const usePreview = create<SandwindSettings>(() => ({ enabled: true, culling: true, wind: !reducedMotion, profile: 'balanced' }));
+const usePreview = create<SandwindSettings>(() => defaultSandwindSettings(reducedMotion));
 let activeController: SandwindController | null = null;
 
 export function ColonySandwind({ scope, masterplan }: { scope: RefObject<Group>; masterplan: RefObject<Group> }) {

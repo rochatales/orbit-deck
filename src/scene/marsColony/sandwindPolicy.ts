@@ -8,7 +8,16 @@ export type SandwindProfile = keyof typeof SANDWIND_PROFILES;
 export interface GroundBounds { minX: number; maxX: number; minZ: number; maxZ: number }
 
 export function sandwindPreviewEnabled(search: string) {
-    return new URLSearchParams(search).has('sandwindPreview');
+    return new URLSearchParams(search).get('sandwindPreview') !== '0';
+}
+
+/** HUD só mediante pedido explícito; a atmosfera não depende do painel. */
+export function sandwindPanelEnabled(search: string) {
+    const params = new URLSearchParams(search);
+    return params.get('sandwindPreview') === '1' || params.has('sandwindPanel') || params.has('sandwindQA');
+}
+export function defaultSandwindSettings(reducedMotion: boolean) {
+    return { enabled: true, culling: true, wind: !reducedMotion, profile: 'compact' as const };
 }
 
 /** Distância à borda mais próxima: prédios grandes não somem pelo seu centro. */

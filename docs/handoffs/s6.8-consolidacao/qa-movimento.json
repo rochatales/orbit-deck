@@ -1,0 +1,11 @@
+{
+  "dashShanghai": "Dash Space: 5.182 m | pico 7.20 m/s | clipe Dash | 52 quadros ativos",
+  "dashMars": "0.000 m | pico 0.00 m/s | 0 quadros ativos",
+  "backward": "Backward | 1.20 m/s | 0.856× | Deslocamento em 1s: 1.18 m",
+  "run": "Run | 4.20 m/s | 1.516× | Deslocamento em 1s: 4.10 m",
+  "context": {
+    "fixture": "http://127.0.0.1:5188/tests/browser-smoke.html?comparar",
+    "production": "http://127.0.0.1:4186/",
+    "note": "Fixture DEV: medidas técnicas; não é benchmark de GPU nem aprovação de jogabilidade."
+  }
+}

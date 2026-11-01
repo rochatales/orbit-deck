@@ -1,3 +1,4 @@
+import { playerActions } from '../state/playerActions';
 import { playerWeaponPose, weaponShotHeight } from '../state/playerWeaponPose';
 import { AdditiveBlending } from 'three';
 import { ChargeWarnings } from './ChargeWarnings';
@@ -123,8 +124,8 @@ export function CombatScene({ world }: {
             while (clock.current >= COMBAT.fixedStep) {
                 stepInput.aim = combatRuntime.aim;
                 stepInput.facingAngle = playerFacing.angle;
-                stepInput.firing = (input.current.firing || input.current.tap) && combatRuntime.aimValid;
-                stepInput.reload = input.current.reload;
+                stepInput.firing = (input.current.firing || input.current.tap) && combatRuntime.aimValid && !playerActions.dashing;
+                stepInput.reload = input.current.reload && !playerActions.dashing;
                 simulation.step(COMBAT.fixedStep, stepInput);
                 input.current.tap = false;
                 input.current.reload = false;
@@ -196,7 +197,7 @@ export function CombatScene({ world }: {
             }
         });
         if (reticle.current) {
-            reticle.current.visible = !blocked && combatRuntime.aimValid;
+            reticle.current.visible = !blocked && combatRuntime.aimValid && !playerActions.dashing;
             writeRifleMuzzle(markerMuzzle, playerPosition.x, playerPosition.z, playerFacing.angle, playerWeaponPose.valid ? playerWeaponPose : undefined);
             writeRifleAimTarget(aimMarker, playerPosition, combatRuntime.aim, playerFacing.angle, markerMuzzle);
             reticle.current.position.set(aimMarker.x, weaponShotHeight(playerPosition.y, RIFLE_POSE.height) + RIFLE_POSE.reticleLift, aimMarker.z);

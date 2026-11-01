@@ -1,11 +1,11 @@
 {
-  "base": "983da4a",
+  "base": "ab46ac2",
   "base_original": "96d8ea5",
   "versao": "v003",
   "anterior": {
-    "glb": "export/explorador-astronauta-rig-v002.glb",
-    "sha256": "e73f44b725695f0bb375c2cd82f72bb795481e1d1dbb6be05abc4c397b21cc31",
-    "notas": "notas/f1-v002.json"
+    "glb": "export/explorador-astronauta-rig-v004.glb",
+    "sha256": "714cc97b621fd860abac539af9997c1a462bdc467b6038f0366ca968502400be",
+    "notas": "notas/f1-v004.json"
   },
   "preservados": [
     {
@@ -17,10 +17,15 @@
       "glb": "export/explorador-astronauta-rig-v002.glb",
       "sha256": "e73f44b725695f0bb375c2cd82f72bb795481e1d1dbb6be05abc4c397b21cc31",
       "notas": "notas/f1-v002.json"
+    },
+    {
+      "glb": "export/explorador-astronauta-rig-v004.glb",
+      "sha256": "714cc97b621fd860abac539af9997c1a462bdc467b6038f0366ca968502400be",
+      "notas": "notas/f1-v004.json"
     }
   ],
   "escala_referencia_coordenacao": 1.6714,
-  "decisao_escala": "Mantida a escala do Idle v001 para preservar as outras oito ações. Root fonte medido no Hips em mundo Blender, antes de aplicar K.",
+  "decisao_escala": "Mantida a escala do Idle v001; só Run e Backward trocam a fonte nesta consolidação. Root fonte medido no Hips em mundo Blender, antes de aplicar K.",
   "blender": "5.1.1",
   "fps": 30,
   "altura_idle_fonte_m": 0.9136951544787735,
@@ -160,6 +165,16 @@
         "file": "dash_Jump_Over.fbx",
         "bytes": 7128192,
         "sha256": "3498697c73bb2a84c71b252b8c8bd4409aefc418f8c126c13fc8d95d0957ff67"
+      },
+      {
+        "file": "Rifle_Run_00.fbx",
+        "bytes": 7047008,
+        "sha256": "bc694cd51d02f99a89a608a6fab58ae5f889b8c1acb722c9c198adf7bc06a81b"
+      },
+      {
+        "file": "Backwards_Rifle_Run.fbx",
+        "bytes": 7042032,
+        "sha256": "25f2a898d8c85cec24225791246ffa96b53013c6578550ce48b548e7ff1dabbb"
       }
     ]
   },
@@ -556,6 +571,92 @@
       "root_original_horizontal_percurso_m": 5.208073389515193,
       "passada": null,
       "taxa_sugerida": null
+    },
+    {
+      "fonte": "Rifle_Run_00.fbx",
+      "quadros": [
+        1,
+        21
+      ],
+      "quantidade_quadros": 21,
+      "duracao_s": 0.6666666666666666,
+      "root_fonte_delta_xyz_blender_m": [
+        1.7380408242068442e-05,
+        -1.0989299704152473,
+        1.1908690558633713e-05
+      ],
+      "root_fonte_horizontal_reta_m": 1.0989299705526896,
+      "root_original_delta_xyz_blender_m": [
+        2.853316254913807e-05,
+        -1.8040972938761115,
+        1.9550323486328125e-05
+      ],
+      "root_original_horizontal_reta_m": 1.8040972941017483,
+      "root_original_horizontal_percurso_m": 1.8047087151629375,
+      "passada": {
+        "efetiva_m": 1.8470752239227295,
+        "excursao_geometrica_por_pe_m": {
+          "LeftToeBase": 0.7974838614463806,
+          "RightToeBase": 0.8506774865090847
+        },
+        "velocidade_apoio_mediana_m_s": 2.7706128358840942,
+        "apoios": {
+          "LeftToeBase": {
+            "intervalos": 7,
+            "mediana_m_s": 2.6980769634246826
+          },
+          "RightToeBase": {
+            "intervalos": 6,
+            "mediana_m_s": 2.9192787408828735
+          }
+        },
+        "alvo_m_s": 4.2,
+        "taxa_pelo_root_para_comparacao": 1.5520227259939994
+      },
+      "taxa_sugerida": 1.5159101068193068
+    },
+    {
+      "fonte": "Backwards_Rifle_Run.fbx",
+      "quadros": [
+        1,
+        19
+      ],
+      "quantidade_quadros": 19,
+      "duracao_s": 0.6,
+      "root_fonte_delta_xyz_blender_m": [
+        -2.3240724107318343e-06,
+        0.5649550037010737,
+        -2.323646938269993e-06
+      ],
+      "root_fonte_horizontal_reta_m": 0.5649550037058539,
+      "root_original_delta_xyz_blender_m": [
+        -3.815395757555962e-06,
+        0.9274783842265606,
+        -3.814697265625e-06
+      ],
+      "root_original_horizontal_reta_m": 0.9274783842344083,
+      "root_original_horizontal_percurso_m": 0.9277082599407445,
+      "passada": {
+        "efetiva_m": 0.840748742222786,
+        "excursao_geometrica_por_pe_m": {
+          "LeftToeBase": 0.4040023684501648,
+          "RightToeBase": 0.501313790678978
+        },
+        "velocidade_apoio_mediana_m_s": 1.4012479037046432,
+        "apoios": {
+          "LeftToeBase": {
+            "intervalos": 9,
+            "mediana_m_s": 1.4127954840660095
+          },
+          "RightToeBase": {
+            "intervalos": 10,
+            "mediana_m_s": 1.382280383259058
+          }
+        },
+        "alvo_m_s": 1.2,
+        "taxa_pelo_root_para_comparacao": 0.7762984154077291
+      },
+      "taxa_sugerida": 0.8563795148791441
     }
   ],
   "clipes": [
@@ -605,140 +706,6 @@
       "altura_quadril_min_max_m": [
         0.5320826172828674,
         0.572076678276062
-      ]
-    },
-    {
-      "fonte": "Running.fbx",
-      "quadros": [
-        1,
-        22
-      ],
-      "quantidade_quadros": 22,
-      "duracao_s": 0.7,
-      "root_fonte_delta_xyz_blender_m": [
-        4.2547246184142934e-10,
-        -1.263713350783285,
-        1.0892095023140591e-07
-      ],
-      "root_fonte_horizontal_reta_m": 1.263713350783285,
-      "root_original_delta_xyz_blender_m": [
-        6.984919309616089e-10,
-        -2.0746197644621134,
-        1.7881393432617188e-07
-      ],
-      "root_original_horizontal_reta_m": 2.0746197644621134,
-      "root_original_horizontal_percurso_m": 2.0747070273472126,
-      "passada": {
-        "efetiva_m": 2.141047418117523,
-        "excursao_geometrica_por_pe_m": {
-          "LeftToeBase": 0.824302077293396,
-          "RightToeBase": 0.907868891954422
-        },
-        "velocidade_apoio_mediana_m_s": 3.058639168739319,
-        "apoios": {
-          "LeftToeBase": {
-            "intervalos": 5,
-            "mediana_m_s": 2.9539382457733154
-          },
-          "RightToeBase": {
-            "intervalos": 5,
-            "mediana_m_s": 3.214819896966219
-          }
-        },
-        "alvo_m_s": 4.2,
-        "taxa_pelo_root_para_comparacao": 1.4171271528217866
-      },
-      "taxa_sugerida": 1.3731596858256139,
-      "clipe": "Run",
-      "loop": true,
-      "trajetoria": "notas/f1-v003/trajetoria-Run.json",
-      "envelope_blender_m": {
-        "min": [
-          -0.43394437432289124,
-          -0.5243837237358093,
-          -0.016130995005369186
-        ],
-        "max": [
-          0.4060297906398773,
-          0.49879392981529236,
-          1.544533371925354
-        ]
-      },
-      "menor_piso": {
-        "quadro": 7,
-        "min_m": -0.016130995005369186
-      },
-      "deriva_horizontal_quadril_m": 2.630778084267149e-08,
-      "altura_quadril_min_max_m": [
-        0.5562335848808289,
-        0.5978326201438904
-      ]
-    },
-    {
-      "fonte": "Sprint Backward.fbx",
-      "quadros": [
-        1,
-        16
-      ],
-      "quantidade_quadros": 16,
-      "duracao_s": 0.5,
-      "root_fonte_delta_xyz_blender_m": [
-        -2.680476509601005e-07,
-        1.3793947123824155,
-        -1.815349170523432e-07
-      ],
-      "root_fonte_horizontal_reta_m": 1.3793947123824415,
-      "root_original_delta_xyz_blender_m": [
-        -4.400499165058136e-07,
-        2.2645321674644947,
-        -2.980232238769531e-07
-      ],
-      "root_original_horizontal_reta_m": 2.2645321674645373,
-      "root_original_horizontal_percurso_m": 2.265319644155082,
-      "passada": {
-        "efetiva_m": 2.217809110879898,
-        "excursao_geometrica_por_pe_m": {
-          "LeftToeBase": 0.6657825708389282,
-          "RightToeBase": 0.5743005410768092
-        },
-        "velocidade_apoio_mediana_m_s": 4.435618221759796,
-        "apoios": {
-          "LeftToeBase": {
-            "intervalos": 4,
-            "mediana_m_s": 4.474389553070068
-          },
-          "RightToeBase": {
-            "intervalos": 2,
-            "mediana_m_s": 4.377070069313049
-          }
-        },
-        "alvo_m_s": 1.2,
-        "taxa_pelo_root_para_comparacao": 0.26495538841110644
-      },
-      "taxa_sugerida": 0.2705372599727281,
-      "clipe": "Backward",
-      "loop": true,
-      "trajetoria": "notas/f1-v003/trajetoria-Backward.json",
-      "envelope_blender_m": {
-        "min": [
-          -0.44735559821128845,
-          -0.5745564699172974,
-          0.000943568127695471
-        ],
-        "max": [
-          0.4727594256401062,
-          0.3936484754085541,
-          1.556465744972229
-        ]
-      },
-      "menor_piso": {
-        "quadro": 16,
-        "min_m": 0.000943568127695471
-      },
-      "deriva_horizontal_quadril_m": 2.585977654234739e-08,
-      "altura_quadril_min_max_m": [
-        0.5609009265899658,
-        0.5963642001152039
       ]
     },
     {
@@ -1076,6 +1043,140 @@
         0.22845874726772308,
         1.325584053993225
       ]
+    },
+    {
+      "fonte": "Rifle_Run_00.fbx",
+      "quadros": [
+        1,
+        21
+      ],
+      "quantidade_quadros": 21,
+      "duracao_s": 0.6666666666666666,
+      "root_fonte_delta_xyz_blender_m": [
+        1.7380408242068442e-05,
+        -1.0989299704152473,
+        1.1908690558633713e-05
+      ],
+      "root_fonte_horizontal_reta_m": 1.0989299705526896,
+      "root_original_delta_xyz_blender_m": [
+        2.853316254913807e-05,
+        -1.8040972938761115,
+        1.9550323486328125e-05
+      ],
+      "root_original_horizontal_reta_m": 1.8040972941017483,
+      "root_original_horizontal_percurso_m": 1.8047087151629375,
+      "passada": {
+        "efetiva_m": 1.8470752239227295,
+        "excursao_geometrica_por_pe_m": {
+          "LeftToeBase": 0.7974838614463806,
+          "RightToeBase": 0.8506774865090847
+        },
+        "velocidade_apoio_mediana_m_s": 2.7706128358840942,
+        "apoios": {
+          "LeftToeBase": {
+            "intervalos": 7,
+            "mediana_m_s": 2.6980769634246826
+          },
+          "RightToeBase": {
+            "intervalos": 6,
+            "mediana_m_s": 2.9192787408828735
+          }
+        },
+        "alvo_m_s": 4.2,
+        "taxa_pelo_root_para_comparacao": 1.5520227259939994
+      },
+      "taxa_sugerida": 1.5159101068193068,
+      "clipe": "Run",
+      "loop": true,
+      "trajetoria": "notas/f1-v003/trajetoria-Run.json",
+      "envelope_blender_m": {
+        "min": [
+          -0.45470938086509705,
+          -0.6967530846595764,
+          -0.021410265937447548
+        ],
+        "max": [
+          0.4820127487182617,
+          0.4997854232788086,
+          1.4241200685501099
+        ]
+      },
+      "menor_piso": {
+        "quadro": 6,
+        "min_m": -0.021410265937447548
+      },
+      "deriva_horizontal_quadril_m": 6.001275182035391e-10,
+      "altura_quadril_min_max_m": [
+        0.5464691519737244,
+        0.5562564730644226
+      ]
+    },
+    {
+      "fonte": "Backwards_Rifle_Run.fbx",
+      "quadros": [
+        1,
+        19
+      ],
+      "quantidade_quadros": 19,
+      "duracao_s": 0.6,
+      "root_fonte_delta_xyz_blender_m": [
+        -2.3240724107318343e-06,
+        0.5649550037010737,
+        -2.323646938269993e-06
+      ],
+      "root_fonte_horizontal_reta_m": 0.5649550037058539,
+      "root_original_delta_xyz_blender_m": [
+        -3.815395757555962e-06,
+        0.9274783842265606,
+        -3.814697265625e-06
+      ],
+      "root_original_horizontal_reta_m": 0.9274783842344083,
+      "root_original_horizontal_percurso_m": 0.9277082599407445,
+      "passada": {
+        "efetiva_m": 0.840748742222786,
+        "excursao_geometrica_por_pe_m": {
+          "LeftToeBase": 0.4040023684501648,
+          "RightToeBase": 0.501313790678978
+        },
+        "velocidade_apoio_mediana_m_s": 1.4012479037046432,
+        "apoios": {
+          "LeftToeBase": {
+            "intervalos": 9,
+            "mediana_m_s": 1.4127954840660095
+          },
+          "RightToeBase": {
+            "intervalos": 10,
+            "mediana_m_s": 1.382280383259058
+          }
+        },
+        "alvo_m_s": 1.2,
+        "taxa_pelo_root_para_comparacao": 0.7762984154077291
+      },
+      "taxa_sugerida": 0.8563795148791441,
+      "clipe": "Backward",
+      "loop": true,
+      "trajetoria": "notas/f1-v003/trajetoria-Backward.json",
+      "envelope_blender_m": {
+        "min": [
+          -0.42542117834091187,
+          -0.47477614879608154,
+          -0.00022702837304677814
+        ],
+        "max": [
+          0.4364848732948303,
+          0.2875520884990692,
+          1.5456355810165405
+        ]
+      },
+      "menor_piso": {
+        "quadro": 11,
+        "min_m": -0.00022702837304677814
+      },
+      "deriva_horizontal_quadril_m": 3.810363266995111e-08,
+      "altura_quadril_min_max_m": [
+        0.5646324157714844,
+        0.5936262011528015
+      ]
     }
   ],
   "fora_do_escopo": [
@@ -1086,19 +1187,18 @@
     "Walk Forward Left.fbx"
   ],
   "escolhas": {
-    "Run": "Running: apoio do pé mais rápido e taxa menor que Standard_Run para 4,2 m/s.",
+    "Run": "Rifle_Run_00: loop armado para Marte e Shanghai, decisão do autor em 01/11/2026.",
+    "Backward": "Backwards_Rifle_Run: recuo armado, decisão do autor em 01/11/2026.",
     "Fall": "Jumping Down (com espaço): retorno dos dois pés mais próximo do piso e menor deslocamento horizontal que Jumping_Down.",
     "Death": "Death From The Front: 3,433 s, queda natural com elevação suave autorizada na v003."
   },
   "faltam": [
     "Talk",
     "Hit",
-    "Idle armado em loop",
-    "Corrida armada em loop",
-    "Recuo armado em loop"
+    "Idle armado em loop"
   ],
   "metodo_passada": "ToeBase com dois extremos do intervalo a <=1 cm da altura mínima desse pé; componente de recuo do pé relativo ao Hips, na direção de apoio; mediana das velocidades a 30 Hz. Passada efetiva = mediana × duração. Taxa = velocidade de jogo / mediana. Excursão geométrica por pé também registrada.",
-  "root_motion": "Remove horizontal do Hips em todas as ações; Dash, Fall e Death recebem elevação suave; Fall também neutraliza o desnível vertical de borda. Preserva rotações e as outras oito ações da v002. Guarda trajetória original escalada e distância para F3; nenhum deslocamento de gameplay implementado.",
+  "root_motion": "Remove horizontal do Hips em todas as ações; Dash, Fall e Death recebem elevação suave; Fall também neutraliza o desnível vertical de borda. Preserva Dash/Fall/Death corrigidos e as ações que não são Run/Backward. Guarda trajetória original escalada e distância para F3; nenhum deslocamento de gameplay implementado.",
   "dash_altura": {
     "fonte": "dash_Jump_Over.fbx",
     "metodo": "falta abaixo de -1 cm; máximo ±1 quadro; média ±1 quadro (janelas disponíveis nas bordas)",
@@ -3708,8 +3808,8 @@
   "observacao_mascara": "Ações completas preservadas; nomes de ossos separados para futuro filtro de tronco/pernas S6.11, sem mixer/runtime nesta parada.",
   "glb": {
     "arquivo": "export/explorador-astronauta-rig-v003.glb",
-    "bytes": 2702968,
-    "sha256": "4777b703632b7761f55bea4f3fc0cfba45d5b006128b248a6852ab25b66d9ba9",
+    "bytes": 2699200,
+    "sha256": "477ef7b591ad7a1e02d9e2ad79cfa8bdd934c1b3aa2f33e9019da0a679a4dd4d",
     "alvo_bytes": 3000000
   },
   "renders": [
@@ -3954,5 +4054,5 @@
       "sha256": "8c6e3b3e57bdec04850812c64d9ac5cb5b8047066806a03fffa250947e10266f"
     }
   ],
-  "script_sha256": "3c42637d948494d1e80b581ac10dd05ae51ef05f5fd167ccace9abede2586603"
+  "script_sha256": "0f1956e03d1cf90e60a81d9400fabd7c5990f0f8afc3aa61dd7a1e4245982c1d"
 }

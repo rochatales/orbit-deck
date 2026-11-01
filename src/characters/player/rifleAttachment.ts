@@ -28,6 +28,7 @@ export function detachRifle(rifle: Object3D) {
 export class RifleAimRig {
   readonly muzzle: Object3D | null;
   private readonly torso: Object3D | null;
+  private readonly head: Object3D | null;
   private readonly point = new Vector3();
   private readonly target = new Vector3();
   private readonly direction = new Vector3();
@@ -35,11 +36,12 @@ export class RifleAimRig {
   private readonly parentRotation = new Quaternion();
   private readonly inverseParent = new Quaternion();
   private readonly correction = new Quaternion();
-  constructor(private readonly character: Object3D, rifle: Object3D, private readonly footOffset: number) {
+  constructor(private readonly character: Object3D, rifle: Object3D, private readonly footOffset: number, private readonly headOffset?: {side:number;forward:number;height:number}) {
     this.muzzle = rifle.getObjectByName('Muzzle') ?? null;
+    this.head = character.getObjectByName('mixamorig:Head') ?? character.getObjectByName('mixamorigHead') ?? null;
     this.torso = character.getObjectByName('mixamorig:Spine2') ?? character.getObjectByName('mixamorigSpine2') ?? null;
   }
-  update(out: WeaponMuzzleOffset, player: { x: number; z: number }, angle: number, aim: { x: number; z: number } | null, align: boolean) {
+  update(out: WeaponMuzzleOffset, player: { x: number; z: number }, angle: number, aim: { x: number; z: number } | null, align: boolean, headOut?: WeaponMuzzleOffset) {
     const muzzle = this.muzzle, torso = this.torso;
     if (!muzzle) { out.valid = false; return; }
     this.character.updateWorldMatrix(true, true);
@@ -69,5 +71,10 @@ export class RifleAimRig {
     muzzle.getWorldPosition(this.point); this.character.worldToLocal(this.point);
     out.side = this.point.x; out.forward = this.point.z;
     out.height = this.point.y + this.footOffset; out.valid = true;
+    if (headOut && this.head && this.headOffset) {
+      this.head.getWorldPosition(this.point);this.character.worldToLocal(this.point);
+      headOut.side=this.point.x+this.headOffset.side;headOut.forward=this.point.z+this.headOffset.forward;
+      headOut.height=this.point.y+this.footOffset+this.headOffset.height;headOut.valid=true;
+    }
   }
 }

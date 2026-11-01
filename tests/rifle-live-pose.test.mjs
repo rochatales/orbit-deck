@@ -35,7 +35,7 @@ test('Mira viva: tronco alinha cano e alvo parado; boca real rege XYZ em todos o
 });
 
 test('Mira viva: corrida armada usa a boca animada, com calçada e sem contaminar pela interpolação',async()=>{
-    const s=await setup();play(s,'Run_Rifle');
+    const s=await setup();play(s,'Run');
     const player={x:-3,y:.25,z:5},angle=.8,out={valid:false,side:0,forward:0,height:0},physical={x:0,z:0};
     s.body.position.set(20,player.y+.02,40);s.body.rotation.y=angle;
     let min=Infinity,max=-Infinity;
