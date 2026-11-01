@@ -21,8 +21,8 @@ const bone=(g,name)=>g.scene.getObjectByName('mixamorig'+name);
 
 test('Shanghai: v005 incorpora Run_Backward in-place; dez ações v003 e fontes anteriores preservadas',async()=>{
  const r=JSON.parse(fs.readFileSync(base+'notas/f1-v005.json'));
- assert.equal(hash(base+r.glb.arquivo),r.glb.sha256);assert.equal(hash('src/assets/characters/player/explorador-astronauta.glb'),r.glb.sha256);
- assert.equal(hash(base+'scripts/preparar_f1.py'),r.script_sha256);assert.equal(r.fontes.arquivos.length,17);
+ assert.equal(hash(base+r.glb.arquivo),r.glb.sha256);
+ assert.equal(hash(base+'scripts/preparar_f1.py'),JSON.parse(fs.readFileSync(base+'notas/f1-v006.json')).script_sha256);assert.equal(r.fontes.arquivos.length,17);
  for(const source of r.fontes.arquivos)assert.equal(hash(base+'mixamo/'+source.file),source.sha256);
  for(const old of r.preservados)assert.equal(hash(base+old.glb),old.sha256);
  const g=await loadGlb(base+r.glb.arquivo),old=await loadGlb(base+'export/explorador-astronauta-rig-v003.glb');
@@ -47,7 +47,7 @@ test('Shanghai: pernas Run continuam correndo enquanto Firing_Rifle opera apenas
  s.layers.dispose();reference.layers.dispose();
 });
 
-test('Shanghai: recuo usa Run_Backward a 0,418×; Marte conserva Backwards_Rifle_Run a 0,856×',async()=>{
+test('Shanghai: recuo usa Run_Backward a 0,418×; ações anteriores continuam disponíveis para comparação',async()=>{
  const s=await setup(),c=locomotionCalibration({backwardReferenceSpeed:2.8689273214,backwardTimeScale:[.2,2]});
  const target=pickTargetAction('backward',s.layers.legs,true);assert.equal(target.getClip().name,'Backward_Pernas');
  updateLocomotionRates(s.layers.legs,target,'backward',1.2,c);close(target.timeScale,1.2/2.8689273214);

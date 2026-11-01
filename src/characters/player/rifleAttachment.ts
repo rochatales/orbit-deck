@@ -20,6 +20,25 @@ export function attachRifle(character: Object3D, rifle: Object3D): boolean {
   return true;
 }
 
+/** Encaixe de cintura calibrado no Hips do Idle: punho em (-0,28; 0,64; -0,035), cano 60° para baixo, livre do piso durante a passada.
+ * Mesmo tamanho mundial da arma empunhada; o transform é fixo e acompanha só o quadril. */
+export const RIFLE_HOLSTER_TRANSFORM = {
+  position: [-0.13889160163930517, 0.039628645550470465, 0.10424504329431789],
+  quaternion: [0.4969764461861439, 0.3233252003945658, -0.1735340638570748, 0.7863594349970252],
+  scale: [0.6091301170549727, 0.6091300347976606, 0.6091299628849569]
+} as const;
+
+export function attachHolsteredRifle(character: Object3D, rifle: Object3D): boolean {
+  const hips = character.getObjectByName('mixamorig:Hips') ?? character.getObjectByName('mixamorigHips');
+  if (!hips) return false;
+  rifle.name = 'RifleLaserHolstered';
+  rifle.position.fromArray(RIFLE_HOLSTER_TRANSFORM.position);
+  rifle.quaternion.fromArray(RIFLE_HOLSTER_TRANSFORM.quaternion).normalize();
+  rifle.scale.fromArray(RIFLE_HOLSTER_TRANSFORM.scale);
+  hips.add(rifle);
+  return true;
+}
+
 export function detachRifle(rifle: Object3D) {
   rifle.removeFromParent();
 }

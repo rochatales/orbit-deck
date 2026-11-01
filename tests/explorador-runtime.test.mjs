@@ -20,7 +20,7 @@ test('S6.8 F2: astronauta com loops armados padrão, r7/atual reversíveis na me
     assert.equal(asset.id, 'player-astronauta'); assert.equal(asset.scale, 1);
     assert.deepEqual(asset.positionOffset, [0, 0, 0]); assert.deepEqual(asset.rotationOffset, [0, 0, 0]);
     assert.equal(asset.materialProfile, 'preservar');
-    assert.equal(hash(asset.assetPath), hash('art-source/personagens/explorador-astronauta/export/explorador-astronauta-rig-v005.glb'));
+    assert.equal(hash(asset.assetPath), hash('art-source/personagens/explorador-astronauta/export/explorador-astronauta-rig-v006.glb'));
     // Troca em runtime afeta só escolha/clipes, sem remount do PlayerPhysicsBody.
     for (const variant of ['r7', 'atual', 'astronauta']) {
         choice.usePlayerAsset.getState().setVariant(variant);

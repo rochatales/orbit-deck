@@ -49,6 +49,19 @@ export function locomotionCalibration(asset: Pick<CharacterAssetConfig, 'runRefe
   };
 }
 
+/** Resolvido fora do quadro; preserva ações e fallback das variantes antigas. */
+export function colonyLocomotionActions(actions: ActionMap): ActionMap {
+  if (!actions.Run_Colony) return actions;
+  return { ...actions, Run: actions.Run_Colony, Backward: actions.Backward_Rifle ?? actions.Backward };
+}
+
+export function mapLocomotionCalibration(asset: CharacterAssetConfig, combat: boolean) {
+  return locomotionCalibration({ ...asset,
+    runReferenceSpeed: (combat ? asset.combatRunReferenceSpeed : asset.colonyRunReferenceSpeed) ?? asset.runReferenceSpeed,
+    backwardReferenceSpeed: (combat ? asset.combatBackwardReferenceSpeed : asset.colonyBackwardReferenceSpeed) ?? asset.backwardReferenceSpeed
+  });
+}
+
 /** Atualiza as ações já existentes, sem criar objetos no quadro. */
 export function updateLocomotionRates(actions: ActionMap, active: AnimationAction | null, state: PlayerAnimationState, speed: number, calibration: ReturnType<typeof locomotionCalibration>) {
   const run = actions.Run, armed = actions.Run_Rifle, back = actions.Backward;

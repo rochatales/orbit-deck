@@ -1,0 +1,8 @@
+{
+  "corrida": "Run_Colony | 4.20 m/s | 1.517× | deslocamento 3.89 m em 1 s",
+  "recuo": "Backward_Rifle (Run_Backward) | 1.20 m/s | 0.418× | deslocamento 1.17 m em 1 s",
+  "dash": "0.000 m | 0.00 m/s | nenhum clipe | 0 quadros ativos",
+  "shanghai": "Run_Pernas | 4.20 m/s | 1.516× | deslocamento 3.84 m em 1 s",
+  "retorno": "Marte → Shanghai → Marte; Run_Colony restaurado e rifle novamente na cintura",
+  "fixture": "http://127.0.0.1:5188/tests/browser-smoke.html?comparar"
+}

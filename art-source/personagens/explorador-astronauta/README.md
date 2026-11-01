@@ -150,3 +150,18 @@ tronco/pernas uma vez no carregamento. GLB 2.745.732 bytes, SHA-256
 Sem a flag, a receita v003 permanece disponível.
 
 [Handoff e roteiro](../../../docs/handoffs/s6.8-animacoes-shanghai.md).
+
+
+## v006 — colônia separada do combate (01/11/2026)
+
+`preparar_f1.py -- --colonia --ingest <pasta do autor>` gera v006 com
+Run_Colony ← Standard_Run (23 quadros, 0,733333 s), mantendo as onze ações
+do v005 idênticas e todos os GLBs anteriores. Run_Backward é reutilizado
+no recuo dos dois mapas; a colônia toca o corpo inteiro, sem camadas de arma.
+Standard_Run: referência 2,7678143978 m/s; 1,517442789× a 4,2 m/s.
+GLB 2.802.396 bytes, SHA-256
+`746afcc364c04de71e7d05c754c4c1db7dd1be0b602304182527827d472328c9`.
+Rifle no Hips em Marte, sem Dash. Transform e medição em
+`notas/holster-colonia-v001.json`.
+
+[Handoff e roteiro](../../../docs/handoffs/s6.8-animacoes-colonia.md).

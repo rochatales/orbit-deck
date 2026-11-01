@@ -8,7 +8,7 @@ import { useEffect, useMemo, useRef } from "react";
 import { LoopOnce, LoopRepeat, type AnimationAction } from "three";
 import type { GLBActionMap } from "../GLBCharacter";
 import type { CharacterAssetConfig } from "../characterAssetConfig";
-import { configureLocomotionAction, crossfadeFor, locomotionCalibration, pickTargetAction, updateLocomotionRates } from "./locomotionClips";
+import { configureLocomotionAction, crossfadeFor, colonyLocomotionActions, mapLocomotionCalibration, pickTargetAction, updateLocomotionRates } from "./locomotionClips";
 import {
   PLAYER_LOCOMOTION,
   type PlayerAnimationState,
@@ -32,12 +32,13 @@ export function LocomotionController({ motionRef, actions, asset, combat }: Loco
   const layers = useMemo(() => combat && asset.id === 'player-astronauta' && actions.Backward_Rifle && actions.Run
     ? new RifleAnimationLayers(actions) : null, [combat, asset.id, actions]);
   useEffect(() => () => layers?.dispose(), [layers]);
-  const baseActions = layers?.legs ?? actions;
+  const colonyActions = useMemo(() => !combat && asset.id === 'player-astronauta'
+    ? colonyLocomotionActions(actions) : actions, [combat, asset.id, actions]);
+  const baseActions = layers?.legs ?? colonyActions;
   useEffect(() => {
     if (import.meta.env.DEV) Object.assign(window, { __hordaPlayerBaseActions: baseActions, __hordaRifleLayers: layers });
   }, [baseActions, layers]);
-  const calibration = useMemo(() => locomotionCalibration(combat && asset.combatBackwardReferenceSpeed
-    ? { ...asset, backwardReferenceSpeed: asset.combatBackwardReferenceSpeed } : asset), [asset, combat]);
+  const calibration = useMemo(() => mapLocomotionCalibration(asset, combat), [asset, combat]);
   const stepClock = useRef(new FootstepClock());
   const currentRef = useRef<AnimationAction | null>(null);
   const stateRef = useRef<PlayerAnimationState | null>(null);
