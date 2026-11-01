@@ -1,3 +1,5 @@
+import circulationUrl from '../../assets/quartel/quartel-circulation-v001.glb';
+import laboratorioUrl from '../../assets/laboratorio/laboratorio-v002.glb';
 import { useEffect, useRef, useState, type CSSProperties, type RefObject } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
@@ -11,7 +13,7 @@ import { SANDWIND_PROFILES, type SandwindProfile } from './sandwindPolicy';
 import { SandwindController, sandwindResources, type SandwindSettings } from './SandwindController';
 import manifest from '../../assets/colony-v007.manifest.json';
 import { sandwindTargets } from './sandwindTargets';
-import quartelUrl from '../../assets/quartel/barracks-v005.glb';
+import quartelUrl from '../../assets/quartel/barracks-v006.glb';
 import colonyUrl from '../../assets/colony-v007.glb';
 import hangarUrl from '../../assets/hangar/hangar-v002.glb';
 import greenhouseUrl from '../../assets/greenhouse/greenhouse-v001.glb';
@@ -30,17 +32,17 @@ export function ColonySandwind({ scope, masterplan }: { scope: RefObject<Group>;
     // useLoader usa a lista de URLs como chave: chamadas individuais devem casar
     // com Masterplan/Hangar/Greenhouse/DeckProps; AresLanding usa o par de URLs.
     const colony = useGLTF(colonyUrl), hangar = useGLTF(hangarUrl), greenhouse = useGLTF(greenhouseUrl), legacy = useGLTF(legacyUrl);
-    const quartel = useGLTF(quartelUrl);
+    const circulation = useGLTF(circulationUrl), quartel = useGLTF(quartelUrl), laboratorio = useGLTF(laboratorioUrl);
     const [ship, deck] = useGLTF([shipUrl, deckUrl]);
     const controller = useRef<SandwindController | null>(null);
     const enabled = usePreview(s => s.enabled);
     useEffect(() => {
         const root = scope.current!, architecture = masterplan.current!.children[0];
-        const next = new SandwindController(root, [colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene],
+        const next = new SandwindController(root, [colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene, laboratorio.scene, circulation.scene],
             sandwindTargets(root, architecture, manifest), gl.outputColorSpace);
         controller.current = next; activeController = next;
         return () => { if (activeController === next) activeController = null; controller.current = null; next.dispose(); };
-    }, [scope, masterplan, colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene, gl]);
+    }, [scope, masterplan, colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene, laboratorio.scene, circulation.scene, gl]);
     useEffect(() => {
         if (!enabled) return;
         const original = scene.fog;
@@ -85,7 +87,9 @@ export function SandwindPanel() {
         {sandwindQAEnabled(window.location.search) && <fieldset style={{ margin: '10px 0' }}><legend>Poses de QA · sem salvar</legend>
             <button onClick={() => sandwindQAPose(window.location.search, 'plaza')}>QA · Praça</button>
             <button onClick={() => sandwindQAPose(window.location.search, 'deck')}>QA · Deck</button>
-            {(['quartel', 'quartel-west', 'quartel-north'] as const).map(pose => <button key={pose} onClick={() => sandwindQAPose(window.location.search, pose)}>QA · {pose}</button>)}
+            {(['quartel', 'quartel-west', 'quartel-north', 'laboratorio', 'lab-console', 'lab-west', 'lab-south'] as const).map(pose => <button key={pose} onClick={() => sandwindQAPose(window.location.search, pose)}>QA · {pose}</button>)}
+            <button onClick={() => sandwindQAPose(window.location.search, 'bathroom-front')}>QA · Banheiro (fora)</button>
+            <button onClick={() => sandwindQAPose(window.location.search, 'bathroom-inside')}>QA · Banheiro (dentro)</button>
             <button onClick={() => useGameStore.getState().setZoom(useGameStore.getState().minZoom)}>QA · Afastar</button>
         </fieldset>}
         {report && <textarea aria-label="Relatório QA Sandwind" readOnly value={report} style={{ width: '100%', height: 100, fontSize: 10 }}/>}

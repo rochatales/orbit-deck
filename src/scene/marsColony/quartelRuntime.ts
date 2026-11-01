@@ -1,19 +1,26 @@
-import { AnimationMixer, LoopOnce, type AnimationAction, type AnimationClip, type Material, type Mesh, type Object3D } from 'three';
+import { AnimationMixer, LoopOnce, Vector3, type AnimationAction, type AnimationClip, type Material, type Mesh, type Object3D } from 'three';
 import { QUARTEL, createQuartelDoorColliders } from '../../game/quartelLayout';
 import type { SimpleCuboid } from '../../world/createOfficeMap';
 
 /** O runtime controla filhos/teto; somente o pai exclusivo Sandwind controla distância. */
 export class QuartelRuntime {
-    readonly status = { roofOpacity: 1, north: 0, west: 0 };
+    readonly status = { roofOpacity: 1, north: 0, west: 0, bathroom: 0 };
     private mixer: AnimationMixer;
     private actions: AnimationAction[];
+    private doorColliders: Object3D[];
+    private colliderPoint = new Vector3();
     private roof: Object3D;
     private roofMaterials: { own: Material; opacity: number; transparent: boolean; depthWrite: boolean }[] = [];
     private disposed = false;
 
     constructor(private scene: Object3D, clips: AnimationClip[], private motions: SimpleCuboid[] = createQuartelDoorColliders()) {
+        this.motions = QUARTEL.dynamicCuboids.map(source => {
+            const collider = motions.find(c => c.id === source.id);
+            if (!collider) throw new Error(`Colisor do quartel ausente: ${source.id}`);
+            return collider;
+        });
         this.roof = scene.getObjectByName('Building_Roof')!;
-        if (!this.roof || !scene.getObjectByName('Building_Interior')) throw new Error('Quartel v005 incompleto');
+        if (!this.roof || !scene.getObjectByName('Building_Interior')) throw new Error('Quartel v006 incompleto');
         scene.traverse(node => {
             const mesh = node as Mesh;
             if (mesh.isMesh) { mesh.castShadow = true; mesh.receiveShadow = true; }
@@ -27,6 +34,11 @@ export class QuartelRuntime {
                 return own;
             };
             mesh.material = Array.isArray(mesh.material) ? mesh.material.map(copy) : copy(mesh.material);
+        });
+        this.doorColliders = QUARTEL.dynamicCuboids.map(collider => {
+            const node = scene.getObjectByName(collider.id);
+            if (!node) throw new Error(`COL móvel ausente: ${collider.id}`);
+            return node;
         });
         this.mixer = new AnimationMixer(scene);
         this.actions = QUARTEL.doors.map(door => {
@@ -52,19 +64,18 @@ export class QuartelRuntime {
             material.own.depthWrite = material.depthWrite && opacity > .995;
         }
         for (let i = 0; i < QUARTEL.doors.length; i++) {
-            const door = QUARTEL.doors[i], side = door.side as 'north' | 'west';
+            const door = QUARTEL.doors[i], side = door.side as 'north' | 'west' | 'bathroom';
             const dx = player.x - door.x, dz = player.z - door.z;
             this.status[side] += ((dx * dx + dz * dz < 2.35 * 2.35 ? 1 : 0) - this.status[side]) * step;
             this.actions[i].time = this.actions[i].getClip().duration * this.status[side];
         }
         this.mixer.update(0);
-        // Mesma pose das folhas, mesmo sob gate visual oculto. Sem alocação por quadro.
-        for (let i = 0; i < QUARTEL.dynamicCuboids.length; i++) {
-            const collider = QUARTEL.dynamicCuboids[i], output = this.motions[i];
-            const amount = this.status[collider.side as 'north' | 'west'];
-            output.position.x = collider.position.x + collider.slide.x * amount;
-            output.position.y = collider.position.y + collider.slide.y * amount;
-            output.position.z = collider.position.z + collider.slide.z * amount;
+        // Usa a curva real do clipe, que não é linear. A consulta atualiza a matriz
+        // mesmo com o pai Sandwind oculto; vetor e referências são reutilizados.
+        for (let i = 0; i < this.doorColliders.length; i++) {
+            this.doorColliders[i].getWorldPosition(this.colliderPoint);
+            const output = this.motions[i].position;
+            output.x = this.colliderPoint.x; output.y = this.colliderPoint.y; output.z = this.colliderPoint.z;
         }
     }
 

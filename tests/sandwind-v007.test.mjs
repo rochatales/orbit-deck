@@ -1,3 +1,6 @@
+const {LaboratorioRuntime}=loadSource('src/scene/marsColony/laboratorioRuntime.ts');
+const {removeRoomForLaboratorio}=loadSource('src/scene/marsColony/laboratorioColony.ts');
+const {LABORATORIO}=loadSource('src/game/laboratorioLayout.ts');
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -18,7 +21,7 @@ const { QUARTEL } = loadSource('src/game/quartelLayout.ts');
 const { HANGAR } = loadSource('src/game/hangarLayout.ts');
 const manifest = JSON.parse(fs.readFileSync('src/assets/colony-v007.manifest.json'));
 const greenManifest = JSON.parse(fs.readFileSync('src/assets/greenhouse/greenhouse-v001.manifest.json'));
-const urls = ['colony-v007.glb', 'hangar/hangar-v002.glb', 'greenhouse/greenhouse-v001.glb', 'colony-v006.glb', 'ares-lander/ares-lander.glb', 'ares-mars/deck-mars.glb', 'quartel/barracks-v005.glb'];
+const urls = ['colony-v007.glb', 'hangar/hangar-v002.glb', 'greenhouse/greenhouse-v001.glb', 'colony-v006.glb', 'ares-lander/ares-lander.glb', 'ares-mars/deck-mars.glb', 'quartel/barracks-v006.glb', 'laboratorio/laboratorio-v002.glb', 'quartel/quartel-circulation-v001.glb'];
 const sources = await Promise.all(urls.map(url => loadGlb(`src/assets/${url}`)));
 const settings = { enabled: true, culling: true, wind: true, profile: 'compact' };
 const eachMaterial = (root, fn) => root.traverse(n => { if (n.isMesh) for (const m of Array.isArray(n.material) ? n.material : [n.material]) fn(m, n); });
@@ -26,7 +29,8 @@ const visible = node => { for (let n = node; n; n = n.parent) if (!n.visible) re
 
 function fixture() {
     const scope = new Group(), architecture = sources[0].scene.clone(true), geometries = [];
-    const filtered = removeRoomForQuartel(architecture, removeDockForHangar(architecture, removeProvisionalGreenhouse(architecture, manifest), geometries), geometries);
+    const quartelFiltered = removeRoomForQuartel(architecture, removeDockForHangar(architecture, removeProvisionalGreenhouse(architecture, manifest), geometries), geometries);
+    const filtered = removeRoomForLaboratorio(architecture, quartelFiltered, geometries);
     const master = new MasterplanRuntime(architecture, filtered); scope.add(architecture);
     const hangar = clone(sources[1].scene); hangar.name = 'Hangar';
     const hangarRuntime = new HangarRuntime(hangar, sources[1].animations);
@@ -45,11 +49,16 @@ function fixture() {
     deck.name = 'MarsARESDeck'; deck.position.set(0, 0, 33); scope.add(ares, deck);
     const quartel = sources[6].scene.clone(true), qRoot = new Group(); qRoot.name='Quartel'; qRoot.position.set(QUARTEL.placement.x,0,0); qRoot.rotation.y=QUARTEL.placement.rotationY; qRoot.add(quartel); scope.add(qRoot);
     const quartelRuntime = new QuartelRuntime(quartel,sources[6].animations);
+    const labRoot=new Group(), lab=clone(sources[7].scene);labRoot.name='Laboratorio';labRoot.position.set(LABORATORIO.placement.x,0,LABORATORIO.placement.z);labRoot.add(lab);scope.add(labRoot);
+    const {createLaboratorioWalkways}=loadSource('src/scene/marsColony/laboratorioWalkways.ts');
+    const paving=createLaboratorioWalkways(lab),pavingRoot=new Group();pavingRoot.position.copy(labRoot.position);pavingRoot.add(paving);scope.add(pavingRoot);
+    const labRuntime=new LaboratorioRuntime(lab,sources[7].animations);
+    const circulation=sources[8].scene.clone(true); circulation.name='QuartelCirculation';scope.add(circulation);
     const targets = sandwindTargets(scope, architecture, filtered);
     const install = () => new SandwindController(scope, sources.map(s => s.scene), targets, SRGBColorSpace);
-    const update = (p, dt) => { master.update(p, dt); greenRuntime.update(p, dt); hangarRuntime.update(p, dt); quartelRuntime.update(p,dt); };
-    const dispose = () => { master.dispose(); quartelRuntime.dispose(); greenRuntime.dispose(); hangarRuntime.dispose(); geometries.forEach(g => g.dispose()); privateAres.forEach(m => m.dispose()); };
-    return { scope, architecture, master, quartel, quartelRuntime, qRoot, hangar, hangarRuntime, green, greenRuntime, props, ares, deck, targets, install, update, dispose };
+    const update = (p, dt) => { master.update(p, dt); greenRuntime.update(p, dt); hangarRuntime.update(p, dt); quartelRuntime.update(p,dt); labRuntime.update(p,dt); };
+    const dispose = () => { master.dispose(); labRuntime.dispose(); quartelRuntime.dispose(); greenRuntime.dispose(); hangarRuntime.dispose(); geometries.forEach(g => g.dispose()); privateAres.forEach(m => m.dispose()); };
+    return { scope, architecture, master, labRoot, labRuntime, quartel, quartelRuntime, qRoot, hangar, hangarRuntime, green, greenRuntime, props, ares, deck, targets, install, update, dispose };
 }
 
 test('Sandwind v007: prédios, telhados, portas, estufa, ARES e DeckProps recebem pais completos sem mudar transforms', () => {
@@ -58,12 +67,12 @@ test('Sandwind v007: prédios, telhados, portas, estufa, ARES e DeckProps recebe
     const originalChildren = f.architecture.children.slice();
     const controller = f.install(); f.scope.updateMatrixWorld(true);
     for (const [node, matrix] of matrices) assert.ok(node.matrixWorld.equals(matrix), node.name);
-    for (const id of ['hangar', 'greenhouse', 'deck-props', 'ares', 'room_brand-brain', 'quartel']) assert.ok(f.scope.getObjectByName(`SandwindDistance_${id}`), id);
+    for (const id of ['hangar', 'greenhouse', 'deck-props', 'ares', 'room_brand-brain', 'quartel', 'laboratorio']) assert.ok(f.scope.getObjectByName(`SandwindDistance_${id}`), id);
     controller.update(200, 200, .2, settings, false);
     for (let i = 0; i < 60; i++) {
         f.update({ x: 0, z: 0 }, 1/60);
         controller.update(200, 200, 1/60, settings, false);
-        for (const root of [f.hangar, f.green, f.props, f.ares, f.deck, f.qRoot]) {
+        for (const root of [f.hangar, f.green, f.props, f.ares, f.deck, f.qRoot, f.labRoot]) {
             assert.equal(root.visible, true, 'Sandwind não escreve nos filhos');
             assert.equal(visible(root), false, root.name);
         }
@@ -73,10 +82,10 @@ test('Sandwind v007: prédios, telhados, portas, estufa, ARES e DeckProps recebe
     assert.equal(visible(f.green), false); assert.equal(visible(f.hangar), false);
     assert.equal(f.hangar.getObjectByName('HangarFloorBridge').parent, f.hangar);
     controller.update(0, 20, .2, settings, false);
-    for (const root of [f.hangar, f.green, f.props, f.ares, f.deck, f.qRoot]) assert.equal(visible(root), true, root.name);
+    for (const root of [f.hangar, f.green, f.props, f.ares, f.deck, f.qRoot, f.labRoot]) assert.equal(visible(root), true, root.name);
     controller.dispose();
     assert.deepEqual(f.architecture.children, originalChildren);
-    for (const root of [f.hangar, f.green, f.props, f.ares, f.deck, f.qRoot]) assert.ok(!root.parent.name.startsWith('SandwindDistance'));
+    for (const root of [f.hangar, f.green, f.props, f.ares, f.deck, f.qRoot, f.labRoot]) assert.ok(!root.parent.name.startsWith('SandwindDistance'));
     f.dispose();
 });
 
@@ -194,6 +203,9 @@ test('Sandwind v007: poses de QA exigem três flags e não alteram sessão fora 
         assert.equal(sandwindQAPose(query,'quartel'),true);
         assert.deepEqual(useExpeditionStore.getState().spawn,{x:12,y:.2625,z:0});
         assert.equal(useGameStore.getState().nearShip, false);
+        assert.equal(sandwindQAPose('?perf&sandwindQA','bathroom-inside'),false);
+        assert.equal(sandwindQAPose(query,'bathroom-inside'),true);
+        assert.deepEqual(useExpeditionStore.getState().spawn,{x:15.225,y:.2625,z:2.9});
         useExpeditionStore.setState({ session: { map: 'shanghai', phase: 'walking', destination: null, revision: 12 } });
         assert.equal(sandwindQAPose(query, 'plaza'), false);
         assert.equal(useExpeditionStore.getState().session.revision, 12);
@@ -206,7 +218,7 @@ test('Quartel/Sandwind: fade, portas e caixas de colisão continuam sob descarte
  for(let i=0;i<6;i++){f.update({x:10.5,z:0},1/60);baseline.update({x:10.5,z:0},1/60);}
  assert.ok(material.opacity>.01&&material.opacity<.9);
  for(let i=0;i<60;i++){
-  const p=i<20?{x:10.5,z:0}:i<40?{x:6.75,z:0}:{x:0,z:0};
+  const p=i<15?{x:10.5,z:0}:i<30?{x:6.75,z:0}:i<45?{x:13.125,z:2.9}:{x:0,z:0};
   controller.update(i%2?200:10.5,i%2?200:0,.2,settings,false);
   f.update(p,1/60);baseline.update(p,1/60);
   assert.deepEqual(f.quartelRuntime.status,baseline.quartelRuntime.status);

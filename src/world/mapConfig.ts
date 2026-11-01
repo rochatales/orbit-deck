@@ -1,4 +1,5 @@
-import { QUARTEL } from '../game/quartelLayout';
+import { LABORATORIO } from '../game/laboratorioLayout';
+import { QUARTEL, QUARTEL_CIRCULATION } from '../game/quartelLayout';
 import masterplan from './marsMasterplan.json';
 import { Vector3 } from "three";
 import type { RectBounds } from "../utils/math";
@@ -50,15 +51,15 @@ export const PLAYER_SPAWN = new Vector3(0, 0, 0.8);
 export const OFFICE_MAP_BOUNDS: RectBounds = {
   minX: -22,
   maxX: 22,
-  minZ: -15,
+  minZ: -19,
   maxZ: 39
 };
 
 // Masterplan v007: posições e dimensões exatas, sem arredondar para ladrilhos.
 export const MAP_ROOMS: MapRoomConfig[] = masterplan.rooms.map(room => {
   // ID design preservado para consumidores e saves anteriores; nome/pegada atuais.
-  const size = room.id === 'design' ? QUARTEL.dimensions : room.size;
-  const position = room.id === 'design' ? QUARTEL.placement : room.position;
+  const size = room.id === 'design' ? QUARTEL.dimensions : room.id === 'smart-lab' ? LABORATORIO.dimensions : room.size;
+  const position = room.id === 'design' ? QUARTEL.placement : room.id === 'smart-lab' ? LABORATORIO.placement : room.position;
   return {
     id: room.id, name: room.id === 'design' ? 'Quartel' : room.name, position, size,
     type: room.id === 'central-hub' ? 'hub' : room.id === 'smart-lab' ? 'lab' : 'station',
@@ -75,14 +76,17 @@ export const MAP_ROOMS: MapRoomConfig[] = masterplan.rooms.map(room => {
   };
 });
 export const MAP_CORRIDORS: CorridorConfig[] = masterplan.corridors.map(corridor => {
-  const current = QUARTEL.connectors.find(c => c.id === corridor.id);
+  const current = LABORATORIO.connectors.find(c => c.id === corridor.id) ?? QUARTEL.connectors.find(c => c.id === corridor.id);
   return {
     id: corridor.id,
     position: current ? { x: (current.minX + current.maxX) / 2, z: (current.minZ + current.maxZ) / 2 } : corridor.position,
     size: current ? { width: current.maxX - current.minX, depth: current.maxZ - current.minZ } : corridor.size,
     railings: false
   };
-});
+}).concat(QUARTEL_CIRCULATION.areas.map(a => ({
+  id: a.id, position: { x: (a.minX + a.maxX) / 2, z: (a.minZ + a.maxZ) / 2 },
+  size: { width: a.maxX - a.minX, depth: a.maxZ - a.minZ }, railings: false
+})));
 
 export function getRoomByNpcId(npcId: string) {
   return MAP_ROOMS.find((room) => room.npcId === npcId);
