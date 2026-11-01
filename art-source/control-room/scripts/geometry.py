@@ -57,4 +57,3 @@ def pipe(n,points,r=.10,t=4,b='Hull_Main',flanges=True):
  if flanges:
   for i in [1,len(pts)-2]:
    p=pts[i];d=(pts[min(i+1,len(pts)-1)]-pts[max(i-1,0)]).normalized()*.045;cyl(n+'_flange',p-d,p+d,r*1.3,1,b)
-

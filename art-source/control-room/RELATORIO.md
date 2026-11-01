@@ -61,7 +61,7 @@ A comparação anterior extrai arquitetura e props com `ambiente=brand-brain` do
 6. Python com Pillow: `scripts/compose_sheets.py`.
 7. Blender headless: `--factory-startup --python scripts/render_scale.py`, para a conferência adicional com o personagem padrão.
 
-Scripts resolvem diretórios pelo próprio arquivo. A comparação anterior depende de `src/assets/colony-v007.glb`/manifesto da base indicada; o atlas usa a referência no caminho original apenas para copiá-la. Renderizar e validar não salva sobre a fonte. Reconstrução é determinística, mas substitui os arquivos gerados: preserve qualquer revisão manual em uma nova versão antes de executá-la.
+Scripts resolvem diretórios pelo próprio arquivo. A comparação anterior depende de `src/assets/colony-v007.glb`/manifesto da base indicada; o atlas usa a referência no caminho original apenas para copiá-la. Renderizar e validar não salva sobre a fonte. GLB e manifesto são determinísticos; o `.blend` pode mudar de bytes a cada build. Executar também `validate_control_room.py` após todo build, antes dos testes: ele renova os hashes (inclusive do `.blend`) em `notas/roundtrip.json`. A sequência completa está no [README](README.md). A reconstrução substitui os arquivos gerados: preserve qualquer revisão manual em uma nova versão antes de executá-la.
 
 ## Revisão técnica
 
@@ -70,3 +70,16 @@ Revisão Claude do commit inicial `31e8b29`: letreiro EDEN, nível do piso, desc
 Confirmação intermediária revisou as primeiras correções e encontrou um gabinete 3 cm suspenso e o envelope do rack 3 cm curto. O gabinete foi assentado e ganhou suportes de monitores; os envelopes agora cobrem os limites reais de console, rack e consoles norte em três eixos. Novo teste verifica base dos móveis, volumes e afastamento entre folhas. Letras receberam altura/assentamento ajustados, luminárias de status foram embutidas no suporte e o estado oculto passou a valer também em render F12 da fonte.
 
 A revisão final confirmou os pontos principais e observou a bandeja de teclado apoiada só pela aresta. Foram adicionadas três chapas sob os teclados, com 4 cm de engaste no gabinete, e ampliado o envelope correspondente. Contagem final: 8.212 triângulos.
+
+## Retificação de verificação — 01/11/2026
+
+O handoff anterior dizia diff-check verde, mas o intervalo real
+`git diff --check f1756c4 a57d7ea` falhava em `scripts/geometry.py:60` (linha em
+branco no EOF, introduzida em `31e8b29`). Corrigida somente essa linha, sem rebuild
+ou modificação de geometria/binários. Nesta entrega o check usa o intervalo
+completo desde `f1756c4`, além da árvore de trabalho. Checks finais no handoff
+`docs/handoffs/s6.12-control-room.md`.
+
+A decisão de design (F5 versus este conceito) e a integração continuam com o
+autor. Espelho sem rastreio no checkout principal foi preservado e precisa ser
+resguardado fora do repositório antes de uma integração; não sobrescrever a pasta.
