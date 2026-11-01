@@ -1,0 +1,11 @@
+{
+  "fixture": "http://127.0.0.1:5188/tests/browser-smoke.html?comparar",
+  "corridaComTiro": "Run_Tronco | t=0.600 | recarga=0.000 | velocidade=4.17",
+  "fonte": "Rifle_Run_00.fbx (Run no GLB v006)",
+  "luz": {
+    "alturaAcimaCanoM": 0.18,
+    "intensidade": 80,
+    "alcanceM": 22
+  },
+  "observacao": "Conferência técnica; aceite visual do autor pendente."
+}

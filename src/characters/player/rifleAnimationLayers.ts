@@ -45,8 +45,9 @@ export class RifleAnimationLayers {
     if (blocked) return; // mixer e timer da simulação também estão suspensos.
     const reload = reloadLeft > 0;
     const special = state === 'dashing' || state === 'falling' || state === 'interacting' || state === 'actionTriggered';
-    const target = special ? null : reload ? this.upper.Reload : firing ? this.upper.Firing :
-      state === 'walking' ? this.upper.Run : state === 'backward' ? this.upper.Backward : this.upper.Idle;
+    // W conserva Rifle_Run_00 no corpo inteiro, mesmo atirando; a recarga continua prioritária.
+    const target = special ? null : reload ? this.upper.Reload : state === 'walking' ? this.upper.Run :
+      firing ? this.upper.Firing : state === 'backward' ? this.upper.Backward : this.upper.Idle;
     if (target !== this.current) {
       this.current?.fadeOut(.08);
       if (target) {
@@ -64,8 +65,9 @@ export class RifleAnimationLayers {
         this.current.paused = true;
         this.current.time = this.current.getClip().duration * Math.max(0, Math.min(1, 1 - reloadLeft / COMBAT.rifle.reload));
       } else {
-        this.current.timeScale = firing ? 1 : base?.timeScale ?? 1;
-        if (!firing && base) this.current.time = base.time;
+        const firingPose = this.current === this.upper.Firing;
+        this.current.timeScale = firingPose ? 1 : base?.timeScale ?? 1;
+        if (!firingPose && base) this.current.time = base.time;
       }
     }
   }

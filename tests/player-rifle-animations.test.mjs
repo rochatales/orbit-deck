@@ -32,18 +32,22 @@ test('Shanghai: v005 incorpora Run_Backward in-place; dez ações v003 e fontes 
  for(let f=0;f<16;f++){m.setTime(f/30);g.scene.updateMatrixWorld(true);const p=bone(g,'Hips').getWorldPosition(new Vector3());close(p.x,0);close(p.z,0);}
 });
 
-test('Shanghai: pernas Run continuam correndo enquanto Firing_Rifle opera apenas o tronco',async()=>{
+test('Shanghai: W conserva Rifle_Run_00 no corpo inteiro, inclusive durante os tiros',async()=>{
  const s=await setup(),reference=await setup();
  const leg=s.layers.legs.Run;leg.play();s.layers.update('walking',0,true,leg,false);s.mixer.update(.2);
  reference.actions.Run.play();reference.mixer.update(.2);
  assert.equal(s.layers.legs.Run.getClip().name,'Run_Pernas');
  assert.ok(leg.isRunning());
  assert.ok(bone(s.g,'LeftUpLeg').quaternion.angleTo(bone(reference.g,'LeftUpLeg').quaternion)<1e-3, `erro angular ${bone(s.g,'LeftUpLeg').quaternion.angleTo(bone(reference.g,'LeftUpLeg').quaternion)}`);
- const arm=bone(s.g,'RightArm').quaternion.clone();
- reference.mixer.stopAllAction();reference.actions.Aim_Rifle.reset().play();reference.mixer.setTime(.2);
- assert.ok(arm.angleTo(bone(reference.g,'RightArm').quaternion)<1e-6);
+ for (const name of ['Spine','Spine2','Head','RightArm','RightHand','LeftArm','LeftHand']) {
+  assert.ok(bone(s.g,name).quaternion.angleTo(bone(reference.g,name).quaternion)<1e-3,name);
+ }
  const upper=s.layers.upperAction;
+ assert.equal(upper.getClip().name,'Run_Tronco');close(upper.time,leg.time);
  assert.ok(upper.getClip().tracks.every(t=>!t.name.includes('Hips')&&!t.name.includes('Leg')&&!t.name.includes('Foot')));
+ updateLocomotionRates(s.layers.legs,leg,'walking',4.2,locomotionCalibration({runReferenceSpeed:2.7706}));
+ s.layers.update('walking',0,true,leg,false);close(upper.timeScale,leg.timeScale);
+ s.layers.update('walking',0,false,leg,false);assert.equal(s.layers.upperAction,upper,'soltar tiro não troca o ciclo W');
  s.layers.dispose();reference.layers.dispose();
 });
 
@@ -83,4 +87,15 @@ test('Shanghai: boca animada continua alinhada à mira ao correr atirando e recu
   }
   s.layers.dispose();
  }
+});
+
+
+test('Shanghai: Firing_Rifle permanece no tiro parado/recuando; recarga continua acima da corrida',async()=>{
+ const s=await setup();
+ for(const state of ['idle','backward']){
+  const base=pickTargetAction(state,s.layers.legs,true);base.play();
+  s.layers.update(state,0,true,base,false);assert.equal(s.layers.upperAction.getClip().name,'Firing_Rifle_Tronco');
+ }
+ s.layers.update('walking',1,true,s.layers.legs.Run,false);assert.equal(s.layers.upperAction.getClip().name,'Reloading_Tronco');
+ s.layers.dispose();
 });

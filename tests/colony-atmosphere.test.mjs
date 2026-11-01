@@ -60,14 +60,38 @@ test('Balizas: alturas/normais da areia pré-medidas, assinatura do layout/GLB e
 });
 
 
-test('Visor: amostra Head acompanha o salto visual do Dash sem deslocar o alvo pela câmera',async()=>{
+test('Foco: origem 18 cm acima da boca em Idle/Dash, sem deslocar o alvo pela câmera',async()=>{
  const g=await loadGlb('src/assets/characters/player/explorador-astronauta.glb'),r=await loadGlb('src/assets/weapons/rifle-laser-v001.glb');
  const {RifleAimRig,attachRifle}=loadSource('src/characters/player/rifleAttachment.ts');attachRifle(g.scene,r.scene);
  const rig=new RifleAimRig(g.scene,r.scene,.02,VISOR_LIGHT.headOffset),mixer=new AnimationMixer(g.scene),gun={valid:false,side:0,forward:0,height:0},head={...gun};
  const p={x:0,y:0,z:0},target={x:0,y:0,z:0},player={x:0,y:0,z:0};
  mixer.clipAction(g.animations.find(c=>c.name==='Idle')).play();mixer.setTime(0);rig.update(gun,player,0,null,false,head);
- writeVisorLight(p,target,player,0,head);assert.ok(Math.abs(p.y-1.32)<1e-5);
+ writeVisorLight(p,target,player,0,gun);close(p.y,gun.height+VISOR_LIGHT.muzzleLift);close(p.x,gun.side);close(p.z,gun.forward);
  mixer.stopAllAction();mixer.clipAction(g.animations.find(c=>c.name==='Dash')).play();let low=Infinity,high=-Infinity;
- for(let f=0;f<39;f++){mixer.setTime(f/30);rig.update(gun,player,0,null,false,head);writeVisorLight(p,target,player,0,head);low=Math.min(low,p.y);high=Math.max(high,p.y);close(p.y,head.height);close(target.z,VISOR_LIGHT.aimDistance);}
- assert.ok(high-low>.7,'luz acompanha Head, sem ficar presa à altura física da cápsula');
+ for(let f=0;f<39;f++){mixer.setTime(f/30);rig.update(gun,player,0,null,false,head);writeVisorLight(p,target,player,0,gun);low=Math.min(low,p.y);high=Math.max(high,p.y);close(p.y,gun.height+VISOR_LIGHT.muzzleLift);close(p.x,gun.side);close(p.z,gun.forward);close(target.z,VISOR_LIGHT.aimDistance);}
+ assert.ok(high-low>.7,'luz acompanha a boca animada, sem ficar presa à altura física da cápsula');
+});
+
+
+test('Foco: altura da boca + offset nos giros e pisos; raio central até o chão não cruza o rifle',async()=>{
+ const {Vector3,Raycaster,Group}=await import('three');
+ const {attachRifle,RifleAimRig}=loadSource('src/characters/player/rifleAttachment.ts');
+ const {RifleAnimationLayers}=loadSource('src/characters/player/rifleAnimationLayers.ts');
+ const {pickTargetAction}=loadSource('src/characters/player/locomotionClips.ts');
+ const g=await loadGlb('src/assets/characters/player/explorador-astronauta.glb'),r=await loadGlb('src/assets/weapons/rifle-laser-v001.glb');attachRifle(g.scene,r.scene);
+ const body=new Group();body.add(g.scene);const mixer=new AnimationMixer(g.scene),actions=Object.fromEntries(g.animations.map(c=>[c.name,mixer.clipAction(c)])),layers=new RifleAnimationLayers(actions);
+ const rig=new RifleAimRig(g.scene,r.scene,.02),out={valid:false,side:0,forward:0,height:0},p=new Vector3(),target=new Vector3(),ray=new Raycaster(),direction=new Vector3();
+ for(const state of ['idle','walking','backward']) for(const floor of [0,.12,.148,.25]) for(const angle of [0,Math.PI/2,-Math.PI,.8]){
+  const player={x:3,y:floor,z:-2};body.position.set(player.x,floor+.02,player.z);body.rotation.y=angle;
+  for(const action of Object.values(layers.legs)) action?.stop();const base=pickTargetAction(state,layers.legs,true);base.reset().play();
+  for(let f=0;f<15;f++){
+   layers.update(state,0,true,base,false);mixer.update(1/60);
+   rig.update(out,player,angle,{x:player.x+Math.sin(angle)*12,z:player.z+Math.cos(angle)*12},true);
+   writeVisorLight(p,target,player,angle,out);
+   const muzzle=rig.muzzle.getWorldPosition(new Vector3());assert.ok(Math.hypot(p.x-muzzle.x,p.z-muzzle.z)<1e-6);close(p.y,muzzle.y+VISOR_LIGHT.muzzleLift);
+   direction.subVectors(target,p);ray.far=direction.length();ray.set(p,direction.normalize());
+   assert.equal(ray.intersectObject(r.scene,true).length,0,`${state}/${floor}/${angle}/${f}: arma bloqueia o centro do foco`);
+  }
+ }
+ layers.dispose();
 });
