@@ -1,4 +1,4 @@
-import { PointLight, type Mesh, type Object3D } from 'three';
+import { PointLight, type Mesh, type MeshStandardMaterial, type Object3D } from 'three';
 import { BACKPACK_LIGHT } from '../../scene/lightingConfig';
 
 /** Encaixe no Spine2, medido no Idle do astronauta v007. Compensa a escala do rig.
@@ -10,14 +10,29 @@ export const BACKPACK_TRANSFORM = {
 } as const;
 
 /** Uma luz por instância; acompanha o osso pela hierarquia, sem trabalho por quadro. */
-export function createBackpackVisual(source: Object3D): Object3D {
+export function createBackpackVisual(source: Object3D) {
   const backpack = source.clone(true);
+  const materials: MeshStandardMaterial[] = [];
+  backpack.traverse(node => {
+    const mesh = node as Mesh;
+    if (!mesh.isMesh) return;
+    const soften = (material: MeshStandardMaterial) => {
+      if (material.name !== 'Glow_Cyan') return material;
+      const own = material.clone();
+      own.emissiveIntensity = BACKPACK_LIGHT.stripeEmission;
+      materials.push(own);
+      return own;
+    };
+    mesh.material = Array.isArray(mesh.material)
+      ? (mesh.material as MeshStandardMaterial[]).map(soften)
+      : soften(mesh.material as MeshStandardMaterial);
+  });
   const light = new PointLight(BACKPACK_LIGHT.color, BACKPACK_LIGHT.intensity, BACKPACK_LIGHT.reach, BACKPACK_LIGHT.decay);
   light.name = 'BackpackNeonLight';
   light.position.fromArray(BACKPACK_LIGHT.position);
   light.castShadow = false;
   backpack.add(light);
-  return backpack;
+  return { scene: backpack, materials };
 }
 
 /** Apenas na montagem: o osso transporta a mochila rígida durante as animações. */

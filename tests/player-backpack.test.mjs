@@ -48,10 +48,13 @@ test('Mochila: encaixe rígido nas costas acompanha todos os clipes, sem alterar
 
 
 test('Mochila neon: uma luz ciano ilumina ao redor e segue o tronco sem tocar no cache',()=>{
- const character=clone(player.scene),pack=createBackpackVisual(asset.scene);
+ const character=clone(player.scene),visual=createBackpackVisual(asset.scene),pack=visual.scene;
  const lights=[];pack.traverse(n=>{if(n.isLight)lights.push(n);});assert.equal(lights.length,1);
  const light=lights[0];assert.equal(light.color.getHexString(),'00f5ff');assert.equal(light.castShadow,false);
- assert.ok(light.intensity>0&&light.distance>=3);assert.equal(light.decay,2);
+ assert.ok(light.intensity>0&&light.intensity<=2&&light.distance>=3);assert.equal(light.decay,2);
+ assert.equal(visual.materials.length,1);assert.equal(visual.materials[0].emissiveIntensity,.8);
+ let sourceStripe;asset.scene.traverse(n=>{if(n.isMesh)for(const m of Array.isArray(n.material)?n.material:[n.material])if(m.name==='Glow_Cyan')sourceStripe=m;});
+ assert.equal(sourceStripe.emissiveIntensity,6);assert.notEqual(visual.materials[0],sourceStripe);
  assert.equal(asset.scene.getObjectByName('BackpackNeonLight'),undefined);
  attachBackpack(character,pack);const mixer=new AnimationMixer(character),action=mixer.clipAction(player.animations.find(c=>c.name==='Run'));action.play();
  const local=light.position.clone();let before;
@@ -62,4 +65,5 @@ test('Mochila neon: uma luz ciano ilumina ao redor e segue o tronco sem tocar no
  }
  mixer.timeScale=0;const paused=light.getWorldPosition(new Vector3());mixer.update(1);character.updateMatrixWorld(true);assert.ok(light.getWorldPosition(new Vector3()).equals(paused));
  detachBackpack(pack);assert.equal(character.getObjectByName('BackpackNeonLight'),undefined);
+ let disposed=0;visual.materials[0].addEventListener('dispose',()=>disposed++);visual.materials.forEach(m=>m.dispose());assert.equal(disposed,1);
 });

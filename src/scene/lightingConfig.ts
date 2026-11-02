@@ -18,7 +18,8 @@ export const VISOR_LIGHT = {
 
 /** Halo local da mochila: mesma cor das turbinas ARES, sem mapa de sombras extra. */
 export const BACKPACK_LIGHT = {
-    color: '#00f5ff', intensity: 5, reach: 3.5, decay: 2,
+    color: '#00f5ff', intensity: 1.5, reach: 3.5, decay: 2,
+    stripeEmission: .8,
     // Origem acima e atrás do casco da mochila; coordenadas do acessório antes do encaixe.
     position: [0, .15, -.28] as [number, number, number]
 } as const;

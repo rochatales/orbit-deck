@@ -6,8 +6,10 @@ import { attachBackpack, detachBackpack, createBackpackVisual } from './backpack
 
 function Backpack({ scene }: { scene: Object3D }) {
   const gltf = useGLTF(backpackAsset);
-  // Malha rígida: hierarquia privada, geometria/materiais compartilhados com o cache.
-  const backpack = useMemo(() => createBackpackVisual(gltf.scene), [gltf.scene]);
+  // Malha rígida: só o material das listras é privado; os demais recursos vêm do cache.
+  const prepared = useMemo(() => createBackpackVisual(gltf.scene), [gltf.scene]);
+  const backpack = prepared.scene;
+  useEffect(() => () => { prepared.materials.forEach(material => material.dispose()); }, [prepared]);
   useEffect(() => {
     attachBackpack(scene, backpack);
     return () => detachBackpack(backpack);
