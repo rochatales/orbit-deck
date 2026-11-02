@@ -5,6 +5,7 @@ import { Suspense } from 'react';
 import { Html } from '@react-three/drei';
 import { ShanghaiLighting } from './ShanghaiLighting';
 import { ShanghaiAssetGate } from './ShanghaiAssetGate';
+import { PlayerReticle } from '../characters/player/PlayerReticle';
 import { PlayerAim } from '../characters/player/PlayerAim';
 import { CombatScene } from '../combat/CombatScene';
 import { Player } from '../characters/player/Player';
@@ -39,5 +40,6 @@ export function OfficeScene({ world, map }: {
     </PhysicsWorld>
     {map === 'shanghai' && <><CombatScene world={world}/><PlayerVisorLight/></>}
     {map === 'mars' ? <MarsColony world={world}/> : <Spacecraft map={map}/>}
+    <PlayerReticle key={`reticle-${revision}`} world={world} combat={map === 'shanghai'}/>
   </></ShanghaiAssetGate></Suspense>;
 }

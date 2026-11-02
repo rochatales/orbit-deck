@@ -1,5 +1,5 @@
 import { playerActions } from '../state/playerActions';
-import { playerWeaponPose, weaponShotHeight } from '../state/playerWeaponPose';
+import { playerWeaponPose } from '../state/playerWeaponPose';
 import { AdditiveBlending } from 'three';
 import { ChargeWarnings } from './ChargeWarnings';
 import { CombatEffects } from './CombatEffects';
@@ -17,7 +17,7 @@ import { playerPosition, playerFacing } from '../state/playerTransient';
 import { combatRuntime, useCombatStore } from '../state/useCombatStore';
 import { simulationBlocked } from '../game/simulationGate';
 import { CombatSimulation, type CombatInput } from './simulation';
-import { COMBAT, RIFLE_POSE, robotConfig, waveRobotKind, writeRifleMuzzle, writeRifleAimTarget, type RobotKind } from './config';
+import { COMBAT, robotConfig, waveRobotKind, type RobotKind } from './config';
 import { PATROL_UNIT, LARGE_PATROL_VISUAL, SMALL_MUTANT_VISUAL, LARGE_MUTANT_VISUAL, PatrolUnitRig } from './patrolUnit';
 import { ResourceDrops } from './ResourceDrops';
 import largeMutantUrl from '../assets/enemies/large-mutant.glb';
@@ -34,7 +34,7 @@ export function CombatScene({ world }: {
     const simulation = useMemo(() => new CombatSimulation(world, useCombatStore.getState().encounter, undefined,
         isShanghaiPhase01() ? SHANGHAI_SUPPLY_CRATES : []), [world, run]);
     const { gl } = useThree();
-    const robots = useRef<(Group | null)[]>([]), tracers = useRef<(Mesh | null)[]>([]), reticle = useRef<Mesh>(null);
+    const robots = useRef<(Group | null)[]>([]), tracers = useRef<(Mesh | null)[]>([]);
     const rings = useRef<(Mesh | null)[]>([]), alerts = useRef<(Group | null)[]>([]);
     // S6.1: Patrol Unit do autor; um rig (esqueleto, mixer, material) por robô da rodada.
     const patrolUnit = useGLTF(patrolUnitUrl);
@@ -74,7 +74,6 @@ export function CombatScene({ world }: {
     const input = useRef({ firing: false, tap: false, reload: false }), clock = useRef(0);
     // Entrada do passo reutilizada: a simulação copia a posição ao registrar disparos e rotas.
     const stepInput = useMemo<CombatInput>(() => ({ player: playerPosition, muzzle: playerWeaponPose, aim: combatRuntime.aim, facingAngle: 0, firing: false, reload: false }), []);
-    const aimMarker = useMemo(() => ({ x:0, z:0 }), []), markerMuzzle = useMemo(() => ({ x:0, z:0 }), []);
     const axis = useMemo(() => new Vector3(0, 1, 0), []), direction = useMemo(() => new Vector3(), []);
     useEffect(() => {
         combatRuntime.simulation = simulation;
@@ -196,12 +195,7 @@ export function CombatScene({ world }: {
                 mesh.quaternion.setFromUnitVectors(axis, direction.normalize());
             }
         });
-        if (reticle.current) {
-            reticle.current.visible = !blocked && combatRuntime.aimValid && !playerActions.dashing;
-            writeRifleMuzzle(markerMuzzle, playerPosition.x, playerPosition.z, playerFacing.angle, playerWeaponPose.valid ? playerWeaponPose : undefined);
-            writeRifleAimTarget(aimMarker, playerPosition, combatRuntime.aim, playerFacing.angle, markerMuzzle);
-            reticle.current.position.set(aimMarker.x, weaponShotHeight(playerPosition.y, RIFLE_POSE.height) + RIFLE_POSE.reticleLift, aimMarker.z);
-        }
+
     });
     return <>
     <ChargeWarnings simulation={simulation}/>
@@ -224,6 +218,5 @@ export function CombatScene({ world }: {
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.035, 0]}><ringGeometry args={[0.5, 0.57, 24]}/><meshBasicMaterial color="#ff9bac"/></mesh>
     </group>)}
     {[0, 1, 2].map(i => <mesh key={i} visible={false} ref={m => { tracers.current[i] = m; }}><cylinderGeometry args={[COMBAT_VFX.tracerRadius, COMBAT_VFX.tracerRadius, 1, 8]}/><meshBasicMaterial color={[2,2,2]} toneMapped={false}/><mesh><cylinderGeometry args={[COMBAT_VFX.tracerHaloRadius,COMBAT_VFX.tracerHaloRadius,1,8]}/><meshBasicMaterial color="#ffe052" toneMapped={false} transparent opacity={COMBAT_VFX.tracerHaloOpacity} blending={AdditiveBlending} depthWrite={false}/></mesh></mesh>)}
-    <mesh name="CombatReticle" ref={reticle} rotation={[-Math.PI / 2, 0, 0]} visible={false}><ringGeometry args={[0.2, 0.27, 24]}/><meshBasicMaterial color="#71f4ff" depthTest={false}/></mesh>
   </>;
 }

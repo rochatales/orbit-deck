@@ -170,6 +170,28 @@ function QA() {
         const angle=d.angleTo(target.clone().sub(p).normalize())*180/Math.PI;
         setResult(`Mira: erro de altura ${Math.abs(target.y-p.y).toFixed(4)} m | desvio do cano ${angle.toFixed(3)}°`);
     }
+    async function reticleTargetQA() {
+        if(expedition.getState().session.map!=='shanghai') { setResult('Mira: primeiro viaje a Shanghai'); return; }
+        combat.getState().selectEncounter(1); expedition.getState().restartMission();
+        await delay(650);
+        const sim=combatRuntime.simulation,enemy=sim?.robots[0];
+        if(!sim||!enemy)return;
+        const target={x:playerPosition.x+6,z:playerPosition.z};
+        const scene=(window as unknown as {__hordaPlayerScene?:import('three').Object3D}).__hordaPlayerScene;
+        let root=scene;while(root?.parent)root=root.parent;
+        const cursor=root?.getObjectByName('CombatReticle');
+        const start=performance.now();let min=Infinity,max=0,locked=0,frames=0;
+        setResult('Mira: alvo QA reposicionado por 2,4 s…');
+        await new Promise<void>(resolve=>{function frame(){
+            enemy!.x=target.x;enemy!.z=target.z;
+            pointerAt(target.x,target.z);
+            const face=cursor?.children[1] as import('three').Mesh;
+            if(face&&(face.material as import('three').MeshBasicMaterial).color.getHexString()==='ffe2ac')locked++;
+            if(cursor?.visible){min=Math.min(min,cursor.scale.x);max=Math.max(max,cursor.scale.x);}frames++;
+            if(performance.now()-start<2400)requestAnimationFrame(frame);else resolve();
+        }requestAnimationFrame(frame);});
+        setResult(`Mira: ${locked}/${frames} quadros em alvo · escala ${min.toFixed(5)}–${max.toFixed(5)} · sem disparo · HP ${enemy.hp}`);
+    }
     async function sample() {
         setResult('Medindo 5s…');
         const deltas: number[] = [];
@@ -249,7 +271,7 @@ function QA() {
   <button onClick={() => setHidden(!hidden)}>{hidden ? 'Mostrar QA' : 'Ocultar QA'}</button>
   {!hidden && <><p>Fixture DEV · posições preparadas para teste, sem alterar o mapa do produto</p>
   <button onClick={() => place('eden')}>Preparar perto de EDEN</button><button onClick={() => place('deck')}>Preparar no deck</button>
-  <button onClick={()=>{const g=game.getState();g.setZoomBounds(g.minZoom,g.minZoom*12);g.setZoom(g.minZoom*10);}}>Zoom diagnóstico</button><button onClick={measureVibration}>Medir vibração 4s</button><button onClick={compareShadowBias}>Comparar bias de sombra</button><button onClick={compareCharacterShadows}>{receivingShadows?"Desligar sombras no personagem":"Ligar sombras no personagem"}</button><button onClick={()=>{const a=(window as unknown as {__hordaPlayerActions?:Record<string,import('three').AnimationAction>}).__hordaPlayerActions;const mixer=a?.Idle?.getMixer();if(mixer)mixer.timeScale=mixer.timeScale?0:1;}}>Congelar/descongelar pose</button><button onClick={transitions}>Testar transições rápidas</button><button onClick={()=>movement()}>Testar movimento 1s</button><button onClick={()=>movement(true)}>Testar corrida armada</button><button onClick={rifleAim}>Testar mira/cano</button><button onClick={dash}>Testar Dash Space</button><button onClick={()=>armedAnimation()}>Testar corrida com tiro</button><button onClick={()=>armedAnimation(true)}>Testar Reloading</button><button onClick={sample}>Medir frames 5s</button>
+  <button onClick={()=>{const g=game.getState();g.setZoomBounds(g.minZoom,g.minZoom*12);g.setZoom(g.minZoom*10);}}>Zoom diagnóstico</button><button onClick={measureVibration}>Medir vibração 4s</button><button onClick={compareShadowBias}>Comparar bias de sombra</button><button onClick={compareCharacterShadows}>{receivingShadows?"Desligar sombras no personagem":"Ligar sombras no personagem"}</button><button onClick={()=>{const a=(window as unknown as {__hordaPlayerActions?:Record<string,import('three').AnimationAction>}).__hordaPlayerActions;const mixer=a?.Idle?.getMixer();if(mixer)mixer.timeScale=mixer.timeScale?0:1;}}>Congelar/descongelar pose</button><button onClick={transitions}>Testar transições rápidas</button><button onClick={()=>movement()}>Testar movimento 1s</button><button onClick={()=>movement(true)}>Testar corrida armada</button><button onClick={rifleAim}>Testar mira/cano</button><button onClick={dash}>Testar Dash Space</button><button onClick={()=>armedAnimation()}>Testar corrida com tiro</button><button onClick={()=>armedAnimation(true)}>Testar Reloading</button><button onClick={reticleTargetQA}>Testar mira em alvo</button><button onClick={sample}>Medir frames 5s</button>
   <button onClick={()=>encounter(1)}>Combate assistido 1</button><button onClick={()=>encounter(3)}>Combate assistido 3</button><button onClick={()=>encounter(5)}>Combate assistido 5</button>
   <button onClick={pauseCombat}>Testar pausa e recarga</button><button onClick={focusTest}>Testar movimento e foco</button><button onClick={death}>Testar morte natural</button>
   <p role="status">{result}</p>{vibrationReport&&<textarea aria-label="Diagnóstico de vibração" readOnly value={vibrationReport} style={{width:"100%",height:80}}/>}<p>{s.session.map} / {s.session.phase} / pronto: {String(s.ready)}</p></>}
