@@ -130,7 +130,8 @@ export function writeRifleMuzzle(out: { x: number; z: number }, x: number, z: nu
     out.z = z - side * sin + forward * cos;
 }
 
-/** Retícula e disparo compartilham o alvo: cursor atrás/perto não inverte o cano. */
+/** Direção segura do disparo/consulta de acerto: cursor atrás/perto não inverte o cano.
+ * A posição visual do cursor permanece livre, sem ser empurrada por esta proteção. */
 export function writeRifleAimTarget(out: { x: number; z: number }, player: { x: number; z: number }, aim: { x: number; z: number }, angle: number, muzzle: { x: number; z: number }) {
     const forwardX = Math.sin(angle), forwardZ = Math.cos(angle);
     const dx = aim.x - muzzle.x, dz = aim.z - muzzle.z;

@@ -108,10 +108,7 @@ export const PLAYER_LOCOMOTION = {
   crossfadeReverse: 0.14,
   crossfadeFall: 0.06,
   crossfadeDash: 0.08,
-  /**
-   * Cursor mais perto que isto do centro do player não muda a direção (mantém a última). A mira
-   * é projetada no plano y = 0,9 e a câmera mira y = 0,55: o cursor sobre a silhueta cai a até
-   * ~0,6 m do centro nesse plano; 0,9 m cobre a silhueta com folga.
-   */
-  aimMinDistance: 0.9
+  /** Só 3,5 cm no centro estabilizam a orientação; cursor visual continua livre.
+   * A zona antiga de 0,9 m impedia mirar/virar contra inimigos próximos. */
+  aimMinDistance: 0.035
 } as const;

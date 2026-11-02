@@ -17,9 +17,12 @@ export class ReticleAim {
 
   target(player: Position, aim: Position, angle: number, pose: WeaponMuzzleOffset, height: number, terrain: Terrain, robots: Robot[]) {
     writeRifleMuzzle(this.muzzle, player.x, player.z, angle, pose.valid ? pose : undefined);
-    writeRifleAimTarget(this.marker, player, aim, angle, this.muzzle);
+    // A retícula acompanha o ponteiro, inclusive sobre/atrás do jogador. Só o
+    // raio de consulta usa o rumo seguro do tiro quando o cursor passa do cano.
+    this.marker.x = aim.x; this.marker.z = aim.z;
+    writeRifleAimTarget(this.end, player, aim, angle, this.muzzle);
     if (traceShot(player, this.muzzle, terrain, robots, HIT_LAYER.world, this.trace, height).blocked) return null;
-    const dx = this.marker.x - this.muzzle.x, dz = this.marker.z - this.muzzle.z;
+    const dx = this.end.x - this.muzzle.x, dz = this.end.z - this.muzzle.z;
     const distance = Math.hypot(dx, dz);
     this.end.x = this.muzzle.x + dx / distance * COMBAT.rifle.range;
     this.end.z = this.muzzle.z + dz / distance * COMBAT.rifle.range;

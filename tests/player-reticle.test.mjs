@@ -30,13 +30,13 @@ test('Mira: paredes e caixas à altura do tiro impedem captura, inclusive entre 
   delete world.obstacles[0].minY;delete world.obstacles[0].maxY;assert.equal(query(preview,world,[r]),null,'volume sem altura');
  }
 });
-test('Mira: alcance nasce no cano; cursor perto/atrás conserva a direção do corpo',()=>{
+test('Mira: alcance nasce no cano; cursor perto/atrás fica livre sem inverter o tiro',()=>{
  const preview=new ReticleAim(),world=terrain(),r=robot(1,0,34);
  assert.equal(query(preview,world,[r],.85,r),null);
  r.z=COMBAT.rifle.range+.7+robotConfig(r).radius-.01;assert.equal(query(preview,world,[r],.85,r),r);
  r.z=6;
  for(const point of [{x:0,z:0},{x:0,z:.5},{x:0,z:-4}]){
-  assert.equal(query(preview,world,[r],.85,point),null);assert.ok(preview.marker.z>pose.forward);
+  assert.equal(query(preview,world,[r],.85,point),null);assert.deepEqual(preview.marker,point);
  }
  assert.equal(r.hp,robotConfig(r).hp,'consulta não causa dano nem consome disparos');
 });

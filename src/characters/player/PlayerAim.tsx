@@ -1,3 +1,4 @@
+import { projectAimPoint } from './aimProjection';
 import { weaponShotHeight } from '../../state/playerWeaponPose';
 import { useEffect, useMemo, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
@@ -44,15 +45,8 @@ export function PlayerAim() {
   }, [gl]);
   useFrame(() => {
     if (simulationBlocked() || !inside.current) { combatRuntime.aimValid = false; return; }
-    plane.constant = -weaponShotHeight(playerPosition.y, RIFLE_POSE.height);
-    ray.setFromCamera(pointer.current, camera);
-    if (ray.ray.intersectPlane(plane, point)) {
-      if (Math.hypot(point.x - playerPosition.x, point.z - playerPosition.z) > 0.1) {
-        combatRuntime.aim.x = point.x;
-        combatRuntime.aim.z = point.z;
-        combatRuntime.aimValid = true;
-      }
-    }
+    combatRuntime.aimValid = projectAimPoint(ray, pointer.current, camera, plane, point,
+      weaponShotHeight(playerPosition.y, RIFLE_POSE.height), combatRuntime.aim);
   });
   return null;
 }
