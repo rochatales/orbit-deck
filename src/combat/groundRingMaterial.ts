@@ -19,4 +19,3 @@ export function createGroundRingMaterial(color: string) {
             }`,
     });
 }
-
