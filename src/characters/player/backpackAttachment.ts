@@ -9,8 +9,8 @@ export const BACKPACK_TRANSFORM = {
   scale: [0.6091301360096101, 0.6091299448734547, 0.6091299905071628]
 } as const;
 
-/** Uma luz por instância; acompanha o osso pela hierarquia, sem trabalho por quadro. */
-export function createBackpackVisual(source: Object3D) {
+/** Shanghai usa neon; Marte preserva a mochila equipada com emissão e luz desligadas. */
+export function createBackpackVisual(source: Object3D, illuminated = true) {
   const backpack = source.clone(true);
   const materials: MeshStandardMaterial[] = [];
   backpack.traverse(node => {
@@ -19,7 +19,7 @@ export function createBackpackVisual(source: Object3D) {
     const soften = (material: MeshStandardMaterial) => {
       if (material.name !== 'Glow_Cyan') return material;
       const own = material.clone();
-      own.emissiveIntensity = BACKPACK_LIGHT.stripeEmission;
+      own.emissiveIntensity = illuminated ? BACKPACK_LIGHT.stripeEmission : 0;
       materials.push(own);
       return own;
     };
@@ -27,11 +27,13 @@ export function createBackpackVisual(source: Object3D) {
       ? (mesh.material as MeshStandardMaterial[]).map(soften)
       : soften(mesh.material as MeshStandardMaterial);
   });
-  const light = new PointLight(BACKPACK_LIGHT.color, BACKPACK_LIGHT.intensity, BACKPACK_LIGHT.reach, BACKPACK_LIGHT.decay);
-  light.name = 'BackpackNeonLight';
-  light.position.fromArray(BACKPACK_LIGHT.position);
-  light.castShadow = false;
-  backpack.add(light);
+  if (illuminated) {
+    const light = new PointLight(BACKPACK_LIGHT.color, BACKPACK_LIGHT.intensity, BACKPACK_LIGHT.reach, BACKPACK_LIGHT.decay);
+    light.name = 'BackpackNeonLight';
+    light.position.fromArray(BACKPACK_LIGHT.position);
+    light.castShadow = false;
+    backpack.add(light);
+  }
   return { scene: backpack, materials };
 }
 

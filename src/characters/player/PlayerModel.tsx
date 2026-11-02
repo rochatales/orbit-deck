@@ -7,6 +7,7 @@ import { PLAYER_ASSET_VARIANTS, type PlayerAssetVariant } from "../characterAsse
 import { LocomotionController } from "./LocomotionController";
 import { usePlayerAsset } from "./playerAssetChoice";
 import { PlayerRifle } from "./PlayerRifle";
+import { ColonyPlayerVisor } from "./ColonyPlayerVisor";
 import { PlayerBackpack } from "./PlayerBackpack";
 import { RIFLE_POSE } from "../../combat/config";
 import { PLAYER_COLLIDER_CENTER_Y, PLAYER_MODEL_ROOT_Y, type PlayerMotionState } from "./playerConfig";
@@ -69,7 +70,8 @@ function PlayerVariant({ motionRef, combat, variant }: PlayerModelProps & { vari
           />
         </group>
         <LocomotionController motionRef={motionRef} actions={actions} asset={asset} combat={combat} />
-        {variant === 'astronauta' && scene && <PlayerBackpack scene={scene} />}
+        {variant === 'astronauta' && scene && <PlayerBackpack scene={scene} illuminated={combat} />}
+        {variant === 'astronauta' && scene && !combat && <ColonyPlayerVisor scene={scene} />}
         {variant === 'astronauta' && scene && <PlayerRifle combat={combat} scene={scene} motionRef={motionRef} onAttached={setRifleAttached} />}
       </group>
       {combat && !rifleAttached && <group name="PlayerRifle" position={[RIFLE_POSE.side, RIFLE_POSE.height - PLAYER_COLLIDER_CENTER_Y, RIFLE_POSE.gripForward]}>
