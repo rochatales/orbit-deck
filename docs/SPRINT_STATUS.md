@@ -32,6 +32,10 @@ Testes na versão aprovada `f8655f1`: **396/396**, build e diff-check verdes. A 
 Legenda: 🔲 não iniciado · ◐ em andamento/parcial · ✅ implementado ·
 ⛔ bloqueado · ⏸ estacionado. "Implementado" não significa aprovado pelo autor.
 
+## Tarefa após a consolidação · 02/11/2026
+
+- **S3.10 parcial — ambiência de Shanghai:** pedido do autor; Codex implementa em `rochatales/s3.10-ambiencia-shanghai`, worktree própria, base fixa `5bc240fd09d3e4e6af10534f8e6ed2a1dae5ebf4`. Arquivos: áudio fornecido, motor/runtime de áudio, testes e `docs/handoffs/s3.10-ambiencia-shanghai.md`. Loop só em Shanghai, volume/mudo/pausa existentes. Aceite auditivo do autor pendente; sem push ou merge até nova consolidação.
+
 ## Base consolidada
 
 | Campo | Valor |
