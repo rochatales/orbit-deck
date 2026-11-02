@@ -57,6 +57,10 @@ código em relação ao preview aprovado. [Escopo e publicação](./handoffs/con
 
 Pedido do autor: poeira avermelhada em Marte e cinza em Shanghai nos passos do explorador. Codex implementa em `rochatales/s3.11-poeira-passos`, worktree própria. Base de continuidade da prévia local: **`a8ae4e8de4e71d6119278473248d71f35c9f4762`**, linha commitada com áudio e portas sincronizadas; a base remota publicada permanece `5bc240f`. Preservar o áudio ao testar o efeito na mesma prévia. Arquivos: novo pool/renderer de poeira, sinal de passos do jogador, composição de cena, testes e handoff. Aceite visual do autor pendente. Sem push ou merge nesta rodada; data center ainda aguarda GLB acessível no Mac.
 
+## Música e gatilho vazio · S3.10 parcial · 02/11/2026
+
+Pedido do autor: Strung Out em Marte, Dov em Shanghai, mecanismo ao tentar atirar sem munição e volume menor só do Patrol comum recebendo tiro (confirmado pelo autor). Codex em `rochatales/s3.10-musicas-gatilho-vazio`, worktree própria. Base de continuidade da prévia local: `68f2714` (poeira corrigida e linha anterior de áudio); integração publicada permanece `5bc240f`. Arquivos: áudio/runtime/simulação, fontes copiadas sem alterar originais, testes e handoff. Sem push ou merge; validação auditiva do autor pendente.
+
 ## Tarefas
 
 Preencha uma linha por tarefa antes de iniciar. "Base" é o commit/branch do
