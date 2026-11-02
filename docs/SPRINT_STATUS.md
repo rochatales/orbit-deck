@@ -61,6 +61,10 @@ Pedido do autor: poeira avermelhada em Marte e cinza em Shanghai nos passos do e
 
 Pedido do autor: Strung Out em Marte, Dov em Shanghai, mecanismo ao tentar atirar sem munição e volume menor só do Patrol comum recebendo tiro (confirmado pelo autor). Codex em `rochatales/s3.10-musicas-gatilho-vazio`, worktree própria. Base de continuidade da prévia local: `68f2714` (poeira corrigida e linha anterior de áudio); integração publicada permanece `5bc240f`. Arquivos: áudio/runtime/simulação, fontes copiadas sem alterar originais, testes e handoff. Sem push ou merge; validação auditiva do autor pendente.
 
+## Balões de interação · S1.3 / S6.13 · 02/11/2026
+
+Pedido do autor: padronizar as interações E pela Sintetizadora, com balão flutuante de proximidade para nave, EDEN, caixas e NPCs futuros. Codex em `rochatales/s1.3-baloes-interacao`, worktree própria, base de continuidade da prévia local `dec9d11` (músicas, arma vazia e poeira incluídas). Base remota continua `5bc240f`. Arquivos: componente/roteamento compartilhados, composição, laboratório/App e testes/handoff. Sem novos NPCs nem alteração de recompensas; sem push/merge, aceite visual do autor pendente.
+
 ## Tarefas
 
 Preencha uma linha por tarefa antes de iniciar. "Base" é o commit/branch do
