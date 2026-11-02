@@ -97,6 +97,15 @@ ponto anterior abaixo de 0,1 m. Escopo: cursor/projeção/orientação e regress
 sem alterar cápsula, rifle/colisores, física ou conteúdo da UI. Sem push ou merge;
 preview 4186, aceite visual pelo autor.
 
+## Facão e animações de duas mãos · S6.2 / S6.8 · 02/11/2026
+
+Codex em `rochatales/s6.2-facao`, worktree própria, base local `a2be57f`
+(cursor livre + HUD beta). Importação não destrutiva de cinco clipes FBX do autor
+e espada FBX/GLB; pipeline, encaixe, seleção de arma, combate corpo a corpo,
+animações, UI, testes e handoff. Valores iniciais de golpe/bloqueio aguardam
+resposta do autor. Fontes preservadas; sem push/merge, preview 4186 e aceite
+visual pelo autor.
+
 ## Tarefas
 
 Preencha uma linha por tarefa antes de iniciar. "Base" é o commit/branch do
