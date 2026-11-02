@@ -180,17 +180,17 @@ function QA() {
         const scene=(window as unknown as {__hordaPlayerScene?:import('three').Object3D}).__hordaPlayerScene;
         let root=scene;while(root?.parent)root=root.parent;
         const cursor=root?.getObjectByName('CombatReticle');
-        const start=performance.now();let min=Infinity,max=0,locked=0,frames=0;
+        const start=performance.now();let locked=0,frames=0;
         setResult('Mira: alvo QA reposicionado por 2,4 s…');
         await new Promise<void>(resolve=>{function frame(){
             enemy!.x=target.x;enemy!.z=target.z;
             pointerAt(target.x,target.z);
             const face=cursor?.children[1] as import('three').Mesh;
-            if(face&&(face.material as import('three').MeshBasicMaterial).color.getHexString()==='ffe2ac')locked++;
-            if(cursor?.visible){min=Math.min(min,cursor.scale.x);max=Math.max(max,cursor.scale.x);}frames++;
+            if(face&&(face.material as import('three').MeshBasicMaterial).color.getHexString()==='ffc45c')locked++;
+            frames++;
             if(performance.now()-start<2400)requestAnimationFrame(frame);else resolve();
         }requestAnimationFrame(frame);});
-        setResult(`Mira: ${locked}/${frames} quadros em alvo · escala ${min.toFixed(5)}–${max.toFixed(5)} · sem disparo · HP ${enemy.hp}`);
+        setResult(`Mira: ${locked}/${frames} quadros em alvo · sem disparo · HP ${enemy.hp}`);
     }
     async function sample() {
         setResult('Medindo 5s…');

@@ -1,11 +1,11 @@
-import { COMBAT, HIT_LAYER, RIFLE_MASK, writeRifleAimTarget, writeRifleMuzzle } from '../../combat/config';
+import { COMBAT, HIT_LAYER, RIFLE_MASK, robotConfig, writeRifleAimTarget, writeRifleMuzzle } from '../../combat/config';
 import { traceShot, type Robot, type ShotTrace } from '../../combat/simulation';
 import type { Position, Terrain } from '../../combat/navigation';
 import type { WeaponMuzzleOffset } from '../../state/playerWeaponPose';
 
 export const RETICLE = {
-  color: '#ffffff', targetColor: '#ffe2ac', targetScale: .8,
-  transition: .09, pulsePeriod: .85, pulseAmplitude: .045
+  color: '#ffffff', targetColor: '#ffc45c', normalSpread: 17, targetSpread: 10,
+  transition: .12, pulsePeriod: .85, pulseAmplitude: .35
 } as const;
 
 /** Consulta visual sem efeitos: usa os mesmos volumes, alcance e proteção do cano que o tiro. */
@@ -23,7 +23,11 @@ export class ReticleAim {
     const distance = Math.hypot(dx, dz);
     this.end.x = this.muzzle.x + dx / distance * COMBAT.rifle.range;
     this.end.z = this.muzzle.z + dz / distance * COMBAT.rifle.range;
-    return traceShot(this.muzzle, this.end, terrain, robots, RIFLE_MASK, this.trace, height).robot;
+    const robot = traceShot(this.muzzle, this.end, terrain, robots, RIFLE_MASK, this.trace, height).robot;
+    // Captura visual só sob o cursor: um inimigo em outro ponto da linha não basta.
+    if (!robot) return null;
+    const radius = robotConfig(robot).radius;
+    return (aim.x - robot.x) ** 2 + (aim.z - robot.z) ** 2 <= radius * radius ? robot : null;
   }
 }
 
@@ -32,19 +36,24 @@ export class ReticleAnimation {
   targetId = -1;
   private time = 0;
   private blend = 0;
-  scale = 1;
+  spread: number = RETICLE.normalSpread;
 
   update(targetId: number, delta: number, visible: boolean) {
-    if (!visible) { this.targetId = -1; this.time = this.blend = 0; this.scale = 1; return; }
+    if (!visible) { this.targetId = -1; this.time = this.blend = 0; this.spread = RETICLE.normalSpread; return; }
     if (targetId !== this.targetId) this.time = 0;
     this.targetId = targetId;
     this.time += delta;
     this.blend += ((targetId >= 0 ? 1 : 0) - this.blend) * (1 - Math.exp(-delta / RETICLE.transition));
-    this.scale = 1 + this.blend * (RETICLE.targetScale - 1 + RETICLE.pulseAmplitude * Math.sin(this.time * Math.PI * 2 / RETICLE.pulsePeriod));
+    this.spread = RETICLE.normalSpread + this.blend * (RETICLE.targetSpread - RETICLE.normalSpread + RETICLE.pulseAmplitude * Math.sin(this.time * Math.PI * 2 / RETICLE.pulsePeriod));
   }
 }
 
 /** Unidades mundiais por pixel CSS; mesmo tamanho de cursor ao girar/aproximar a câmera. */
 export function reticlePixelScale(projectionY: number, height: number, cameraDepth: number, orthographic: boolean) {
   return 2 * (orthographic ? 1 : Math.abs(cameraDepth)) / (projectionY * Math.max(height, 1));
+}
+
+/** Dash mantém a mesma mira; só bloqueios da sessão ou ponteiro inválido a escondem. */
+export function reticleVisible(blocked: boolean, aimValid: boolean) {
+  return !blocked && aimValid;
 }
