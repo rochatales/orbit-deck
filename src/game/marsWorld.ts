@@ -1,3 +1,4 @@
+import { addControlRoomTerrain, retainControlRoomCollider } from './controlRoomLayout';
 import { addLaboratorioTerrain, retainLaboratorioCollider, retainLaboratorioFloor } from './laboratorioLayout';
 import { addQuartelTerrain, retainQuartelCollider, retainQuartelFloor } from './quartelLayout';
 import { addHangarTerrain, retainColonyCollider, retainColonyFloor } from './hangarLayout';
@@ -15,7 +16,7 @@ export function createWorld(): OfficeWorld {
     const world: OfficeWorld = {
         group: new Group(),
         bounds: { ...MAPS.mars.bounds },
-        obstacles: [...manifest.colliders.filter(retainColonyCollider).filter(retainQuartelCollider).filter(retainLaboratorioCollider), ...greenhouse.colliders].map(({ minX, maxX, minZ, maxZ }) => ({ minX, maxX, minZ, maxZ })),
+        obstacles: [...manifest.colliders.filter(retainColonyCollider).filter(retainQuartelCollider).filter(retainLaboratorioCollider).filter(retainControlRoomCollider), ...greenhouse.colliders].map(({ minX, maxX, minZ, maxZ }) => ({ minX, maxX, minZ, maxZ })),
         walkableAreas: manifest.walkableAreas.filter(retainColonyFloor).filter(retainQuartelFloor).filter(retainLaboratorioFloor).map(({ minX, maxX, minZ, maxZ }) => ({ minX, maxX, minZ, maxZ })),
         update: () => {}
     };
@@ -23,5 +24,6 @@ export function createWorld(): OfficeWorld {
     addMarsLanding(world);
     addQuartelTerrain(world);
     addLaboratorioTerrain(world);
+    addControlRoomTerrain(world);
     return world;
 }

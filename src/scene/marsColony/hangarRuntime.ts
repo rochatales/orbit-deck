@@ -1,3 +1,4 @@
+import { BuildingAtlasSampling } from './buildingAtlasSampling';
 import { AnimationClip, AnimationMixer, BufferGeometry, Float32BufferAttribute, LoopOnce, LoopRepeat, Mesh, MeshStandardMaterial, type AnimationAction, type Material, type Object3D, type SkinnedMesh } from 'three';
 import { blackenHangarDoorReveals } from './hangarDoorReveals';
 import { HANGAR } from '../../game/hangarLayout';
@@ -31,6 +32,7 @@ export class HangarRuntime {
     private disposed = false;
     private bridgeGeometry: BufferGeometry;
     private revealGeometry: BufferGeometry;
+    private readonly atlasSampling: BuildingAtlasSampling;
     constructor(private scene: Object3D, clips: AnimationClip[]) {
         const parts: MasterplanPart[] = [];
         const copies = new Map<Material, Material>();
@@ -49,6 +51,7 @@ export class HangarRuntime {
             mesh.material = Array.isArray(mesh.material) ? mesh.material.map(copy) : copy(mesh.material);
             mesh.castShadow = true; mesh.receiveShadow = true;
         });
+        this.atlasSampling = new BuildingAtlasSampling(scene);
         if (parts.length !== 6 || !scene.getObjectByName('TETO_Hangar')) throw new Error('Hangar v002 incompleto');
         const reveals = blackenHangarDoorReveals(scene.getObjectByName('HangarMesh') as Mesh);
         this.revealGeometry = reveals.geometry; this.ownedMaterials.add(reveals.material);
@@ -110,6 +113,7 @@ export class HangarRuntime {
         this.disposed = true;
         this.mixer.stopAllAction(); this.mixer.uncacheRoot(this.scene); this.architecture.dispose();
         for (const material of this.ownedMaterials) material.dispose();
+        this.atlasSampling.dispose();
         this.bridgeGeometry.dispose(); this.revealGeometry.dispose();
         const skeletons = new Set();
         this.scene.traverse(node => { const mesh = node as SkinnedMesh; if (mesh.isSkinnedMesh && !skeletons.has(mesh.skeleton)) { skeletons.add(mesh.skeleton); mesh.skeleton.dispose(); } });

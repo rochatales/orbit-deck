@@ -1,3 +1,4 @@
+import controlRoomUrl from '../../assets/control-room/control-room-v002.glb';
 import circulationUrl from '../../assets/quartel/quartel-circulation-v001.glb';
 import laboratorioUrl from '../../assets/laboratorio/laboratorio-v002.glb';
 import { useEffect, useRef, useState, type CSSProperties, type RefObject } from 'react';
@@ -32,17 +33,17 @@ export function ColonySandwind({ scope, masterplan }: { scope: RefObject<Group>;
     // useLoader usa a lista de URLs como chave: chamadas individuais devem casar
     // com Masterplan/Hangar/Greenhouse/DeckProps; AresLanding usa o par de URLs.
     const colony = useGLTF(colonyUrl), hangar = useGLTF(hangarUrl), greenhouse = useGLTF(greenhouseUrl), legacy = useGLTF(legacyUrl);
-    const circulation = useGLTF(circulationUrl), quartel = useGLTF(quartelUrl), laboratorio = useGLTF(laboratorioUrl);
+    const circulation = useGLTF(circulationUrl), quartel = useGLTF(quartelUrl), laboratorio = useGLTF(laboratorioUrl), controlRoom = useGLTF(controlRoomUrl);
     const [ship, deck] = useGLTF([shipUrl, deckUrl]);
     const controller = useRef<SandwindController | null>(null);
     const enabled = usePreview(s => s.enabled);
     useEffect(() => {
         const root = scope.current!, architecture = masterplan.current!.children[0];
-        const next = new SandwindController(root, [colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene, laboratorio.scene, circulation.scene],
+        const next = new SandwindController(root, [colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene, laboratorio.scene, circulation.scene, controlRoom.scene],
             sandwindTargets(root, architecture, manifest), gl.outputColorSpace);
         controller.current = next; activeController = next;
         return () => { if (activeController === next) activeController = null; controller.current = null; next.dispose(); };
-    }, [scope, masterplan, colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene, laboratorio.scene, circulation.scene, gl]);
+    }, [scope, masterplan, colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene, laboratorio.scene, circulation.scene, controlRoom.scene, gl]);
     useEffect(() => {
         if (!enabled) return;
         const original = scene.fog;
@@ -87,7 +88,7 @@ export function SandwindPanel() {
         {sandwindQAEnabled(window.location.search) && <fieldset style={{ margin: '10px 0' }}><legend>Poses de QA · sem salvar</legend>
             <button onClick={() => sandwindQAPose(window.location.search, 'plaza')}>QA · Praça</button>
             <button onClick={() => sandwindQAPose(window.location.search, 'deck')}>QA · Deck</button>
-            {(['quartel', 'quartel-west', 'quartel-north', 'laboratorio', 'lab-console', 'lab-west', 'lab-south'] as const).map(pose => <button key={pose} onClick={() => sandwindQAPose(window.location.search, pose)}>QA · {pose}</button>)}
+            {(['quartel', 'quartel-west', 'quartel-north', 'laboratorio', 'lab-console', 'lab-west', 'lab-south', 'control-south', 'control-inside', 'hangar-front', 'hangar-inside'] as const).map(pose => <button key={pose} onClick={() => sandwindQAPose(window.location.search, pose)}>QA · {pose}</button>)}
             <button onClick={() => sandwindQAPose(window.location.search, 'bathroom-front')}>QA · Banheiro (fora)</button>
             <button onClick={() => sandwindQAPose(window.location.search, 'bathroom-inside')}>QA · Banheiro (dentro)</button>
             <button onClick={() => useGameStore.getState().setZoom(useGameStore.getState().minZoom)}>QA · Afastar</button>

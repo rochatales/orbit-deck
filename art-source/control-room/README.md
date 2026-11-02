@@ -1,5 +1,12 @@
 # Control Room — candidato S6.12
 
+**01/11/2026: v002 aprovada incorporada ao runtime da branch do explorador.**
+Atlas quente/grafite, piso do Quartel e pedestal EDEN em `export/control_room_v002.glb`.
+Builder próprio: `scripts/build_control_room_v002.py`; atlas e render próprios v002.
+A integração preservou os bytes aprovados, sem rebuild. Proveniência e hashes em
+[handoff](../../docs/handoffs/s6.12-predios-aprovados-01-11/README.md).
+As instruções v001 abaixo permanecem para reprodução histórica e não geram a v002.
+
 Base `f1756c4`, branch `rochatales/s6.12-control-room`. Arte fora do runtime.
 Medidas, estados, limites e roteiro visual no [RELATORIO](RELATORIO.md) e no
 [handoff](../../docs/handoffs/s6.12-control-room.md).

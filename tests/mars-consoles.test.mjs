@@ -1,3 +1,4 @@
+const {CONTROL_ROOM,retainControlRoomCollider}=loadSource('src/game/controlRoomLayout.ts');
 const {LABORATORIO,retainLaboratorioCollider,retainLaboratorioFloor}=loadSource('src/game/laboratorioLayout.ts');
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -44,9 +45,9 @@ test('S0.4/v007: só Oeste ganha colisor de prop; passarela, colônia e embarque
  const colony=JSON.parse(fs.readFileSync('src/assets/colony-v007.manifest.json')),greenhouse=JSON.parse(fs.readFileSync('src/assets/greenhouse/greenhouse-v001.manifest.json'));
  const {HANGAR,retainColonyCollider}=loadSource('src/game/hangarLayout.ts');
  const {retainQuartelCollider,QUARTEL}=loadSource('src/game/quartelLayout.ts');
- const base=[...colony.colliders.filter(retainColonyCollider).filter(retainQuartelCollider).filter(retainLaboratorioCollider),...greenhouse.colliders,...HANGAR.colliders].map(({minX,maxX,minZ,maxZ})=>({minX,maxX,minZ,maxZ}));
- assert.deepEqual(world.obstacles.slice(0,base.length),base,'colisores v007 fora da Doca, estufa e Hangar aprovado preservados');
- assert.equal(world.obstacles.length,base.length+6+1+QUARTEL.staticCuboids.filter(c=>c.kind!=='support'&&c.bounds.minY<1.5).length+LABORATORIO.staticCuboids.filter(c=>c.bounds.minY<1.5).length,'base filtrada + Hangar + 6 ARES + 1 Oeste + COL do Quartel; nenhum para outros props');
+ const base=[...colony.colliders.filter(retainColonyCollider).filter(retainQuartelCollider).filter(retainLaboratorioCollider).filter(retainControlRoomCollider),...greenhouse.colliders,...HANGAR.colliders].map(({minX,maxX,minZ,maxZ})=>({minX,maxX,minZ,maxZ}));
+ assert.deepEqual(world.obstacles.slice(0,base.length),base,'colisores v007 fora das salas substituídas preservados');
+ assert.equal(world.obstacles.length,base.length+6+1+QUARTEL.staticCuboids.filter(c=>c.kind!=='support'&&c.bounds.minY<1.5).length+LABORATORIO.staticCuboids.filter(c=>c.bounds.minY<1.5).length+CONTROL_ROOM.obstacles.length,'base filtrada + Hangar + 6 ARES + 1 Oeste + COL do Quartel; 3 móveis Control Room; nenhum para outros props');
  assert.equal(traversable({x:-6.75,z:31.6},world,0),false,'rack fica fora da área caminhável');
  assert.equal(traversable({x:-3,z:25.9},world,radius),false);
  assert.equal(world.obstacles.some(b=>b.minX<=6.85&&b.maxX>=6.85&&b.minZ<=31.8&&b.maxZ>=31.8),false,'Leste sem colisor');

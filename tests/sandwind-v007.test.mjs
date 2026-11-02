@@ -1,3 +1,5 @@
+const {ControlRoomRuntime}=loadSource('src/scene/marsColony/controlRoomRuntime.ts');
+const {removeRoomForControlRoom}=loadSource('src/scene/marsColony/controlRoomColony.ts');
 const {LaboratorioRuntime}=loadSource('src/scene/marsColony/laboratorioRuntime.ts');
 const {removeRoomForLaboratorio}=loadSource('src/scene/marsColony/laboratorioColony.ts');
 const {LABORATORIO}=loadSource('src/game/laboratorioLayout.ts');
@@ -21,7 +23,7 @@ const { QUARTEL } = loadSource('src/game/quartelLayout.ts');
 const { HANGAR } = loadSource('src/game/hangarLayout.ts');
 const manifest = JSON.parse(fs.readFileSync('src/assets/colony-v007.manifest.json'));
 const greenManifest = JSON.parse(fs.readFileSync('src/assets/greenhouse/greenhouse-v001.manifest.json'));
-const urls = ['colony-v007.glb', 'hangar/hangar-v002.glb', 'greenhouse/greenhouse-v001.glb', 'colony-v006.glb', 'ares-lander/ares-lander.glb', 'ares-mars/deck-mars.glb', 'quartel/barracks-v006.glb', 'laboratorio/laboratorio-v002.glb', 'quartel/quartel-circulation-v001.glb'];
+const urls = ['colony-v007.glb', 'hangar/hangar-v002.glb', 'greenhouse/greenhouse-v001.glb', 'colony-v006.glb', 'ares-lander/ares-lander.glb', 'ares-mars/deck-mars.glb', 'quartel/barracks-v006.glb', 'laboratorio/laboratorio-v002.glb', 'quartel/quartel-circulation-v001.glb', 'control-room/control-room-v002.glb'];
 const sources = await Promise.all(urls.map(url => loadGlb(`src/assets/${url}`)));
 const settings = { enabled: true, culling: true, wind: true, profile: 'compact' };
 const eachMaterial = (root, fn) => root.traverse(n => { if (n.isMesh) for (const m of Array.isArray(n.material) ? n.material : [n.material]) fn(m, n); });
@@ -30,7 +32,8 @@ const visible = node => { for (let n = node; n; n = n.parent) if (!n.visible) re
 function fixture() {
     const scope = new Group(), architecture = sources[0].scene.clone(true), geometries = [];
     const quartelFiltered = removeRoomForQuartel(architecture, removeDockForHangar(architecture, removeProvisionalGreenhouse(architecture, manifest), geometries), geometries);
-    const filtered = removeRoomForLaboratorio(architecture, quartelFiltered, geometries);
+    const filteredLab = removeRoomForLaboratorio(architecture, quartelFiltered, geometries);
+    const filtered = removeRoomForControlRoom(architecture, filteredLab, geometries);
     const master = new MasterplanRuntime(architecture, filtered); scope.add(architecture);
     const hangar = clone(sources[1].scene); hangar.name = 'Hangar';
     const hangarRuntime = new HangarRuntime(hangar, sources[1].animations);
@@ -54,11 +57,12 @@ function fixture() {
     const paving=createLaboratorioWalkways(lab),pavingRoot=new Group();pavingRoot.position.copy(labRoot.position);pavingRoot.add(paving);scope.add(pavingRoot);
     const labRuntime=new LaboratorioRuntime(lab,sources[7].animations);
     const circulation=sources[8].scene.clone(true); circulation.name='QuartelCirculation';scope.add(circulation);
+    const controlRoot=new Group(),control=sources[9].scene.clone(true);controlRoot.name='ControlRoom';controlRoot.add(control);scope.add(controlRoot);const controlRuntime=new ControlRoomRuntime(control);
     const targets = sandwindTargets(scope, architecture, filtered);
     const install = () => new SandwindController(scope, sources.map(s => s.scene), targets, SRGBColorSpace);
-    const update = (p, dt) => { master.update(p, dt); greenRuntime.update(p, dt); hangarRuntime.update(p, dt); quartelRuntime.update(p,dt); labRuntime.update(p,dt); };
-    const dispose = () => { master.dispose(); labRuntime.dispose(); quartelRuntime.dispose(); greenRuntime.dispose(); hangarRuntime.dispose(); geometries.forEach(g => g.dispose()); privateAres.forEach(m => m.dispose()); };
-    return { scope, architecture, master, labRoot, labRuntime, quartel, quartelRuntime, qRoot, hangar, hangarRuntime, green, greenRuntime, props, ares, deck, targets, install, update, dispose };
+    const update = (p, dt) => { master.update(p, dt); greenRuntime.update(p, dt); hangarRuntime.update(p, dt); quartelRuntime.update(p,dt); labRuntime.update(p,dt); controlRuntime.update(p,dt); };
+    const dispose = () => { controlRuntime.dispose(); master.dispose(); labRuntime.dispose(); quartelRuntime.dispose(); greenRuntime.dispose(); hangarRuntime.dispose(); geometries.forEach(g => g.dispose()); privateAres.forEach(m => m.dispose()); };
+    return { controlRoot, controlRuntime, scope, architecture, master, labRoot, labRuntime, quartel, quartelRuntime, qRoot, hangar, hangarRuntime, green, greenRuntime, props, ares, deck, targets, install, update, dispose };
 }
 
 test('Sandwind v007: prédios, telhados, portas, estufa, ARES e DeckProps recebem pais completos sem mudar transforms', () => {
@@ -67,12 +71,12 @@ test('Sandwind v007: prédios, telhados, portas, estufa, ARES e DeckProps recebe
     const originalChildren = f.architecture.children.slice();
     const controller = f.install(); f.scope.updateMatrixWorld(true);
     for (const [node, matrix] of matrices) assert.ok(node.matrixWorld.equals(matrix), node.name);
-    for (const id of ['hangar', 'greenhouse', 'deck-props', 'ares', 'room_brand-brain', 'quartel', 'laboratorio']) assert.ok(f.scope.getObjectByName(`SandwindDistance_${id}`), id);
+    for (const id of ['hangar', 'greenhouse', 'deck-props', 'ares', 'control-room', 'quartel', 'laboratorio']) assert.ok(f.scope.getObjectByName(`SandwindDistance_${id}`), id);
     controller.update(200, 200, .2, settings, false);
     for (let i = 0; i < 60; i++) {
         f.update({ x: 0, z: 0 }, 1/60);
         controller.update(200, 200, 1/60, settings, false);
-        for (const root of [f.hangar, f.green, f.props, f.ares, f.deck, f.qRoot, f.labRoot]) {
+        for (const root of [f.hangar, f.green, f.props, f.ares, f.deck, f.qRoot, f.labRoot, f.controlRoot]) {
             assert.equal(root.visible, true, 'Sandwind não escreve nos filhos');
             assert.equal(visible(root), false, root.name);
         }
@@ -83,6 +87,7 @@ test('Sandwind v007: prédios, telhados, portas, estufa, ARES e DeckProps recebe
     assert.equal(f.hangar.getObjectByName('HangarFloorBridge').parent, f.hangar);
     controller.update(0, 20, .2, settings, false);
     for (const root of [f.hangar, f.green, f.props, f.ares, f.deck, f.qRoot, f.labRoot]) assert.equal(visible(root), true, root.name);
+    controller.update(0,-9,.2,settings,false);assert.equal(visible(f.controlRoot),true);
     controller.dispose();
     assert.deepEqual(f.architecture.children, originalChildren);
     for (const root of [f.hangar, f.green, f.props, f.ares, f.deck, f.qRoot, f.labRoot]) assert.ok(!root.parent.name.startsWith('SandwindDistance'));

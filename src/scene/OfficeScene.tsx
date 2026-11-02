@@ -1,3 +1,4 @@
+import { CONTROL_ROOM } from '../game/controlRoomLayout';
 import { DawnBackground } from './DawnBackground';
 import { PlayerVisorLight } from './PlayerVisorLight';
 import { SHANGHAI_DAWN } from './lightingConfig';
@@ -10,7 +11,6 @@ import { CombatScene } from '../combat/CombatScene';
 import { GLBCharacter } from '../characters/GLBCharacter';
 import { EDEN_CHARACTER_ASSET } from '../characters/characterAssetConfig';
 import { Player } from '../characters/player/Player';
-import { EDEN } from '../game/config';
 import { Spacecraft } from '../game/Spacecraft';
 import { useExpeditionStore } from '../state/useExpeditionStore';
 import { CameraRig } from './CameraRig';
@@ -43,9 +43,8 @@ export function OfficeScene({ world, map }: {
     </PhysicsWorld>
     {map === 'shanghai' && <><CombatScene world={world}/><PlayerVisorLight/></>}
     {map === 'mars' ? <MarsColony world={world}/> : <Spacecraft map={map}/>}
-    {map === 'mars' && <group position={[EDEN.position.x, 0, EDEN.position.z]}>
+    {map === 'mars' && <group position={[CONTROL_ROOM.hologramAnchor.x, CONTROL_ROOM.hologramAnchor.y, CONTROL_ROOM.hologramAnchor.z]}>
       <GLBCharacter {...a} animationState="idle"/>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.03, 0]}><ringGeometry args={[1, 1.1, 32]}/><meshBasicMaterial color="#f2c94c"/></mesh>
     </group>}
   </></ShanghaiAssetGate></Suspense>;
 }

@@ -9,8 +9,11 @@ const raw=fs.readFileSync(root+'export/hangar_mars_v002.glb'),data=JSON.parse(ra
 test('S6.12 Hangar A: v001/fonte/texturas preservados, nova variante abaixo de 10 mil triângulos',()=>{
  for(const[file,hash]of Object.entries(read('notas/fontes-v001-sha256.json'))){const preserved=file.endsWith('scripts/build_hangar.py')?file.replace('build_hangar.py','build_hangar_v001.py'):file;assert.equal(createHash('sha256').update(fs.readFileSync(preserved)).digest('hex'),hash);}
  assert.ok(fit.hashes[root+'export/hangar_mars_v001.glb'].startsWith('749e5b39b078'));
- assert.equal(createHash('sha256').update(raw).digest('hex'),fit.hashes[root+'export/hangar_mars_v002.glb']);
- const triangles=data.meshes.reduce((n,m)=>n+m.primitives.reduce((n,p)=>n+data.accessors[p.indices].count/3,0),0);assert.equal(triangles,build.triangles);assert.ok(triangles<=10000);
+ const snapshots=JSON.parse(fs.readFileSync('docs/handoffs/s6.12-predios-aprovados-01-11/fontes.json'));
+ const final=snapshots.arquivos.find(f=>f.arquivo===root+'export/hangar_mars_v002.glb');
+ assert.equal(final.anterior_sha256,fit.hashes[root+'export/hangar_mars_v002.glb'],'hash histórico da Parada A preservado');
+ assert.equal(createHash('sha256').update(raw).digest('hex'),final.sha256);
+ const triangles=data.meshes.reduce((n,m)=>n+m.primitives.reduce((n,p)=>n+data.accessors[p.indices].count/3,0),0);assert.equal(triangles,build.trianglesExport);assert.equal(triangles,8732,'GLB final aprovado; contagem Blender fonte preservada em triangles');assert.ok(triangles<=10000);
  glb.scene.updateMatrixWorld(true);const size=new Box3().setFromObject(glb.scene).getSize(new Vector3());assert.ok(Math.abs(size.x-9.58)<.01);assert.ok(Math.abs(size.y-4.54)<.01);assert.ok(size.z>8.85&&size.z<9.02);
 });
 test('S6.12 Hangar A: teto próprio e quatro folhas com trilhos do padrão v007; quatro clipes preservados',()=>{
