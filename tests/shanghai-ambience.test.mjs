@@ -8,7 +8,7 @@ const { AudioEngine } = loadSource('src/audio/AudioEngine.ts');
 const { AUDIO } = loadSource('src/audio/config.ts');
 const track = { name: 'Shanghai_Empty_City', url: 'ambience.mp3' };
 function fakeContext() {
-    const param = () => ({ value: 1, ramps: [], setTargetAtTime(v) { this.value = v; }, cancelScheduledValues() {}, setValueAtTime(v) { this.value = v; }, linearRampToValueAtTime(v, t) { this.ramps.push([v, t]); } });
+    const param = () => ({ value: 1, ramps: [], setTargetAtTime(v) { this.value = v; }, cancelScheduledValues() {}, cancelAndHoldAtTime() {}, setValueAtTime(v) { this.value = v; }, linearRampToValueAtTime(v, t) { this.ramps.push([v, t]); } });
     const node = () => ({ connect(target) { this.target = target; }, disconnect() { this.disconnected = true; } });
     return { state: 'suspended', currentTime: 0, destination: {}, decodes: 0, sources: [], gains: [],
         async resume() { this.state = 'running'; }, async suspend() { this.state = 'suspended'; },

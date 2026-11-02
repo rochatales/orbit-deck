@@ -1,3 +1,4 @@
+import { DoorSoundClock } from '../../audio/events';
 import { AnimationClip, AnimationMixer, LoopOnce, LoopRepeat, Vector3, type AnimationAction, type Bone, type Material, type Mesh, type Object3D } from 'three';
 import { LABORATORIO, createLaboratorioDoorColliders } from '../../game/laboratorioLayout';
 import type { SimpleCuboid } from '../../world/createOfficeMap';
@@ -9,6 +10,7 @@ export class LaboratorioRuntime {
     mode: LaboratorioMode = 'Idle_Ready';
     readonly doors = [0, 0];
     readonly status = { roofOpacity: 1 };
+    private doorSounds = LABORATORIO.doors.map(() => new DoorSoundClock());
     private roof: Object3D;
     private cutWalls: Object3D;
     private inside = false;
@@ -85,7 +87,9 @@ export class LaboratorioRuntime {
         for (let i = 0; i < LABORATORIO.doors.length; i++) {
             const door = LABORATORIO.doors[i], closed = this.closed[i], slide = door.slide;
             const dx = player.x - door.x, dz = player.z - door.z;
-            this.doors[i] += ((dx * dx + dz * dz < 2.7 * 2.7 ? 1 : 0) - this.doors[i]) * step;
+            const open = dx * dx + dz * dz < 2.7 * 2.7;
+            this.doorSounds[i].update(open, this.doors[i], door.x, door.z);
+            this.doors[i] += ((open ? 1 : 0) - this.doors[i]) * step;
             // Root tem eixos glTF de mundo, sem rotação/escala de implantação.
             this.bones[i].position.set(closed.x + slide[0] * this.doors[i], closed.y + slide[1] * this.doors[i], closed.z + slide[2] * this.doors[i]);
             const source = LABORATORIO.dynamicCuboids[i].position, output = this.motions[i].position;

@@ -1,3 +1,4 @@
+import { DoorSoundClock } from '../../audio/events';
 import { BuildingAtlasSampling } from './buildingAtlasSampling';
 import { AnimationClip, AnimationMixer, BufferGeometry, Float32BufferAttribute, LoopOnce, LoopRepeat, Mesh, MeshStandardMaterial, type AnimationAction, type Material, type Object3D, type SkinnedMesh } from 'three';
 import { blackenHangarDoorReveals } from './hangarDoorReveals';
@@ -21,6 +22,7 @@ export function hangarClip(source: AnimationClip) {
 
 export class HangarRuntime {
     readonly status = { rampOpen: 0, roofOpacity: 1, alert: false, idleTime: 0, craneTime: 0, departures: 0, landings: 0 };
+    private rampSound = new DoorSoundClock();
     private architecture: MasterplanRuntime;
     private mixer: AnimationMixer;
     private actions: Record<string, AnimationAction> = {};
@@ -56,7 +58,7 @@ export class HangarRuntime {
         const reveals = blackenHangarDoorReveals(scene.getObjectByName('HangarMesh') as Mesh);
         this.revealGeometry = reveals.geometry; this.ownedMaterials.add(reveals.material);
         const architecture: MasterplanManifest = { parts, walkableAreas: [HANGAR.roofArea], doors: HANGAR.doors };
-        this.architecture = new MasterplanRuntime(scene, architecture);
+        this.architecture = new MasterplanRuntime(scene, architecture, HANGAR.placement.z);
         const seen = new Set<Material>();
         scene.traverse(node => {
             const mesh = node as Mesh;
@@ -92,6 +94,7 @@ export class HangarRuntime {
     update(player: { x: number; z: number }, delta: number) {
         const dt = Math.min(Math.max(0, delta), .05), r = HANGAR.ramp;
         const near = Math.abs(player.x) < r.nearHalfWidth && player.z > r.nearInsideZ && player.z < r.nearOutsideZ;
+        this.rampSound.update(near, this.status.rampOpen, 0, r.thresholdZ);
         this.status.rampOpen += ((near ? 1 : 0) - this.status.rampOpen) * (1 - Math.exp(-HANGAR.animation.response * dt));
         const ramp = this.actions.RampOpenClose;
         ramp.time = (1 - this.status.rampOpen) * ramp.getClip().duration / 2;

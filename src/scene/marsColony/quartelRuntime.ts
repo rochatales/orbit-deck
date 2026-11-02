@@ -1,3 +1,4 @@
+import { DoorSoundClock } from '../../audio/events';
 import { AnimationMixer, LoopOnce, Vector3, type AnimationAction, type AnimationClip, type Material, type Mesh, type Object3D } from 'three';
 import { QUARTEL, createQuartelDoorColliders } from '../../game/quartelLayout';
 import type { SimpleCuboid } from '../../world/createOfficeMap';
@@ -5,6 +6,7 @@ import type { SimpleCuboid } from '../../world/createOfficeMap';
 /** O runtime controla filhos/teto; somente o pai exclusivo Sandwind controla distância. */
 export class QuartelRuntime {
     readonly status = { roofOpacity: 1, north: 0, west: 0, bathroom: 0 };
+    private doorSounds = QUARTEL.doors.map(() => new DoorSoundClock());
     private mixer: AnimationMixer;
     private actions: AnimationAction[];
     private doorColliders: Object3D[];
@@ -66,7 +68,9 @@ export class QuartelRuntime {
         for (let i = 0; i < QUARTEL.doors.length; i++) {
             const door = QUARTEL.doors[i], side = door.side as 'north' | 'west' | 'bathroom';
             const dx = player.x - door.x, dz = player.z - door.z;
-            this.status[side] += ((dx * dx + dz * dz < 2.35 * 2.35 ? 1 : 0) - this.status[side]) * step;
+            const open = dx * dx + dz * dz < 2.35 * 2.35;
+            this.doorSounds[i].update(open, this.status[side], door.x, door.z);
+            this.status[side] += ((open ? 1 : 0) - this.status[side]) * step;
             this.actions[i].time = this.actions[i].getClip().duration * this.status[side];
         }
         this.mixer.update(0);

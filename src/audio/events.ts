@@ -1,5 +1,5 @@
 import type { RobotKind } from '../combat/config';
-export type SoundEventType = 'shot' | 'reload' | 'playerStep' | 'enemyStep' | 'bulletHit' | 'death' | 'attack' | 'collect' | 'chargeWarning';
+export type SoundEventType = 'shot' | 'reload' | 'playerStep' | 'enemyStep' | 'bulletHit' | 'death' | 'attack' | 'collect' | 'chargeWarning' | 'doorOpen';
 export interface SoundEvent { type: SoundEventType; kind: RobotKind; x: number; z: number }
 /** Anel pré-alocado: nenhum objeto por evento da simulação/locomoção. */
 export class SoundQueue {
@@ -16,6 +16,14 @@ export class SoundQueue {
     clear() { this.count = 0; }
 }
 export const playerSounds = new SoundQueue(32);
+/** Uma emissão ao começar a abrir; só rearma depois de quase fechar. */
+export class DoorSoundClock {
+    private armed = true;
+    update(open: boolean, amount: number, x: number, z: number, queue = playerSounds) {
+        if (!open && amount < .05) this.armed = true;
+        if (open && this.armed) { queue.emit('doorOpen', x, z); this.armed = false; }
+    }
+}
 /** Dois apoios por ciclo; lê o relógio do mesmo clipe que desenha os pés. */
 export class FootstepClock {
     private previous = -1;

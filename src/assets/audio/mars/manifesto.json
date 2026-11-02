@@ -1,0 +1,40 @@
+{
+  "sources": [
+    {
+      "source": "/Users/rochatales/Game Development/Horda Survivor/00_Audios/ES_Ambience, Desert, Desolation, Canyon, Wind - Epidemic Sound.mp3",
+      "file": "mars-desert.mp3",
+      "sha256": "1f69f6d7c8efd7b262dc62e77922d0d7be6f622115dc9f26e843bfb6d4d94241",
+      "bytes": 1662174,
+      "durationSeconds": 53.394708,
+      "channels": 2,
+      "sampleRate": 48000
+    },
+    {
+      "source": "/Users/rochatales/Game Development/Horda Survivor/00_Audios/ES_Ambience, Room Tone, Interior, Bathroom F - Epidemic Sound.mp3",
+      "file": "mars-interior.mp3",
+      "sha256": "d42d96475216fb3cd62c65b7680500d40f0cee76dde2ecf517bf962360e096f6",
+      "bytes": 3395165,
+      "durationSeconds": 109.41425,
+      "channels": 2,
+      "sampleRate": 48000
+    },
+    {
+      "source": "/Users/rochatales/Game Development/Horda Survivor/00_Audios/ES_Scifi, Door, Big, Air Release - Epidemic Sound.mp3",
+      "file": "door-original.mp3",
+      "sha256": "58a65e70e0af23583dba68f0378056ad460e3feb06e489298653e4b1266fe45d",
+      "bytes": 179129,
+      "durationSeconds": 7.126229,
+      "channels": 2,
+      "sampleRate": 48000
+    }
+  ],
+  "door": {
+    "file": "mars-door-open.mp3",
+    "source": "door-original.mp3",
+    "startSeconds": 4.05,
+    "endSeconds": 4.811,
+    "fadeInSeconds": 0.01,
+    "fadeOutSeconds": 0.04,
+    "sha256": "9854482ab5880b7ad5e59aa551fc54db6841627c8f185bfa635fe8aa16a8c559"
+  }
+}
