@@ -129,6 +129,14 @@ limpar a primeira linha, preservando 90 s e zero invasão de sólidos).
 Aceite visual/jogabilidade pendente do autor; sem QA de jogo pelo agente.
 Sem push ou merge; os itens completos dos sprints não foram marcados.
 
+## Kits médicos guardados e luz dos suprimentos · S6.13 / S4.1 · 02/11/2026
+
+Pedido do autor: quatro kits no solo, sem anel/flutuação, coletados por E para os
+itens e usados depois para curar; não renascem entre as quatro hordas. Kits e
+cabines com luz própria identificável no escuro. Codex em
+`rochatales/s6.13-kits-interativos`, worktree própria, base local `13a91a0`.
+Sem push/merge; preview 4186 e aceite visual pelo autor.
+
 ## Tarefas
 
 Preencha uma linha por tarefa antes de iniciar. "Base" é o commit/branch do
