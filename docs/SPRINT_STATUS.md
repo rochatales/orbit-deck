@@ -111,6 +111,15 @@ originais conferidas por SHA-256, script reproduzível e ícone do próprio asse
 com ensaio/limites de pega e roteiro. Sem QA de jogo pelo agente, aceite visual
 pendente do autor. Não encerra escopos completos dos sprints. Sem push/merge.
 
+## Shanghai: carros, cabines e kits de vida · S6.12 / S6.13 · 02/11/2026
+
+Codex em `rochatales/s6.13-shanghai-props`, worktree própria, base local
+`ad95ff4` (facão). Pedido do autor: remover carros com X, colocar novo carro
+nas marcações vermelhas e armários de suprimento nas amarelas; kit de vida GLB
+substitui os corações. Fontes somente leitura/cópia, implantação por dados de
+runtime, colisores simples e preservação das regras de munição/cura. Sem push
+ou merge, preview 4186, aceite visual pelo autor.
+
 ## Tarefas
 
 Preencha uma linha por tarefa antes de iniciar. "Base" é o commit/branch do
