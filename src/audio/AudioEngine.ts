@@ -2,7 +2,7 @@ import { AmbienceMixer, type MarsAmbienceFiles } from './AmbienceMixer';
 import { AUDIO, distanceGain, soundFor, variationIndex, type Category } from './config';
 import type { SoundEvent, SoundQueue } from './events';
 interface StorageLike { getItem(key: string): string | null; setItem(key: string, value: string): void }
-interface Voice { source: AudioBufferSourceNode; gain: GainNode; pan: StereoPannerNode; category: Category; retiring: boolean }
+interface Voice { source: AudioBufferSourceNode; gain: GainNode; pan: StereoPannerNode; category: Category; retiring: boolean; emitter?: number }
 export interface SoundFile { name: string; url: string }
 /** Serviço único por página. Contexto e buffers só existem depois de um gesto. */
 export class AudioEngine {
@@ -107,25 +107,38 @@ export class AudioEngine {
         const far = sound?.category === 'enemySteps' ? AUDIO.enemyStepDistance : sound?.category === 'heavySteps' ? AUDIO.heavyStepDistance : AUDIO.far;
         if (!sound || !c || !this.ready || !this.unlocked || this.blocked || this.muted || c.state !== 'running'
             || distance >= far) { this.stats.discarded++; return; }
+        const category = AUDIO.categories[sound.category];
+        if (sound.category === 'doors' && event.emitter) {
+            for (const voice of this.voices) if (voice.emitter === event.emitter) this.retire(voice);
+            if (!event.duration) return; // inversão sem curso perceptível só encerra o som anterior.
+        }
         const buffers = this.buffers.get(sound.name);
         if (!buffers?.length) { this.stats.discarded++; return; }
-        const category = AUDIO.categories[sound.category];
         let oldest: Voice | undefined, count = 0;
         for (const voice of this.voices) if (!voice.retiring && voice.category === sound.category) { count++; oldest ??= voice; }
         if (count >= category.voices && oldest) { this.retire(oldest); this.stats.stolen++; }
         const index = variationIndex(buffers.length, this.previous.get(sound.name) ?? -1);
         this.previous.set(sound.name, index);
         const source = c.createBufferSource(), gain = c.createGain(), stereo = c.createStereoPanner();
-        source.buffer = buffers[index]; source.playbackRate.value = sound.rate;
+        source.buffer = buffers[index];
+        const duration = sound.category === 'doors' && event.duration ? event.duration : 0;
+        source.playbackRate.value = sound.rate;
         gain.gain.value = category.volume * sound.gain * distanceGain(distance, far); stereo.pan.value = pan;
+        if (duration > 0) {
+            const now = c.currentTime;
+            gain.gain.setValueAtTime(gain.gain.value, now + Math.max(0, duration - .02));
+            gain.gain.linearRampToValueAtTime(0, now + duration);
+        }
         source.connect(gain); gain.connect(stereo); stereo.connect(this.master!);
-        const voice: Voice = { source, gain, pan: stereo, category: sound.category, retiring: false };
+        const voice: Voice = { source, gain, pan: stereo, category: sound.category, retiring: false, emitter: sound.category === 'doors' ? event.emitter : undefined };
         this.voices.push(voice);
         source.onended = () => {
             source.disconnect(); gain.disconnect(); stereo.disconnect();
             const at = this.voices.indexOf(voice); if (at >= 0) this.voices.splice(at, 1);
         };
-        source.start(); const key=`${event.type}:${event.kind}`;this.stats.playedEvents[key]=(this.stats.playedEvents[key]??0)+1; this.stats.played[sound.name] = (this.stats.played[sound.name] ?? 0) + 1;
+        source.start();
+        if (duration > 0) source.stop(c.currentTime + duration);
+        const key=`${event.type}:${event.kind}`;this.stats.playedEvents[key]=(this.stats.playedEvents[key]??0)+1; this.stats.played[sound.name] = (this.stats.played[sound.name] ?? 0) + 1;
     }
     private retire(voice: Voice) {
         if (voice.retiring || !this.context) return;

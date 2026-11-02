@@ -50,18 +50,55 @@
     "file": "mars-door-open.wav",
     "source": "door-original.wav",
     "startSeconds": 0,
-    "endSeconds": 1.8,
-    "fadeInSeconds": 0.005,
-    "fadeOutSeconds": 0.08,
-    "sha256": "84ab0c42697ae65d6d2a433b78986eaf60b16168e1d91d5c420e3b715ce96f36"
+    "endSeconds": 0.8,
+    "durationSeconds": 0.4,
+    "tempo": 2,
+    "fadeInSeconds": 0.003,
+    "fadeOutSeconds": 0.025,
+    "sha256": "251b67e35f5bddc78660bf9feb865a00afe5beaadf153bc5d79ce3e5f81a489a"
   },
   "hangarFrontDoor": {
     "file": "hangar-front-open.wav",
     "source": "hangar-door-original.mp3",
     "startSeconds": 0.12,
-    "endSeconds": 2.26,
-    "fadeInSeconds": 0.005,
-    "fadeOutSeconds": 0.08,
-    "sha256": "f3602bb32374b60ff9225ffb3565d2e0138eacead851c907ca07a69688867c13"
+    "endSeconds": 1.45,
+    "durationSeconds": 0.2,
+    "tempo": 6.65,
+    "fadeInSeconds": 0.003,
+    "fadeOutSeconds": 0.025,
+    "sha256": "8d1e43f94e6aa5e0fa1f66ac7a04a5d4202e49b956b0fdbeedfa663cae7fb4f2"
+  },
+  "quartelDoorOpen": {
+    "file": "quartel-door-open.wav",
+    "source": "door-original.wav",
+    "startSeconds": 0,
+    "endSeconds": 0.8,
+    "durationSeconds": 0.25,
+    "tempo": 3.2,
+    "fadeInSeconds": 0.003,
+    "fadeOutSeconds": 0.025,
+    "sha256": "0c08592c6bc764c7d879f795ee691f3b7b82a7c317dfc44460dc5a15ff651f17"
+  },
+  "quartelDoorClose": {
+    "file": "quartel-door-close.wav",
+    "source": "door-original.wav",
+    "startSeconds": 0,
+    "endSeconds": 0.8,
+    "durationSeconds": 0.2,
+    "tempo": 4,
+    "fadeInSeconds": 0.003,
+    "fadeOutSeconds": 0.025,
+    "sha256": "ebf92514c3d267f6fc728b5936e50030e8322e452893085f226c1ab75af372e6"
+  },
+  "hangarFrontDoorClose": {
+    "file": "hangar-front-close.wav",
+    "source": "hangar-door-original.mp3",
+    "startSeconds": 0.12,
+    "endSeconds": 1.45,
+    "durationSeconds": 0.28,
+    "tempo": 4.75,
+    "fadeInSeconds": 0.003,
+    "fadeOutSeconds": 0.025,
+    "sha256": "70028f4828e02bb4fb7ac2d8856b58339a5765e8c7ac5755c161558f1e8bd7a5"
   }
 }

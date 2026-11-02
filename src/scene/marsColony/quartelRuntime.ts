@@ -6,7 +6,7 @@ import type { SimpleCuboid } from '../../world/createOfficeMap';
 /** O runtime controla filhos/teto; somente o pai exclusivo Sandwind controla distância. */
 export class QuartelRuntime {
     readonly status = { roofOpacity: 1, north: 0, west: 0, bathroom: 0 };
-    private doorSounds = QUARTEL.doors.map(() => new DoorSoundClock());
+    private doorSounds = QUARTEL.doors.map(() => new DoorSoundClock('quartelDoorOpen'));
     private mixer: AnimationMixer;
     private actions: AnimationAction[];
     private doorColliders: Object3D[];

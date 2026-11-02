@@ -20,6 +20,9 @@ const SHOT = binding('Rifle_shot', 'shot'), RELOAD = binding('Rifle_Reload', 're
 const PLAYER_STEP = binding('Main_character_step', 'playerSteps'), COLLECT = binding('Item_collected', 'collect');
 const DOOR_OPEN = binding('Mars_Door_Open', 'doors');
 const HANGAR_DOOR_OPEN = binding('Hangar_Front_Open', 'doors');
+const HANGAR_DOOR_CLOSE = binding('Hangar_Front_Close', 'doors');
+const QUARTEL_DOOR_OPEN = binding('Quartel_Door_Open', 'doors');
+const QUARTEL_DOOR_CLOSE = binding('Quartel_Door_Close', 'doors');
 const CHARGE_WARNING = binding('Mutant_big_attack_hit', 'attacks', .65, .25);
 const PROFILES = {
     patrol: { step: binding('Patrol_small_step', 'enemySteps'), hit: binding('Patrol_small_bullet_hit', 'impacts'), death: binding('Patrol_small_death_hit', 'deaths'), attack: binding('Patrol_small_attack_hit', 'attacks') },
@@ -29,8 +32,11 @@ const PROFILES = {
 };
 export function soundFor(e: SoundEvent): SoundBinding | null {
     switch (e.type) {
-        case 'doorOpen': return DOOR_OPEN;
+        case 'doorOpen': case 'doorClose': return DOOR_OPEN;
+        case 'quartelDoorOpen': return QUARTEL_DOOR_OPEN;
+        case 'quartelDoorClose': return QUARTEL_DOOR_CLOSE;
         case 'hangarDoorOpen': return HANGAR_DOOR_OPEN;
+        case 'hangarDoorClose': return HANGAR_DOOR_CLOSE;
         case 'chargeWarning': return e.kind === 'largeMutant' ? CHARGE_WARNING : null;
         case 'shot': return SHOT;
         case 'reload': return RELOAD;
