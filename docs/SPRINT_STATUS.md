@@ -71,14 +71,19 @@ Pedido do autor: padronizar as interações E pela Sintetizadora, com balão flu
 
 Pedido do autor: em Marte, faixa azul abaixo do capacete e foco frontal suave; mochila totalmente sem emissão/luz. Shanghai conserva exatamente o estado atual. Codex em `rochatales/s6.8-luz-visor-colonia`, worktree própria, base da prévia local `715b70e` (balões, áudio e poeira). Código do acessório/visor, configuração de iluminação, testes e handoff; GLBs/fontes e física intactos. Base remota segue `5bc240f`. Sem push ou merge; aceite visual pendente.
 
-## HUD beta · S1.3 / S6.8 · 02/11/2026
+## HUD beta · S6.6 / parte de S4.1 · 02/11/2026
 
-Codex: remodelação da UI de gameplay solicitada pelo autor, removendo painéis marcados,
-vida vermelha, energia azul da mochila, quatro slots de equipamento, mochila com peso e
-ícones ilustrados. Branch `rochatales/s1.3-hud-beta`, worktree própria, base local
-`eb3fdcc` (visor por mapa); remoto segue `5bc240f`. Áreas: HUD, estilos, energia/inventário,
-testes e handoff. Valores de capacidade/energia aguardam resposta do autor. Sem push ou
-merge; validação visual pelo autor no preview 4186.
+**Entregue localmente em `6884730`**, branch `rochatales/s6.6-hud-beta`, worktree
+`s1-3-hud-beta`, base local `eb3fdcc`. Vida vermelha, energia azul, quatro slots de
+equipamento, mochila por B/clique com peso real, ícones ilustrados e retirada dos
+painéis marcados; rádio e comparação/teste no menu. Decisão explícita do autor:
+30 kg (ferro 0,5; cobre 0,3; titânio 0,4; orgânica 0,2 kg/un.); **duas cargas de
+Dash**, regeneração total em **5 s**, exclusiva de Shanghai. Recursos excedentes
+ficam no chão. Código frequente mutável, HUD com publicação limitada a 10 Hz.
+434/434, build e diff-check verdes; preview 4186. Handoff:
+`docs/handoffs/s6.6-hud-beta.md`, com prompt/hash da arte e roteiro. Aceite visual
+pendente do autor; sem QA de jogo pelo agente. Não encerra os escopos completos de
+S4.1/S6.6/S6.14–S6.18. Remoto segue `5bc240f`; sem push ou merge.
 
 ## Tarefas
 
