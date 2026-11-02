@@ -1,3 +1,6 @@
+import { useWeaponStore } from '../state/useWeaponStore';
+import { equipPlayerWeapon } from '../characters/player/WeaponControls';
+import { MACHETE } from '../combat/melee';
 import { useEffect, type CSSProperties } from 'react';
 import { Heart, Zap, ChevronRight } from 'lucide-react';
 import { BACKPACK, EMPTY_CARGO, cargoWeight } from '../game/backpackConfig';
@@ -24,6 +27,7 @@ export function GameplayHud({ combat, openBackpack }: { combat: boolean; openBac
     return () => window.clearInterval(clock);
   }, []);
   const s = useCombatStore(), energy = useBackpackEnergy(s => s.percent);
+  const selected = useWeaponStore(s => s.weapon), machete = combat && selected === 'machete';
   const weight = cargoWeight(combat ? s : EMPTY_CARGO), full = weight >= BACKPACK.capacityKg - .2;
   return <>
     {combat && <div className="beta-wave" aria-live="polite">
@@ -39,10 +43,10 @@ export function GameplayHud({ combat, openBackpack }: { combat: boolean; openBac
       </aside>
       <aside className="beta-loadout" aria-label="Equipamentos · quatro espaços">
         <div className="beta-equipment-slots">
-          {Array.from({ length: BACKPACK.equipmentSlots }, (_, slot) => <div key={slot} className={`beta-equipment-slot ${slot === 0 ? 'is-equipped' : 'is-empty'}`} title={slot === 0 ? 'Rifle laser equipado' : 'Espaço de equipamento vazio'}>
-            {slot === 0 ? <ItemArtwork item="rifle"/> : <span className="beta-empty-mark" aria-hidden="true">+</span>}
-            <kbd>{slot + 1}</kbd><span className="sr-only">{slot === 0 ? 'Rifle laser' : `Espaço ${slot + 1} vazio`}</span>
-          </div>)}
+          {Array.from({ length: BACKPACK.equipmentSlots }, (_, slot) => <button key={slot} disabled={!combat || slot > 1} onClick={() => equipPlayerWeapon(slot === 0 ? 'rifle' : 'machete')} className={`beta-equipment-slot ${slot === (machete ? 1 : 0) ? 'is-equipped' : slot > 1 ? 'is-empty' : ''}`} aria-pressed={slot < 2 ? slot === (machete ? 1 : 0) : undefined} title={slot === 0 ? 'Rifle laser · 1' : slot === 1 ? 'Facão · 2' : 'Espaço de equipamento vazio'}>
+            {slot < 2 ? <ItemArtwork item={slot === 0 ? 'rifle' : 'machete'}/> : <span className="beta-empty-mark" aria-hidden="true">+</span>}
+            <kbd>{slot + 1}</kbd><span className="sr-only">{slot === 0 ? 'Rifle laser' : slot === 1 ? 'Facão' : `Espaço ${slot + 1} vazio`}</span>
+          </button>)}
         </div>
         <button className={`beta-backpack ${full ? 'is-full' : ''}`} onClick={openBackpack} aria-label="Abrir mochila · B" title="Mochila · B">
           <ItemArtwork item="backpack"/><div><span>MOCHILA <kbd>B</kbd></span><strong>{weight.toFixed(1).replace('.', ',')} <small>/ {BACKPACK.capacityKg} kg</small></strong>
@@ -52,9 +56,9 @@ export function GameplayHud({ combat, openBackpack }: { combat: boolean; openBac
           </div><ChevronRight size={13}/>
         </button>
       </aside>
-      <aside className={`beta-ammo ${combat && s.ammo === 0 ? 'is-empty' : ''}`} aria-label="Munição do rifle">
-        <ItemArtwork item="ammo"/><div><small>{combat && s.reloading ? 'RECARREGANDO…' : 'RIFLE LASER'}</small>
-          <strong>{combat ? s.ammo : '—'}<span> / {combat ? s.reserve : '—'}</span></strong><small>{combat ? 'R · RECARREGAR' : 'ARMA NO COLDRE'}</small>
+      <aside className={`beta-ammo ${combat && !machete && s.ammo === 0 ? 'is-empty' : ''}`} aria-label={machete ? 'Facão equipado' : 'Munição do rifle'}>
+        <ItemArtwork item={machete ? 'machete' : 'ammo'}/><div><small>{machete ? 'FACÃO' : combat && s.reloading ? 'RECARREGANDO…' : 'RIFLE LASER'}</small>
+          <strong>{machete ? MACHETE.damage : combat ? s.ammo : '—'}{!machete && <span> / {combat ? s.reserve : '—'}</span>}</strong><small>{machete ? 'DANO · BOTÃO ESQUERDO' : combat ? 'R · RECARREGAR' : 'ARMA NO COLDRE'}</small>
         </div>
       </aside>
     </div>

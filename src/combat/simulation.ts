@@ -1,3 +1,4 @@
+import { MACHETE, meleeCanHit, type PlayerWeapon } from './melee';
 import { canCarryDrop } from '../game/backpackConfig';
 import type { WeaponMuzzleOffset } from '../state/playerWeaponPose';
 import { ENEMY_MOTION } from './enemyMotion';
@@ -86,6 +87,8 @@ export interface Shot {
     hit: boolean;
 }
 export interface CombatInput {
+    weapon?: PlayerWeapon;
+    dashing?: boolean;
     player: Position & { y?: number };
     muzzle?: WeaponMuzzleOffset;
     aim: Position;
@@ -143,6 +146,10 @@ export class CombatSimulation {
     reserve: number = COMBAT.rifle.reserve;
     reloadLeft = 0;
     cooldown = 0;
+    meleeCooldown = 0;
+    meleeLeft = 0;
+    swingId = 0;
+    private meleeHit = false;
     private dryCooldown = 0;
     private wasFiring = false;
     invulnerable = 0;
@@ -339,6 +346,11 @@ export class CombatSimulation {
             }
         }
         this.cooldown = Math.max(0, this.cooldown - dt);
+        this.meleeCooldown = Math.max(0, this.meleeCooldown - dt);
+        this.meleeLeft = Math.max(0, this.meleeLeft - dt);
+        const machete = input.weapon === 'machete';
+        if (!machete || input.dashing) this.meleeLeft = 0;
+        if (machete) this.reloadLeft = 0;
         this.dryCooldown = Math.max(0, this.dryCooldown - dt);
         this.invulnerable = Math.max(0, this.invulnerable - dt);
         this.damageFlash = Math.max(0, this.damageFlash - dt);
@@ -363,18 +375,18 @@ export class CombatSimulation {
                 this.reserve -= transfer;
             }
         }
-        if (input.reload && this.reloadLeft === 0 && this.ammo < COMBAT.rifle.magazine && this.reserve > 0) {
+        if (!machete && input.reload && this.reloadLeft === 0 && this.ammo < COMBAT.rifle.magazine && this.reserve > 0) {
             this.reloadLeft = COMBAT.rifle.reload;
             this.sounds.emit('reload', input.player.x, input.player.z);
         }
         const triggerPressed = input.firing && !this.wasFiring;
         this.wasFiring = input.firing;
-        if (input.firing && this.reloadLeft === 0 && this.cooldown === 0 && this.ammo === 0
+        if (!machete && input.firing && this.reloadLeft === 0 && this.cooldown === 0 && this.ammo === 0
             && (triggerPressed || this.dryCooldown === 0) && Number.isFinite(input.player.x + input.player.z)) {
             this.sounds.emit('dryFire', input.player.x, input.player.z);
             this.dryCooldown = COMBAT.rifle.dryInterval;
         }
-        if (input.firing && this.reloadLeft === 0 && this.cooldown === 0 && this.ammo > 0
+        if (!machete && input.firing && this.reloadLeft === 0 && this.cooldown === 0 && this.ammo > 0
             && Number.isFinite(input.facingAngle) && Number.isFinite(input.player.x + input.player.z + input.aim.x + input.aim.z)) {
             const { muzzle, rifleEnd } = this;
             const pose = input.muzzle?.valid ? input.muzzle : undefined;
@@ -403,20 +415,22 @@ export class CombatSimulation {
             shot.life = COMBAT_VFX.tracerLife; shot.hit = !!hit.robot;
             this.shots.push(shot);
             if (hit.robot) {
-                hit.robot.hp = Math.max(0, hit.robot.hp - COMBAT.rifle.damage);
-                this.sounds.emit(hit.robot.hp > 0 ? 'bulletHit' : 'death', hit.robot.x, hit.robot.z, hit.robot.kind);
-                hit.robot.recoil=COMBAT_VFX.recoil;hit.robot.recoilX=dx/length;hit.robot.recoilZ=dz/length;
-                hit.robot.flash = 0.15;
-                this.hitFlash = 0.15;
-                // O primeiro tiro recebido identifica o jogador, mesmo fora do campo de visão.
-                if (hit.robot.hp > 0) alertRobot(hit.robot);
-                if (hit.robot.hp === 0) {
-                    this.kills++;
-                    const drop = this.drops[hit.robot.drop];
-                    if(hit.robot.kind === 'largeMutant') {
-                        for(let i=0;i<3;i++) placeResourceDrop(this.drops[hit.robot.drop+i],hit.robot.x+Math.cos(i*Math.PI*2/3)*.75,hit.robot.z+Math.sin(i*Math.PI*2/3)*.75,'organic',this.terrain.surfaceHeight);
-                    } else placeResourceDrop(drop, hit.robot.x, hit.robot.z, hit.robot.kind === 'smallMutant' ? 'organic' : hit.robot.kind === 'largePatrol' ? 'titanium' : 'metals', this.terrain.surfaceHeight);
-                }
+                this.damageRobot(hit.robot, COMBAT.rifle.damage, dx / length, dz / length);
+            }
+        }
+        if (machete && !input.dashing && input.firing && this.meleeCooldown <= 1e-8 && Number.isFinite(input.facingAngle)) {
+            this.meleeCooldown = this.meleeLeft = MACHETE.interval;
+            this.meleeHit = false;
+            this.swingId++;
+        }
+        if (machete && this.meleeLeft > 0 && !this.meleeHit && this.meleeLeft <= MACHETE.interval - MACHETE.impactDelay + 1e-8) {
+            this.meleeHit = true;
+            for (const robot of this.robots) {
+                if (robot.hp <= 0 || !meleeCanHit(input.player, input.facingAngle, robot, robotConfig(robot).radius, this.terrain)) continue;
+                const dx = robot.x - input.player.x, dz = robot.z - input.player.z, distance = Math.hypot(dx, dz);
+                const nx = distance > 1e-8 ? dx / distance : Math.sin(input.facingAngle), nz = distance > 1e-8 ? dz / distance : Math.cos(input.facingAngle);
+                this.effects.impact(robot.x - nx * robotConfig(robot).radius * .7, robot.z - nz * robotConfig(robot).radius * .7, impactKind(robot.kind), -nx, -nz, (input.player.y ?? 0) + .85);
+                this.damageRobot(robot, MACHETE.damage, nx, nz);
             }
         }
         for (const robot of this.robots) {
@@ -464,6 +478,23 @@ export class CombatSimulation {
                 if (this.waveLeft === 0) this.startWave(input.player);
             }
             else if (this.wave < this.waves.length && this.alive === 0) this.waveLeft = COMBAT.hordes.intermission;
+        }
+    }
+    /** Rifle e facão compartilham morte/drop/contadores: um único caminho de dano. */
+    private damageRobot(robot: Robot, damage: number, dx: number, dz: number) {
+        robot.hp = Math.max(0, robot.hp - damage);
+        this.sounds.emit(robot.hp > 0 ? 'bulletHit' : 'death', robot.x, robot.z, robot.kind);
+        robot.recoil=COMBAT_VFX.recoil;robot.recoilX=dx;robot.recoilZ=dz;
+        robot.flash = 0.15;
+        this.hitFlash = 0.15;
+        // O primeiro tiro recebido identifica o jogador, mesmo fora do campo de visão.
+        if (robot.hp > 0) alertRobot(robot);
+        if (robot.hp === 0) {
+            this.kills++;
+            const drop = this.drops[robot.drop];
+            if(robot.kind === 'largeMutant') {
+                for(let i=0;i<3;i++) placeResourceDrop(this.drops[robot.drop+i],robot.x+Math.cos(i*Math.PI*2/3)*.75,robot.z+Math.sin(i*Math.PI*2/3)*.75,'organic',this.terrain.surfaceHeight);
+            } else placeResourceDrop(drop, robot.x, robot.z, robot.kind === 'smallMutant' ? 'organic' : robot.kind === 'largePatrol' ? 'titanium' : 'metals', this.terrain.surfaceHeight);
         }
     }
     /** Investe na faixa previamente avisada; dano usa a mesma invulnerabilidade global. */

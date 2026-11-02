@@ -14,12 +14,13 @@ import { PLAYER_COLLIDER_CENTER_Y, PLAYER_MODEL_ROOT_Y, type PlayerMotionState }
 
 interface PlayerRifleProps {
   combat: boolean;
+  equipped?: boolean;
   motionRef: MutableRefObject<PlayerMotionState>;
   scene: Object3D;
   onAttached: (attached: boolean) => void;
 }
 
-function HandRifle({ scene, onAttached, motionRef, combat }: PlayerRifleProps) {
+function HandRifle({ scene, onAttached, motionRef, combat, equipped = true }: PlayerRifleProps) {
   const gltf = useGLTF(rifleAsset);
   const rifle = useMemo(() => {
     const copy = gltf.scene.clone(true);
@@ -28,16 +29,16 @@ function HandRifle({ scene, onAttached, motionRef, combat }: PlayerRifleProps) {
   }, [gltf.scene]);
   const rig = useMemo(() => new RifleAimRig(scene, rifle, PLAYER_COLLIDER_CENTER_Y + PLAYER_MODEL_ROOT_Y, VISOR_LIGHT.headOffset), [scene, rifle]);
   useFrame(() => {
-    if (combat && !simulationBlocked() && rifle.parent) rig.update(
+    if (combat && equipped && !simulationBlocked() && rifle.parent) rig.update(
       playerWeaponPose, playerPosition, playerFacing.angle, combatRuntime.aimValid ? combatRuntime.aim : null,
       !(combatRuntime.simulation?.reloadLeft) && (motionRef.current.animationState === 'idle' ||
         motionRef.current.animationState === 'backward' || motionRef.current.animationState === 'walking'), playerHeadPose);
   }, -20);
   useEffect(() => {
     resetPlayerWeaponPose();
-    onAttached(combat ? attachRifle(scene, rifle) : attachHolsteredRifle(scene, rifle));
+    onAttached(combat && equipped ? attachRifle(scene, rifle) : attachHolsteredRifle(scene, rifle));
     return () => { detachRifle(rifle); resetPlayerWeaponPose(); onAttached(false); };
-  }, [scene, rifle, onAttached, combat]);
+  }, [scene, rifle, onAttached, combat, equipped]);
   return null;
 }
 

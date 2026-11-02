@@ -1,3 +1,4 @@
+import { useWeaponStore } from '../state/useWeaponStore';
 import { COMBAT, HORDE_TOTALS, HORDE_ENCOUNTER, PATROL_COUNTS, PATROL_KINDS, parseEncounter, patrolChoice, type RobotKind } from './config';
 import { useCombatStore } from '../state/useCombatStore';
 import { useExpeditionStore } from '../state/useExpeditionStore';
@@ -21,6 +22,7 @@ export function EncounterSelect() {
 }
 export function CombatHud() {
     const s = useCombatStore(), phase = useExpeditionStore(s => s.session.phase), panel = useExpeditionStore(s => s.panel), paused = useGameStore(s => s.isPaused);
+    const weapon = useWeaponStore(s => s.weapon);
     const restart = useExpeditionStore(s => s.restartMission);
     return <>
     {s.waves > 0 && s.nextWave > 0 && !s.dead && !paused && <div className="wave-banner" role="status">
@@ -30,8 +32,8 @@ export function CombatHud() {
     </div>}
     {s.damage && !s.dead && <div className="damage-vignette" aria-hidden="true"/>}
     {s.dead && <section className="overlay" role="dialog" aria-label="Explorador abatido"><article><p className="eyebrow">EXPEDIÇÃO INTERROMPIDA</p><h2>Explorador abatido</h2><p>Recomece em Shanghai com vida e munição restauradas. Nenhum progresso deste encontro é salvo. As peças coletadas nesta tentativa serão descartadas.</p><EncounterSelect /><button onClick={restart}>Tentar novamente</button></article></section>}
-    {!s.dead && phase === 'walking' && !panel && !paused && (s.cleared || (s.ammo === 0 && s.reserve === 0)) && <aside className="encounter-result">
-      <h2>{s.cleared ? (s.waves > 0 ? 'Hordas neutralizadas' : 'Área de teste livre') : 'Sem munição'}</h2><p>{s.cleared ? (s.waves > 0 ? `${s.waves} hordas, ${s.total} ameaças. Volte à nave ou repita.` : 'Volte à nave ou repita com mais robôs.') : s.waves > 0 && s.wave < s.waves ? 'A próxima horda chega com reabastecimento. Sobreviva ou reinicie.' : 'Procure as caixas de munição com luz azul e use E. Você também pode retornar à nave ou reiniciar.'}</p><button onClick={restart}>Reiniciar encontro</button>
+    {!s.dead && phase === 'walking' && !panel && !paused && (s.cleared || (weapon === 'rifle' && s.ammo === 0 && s.reserve === 0)) && <aside className="encounter-result">
+      <h2>{s.cleared ? (s.waves > 0 ? 'Hordas neutralizadas' : 'Área de teste livre') : 'Sem munição'}</h2><p>{s.cleared ? (s.waves > 0 ? `${s.waves} hordas, ${s.total} ameaças. Volte à nave ou repita.` : 'Volte à nave ou repita com mais robôs.') : s.waves > 0 && s.wave < s.waves ? 'A próxima horda chega com reabastecimento. Sobreviva ou reinicie.' : 'Equipe o facão (2) ou procure as caixas de munição e use E. Você também pode retornar à nave ou reiniciar.'}</p><button onClick={restart}>Reiniciar encontro</button>
     </aside>}
   </>;
 }

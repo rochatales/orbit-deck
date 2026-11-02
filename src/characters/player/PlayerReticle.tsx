@@ -1,3 +1,4 @@
+import { useWeaponStore } from '../../state/useWeaponStore';
 import { useEffect, useMemo, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Color, Group, MeshBasicMaterial, Vector3 } from 'three';
@@ -7,10 +8,11 @@ import { playerFacing, playerPosition } from '../../state/playerTransient';
 import { playerWeaponPose, weaponShotHeight } from '../../state/playerWeaponPose';
 import { combatRuntime } from '../../state/useCombatStore';
 import type { OfficeWorld } from '../../world/createOfficeMap';
-import { RETICLE, ReticleAim, ReticleAnimation, reticlePixelScale, reticleVisible } from './reticle';
+import { RETICLE, meleeReticleTarget, ReticleAim, ReticleAnimation, reticlePixelScale, reticleVisible } from './reticle';
 import { ReticleGeometry } from './reticleGeometry';
 
 export function PlayerReticle({ world, combat }: { world: OfficeWorld; combat: boolean }) {
+  const weapon = useWeaponStore(s => s.weapon);
   const root = useRef<Group>(null), nativeCursor = useRef('');
   const { gl } = useThree();
   const aim = useMemo(() => new ReticleAim(), []), animation = useMemo(() => new ReticleAnimation(), []);
@@ -37,9 +39,9 @@ export function PlayerReticle({ world, combat }: { world: OfficeWorld; combat: b
     const height = weaponShotHeight(playerPosition.y, RIFLE_POSE.height);
     const simulation = combatRuntime.simulation;
     const target = combat && simulation
-      ? aim.target(playerPosition, combatRuntime.aim, playerFacing.angle, playerWeaponPose, height, world, simulation.robots) : null;
+      ? weapon === 'machete' ? meleeReticleTarget(playerPosition, combatRuntime.aim, playerFacing.angle, world, simulation.robots) : aim.target(playerPosition, combatRuntime.aim, playerFacing.angle, playerWeaponPose, height, world, simulation.robots) : null;
     animation.update(target?.id ?? -1, Math.min(delta, .1), true);
-    const marker = combat && simulation ? aim.marker : combatRuntime.aim;
+    const marker = combatRuntime.aim;
     cursor.position.set(marker.x, height + RIFLE_POSE.reticleLift, marker.z);
     cursor.quaternion.copy(camera.quaternion);
     cameraPoint.copy(cursor.position).applyMatrix4(camera.matrixWorldInverse);

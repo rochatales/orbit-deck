@@ -1,0 +1,60 @@
+{
+  "position": [
+    0.15339095073611822,
+    0.04704156155241928,
+    -0.0628639780370189
+  ],
+  "quaternion": [
+    0.21932515139981174,
+    0.17682659612154417,
+    0.6022246453925125,
+    0.7469634137380001
+  ],
+  "scale": [
+    0.6574925675997182,
+    0.6574925675997182,
+    0.6574925675997182
+  ],
+  "gripRightWorld": [
+    -0.11299584034881044,
+    0.6799286934738598,
+    0.4538444185494347
+  ],
+  "gripLeftWorld": [
+    0.019076099792904814,
+    0.5620090677091272,
+    0.3738376658831217
+  ],
+  "worldLength": 1.0821249209391521,
+  "method": "Centros da palma: média de HandIndex1 e HandThumb2 no Machete_Idle t=0; Grip_R/Grip_L y=.21/.39; +Y do asset vai da mão direita à esquerda; lâmina aponta -Y.",
+  "runtime": [
+    {
+      "clip": "Machete_Backward",
+      "samples": 37,
+      "rightError": 7.0770728502555785e-9,
+      "leftError": 0.004864509362239061,
+      "horizontalRootDrift": 4.845431032102221e-8
+    },
+    {
+      "clip": "Machete_Idle",
+      "samples": 37,
+      "rightError": 7.0770729536173125e-9,
+      "leftError": 4.527975931006688e-8,
+      "horizontalRootDrift": 9.699287397552103e-10
+    },
+    {
+      "clip": "Machete_Run",
+      "samples": 37,
+      "rightError": 7.0770737042537215e-9,
+      "leftError": 1.0820294799173819e-7,
+      "horizontalRootDrift": 1.8261576822768688e-8
+    },
+    {
+      "clip": "Machete_Slash",
+      "samples": 37,
+      "rightError": 7.077072299592305e-9,
+      "leftError": 0.06508204763529322,
+      "horizontalRootDrift": 3.2517370684992386e-8
+    }
+  ]
+}

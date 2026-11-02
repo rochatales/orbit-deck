@@ -1,3 +1,4 @@
+import { useWeaponStore } from '../state/useWeaponStore';
 import { EnemyIndicators } from './enemyIndicators';
 import { playerActions } from '../state/playerActions';
 import { playerWeaponPose } from '../state/playerWeaponPose';
@@ -99,6 +100,7 @@ export function CombatScene({ world }: {
             e.preventDefault();
             input.current.reload = true;
         } };
+        const unsubscribeWeapon = useWeaponStore.subscribe(() => clear());
         const unsubscribeGame = useGameStore.subscribe(() => { if (simulationBlocked())
             clear(); });
         // Dialogues and boarding also cancel a held trigger immediately.
@@ -110,7 +112,7 @@ export function CombatScene({ world }: {
         window.addEventListener('pointercancel', clear);
         window.addEventListener('blur', clear);
         window.addEventListener('keydown', key);
-        return () => { clear(); unsubscribeGame(); unsubscribeExpedition(); canvas.removeEventListener('pointerdown', down); canvas.removeEventListener('pointerleave', clear); window.removeEventListener('pointerup', up); window.removeEventListener('pointercancel', clear); window.removeEventListener('blur', clear); window.removeEventListener('keydown', key); };
+        return () => { clear(); unsubscribeWeapon(); unsubscribeGame(); unsubscribeExpedition(); canvas.removeEventListener('pointerdown', down); canvas.removeEventListener('pointerleave', clear); window.removeEventListener('pointerup', up); window.removeEventListener('pointercancel', clear); window.removeEventListener('blur', clear); window.removeEventListener('keydown', key); };
     }, [gl]);
     useFrame(({ camera, size }, delta) => {
         const blocked = simulationBlocked();
@@ -124,6 +126,8 @@ export function CombatScene({ world }: {
         else {
             clock.current += Math.min(delta, 0.1);
             while (clock.current >= COMBAT.fixedStep) {
+                stepInput.weapon = useWeaponStore.getState().weapon;
+                stepInput.dashing = playerActions.dashing;
                 stepInput.aim = combatRuntime.aim;
                 stepInput.facingAngle = playerFacing.angle;
                 stepInput.firing = (input.current.firing || input.current.tap) && combatRuntime.aimValid && !playerActions.dashing;

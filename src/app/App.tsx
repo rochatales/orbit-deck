@@ -1,3 +1,4 @@
+import { WeaponControls } from '../characters/player/WeaponControls';
 import { PauseMenuFrame } from '../ui/PauseMenuFrame';
 import { GameplayHud, BackpackContents } from '../ui/GameplayHud';
 import { activateWorldInteraction } from '../interactions/runtime';
@@ -99,6 +100,7 @@ function Runtime() {
         return () => window.removeEventListener('keydown', key);
     }, []);
     return <main className={`runtime ${s.session.map === 'shanghai' ? 'in-combat' : 'in-hub'}`}>
+    <WeaponControls/>
     {world && <GameCanvas key={world.map} world={world.data} map={world.map}/>}
     {world?.map === 'mars' && s.session.map === 'mars' && sandwindPanelEnabled(window.location.search) && <Suspense fallback={null}><SandwindPanel/></Suspense>}
     <header className="beta-header"><div className="beta-location"><b>EXODEN<span> / BETA</span></b><small>{MAPS[s.session.map].title} · {s.profile?.displayName}</small></div>
@@ -124,7 +126,7 @@ function Runtime() {
       <div className="beta-menu-heading"><p className="eyebrow">EXODEN · EXPLORAÇÃO PAUSADA</p><button className="secondary" onClick={() => useGameStore.setState({ isPaused: false })} aria-label="Fechar menu">✕</button></div>
       <div className="beta-menu-tabs"><button className={pauseView === 'menu' ? 'is-active' : 'secondary'} onClick={() => setPauseView('menu')}>Controles</button><button className={pauseView === 'backpack' ? 'is-active' : 'secondary'} onClick={() => setPauseView('backpack')}>Mochila</button></div>
       {pauseView === 'backpack' ? <BackpackContents combat={s.session.map === 'shanghai'}/> : <>
-        <h2>À sua maneira.</h2><dl className="beta-control-list"><div><dt>W / S</dt><dd>Correr pela mira / recuar</dd></div><div><dt>MOUSE</dt><dd>Mirar · botão esquerdo para atirar</dd></div><div><dt>ESPAÇO</dt><dd>Dash em Shanghai · 2 cargas · recarga total em 5 s</dd></div><div><dt>R / E</dt><dd>Recarregar / interagir</dd></div><div><dt>Q / C</dt><dd>Girar câmera · roda para zoom</dd></div><div><dt>B / ESC / M</dt><dd>Mochila / pausa / som</dd></div></dl>
+        <h2>À sua maneira.</h2><dl className="beta-control-list"><div><dt>W / S</dt><dd>Correr pela mira / recuar</dd></div><div><dt>MOUSE</dt><dd>Mirar · botão esquerdo para atirar</dd></div><div><dt>ESPAÇO</dt><dd>Dash em Shanghai · 2 cargas · recarga total em 5 s</dd></div><div><dt>1 / 2</dt><dd>Rifle / facão · botão esquerdo para golpe</dd></div><div><dt>R / E</dt><dd>Recarregar / interagir</dd></div><div><dt>Q / C</dt><dd>Girar câmera · roda para zoom</dd></div><div><dt>B / ESC / M</dt><dd>Mochila / pausa / som</dd></div></dl>
         <AudioControls/>
         <details className="beta-radio-log"><summary>Última transmissão · EDEN</summary><p>{s.radio}</p></details>
         {s.session.map === 'shanghai' && <details className="beta-test-tools"><summary>Encontro de teste</summary><EncounterSelect/><button onClick={() => { s.restartMission(); }}>Reiniciar encontro</button></details>}

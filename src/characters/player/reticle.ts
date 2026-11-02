@@ -1,3 +1,4 @@
+import { meleeCanHit } from '../../combat/melee';
 import { COMBAT, HIT_LAYER, RIFLE_MASK, robotConfig, writeRifleAimTarget, writeRifleMuzzle } from '../../combat/config';
 import { traceShot, type Robot, type ShotTrace } from '../../combat/simulation';
 import type { Position, Terrain } from '../../combat/navigation';
@@ -59,4 +60,17 @@ export function reticlePixelScale(projectionY: number, height: number, cameraDep
 /** Dash mantém a mesma mira; só bloqueios da sessão ou ponteiro inválido a escondem. */
 export function reticleVisible(blocked: boolean, aimValid: boolean) {
   return !blocked && aimValid;
+}
+
+/** No facão, destaca só o alvo sob o cursor que cabe no arco/alcance real. */
+export function meleeReticleTarget(player: Position, aim: Position, angle: number, terrain: Terrain, robots: Robot[]) {
+  let closest: Robot | null = null, distance = Infinity;
+  for (const robot of robots) {
+    if (robot.hp <= 0) continue;
+    const radius = robotConfig(robot).radius;
+    if ((aim.x - robot.x) ** 2 + (aim.z - robot.z) ** 2 > radius * radius || !meleeCanHit(player, angle, robot, radius, terrain)) continue;
+    const d = (robot.x - player.x) ** 2 + (robot.z - player.z) ** 2;
+    if (d < distance) { closest = robot; distance = d; }
+  }
+  return closest;
 }

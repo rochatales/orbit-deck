@@ -1,6 +1,8 @@
+import { useWeaponStore } from '../../state/useWeaponStore';
+import { PlayerMachete, PlayerMacheteClips } from './PlayerMachete';
 import { playerStepDust } from './stepDust';
 import { useExpeditionStore } from "../../state/useExpeditionStore";
-import { useCallback, useEffect, useState, type MutableRefObject } from "react";
+import { useCallback, useEffect, useMemo, useState, type MutableRefObject } from "react";
 import type { Object3D } from "three";
 import { GLBCharacter, type GLBActionMap } from "../GLBCharacter";
 import { PLAYER_ASSET_VARIANTS, type PlayerAssetVariant } from "../characterAssetConfig";
@@ -26,6 +28,7 @@ export function PlayerModel(props: PlayerModelProps) {
 }
 
 function PlayerVariant({ motionRef, combat, variant }: PlayerModelProps & { variant: PlayerAssetVariant }) {
+  const weapon = useWeaponStore(s => s.weapon);
   const asset = PLAYER_ASSET_VARIANTS[variant];
   const color = useExpeditionStore(s=>s.profile?.color ?? asset.accentColor);
   const [scene, setScene] = useState<Object3D | null>(null);
@@ -35,7 +38,9 @@ function PlayerVariant({ motionRef, combat, variant }: PlayerModelProps & { vari
     playerStepDust.bind(scene);
     return () => playerStepDust.unbind(scene);
   }, [scene]);
+  const [macheteActions, setMacheteActions] = useState<GLBActionMap>(SEM_ACOES);
   const [actions, setActions] = useState<GLBActionMap>(SEM_ACOES);
+  const combinedActions = useMemo(() => ({ ...actions, ...macheteActions }), [actions, macheteActions]);
   const onAnimationsReady = useCallback((loadedActions: GLBActionMap) => {
     setActions(loadedActions);
     usePlayerAsset.getState().setClips(Object.keys(loadedActions).filter(nome => loadedActions[nome]).sort());
@@ -69,12 +74,14 @@ function PlayerVariant({ motionRef, combat, variant }: PlayerModelProps & { vari
             onAnimationsReady={onAnimationsReady}
           />
         </group>
-        <LocomotionController motionRef={motionRef} actions={actions} asset={asset} combat={combat} />
+        <LocomotionController motionRef={motionRef} actions={combinedActions} asset={asset} combat={combat} />
+        {variant === 'astronauta' && <PlayerMacheteClips actions={actions} ready={setMacheteActions}/>}
+        {variant === 'astronauta' && scene && combat && weapon === 'machete' && <PlayerMachete scene={scene} motionRef={motionRef}/>}
         {variant === 'astronauta' && scene && <PlayerBackpack scene={scene} illuminated={combat} />}
         {variant === 'astronauta' && scene && !combat && <ColonyPlayerVisor scene={scene} />}
-        {variant === 'astronauta' && scene && <PlayerRifle combat={combat} scene={scene} motionRef={motionRef} onAttached={setRifleAttached} />}
+        {variant === 'astronauta' && scene && <PlayerRifle equipped={weapon === 'rifle'} combat={combat} scene={scene} motionRef={motionRef} onAttached={setRifleAttached} />}
       </group>
-      {combat && !rifleAttached && <group name="PlayerRifle" position={[RIFLE_POSE.side, RIFLE_POSE.height - PLAYER_COLLIDER_CENTER_Y, RIFLE_POSE.gripForward]}>
+      {combat && weapon === 'rifle' && !rifleAttached && <group name="PlayerRifle" position={[RIFLE_POSE.side, RIFLE_POSE.height - PLAYER_COLLIDER_CENTER_Y, RIFLE_POSE.gripForward]}>
         <mesh castShadow><boxGeometry args={[0.16, 0.18, 0.7]} /><meshStandardMaterial color="#243842" /></mesh>
         <mesh name="RifleBarrel" position={[0, 0, RIFLE_POSE.barrelForward]}><boxGeometry args={[0.08, 0.08, RIFLE_POSE.barrelLength]} /><meshStandardMaterial color="#78cddd" /></mesh>
       </group>}
