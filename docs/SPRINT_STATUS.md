@@ -85,6 +85,16 @@ ficam no chão. Código frequente mutável, HUD com publicação limitada a 10 H
 pendente do autor; sem QA de jogo pelo agente. Não encerra os escopos completos de
 S4.1/S6.6/S6.14–S6.18. Remoto segue `5bc240f`; sem push ou merge.
 
+## Mira próxima ao jogador · S2.12 · 02/11/2026
+
+Codex em `rochatales/s2.12-mira-proxima`, worktree própria, base local `6884730`
+(HUD beta). Pedido do autor: cursor cruza livremente o personagem e permite mirar
+em alvos próximos/virar atirando. Inspeção: retícula era deslocada para a frente do
+cano na zona próxima; orientação tinha zona morta de 0,9 m e projeção retinha o
+ponto anterior abaixo de 0,1 m. Escopo: cursor/projeção/orientação e regressões,
+sem alterar cápsula, rifle/colisores, física ou conteúdo da UI. Sem push ou merge;
+preview 4186, aceite visual pelo autor.
+
 ## Tarefas
 
 Preencha uma linha por tarefa antes de iniciar. "Base" é o commit/branch do
