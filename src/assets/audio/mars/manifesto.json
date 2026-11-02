@@ -35,6 +35,15 @@
       "durationSeconds": 1.8,
       "channels": 2,
       "sampleRate": 48000
+    },
+    {
+      "source": "/Users/rochatales/Game Development/Horda Survivor/00_Audios/ES_Scifi, Door, Elevator Door Mechanism, Lock - Epidemic Sound.mp3",
+      "file": "hangar-door-original.mp3",
+      "sha256": "68ba4677c6997b97d4a9ba10ac08289eb1f0b2024e14f470fdbea777aed16584",
+      "bytes": 72750,
+      "durationSeconds": 4.017063,
+      "channels": 2,
+      "sampleRate": 48000
     }
   ],
   "door": {
@@ -45,5 +54,14 @@
     "fadeInSeconds": 0.005,
     "fadeOutSeconds": 0.08,
     "sha256": "84ab0c42697ae65d6d2a433b78986eaf60b16168e1d91d5c420e3b715ce96f36"
+  },
+  "hangarFrontDoor": {
+    "file": "hangar-front-open.wav",
+    "source": "hangar-door-original.mp3",
+    "startSeconds": 0.12,
+    "endSeconds": 2.26,
+    "fadeInSeconds": 0.005,
+    "fadeOutSeconds": 0.08,
+    "sha256": "f3602bb32374b60ff9225ffb3565d2e0138eacead851c907ca07a69688867c13"
   }
 }

@@ -22,7 +22,7 @@ export function hangarClip(source: AnimationClip) {
 
 export class HangarRuntime {
     readonly status = { rampOpen: 0, roofOpacity: 1, alert: false, idleTime: 0, craneTime: 0, departures: 0, landings: 0 };
-    private rampSound = new DoorSoundClock();
+    private rampSound = new DoorSoundClock('hangarDoorOpen');
     private architecture: MasterplanRuntime;
     private mixer: AnimationMixer;
     private actions: Record<string, AnimationAction> = {};

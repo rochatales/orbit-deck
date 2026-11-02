@@ -10,7 +10,7 @@ export const AUDIO = {
         attacks: { voices: 3, volume: .75 }, enemySteps: { voices: 4, volume: .45 },
         heavySteps: { voices: 2, volume: .8 },
         playerSteps: { voices: 2, volume: .28 }, collect: { voices: 2, volume: .65 },
-        doors: { voices: 2, volume: .65 },
+        doors: { voices: 2, volume: .45 },
     },
 } as const;
 export type Category = keyof typeof AUDIO.categories;
@@ -19,6 +19,7 @@ const binding = (name: string, category: Category, rate = 1, gain = 1): SoundBin
 const SHOT = binding('Rifle_shot', 'shot'), RELOAD = binding('Rifle_Reload', 'reload');
 const PLAYER_STEP = binding('Main_character_step', 'playerSteps'), COLLECT = binding('Item_collected', 'collect');
 const DOOR_OPEN = binding('Mars_Door_Open', 'doors');
+const HANGAR_DOOR_OPEN = binding('Hangar_Front_Open', 'doors');
 const CHARGE_WARNING = binding('Mutant_big_attack_hit', 'attacks', .65, .25);
 const PROFILES = {
     patrol: { step: binding('Patrol_small_step', 'enemySteps'), hit: binding('Patrol_small_bullet_hit', 'impacts'), death: binding('Patrol_small_death_hit', 'deaths'), attack: binding('Patrol_small_attack_hit', 'attacks') },
@@ -29,6 +30,7 @@ const PROFILES = {
 export function soundFor(e: SoundEvent): SoundBinding | null {
     switch (e.type) {
         case 'doorOpen': return DOOR_OPEN;
+        case 'hangarDoorOpen': return HANGAR_DOOR_OPEN;
         case 'chargeWarning': return e.kind === 'largeMutant' ? CHARGE_WARNING : null;
         case 'shot': return SHOT;
         case 'reload': return RELOAD;

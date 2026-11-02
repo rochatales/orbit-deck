@@ -147,3 +147,37 @@ test('Marte: WAV do autor inteiro, PCM estéreo, ataque audível e fades reprodu
     assert.ok(20 * Math.log10(tailPeak) < -35, 'últimos 5 ms terminam suaves, sem corte brusco');
     assert.equal(manifest.door.fadeOutSeconds, .08);
 });
+
+test('Hangar: som exclusivo na frente sincronizado ao abrir, laterais comuns e volume das portas reduzido', async () => {
+    const { HangarRuntime } = loadSource('src/scene/marsColony/hangarRuntime.ts');
+    const { HANGAR } = loadSource('src/game/hangarLayout.ts');
+    const glb = await loadGlb('src/assets/hangar/hangar-v002.glb'), runtime = new HangarRuntime(glb.scene, glb.animations);
+    const original = globalThis.fetch; globalThis.fetch = async () => response('door');
+    try {
+        playerSounds.clear(); assert.equal(runtime.status.rampOpen, 0);
+        runtime.update({ x: 0, z: 21 }, 1 / 60);
+        assert.ok(runtime.status.rampOpen > 0, 'evento no mesmo passo do começo da abertura');
+        assert.equal(playerSounds.count, 1); assert.equal(playerSounds.slots[0].type, 'hangarDoorOpen');
+        assert.equal(playerSounds.slots[0].z, HANGAR.ramp.thresholdZ);
+        assert.equal(soundFor(playerSounds.slots[0]).name, 'SFX_Hangar_Front_Open');
+        for (let i = 0; i < 120; i++) runtime.update({ x: 0, z: 21 }, 1 / 60);
+        assert.equal(playerSounds.count, 1, 'sem repetir enquanto aberta');
+        const c = context(), engine = new AudioEngine(() => c, [
+            { name: 'SFX_Hangar_Front_Open', url: 'hangar' }, { name: 'SFX_Mars_Door_Open', url: 'door' },
+        ]);
+        engine.setBlocked(false); await engine.unlock(); engine.consume(playerSounds, 0, 21, 1, 0);
+        assert.equal(engine.stats.played.SFX_Hangar_Front_Open, 1);
+        assert.equal(engine.voices[0].gain.gain.value, .45);
+        assert.equal(AUDIO.categories.doors.volume, .45); assert.equal(AUDIO.categories.doors.voices, 2);
+        for (let i = 0; i < 120; i++) runtime.update({ x: 0, z: 30 }, 1 / 60);
+        runtime.update({ x: 0, z: 11.5 }, 1 / 60);
+        assert.equal(playerSounds.count, 1); assert.equal(playerSounds.slots[0].type, 'doorOpen', 'porta norte continua usando WAV comum');
+        engine.consume(playerSounds, 0, 11.5, 1, 0); assert.equal(engine.stats.played.SFX_Mars_Door_Open, 1);
+        const root = 'src/assets/audio/mars/', m = JSON.parse(fs.readFileSync(root + 'manifesto.json')).hangarFrontDoor;
+        assert.equal(m.source, 'hangar-door-original.mp3');
+        assert.equal(createHash('sha256').update(fs.readFileSync(root + m.file)).digest('hex'), m.sha256);
+        const p = JSON.parse(execFileSync('ffprobe', ['-v', 'error', '-show_format', '-show_streams', '-of', 'json', root + m.file]));
+        assert.equal(Number(p.format.duration), 2.14); assert.equal(p.streams[0].codec_name, 'pcm_s16le');
+        assert.match(fs.readFileSync('src/audio/runtime.ts', 'utf8'), /SFX_Hangar_Front_Open/);
+    } finally { globalThis.fetch = original; runtime.dispose(); playerSounds.clear(); }
+});
