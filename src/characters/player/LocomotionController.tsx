@@ -1,3 +1,4 @@
+import { playerStepDust } from './stepDust';
 import { ActionTransition } from './actionTransition';
 import { combatRuntime } from '../../state/useCombatStore';
 import { RifleAnimationLayers } from './rifleAnimationLayers';
@@ -89,8 +90,10 @@ export function LocomotionController({ motionRef, actions, asset, combat }: Loco
     const simulation = combatRuntime.simulation;
     layers?.update(motion.animationState, simulation?.reloadLeft ?? 0, (simulation?.cooldown ?? 0) > 0, active, simulationBlocked());
     if (!simulationBlocked() && active && motion.planarSpeed >= PLAYER_LOCOMOTION.stopSpeed && (motion.animationState === "walking" || motion.animationState === "backward")) {
-      if (stepClock.current.advance(motion.animationState, active.time, active.getClip().duration))
+      if (stepClock.current.advance(motion.animationState, active.time, active.getClip().duration)) {
         playerSounds.emit('playerStep', playerPosition.x, playerPosition.z);
+        playerStepDust.request(Math.floor(active.time / active.getClip().duration * 2) % 2, motion.moveAngle, motion.isGrounded);
+      }
     } else stepClock.current.reset();
   }, -40);
 

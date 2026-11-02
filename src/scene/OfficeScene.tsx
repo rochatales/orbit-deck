@@ -1,3 +1,4 @@
+import { PlayerStepDust } from '../characters/player/PlayerStepDust';
 import { DawnBackground } from './DawnBackground';
 import { PlayerVisorLight } from './PlayerVisorLight';
 import { SHANGHAI_DAWN } from './lightingConfig';
@@ -38,6 +39,7 @@ export function OfficeScene({ world, map }: {
       <OfficeMap officeWorld={world} animate={map !== 'mars'}/>
       <Player key={revision} officeWorld={world} spawn={spawn}/>
     </PhysicsWorld>
+    <PlayerStepDust key={`dust-${map}-${revision}`} world={world} map={map}/>
     {map === 'shanghai' && <><CombatScene world={world}/><PlayerVisorLight/></>}
     {map === 'mars' ? <MarsColony world={world}/> : <Spacecraft map={map}/>}
     <PlayerReticle key={`reticle-${revision}`} world={world} combat={map === 'shanghai'}/>

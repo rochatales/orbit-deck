@@ -1,5 +1,6 @@
+import { playerStepDust } from './stepDust';
 import { useExpeditionStore } from "../../state/useExpeditionStore";
-import { useCallback, useState, type MutableRefObject } from "react";
+import { useCallback, useEffect, useState, type MutableRefObject } from "react";
 import type { Object3D } from "three";
 import { GLBCharacter, type GLBActionMap } from "../GLBCharacter";
 import { PLAYER_ASSET_VARIANTS, type PlayerAssetVariant } from "../characterAssetConfig";
@@ -28,6 +29,11 @@ function PlayerVariant({ motionRef, combat, variant }: PlayerModelProps & { vari
   const color = useExpeditionStore(s=>s.profile?.color ?? asset.accentColor);
   const [scene, setScene] = useState<Object3D | null>(null);
   const [rifleAttached, setRifleAttached] = useState(false);
+  useEffect(() => {
+    if (!scene) return;
+    playerStepDust.bind(scene);
+    return () => playerStepDust.unbind(scene);
+  }, [scene]);
   const [actions, setActions] = useState<GLBActionMap>(SEM_ACOES);
   const onAnimationsReady = useCallback((loadedActions: GLBActionMap) => {
     setActions(loadedActions);
