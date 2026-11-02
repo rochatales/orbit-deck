@@ -131,6 +131,8 @@ Sem push ou merge; os itens completos dos sprints não foram marcados.
 
 ## Kits médicos guardados e luz dos suprimentos · S6.13 / S4.1 · 02/11/2026
 
+**Entregue localmente em `80d6e02`**: quatro kits no solo, sem anel/bob, E guarda no terceiro espaço e 3/clique usa +50 HP (sem gasto com vida cheia). Não reaparecem entre as quatro hordas; nova tentativa restaura os quatro e zera itens. Balizas/emissão permanentes em kits/cabines, com pool de até três focos próximos sem sombras. 458/458, build e diff-check verdes; preview 4186. Handoff `docs/handoffs/s6.13-kits-interativos.md`. Aceite visual pendente do autor; sem QA de jogo pelo agente, push ou merge.
+
 Pedido do autor: quatro kits no solo, sem anel/flutuação, coletados por E para os
 itens e usados depois para curar; não renascem entre as quatro hordas. Kits e
 cabines com luz própria identificável no escuro. Codex em
