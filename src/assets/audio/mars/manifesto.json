@@ -26,15 +26,24 @@
       "durationSeconds": 7.126229,
       "channels": 2,
       "sampleRate": 48000
+    },
+    {
+      "source": "/Users/rochatales/Game Development/Horda Survivor/00_Audios/ES_Scifi, Door, Big, Air Release - Epidemic Sound.wav",
+      "file": "door-original.wav",
+      "sha256": "4f6757ac9867d688ee5fe44f39485b5f2783532522a1a7da6bf3139fc2a098e6",
+      "bytes": 357762,
+      "durationSeconds": 1.8,
+      "channels": 2,
+      "sampleRate": 48000
     }
   ],
   "door": {
-    "file": "mars-door-open.mp3",
-    "source": "door-original.mp3",
-    "startSeconds": 2.75,
-    "endSeconds": 3.55,
-    "fadeInSeconds": 0.01,
-    "fadeOutSeconds": 0.16,
-    "sha256": "452acc75be67d5f55504fe0c7df55a3b0f2d1c848b7f645f178c64eba5210056"
+    "file": "mars-door-open.wav",
+    "source": "door-original.wav",
+    "startSeconds": 0,
+    "endSeconds": 1.8,
+    "fadeInSeconds": 0.005,
+    "fadeOutSeconds": 0.08,
+    "sha256": "84ab0c42697ae65d6d2a433b78986eaf60b16168e1d91d5c420e3b715ce96f36"
   }
 }

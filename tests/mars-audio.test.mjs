@@ -124,24 +124,26 @@ test('Portas reais: masterplan emite uma vez por par; Hangar, Quartel, Lab e Con
     playerSounds.clear();
 });
 
-test('Marte: fontes intactas, última ação mecânica forte preservada e recorte reproduzível', () => {
+test('Marte: WAV do autor inteiro, PCM estéreo, ataque audível e fades reproduzíveis', () => {
     const root = 'src/assets/audio/mars/', manifest = JSON.parse(fs.readFileSync(root + 'manifesto.json'));
     for (const source of manifest.sources) assert.equal(createHash('sha256').update(fs.readFileSync(root + source.file)).digest('hex'), source.sha256);
     const before = fs.readFileSync(root + manifest.door.file);
     execFileSync('node', ['scripts/audio/preparar-porta-marte.mjs']);
     assert.deepEqual(fs.readFileSync(root + manifest.door.file), before);
     const p = JSON.parse(execFileSync('ffprobe', ['-v', 'error', '-show_format', '-show_streams', '-of', 'json', root + manifest.door.file]));
-    assert.equal(p.streams[0].channels, 1); assert.ok(Number(p.format.duration) >= .80 && Number(p.format.duration) < .86);
-    assert.equal(manifest.door.startSeconds, 2.75); assert.equal(manifest.door.endSeconds, 3.55);
+    assert.equal(p.streams[0].channels, 2); assert.equal(p.streams[0].codec_name, 'pcm_s16le'); assert.equal(Number(p.format.duration), 1.8);
+    assert.equal(manifest.door.source, 'door-original.wav'); assert.equal(manifest.door.file, 'mars-door-open.wav');
+    assert.equal(manifest.door.startSeconds, 0); assert.equal(manifest.door.endSeconds, 1.8);
+    assert.match(fs.readFileSync('src/audio/runtime.ts', 'utf8'), /import marsDoorUrl from '\.\.\/assets\/audio\/mars\/mars-door-open\.wav'/);
     // Evita regressão ao recorte antigo, que capturava apenas uma cauda quase inaudível.
     const pcm = execFileSync('ffmpeg', ['-v', 'error', '-i', root + manifest.door.file, '-t', '0.25', '-ac', '1', '-ar', '48000', '-f', 'f32le', '-']);
     let energy = 0, peak = 0;
     for (let i = 0; i < pcm.length; i += 4) { const v = pcm.readFloatLE(i); energy += v * v; peak = Math.max(peak, Math.abs(v)); }
     assert.ok(20 * Math.log10(Math.sqrt(energy / (pcm.length / 4))) > -22, 'ataque da ação audível desde o início');
     assert.ok(20 * Math.log10(peak) > -10, 'rajada mecânica presente, não apenas reverberação');
-    const tail = execFileSync('ffmpeg', ['-v', 'error', '-i', root + manifest.door.file, '-af', 'atrim=start=0.76', '-ac', '1', '-ar', '48000', '-f', 'f32le', '-']);
+    const tail = execFileSync('ffmpeg', ['-v', 'error', '-i', root + manifest.door.file, '-af', 'atrim=start=1.795', '-ac', '1', '-ar', '48000', '-f', 'f32le', '-']);
     let tailPeak = 0;
     for (let i = 0; i < tail.length; i += 4) tailPeak = Math.max(tailPeak, Math.abs(tail.readFloatLE(i)));
-    assert.ok(20 * Math.log10(tailPeak) < -30, 'últimos 40 ms terminam suaves, sem estalo forte');
-    assert.equal(manifest.door.fadeOutSeconds, .16);
+    assert.ok(20 * Math.log10(tailPeak) < -35, 'últimos 5 ms terminam suaves, sem corte brusco');
+    assert.equal(manifest.door.fadeOutSeconds, .08);
 });
