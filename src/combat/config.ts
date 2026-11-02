@@ -3,7 +3,7 @@ import { isShanghaiPhase01 } from '../game/shanghai/previewMode';
 /** First playable tuning; units are metres, seconds and hit points. */
 export const COMBAT = {
     version: 's2.4-hordas-1', encounterSize: 32, playerHp: 100,
-    rifle: { magazine: 24, reserve: 96, damage: 25, interval: 0.18, reload: 1.5, range: 32 },
+    rifle: { magazine: 24, reserve: 96, damage: 25, interval: 0.18, dryInterval: .45, reload: 1.5, range: 32 },
     robot: {
         hitHeight: { minY: 0, maxY: 2.31 },
         hp: 75, speed: 1.65, radius: 0.67, contactRange: 1.07, damage: 15, contactInterval: 0.8, repath: 0.5, visionRange: 10, visionCos: Math.cos(Math.PI / 3),

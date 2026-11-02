@@ -1,0 +1,62 @@
+{
+  "source": {
+    "source": "/Users/rochatales/Game Development/Horda Survivor/00_Audios/ES_Guns, Mechanism, Rifle, Cock 09 - Epidemic Sound.mp3",
+    "file": "empty-original.mp3",
+    "sha256": "590a7e3478ad3c7a7d020e38235f0e8bc378dbd3f88763e86b982e2a0ece5208",
+    "bytes": 95817,
+    "durationSeconds": 5.647,
+    "channels": 2,
+    "sampleRate": 48000
+  },
+  "variations": [
+    {
+      "file": "rifle-empty-v01.wav",
+      "name": "SFX_Rifle_Empty",
+      "startSeconds": 0.0648542,
+      "endSeconds": 0.22125,
+      "sha256": "925664323135d9a3f76f96a35038fbf98b578c49fa52c3884f7a305c0eb04577"
+    },
+    {
+      "file": "rifle-empty-v02.wav",
+      "name": "SFX_Rifle_Empty",
+      "startSeconds": 0.945271,
+      "endSeconds": 1.0970829999999998,
+      "sha256": "ca7ef0036751b82020fb7f63ccd98d96b08d707f7e5639cd174f065fdffe4a22"
+    },
+    {
+      "file": "rifle-empty-v03.wav",
+      "name": "SFX_Rifle_Empty",
+      "startSeconds": 1.700271,
+      "endSeconds": 1.8438539999999999,
+      "sha256": "5fcdc5e6ab8f758079a9cdccedf482417625e49bde03f4dc9c71cddd348404f0"
+    },
+    {
+      "file": "rifle-empty-v04.wav",
+      "name": "SFX_Rifle_Empty",
+      "startSeconds": 2.63125,
+      "endSeconds": 2.796667,
+      "sha256": "cbeaf39eea34a970ee688348dde4c7bd33ec35fd9170a0d1e9429512f3a99667"
+    },
+    {
+      "file": "rifle-empty-v05.wav",
+      "name": "SFX_Rifle_Empty",
+      "startSeconds": 3.425187,
+      "endSeconds": 3.563937,
+      "sha256": "37742f6c37e9a11c5e217061ee2e43a5fb8a3941e13366c2050358965e48e360"
+    },
+    {
+      "file": "rifle-empty-v06.wav",
+      "name": "SFX_Rifle_Empty",
+      "startSeconds": 4.240042,
+      "endSeconds": 4.390521000000001,
+      "sha256": "edfc3887e9335f58fa967ddf9b08bfb0483ee9ced62cf4a4d1e0f5aa9a14536f"
+    },
+    {
+      "file": "rifle-empty-v07.wav",
+      "name": "SFX_Rifle_Empty",
+      "startSeconds": 5.046437,
+      "endSeconds": 5.207625,
+      "sha256": "86b172d5107bf9ffa7c36f5b2668a1ca90b32e1e732c3149d234fe4bc305f078"
+    }
+  ]
+}

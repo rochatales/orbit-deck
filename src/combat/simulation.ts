@@ -142,6 +142,8 @@ export class CombatSimulation {
     reserve: number = COMBAT.rifle.reserve;
     reloadLeft = 0;
     cooldown = 0;
+    private dryCooldown = 0;
+    private wasFiring = false;
     invulnerable = 0;
     damageFlash = 0;
     hitFlash = 0;
@@ -336,6 +338,7 @@ export class CombatSimulation {
             }
         }
         this.cooldown = Math.max(0, this.cooldown - dt);
+        this.dryCooldown = Math.max(0, this.dryCooldown - dt);
         this.invulnerable = Math.max(0, this.invulnerable - dt);
         this.damageFlash = Math.max(0, this.damageFlash - dt);
         this.hitFlash = Math.max(0, this.hitFlash - dt);
@@ -362,6 +365,13 @@ export class CombatSimulation {
         if (input.reload && this.reloadLeft === 0 && this.ammo < COMBAT.rifle.magazine && this.reserve > 0) {
             this.reloadLeft = COMBAT.rifle.reload;
             this.sounds.emit('reload', input.player.x, input.player.z);
+        }
+        const triggerPressed = input.firing && !this.wasFiring;
+        this.wasFiring = input.firing;
+        if (input.firing && this.reloadLeft === 0 && this.cooldown === 0 && this.ammo === 0
+            && (triggerPressed || this.dryCooldown === 0) && Number.isFinite(input.player.x + input.player.z)) {
+            this.sounds.emit('dryFire', input.player.x, input.player.z);
+            this.dryCooldown = COMBAT.rifle.dryInterval;
         }
         if (input.firing && this.reloadLeft === 0 && this.cooldown === 0 && this.ammo > 0
             && Number.isFinite(input.facingAngle) && Number.isFinite(input.player.x + input.player.z + input.aim.x + input.aim.z)) {

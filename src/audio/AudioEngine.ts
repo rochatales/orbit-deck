@@ -1,3 +1,4 @@
+import { MusicPlayer, type MusicFiles } from './MusicPlayer';
 import { AmbienceMixer, type MarsAmbienceFiles } from './AmbienceMixer';
 import { AUDIO, distanceGain, soundFor, variationIndex, type Category } from './config';
 import type { SoundEvent, SoundQueue } from './events';
@@ -21,11 +22,12 @@ export class AudioEngine {
     private revision = 0;
     private ready = false;
     private gateRevision = 0;
+    private musicPlayer: MusicPlayer | null = null;
     private ambienceMixer: AmbienceMixer | null = null;
     private map: 'mars' | 'shanghai' = 'mars';
     private marsInside = false;
     constructor(private factory: () => AudioContext, private files: readonly SoundFile[], private storage?: StorageLike,
-        private ambience?: SoundFile, private marsAmbience?: MarsAmbienceFiles) {
+        private ambience?: SoundFile, private marsAmbience?: MarsAmbienceFiles, private music?: MusicFiles) {
         try {
             const saved = JSON.parse(storage?.getItem(AUDIO.storageKey) ?? 'null');
             if (saved && Number.isFinite(saved.volume)) this.volume = Math.max(0, Math.min(1, saved.volume));
@@ -39,6 +41,7 @@ export class AudioEngine {
     private settingsChanged() {
         if (this.master && this.context) this.master.gain.setTargetAtTime(this.muted ? 0 : this.volume, this.context.currentTime, .01);
         this.ambienceMixer?.setBlocked(this.blocked || this.muted);
+        this.musicPlayer?.setBlocked(this.blocked || this.muted);
         try { this.storage?.setItem(AUDIO.storageKey, JSON.stringify({ volume: this.volume, muted: this.muted })); } catch { /* Sem persistência: controle continua funcional. */ }
         this.revision++; this.listeners.forEach(f => f());
     }
@@ -51,7 +54,10 @@ export class AudioEngine {
             this.ambienceMixer = new AmbienceMixer(this.context, this.master, this.ambience, this.marsAmbience, () => { this.stats.decodeErrors++; });
             this.ambienceMixer.select(this.map, this.marsInside);
             this.ambienceMixer.setBlocked(this.blocked || this.muted);
+            if (this.music) this.musicPlayer = new MusicPlayer(this.context, this.master, this.music, this.map);
         }
+        this.musicPlayer?.setBlocked(this.blocked || this.muted);
+        this.musicPlayer?.unlock();
         // resume deve ser chamado na pilha do gesto, antes de aguardar fetch/decode.
         if (!this.blocked) await this.context.resume().catch(() => {});
         await this.loading;
@@ -74,6 +80,7 @@ export class AudioEngine {
         if (this.map === map) return;
         this.map = map; this.marsInside = false;
         this.ambienceMixer?.select(map, false);
+        this.musicPlayer?.setMap(map);
     }
     setMarsInterior(inside: boolean) {
         if (this.map !== 'mars' || this.marsInside === inside) return;
@@ -84,6 +91,7 @@ export class AudioEngine {
         if (blocked === this.blocked) return;
         this.blocked = blocked;
         this.ambienceMixer?.setBlocked(this.blocked || this.muted);
+        this.musicPlayer?.setBlocked(this.blocked || this.muted);
         const revision = ++this.gateRevision;
         if (blocked) this.stopAll();
         const c = this.context;

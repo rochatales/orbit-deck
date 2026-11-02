@@ -1,6 +1,6 @@
 import { DOOR_TIMING } from './doorTiming';
 import type { RobotKind } from '../combat/config';
-export type SoundEventType = 'shot' | 'reload' | 'playerStep' | 'enemyStep' | 'bulletHit' | 'death' | 'attack' | 'collect' | 'chargeWarning' | 'doorOpen' | 'hangarDoorOpen' | 'doorClose' | 'quartelDoorOpen' | 'quartelDoorClose' | 'hangarDoorClose';
+export type SoundEventType = 'shot' | 'dryFire' | 'reload' | 'playerStep' | 'enemyStep' | 'bulletHit' | 'death' | 'attack' | 'collect' | 'chargeWarning' | 'doorOpen' | 'hangarDoorOpen' | 'doorClose' | 'quartelDoorOpen' | 'quartelDoorClose' | 'hangarDoorClose';
 export interface SoundEvent { type: SoundEventType; kind: RobotKind; x: number; z: number; duration?: number; emitter?: number }
 /** Anel pré-alocado: nenhum objeto por evento da simulação/locomoção. */
 export class SoundQueue {
