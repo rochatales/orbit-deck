@@ -1,11 +1,11 @@
 import { PointLight, type Mesh, type MeshStandardMaterial, type Object3D } from 'three';
 import { BACKPACK_LIGHT } from '../../scene/lightingConfig';
 
-/** Encaixe rígido no Spine2. Recentrado no Breathing_Idle do astronauta v009:
- * +7,10 cm à esquerda do personagem e +4 cm em altura, sem mudar a profundidade. */
+/** Encaixe rígido no Spine2, alinhado ao plano do tronco no Breathing_Idle v009.
+ * Centro/altura preservados; painel apoiado por fora do traje, sem afundar um lado. */
 export const BACKPACK_TRANSFORM = {
-  position: [0.00951255261126631, -0.03571622669753994, -0.05930778580974025],
-  quaternion: [-0.16821674154672414, 0.1683221972742959, -0.02122256794554227, 0.9710408680447891],
+  position: [-0.014505495141447108, -0.04784842362388077, -0.16216227169926656],
+  quaternion: [-0.004155685923612864, 0.028394115841473576, 0.0002669253097483178, 0.9995881317885209],
   scale: [0.6091301360096101, 0.6091299448734547, 0.6091299905071628]
 } as const;
 

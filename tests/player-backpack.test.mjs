@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import crypto from 'node:crypto';
-import { AnimationMixer, Box3, Group, LoopOnce, Matrix4, Vector3 } from 'three';
+import { AnimationMixer, Box3, Group, LoopOnce, Matrix4, Raycaster, Vector3 } from 'three';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
 import { loadGlb } from './load-glb.mjs';
 import { loadSource } from './load-source.mjs';
@@ -65,12 +65,12 @@ test('Mochila neon: uma luz ciano ilumina ao redor e segue o tronco sem tocar no
 });
 
 
-test('Mochila: Breathing_Idle centralizado nas costas, 4 cm acima e sem mudar a profundidade',()=>{
+test('Mochila: Breathing_Idle centralizado nas costas e 4 cm acima, com casco por fora do traje',()=>{
  const character=clone(player.scene),pack=asset.scene.clone(true),mixer=new AnimationMixer(character);
  mixer.clipAction(player.animations.find(c=>c.name==='Idle_Colony')).play();
  attachBackpack(character,pack);mixer.update(0);character.updateMatrixWorld(true);
  const old=asset.scene.clone(true),historical=JSON.parse(fs.readFileSync('art-source/player-backpack/notas/encaixe-v001.json'));
- attachBackpack(character,old);old.position.fromArray(historical.position);character.updateMatrixWorld(true);
+ attachBackpack(character,old);old.position.fromArray(historical.position);old.quaternion.fromArray(historical.quaternion).normalize();character.updateMatrixWorld(true);
  const center=new Box3().setFromObject(pack).getCenter(new Vector3()),before=new Box3().setFromObject(old).getCenter(new Vector3());
  const left=character.getObjectByName('mixamorigLeftArm').getWorldPosition(new Vector3());
  const right=character.getObjectByName('mixamorigRightArm').getWorldPosition(new Vector3());
@@ -78,7 +78,34 @@ test('Mochila: Breathing_Idle centralizado nas costas, 4 cm acima e sem mudar a 
  assert.ok(Math.abs(center.x-(left.x+right.x)/2)<.005,'centro entre os ombros, sem viés para o direito');
  assert.ok(center.x-before.x>.065&&center.x-before.x<.075,'deslocamento para a esquerda de aproximadamente 7 cm');
  assert.ok(Math.abs(center.y-before.y-.04)<1e-6,'elevação de 4 cm');
- assert.ok(Math.abs(center.z-before.z)<1e-6,'profundidade preservada');
- assert.ok(pack.quaternion.equals(old.quaternion)&&pack.scale.equals(old.scale),'orientação e tamanho preservados');
+ assert.ok(Math.abs(center.z-before.z+.1744865001)<1e-6,'recuo medido para apoiar fora da malha do traje');
+ assert.ok(pack.scale.equals(old.scale),'tamanho preservado');
  detachBackpack(pack);detachBackpack(old);
+});
+
+
+test('Mochila: painel paralelo ao tronco e os dois lados por fora da malha no idle da colônia',()=>{
+ const character=clone(player.scene),pack=asset.scene.clone(true),mixer=new AnimationMixer(character);
+ const clip=player.animations.find(c=>c.name==='Idle_Colony');mixer.clipAction(clip).play();attachBackpack(character,pack);
+ const bone=n=>character.getObjectByName('mixamorig'+n).getWorldPosition(new Vector3());
+ for(const phase of [0,.25,.5,.75,.99]){
+  mixer.setTime(clip.duration*phase);character.updateMatrixWorld(true);
+  const up=bone('Neck').sub(bone('Spine1')).normalize(),lateral=bone('LeftArm').sub(bone('RightArm')).normalize();
+  const forward=new Vector3().crossVectors(lateral,up).normalize(),panel=pack.getWorldDirection(new Vector3());
+  assert.ok(panel.dot(forward)>.999,'painel alinhado ao plano anatômico das costas');
+  const meshes=[];character.traverse(n=>{if(n.isSkinnedMesh){n.computeBoundingSphere();n.computeBoundingBox();meshes.push(n);}});
+  for(const y of [0,.12]){
+   const distances=[];
+   for(const side of [-1,1]){
+    const contact=pack.localToWorld(new Vector3(side*.14,y,.022));
+    // Só no teste: raycast na malha deformada mede folga visual; nunca participa da física.
+    const ray=new Raycaster(contact.clone().addScaledVector(forward,-1),forward,0,2);
+    const hit=ray.intersectObjects(meshes,false)[0];assert.ok(hit,'ponto de apoio nas costas');
+    const clearance=hit.distance-1;assert.ok(clearance>=0,`lado ${side} afundou ${clearance} na fase ${phase}`);
+    distances.push(clearance);
+   }
+   assert.ok(Math.abs(distances[0]-distances[1])<.025,`folga lateral desigual: ${distances}`);
+  }
+ }
+ detachBackpack(pack);
 });
