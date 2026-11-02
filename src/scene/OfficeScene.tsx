@@ -1,4 +1,3 @@
-import { CONTROL_ROOM } from '../game/controlRoomLayout';
 import { DawnBackground } from './DawnBackground';
 import { PlayerVisorLight } from './PlayerVisorLight';
 import { SHANGHAI_DAWN } from './lightingConfig';
@@ -8,8 +7,6 @@ import { ShanghaiLighting } from './ShanghaiLighting';
 import { ShanghaiAssetGate } from './ShanghaiAssetGate';
 import { PlayerAim } from '../characters/player/PlayerAim';
 import { CombatScene } from '../combat/CombatScene';
-import { GLBCharacter } from '../characters/GLBCharacter';
-import { EDEN_CHARACTER_ASSET } from '../characters/characterAssetConfig';
 import { Player } from '../characters/player/Player';
 import { Spacecraft } from '../game/Spacecraft';
 import { useExpeditionStore } from '../state/useExpeditionStore';
@@ -27,7 +24,6 @@ export function OfficeScene({ world, map }: {
     map: MapId;
 }) {
     const spawn = useExpeditionStore(s => s.spawn), revision = useExpeditionStore(s => s.session.revision);
-    const a = EDEN_CHARACTER_ASSET;
     const phase01 = map === 'shanghai' && isShanghaiPhase01();
     const sky = map === 'mars' ? '#b4927a' : SHANGHAI_DAWN.horizon;
     return <Suspense fallback={<Html center><p role="status">Carregando Shanghai fase 01…</p></Html>}><ShanghaiAssetGate world={world}><>
@@ -43,8 +39,5 @@ export function OfficeScene({ world, map }: {
     </PhysicsWorld>
     {map === 'shanghai' && <><CombatScene world={world}/><PlayerVisorLight/></>}
     {map === 'mars' ? <MarsColony world={world}/> : <Spacecraft map={map}/>}
-    {map === 'mars' && <group position={[CONTROL_ROOM.hologramAnchor.x, CONTROL_ROOM.hologramAnchor.y, CONTROL_ROOM.hologramAnchor.z]}>
-      <GLBCharacter {...a} animationState="idle"/>
-    </group>}
   </></ShanghaiAssetGate></Suspense>;
 }

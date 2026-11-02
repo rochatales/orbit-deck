@@ -1,5 +1,7 @@
 # S6.12 — prédios finais aprovados · integração de 01/11/2026
 
+> **EDEN atualizada:** por confirmação do autor, somente a projeção do pedestal; personagem antigo sobreposto removido da cena. Ver [handoff](../s6.12-eden-projecao.md).
+
 Pedido explícito do autor: incorporar os acabamentos aprovados da Control Room e do
 Hangar à linha do explorador. Base `2661ffd`, branch `rochatales/s6.8-explorador-astronauta`.
 Merge autorizado **9ed6817**, da Control Room revisada **cf8916a**.

@@ -104,3 +104,21 @@ test('Atlas: filtro sem mipmaps evita filetes; texturas privadas compartilham s�
   for(const t of textures){assert.equal(t.minFilter,LinearMipmapLinearFilter);assert.equal(t.generateMipmaps,true);t.dispose();}
  }
 });
+
+
+test('EDEN: somente projeção do pedestal, com interação e pausa preservadas',()=>{
+ const office=fs.readFileSync('src/scene/OfficeScene.tsx','utf8');
+ assert.ok(!office.includes('EDEN_CHARACTER_ASSET'));
+ assert.ok(!office.includes('<GLBCharacter'));
+ assert.ok(office.includes("map === 'mars' ? <MarsColony world={world}/>"));
+ const {EDEN}=loadSource('src/game/config.ts'),copy=source.scene.clone(true);
+ const projection=copy.getObjectByName('PROP_Control_EDEN_Projecao');
+ assert.ok(projection?.visible);assert.ok(copy.getObjectByName('PROP_Control_EDEN_Emissor')?.visible);
+ const initial=projection.position.y,r=new ControlRoomRuntime(copy);
+ step(r,EDEN.position.x,EDEN.position.z,60);
+ assert.equal(r.status.interaction,true);assert.equal(copy.getObjectByName('PROP_Control_Interacao').visible,true);
+ assert.ok(Math.abs(projection.position.y-initial)<=.025);
+ const paused=projection.position.y;r.update(EDEN.position,0);assert.equal(projection.position.y,paused);
+ step(r,100,100);assert.equal(r.status.interaction,false);assert.equal(projection.visible,true);
+ r.dispose();
+});
