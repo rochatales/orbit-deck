@@ -1,6 +1,6 @@
 # Sprint 0 — Preservação e baseline
 
-Data do registro histórico: 28/09/2026. Atualização S0.4 em 19/10/2026 (Fase 5.1), base de runtime `796ae3a6776a623fb2c839310f04eb58925efc93`. **Baseline manual de movimento contínuo, EDEN e frames permanece pendente com o autor; S0.4 não está aprovada.**
+Data do registro histórico: 28/09/2026. Atualização S0.4 em 19/10/2026 (Fase 5.1), base de runtime `796ae3a6776a623fb2c839310f04eb58925efc93`. **Atualização de 25/10/2026: S0.4 aprovada pelo autor e Sprint 0 encerrado** (ver "Sessão manual do autor — 25/10/2026").
 
 As seções até a captura do escritório preservam o contexto histórico do produto anterior. O roteiro atual e a evidência do build consolidado estão abaixo; não executar servidor/backend ou controles antigos para esta validação.
 
@@ -172,12 +172,20 @@ O conflito histórico de R foi resolvido: Q/C gira câmera; R recarrega. W/S seg
 mira, A/D não deslocam; E interage e Escape fecha/pausa. Não usar WASD/Shift ou
 Q/R do registro histórico como roteiro do jogo atual.
 
+## Sessão manual do autor — 25/10/2026
+
+- Build de produção da worktree de fechamento (`rochatales/fechamento-s0-s2`, ponta `3e04ac8`: ARES-I e consoles/tanques ajustados), porta 4173.
+- Dispositivo: MacBook com Apple M2 Pro, macOS 26.5.1. Navegador e tela: não informados pelo autor.
+- Entrada, movimento contínuo, câmera Q/C, diálogo com EDEN, deck ARES-I, embarque e desembarque em Marte, pausa e troca de janela: **passaram** (relato do autor: "pelos meus testes está tudo ok").
+- Medidas de carregamento e desempenho disponíveis: referência técnica em build de produção, `evidencias/796ae3a/perf-referencia.json` e `carregamento.json` (duas amostras válidas de 30 s em Marte, Chromium headless no mesmo M2 Pro). São intervalos de rAF, não tempo de GPU. As medições no equipamento e navegador do autor (M1, M2 e S40) passam a pertencer só à S2.9.
+- **Aceite expresso S0.4: aprovado pelo autor em 25/10/2026.** Registro feito pelo Claude a pedido do autor.
+
 ## Situação dos critérios de Sprint 0
 
 - [x] S0.1 Referência Git e branch.
 - [x] S0.2 Backup dos não rastreados verificado por hash.
 - [x] S0.3 Inventário e separação conceitual fonte/exportação, sem movimentos.
-- [ ] S0.4 Parcial: roteiro atual e evidência técnica do build em `796ae3a` registrados; movimento contínuo, diálogo de EDEN e medições de frames na sessão manual do autor continuam pendentes (Fases 5.2–5.3).
+- [x] S0.4 Build reexecutado, sessão manual do autor aprovada em 25/10/2026 e medidas técnicas disponíveis registradas; medições no equipamento do autor seguem na S2.9.
 - [x] S0.5 Roteiro e defaults documentados; validação humana da sensação de jogo continua no playtest.
 
-A preparação para a refatoração está preservada e documentada. O Sprint 0 não deve ser tratado como baseline de gameplay integralmente aprovado até completar S0.4.
+**Sprint 0 encerrado em 25/10/2026.** Preservação, inventário, baseline e roteiro concluídos; S0.4 aprovada pelo autor.

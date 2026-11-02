@@ -1,0 +1,26 @@
+{
+  "variant": "v002",
+  "removedCoplanarFaces": 3,
+  "triangles": {
+    "LaboratorySynthesizerMesh": 7384,
+    "Building_Walls": 84,
+    "Building_Roof": 60,
+    "LaboratorioPavimento": 1092
+  },
+  "materials": 2,
+  "sha256": "4dfd07a28d6a6d017233a0a085a80a60e8a4275345070b90f9fdb2d0a32502c8",
+  "roofArea": {
+    "minX": 6.975,
+    "maxX": 20.275,
+    "minZ": -17.275,
+    "maxZ": -7.975
+  },
+  "tiles": {
+    "source": "ARQ_Lab_Piso_Patio",
+    "tile": [
+      1.25,
+      1.5
+    ],
+    "joint": 0.03
+  }
+}

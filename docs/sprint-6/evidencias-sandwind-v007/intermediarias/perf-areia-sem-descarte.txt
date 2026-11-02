@@ -1,0 +1,55 @@
+Browser tab: 87857499, Title: "EXODEN · Marte", URL: "http://127.0.0.1:4186/?sandwindPreview&perf".
+1 AXWebArea EXODEN · Marte, URL: 127.0.0.1:4186/?sandwindPreview&perf
+	2 container
+		3 container Medição de desempenho (desenvolvimento)
+			4 container
+				5 text PERF ·  mars
+			6 button –
+			7 container
+				8 text rAF p50 / p95:  8.3 ms  /  16.3 ms
+			9 container
+				10 text rAF > 50 ms (últimos  240 ):  0
+			11 container
+				12 text draw calls:  802  · triângulos:  685.335
+			13 container
+				14 text geometrias:  574  · texturas:  14  (contagens)
+			15 container
+				16 text renderer.info lido há  3 ms
+			17 container
+				18 text heap JS:  456.31 MB
+			19 container
+				20 text DPR:  2.00 / renderer 1.50
+			51 container
+				52 text Última amostra ( válida ): p50 8.3 ms · p95 8.9 ms · >33 ms 0 · >50 ms 0 · LoAF 0
+			21 button AMOSTRA 10 S
+			22 button COPIAR JSON
+			50 text Relatório JSON copiado.
+			23 text Intervalos de rAF, não tempo de GPU.
+		24 container Prévia da cortina de areia
+			25 container
+				26 button (expanded) SANDWIND · PRÉVIA, Secondary Actions: Collapse
+					27 text SANDWIND · PRÉVIA
+				28 text Areia no horizonte e descarte de prédios completos. Alcance
+				29 pop up button (collapsed, settable) Alcance, Value: Compacto, Secondary Actions: Expand
+					30 menu
+						31 (selected) Compacto
+						32 Equilibrado
+						33 Amplo
+				34 checkbox (settable, integer) Description: Cortina de areia, Value: 1
+				35 checkbox (settable, integer) Description: Descarte distante, Value: 0
+				36 checkbox (settable, integer) Description: Movimento do vento, Value: 1
+				37 text Área clara:  12  m · Areia opaca:  28  m Grupos descartados:  0 / 269 Triângulos nos grupos descartados:  0 Materiais do efeito:  136  · Clones próprios:  45 Contagem geométrica; não é medição de GPU. GLB continua na memória. Builder, LODs e NPCs ainda não implementados nesta prévia.
+		38 text MARTE · COLÔNIA HUMANA
+		39 text QA Sandwind v007
+		40 container
+			41 button CONTROLES
+			42 button PAUSAR
+		43 text ROTA DE EXPLORAÇÃO
+		44 heading Destino: Shanghai, Value: 2
+			45 text Destino: Shanghai
+		46 text EDEN ao norte · Deck de lançamento ao sul, após o complexo.
+		47 text Explore · Sobreviva · Recupere materiais. ◉ EDEN / RÁDIO
+		48 text EDEN está ao norte. Encontre-a para receber o briefing. O deck de lançamento fica ao sul.
+		49 text Explore a pé · E para interagir
+
+The focused UI element is 1 AXWebArea EXODEN · Marte, URL: 127.0.0.1:4186/?sandwindPreview&perf

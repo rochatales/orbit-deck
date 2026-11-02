@@ -80,13 +80,13 @@ nav button:hover:not(:disabled), .secondary:hover:not(:disabled) { color: #09232
 .wave-banner span { font-size: 10px; letter-spacing: .06em; color: #c7d8db; font-variant-numeric: tabular-nums; }
 @media (prefers-reduced-motion: no-preference) { .wave-banner { animation: wave-in .3s ease-out; } }
 @keyframes wave-in { from { opacity: 0; transform: translate(-50%, -6px); } }
-.equipment-bar { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; width: 680px; max-width: calc(100% - 48px); pointer-events: none; }
+.equipment-bar { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; width: 760px; max-width: calc(100% - 48px); pointer-events: none; }
 .equipment-inventory, .weapon-slot { background: var(--panel); border: 1px solid #86e7dca6; box-shadow: inset 0 0 24px #61e1cb0d, 0 4px 20px #0004; position: relative; padding: 12px; }
 .equipment-inventory::before, .weapon-slot::before { content: ''; position: absolute; top: -1px; left: -4px; width: 4px; height: 32px; background: #86e7dc; }
 .equipment-inventory { flex: 1; min-width: 0; }
 .equipment-inventory h2 { font-size: 13px; color: var(--cyan); letter-spacing: .07em; margin: 0 0 10px; display: flex; justify-content: space-between; align-items: baseline; }
 .equipment-inventory h2 > span { font-size: 6px; letter-spacing: .04em; color: #81a9b1; }
-.item-slots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; }
+.item-slots { display: grid; grid-template-columns: repeat(6, 1fr); gap: 9px; }
 .item-slot { text-align: center; min-width: 0; }
 .item-slot > div { height: 68px; border: 1px solid #82e6db80; display: grid; place-items: center; position: relative; background: linear-gradient(140deg, #31707822, #1a3d4e11); }
 .item-slot > div::after { content: ''; position: absolute; right: 3px; top: 3px; border-top: 7px solid #b693ec; border-left: 7px solid transparent; }
@@ -103,13 +103,12 @@ nav button:hover:not(:disabled), .secondary:hover:not(:disabled) { color: #09232
 .weapon-slot small { display: flex; justify-content: space-between; font-size: 7px; letter-spacing: .04em; color: var(--cyan); }
 .weapon-slot small span { color: #90b1b9; }
 .damage-vignette { position: absolute; inset: 0; box-shadow: inset 0 0 110px 28px #ff302c99; pointer-events: none; }
-.hit-feedback { position: absolute; left: 50%; top: 40%; color: #ecffbd; font-size: 11px; letter-spacing: .16em; pointer-events: none; }
 .encounter-result { position: absolute; right: 24px; top: 310px; width: 240px; max-height: calc(100% - 490px); overflow: auto; }
 .encounter-result p, .encounter-result label { font-size: 12px; }
 .encounter-result h2 { font-size: 18px; }
 .encounter-result select { padding: 6px; margin-bottom: 10px; }
 .encounter-result button { width: 100%; padding: 10px; }
-.combat-canvas canvas { cursor: crosshair; }
+
 @media (max-width: 900px) {
  .in-combat .radio { bottom: 184px; width: 210px; }
  .in-combat .radio p { font-size: 10px; }
@@ -167,3 +166,7 @@ nav button:hover:not(:disabled), .secondary:hover:not(:disabled) { color: #09232
 
 /* S2.12: selo da prévia de comparação do personagem (só com ?comparar). */
 .qa-asset{position:absolute;right:18px;bottom:16px;width:280px;display:grid;gap:6px;background:#13262ce8;border:1px solid #f3cf7766;border-radius:12px;padding:12px 14px;z-index:3}.qa-asset small{font-size:11px;color:#bacdd2}.qa-asset button{padding:8px 10px;font-size:12px}@media(max-width:650px){.qa-asset{bottom:150px;width:220px}}
+
+.audio-controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 12px 0; border: 1px solid #66e6ff55; }
+.audio-controls label { display: flex; gap: 10px; align-items: center; }
+.audio-controls input { width: 130px; }

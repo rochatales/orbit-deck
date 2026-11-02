@@ -1,0 +1,52 @@
+Browser tab: 87857499, Title: "EXODEN · Marte", URL: "http://127.0.0.1:4186/?sandwindPreview&perf".
+1 AXWebArea EXODEN · Marte, URL: 127.0.0.1:4186/?sandwindPreview&perf
+	2 container
+		4 container Medição de desempenho (desenvolvimento)
+			5 container
+				6 text PERF ·  mars
+			7 button –
+			8 container
+				9 text rAF p50 / p95:  8.3 ms  /  8.9 ms
+			10 container
+				11 text rAF > 50 ms (últimos  240 ):  0
+			12 container
+				13 text draw calls:  778  · triângulos:  684.551
+			14 container
+				15 text geometrias:  541  · texturas:  14  (contagens)
+			16 container
+				17 text renderer.info lido há  4 ms
+			18 container
+				19 text heap JS:  178.68 MB
+			20 container
+				21 text DPR:  2.00 / renderer 1.50
+			22 button AMOSTRA 10 S
+			23 button COPIAR JSON
+			24 text Intervalos de rAF, não tempo de GPU.
+		25 container Prévia da cortina de areia
+			26 container
+				27 button (expanded) SANDWIND · PRÉVIA, Secondary Actions: Collapse
+					28 text SANDWIND · PRÉVIA
+				29 text Areia no horizonte e descarte de prédios completos. Alcance
+				30 pop up button (collapsed, settable) Alcance, Value: Amplo, Secondary Actions: Expand
+					31 menu
+						32 Compacto
+						33 Equilibrado
+						34 (selected) Amplo
+				35 checkbox (settable, integer) Description: Cortina de areia, Value: 1
+				36 checkbox (settable, integer) Description: Descarte distante, Value: 1
+				37 checkbox (settable, integer) Description: Movimento do vento, Value: 1
+				38 text Área clara:  36  m · Areia opaca:  62  m Grupos descartados:  0 / 269 Triângulos nos grupos descartados:  0 Materiais do efeito:  136  · Clones próprios:  45 Contagem geométrica; não é medição de GPU. GLB continua na memória. Builder, LODs e NPCs ainda não implementados nesta prévia.
+		39 text MARTE · COLÔNIA HUMANA
+		40 text QA Sandwind v007
+		41 container
+			42 button CONTROLES
+			43 button PAUSAR
+		44 text ROTA DE EXPLORAÇÃO
+		45 heading Destino: Shanghai, Value: 2
+			46 text Destino: Shanghai
+		47 text EDEN ao norte · Deck de lançamento ao sul, após o complexo.
+		48 text Explore · Sobreviva · Recupere materiais. ◉ EDEN / RÁDIO
+		49 text EDEN está ao norte. Encontre-a para receber o briefing. O deck de lançamento fica ao sul.
+		50 text Explore a pé · E para interagir
+
+The focused UI element is 1 AXWebArea EXODEN · Marte, URL: 127.0.0.1:4186/?sandwindPreview&perf

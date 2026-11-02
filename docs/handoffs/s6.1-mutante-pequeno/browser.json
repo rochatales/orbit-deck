@@ -1,0 +1,282 @@
+{
+  "base": "f786255",
+  "method": "Chromium GPU, fixture Shanghai, 1440×900 DPR1. Horda real iniciada; só a posição inicial dos três animais é aproximada para observar o cerco. Orgânica reposta para conferir apoio/coleta. Sem aceite visual ou benchmark.",
+  "errors": [],
+  "httpErrors": [],
+  "initial": {
+    "wave": 1,
+    "total": 109,
+    "alive": 13,
+    "animals": [
+      {
+        "id": 4,
+        "x": -49.5,
+        "z": -21,
+        "packAngle": 2.399963
+      },
+      {
+        "id": 8,
+        "x": 45,
+        "z": -52.5,
+        "packAngle": 4.494358102393195
+      },
+      {
+        "id": 12,
+        "x": 33,
+        "z": 52.5,
+        "packAngle": 6.588753204786391
+      }
+    ]
+  },
+  "opening": {
+    "snapshot": {
+      "hp": 100,
+      "iron": 0,
+      "copper": 0,
+      "titanium": 0,
+      "organic": 0,
+      "ammo": 24,
+      "reserve": 96,
+      "reloading": false,
+      "dead": false,
+      "kills": 0,
+      "total": 109,
+      "cleared": false,
+      "damage": false,
+      "hit": false,
+      "wave": 1,
+      "waves": 4,
+      "nextWave": 0,
+      "alive": 13
+    },
+    "visible": {
+      "PlayerMesh_1": 1,
+      "PlayerMesh_2": 1,
+      "PatrolUnitMesh": 10,
+      "MutantAnimalMesh": 3
+    },
+    "pool": [
+      "0bd124fc-2f1d-4b0e-9b6d-768ebe91ac07",
+      "1724728d-e513-4174-8965-efba082ed439",
+      "0506c152-2169-432e-9726-27acacf27fce",
+      "0590e6f7-dbe1-4bb5-ad80-b3b0db712ced",
+      "27906278-1c55-477d-95a7-71f6e45ae9e9",
+      "80ecd6ad-1fa3-46e4-a432-b6f53ce4bc21"
+    ],
+    "animals": [
+      {
+        "id": 4,
+        "x": -19.545902543188436,
+        "z": 17.149798531831884,
+        "packAngle": 2.399963,
+        "packReady": false,
+        "pace": 4.6
+      },
+      {
+        "id": 8,
+        "x": -19.407035987595716,
+        "z": 19.09061617553632,
+        "packAngle": 4.494358102393195,
+        "packReady": false,
+        "pace": 4.6
+      },
+      {
+        "id": 12,
+        "x": -19.545902543188436,
+        "z": 21.850201468168116,
+        "packAngle": 6.588753204786391,
+        "packReady": false,
+        "pace": 4.6
+      }
+    ]
+  },
+  "surround": {
+    "snapshot": {
+      "hp": 76,
+      "iron": 0,
+      "copper": 0,
+      "titanium": 0,
+      "organic": 0,
+      "ammo": 24,
+      "reserve": 96,
+      "reloading": false,
+      "dead": false,
+      "kills": 0,
+      "total": 109,
+      "cleared": false,
+      "damage": false,
+      "hit": false,
+      "wave": 1,
+      "waves": 4,
+      "nextWave": 0,
+      "alive": 13
+    },
+    "visible": {
+      "PlayerMesh_1": 1,
+      "PlayerMesh_2": 1,
+      "PatrolUnitMesh": 10,
+      "MutantAnimalMesh": 3
+    },
+    "pool": [
+      "0bd124fc-2f1d-4b0e-9b6d-768ebe91ac07",
+      "1724728d-e513-4174-8965-efba082ed439",
+      "0506c152-2169-432e-9726-27acacf27fce",
+      "0590e6f7-dbe1-4bb5-ad80-b3b0db712ced",
+      "27906278-1c55-477d-95a7-71f6e45ae9e9",
+      "80ecd6ad-1fa3-46e4-a432-b6f53ce4bc21"
+    ],
+    "animals": [
+      {
+        "id": 4,
+        "x": -17.055281366812086,
+        "z": 18.745850797404362,
+        "packAngle": 2.399963,
+        "packReady": true,
+        "pace": 4.6
+      },
+      {
+        "id": 8,
+        "x": -18.35741942024154,
+        "z": 19.314837264824014,
+        "packAngle": 4.494358102393195,
+        "packReady": true,
+        "pace": 4.6
+      },
+      {
+        "id": 12,
+        "x": -17.402764720021928,
+        "z": 20.34739741357976,
+        "packAngle": 6.588753204786391,
+        "packReady": true,
+        "pace": 4.6
+      }
+    ]
+  },
+  "wave2": {
+    "snapshot": {
+      "hp": 100,
+      "iron": 0,
+      "copper": 0,
+      "titanium": 0,
+      "organic": 0,
+      "ammo": 24,
+      "reserve": 96,
+      "reloading": false,
+      "dead": false,
+      "kills": 0,
+      "total": 109,
+      "cleared": false,
+      "damage": true,
+      "hit": false,
+      "wave": 2,
+      "waves": 4,
+      "nextWave": 0,
+      "alive": 26
+    },
+    "visible": {
+      "PlayerMesh_1": 1,
+      "PlayerMesh_2": 1,
+      "PatrolUnitMesh": 20,
+      "MutantAnimalMesh": 6
+    },
+    "pool": [
+      "0bd124fc-2f1d-4b0e-9b6d-768ebe91ac07",
+      "1724728d-e513-4174-8965-efba082ed439",
+      "0506c152-2169-432e-9726-27acacf27fce",
+      "0590e6f7-dbe1-4bb5-ad80-b3b0db712ced",
+      "27906278-1c55-477d-95a7-71f6e45ae9e9",
+      "80ecd6ad-1fa3-46e4-a432-b6f53ce4bc21"
+    ],
+    "animals": [
+      {
+        "id": 4,
+        "x": 49.42671766413687,
+        "z": 7.502734415517281,
+        "packAngle": 4.799926,
+        "packReady": false,
+        "pace": 2.2
+      },
+      {
+        "id": 8,
+        "x": 33,
+        "z": 52.5,
+        "packAngle": 5.8471235511965975,
+        "packReady": false,
+        "pace": 2.2
+      },
+      {
+        "id": 12,
+        "x": -29.93505837185488,
+        "z": 52.328554101696874,
+        "packAngle": 6.894321102393196,
+        "packReady": false,
+        "pace": 2.2
+      },
+      {
+        "id": 17,
+        "x": -49.5,
+        "z": -7.5,
+        "packAngle": 7.941518653589793,
+        "packReady": false,
+        "pace": 2.2
+      },
+      {
+        "id": 21,
+        "x": -32.88407327285043,
+        "z": -52.313021407823285,
+        "packAngle": 8.98871620478639,
+        "packReady": false,
+        "pace": 2.2
+      },
+      {
+        "id": 25,
+        "x": 29.963671891497324,
+        "z": -52.495028785152265,
+        "packAngle": 10.035913755982989,
+        "packReady": false,
+        "pace": 2.2
+      }
+    ]
+  },
+  "organic": {
+    "color": "76f57b",
+    "count": 1,
+    "y": 0.12600000202655792,
+    "mesh": "OrganicMatterMesh"
+  },
+  "collected": {
+    "snapshot": {
+      "hp": 100,
+      "iron": 0,
+      "copper": 0,
+      "titanium": 0,
+      "organic": 1,
+      "ammo": 24,
+      "reserve": 96,
+      "reloading": false,
+      "dead": false,
+      "kills": 0,
+      "total": 109,
+      "cleared": false,
+      "damage": false,
+      "hit": false,
+      "wave": 2,
+      "waves": 4,
+      "nextWave": 97,
+      "alive": 0
+    },
+    "visible": {
+      "PlayerMesh_1": 1,
+      "PlayerMesh_2": 1
+    },
+    "pool": [
+      "0bd124fc-2f1d-4b0e-9b6d-768ebe91ac07",
+      "1724728d-e513-4174-8965-efba082ed439",
+      "0506c152-2169-432e-9726-27acacf27fce",
+      "0590e6f7-dbe1-4bb5-ad80-b3b0db712ced",
+      "27906278-1c55-477d-95a7-71f6e45ae9e9",
+      "80ecd6ad-1fa3-46e4-a432-b6f53ce4bc21"
+    ],
+    "animals": []
+  }
+}

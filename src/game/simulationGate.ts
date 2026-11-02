@@ -7,7 +7,7 @@ export function simulationBlocked() {
         || (s.session.map === 'shanghai' && useCombatStore.getState().dead);
 }
 export function releaseMovementKeys() {
-    for (const code of ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ShiftLeft', 'ShiftRight'])
+    for (const code of ['Space', 'KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ShiftLeft', 'ShiftRight'])
         window.dispatchEvent(new KeyboardEvent('keyup', { code, bubbles: true }));
 }
 export function useSimulationBlocked() {

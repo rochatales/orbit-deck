@@ -1,0 +1,197 @@
+{
+  "origem": "/Users/rochatales/.gemini/antigravity/brain/ec592869-d18a-49a4-88cf-000653513181/scratch/preview",
+  "base_origem": "18bfa9d + arquivos aprovados sem commit",
+  "base_destino": "2661ffd + merge 9ed6817",
+  "arquivos": [
+    {
+      "arquivo": "art-source/control-room/blend/control_room_v002.blend",
+      "sha256": "6eb1c138d5ea2f025be1f8f7ad1c2c8665d92e1ad4f88476e684e2604cd90d08",
+      "bytes": 234210,
+      "anterior_sha256": null
+    },
+    {
+      "arquivo": "art-source/control-room/export/control_room_v002.glb",
+      "sha256": "a7ece29112a46c5d4784c8a51f61fbfc87893467088f12f8e2810196dc910653",
+      "bytes": 1785560,
+      "anterior_sha256": null
+    },
+    {
+      "arquivo": "art-source/control-room/export/manifesto_control_room_v002.json",
+      "sha256": "b948655885eb90ea102636146c69baed4de72c797b21e2d1dc3d566e2bbb71e5",
+      "bytes": 17357,
+      "anterior_sha256": null
+    },
+    {
+      "arquivo": "art-source/control-room/referencia/eden_hologram_pedestal_ref.jpg",
+      "sha256": "ada3c02344ee969c725387f81bdc7c5cf073ccb6e82c44d679b00664f81d32c3",
+      "bytes": 144088,
+      "anterior_sha256": null
+    },
+    {
+      "arquivo": "art-source/control-room/renders/control_room_v002_exterior_se.png",
+      "sha256": "2f9b0da4544630d312b863175dc7bd9e7a245584ec237f58582508ffa0269649",
+      "bytes": 1250647,
+      "anterior_sha256": null
+    },
+    {
+      "arquivo": "art-source/control-room/renders/control_room_v002_exterior_sw.png",
+      "sha256": "b8ea0bf0882694d344bf89223a15257dc1ae3cf5d0781541dfb4ac8e4413fbda",
+      "bytes": 1248315,
+      "anterior_sha256": null
+    },
+    {
+      "arquivo": "art-source/control-room/renders/control_room_v002_interior_top.png",
+      "sha256": "d2781b486a512eb38c4577f98828a90aaa1d87d2fff86254bf32550b9e36bc85",
+      "bytes": 1358698,
+      "anterior_sha256": null
+    },
+    {
+      "arquivo": "art-source/control-room/renders/control_room_v002_pedestal_eden.png",
+      "sha256": "0ec27180a8abd36eddbc3ffce300546cff3dacae8f5431175589638a2583d890",
+      "bytes": 1312674,
+      "anterior_sha256": null
+    },
+    {
+      "arquivo": "art-source/control-room/scripts/build_control_room_v002.py",
+      "sha256": "a35e64ec8ce9fef1b127408f1070d5da87478b1432a17d43e5f56c3ad79b4585",
+      "bytes": 37235,
+      "anterior_sha256": null
+    },
+    {
+      "arquivo": "art-source/control-room/scripts/make_atlas.py",
+      "sha256": "575e50de541c56b628ec9f37956dc5fad145cbf36a5a9960ef1e4a4cfb34ee7e",
+      "bytes": 2200,
+      "anterior_sha256": "0e1e2b06858124ec5987855ae5cfab5a9eda3833bfee9d853dc9bdccf185a6c5"
+    },
+    {
+      "arquivo": "art-source/control-room/scripts/render_control_room_v002.py",
+      "sha256": "e66216d8079bbab969ff62259458d102cdbfa9987311bcc4b407e97b22e3519e",
+      "bytes": 3922,
+      "anterior_sha256": null
+    },
+    {
+      "arquivo": "art-source/control-room/texturas/control_v002_basecolor.png",
+      "sha256": "c3439593a12feb3ec647f04192fd9bf236dd06589abb739645bc25e3aafa256d",
+      "bytes": 1038016,
+      "anterior_sha256": null
+    },
+    {
+      "arquivo": "art-source/control-room/texturas/control_v002_emission.png",
+      "sha256": "e543828e19330f7a1f49a7c92c4cec8d3b11ac30aeea95fc277fd1d00f1f01c7",
+      "bytes": 17922,
+      "anterior_sha256": null
+    },
+    {
+      "arquivo": "art-source/control-room/texturas/control_v002_normal.png",
+      "sha256": "abb8bd271af2ec2eb7da0d722fea87fd31aac4b0668b1ae5282495e10390cd89",
+      "bytes": 16857,
+      "anterior_sha256": null
+    },
+    {
+      "arquivo": "art-source/control-room/texturas/control_v002_orm.png",
+      "sha256": "88104cb753dcdacd6c377437240004879ffb4bf0b6010809a7e554418ad2211a",
+      "bytes": 35753,
+      "anterior_sha256": null
+    },
+    {
+      "arquivo": "art-source/hangar/blend/hangar_mars_v002.blend",
+      "sha256": "d0bdbcdac76e95cc7965354f3a9b7dc4646f22f95ecd4230bf6615ab314145de",
+      "bytes": 1275883,
+      "anterior_sha256": "42663409c200cc82f05df0b0694be0299dfe504ef9ae0c32f63d11311bf471d2"
+    },
+    {
+      "arquivo": "art-source/hangar/export/hangar_mars_v002.glb",
+      "sha256": "29d6d972bd19f9c64e3ef9baa0b65a6e2bcbd5c3148e4bfba643e867a3d88a2c",
+      "bytes": 2075324,
+      "anterior_sha256": "efdecfb392f69ee92d9eb788653923951573fe1432ae012b06288a6eb27af7d4"
+    },
+    {
+      "arquivo": "art-source/hangar/notas/build_report_v002.json",
+      "sha256": "846e88dde595e6abc49365bfd5d013f0502f1010f3240faa7dd670b7aef7fd7d",
+      "bytes": 101229,
+      "anterior_sha256": "93fa7314d4890224b2cbbde2a57c9b54b65fd9ffe0e0a5be9838773c1c925b6f",
+      "source_sha256": "07054d86c600d5d527e23e239572285623088d18b193ed21ac9b98cc3ddb1d62",
+      "adaptacao": "Acrescenta contagem trianglesExport=8732; triangles=8612 da fonte preservado, sem editar o GLB."
+    },
+    {
+      "arquivo": "art-source/hangar/scripts/build_hangar.py",
+      "sha256": "c72d8a312bd1eaf0acfead9ef4cfc428d3e4b50cf59821f705b22965d44de0cb",
+      "bytes": 25249,
+      "anterior_sha256": "ca6bfb006a4d41c4b362a8609e1ea20abe13d8c3b276a93502140c6595e02621"
+    },
+    {
+      "arquivo": "art-source/hangar/scripts/make_atlas.py",
+      "sha256": "336d9f49b045164336190582bf7a748ac7309e3b3e317a987e8964d43d48ce29",
+      "bytes": 2189,
+      "anterior_sha256": "378dc434578eaadc76a189c0abb5e8b687f155481d400612ab7ad42cc92076a0"
+    },
+    {
+      "arquivo": "art-source/hangar/texturas/hangar_v002_basecolor.png",
+      "sha256": "c3439593a12feb3ec647f04192fd9bf236dd06589abb739645bc25e3aafa256d",
+      "bytes": 1038016,
+      "anterior_sha256": null
+    },
+    {
+      "arquivo": "art-source/hangar/texturas/hangar_v002_emission.png",
+      "sha256": "e543828e19330f7a1f49a7c92c4cec8d3b11ac30aeea95fc277fd1d00f1f01c7",
+      "bytes": 17922,
+      "anterior_sha256": null
+    },
+    {
+      "arquivo": "art-source/hangar/texturas/hangar_v002_normal.png",
+      "sha256": "abb8bd271af2ec2eb7da0d722fea87fd31aac4b0668b1ae5282495e10390cd89",
+      "bytes": 16857,
+      "anterior_sha256": null
+    },
+    {
+      "arquivo": "art-source/hangar/texturas/hangar_v002_orm.png",
+      "sha256": "88104cb753dcdacd6c377437240004879ffb4bf0b6010809a7e554418ad2211a",
+      "bytes": 35753,
+      "anterior_sha256": null
+    },
+    {
+      "arquivo": "src/assets/control-room/control-room-v002.glb",
+      "sha256": "a7ece29112a46c5d4784c8a51f61fbfc87893467088f12f8e2810196dc910653",
+      "bytes": 1785560,
+      "anterior_sha256": null
+    },
+    {
+      "arquivo": "src/assets/control-room/control-room-v002.manifest.json",
+      "sha256": "b948655885eb90ea102636146c69baed4de72c797b21e2d1dc3d566e2bbb71e5",
+      "bytes": 17357,
+      "anterior_sha256": null
+    },
+    {
+      "arquivo": "src/assets/hangar/hangar-v002.glb",
+      "sha256": "29d6d972bd19f9c64e3ef9baa0b65a6e2bcbd5c3148e4bfba643e867a3d88a2c",
+      "bytes": 2075324,
+      "anterior_sha256": "efdecfb392f69ee92d9eb788653923951573fe1432ae012b06288a6eb27af7d4"
+    },
+    {
+      "arquivo": "src/game/controlRoomLayout.ts",
+      "sha256": "494b80a5f1d65a8490a80d0229b5e207a3b819334f36a34ba3d513946d0882ad",
+      "bytes": 1564,
+      "anterior_sha256": null
+    },
+    {
+      "arquivo": "src/scene/marsColony/ControlRoom.tsx",
+      "sha256": "9c312449235ee442e3c3e91cd6eaf008c2b6ebb155b14be1e0739040362037db",
+      "bytes": 1210,
+      "anterior_sha256": null
+    },
+    {
+      "arquivo": "src/scene/marsColony/controlRoomColony.ts",
+      "sha256": "bb7e7b9b719c85d8498c78aa9f3c619959c08de50d268e5be5f59617647435f1",
+      "bytes": 1538,
+      "anterior_sha256": null
+    },
+    {
+      "arquivo": "src/scene/marsColony/controlRoomRuntime.ts",
+      "sha256": "7b5810172ceb1efd8b6257ddc50bc20088f5a728614f1ddaa54ba2eb8c4c3a64",
+      "bytes": 6571,
+      "anterior_sha256": null,
+      "source_sha256": "0551b5b02ad07485c9a623574c1e7878508fe377a7ee00c0898acac7fffec10f",
+      "adaptacao": "Marcador usa o ponto/raio EDEN existente; materiais/texturas privados impedem vazamento de mipmaps do atlas e preservam o cache."
+    }
+  ]
+}

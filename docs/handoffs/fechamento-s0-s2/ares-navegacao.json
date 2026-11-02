@@ -1,0 +1,1991 @@
+{
+  "before": "aa8765062fd84429ba8e0c34f60621580f50a4d8",
+  "merged": "fcdb34e23b0127fd749bce1939c46eeae57b9a41",
+  "approvedScope": "222bc5b",
+  "cell": 0.5,
+  "playerRadius": 0.36,
+  "depositsSolid": false,
+  "streets": [
+    {
+      "a": "Predio_000",
+      "b": "Predio_001",
+      "visualGap": 3.480000000000004,
+      "from": {
+        "x": -35,
+        "z": -39.735
+      },
+      "to": {
+        "x": -35,
+        "z": -33.375
+      }
+    },
+    {
+      "a": "Predio_010",
+      "b": "Predio_011",
+      "visualGap": 3.6899999999999977,
+      "from": {
+        "x": -35.105,
+        "z": -5.625
+      },
+      "to": {
+        "x": -35.105,
+        "z": 5.625
+      }
+    },
+    {
+      "a": "Predio_020",
+      "b": "Predio_021",
+      "visualGap": 3.480000000000004,
+      "from": {
+        "x": -35,
+        "z": 33.375
+      },
+      "to": {
+        "x": -35,
+        "z": 39.625
+      }
+    },
+    {
+      "a": "Predio_100",
+      "b": "Predio_101",
+      "visualGap": 3.48,
+      "from": {
+        "x": 0,
+        "z": -39.625
+      },
+      "to": {
+        "x": 0,
+        "z": -33.375
+      }
+    },
+    {
+      "a": "Predio_110",
+      "b": "Predio_111",
+      "visualGap": 5.4799999999999995,
+      "from": {
+        "x": 0,
+        "z": -9.625
+      },
+      "to": {
+        "x": 0,
+        "z": -0.375
+      }
+    },
+    {
+      "a": "Predio_120",
+      "b": "Predio_121",
+      "visualGap": 3.48,
+      "from": {
+        "x": 0,
+        "z": 33.375
+      },
+      "to": {
+        "x": 0,
+        "z": 39.625
+      }
+    },
+    {
+      "a": "Predio_200",
+      "b": "Predio_201",
+      "visualGap": 3.480000000000004,
+      "from": {
+        "x": 35,
+        "z": -39.735
+      },
+      "to": {
+        "x": 35,
+        "z": -33.375
+      }
+    },
+    {
+      "a": "Predio_210",
+      "b": "Predio_211",
+      "visualGap": 3.6899999999999977,
+      "from": {
+        "x": 34.895,
+        "z": -5.625
+      },
+      "to": {
+        "x": 34.895,
+        "z": 5.625
+      }
+    },
+    {
+      "a": "Predio_220",
+      "b": "Predio_221",
+      "visualGap": 3.480000000000004,
+      "from": {
+        "x": 35,
+        "z": 33.375
+      },
+      "to": {
+        "x": 35,
+        "z": 39.625
+      }
+    }
+  ],
+  "scenarios": [
+    {
+      "terrain": "anterior",
+      "radius": 0.42,
+      "obstacles": 39,
+      "nodes": 36674,
+      "arrivalFree": true,
+      "spawnPaths": 32,
+      "failedSpawns": [],
+      "rawSpawnPaths": 32,
+      "examplePathEnd": {
+        "x": 0,
+        "y": 0,
+        "z": 9.5
+      },
+      "perimeter": 272,
+      "validatedPerimeter": 272,
+      "failedPerimeter": [],
+      "alleyPaths": 9,
+      "blockedAlleys": [],
+      "blockedCorners": [],
+      "blockedPatrol": [],
+      "playerAccess": 10,
+      "playerTargets": [
+        {
+          "id": "LOOT_Aluminio_1",
+          "kind": "aluminio",
+          "x": -17.5,
+          "z": 18.5,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_2",
+          "kind": "aluminio",
+          "x": 17.5,
+          "z": -18.5,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_3",
+          "kind": "aluminio",
+          "x": -13,
+          "z": -16,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_4",
+          "kind": "aluminio",
+          "x": 13,
+          "z": 16,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_5",
+          "kind": "aluminio",
+          "x": 48,
+          "z": -51,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_6",
+          "kind": "aluminio",
+          "x": 48,
+          "z": 51,
+          "reachable": true
+        },
+        {
+          "x": -17.5,
+          "z": -17,
+          "reachable": true
+        },
+        {
+          "x": 17.5,
+          "z": 20,
+          "reachable": true
+        },
+        {
+          "id": "ammo-west",
+          "x": -10,
+          "z": 13.1,
+          "reachable": true
+        },
+        {
+          "id": "ammo-northeast",
+          "x": 36,
+          "z": -20.9,
+          "reachable": true
+        }
+      ],
+      "crateMarkers": [
+        {
+          "id": "ammo-west",
+          "x": -10,
+          "z": 13.1,
+          "reachable": true
+        },
+        {
+          "id": "ammo-northeast",
+          "x": 36,
+          "z": -20.9,
+          "reachable": true
+        }
+      ],
+      "crateApproaches": [
+        {
+          "id": "ammo-west",
+          "x": -10,
+          "z": 13.129999999999999,
+          "reachable": true
+        },
+        {
+          "id": "ammo-northeast",
+          "x": 36,
+          "z": -20.87,
+          "reachable": true
+        }
+      ]
+    },
+    {
+      "terrain": "anterior",
+      "radius": 0.8,
+      "obstacles": 39,
+      "nodes": 34104,
+      "arrivalFree": true,
+      "spawnPaths": 32,
+      "failedSpawns": [],
+      "rawSpawnPaths": 32,
+      "examplePathEnd": {
+        "x": 0,
+        "y": 0,
+        "z": 9.5
+      },
+      "perimeter": 272,
+      "validatedPerimeter": 272,
+      "failedPerimeter": [],
+      "alleyPaths": 9,
+      "blockedAlleys": [],
+      "blockedCorners": [],
+      "blockedPatrol": [],
+      "playerAccess": 10,
+      "playerTargets": [
+        {
+          "id": "LOOT_Aluminio_1",
+          "kind": "aluminio",
+          "x": -17.5,
+          "z": 18.5,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_2",
+          "kind": "aluminio",
+          "x": 17.5,
+          "z": -18.5,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_3",
+          "kind": "aluminio",
+          "x": -13,
+          "z": -16,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_4",
+          "kind": "aluminio",
+          "x": 13,
+          "z": 16,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_5",
+          "kind": "aluminio",
+          "x": 48,
+          "z": -51,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_6",
+          "kind": "aluminio",
+          "x": 48,
+          "z": 51,
+          "reachable": true
+        },
+        {
+          "x": -17.5,
+          "z": -17,
+          "reachable": true
+        },
+        {
+          "x": 17.5,
+          "z": 20,
+          "reachable": true
+        },
+        {
+          "id": "ammo-west",
+          "x": -10,
+          "z": 13.1,
+          "reachable": true
+        },
+        {
+          "id": "ammo-northeast",
+          "x": 36,
+          "z": -20.9,
+          "reachable": true
+        }
+      ],
+      "crateMarkers": [
+        {
+          "id": "ammo-west",
+          "x": -10,
+          "z": 13.1,
+          "reachable": true
+        },
+        {
+          "id": "ammo-northeast",
+          "x": 36,
+          "z": -20.9,
+          "reachable": true
+        }
+      ],
+      "crateApproaches": [
+        {
+          "id": "ammo-west",
+          "x": -10,
+          "z": 13.51,
+          "reachable": true
+        },
+        {
+          "id": "ammo-northeast",
+          "x": 36,
+          "z": -20.49,
+          "reachable": true
+        }
+      ]
+    },
+    {
+      "terrain": "ares",
+      "radius": 0.42,
+      "obstacles": 44,
+      "nodes": 36546,
+      "arrivalFree": true,
+      "spawnPaths": 32,
+      "failedSpawns": [],
+      "rawSpawnPaths": 32,
+      "examplePathEnd": {
+        "x": 0,
+        "y": 0,
+        "z": 9.5
+      },
+      "perimeter": 272,
+      "validatedPerimeter": 272,
+      "failedPerimeter": [],
+      "alleyPaths": 9,
+      "blockedAlleys": [],
+      "blockedCorners": [],
+      "blockedPatrol": [],
+      "playerAccess": 10,
+      "playerTargets": [
+        {
+          "id": "LOOT_Aluminio_1",
+          "kind": "aluminio",
+          "x": -17.5,
+          "z": 18.5,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_2",
+          "kind": "aluminio",
+          "x": 17.5,
+          "z": -18.5,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_3",
+          "kind": "aluminio",
+          "x": -13,
+          "z": -16,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_4",
+          "kind": "aluminio",
+          "x": 13,
+          "z": 16,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_5",
+          "kind": "aluminio",
+          "x": 48,
+          "z": -51,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_6",
+          "kind": "aluminio",
+          "x": 48,
+          "z": 51,
+          "reachable": true
+        },
+        {
+          "x": -17.5,
+          "z": -17,
+          "reachable": true
+        },
+        {
+          "x": 17.5,
+          "z": 20,
+          "reachable": true
+        },
+        {
+          "id": "ammo-west",
+          "x": -10,
+          "z": 13.1,
+          "reachable": true
+        },
+        {
+          "id": "ammo-northeast",
+          "x": 36,
+          "z": -20.9,
+          "reachable": true
+        }
+      ],
+      "crateMarkers": [
+        {
+          "id": "ammo-west",
+          "x": -10,
+          "z": 13.1,
+          "reachable": true
+        },
+        {
+          "id": "ammo-northeast",
+          "x": 36,
+          "z": -20.9,
+          "reachable": true
+        }
+      ],
+      "crateApproaches": [
+        {
+          "id": "ammo-west",
+          "x": -10,
+          "z": 13.129999999999999,
+          "reachable": true
+        },
+        {
+          "id": "ammo-northeast",
+          "x": 36,
+          "z": -20.87,
+          "reachable": true
+        }
+      ]
+    },
+    {
+      "terrain": "ares",
+      "radius": 0.8,
+      "obstacles": 44,
+      "nodes": 33929,
+      "arrivalFree": false,
+      "spawnPaths": 0,
+      "failedSpawns": [
+        {
+          "index": 0,
+          "id": "SPAWN_Robo_0_0",
+          "x": -14.125,
+          "z": -51,
+          "routeIndex": 0,
+          "waypoint": 1
+        },
+        {
+          "index": 1,
+          "id": "SPAWN_Robo_0_1",
+          "x": 2.7500000000000036,
+          "z": -51,
+          "routeIndex": 0,
+          "waypoint": 1
+        },
+        {
+          "index": 2,
+          "id": "SPAWN_Robo_0_2",
+          "x": 17.5,
+          "z": -48.875,
+          "routeIndex": 0,
+          "waypoint": 2
+        },
+        {
+          "index": 3,
+          "id": "SPAWN_Robo_0_3",
+          "x": 17.5,
+          "z": -32,
+          "routeIndex": 0,
+          "waypoint": 2
+        },
+        {
+          "index": 4,
+          "id": "SPAWN_Robo_0_4",
+          "x": 14.125,
+          "z": -18.5,
+          "routeIndex": 0,
+          "waypoint": 3
+        },
+        {
+          "index": 5,
+          "id": "SPAWN_Robo_0_5",
+          "x": -2.7500000000000036,
+          "z": -18.5,
+          "routeIndex": 0,
+          "waypoint": 3
+        },
+        {
+          "index": 6,
+          "id": "SPAWN_Robo_0_6",
+          "x": -17.5,
+          "z": -20.625,
+          "routeIndex": 0,
+          "waypoint": 0
+        },
+        {
+          "index": 7,
+          "id": "SPAWN_Robo_0_7",
+          "x": -17.5,
+          "z": -37.5,
+          "routeIndex": 0,
+          "waypoint": 0
+        },
+        {
+          "index": 8,
+          "id": "SPAWN_Robo_1_0",
+          "x": -17.5,
+          "z": 24.25,
+          "routeIndex": 1,
+          "waypoint": 1
+        },
+        {
+          "index": 9,
+          "id": "SPAWN_Robo_1_1",
+          "x": -17.5,
+          "z": 40.5,
+          "routeIndex": 1,
+          "waypoint": 1
+        },
+        {
+          "index": 10,
+          "id": "SPAWN_Robo_1_2",
+          "x": -11.75,
+          "z": 51,
+          "routeIndex": 1,
+          "waypoint": 2
+        },
+        {
+          "index": 11,
+          "id": "SPAWN_Robo_1_3",
+          "x": 4.5,
+          "z": 51,
+          "routeIndex": 1,
+          "waypoint": 2
+        },
+        {
+          "index": 12,
+          "id": "SPAWN_Robo_1_4",
+          "x": 17.5,
+          "z": 47.75,
+          "routeIndex": 1,
+          "waypoint": 3
+        },
+        {
+          "index": 13,
+          "id": "SPAWN_Robo_1_5",
+          "x": 17.5,
+          "z": 31.5,
+          "routeIndex": 1,
+          "waypoint": 3
+        },
+        {
+          "index": 14,
+          "id": "SPAWN_Robo_1_6",
+          "x": 11.75,
+          "z": 21,
+          "routeIndex": 1,
+          "waypoint": 0
+        },
+        {
+          "index": 15,
+          "id": "SPAWN_Robo_1_7",
+          "x": -4.5,
+          "z": 21,
+          "routeIndex": 1,
+          "waypoint": 0
+        },
+        {
+          "index": 16,
+          "id": "SPAWN_Robo_2_0",
+          "x": -44.625,
+          "z": -18.5,
+          "routeIndex": 2,
+          "waypoint": 1
+        },
+        {
+          "index": 17,
+          "id": "SPAWN_Robo_2_1",
+          "x": -27.75,
+          "z": -18.5,
+          "routeIndex": 2,
+          "waypoint": 1
+        },
+        {
+          "index": 18,
+          "id": "SPAWN_Robo_2_2",
+          "x": -17.5,
+          "z": -11.875,
+          "routeIndex": 2,
+          "waypoint": 2
+        },
+        {
+          "index": 19,
+          "id": "SPAWN_Robo_2_3",
+          "x": -17.5,
+          "z": 5,
+          "routeIndex": 2,
+          "waypoint": 2
+        },
+        {
+          "index": 20,
+          "id": "SPAWN_Robo_2_4",
+          "x": -20.875,
+          "z": 18.5,
+          "routeIndex": 2,
+          "waypoint": 3
+        },
+        {
+          "index": 21,
+          "id": "SPAWN_Robo_2_5",
+          "x": -37.75,
+          "z": 18.5,
+          "routeIndex": 2,
+          "waypoint": 3
+        },
+        {
+          "index": 22,
+          "id": "SPAWN_Robo_2_6",
+          "x": -48,
+          "z": 11.875,
+          "routeIndex": 2,
+          "waypoint": 0
+        },
+        {
+          "index": 23,
+          "id": "SPAWN_Robo_2_7",
+          "x": -48,
+          "z": -5,
+          "routeIndex": 2,
+          "waypoint": 0
+        },
+        {
+          "index": 24,
+          "id": "SPAWN_Robo_3_0",
+          "x": 20.875,
+          "z": -18.5,
+          "routeIndex": 3,
+          "waypoint": 1
+        },
+        {
+          "index": 25,
+          "id": "SPAWN_Robo_3_1",
+          "x": 37.75,
+          "z": -18.5,
+          "routeIndex": 3,
+          "waypoint": 1
+        },
+        {
+          "index": 26,
+          "id": "SPAWN_Robo_3_2",
+          "x": 48,
+          "z": -11.875,
+          "routeIndex": 3,
+          "waypoint": 2
+        },
+        {
+          "index": 27,
+          "id": "SPAWN_Robo_3_3",
+          "x": 48,
+          "z": 5,
+          "routeIndex": 3,
+          "waypoint": 2
+        },
+        {
+          "index": 28,
+          "id": "SPAWN_Robo_3_4",
+          "x": 44.625,
+          "z": 18.5,
+          "routeIndex": 3,
+          "waypoint": 3
+        },
+        {
+          "index": 29,
+          "id": "SPAWN_Robo_3_5",
+          "x": 27.75,
+          "z": 18.5,
+          "routeIndex": 3,
+          "waypoint": 3
+        },
+        {
+          "index": 30,
+          "id": "SPAWN_Robo_3_6",
+          "x": 17.5,
+          "z": 11.875,
+          "routeIndex": 3,
+          "waypoint": 0
+        },
+        {
+          "index": 31,
+          "id": "SPAWN_Robo_3_7",
+          "x": 17.5,
+          "z": -5,
+          "routeIndex": 3,
+          "waypoint": 0
+        }
+      ],
+      "rawSpawnPaths": 32,
+      "examplePathEnd": {
+        "x": 0,
+        "z": 9
+      },
+      "perimeter": 272,
+      "validatedPerimeter": 0,
+      "failedPerimeter": [
+        {
+          "x": -49.5,
+          "z": -52.5
+        },
+        {
+          "x": -48,
+          "z": -52.5
+        },
+        {
+          "x": -46.5,
+          "z": -52.5
+        },
+        {
+          "x": -45,
+          "z": -52.5
+        },
+        {
+          "x": -43.5,
+          "z": -52.5
+        },
+        {
+          "x": -42,
+          "z": -52.5
+        },
+        {
+          "x": -40.5,
+          "z": -52.5
+        },
+        {
+          "x": -39,
+          "z": -52.5
+        },
+        {
+          "x": -37.5,
+          "z": -52.5
+        },
+        {
+          "x": -36,
+          "z": -52.5
+        },
+        {
+          "x": -34.5,
+          "z": -52.5
+        },
+        {
+          "x": -33,
+          "z": -52.5
+        },
+        {
+          "x": -31.5,
+          "z": -52.5
+        },
+        {
+          "x": -30,
+          "z": -52.5
+        },
+        {
+          "x": -28.5,
+          "z": -52.5
+        },
+        {
+          "x": -27,
+          "z": -52.5
+        },
+        {
+          "x": -25.5,
+          "z": -52.5
+        },
+        {
+          "x": -24,
+          "z": -52.5
+        },
+        {
+          "x": -22.5,
+          "z": -52.5
+        },
+        {
+          "x": -21,
+          "z": -52.5
+        },
+        {
+          "x": -19.5,
+          "z": -52.5
+        },
+        {
+          "x": -18,
+          "z": -52.5
+        },
+        {
+          "x": -16.5,
+          "z": -52.5
+        },
+        {
+          "x": -15,
+          "z": -52.5
+        },
+        {
+          "x": -13.5,
+          "z": -52.5
+        },
+        {
+          "x": -12,
+          "z": -52.5
+        },
+        {
+          "x": -10.5,
+          "z": -52.5
+        },
+        {
+          "x": -9,
+          "z": -52.5
+        },
+        {
+          "x": -7.5,
+          "z": -52.5
+        },
+        {
+          "x": -6,
+          "z": -52.5
+        },
+        {
+          "x": -4.5,
+          "z": -52.5
+        },
+        {
+          "x": -3,
+          "z": -52.5
+        },
+        {
+          "x": -1.5,
+          "z": -52.5
+        },
+        {
+          "x": 0,
+          "z": -52.5
+        },
+        {
+          "x": 1.5,
+          "z": -52.5
+        },
+        {
+          "x": 3,
+          "z": -52.5
+        },
+        {
+          "x": 4.5,
+          "z": -52.5
+        },
+        {
+          "x": 6,
+          "z": -52.5
+        },
+        {
+          "x": 7.5,
+          "z": -52.5
+        },
+        {
+          "x": 9,
+          "z": -52.5
+        },
+        {
+          "x": 10.5,
+          "z": -52.5
+        },
+        {
+          "x": 12,
+          "z": -52.5
+        },
+        {
+          "x": 13.5,
+          "z": -52.5
+        },
+        {
+          "x": 15,
+          "z": -52.5
+        },
+        {
+          "x": 16.5,
+          "z": -52.5
+        },
+        {
+          "x": 18,
+          "z": -52.5
+        },
+        {
+          "x": 19.5,
+          "z": -52.5
+        },
+        {
+          "x": 21,
+          "z": -52.5
+        },
+        {
+          "x": 22.5,
+          "z": -52.5
+        },
+        {
+          "x": 24,
+          "z": -52.5
+        },
+        {
+          "x": 25.5,
+          "z": -52.5
+        },
+        {
+          "x": 27,
+          "z": -52.5
+        },
+        {
+          "x": 28.5,
+          "z": -52.5
+        },
+        {
+          "x": 30,
+          "z": -52.5
+        },
+        {
+          "x": 31.5,
+          "z": -52.5
+        },
+        {
+          "x": 33,
+          "z": -52.5
+        },
+        {
+          "x": 34.5,
+          "z": -52.5
+        },
+        {
+          "x": 36,
+          "z": -52.5
+        },
+        {
+          "x": 37.5,
+          "z": -52.5
+        },
+        {
+          "x": 39,
+          "z": -52.5
+        },
+        {
+          "x": 40.5,
+          "z": -52.5
+        },
+        {
+          "x": 42,
+          "z": -52.5
+        },
+        {
+          "x": 43.5,
+          "z": -52.5
+        },
+        {
+          "x": 45,
+          "z": -52.5
+        },
+        {
+          "x": 46.5,
+          "z": -52.5
+        },
+        {
+          "x": 48,
+          "z": -52.5
+        },
+        {
+          "x": 49.5,
+          "z": -52.5
+        },
+        {
+          "x": 49.5,
+          "z": -51
+        },
+        {
+          "x": 49.5,
+          "z": -49.5
+        },
+        {
+          "x": 49.5,
+          "z": -48
+        },
+        {
+          "x": 49.5,
+          "z": -46.5
+        },
+        {
+          "x": 49.5,
+          "z": -45
+        },
+        {
+          "x": 49.5,
+          "z": -43.5
+        },
+        {
+          "x": 49.5,
+          "z": -42
+        },
+        {
+          "x": 49.5,
+          "z": -40.5
+        },
+        {
+          "x": 49.5,
+          "z": -39
+        },
+        {
+          "x": 49.5,
+          "z": -37.5
+        },
+        {
+          "x": 49.5,
+          "z": -36
+        },
+        {
+          "x": 49.5,
+          "z": -34.5
+        },
+        {
+          "x": 49.5,
+          "z": -33
+        },
+        {
+          "x": 49.5,
+          "z": -31.5
+        },
+        {
+          "x": 49.5,
+          "z": -30
+        },
+        {
+          "x": 49.5,
+          "z": -28.5
+        },
+        {
+          "x": 49.5,
+          "z": -27
+        },
+        {
+          "x": 49.5,
+          "z": -25.5
+        },
+        {
+          "x": 49.5,
+          "z": -24
+        },
+        {
+          "x": 49.5,
+          "z": -22.5
+        },
+        {
+          "x": 49.5,
+          "z": -21
+        },
+        {
+          "x": 49.5,
+          "z": -19.5
+        },
+        {
+          "x": 49.5,
+          "z": -18
+        },
+        {
+          "x": 49.5,
+          "z": -16.5
+        },
+        {
+          "x": 49.5,
+          "z": -15
+        },
+        {
+          "x": 49.5,
+          "z": -13.5
+        },
+        {
+          "x": 49.5,
+          "z": -12
+        },
+        {
+          "x": 49.5,
+          "z": -10.5
+        },
+        {
+          "x": 49.5,
+          "z": -9
+        },
+        {
+          "x": 49.5,
+          "z": -7.5
+        },
+        {
+          "x": 49.5,
+          "z": -6
+        },
+        {
+          "x": 49.5,
+          "z": -4.5
+        },
+        {
+          "x": 49.5,
+          "z": -3
+        },
+        {
+          "x": 49.5,
+          "z": -1.5
+        },
+        {
+          "x": 49.5,
+          "z": 0
+        },
+        {
+          "x": 49.5,
+          "z": 1.5
+        },
+        {
+          "x": 49.5,
+          "z": 3
+        },
+        {
+          "x": 49.5,
+          "z": 4.5
+        },
+        {
+          "x": 49.5,
+          "z": 6
+        },
+        {
+          "x": 49.5,
+          "z": 7.5
+        },
+        {
+          "x": 49.5,
+          "z": 9
+        },
+        {
+          "x": 49.5,
+          "z": 10.5
+        },
+        {
+          "x": 49.5,
+          "z": 12
+        },
+        {
+          "x": 49.5,
+          "z": 13.5
+        },
+        {
+          "x": 49.5,
+          "z": 15
+        },
+        {
+          "x": 49.5,
+          "z": 16.5
+        },
+        {
+          "x": 49.5,
+          "z": 18
+        },
+        {
+          "x": 49.5,
+          "z": 19.5
+        },
+        {
+          "x": 49.5,
+          "z": 21
+        },
+        {
+          "x": 49.5,
+          "z": 22.5
+        },
+        {
+          "x": 49.5,
+          "z": 24
+        },
+        {
+          "x": 49.5,
+          "z": 25.5
+        },
+        {
+          "x": 49.5,
+          "z": 27
+        },
+        {
+          "x": 49.5,
+          "z": 28.5
+        },
+        {
+          "x": 49.5,
+          "z": 30
+        },
+        {
+          "x": 49.5,
+          "z": 31.5
+        },
+        {
+          "x": 49.5,
+          "z": 33
+        },
+        {
+          "x": 49.5,
+          "z": 34.5
+        },
+        {
+          "x": 49.5,
+          "z": 36
+        },
+        {
+          "x": 49.5,
+          "z": 37.5
+        },
+        {
+          "x": 49.5,
+          "z": 39
+        },
+        {
+          "x": 49.5,
+          "z": 40.5
+        },
+        {
+          "x": 49.5,
+          "z": 42
+        },
+        {
+          "x": 49.5,
+          "z": 43.5
+        },
+        {
+          "x": 49.5,
+          "z": 45
+        },
+        {
+          "x": 49.5,
+          "z": 46.5
+        },
+        {
+          "x": 49.5,
+          "z": 48
+        },
+        {
+          "x": 49.5,
+          "z": 49.5
+        },
+        {
+          "x": 49.5,
+          "z": 51
+        },
+        {
+          "x": 49.5,
+          "z": 52.5
+        },
+        {
+          "x": 48,
+          "z": 52.5
+        },
+        {
+          "x": 46.5,
+          "z": 52.5
+        },
+        {
+          "x": 45,
+          "z": 52.5
+        },
+        {
+          "x": 43.5,
+          "z": 52.5
+        },
+        {
+          "x": 42,
+          "z": 52.5
+        },
+        {
+          "x": 40.5,
+          "z": 52.5
+        },
+        {
+          "x": 39,
+          "z": 52.5
+        },
+        {
+          "x": 37.5,
+          "z": 52.5
+        },
+        {
+          "x": 36,
+          "z": 52.5
+        },
+        {
+          "x": 34.5,
+          "z": 52.5
+        },
+        {
+          "x": 33,
+          "z": 52.5
+        },
+        {
+          "x": 31.5,
+          "z": 52.5
+        },
+        {
+          "x": 30,
+          "z": 52.5
+        },
+        {
+          "x": 28.5,
+          "z": 52.5
+        },
+        {
+          "x": 27,
+          "z": 52.5
+        },
+        {
+          "x": 25.5,
+          "z": 52.5
+        },
+        {
+          "x": 24,
+          "z": 52.5
+        },
+        {
+          "x": 22.5,
+          "z": 52.5
+        },
+        {
+          "x": 21,
+          "z": 52.5
+        },
+        {
+          "x": 19.5,
+          "z": 52.5
+        },
+        {
+          "x": 18,
+          "z": 52.5
+        },
+        {
+          "x": 16.5,
+          "z": 52.5
+        },
+        {
+          "x": 15,
+          "z": 52.5
+        },
+        {
+          "x": 13.5,
+          "z": 52.5
+        },
+        {
+          "x": 12,
+          "z": 52.5
+        },
+        {
+          "x": 10.5,
+          "z": 52.5
+        },
+        {
+          "x": 9,
+          "z": 52.5
+        },
+        {
+          "x": 7.5,
+          "z": 52.5
+        },
+        {
+          "x": 6,
+          "z": 52.5
+        },
+        {
+          "x": 4.5,
+          "z": 52.5
+        },
+        {
+          "x": 3,
+          "z": 52.5
+        },
+        {
+          "x": 1.5,
+          "z": 52.5
+        },
+        {
+          "x": 0,
+          "z": 52.5
+        },
+        {
+          "x": -1.5,
+          "z": 52.5
+        },
+        {
+          "x": -3,
+          "z": 52.5
+        },
+        {
+          "x": -4.5,
+          "z": 52.5
+        },
+        {
+          "x": -6,
+          "z": 52.5
+        },
+        {
+          "x": -7.5,
+          "z": 52.5
+        },
+        {
+          "x": -9,
+          "z": 52.5
+        },
+        {
+          "x": -10.5,
+          "z": 52.5
+        },
+        {
+          "x": -12,
+          "z": 52.5
+        },
+        {
+          "x": -13.5,
+          "z": 52.5
+        },
+        {
+          "x": -15,
+          "z": 52.5
+        },
+        {
+          "x": -16.5,
+          "z": 52.5
+        },
+        {
+          "x": -18,
+          "z": 52.5
+        },
+        {
+          "x": -19.5,
+          "z": 52.5
+        },
+        {
+          "x": -21,
+          "z": 52.5
+        },
+        {
+          "x": -22.5,
+          "z": 52.5
+        },
+        {
+          "x": -24,
+          "z": 52.5
+        },
+        {
+          "x": -25.5,
+          "z": 52.5
+        },
+        {
+          "x": -27,
+          "z": 52.5
+        },
+        {
+          "x": -28.5,
+          "z": 52.5
+        },
+        {
+          "x": -30,
+          "z": 52.5
+        },
+        {
+          "x": -31.5,
+          "z": 52.5
+        },
+        {
+          "x": -33,
+          "z": 52.5
+        },
+        {
+          "x": -34.5,
+          "z": 52.5
+        },
+        {
+          "x": -36,
+          "z": 52.5
+        },
+        {
+          "x": -37.5,
+          "z": 52.5
+        },
+        {
+          "x": -39,
+          "z": 52.5
+        },
+        {
+          "x": -40.5,
+          "z": 52.5
+        },
+        {
+          "x": -42,
+          "z": 52.5
+        },
+        {
+          "x": -43.5,
+          "z": 52.5
+        },
+        {
+          "x": -45,
+          "z": 52.5
+        },
+        {
+          "x": -46.5,
+          "z": 52.5
+        },
+        {
+          "x": -48,
+          "z": 52.5
+        },
+        {
+          "x": -49.5,
+          "z": 52.5
+        },
+        {
+          "x": -49.5,
+          "z": 51
+        },
+        {
+          "x": -49.5,
+          "z": 49.5
+        },
+        {
+          "x": -49.5,
+          "z": 48
+        },
+        {
+          "x": -49.5,
+          "z": 46.5
+        },
+        {
+          "x": -49.5,
+          "z": 45
+        },
+        {
+          "x": -49.5,
+          "z": 43.5
+        },
+        {
+          "x": -49.5,
+          "z": 42
+        },
+        {
+          "x": -49.5,
+          "z": 40.5
+        },
+        {
+          "x": -49.5,
+          "z": 39
+        },
+        {
+          "x": -49.5,
+          "z": 37.5
+        },
+        {
+          "x": -49.5,
+          "z": 36
+        },
+        {
+          "x": -49.5,
+          "z": 34.5
+        },
+        {
+          "x": -49.5,
+          "z": 33
+        },
+        {
+          "x": -49.5,
+          "z": 31.5
+        },
+        {
+          "x": -49.5,
+          "z": 30
+        },
+        {
+          "x": -49.5,
+          "z": 28.5
+        },
+        {
+          "x": -49.5,
+          "z": 27
+        },
+        {
+          "x": -49.5,
+          "z": 25.5
+        },
+        {
+          "x": -49.5,
+          "z": 24
+        },
+        {
+          "x": -49.5,
+          "z": 22.5
+        },
+        {
+          "x": -49.5,
+          "z": 21
+        },
+        {
+          "x": -49.5,
+          "z": 19.5
+        },
+        {
+          "x": -49.5,
+          "z": 18
+        },
+        {
+          "x": -49.5,
+          "z": 16.5
+        },
+        {
+          "x": -49.5,
+          "z": 15
+        },
+        {
+          "x": -49.5,
+          "z": 13.5
+        },
+        {
+          "x": -49.5,
+          "z": 12
+        },
+        {
+          "x": -49.5,
+          "z": 10.5
+        },
+        {
+          "x": -49.5,
+          "z": 9
+        },
+        {
+          "x": -49.5,
+          "z": 7.5
+        },
+        {
+          "x": -49.5,
+          "z": 6
+        },
+        {
+          "x": -49.5,
+          "z": 4.5
+        },
+        {
+          "x": -49.5,
+          "z": 3
+        },
+        {
+          "x": -49.5,
+          "z": 1.5
+        },
+        {
+          "x": -49.5,
+          "z": 0
+        },
+        {
+          "x": -49.5,
+          "z": -1.5
+        },
+        {
+          "x": -49.5,
+          "z": -3
+        },
+        {
+          "x": -49.5,
+          "z": -4.5
+        },
+        {
+          "x": -49.5,
+          "z": -6
+        },
+        {
+          "x": -49.5,
+          "z": -7.5
+        },
+        {
+          "x": -49.5,
+          "z": -9
+        },
+        {
+          "x": -49.5,
+          "z": -10.5
+        },
+        {
+          "x": -49.5,
+          "z": -12
+        },
+        {
+          "x": -49.5,
+          "z": -13.5
+        },
+        {
+          "x": -49.5,
+          "z": -15
+        },
+        {
+          "x": -49.5,
+          "z": -16.5
+        },
+        {
+          "x": -49.5,
+          "z": -18
+        },
+        {
+          "x": -49.5,
+          "z": -19.5
+        },
+        {
+          "x": -49.5,
+          "z": -21
+        },
+        {
+          "x": -49.5,
+          "z": -22.5
+        },
+        {
+          "x": -49.5,
+          "z": -24
+        },
+        {
+          "x": -49.5,
+          "z": -25.5
+        },
+        {
+          "x": -49.5,
+          "z": -27
+        },
+        {
+          "x": -49.5,
+          "z": -28.5
+        },
+        {
+          "x": -49.5,
+          "z": -30
+        },
+        {
+          "x": -49.5,
+          "z": -31.5
+        },
+        {
+          "x": -49.5,
+          "z": -33
+        },
+        {
+          "x": -49.5,
+          "z": -34.5
+        },
+        {
+          "x": -49.5,
+          "z": -36
+        },
+        {
+          "x": -49.5,
+          "z": -37.5
+        },
+        {
+          "x": -49.5,
+          "z": -39
+        },
+        {
+          "x": -49.5,
+          "z": -40.5
+        },
+        {
+          "x": -49.5,
+          "z": -42
+        },
+        {
+          "x": -49.5,
+          "z": -43.5
+        },
+        {
+          "x": -49.5,
+          "z": -45
+        },
+        {
+          "x": -49.5,
+          "z": -46.5
+        },
+        {
+          "x": -49.5,
+          "z": -48
+        },
+        {
+          "x": -49.5,
+          "z": -49.5
+        },
+        {
+          "x": -49.5,
+          "z": -51
+        }
+      ],
+      "alleyPaths": 9,
+      "blockedAlleys": [],
+      "blockedCorners": [],
+      "blockedPatrol": [],
+      "playerAccess": 10,
+      "playerTargets": [
+        {
+          "id": "LOOT_Aluminio_1",
+          "kind": "aluminio",
+          "x": -17.5,
+          "z": 18.5,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_2",
+          "kind": "aluminio",
+          "x": 17.5,
+          "z": -18.5,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_3",
+          "kind": "aluminio",
+          "x": -13,
+          "z": -16,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_4",
+          "kind": "aluminio",
+          "x": 13,
+          "z": 16,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_5",
+          "kind": "aluminio",
+          "x": 48,
+          "z": -51,
+          "reachable": true
+        },
+        {
+          "id": "LOOT_Aluminio_6",
+          "kind": "aluminio",
+          "x": 48,
+          "z": 51,
+          "reachable": true
+        },
+        {
+          "x": -17.5,
+          "z": -17,
+          "reachable": true
+        },
+        {
+          "x": 17.5,
+          "z": 20,
+          "reachable": true
+        },
+        {
+          "id": "ammo-west",
+          "x": -10,
+          "z": 13.1,
+          "reachable": true
+        },
+        {
+          "id": "ammo-northeast",
+          "x": 36,
+          "z": -20.9,
+          "reachable": true
+        }
+      ],
+      "crateMarkers": [
+        {
+          "id": "ammo-west",
+          "x": -10,
+          "z": 13.1,
+          "reachable": true
+        },
+        {
+          "id": "ammo-northeast",
+          "x": 36,
+          "z": -20.9,
+          "reachable": true
+        }
+      ],
+      "crateApproaches": [
+        {
+          "id": "ammo-west",
+          "x": -10,
+          "z": 13.51,
+          "reachable": false
+        },
+        {
+          "id": "ammo-northeast",
+          "x": 36,
+          "z": -20.49,
+          "reachable": false
+        }
+      ]
+    }
+  ],
+  "differences": [
+    {
+      "radius": 0.42,
+      "nodesDelta": -128,
+      "obstaclesDelta": 5,
+      "spawnPathsDelta": 0,
+      "perimeterDelta": 0,
+      "validatedPerimeterDelta": 0,
+      "alleyPathsDelta": 0,
+      "playerAccessDelta": 0
+    },
+    {
+      "radius": 0.8,
+      "nodesDelta": -175,
+      "obstaclesDelta": 5,
+      "spawnPathsDelta": -32,
+      "perimeterDelta": 0,
+      "validatedPerimeterDelta": -272,
+      "alleyPathsDelta": 0,
+      "playerAccessDelta": 0
+    }
+  ],
+  "arrival": {
+    "x": 0,
+    "y": 0,
+    "z": 9.5,
+    "blockers": [
+      {
+        "radius": 0.42,
+        "colliders": []
+      },
+      {
+        "radius": 0.8,
+        "colliders": [
+          {
+            "id": "escada",
+            "minX": -0.6599999999999999,
+            "maxX": 0.6599999999999999,
+            "minZ": 10.02,
+            "maxZ": 12.219999999999999
+          }
+        ]
+      }
+    ]
+  },
+  "continuity": {
+    "status": "blocked",
+    "reason": "Com raio 0,80 m a chegada exata não cabe junto à escada. Path não vazio pode terminar em nó próximo; não comprova acesso ao destino."
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "pose_de_encaixe": {
+    "clip": "Firing_Rifle.fbx",
+    "quadro": 1
+  },
+  "escala_explorador": 1.6417,
+  "osso": "mixamorig:RightHand",
+  "deslocamento_no_osso": {
+    "posicao": [
+      0.0,
+      0.07612,
+      -0.00278
+    ],
+    "quaternion_wxyz": [
+      0.14203,
+      -0.6738,
+      -0.04145,
+      -0.72395
+    ],
+    "escala": [
+      0.60913,
+      0.60913,
+      0.60913
+    ]
+  },
+  "distancia_palmas_m": 0.379,
+  "distancia_grips_m": 0.406,
+  "conferencia": [
+    {
+      "clip": "Firing_Rifle.fbx",
+      "quadro": 1,
+      "folga_mao_esquerda_m": 0.028,
+      "muzzle_lado_altura_frente_m": [
+        -0.001,
+        1.066,
+        0.718
+      ]
+    },
+    {
+      "clip": "Firing_Rifle.fbx",
+      "quadro": 18,
+      "folga_mao_esquerda_m": 0.026,
+      "muzzle_lado_altura_frente_m": [
+        -0.006,
+        1.072,
+        0.7
+      ]
+    },
+    {
+      "clip": "Idle.fbx",
+      "quadro": 60,
+      "folga_mao_esquerda_m": 1.062,
+      "muzzle_lado_altura_frente_m": [
+        0.676,
+        0.02,
+        0.012
+      ]
+    },
+    {
+      "clip": "Rifle_Start_Run.fbx",
+      "quadro": 40,
+      "folga_mao_esquerda_m": 0.101,
+      "muzzle_lado_altura_frente_m": [
+        0.04,
+        0.986,
+        0.909
+      ]
+    },
+    {
+      "clip": "Standard_Run.fbx",
+      "quadro": 10,
+      "folga_mao_esquerda_m": 0.699,
+      "muzzle_lado_altura_frente_m": [
+        0.139,
+        -0.17,
+        0.24
+      ]
+    },
+    {
+      "clip": "Sprint Backward.fbx",
+      "quadro": 8,
+      "folga_mao_esquerda_m": 0.109,
+      "muzzle_lado_altura_frente_m": [
+        -0.471,
+        0.729,
+        0.258
+      ]
+    },
+    {
+      "clip": "Reloading.fbx",
+      "quadro": 50,
+      "folga_mao_esquerda_m": 0.811,
+      "muzzle_lado_altura_frente_m": [
+        0.613,
+        1.152,
+        0.561
+      ]
+    }
+  ]
+}

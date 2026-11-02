@@ -7,7 +7,7 @@ const {COMBAT,HIT_LAYER,RIFLE_MASK}=loadSource('src/combat/config.ts');
 const {createWorld}=loadSource('src/game/shanghaiWorld.ts');
 const bounds={minX:-20,maxX:20,minZ:-20,maxZ:20};
 const terrain={bounds,walkableAreas:[bounds],obstacles:[]};
-const input={player:{x:0,z:9.5},aim:{x:0,z:-3},firing:false,reload:false};
+const input={player:{x:0,z:9.5},aim:{x:0,z:-3},facingAngle:Math.PI,firing:false,reload:false};
 function ticks(sim,seconds,custom=input){for(let i=0;i<Math.ceil(seconds*60);i++)sim.step(1/60,custom);}
 
 test('hitscan selects nearest living robot and walls stop bullets; player excluded',()=>{
@@ -63,14 +63,14 @@ test('1, 3 and 5 robot encounters can be cleared with the finite starting loadou
   const sim=new CombatSimulation(createWorld(),count);
   for(let frame=0;frame<60*40&&!sim.cleared&&!sim.dead;frame++){
    const target=sim.robots.filter(r=>r.hp>0).sort((a,b)=>Math.hypot(a.x-input.player.x,a.z-input.player.z)-Math.hypot(b.x-input.player.x,b.z-input.player.z))[0];
-   sim.step(1/60,{...input,aim:target,firing:traceShot(input.player,target,sim.terrain,sim.robots).robot!==null,reload:sim.ammo===0});
+   sim.step(1/60,{...input,aim:target,facingAngle:Math.atan2(target.x-input.player.x,target.z-input.player.z),firing:traceShot(input.player,target,sim.terrain,sim.robots).robot!==null,reload:sim.ammo===0});
   }
   assert.ok(sim.cleared,`encounter ${count}: must be beatable`);assert.equal(sim.kills,count);assert.ok(sim.hp>0);assert.ok(sim.ammo+sim.reserve>=120-count*5,'loadout allows misses');
  }
 });
 test('robots still pursue a player hugging a wall with smaller player clearance',()=>{
  const world=createWorld(),sim=new CombatSimulation(world,1),player={x:-7.15,z:1};
- // Player radius .32 fits here, robot radius .42 does not; route to adjacent free cell.
+ // Jogador 0,32 cabe; comum 0,67 precisa terminar em célula livre adjacente.
  assert.ok(traversable(player,world,.32));assert.equal(traversable(player,world,COMBAT.robot.radius),false);
  Object.assign(sim.robots[0],{x:-5,z:-5,alerted:true});
  ticks(sim,15,{...input,player});assert.ok(sim.hp<100,'wall hugging must not disable pursuit');
@@ -106,7 +106,7 @@ test('abate gera um conjunto de metais na posição da morte e coleta uma única
  const sim=new CombatSimulation(terrain,1),r=sim.robots[0];
  Object.assign(r,{x:0,z:0,hp:25});
  sim.step(1/60,{...input,aim:{x:0,z:0},firing:true});
- assert.equal(sim.kills,1);assert.deepEqual(sim.drops[0],{x:0,z:0,active:true});
+ assert.equal(sim.kills,1);assert.deepEqual(sim.drops[0],{x:0,z:0,active:true,kind:'metals',spawned:true,surfaceIron:0,surfaceCopper:0,surfaceTitanium:0,surfaceOrganic:0});
  assert.equal(sim.iron,0);assert.equal(sim.copper,0);
  ticks(sim,1,{...input,aim:{x:0,z:0},firing:true});assert.equal(sim.kills,1);
  sim.step(1/60,{...input,player:{x:0,z:0}});
@@ -148,9 +148,9 @@ test('alerta visual inicia na detecção, congela na pausa e expira sem perder p
 test('primeiro tiro recebido identifica o jogador, mesmo pelas costas; tiro errado não',()=>{
  const sim=new CombatSimulation(terrain,1),r=sim.robots[0];Object.assign(r,{x:0,z:0,angle:Math.PI});
  sim.step(1/60,input);assert.equal(r.alerted,false,'jogador às costas e longe');
- sim.step(1/60,{...input,aim:{x:6,z:0},firing:true});assert.equal(sim.shots[0].hit,false);assert.equal(r.alerted,false,'erro não alerta');
+ sim.step(1/60,{...input,aim:{x:6,z:0},facingAngle:Math.atan2(6,-9.5),firing:true});assert.equal(sim.shots[0].hit,false);assert.equal(r.alerted,false,'erro não alerta');
  ticks(sim,.3);assert.equal(r.alerted,false);
- sim.step(1/60,{...input,aim:{x:r.x,z:r.z},firing:true});
+ sim.step(1/60,{...input,aim:{x:r.x,z:r.z},facingAngle:Math.atan2(r.x-input.player.x,r.z-input.player.z),firing:true});
  assert.equal(r.hp,COMBAT.robot.hp-COMBAT.rifle.damage);assert.equal(r.alerted,true);assert.equal(r.alertLeft,COMBAT.alertDuration);
  const before=Math.hypot(r.x-input.player.x,r.z-input.player.z);ticks(sim,1);
  assert.ok(Math.hypot(r.x-input.player.x,r.z-input.player.z)<before-1,'parte para cima do jogador');

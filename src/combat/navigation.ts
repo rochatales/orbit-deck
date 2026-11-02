@@ -1,11 +1,13 @@
-import type { RectBounds } from '../utils/math';
+import type { RectBounds, ShotVolume } from '../utils/math';
 export interface Position {
     x: number;
     z: number;
 }
 export interface Terrain {
+    /** Altura visual de apoio, consultada só ao nascer um drop. Movimento/visão continuam 2D. */
+    surfaceHeight?: (x: number, z: number) => number;
     bounds: RectBounds;
-    obstacles: RectBounds[];
+    obstacles: ShotVolume[];
     walkableAreas: RectBounds[];
 }
 export function segmentBox(a: Position, b: Position, box: RectBounds, radius = 0): number | null {

@@ -1,4 +1,4 @@
-# Revisão de gameplay incorporada ao Horda Survivor
+# Revisão de gameplay incorporada ao EXODEN
 
 Data: 29/09/2026. Status: decisões de planejamento incorporadas; novos itens ainda não implementados.
 

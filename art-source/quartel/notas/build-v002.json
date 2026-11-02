@@ -1,0 +1,937 @@
+{
+  "variant": "v002",
+  "sourceSHA": "7c6b2cab394b279eee1ccd392f975e94d9802960",
+  "scale": [
+    1,
+    1,
+    1
+  ],
+  "rotationApplied": false,
+  "Ground": false,
+  "materialsBeforeAtlas": 21,
+  "trianglesBeforeAtlas": 8278,
+  "materials": 1,
+  "triangles": 8278,
+  "colliders": [
+    {
+      "name": "COL_S_0",
+      "center": [
+        -2.674999952316284,
+        -4.875,
+        1.774999976158142
+      ],
+      "size": [
+        4.05,
+        0.25,
+        2.85
+      ],
+      "rotationZ": 0,
+      "kind": "wall",
+      "wall": "Wall_S",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "COL_S_1",
+      "center": [
+        2.674999952316284,
+        -4.875,
+        1.774999976158142
+      ],
+      "size": [
+        4.05,
+        0.25,
+        2.85
+      ],
+      "rotationZ": 0,
+      "kind": "wall",
+      "wall": "Wall_S",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "COL_S_Lintel",
+      "center": [
+        0.0,
+        -4.875,
+        2.9000000953674316
+      ],
+      "size": [
+        1.3,
+        0.25,
+        0.6000000000000001
+      ],
+      "rotationZ": 0,
+      "kind": "wall",
+      "wall": "Wall_S",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "COL_E_0",
+      "center": [
+        5.875,
+        -5.463923535842241e-09,
+        1.774999976158142
+      ],
+      "size": [
+        7.4,
+        0.25,
+        2.85
+      ],
+      "rotationZ": 90,
+      "kind": "wall",
+      "wall": "Wall_E",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        90.00000250447816
+      ]
+    },
+    {
+      "name": "COL_N_0",
+      "center": [
+        1.0927847071684482e-08,
+        4.875,
+        1.774999976158142
+      ],
+      "size": [
+        9.4,
+        0.25,
+        2.85
+      ],
+      "rotationZ": 180,
+      "kind": "wall",
+      "wall": "Wall_N",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        180.00000500895632
+      ]
+    },
+    {
+      "name": "COL_W_0",
+      "center": [
+        -5.875,
+        2.174999952316284,
+        1.774999976158142
+      ],
+      "size": [
+        3.0500000000000003,
+        0.25,
+        2.85
+      ],
+      "rotationZ": 270,
+      "kind": "wall",
+      "wall": "Wall_W",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        270.00000068324533
+      ]
+    },
+    {
+      "name": "COL_W_1",
+      "center": [
+        -5.875,
+        -2.174999952316284,
+        1.774999976158142
+      ],
+      "size": [
+        3.0500000000000003,
+        0.25,
+        2.85
+      ],
+      "rotationZ": 270,
+      "kind": "wall",
+      "wall": "Wall_W",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        270.00000068324533
+      ]
+    },
+    {
+      "name": "COL_W_Lintel",
+      "center": [
+        -5.875,
+        1.4906100798128818e-09,
+        2.9000000953674316
+      ],
+      "size": [
+        1.3,
+        0.25,
+        0.6000000000000001
+      ],
+      "rotationZ": 270,
+      "kind": "wall",
+      "wall": "Wall_W",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        270.00000068324533
+      ]
+    },
+    {
+      "name": "COL_Corner_0_0",
+      "center": [
+        4.883810496422272,
+        -4.860533800199287,
+        1.7750000000000001
+      ],
+      "size": [
+        0.262,
+        0.4187296091046003,
+        2.85
+      ],
+      "rotationZ": -81.0,
+      "kind": "wall",
+      "wall": "Wall_Corners",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        -80.99999883893577
+      ]
+    },
+    {
+      "name": "COL_Corner_0_1",
+      "center": [
+        5.233438837193968,
+        -4.7469326659213325,
+        1.7750000000000001
+      ],
+      "size": [
+        0.262,
+        0.4187296091046003,
+        2.85
+      ],
+      "rotationZ": -63.0,
+      "kind": "wall",
+      "wall": "Wall_Corners",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        -62.99999833804013
+      ]
+    },
+    {
+      "name": "COL_Corner_0_2",
+      "center": [
+        5.530850467894194,
+        -4.530850467894194,
+        1.7750000000000001
+      ],
+      "size": [
+        0.262,
+        0.4187296091046003,
+        2.85
+      ],
+      "rotationZ": -45.0,
+      "kind": "wall",
+      "wall": "Wall_Corners",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        -45.00000125223908
+      ]
+    },
+    {
+      "name": "COL_Corner_0_3",
+      "center": [
+        5.7469326659213325,
+        -4.233438837193968,
+        1.7750000000000001
+      ],
+      "size": [
+        0.262,
+        0.4187296091046003,
+        2.85
+      ],
+      "rotationZ": -27.0,
+      "kind": "wall",
+      "wall": "Wall_Corners",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        -27.00000075134345
+      ]
+    },
+    {
+      "name": "COL_Corner_0_4",
+      "center": [
+        5.860533800199287,
+        -3.8838104964222713,
+        1.7750000000000001
+      ],
+      "size": [
+        0.262,
+        0.4187296091046003,
+        2.85
+      ],
+      "rotationZ": -9.0,
+      "kind": "wall",
+      "wall": "Wall_Corners",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        -9.000000250447817
+      ]
+    },
+    {
+      "name": "COL_Corner_1_0",
+      "center": [
+        5.860533800199287,
+        3.8838104964222713,
+        1.7750000000000001
+      ],
+      "size": [
+        0.262,
+        0.4187296091046003,
+        2.85
+      ],
+      "rotationZ": 9.0,
+      "kind": "wall",
+      "wall": "Wall_Corners",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        9.000000250447817
+      ]
+    },
+    {
+      "name": "COL_Corner_1_1",
+      "center": [
+        5.7469326659213325,
+        4.233438837193968,
+        1.7750000000000001
+      ],
+      "size": [
+        0.262,
+        0.4187296091046003,
+        2.85
+      ],
+      "rotationZ": 27.0,
+      "kind": "wall",
+      "wall": "Wall_Corners",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        27.00000075134345
+      ]
+    },
+    {
+      "name": "COL_Corner_1_2",
+      "center": [
+        5.530850467894194,
+        4.530850467894194,
+        1.7750000000000001
+      ],
+      "size": [
+        0.262,
+        0.4187296091046003,
+        2.85
+      ],
+      "rotationZ": 45.0,
+      "kind": "wall",
+      "wall": "Wall_Corners",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        45.00000125223908
+      ]
+    },
+    {
+      "name": "COL_Corner_1_3",
+      "center": [
+        5.233438837193968,
+        4.7469326659213325,
+        1.7750000000000001
+      ],
+      "size": [
+        0.262,
+        0.4187296091046003,
+        2.85
+      ],
+      "rotationZ": 63.0,
+      "kind": "wall",
+      "wall": "Wall_Corners",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        62.99999833804013
+      ]
+    },
+    {
+      "name": "COL_Corner_1_4",
+      "center": [
+        4.883810496422272,
+        4.860533800199287,
+        1.7750000000000001
+      ],
+      "size": [
+        0.262,
+        0.4187296091046003,
+        2.85
+      ],
+      "rotationZ": 81.0,
+      "kind": "wall",
+      "wall": "Wall_Corners",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        80.99999883893577
+      ]
+    },
+    {
+      "name": "COL_Corner_2_0",
+      "center": [
+        -4.883810496422272,
+        4.860533800199287,
+        1.7750000000000001
+      ],
+      "size": [
+        0.262,
+        0.4187296091046003,
+        2.85
+      ],
+      "rotationZ": 99.0,
+      "kind": "wall",
+      "wall": "Wall_Corners",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        98.9999993398314
+      ]
+    },
+    {
+      "name": "COL_Corner_2_1",
+      "center": [
+        -5.233438837193968,
+        4.7469326659213325,
+        1.7750000000000001
+      ],
+      "size": [
+        0.262,
+        0.4187296091046003,
+        2.85
+      ],
+      "rotationZ": 117.0,
+      "kind": "wall",
+      "wall": "Wall_Corners",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        117.0000066709162
+      ]
+    },
+    {
+      "name": "COL_Corner_2_2",
+      "center": [
+        -5.530850467894194,
+        4.530850467894194,
+        1.7750000000000001
+      ],
+      "size": [
+        0.262,
+        0.4187296091046003,
+        2.85
+      ],
+      "rotationZ": 135.0,
+      "kind": "wall",
+      "wall": "Wall_Corners",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        135.00000034162267
+      ]
+    },
+    {
+      "name": "COL_Corner_2_3",
+      "center": [
+        -5.7469326659213325,
+        4.233438837193968,
+        1.7750000000000001
+      ],
+      "size": [
+        0.262,
+        0.4187296091046003,
+        2.85
+      ],
+      "rotationZ": 153.0,
+      "kind": "wall",
+      "wall": "Wall_Corners",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        152.99999401232913
+      ]
+    },
+    {
+      "name": "COL_Corner_2_4",
+      "center": [
+        -5.860533800199287,
+        3.8838104964222717,
+        1.7750000000000001
+      ],
+      "size": [
+        0.262,
+        0.4187296091046003,
+        2.85
+      ],
+      "rotationZ": 171.0,
+      "kind": "wall",
+      "wall": "Wall_Corners",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        171.00000134341394
+      ]
+    },
+    {
+      "name": "COL_Corner_3_0",
+      "center": [
+        -5.860533800199287,
+        -3.8838104964222713,
+        1.7750000000000001
+      ],
+      "size": [
+        0.262,
+        0.4187296091046003,
+        2.85
+      ],
+      "rotationZ": 189.0,
+      "kind": "wall",
+      "wall": "Wall_Corners",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        188.9999950141204
+      ]
+    },
+    {
+      "name": "COL_Corner_3_1",
+      "center": [
+        -5.7469326659213325,
+        -4.233438837193967,
+        1.7750000000000001
+      ],
+      "size": [
+        0.262,
+        0.4187296091046003,
+        2.85
+      ],
+      "rotationZ": 207.0,
+      "kind": "wall",
+      "wall": "Wall_Corners",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        207.0000023452052
+      ]
+    },
+    {
+      "name": "COL_Corner_3_2",
+      "center": [
+        -5.530850467894194,
+        -4.530850467894194,
+        1.7750000000000001
+      ],
+      "size": [
+        0.262,
+        0.4187296091046003,
+        2.85
+      ],
+      "rotationZ": 225.0,
+      "kind": "wall",
+      "wall": "Wall_Corners",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        224.99999601591165
+      ]
+    },
+    {
+      "name": "COL_Corner_3_3",
+      "center": [
+        -5.233438837193968,
+        -4.7469326659213325,
+        1.7750000000000001
+      ],
+      "size": [
+        0.262,
+        0.4187296091046003,
+        2.85
+      ],
+      "rotationZ": 243.0,
+      "kind": "wall",
+      "wall": "Wall_Corners",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        242.99998968661814
+      ]
+    },
+    {
+      "name": "COL_Corner_3_4",
+      "center": [
+        -4.883810496422272,
+        -4.860533800199287,
+        1.7750000000000001
+      ],
+      "size": [
+        0.262,
+        0.4187296091046003,
+        2.85
+      ],
+      "rotationZ": 261.0,
+      "kind": "wall",
+      "wall": "Wall_Corners",
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        260.9999970177029
+      ]
+    },
+    {
+      "name": "COL_Door_W",
+      "center": [
+        -6.21999979019165,
+        -2.6234736605346143e-09,
+        1.475000023841858
+      ],
+      "size": [
+        1.42,
+        0.16,
+        2.3
+      ],
+      "rotationZ": 270,
+      "kind": "door",
+      "wall": null,
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        270.00000068324533
+      ]
+    },
+    {
+      "name": "COL_Door_S",
+      "center": [
+        0.0,
+        -5.21999979019165,
+        1.475000023841858
+      ],
+      "size": [
+        1.42,
+        0.16,
+        2.3
+      ],
+      "rotationZ": 0,
+      "kind": "door",
+      "wall": null,
+      "shape": "box",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "COL_Floor",
+      "center": [
+        0,
+        0,
+        0.32499999999999996
+      ],
+      "size": [
+        11.5,
+        9.5,
+        0.05
+      ],
+      "rotationZ": 0,
+      "kind": "floor",
+      "wall": null,
+      "shape": "rounded_rect_floor",
+      "rotationXYZ_deg": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "COL_Ramp_W",
+      "center": [
+        -7.2,
+        0,
+        0.175
+      ],
+      "size": [
+        1.638,
+        1.9,
+        0.04
+      ],
+      "rotationZ": 0,
+      "kind": "ramp",
+      "wall": null,
+      "shape": "analytic_ramp",
+      "rotationXYZ_deg": [
+        0.0,
+        -12.339087636596645,
+        0.0
+      ]
+    },
+    {
+      "name": "COL_Ramp_S",
+      "center": [
+        0,
+        -6.2,
+        0.175
+      ],
+      "size": [
+        1.9,
+        1.638,
+        0.04
+      ],
+      "rotationZ": 0,
+      "kind": "ramp",
+      "wall": null,
+      "shape": "analytic_ramp",
+      "rotationXYZ_deg": [
+        12.339087636596645,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "changes": [
+    "segunda porta Sul (Oeste após rotação proposta)",
+    "janela Sul central retirada",
+    "mesa deslocada +2,5 m X local",
+    "Wall_S/E/N/W e Wall_Corners próprios",
+    "COL_* em caixas/metadados sem malha",
+    "atlas de paleta + ORM + emissivo; Ground omitido"
+  ],
+  "palette": {
+    "Shell_Ivory": {
+      "cell": 0,
+      "hex": "#E6DDC6",
+      "roughness": 0.8,
+      "metallic": 0.05,
+      "emission": null,
+      "strength": 0.0
+    },
+    "Shell_Warm": {
+      "cell": 1,
+      "hex": "#C9BFA8",
+      "roughness": 0.85,
+      "metallic": 0.05,
+      "emission": null,
+      "strength": 0.0
+    },
+    "Graphite": {
+      "cell": 2,
+      "hex": "#3A3E44",
+      "roughness": 0.7,
+      "metallic": 0.3,
+      "emission": null,
+      "strength": 0.0
+    },
+    "Roof_Grey": {
+      "cell": 3,
+      "hex": "#8F8B82",
+      "roughness": 0.9,
+      "metallic": 0.05,
+      "emission": null,
+      "strength": 0.0
+    },
+    "Roof_Seam": {
+      "cell": 4,
+      "hex": "#6A665E",
+      "roughness": 0.9,
+      "metallic": 0.05,
+      "emission": null,
+      "strength": 0.0
+    },
+    "Concrete": {
+      "cell": 5,
+      "hex": "#8E8C86",
+      "roughness": 0.95,
+      "metallic": 0.0,
+      "emission": null,
+      "strength": 0.0
+    },
+    "Soil_Red": {
+      "cell": 6,
+      "hex": "#9C452C",
+      "roughness": 0.95,
+      "metallic": 0.0,
+      "emission": null,
+      "strength": 0.0
+    },
+    "Soil_Dark": {
+      "cell": 7,
+      "hex": "#6E3020",
+      "roughness": 0.95,
+      "metallic": 0.0,
+      "emission": null,
+      "strength": 0.0
+    },
+    "Glass": {
+      "cell": 8,
+      "hex": "#1F2C36",
+      "roughness": 0.15,
+      "metallic": 0.4,
+      "emission": null,
+      "strength": 0.0
+    },
+    "Metal_Dark": {
+      "cell": 9,
+      "hex": "#474D55",
+      "roughness": 0.5,
+      "metallic": 0.5,
+      "emission": null,
+      "strength": 0.0
+    },
+    "Metal_Light": {
+      "cell": 10,
+      "hex": "#A9B0B8",
+      "roughness": 0.4,
+      "metallic": 0.55,
+      "emission": null,
+      "strength": 0.0
+    },
+    "Floor_Grey": {
+      "cell": 11,
+      "hex": "#8B8E90",
+      "roughness": 0.85,
+      "metallic": 0.05,
+      "emission": null,
+      "strength": 0.0
+    },
+    "Floor_Dark": {
+      "cell": 12,
+      "hex": "#5F6367",
+      "roughness": 0.9,
+      "metallic": 0.05,
+      "emission": null,
+      "strength": 0.0
+    },
+    "Interior_Wall": {
+      "cell": 13,
+      "hex": "#EDE6D3",
+      "roughness": 0.88,
+      "metallic": 0.0,
+      "emission": null,
+      "strength": 0.0
+    },
+    "Mattress_Teal": {
+      "cell": 14,
+      "hex": "#4F8E89",
+      "roughness": 0.9,
+      "metallic": 0.0,
+      "emission": null,
+      "strength": 0.0
+    },
+    "Curtain_Teal": {
+      "cell": 15,
+      "hex": "#2E6A6E",
+      "roughness": 0.9,
+      "metallic": 0.0,
+      "emission": null,
+      "strength": 0.0
+    },
+    "Fabric_Light": {
+      "cell": 16,
+      "hex": "#E8E3D8",
+      "roughness": 0.9,
+      "metallic": 0.0,
+      "emission": null,
+      "strength": 0.0
+    },
+    "Locker_Grey": {
+      "cell": 17,
+      "hex": "#B4B9BE",
+      "roughness": 0.55,
+      "metallic": 0.4,
+      "emission": null,
+      "strength": 0.0
+    },
+    "Wood": {
+      "cell": 18,
+      "hex": "#8A6A4B",
+      "roughness": 0.8,
+      "metallic": 0.0,
+      "emission": null,
+      "strength": 0.0
+    },
+    "Sanitary_White": {
+      "cell": 19,
+      "hex": "#EEF0EF",
+      "roughness": 0.35,
+      "metallic": 0.05,
+      "emission": null,
+      "strength": 0.0
+    },
+    "Glow_Accent": {
+      "cell": 20,
+      "hex": "#7FEFFF",
+      "roughness": 0.3,
+      "metallic": 0.0,
+      "emission": "#4FE8FF",
+      "strength": 4.0
+    },
+    "Glow_Warm": {
+      "cell": 21,
+      "hex": "#FFE2B8",
+      "roughness": 0.4,
+      "metallic": 0.0,
+      "emission": "#FFC27A",
+      "strength": 4.0
+    },
+    "Glow_Screen": {
+      "cell": 22,
+      "hex": "#7FEFFF",
+      "roughness": 0.2,
+      "metallic": 0.0,
+      "emission": "#45D8FF",
+      "strength": 2.5
+    }
+  }
+}

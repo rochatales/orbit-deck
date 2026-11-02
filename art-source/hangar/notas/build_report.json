@@ -1,0 +1,1710 @@
+{
+  "triangles": 8596,
+  "vertices": 4928,
+  "renderMesh": "HangarMesh",
+  "materials": [
+    "MAT_Hangar_Atlas_2K"
+  ],
+  "pieces": 315,
+  "bones": [
+    "Root",
+    "Hull_Main",
+    "Access_Ramp",
+    "Crane_Bridge",
+    "Crane_Trolley_L",
+    "Crane_Hook_L",
+    "Crane_Hook_R",
+    "Cooling_Fans",
+    "Portal_Shutter",
+    "Cable_L",
+    "Cable_R"
+  ],
+  "clips": {
+    "Idle": 60,
+    "CraneWork": 48,
+    "RampOpenClose": 40,
+    "AlertPulse": 36
+  },
+  "fps": 30,
+  "colliders_proposed": [
+    {
+      "name": "COL_Hangar_Wall_Left",
+      "center": [
+        -4,
+        0,
+        1.6
+      ],
+      "halfExtents": [
+        0.2,
+        3.15,
+        1.6
+      ]
+    },
+    {
+      "name": "COL_Hangar_Wall_Right",
+      "center": [
+        4,
+        0,
+        1.6
+      ],
+      "halfExtents": [
+        0.2,
+        3.15,
+        1.6
+      ]
+    },
+    {
+      "name": "COL_Hangar_Wall_Back",
+      "center": [
+        0,
+        3.05,
+        1.6
+      ],
+      "halfExtents": [
+        4.1,
+        0.2,
+        1.6
+      ]
+    },
+    {
+      "name": "COL_Hangar_Pillar_Left",
+      "center": [
+        -3.3,
+        -3.1,
+        1.6
+      ],
+      "halfExtents": [
+        0.8,
+        0.25,
+        1.6
+      ]
+    },
+    {
+      "name": "COL_Hangar_Pillar_Right",
+      "center": [
+        3.3,
+        -3.1,
+        1.6
+      ],
+      "halfExtents": [
+        0.8,
+        0.25,
+        1.6
+      ]
+    },
+    {
+      "name": "COL_Hangar_Floor",
+      "center": [
+        0,
+        0,
+        0.08
+      ],
+      "halfExtents": [
+        4.05,
+        3.22,
+        0.08
+      ]
+    },
+    {
+      "name": "COL_Hangar_Ramp",
+      "center": [
+        0,
+        -4.32,
+        0.08
+      ],
+      "halfExtents": [
+        2.45,
+        1.1,
+        0.08
+      ]
+    }
+  ],
+  "coordinateSystem": "Blender Z up, front -Y. glTF: Y up, front +Z.",
+  "dimensions_model": [
+    9.579999923706055,
+    8.850000381469727,
+    4.539999961853027
+  ],
+  "components": [
+    {
+      "piece": "Floor",
+      "bone": "Hull_Main",
+      "tile": 12
+    },
+    {
+      "piece": "Base_Skirt",
+      "bone": "Hull_Main",
+      "tile": 11
+    },
+    {
+      "piece": "Hull_Side",
+      "bone": "Hull_Main",
+      "tile": 10
+    },
+    {
+      "piece": "Roof_Slope",
+      "bone": "Hull_Main",
+      "tile": 10
+    },
+    {
+      "piece": "Roof_Shoulder",
+      "bone": "Hull_Main",
+      "tile": 10
+    },
+    {
+      "piece": "Roof_Rivet",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Roof_Slope",
+      "bone": "Hull_Main",
+      "tile": 10
+    },
+    {
+      "piece": "Roof_Shoulder",
+      "bone": "Hull_Main",
+      "tile": 10
+    },
+    {
+      "piece": "Roof_Rivet",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Roof_Slope",
+      "bone": "Hull_Main",
+      "tile": 10
+    },
+    {
+      "piece": "Roof_Shoulder",
+      "bone": "Hull_Main",
+      "tile": 10
+    },
+    {
+      "piece": "Roof_Rivet",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Roof_Slope",
+      "bone": "Hull_Main",
+      "tile": 10
+    },
+    {
+      "piece": "Roof_Shoulder",
+      "bone": "Hull_Main",
+      "tile": 10
+    },
+    {
+      "piece": "Roof_Rivet",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Belt_Trim",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Corner_Upper",
+      "bone": "Hull_Main",
+      "tile": 0
+    },
+    {
+      "piece": "Corner_Armor",
+      "bone": "Hull_Main",
+      "tile": 2
+    },
+    {
+      "piece": "Corner_Hazard",
+      "bone": "Hull_Main",
+      "tile": 7
+    },
+    {
+      "piece": "Corner_Bolt",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Corner_Bolt",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Corner_Upper",
+      "bone": "Hull_Main",
+      "tile": 0
+    },
+    {
+      "piece": "Corner_Armor",
+      "bone": "Hull_Main",
+      "tile": 2
+    },
+    {
+      "piece": "Corner_Hazard",
+      "bone": "Hull_Main",
+      "tile": 7
+    },
+    {
+      "piece": "Corner_Bolt",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Corner_Bolt",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Side_Cooler",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Intake_Rim",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Intake_Dark",
+      "bone": "Hull_Main",
+      "tile": 8
+    },
+    {
+      "piece": "Intake_Hub",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Fan_Blade",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Fan_Blade",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Fan_Blade",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Intake_Rim",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Intake_Dark",
+      "bone": "Hull_Main",
+      "tile": 8
+    },
+    {
+      "piece": "Intake_Hub",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Fan_Blade",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Fan_Blade",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Fan_Blade",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Telemetry_Frame",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Telemetry_Display",
+      "bone": "Hull_Main",
+      "tile": 5
+    },
+    {
+      "piece": "Coolant_Down",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Coolant_Down_flange",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Coolant_Down_flange",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Coolant_Down",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Coolant_Down_flange",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Coolant_Down_flange",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Coolant_Down",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Coolant_Down_flange",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Coolant_Down_flange",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Coolant_Down",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Coolant_Down_flange",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Coolant_Down_flange",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Telemetry_U",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Telemetry_U_flange",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Telemetry_U_flange",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Vent_Foot",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Vent_Rim",
+      "bone": "Cooling_Fans",
+      "tile": 4
+    },
+    {
+      "piece": "Vent_Core",
+      "bone": "Cooling_Fans",
+      "tile": 8
+    },
+    {
+      "piece": "Vent_Foot",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Vent_Rim",
+      "bone": "Cooling_Fans",
+      "tile": 4
+    },
+    {
+      "piece": "Vent_Core",
+      "bone": "Cooling_Fans",
+      "tile": 8
+    },
+    {
+      "piece": "Vent_Rim",
+      "bone": "Cooling_Fans",
+      "tile": 4
+    },
+    {
+      "piece": "Vent_Core",
+      "bone": "Cooling_Fans",
+      "tile": 8
+    },
+    {
+      "piece": "Vent_Foot",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Vent_Rim",
+      "bone": "Cooling_Fans",
+      "tile": 4
+    },
+    {
+      "piece": "Vent_Core",
+      "bone": "Cooling_Fans",
+      "tile": 8
+    },
+    {
+      "piece": "Bay_Pillar",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Bay_Light",
+      "bone": "Hull_Main",
+      "tile": 6
+    },
+    {
+      "piece": "Bay_Pillar",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Bay_Light",
+      "bone": "Hull_Main",
+      "tile": 6
+    },
+    {
+      "piece": "Bay_Pillar",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Bay_Light",
+      "bone": "Hull_Main",
+      "tile": 6
+    },
+    {
+      "piece": "Base_Skirt",
+      "bone": "Hull_Main",
+      "tile": 11
+    },
+    {
+      "piece": "Hull_Side",
+      "bone": "Hull_Main",
+      "tile": 10
+    },
+    {
+      "piece": "Roof_Slope",
+      "bone": "Hull_Main",
+      "tile": 10
+    },
+    {
+      "piece": "Roof_Shoulder",
+      "bone": "Hull_Main",
+      "tile": 10
+    },
+    {
+      "piece": "Roof_Rivet",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Roof_Slope",
+      "bone": "Hull_Main",
+      "tile": 10
+    },
+    {
+      "piece": "Roof_Shoulder",
+      "bone": "Hull_Main",
+      "tile": 10
+    },
+    {
+      "piece": "Roof_Rivet",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Roof_Slope",
+      "bone": "Hull_Main",
+      "tile": 10
+    },
+    {
+      "piece": "Roof_Shoulder",
+      "bone": "Hull_Main",
+      "tile": 10
+    },
+    {
+      "piece": "Roof_Rivet",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Roof_Slope",
+      "bone": "Hull_Main",
+      "tile": 10
+    },
+    {
+      "piece": "Roof_Shoulder",
+      "bone": "Hull_Main",
+      "tile": 10
+    },
+    {
+      "piece": "Roof_Rivet",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Belt_Trim",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Corner_Upper",
+      "bone": "Hull_Main",
+      "tile": 0
+    },
+    {
+      "piece": "Corner_Armor",
+      "bone": "Hull_Main",
+      "tile": 2
+    },
+    {
+      "piece": "Corner_Hazard",
+      "bone": "Hull_Main",
+      "tile": 7
+    },
+    {
+      "piece": "Corner_Bolt",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Corner_Bolt",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Corner_Upper",
+      "bone": "Hull_Main",
+      "tile": 0
+    },
+    {
+      "piece": "Corner_Armor",
+      "bone": "Hull_Main",
+      "tile": 2
+    },
+    {
+      "piece": "Corner_Hazard",
+      "bone": "Hull_Main",
+      "tile": 7
+    },
+    {
+      "piece": "Corner_Bolt",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Corner_Bolt",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Side_Cooler",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Intake_Rim",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Intake_Dark",
+      "bone": "Hull_Main",
+      "tile": 8
+    },
+    {
+      "piece": "Intake_Hub",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Fan_Blade",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Fan_Blade",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Fan_Blade",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Intake_Rim",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Intake_Dark",
+      "bone": "Hull_Main",
+      "tile": 8
+    },
+    {
+      "piece": "Intake_Hub",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Fan_Blade",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Fan_Blade",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Fan_Blade",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Telemetry_Frame",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Telemetry_Display",
+      "bone": "Hull_Main",
+      "tile": 5
+    },
+    {
+      "piece": "Coolant_Down",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Coolant_Down_flange",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Coolant_Down_flange",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Coolant_Down",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Coolant_Down_flange",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Coolant_Down_flange",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Coolant_Down",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Coolant_Down_flange",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Coolant_Down_flange",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Coolant_Down",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Coolant_Down_flange",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Coolant_Down_flange",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Telemetry_U",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Telemetry_U_flange",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Telemetry_U_flange",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Vent_Foot",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Vent_Rim",
+      "bone": "Cooling_Fans",
+      "tile": 4
+    },
+    {
+      "piece": "Vent_Core",
+      "bone": "Cooling_Fans",
+      "tile": 8
+    },
+    {
+      "piece": "Vent_Foot",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Vent_Rim",
+      "bone": "Cooling_Fans",
+      "tile": 4
+    },
+    {
+      "piece": "Vent_Core",
+      "bone": "Cooling_Fans",
+      "tile": 8
+    },
+    {
+      "piece": "Vent_Rim",
+      "bone": "Cooling_Fans",
+      "tile": 4
+    },
+    {
+      "piece": "Vent_Core",
+      "bone": "Cooling_Fans",
+      "tile": 8
+    },
+    {
+      "piece": "Vent_Foot",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Vent_Rim",
+      "bone": "Cooling_Fans",
+      "tile": 4
+    },
+    {
+      "piece": "Vent_Core",
+      "bone": "Cooling_Fans",
+      "tile": 8
+    },
+    {
+      "piece": "Bay_Pillar",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Bay_Light",
+      "bone": "Hull_Main",
+      "tile": 6
+    },
+    {
+      "piece": "Bay_Pillar",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Bay_Light",
+      "bone": "Hull_Main",
+      "tile": 6
+    },
+    {
+      "piece": "Bay_Pillar",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Bay_Light",
+      "bone": "Hull_Main",
+      "tile": 6
+    },
+    {
+      "piece": "Back_Base",
+      "bone": "Hull_Main",
+      "tile": 11
+    },
+    {
+      "piece": "Back_Hull",
+      "bone": "Hull_Main",
+      "tile": 10
+    },
+    {
+      "piece": "Back_Inspection",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Back_Vent",
+      "bone": "Hull_Main",
+      "tile": 9
+    },
+    {
+      "piece": "Back_Vent",
+      "bone": "Hull_Main",
+      "tile": 9
+    },
+    {
+      "piece": "Back_Vent",
+      "bone": "Hull_Main",
+      "tile": 9
+    },
+    {
+      "piece": "Roof_Spine",
+      "bone": "Hull_Main",
+      "tile": 9
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Rib",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Spine_Clamp",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Spine_Clamp",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Spine_Clamp",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Spine_Clamp",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Spine_Clamp",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Spine_Clamp",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Spine_Clamp",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Spine_Clamp",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Front_Pier",
+      "bone": "Hull_Main",
+      "tile": 10
+    },
+    {
+      "piece": "Pier_Rust",
+      "bone": "Hull_Main",
+      "tile": 11
+    },
+    {
+      "piece": "Portal_Post",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Portal_Diagonal",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Post_Hazard",
+      "bone": "Hull_Main",
+      "tile": 7
+    },
+    {
+      "piece": "Beacon_Base",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Beacon_Lens",
+      "bone": "Hull_Main",
+      "tile": 5
+    },
+    {
+      "piece": "Beacon_Base",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Beacon_Lens",
+      "bone": "Hull_Main",
+      "tile": 5
+    },
+    {
+      "piece": "Beacon_Base",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Beacon_Lens",
+      "bone": "Hull_Main",
+      "tile": 6
+    },
+    {
+      "piece": "Front_Pier",
+      "bone": "Hull_Main",
+      "tile": 10
+    },
+    {
+      "piece": "Pier_Rust",
+      "bone": "Hull_Main",
+      "tile": 11
+    },
+    {
+      "piece": "Portal_Post",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Portal_Diagonal",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Post_Hazard",
+      "bone": "Hull_Main",
+      "tile": 7
+    },
+    {
+      "piece": "Beacon_Base",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Beacon_Lens",
+      "bone": "Hull_Main",
+      "tile": 5
+    },
+    {
+      "piece": "Beacon_Base",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Beacon_Lens",
+      "bone": "Hull_Main",
+      "tile": 5
+    },
+    {
+      "piece": "Beacon_Base",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Beacon_Lens",
+      "bone": "Hull_Main",
+      "tile": 6
+    },
+    {
+      "piece": "Front_Upper",
+      "bone": "Hull_Main",
+      "tile": 10
+    },
+    {
+      "piece": "Portal_Header",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Header_Hazard",
+      "bone": "Hull_Main",
+      "tile": 7
+    },
+    {
+      "piece": "Floodlight_Housing",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Floodlight_Rim",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Floodlight_Lens",
+      "bone": "Hull_Main",
+      "tile": 6
+    },
+    {
+      "piece": "Floodlight_Rim",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Floodlight_Lens",
+      "bone": "Hull_Main",
+      "tile": 6
+    },
+    {
+      "piece": "Upper_Shutter",
+      "bone": "Portal_Shutter",
+      "tile": 9
+    },
+    {
+      "piece": "Access_Ramp",
+      "bone": "Access_Ramp",
+      "tile": 12
+    },
+    {
+      "piece": "Ramp_Edge",
+      "bone": "Access_Ramp",
+      "tile": 1
+    },
+    {
+      "piece": "Ramp_Edge",
+      "bone": "Access_Ramp",
+      "tile": 1
+    },
+    {
+      "piece": "Threshold_Hazard",
+      "bone": "Access_Ramp",
+      "tile": 7
+    },
+    {
+      "piece": "Ramp_Seam",
+      "bone": "Access_Ramp",
+      "tile": 8
+    },
+    {
+      "piece": "Ramp_Seam",
+      "bone": "Access_Ramp",
+      "tile": 8
+    },
+    {
+      "piece": "Ramp_Seam",
+      "bone": "Access_Ramp",
+      "tile": 8
+    },
+    {
+      "piece": "Ramp_Beacon",
+      "bone": "Access_Ramp",
+      "tile": 1
+    },
+    {
+      "piece": "Ramp_Lens",
+      "bone": "Access_Ramp",
+      "tile": 5
+    },
+    {
+      "piece": "Ramp_Beacon",
+      "bone": "Access_Ramp",
+      "tile": 1
+    },
+    {
+      "piece": "Ramp_Lens",
+      "bone": "Access_Ramp",
+      "tile": 6
+    },
+    {
+      "piece": "Ramp_Beacon",
+      "bone": "Access_Ramp",
+      "tile": 1
+    },
+    {
+      "piece": "Ramp_Lens",
+      "bone": "Access_Ramp",
+      "tile": 5
+    },
+    {
+      "piece": "Ramp_Beacon",
+      "bone": "Access_Ramp",
+      "tile": 1
+    },
+    {
+      "piece": "Ramp_Lens",
+      "bone": "Access_Ramp",
+      "tile": 6
+    },
+    {
+      "piece": "Small_Drum",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Drum_Cap",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Small_Drum",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Drum_Cap",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Crane_Rail",
+      "bone": "Hull_Main",
+      "tile": 3
+    },
+    {
+      "piece": "Crane_Rail",
+      "bone": "Hull_Main",
+      "tile": 3
+    },
+    {
+      "piece": "Crane_Chord",
+      "bone": "Crane_Bridge",
+      "tile": 3
+    },
+    {
+      "piece": "Crane_Chord",
+      "bone": "Crane_Bridge",
+      "tile": 3
+    },
+    {
+      "piece": "Truss_X",
+      "bone": "Crane_Bridge",
+      "tile": 3
+    },
+    {
+      "piece": "Truss_X",
+      "bone": "Crane_Bridge",
+      "tile": 3
+    },
+    {
+      "piece": "Truss_X",
+      "bone": "Crane_Bridge",
+      "tile": 3
+    },
+    {
+      "piece": "Truss_X",
+      "bone": "Crane_Bridge",
+      "tile": 3
+    },
+    {
+      "piece": "Truss_X",
+      "bone": "Crane_Bridge",
+      "tile": 3
+    },
+    {
+      "piece": "Truss_X",
+      "bone": "Crane_Bridge",
+      "tile": 3
+    },
+    {
+      "piece": "Truss_X",
+      "bone": "Crane_Bridge",
+      "tile": 3
+    },
+    {
+      "piece": "Truss_X",
+      "bone": "Crane_Bridge",
+      "tile": 3
+    },
+    {
+      "piece": "Truss_X",
+      "bone": "Crane_Bridge",
+      "tile": 3
+    },
+    {
+      "piece": "Truss_X",
+      "bone": "Crane_Bridge",
+      "tile": 3
+    },
+    {
+      "piece": "Truss_X",
+      "bone": "Crane_Bridge",
+      "tile": 3
+    },
+    {
+      "piece": "Truss_X",
+      "bone": "Crane_Bridge",
+      "tile": 3
+    },
+    {
+      "piece": "Trolley",
+      "bone": "Crane_Trolley_L",
+      "tile": 3
+    },
+    {
+      "piece": "Hoist_Cable",
+      "bone": "Cable_L",
+      "tile": 1
+    },
+    {
+      "piece": "Hook_Block",
+      "bone": "Crane_Hook_L",
+      "tile": 3
+    },
+    {
+      "piece": "Hook",
+      "bone": "Crane_Hook_L",
+      "tile": 3
+    },
+    {
+      "piece": "Hoist_Cable",
+      "bone": "Cable_R",
+      "tile": 1
+    },
+    {
+      "piece": "Hook_Block",
+      "bone": "Crane_Hook_R",
+      "tile": 3
+    },
+    {
+      "piece": "Hook",
+      "bone": "Crane_Hook_R",
+      "tile": 3
+    },
+    {
+      "piece": "Suspended_Load",
+      "bone": "Crane_Hook_L",
+      "tile": 3
+    },
+    {
+      "piece": "Vehicle_Track",
+      "bone": "Hull_Main",
+      "tile": 8
+    },
+    {
+      "piece": "Roadwheel",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Roadwheel",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Roadwheel",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Roadwheel",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Roadwheel",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Track_Tread",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Track_Tread",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Track_Tread",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Track_Tread",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Track_Tread",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Track_Tread",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Track_Tread",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Vehicle_Track",
+      "bone": "Hull_Main",
+      "tile": 8
+    },
+    {
+      "piece": "Roadwheel",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Roadwheel",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Roadwheel",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Roadwheel",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Roadwheel",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Track_Tread",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Track_Tread",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Track_Tread",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Track_Tread",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Track_Tread",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Track_Tread",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Track_Tread",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Vehicle_Body",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Vehicle_Hood",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Vehicle_Cab",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Vehicle_Windshield",
+      "bone": "Hull_Main",
+      "tile": 14
+    },
+    {
+      "piece": "Vehicle_Light",
+      "bone": "Hull_Main",
+      "tile": 6
+    },
+    {
+      "piece": "Vehicle_Light",
+      "bone": "Hull_Main",
+      "tile": 6
+    },
+    {
+      "piece": "Floor_Hazard",
+      "bone": "Hull_Main",
+      "tile": 7
+    },
+    {
+      "piece": "Floor_Hazard",
+      "bone": "Hull_Main",
+      "tile": 7
+    },
+    {
+      "piece": "Service_Hatch",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Hatch_Bolt",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Hatch_Bolt",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Service_Hatch",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Hatch_Bolt",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Hatch_Bolt",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Service_Hatch",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Hatch_Bolt",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Hatch_Bolt",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Service_Hatch",
+      "bone": "Hull_Main",
+      "tile": 1
+    },
+    {
+      "piece": "Hatch_Bolt",
+      "bone": "Hull_Main",
+      "tile": 4
+    },
+    {
+      "piece": "Hatch_Bolt",
+      "bone": "Hull_Main",
+      "tile": 4
+    }
+  ],
+  "notes": [
+    "Upper_Shutter closes the upper bay while the 2.2 m ramp closes the lower opening.",
+    "Extra Cable_L/R bones keep cable length connected during hoisting.",
+    "One primitive is one draw submission per pass, not including shadow passes."
+  ]
+}

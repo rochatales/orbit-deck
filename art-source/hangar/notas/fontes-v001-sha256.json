@@ -1,0 +1,9 @@
+{
+  "art-source/hangar/blend/hangar_mars_v001.blend": "0527bb34cc45fe37bd269d38b402addf8608c63bb66ccb4b52e0432700147f6c",
+  "art-source/hangar/export/hangar_mars_v001.glb": "749e5b39b07883bf9d6b65e5c86025828a1666d89a9b7a54f7467272ab2675ad",
+  "art-source/hangar/scripts/build_hangar.py": "4b9369ee7377b79d1061fb1a58e981709bd23f40ce0ef586cf85f7cbd3041c1c",
+  "art-source/hangar/texturas/hangar_orm.png": "4bb5c1d0a4fc37a3c6cfcd50914c7b0ac7507672d27bf1fc101a051607cd44e3",
+  "art-source/hangar/texturas/hangar_basecolor.png": "dddea99d2e970887420e5be57b20ccf3d0dfec053612263123bd5d8f251b77e8",
+  "art-source/hangar/texturas/hangar_emission.png": "a7199287f082feaa60b51cd6482e9942154634d667164c5d4de154d4ac0d2af1",
+  "art-source/hangar/texturas/hangar_normal.png": "3b6fd8f153209c1fb0585572c3276d4f10071451939d5d788f32ee9f19e2b562"
+}

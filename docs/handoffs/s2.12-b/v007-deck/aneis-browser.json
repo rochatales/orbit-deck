@@ -1,0 +1,81 @@
+{
+  "method": "Fixture dev, Chromium GPU, 1440×900; reposição assistida de itens. Sem aceite de jogabilidade.",
+  "errors": [],
+  "cases": [
+    {
+      "name": "rua",
+      "x": -17.5,
+      "z": 10,
+      "playerX": -14.5,
+      "playerZ": 10,
+      "y": 0,
+      "drop": {
+        "x": -17.5,
+        "z": 10,
+        "active": true,
+        "kind": "titanium",
+        "spawned": true,
+        "surfaceIron": 0,
+        "surfaceCopper": 0,
+        "surfaceTitanium": 0
+      },
+      "ringCount": 1,
+      "ringY": 0.006000000052154064,
+      "itemAnchor": [
+        -17.5,
+        0.3848272562578662,
+        10
+      ]
+    },
+    {
+      "name": "calcada",
+      "x": -24.8,
+      "z": 5,
+      "playerX": -21.5,
+      "playerZ": 5,
+      "y": 0.12,
+      "drop": {
+        "x": -24.8,
+        "z": 5,
+        "active": true,
+        "kind": "titanium",
+        "spawned": true,
+        "surfaceIron": 0,
+        "surfaceCopper": 0,
+        "surfaceTitanium": 0.12
+      },
+      "ringCount": 1,
+      "ringY": 0.12600000202655792,
+      "itemAnchor": [
+        -24.8,
+        0.4351152089179569,
+        5
+      ]
+    },
+    {
+      "name": "canteiro",
+      "x": -44.55,
+      "z": -28.9,
+      "playerX": -44.5,
+      "playerZ": -25.5,
+      "y": 0.148,
+      "drop": {
+        "x": -44.55,
+        "z": -28.9,
+        "active": true,
+        "kind": "titanium",
+        "spawned": true,
+        "surfaceIron": 0,
+        "surfaceCopper": 0,
+        "surfaceTitanium": 0.148
+      },
+      "ringCount": 1,
+      "ringY": 0.15399999916553497,
+      "itemAnchor": [
+        -44.55,
+        0.4418567183591461,
+        -28.9
+      ]
+    }
+  ]
+}

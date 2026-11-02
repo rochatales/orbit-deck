@@ -1,0 +1,444 @@
+{
+  "label": "before",
+  "method": "Build de produção do App + fixture isolada (?perf), Chromium ANGLE Metal 1440×1000 DPR1. Horda4 com 40 robôs+4 aranhas, 60 s de aquecimento simulado, HP/munição restaurados só no ensaio para manter 44 ativos; mesmo rifle/cadência, mira técnica no alvo mais próximo. Duas amostras de 10 s consecutivas, sem testes/build concorrentes. Intervalos rAF e renderer.info, não tempo de GPU.",
+  "errors": [],
+  "setup": {
+    "wave": 4,
+    "alive": 44,
+    "robots": 40,
+    "player": {
+      "x": 0,
+      "y": 0,
+      "z": 9.5
+    },
+    "capacity": 128
+  },
+  "samples": [
+    {
+      "status": "valid",
+      "invalidReason": null,
+      "warnings": [],
+      "startedAtMs": 9118.299999952316,
+      "requestedMs": 10000,
+      "elapsedMs": 10007,
+      "map": "shanghai",
+      "coverage": {
+        "intervalsCollected": 600,
+        "intervalsCapacity": 5016,
+        "intervalsSaturated": false,
+        "countersCollected": 93,
+        "countersCapacity": 116,
+        "countersSaturated": false
+      },
+      "rafIntervals": {
+        "count": 600,
+        "p50": 16.69999999999891,
+        "p95": 16.700000000000728,
+        "max": 16.80000000000109,
+        "mean": 16.666,
+        "rafOver33": 0,
+        "rafOver50": 0
+      },
+      "longAnimationFrames": {
+        "supported": true,
+        "count": 0,
+        "maxDurationMs": null
+      },
+      "renderer": {
+        "samples": 93,
+        "firstSampledAtMs": 9125.299999952316,
+        "lastSampledAtMs": 19108.399999976158,
+        "drawCalls": {
+          "min": 164,
+          "max": 172,
+          "mean": 166.96774193548387
+        },
+        "triangles": {
+          "min": 583275,
+          "max": 592339,
+          "mean": 588475.7956989247
+        }
+      }
+    },
+    {
+      "status": "valid",
+      "invalidReason": null,
+      "warnings": [],
+      "startedAtMs": 19131,
+      "requestedMs": 10000,
+      "elapsedMs": 10009.899999976158,
+      "map": "shanghai",
+      "coverage": {
+        "intervalsCollected": 600,
+        "intervalsCapacity": 5016,
+        "intervalsSaturated": false,
+        "countersCollected": 92,
+        "countersCapacity": 116,
+        "countersSaturated": false
+      },
+      "rafIntervals": {
+        "count": 600,
+        "p50": 16.700000000000728,
+        "p95": 16.700000000000728,
+        "max": 16.80000000000291,
+        "mean": 16.665999999999997,
+        "rafOver33": 0,
+        "rafOver50": 0
+      },
+      "longAnimationFrames": {
+        "supported": true,
+        "count": 0,
+        "maxDurationMs": null
+      },
+      "renderer": {
+        "samples": 92,
+        "firstSampledAtMs": 19142.100000023842,
+        "lastSampledAtMs": 29041.799999952316,
+        "drawCalls": {
+          "min": 166,
+          "max": 171,
+          "mean": 167.8913043478261
+        },
+        "triangles": {
+          "min": 591797,
+          "max": 592349,
+          "mean": 592041.6739130435
+        }
+      }
+    }
+  ],
+  "perf": {
+    "version": 2,
+    "context": {
+      "interpolation": {
+        "enabled": false,
+        "timeStep": 0.016666666666666666,
+        "frames": 1308,
+        "steps": 1415,
+        "minStep": 0.01666666753590107,
+        "maxStep": 0.01666666753590107,
+        "maxOffset": 0,
+        "maxHorizontal": 0,
+        "physical": {
+          "x": 0,
+          "y": 0,
+          "z": 9.5
+        },
+        "visual": {
+          "x": 0,
+          "y": 0,
+          "z": 9.5
+        },
+        "cameraSource": {
+          "x": 0,
+          "y": 0,
+          "z": 9.5
+        },
+        "cameraTarget": {
+          "x": 0,
+          "y": 0.55,
+          "z": 9.5
+        },
+        "cameraAngle": 0.7853981633974483,
+        "cameraZoom": 61.53846153846155
+      },
+      "capturedAt": "2026-10-26T20:19:04.389Z",
+      "build": "production",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36",
+      "browserBrands": "Not:A-Brand 8, Chromium 156, HeadlessChrome 156",
+      "gpuRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Pro, Unspecified Version)",
+      "hardwareConcurrency": 12,
+      "deviceMemoryGb": 16,
+      "screen": {
+        "width": 1440,
+        "height": 1000
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "canvasCss": {
+        "width": 1440,
+        "height": 1000
+      },
+      "canvasBuffer": {
+        "width": 1440,
+        "height": 1000
+      },
+      "devicePixelRatio": 1,
+      "rendererPixelRatio": 1
+    },
+    "pageLoad": {
+      "responseEndMs": 15.5,
+      "domContentLoadedMs": 183.70000004768372,
+      "loadEventEndMs": 183.70000004768372,
+      "documentTransferBytes": 666
+    },
+    "resources": {
+      "count": 18,
+      "transferBytes": 76348703,
+      "encodedBytes": 76343303,
+      "models": [
+        {
+          "file": "shanghai-fase01-e1061fcc.glb",
+          "startMs": 605.2000000476837,
+          "responseEndMs": 647.7999999523163,
+          "durationMs": 42.59999990463257,
+          "transferBytes": 11099584,
+          "encodedBytes": 11099284
+        },
+        {
+          "file": "ares-lander-2491f474.glb",
+          "startMs": 605.2999999523163,
+          "responseEndMs": 634.1000000238419,
+          "durationMs": 28.800000071525574,
+          "transferBytes": 4601804,
+          "encodedBytes": 4601504
+        },
+        {
+          "file": "patrol-unit-c01d3ea6.glb",
+          "startMs": 1122.5,
+          "responseEndMs": 1487.7999999523163,
+          "durationMs": 365.2999999523163,
+          "transferBytes": 9353544,
+          "encodedBytes": 9353244
+        },
+        {
+          "file": "explorador-r7-143a14d0.glb",
+          "startMs": 1159.1000000238419,
+          "responseEndMs": 1534.5,
+          "durationMs": 375.39999997615814,
+          "transferBytes": 6537404,
+          "encodedBytes": 6537104
+        },
+        {
+          "file": "large-patrol-unit-acb2d8e1.glb",
+          "startMs": 1930.8999999761581,
+          "responseEndMs": 1945.1000000238419,
+          "durationMs": 14.200000047683716,
+          "transferBytes": 5337472,
+          "encodedBytes": 5337172
+        },
+        {
+          "file": "mutant-animal-6680135e.glb",
+          "startMs": 2340.2000000476837,
+          "responseEndMs": 2361.399999976158,
+          "durationMs": 21.199999928474426,
+          "transferBytes": 10624616,
+          "encodedBytes": 10624316
+        },
+        {
+          "file": "large-mutant-70470d2d.glb",
+          "startMs": 2785.7999999523163,
+          "responseEndMs": 2801.2000000476837,
+          "durationMs": 15.400000095367432,
+          "transferBytes": 10535256,
+          "encodedBytes": 10534956
+        },
+        {
+          "file": "cobre-6e8aad10.glb",
+          "startMs": 3207,
+          "responseEndMs": 3218.600000023842,
+          "durationMs": 11.600000023841858,
+          "transferBytes": 2435352,
+          "encodedBytes": 2435052
+        },
+        {
+          "file": "caixa-suprimentos-v001-c4fde32f.glb",
+          "startMs": 3207.2999999523163,
+          "responseEndMs": 3216.5,
+          "durationMs": 9.200000047683716,
+          "transferBytes": 3775664,
+          "encodedBytes": 3775364
+        },
+        {
+          "file": "ferro-bdaf53f4.glb",
+          "startMs": 3648.2999999523163,
+          "responseEndMs": 3671.100000023842,
+          "durationMs": 22.800000071525574,
+          "transferBytes": 5057852,
+          "encodedBytes": 5057552
+        },
+        {
+          "file": "titanio-1bf1c024.glb",
+          "startMs": 4090.100000023842,
+          "responseEndMs": 4113.899999976158,
+          "durationMs": 23.799999952316284,
+          "transferBytes": 4984228,
+          "encodedBytes": 4983928
+        },
+        {
+          "file": "materia-organica-35ab8351.glb",
+          "startMs": 4499.899999976158,
+          "responseEndMs": 4503.799999952316,
+          "durationMs": 3.899999976158142,
+          "transferBytes": 770280,
+          "encodedBytes": 769980
+        }
+      ]
+    },
+    "sceneEvents": [
+      {
+        "kind": "canvas-mounted",
+        "map": "shanghai",
+        "atMs": 745,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "map-data-ready",
+        "map": "shanghai",
+        "atMs": 745,
+        "sinceMapLoadingMs": null,
+        "inferred": true
+      },
+      {
+        "kind": "canvas-first-frame",
+        "map": "shanghai",
+        "atMs": 759.6000000238419,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "scene-first-draw",
+        "map": "shanghai",
+        "atMs": 5226.600000023842,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "scene-assets-ready",
+        "map": "shanghai",
+        "atMs": 5258.5,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      }
+    ],
+    "latestCounters": {
+      "sampledAtMs": 29141.399999976158,
+      "drawCalls": 168,
+      "triangles": 592041,
+      "geometries": 217,
+      "textures": 81,
+      "programs": 58
+    },
+    "heap": {
+      "usedBytes": 27600000,
+      "totalBytes": 39600000,
+      "limitBytes": 3760000000
+    },
+    "samples": [
+      {
+        "status": "valid",
+        "invalidReason": null,
+        "warnings": [],
+        "startedAtMs": 9118.299999952316,
+        "requestedMs": 10000,
+        "elapsedMs": 10007,
+        "map": "shanghai",
+        "coverage": {
+          "intervalsCollected": 600,
+          "intervalsCapacity": 5016,
+          "intervalsSaturated": false,
+          "countersCollected": 93,
+          "countersCapacity": 116,
+          "countersSaturated": false
+        },
+        "rafIntervals": {
+          "count": 600,
+          "p50": 16.69999999999891,
+          "p95": 16.700000000000728,
+          "max": 16.80000000000109,
+          "mean": 16.666,
+          "rafOver33": 0,
+          "rafOver50": 0
+        },
+        "longAnimationFrames": {
+          "supported": true,
+          "count": 0,
+          "maxDurationMs": null
+        },
+        "renderer": {
+          "samples": 93,
+          "firstSampledAtMs": 9125.299999952316,
+          "lastSampledAtMs": 19108.399999976158,
+          "drawCalls": {
+            "min": 164,
+            "max": 172,
+            "mean": 166.96774193548387
+          },
+          "triangles": {
+            "min": 583275,
+            "max": 592339,
+            "mean": 588475.7956989247
+          }
+        }
+      },
+      {
+        "status": "valid",
+        "invalidReason": null,
+        "warnings": [],
+        "startedAtMs": 19131,
+        "requestedMs": 10000,
+        "elapsedMs": 10009.899999976158,
+        "map": "shanghai",
+        "coverage": {
+          "intervalsCollected": 600,
+          "intervalsCapacity": 5016,
+          "intervalsSaturated": false,
+          "countersCollected": 92,
+          "countersCapacity": 116,
+          "countersSaturated": false
+        },
+        "rafIntervals": {
+          "count": 600,
+          "p50": 16.700000000000728,
+          "p95": 16.700000000000728,
+          "max": 16.80000000000291,
+          "mean": 16.665999999999997,
+          "rafOver33": 0,
+          "rafOver50": 0
+        },
+        "longAnimationFrames": {
+          "supported": true,
+          "count": 0,
+          "maxDurationMs": null
+        },
+        "renderer": {
+          "samples": 92,
+          "firstSampledAtMs": 19142.100000023842,
+          "lastSampledAtMs": 29041.799999952316,
+          "drawCalls": {
+            "min": 166,
+            "max": 171,
+            "mean": 167.8913043478261
+          },
+          "triangles": {
+            "min": 591797,
+            "max": 592349,
+            "mean": 592041.6739130435
+          }
+        }
+      }
+    ],
+    "limitations": [
+      "Intervalos medidos entre callbacks de requestAnimationFrame: incluem CPU, espera de vsync e agendamento do navegador. Não são tempo de GPU.",
+      "A cadência mínima é limitada pela taxa de atualização da tela; 8,3 ms em 120 Hz não indica folga de GPU.",
+      "Intervalos de rAF acima de 33,3 ms e de 50 ms são contagens próprias, distintas dos eventos da API Long Animation Frames.",
+      "Draw calls e triângulos vêm de renderer.info e refletem o render imediatamente anterior à leitura. Na three 0.165 o reset automático ocorre depois do shadow map, então os passes de sombra não entram nessas contagens.",
+      "Geometrias e texturas são contagens de objetos vivos no renderer, não memória em bytes.",
+      "Memória de heap JS vem de performance.memory, API não padronizada e quantizada (Chromium); ausente nos demais navegadores.",
+      "Medições no servidor de desenvolvimento não são benchmark; prefira o build de produção (npm run preview).",
+      "Aba oculta durante uma amostra a invalida; pausa do jogo durante a amostra é registrada como aviso.",
+      "\"map-data-ready\" indica dados do mapa disponíveis (store da expedição), não cena renderizada. A cena renderizada é \"scene-first-draw\" e, com os personagens GLB, \"scene-assets-ready\".",
+      "Na entrada inicial, \"map-data-ready\" é inferido na montagem do canvas (marcado como inferido); os tempos da entrada inicial contam a partir do início da navegação."
+    ]
+  },
+  "final": {
+    "alive": 44,
+    "shots": 116,
+    "peak": 42,
+    "shotsStart": 0,
+    "capacity": 128
+  }
+}

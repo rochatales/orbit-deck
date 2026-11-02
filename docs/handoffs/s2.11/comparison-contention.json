@@ -1,0 +1,634 @@
+{
+  "base": "0f8d485",
+  "method": "App normal em Vite preview, build produ\u00e7\u00e3o. Chromium headless ANGLE Metal, viewport 1440\u00d71000/DPR1. Duas amostras de 10 s por op\u00e7\u00e3o, Marte e Shanghai/horda1. W/S alternados, sem mudar configura\u00e7\u00e3o ou estado do combate. Sem valida\u00e7\u00e3o humana de fluidez.",
+  "errors": [],
+  "cases": [
+    {
+      "map": "mars",
+      "mode": 0,
+      "start": {
+        "enabled": false,
+        "timeStep": 0.016666666666666666,
+        "frames": 64,
+        "steps": 82,
+        "minStep": 0.01666666753590107,
+        "maxStep": 0.01666666753590107,
+        "maxOffset": 0,
+        "maxHorizontal": 0,
+        "physical": {
+          "x": 0,
+          "y": 0,
+          "z": 0.800000011920929
+        },
+        "visual": {
+          "x": 0,
+          "y": 0,
+          "z": 0.800000011920929
+        },
+        "cameraSource": {
+          "x": 0,
+          "y": 0,
+          "z": 0.800000011920929
+        },
+        "cameraTarget": {
+          "x": 0,
+          "y": 0.55,
+          "z": 0.8000000119118008
+        },
+        "cameraAngle": 0.7853981633974483,
+        "cameraZoom": 45.58404558404558,
+        "map": "mars",
+        "phase": "walking",
+        "revision": 0,
+        "paused": false,
+        "dead": false,
+        "wave": 0,
+        "alive": 0
+      },
+      "finish": {
+        "enabled": false,
+        "timeStep": 0.016666666666666666,
+        "frames": 666,
+        "steps": 684,
+        "minStep": 0.01666666753590107,
+        "maxStep": 0.01666666753590107,
+        "maxOffset": 0,
+        "maxHorizontal": 0,
+        "physical": {
+          "x": 0.3014358878135681,
+          "y": 0,
+          "z": 1.61410391330719
+        },
+        "visual": {
+          "x": 0.3014358878135681,
+          "y": 0,
+          "z": 1.61410391330719
+        },
+        "cameraSource": {
+          "x": 0.3014358878135681,
+          "y": 0,
+          "z": 1.6140894889831543
+        },
+        "cameraTarget": {
+          "x": 0.3014362885719623,
+          "y": 0.55,
+          "z": 1.602670910822025
+        },
+        "cameraAngle": 0.7853981633974483,
+        "cameraZoom": 45.58404558404558,
+        "map": "mars",
+        "phase": "walking",
+        "revision": 0,
+        "paused": false,
+        "dead": false,
+        "wave": 0,
+        "alive": 0
+      },
+      "sample": {
+        "status": "valid",
+        "invalidReason": null,
+        "warnings": [],
+        "startedAtMs": 2201.7000000476837,
+        "requestedMs": 10000,
+        "elapsedMs": 10010.299999952316,
+        "map": "mars",
+        "coverage": {
+          "intervalsCollected": 600,
+          "intervalsCapacity": 5016,
+          "intervalsSaturated": false,
+          "countersCollected": 92,
+          "countersCapacity": 116,
+          "countersSaturated": false
+        },
+        "rafIntervals": {
+          "count": 600,
+          "p50": 16.699999999999818,
+          "p95": 16.700000000000728,
+          "max": 16.80000000000109,
+          "mean": 16.666000000000007,
+          "rafOver33": 0,
+          "rafOver50": 0
+        },
+        "longAnimationFrames": {
+          "supported": true,
+          "count": 0,
+          "maxDurationMs": null
+        },
+        "renderer": {
+          "samples": 92,
+          "firstSampledAtMs": 2212,
+          "lastSampledAtMs": 12161.700000047684,
+          "drawCalls": {
+            "min": 536,
+            "max": 543,
+            "mean": 538.804347826087
+          },
+          "triangles": {
+            "min": 572939,
+            "max": 574013,
+            "mean": 573666.3478260869
+          }
+        }
+      },
+      "route": [
+        {
+          "x": 0,
+          "z": 29.5
+        }
+      ]
+    },
+    {
+      "map": "shanghai",
+      "mode": 0,
+      "start": {
+        "enabled": false,
+        "timeStep": 0.016666666666666666,
+        "frames": 336,
+        "steps": 328,
+        "minStep": 0.01666666753590107,
+        "maxStep": 0.01666666753590107,
+        "maxOffset": 0,
+        "maxHorizontal": 0,
+        "physical": {
+          "x": 0,
+          "y": 0,
+          "z": 9.5
+        },
+        "visual": {
+          "x": 0,
+          "y": 0,
+          "z": 9.5
+        },
+        "cameraSource": {
+          "x": 0,
+          "y": 0,
+          "z": 9.5
+        },
+        "cameraTarget": {
+          "x": 0,
+          "y": 0.55,
+          "z": 9.5
+        },
+        "cameraAngle": 0.7853981633974483,
+        "cameraZoom": 61.53846153846155,
+        "map": "shanghai",
+        "phase": "walking",
+        "revision": 3,
+        "paused": false,
+        "dead": false,
+        "wave": 1,
+        "alive": 13
+      },
+      "finish": {
+        "enabled": false,
+        "timeStep": 0.016666666666666666,
+        "frames": 868,
+        "steps": 1020,
+        "minStep": 0.01666666753590107,
+        "maxStep": 0.01666666753590107,
+        "maxOffset": 0,
+        "maxHorizontal": 0,
+        "physical": {
+          "x": 0.3209664523601532,
+          "y": 0.12000000476837158,
+          "z": 7.8501973152160645
+        },
+        "visual": {
+          "x": 0.3209664523601532,
+          "y": 0.12000000476837158,
+          "z": 7.8501973152160645
+        },
+        "cameraSource": {
+          "x": 0.320966511964798,
+          "y": 0.12000000476837158,
+          "z": 7.84826135635376
+        },
+        "cameraTarget": {
+          "x": 0.32097158550422333,
+          "y": 0.55,
+          "z": 7.71077590390629
+        },
+        "cameraAngle": 0.7853981633974483,
+        "cameraZoom": 61.53846153846155,
+        "map": "shanghai",
+        "phase": "walking",
+        "revision": 3,
+        "paused": false,
+        "dead": false,
+        "wave": 1,
+        "alive": 13
+      },
+      "sample": {
+        "status": "valid",
+        "invalidReason": null,
+        "warnings": [],
+        "startedAtMs": 28530.100000023842,
+        "requestedMs": 10000,
+        "elapsedMs": 10020.5,
+        "map": "shanghai",
+        "coverage": {
+          "intervalsCollected": 419,
+          "intervalsCapacity": 5016,
+          "intervalsSaturated": false,
+          "countersCollected": 73,
+          "countersCapacity": 116,
+          "countersSaturated": false
+        },
+        "rafIntervals": {
+          "count": 419,
+          "p50": 16.69999999999709,
+          "p95": 16.80000000000291,
+          "max": 883.3000000000029,
+          "mean": 23.8653937947494,
+          "rafOver33": 12,
+          "rafOver50": 9
+        },
+        "longAnimationFrames": {
+          "supported": true,
+          "count": 8,
+          "maxDurationMs": 782
+        },
+        "renderer": {
+          "samples": 73,
+          "firstSampledAtMs": 28545,
+          "lastSampledAtMs": 38444.60000002384,
+          "drawCalls": {
+            "min": 77,
+            "max": 82,
+            "mean": 80.54794520547945
+          },
+          "triangles": {
+            "min": 183217,
+            "max": 183803,
+            "mean": 183463.60273972602
+          }
+        }
+      },
+      "pause": {
+        "physical": {
+          "x": 0.3209662437438965,
+          "y": 0.12000000476837158,
+          "z": 7.857521057128906
+        },
+        "visual": {
+          "x": 0.3209662437438965,
+          "y": 0.12000000476837158,
+          "z": 7.857521057128906
+        },
+        "after": {
+          "enabled": false,
+          "timeStep": 0.016666666666666666,
+          "frames": 929,
+          "steps": 1127,
+          "minStep": 0.01666666753590107,
+          "maxStep": 0.01666666753590107,
+          "maxOffset": 0,
+          "maxHorizontal": 0,
+          "physical": {
+            "x": 0.3209662437438965,
+            "y": 0.12000000476837158,
+            "z": 7.857521057128906
+          },
+          "visual": {
+            "x": 0.3209662437438965,
+            "y": 0.12000000476837158,
+            "z": 7.857521057128906
+          },
+          "cameraSource": {
+            "x": 0.3209662437438965,
+            "y": 0.12000000476837158,
+            "z": 7.857521057128906
+          },
+          "cameraTarget": {
+            "x": 0.320966246301951,
+            "y": 0.55,
+            "z": 7.8574504954281945
+          },
+          "cameraAngle": 0.7853981633974483,
+          "cameraZoom": 61.53846153846154,
+          "map": "shanghai",
+          "phase": "walking",
+          "revision": 3,
+          "paused": true,
+          "dead": false,
+          "wave": 1,
+          "alive": 13
+        }
+      }
+    },
+    {
+      "map": "mars",
+      "mode": 1,
+      "start": {
+        "enabled": true,
+        "timeStep": 0.016666666666666666,
+        "frames": 64,
+        "steps": 82,
+        "minStep": 0.01666666753590107,
+        "maxStep": 0.01666666753590107,
+        "maxOffset": 0,
+        "maxHorizontal": 0,
+        "physical": {
+          "x": 0,
+          "y": 0,
+          "z": 0.800000011920929
+        },
+        "visual": {
+          "x": 0,
+          "y": 0,
+          "z": 0.800000011920929
+        },
+        "cameraSource": {
+          "x": 0,
+          "y": 0,
+          "z": 0.800000011920929
+        },
+        "cameraTarget": {
+          "x": 0,
+          "y": 0.55,
+          "z": 0.8000000119144443
+        },
+        "cameraAngle": 0.7853981633974483,
+        "cameraZoom": 45.58404558404558,
+        "map": "mars",
+        "phase": "walking",
+        "revision": 0,
+        "paused": false,
+        "dead": false,
+        "wave": 0,
+        "alive": 0
+      },
+      "finish": {
+        "enabled": true,
+        "timeStep": 0.016666666666666666,
+        "frames": 666,
+        "steps": 684,
+        "minStep": 0.01666666753590107,
+        "maxStep": 0.01666666753590107,
+        "maxOffset": 0.013049776077108267,
+        "maxHorizontal": 0.013049776077108267,
+        "physical": {
+          "x": 0.3311692178249359,
+          "y": 0,
+          "z": 1.6142504215240479
+        },
+        "visual": {
+          "x": 0.3311692178249359,
+          "y": 0,
+          "z": 1.6142484598159583
+        },
+        "cameraSource": {
+          "x": 0.3311692178249359,
+          "y": 0,
+          "z": 1.6142484598159583
+        },
+        "cameraTarget": {
+          "x": 0.3311695845345738,
+          "y": 0.55,
+          "z": 1.6037889017812126
+        },
+        "cameraAngle": 0.7853981633974483,
+        "cameraZoom": 45.58404558404558,
+        "map": "mars",
+        "phase": "walking",
+        "revision": 0,
+        "paused": false,
+        "dead": false,
+        "wave": 0,
+        "alive": 0
+      },
+      "sample": {
+        "status": "valid",
+        "invalidReason": null,
+        "warnings": [],
+        "startedAtMs": 2135.6999999284744,
+        "requestedMs": 10000,
+        "elapsedMs": 10011.600000023842,
+        "map": "mars",
+        "coverage": {
+          "intervalsCollected": 600,
+          "intervalsCapacity": 5016,
+          "intervalsSaturated": false,
+          "countersCollected": 92,
+          "countersCapacity": 116,
+          "countersSaturated": false
+        },
+        "rafIntervals": {
+          "count": 600,
+          "p50": 16.699999999999818,
+          "p95": 16.700000000000728,
+          "max": 16.80000000000109,
+          "mean": 16.666166666666665,
+          "rafOver33": 0,
+          "rafOver50": 0
+        },
+        "longAnimationFrames": {
+          "supported": true,
+          "count": 0,
+          "maxDurationMs": null
+        },
+        "renderer": {
+          "samples": 92,
+          "firstSampledAtMs": 2148.1999999284744,
+          "lastSampledAtMs": 12080.699999928474,
+          "drawCalls": {
+            "min": 536,
+            "max": 543,
+            "mean": 539.2608695652174
+          },
+          "triangles": {
+            "min": 572939,
+            "max": 574013,
+            "mean": 573660.5652173914
+          }
+        }
+      },
+      "route": [
+        {
+          "x": 0,
+          "z": 29.5
+        }
+      ]
+    },
+    {
+      "map": "shanghai",
+      "mode": 1,
+      "start": {
+        "enabled": true,
+        "timeStep": 0.016666666666666666,
+        "frames": 338,
+        "steps": 330,
+        "minStep": 0.01666666753590107,
+        "maxStep": 0.01666666753590107,
+        "maxOffset": 0,
+        "maxHorizontal": 0,
+        "physical": {
+          "x": 0,
+          "y": 0,
+          "z": 9.5
+        },
+        "visual": {
+          "x": 0,
+          "y": 0,
+          "z": 9.5
+        },
+        "cameraSource": {
+          "x": 0,
+          "y": 0,
+          "z": 9.5
+        },
+        "cameraTarget": {
+          "x": 0,
+          "y": 0.55,
+          "z": 9.5
+        },
+        "cameraAngle": 0.7853981633974483,
+        "cameraZoom": 61.53846153846155,
+        "map": "shanghai",
+        "phase": "walking",
+        "revision": 3,
+        "paused": false,
+        "dead": false,
+        "wave": 1,
+        "alive": 13
+      },
+      "finish": {
+        "enabled": true,
+        "timeStep": 0.016666666666666666,
+        "frames": 939,
+        "steps": 931,
+        "minStep": 0.01666666753590107,
+        "maxStep": 0.01666666753590107,
+        "maxOffset": 0.049144489720800266,
+        "maxHorizontal": 0.049144489720800266,
+        "physical": {
+          "x": 0.3245016634464264,
+          "y": 0,
+          "z": 9.639965057373047
+        },
+        "visual": {
+          "x": 0.3245016634464264,
+          "y": 0,
+          "z": 9.639963283538737
+        },
+        "cameraSource": {
+          "x": 0.3245016634464264,
+          "y": 0,
+          "z": 9.639963283538737
+        },
+        "cameraTarget": {
+          "x": 0.3245013101858757,
+          "y": 0.55,
+          "z": 9.632638150817463
+        },
+        "cameraAngle": 0.7853981633974483,
+        "cameraZoom": 61.53846153846155,
+        "map": "shanghai",
+        "phase": "walking",
+        "revision": 3,
+        "paused": false,
+        "dead": false,
+        "wave": 1,
+        "alive": 13
+      },
+      "sample": {
+        "status": "valid",
+        "invalidReason": null,
+        "warnings": [],
+        "startedAtMs": 29105.799999952316,
+        "requestedMs": 10000,
+        "elapsedMs": 10006,
+        "map": "shanghai",
+        "coverage": {
+          "intervalsCollected": 599,
+          "intervalsCapacity": 5016,
+          "intervalsSaturated": false,
+          "countersCollected": 92,
+          "countersCapacity": 116,
+          "countersSaturated": false
+        },
+        "rafIntervals": {
+          "count": 599,
+          "p50": 16.69999999999709,
+          "p95": 16.700000000004366,
+          "max": 33.400000000001455,
+          "mean": 16.693823038397326,
+          "rafOver33": 1,
+          "rafOver50": 0
+        },
+        "longAnimationFrames": {
+          "supported": true,
+          "count": 1,
+          "maxDurationMs": 63.200000047683716
+        },
+        "renderer": {
+          "samples": 92,
+          "firstSampledAtMs": 29113.100000023842,
+          "lastSampledAtMs": 39017.699999928474,
+          "drawCalls": {
+            "min": 77,
+            "max": 80,
+            "mean": 79.92391304347827
+          },
+          "triangles": {
+            "min": 183217,
+            "max": 183359,
+            "mean": 183355.4347826087
+          }
+        }
+      },
+      "pause": {
+        "physical": {
+          "x": 0.3245019316673279,
+          "y": 0,
+          "z": 9.639925956726074
+        },
+        "visual": {
+          "x": 0.3245019316673279,
+          "y": 0,
+          "z": 9.639925956726074
+        },
+        "after": {
+          "enabled": true,
+          "timeStep": 0.016666666666666666,
+          "frames": 981,
+          "steps": 951,
+          "minStep": 0.01666666753590107,
+          "maxStep": 0.01666666753590107,
+          "maxOffset": 0.049144489720800266,
+          "maxHorizontal": 0.049144489720800266,
+          "physical": {
+            "x": 0.3245019316673279,
+            "y": 0,
+            "z": 9.639925956726074
+          },
+          "visual": {
+            "x": 0.3245019316673279,
+            "y": 0,
+            "z": 9.639925956726074
+          },
+          "cameraSource": {
+            "x": 0.3245019316673279,
+            "y": 0,
+            "z": 9.639925956726074
+          },
+          "cameraTarget": {
+            "x": 0.3245019247753207,
+            "y": 0.55,
+            "z": 9.639849066039762
+          },
+          "cameraAngle": 0.7853981633974483,
+          "cameraZoom": 61.53846153846154,
+          "map": "shanghai",
+          "phase": "walking",
+          "revision": 3,
+          "paused": true,
+          "dead": false,
+          "wave": 1,
+          "alive": 13
+        }
+      }
+    }
+  ],
+  "excludedFromComparison": "Coleta coincidiu com npm test, carga concorrente em Shanghai/atual. Preservada como evid\u00eancia; usar comparison.json da repeti\u00e7\u00e3o sem testes/build concorrentes."
+}

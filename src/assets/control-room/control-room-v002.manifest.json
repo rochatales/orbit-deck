@@ -1,0 +1,707 @@
+{
+  "version": "control-room-v002",
+  "base": "cf8916a",
+  "position": {
+    "x": 0,
+    "z": -10.5
+  },
+  "size": {
+    "width": 7,
+    "depth": 6.5
+  },
+  "entrances": [
+    "south",
+    "east"
+  ],
+  "hologramAnchor": {
+    "x": 0,
+    "y": 0.92,
+    "z": -10.5
+  },
+  "parts": [
+    {
+      "id": "PIS_Control",
+      "name": "PIS_Control",
+      "papel": "floor",
+      "ambiente": "brand-brain",
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "apoiado_em": [],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": -3.5,
+        "maxX": 3.5,
+        "minY": -0.15000000596046448,
+        "maxY": 0.003999993205070496,
+        "minZ": -13.75,
+        "maxZ": -7.25
+      },
+      "triangles": 158
+    },
+    {
+      "id": "ARQ_Control_Parede_S",
+      "name": "ARQ_Control_Parede_S",
+      "papel": "wall",
+      "ambiente": "brand-brain",
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "apoiado_em": [],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": -3.309999942779541,
+        "maxX": 3.31000018119812,
+        "minY": 2.9802322387695312e-08,
+        "maxY": 2.569999933242798,
+        "minZ": -7.46999979019165,
+        "maxZ": -7.147500038146973
+      },
+      "triangles": 460
+    },
+    {
+      "id": "ARQ_Control_Parede_N",
+      "name": "ARQ_Control_Parede_N",
+      "papel": "wall",
+      "ambiente": "brand-brain",
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "apoiado_em": [],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": -3.200000047683716,
+        "maxX": 3.200000047683716,
+        "minY": -0.030000001192092896,
+        "maxY": 2.6050000190734863,
+        "minZ": -13.9350004196167,
+        "maxZ": -13.539999961853027
+      },
+      "triangles": 412
+    },
+    {
+      "id": "ARQ_Control_Parede_O",
+      "name": "ARQ_Control_Parede_O",
+      "papel": "wall",
+      "ambiente": "brand-brain",
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "apoiado_em": [],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": -3.9800000190734863,
+        "maxX": -3.2900002002716064,
+        "minY": -0.030000001192092896,
+        "maxY": 2.6050000190734863,
+        "minZ": -13.449999809265137,
+        "maxZ": -7.550000190734863
+      },
+      "triangles": 696
+    },
+    {
+      "id": "ARQ_Control_Parede_L",
+      "name": "ARQ_Control_Parede_L",
+      "papel": "wall",
+      "ambiente": "brand-brain",
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "apoiado_em": [],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": 3.2899999618530273,
+        "maxX": 3.5974998474121094,
+        "minY": 2.9802322387695312e-08,
+        "maxY": 2.569999933242798,
+        "minZ": -13.5,
+        "maxZ": -7.5
+      },
+      "triangles": 436
+    },
+    {
+      "id": "ARQ_Control_Cantos",
+      "name": "ARQ_Control_Cantos",
+      "papel": "wall",
+      "ambiente": "brand-brain",
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "apoiado_em": [],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": -3.5199999809265137,
+        "maxX": 3.5199999809265137,
+        "minY": 0.0,
+        "maxY": 2.569999933242798,
+        "minZ": -13.770000457763672,
+        "maxZ": -7.230000019073486
+      },
+      "triangles": 448
+    },
+    {
+      "id": "VID_Control",
+      "name": "VID_Control",
+      "papel": "detail",
+      "ambiente": "brand-brain",
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "apoiado_em": [
+        "ARQ_Control_Parede_S",
+        "ARQ_Control_Parede_O",
+        "ARQ_Control_Parede_L"
+      ],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": -3.5325000286102295,
+        "maxX": 3.5344998836517334,
+        "minY": 1.2899999618530273,
+        "maxY": 2.009999990463257,
+        "minZ": -13.125,
+        "maxZ": -7.212499618530273
+      },
+      "triangles": 140
+    },
+    {
+      "id": "ARQ_Control_Portal_S",
+      "name": "ARQ_Control_Portal_S",
+      "papel": "wall",
+      "ambiente": "brand-brain",
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "apoiado_em": [],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": -1.2899999618530273,
+        "maxX": 1.2899998426437378,
+        "minY": -2.9802322387695312e-08,
+        "maxY": 2.460278034210205,
+        "minZ": -7.350000381469727,
+        "maxZ": -6.96999979019165
+      },
+      "triangles": 276
+    },
+    {
+      "id": "D_Control_S_A",
+      "name": "D_Control_S_A",
+      "papel": "door",
+      "ambiente": "brand-brain",
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "apoiado_em": [],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": -1.0625,
+        "maxX": -0.007500052452087402,
+        "minY": -2.9802322387695312e-08,
+        "maxY": 2.1999998092651367,
+        "minZ": -7.394999980926514,
+        "maxZ": -7.262499809265137
+      },
+      "triangles": 64
+    },
+    {
+      "id": "D_Control_S_B",
+      "name": "D_Control_S_B",
+      "papel": "door",
+      "ambiente": "brand-brain",
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "apoiado_em": [],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": 0.007500052452087402,
+        "maxX": 1.0625,
+        "minY": -2.9802322387695312e-08,
+        "maxY": 2.1999998092651367,
+        "minZ": -7.394999980926514,
+        "maxZ": -7.262499809265137
+      },
+      "triangles": 64
+    },
+    {
+      "id": "PROP_Control_Status_S",
+      "name": "PROP_Control_Status_S",
+      "papel": "detail",
+      "ambiente": "brand-brain",
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "apoiado_em": [
+        "ARQ_Control_Portal_S"
+      ],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": -0.3400000035762787,
+        "maxX": 0.3400000035762787,
+        "minY": 2.317499876022339,
+        "maxY": 2.382499933242798,
+        "minZ": -7.032500267028809,
+        "maxZ": -7.007499694824219
+      },
+      "triangles": 12
+    },
+    {
+      "id": "ARQ_Control_Portal_L",
+      "name": "ARQ_Control_Portal_L",
+      "papel": "wall",
+      "ambiente": "brand-brain",
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "apoiado_em": [],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": 3.3899998664855957,
+        "maxX": 3.7700002193450928,
+        "minY": -2.9802322387695312e-08,
+        "maxY": 2.460278034210205,
+        "minZ": -11.789999961853027,
+        "maxZ": -9.210000038146973
+      },
+      "triangles": 276
+    },
+    {
+      "id": "D_Control_L_A",
+      "name": "D_Control_L_A",
+      "papel": "door",
+      "ambiente": "brand-brain",
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "apoiado_em": [],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": 3.3550000190734863,
+        "maxX": 3.487499952316284,
+        "minY": -2.9802322387695312e-08,
+        "maxY": 2.1999998092651367,
+        "minZ": -10.492500305175781,
+        "maxZ": -9.4375
+      },
+      "triangles": 64
+    },
+    {
+      "id": "D_Control_L_B",
+      "name": "D_Control_L_B",
+      "papel": "door",
+      "ambiente": "brand-brain",
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "apoiado_em": [],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": 3.3550000190734863,
+        "maxX": 3.487499952316284,
+        "minY": -2.9802322387695312e-08,
+        "maxY": 2.1999998092651367,
+        "minZ": -11.5625,
+        "maxZ": -10.507499694824219
+      },
+      "triangles": 64
+    },
+    {
+      "id": "PROP_Control_Status_L",
+      "name": "PROP_Control_Status_L",
+      "papel": "detail",
+      "ambiente": "brand-brain",
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "apoiado_em": [
+        "ARQ_Control_Portal_L"
+      ],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": 3.7074999809265137,
+        "maxX": 3.7325000762939453,
+        "minY": 2.317499876022339,
+        "maxY": 2.382499933242798,
+        "minZ": -10.84000015258789,
+        "maxZ": -10.15999984741211
+      },
+      "triangles": 12
+    },
+    {
+      "id": "TET_Control",
+      "name": "TET_Control",
+      "papel": "roof",
+      "ambiente": "brand-brain",
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "apoiado_em": [],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": -3.5,
+        "maxX": 3.5,
+        "minY": 2.549999952316284,
+        "maxY": 3.5999999046325684,
+        "minZ": -13.75,
+        "maxZ": -7.25
+      },
+      "triangles": 606
+    },
+    {
+      "id": "PROP_Control_Telhado",
+      "name": "PROP_Control_Telhado",
+      "papel": "detail",
+      "ambiente": "brand-brain",
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "apoiado_em": [
+        "TET_Control"
+      ],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": -3.2601442337036133,
+        "maxX": 3.2321014404296875,
+        "minY": 0.4833143651485443,
+        "maxY": 5.972441673278809,
+        "minZ": -12.489999771118164,
+        "maxZ": -7.444000244140625
+      },
+      "triangles": 860
+    },
+    {
+      "id": "TET_Control_Luminarias",
+      "name": "TET_Control_Luminarias",
+      "papel": "detail",
+      "ambiente": "brand-brain",
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "apoiado_em": [
+        "TET_Control"
+      ],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": -1.7400000095367432,
+        "maxX": 1.7399998903274536,
+        "minY": 2.442499876022339,
+        "maxY": 2.575000047683716,
+        "minZ": -12.399999618530273,
+        "maxZ": -8.600000381469727
+      },
+      "triangles": 112
+    },
+    {
+      "id": "PROP_Control_Console",
+      "name": "PROP_Control_Console",
+      "papel": "furniture",
+      "ambiente": "brand-brain",
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "apoiado_em": [],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": -1.3723738193511963,
+        "maxX": 1.3723738193511963,
+        "minY": -0.0007127225399017334,
+        "maxY": 0.7899999618530273,
+        "minZ": -11.872373580932617,
+        "maxZ": -9.127626419067383
+      },
+      "triangles": 2596
+    },
+    {
+      "id": "PROP_Control_EDEN_Emissor",
+      "name": "PROP_Control_EDEN_Emissor",
+      "papel": "furniture",
+      "ambiente": "brand-brain",
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "apoiado_em": [],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": -0.4200000464916229,
+        "maxX": 0.4200000464916229,
+        "minY": 0.7900000810623169,
+        "maxY": 0.9259999990463257,
+        "minZ": -10.920000076293945,
+        "maxZ": -10.079999923706055
+      },
+      "triangles": 472
+    },
+    {
+      "id": "PROP_Control_EDEN_Projecao",
+      "name": "PROP_Control_EDEN_Projecao",
+      "papel": "detail",
+      "ambiente": "brand-brain",
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "apoiado_em": [
+        "PROP_Control_EDEN_Emissor"
+      ],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": -0.5709999799728394,
+        "maxX": 0.5709999799728394,
+        "minY": 0.9622057676315308,
+        "maxY": 1.8844729661941528,
+        "minZ": -11.059806823730469,
+        "maxZ": -9.940193176269531
+      },
+      "triangles": 360
+    },
+    {
+      "id": "PROP_Control_Interacao",
+      "name": "PROP_Control_Interacao",
+      "papel": "detail",
+      "ambiente": "brand-brain",
+      "estado_inicial": "oculto",
+      "estado_operacao": "interaction",
+      "apoiado_em": [
+        "PROP_Control_Console"
+      ],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": -0.5600000023841858,
+        "maxX": 0.8599998950958252,
+        "minY": 0.07749998569488525,
+        "maxY": 0.10249999165534973,
+        "minZ": -11.059999465942383,
+        "maxZ": -9.640000343322754
+      },
+      "triangles": 48
+    },
+    {
+      "id": "PROP_Control_Rack",
+      "name": "PROP_Control_Rack",
+      "papel": "furniture",
+      "ambiente": "brand-brain",
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "apoiado_em": [],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": -2.9099998474121094,
+        "maxX": -2.1700000762939453,
+        "minY": -2.9802322387695312e-08,
+        "maxY": 1.9400001764297485,
+        "minZ": -13.460000038146973,
+        "maxZ": -12.610000610351562
+      },
+      "triangles": 284
+    },
+    {
+      "id": "PROP_Control_Consoles_N",
+      "name": "PROP_Control_Consoles_N",
+      "papel": "furniture",
+      "ambiente": "brand-brain",
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "apoiado_em": [],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": 0.05000007152557373,
+        "maxX": 2.3499999046325684,
+        "minY": -2.9802322387695312e-08,
+        "maxY": 1.4524519443511963,
+        "minZ": -13.5,
+        "maxZ": -12.559999465942383
+      },
+      "triangles": 224
+    },
+    {
+      "id": "PROP_Control_Telas",
+      "name": "PROP_Control_Telas",
+      "papel": "detail",
+      "ambiente": "brand-brain",
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "apoiado_em": [
+        "ARQ_Control_Parede_N",
+        "ARQ_Control_Parede_O"
+      ],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": -3.31000018119812,
+        "maxX": 2.619999885559082,
+        "minY": 0.9900000095367432,
+        "maxY": 2.2799997329711914,
+        "minZ": -13.547500610351562,
+        "maxZ": -11.190000534057617
+      },
+      "triangles": 48
+    },
+    {
+      "id": "PROP_Control_Conduites",
+      "name": "PROP_Control_Conduites",
+      "papel": "detail",
+      "ambiente": "brand-brain",
+      "estado_inicial": "visivel",
+      "estado_operacao": "both",
+      "apoiado_em": [
+        "ARQ_Control_Parede_N"
+      ],
+      "apoiado_em_todos": [],
+      "bounds": {
+        "minX": -2.950000047683716,
+        "maxX": 2.950000047683716,
+        "minY": 0.030000001192092896,
+        "maxY": 2.3999998569488525,
+        "minZ": -13.493999481201172,
+        "maxZ": -13.390000343322754
+      },
+      "triangles": 128
+    }
+  ],
+  "triangles": 9320,
+  "materials": 2,
+  "colliders_proposed": [
+    {
+      "id": "COL_CR_Piso",
+      "center": {
+        "x": 0,
+        "y": -0.075,
+        "z": -10.5
+      },
+      "halfExtents": {
+        "x": 3.5,
+        "y": 0.075,
+        "z": 3.25
+      },
+      "type": "CuboidCollider",
+      "proposal": true
+    },
+    {
+      "id": "COL_CR_Sul_-2.2",
+      "center": {
+        "x": -2.2,
+        "y": 1.25,
+        "z": -7.35
+      },
+      "halfExtents": {
+        "x": 1.1,
+        "y": 1.3,
+        "z": 0.1
+      },
+      "type": "CuboidCollider",
+      "proposal": true
+    },
+    {
+      "id": "COL_CR_Sul_2.2",
+      "center": {
+        "x": 2.2,
+        "y": 1.25,
+        "z": -7.35
+      },
+      "halfExtents": {
+        "x": 1.1,
+        "y": 1.3,
+        "z": 0.1
+      },
+      "type": "CuboidCollider",
+      "proposal": true
+    },
+    {
+      "id": "COL_CR_Norte",
+      "center": {
+        "x": 0,
+        "y": 1.25,
+        "z": -13.65
+      },
+      "halfExtents": {
+        "x": 3.18,
+        "y": 1.3,
+        "z": 0.1
+      },
+      "type": "CuboidCollider",
+      "proposal": true
+    },
+    {
+      "id": "COL_CR_Oeste",
+      "center": {
+        "x": -3.4,
+        "y": 1.25,
+        "z": -10.5
+      },
+      "halfExtents": {
+        "x": 0.1,
+        "y": 1.3,
+        "z": 2.93
+      },
+      "type": "CuboidCollider",
+      "proposal": true
+    },
+    {
+      "id": "COL_CR_Leste_-2.05",
+      "center": {
+        "x": 3.4,
+        "y": 1.25,
+        "z": -8.45
+      },
+      "halfExtents": {
+        "x": 0.1,
+        "y": 1.3,
+        "z": 0.95
+      },
+      "type": "CuboidCollider",
+      "proposal": true
+    },
+    {
+      "id": "COL_CR_Leste_2.05",
+      "center": {
+        "x": 3.4,
+        "y": 1.25,
+        "z": -12.55
+      },
+      "halfExtents": {
+        "x": 0.1,
+        "y": 1.3,
+        "z": 0.95
+      },
+      "type": "CuboidCollider",
+      "proposal": true
+    },
+    {
+      "id": "COL_CR_Console",
+      "center": {
+        "x": 0,
+        "y": 0.42999999999999994,
+        "z": -10.5
+      },
+      "halfExtents": {
+        "x": 0.82,
+        "y": 0.43,
+        "z": 0.82
+      },
+      "type": "CuboidCollider",
+      "proposal": true
+    },
+    {
+      "id": "COL_CR_Rack",
+      "center": {
+        "x": -2.54,
+        "y": 0.9700000000000001,
+        "z": -13.07
+      },
+      "halfExtents": {
+        "x": 0.4,
+        "y": 0.97,
+        "z": 0.49
+      },
+      "type": "CuboidCollider",
+      "proposal": true
+    },
+    {
+      "id": "COL_CR_Consoles_N",
+      "center": {
+        "x": 1.2,
+        "y": 0.77,
+        "z": -13.05
+      },
+      "halfExtents": {
+        "x": 1.2,
+        "y": 0.77,
+        "z": 0.5
+      },
+      "type": "CuboidCollider",
+      "proposal": true
+    }
+  ],
+  "interaction": {
+    "id": "INTERACT_Control_EDEN",
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": -10.5
+    },
+    "existingAction": "openEden",
+    "existingRadius": 2.7
+  },
+  "states": [
+    "idle",
+    "interaction"
+  ],
+  "statesRuntimeOnly": true
+}

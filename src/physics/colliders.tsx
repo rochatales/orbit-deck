@@ -1,7 +1,7 @@
-import { CuboidCollider, RigidBody } from "@react-three/rapier";
-import { useMemo } from "react";
+import { CuboidCollider, RigidBody, useBeforePhysicsStep, type RapierRigidBody } from "@react-three/rapier";
+import { useMemo, useRef } from "react";
 import { PLAYER_PHYSICS } from "../characters/player/playerConfig";
-import type { OfficeWorld } from "../world/createOfficeMap";
+import type { OfficeWorld, SimpleCuboid } from "../world/createOfficeMap";
 
 interface ColliderEntry {
   key: string;
@@ -29,7 +29,7 @@ function rectToColliderEntry(
 
 export function OfficeColliders({ officeWorld }: { officeWorld: OfficeWorld }) {
   const colliders = useMemo(() => {
-    const obstacleEntries = officeWorld.obstacles.map((obstacle, index) =>
+    const obstacleEntries = officeWorld.obstacles.filter(o => o.physics !== false).map((obstacle, index) =>
       rectToColliderEntry(`obstacle-${index}`, obstacle.minX, obstacle.maxX, obstacle.minZ, obstacle.maxZ)
     );
 
@@ -58,16 +58,33 @@ export function OfficeColliders({ officeWorld }: { officeWorld: OfficeWorld }) {
   }, [officeWorld]);
 
   return (
-    <RigidBody type="fixed" colliders={false}>
-      {colliders.map((entry) => (
-        <CuboidCollider
-          key={entry.key}
-          position={entry.position}
-          args={entry.args}
-          friction={0}
-          restitution={0}
-        />
-      ))}
-    </RigidBody>
+    <>
+      <RigidBody type="fixed" colliders={false}>
+        {colliders.map((entry) => (
+          <CuboidCollider
+            key={entry.key}
+            position={entry.position}
+            args={entry.args}
+            friction={0}
+            restitution={0}
+          />
+        ))}
+        {officeWorld.simpleCuboids?.map(c => <CuboidCollider key={c.id}
+          position={[c.position.x, c.position.y, c.position.z]}
+          quaternion={[c.rotation.x, c.rotation.y, c.rotation.z, c.rotation.w]}
+          args={[c.halfExtents[0], c.halfExtents[1], c.halfExtents[2]]} friction={0} restitution={0}/>)}
+      </RigidBody>
+      {officeWorld.movingCuboids?.map(c => <MovingCollider key={c.id} entry={c}/>)}
+    </>
   );
+}
+
+function MovingCollider({ entry }: { entry: SimpleCuboid }) {
+  const body = useRef<RapierRigidBody>(null);
+  useBeforePhysicsStep(() => { body.current?.setNextKinematicTranslation(entry.position); });
+  return <RigidBody ref={body} type="kinematicPosition" colliders={false}
+    position={[entry.position.x, entry.position.y, entry.position.z]}
+    quaternion={[entry.rotation.x, entry.rotation.y, entry.rotation.z, entry.rotation.w]}>
+    <CuboidCollider args={[entry.halfExtents[0], entry.halfExtents[1], entry.halfExtents[2]]} friction={0} restitution={0}/>
+  </RigidBody>;
 }

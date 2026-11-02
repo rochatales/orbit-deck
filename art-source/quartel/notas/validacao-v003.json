@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "blendSHA256": "5bed60912e08c019ae16b8962fbf641a4f8321d53a957f6bbec1be7cdaaca625",
+  "scaleBaked": 0.75,
+  "rootScale": [
+    1,
+    1,
+    1
+  ],
+  "meshBoundsMaxErrorM": 2.384185791015625e-07,
+  "triangles": 8278,
+  "materials": 1,
+  "meshes": 13,
+  "COLnodes": 33,
+  "doorCOLAABBErrorsM": [
+    4.76837158203125e-07,
+    2.384185791015625e-07
+  ],
+  "doorAnimationTravelM": 1.0875,
+  "internalRoute": {
+    "raySamples": 72,
+    "bodyRadiusUnscaledM": 0.38,
+    "bodyTopAboveFloorM": 1.25,
+    "passed": true
+  },
+  "limitation": "Amostras geométricas, não validação Rapier ou aceite de jogabilidade."
+}

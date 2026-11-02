@@ -1,0 +1,408 @@
+00:00.567  blend            | Read blend: "/Users/rochatales/.codex/worktrees/s6-12-laboratorio-colonia/game-workplace/art-source/laboratorio-sintetizador/blend/laboratorio_sintetizador_v001.blend"
+{"triangles": 7382, "polygons": 3527, "vertices": 4453, "materials": 1, "clips": ["Drawer_Dispense", "Idle_Ready", "Standby_PowerDown", "Synthesizing"], "staticBoxes": 25, "movingBoxes": 2, "roof": "Ausente por decis\u00e3o da arte: corte 90 graus permanente; n\u00e3o h\u00e1 teto a ocultar."}
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:46:23)
+
+Blender quit
+
+
+> exoden@0.1.0 test
+> node --test tests/*.test.mjs
+
+✔ S3.10: mapa completo por tipo, grande provisório e lacunas explícitas (0.644041ms)
+✔ S3.10: buffers uma vez, gesto obrigatório, voz por categoria, fade e descarte (2.163042ms)
+✔ S3.10: fila reutiliza slots, pan pela câmera, distância e sorteio sem repetição (0.215916ms)
+✔ S3.10: simulação emite tiro/hit ou morte por tipo; ataque só quando aplica dano (169.117375ms)
+✔ S3.10: 17 fontes intactas, detecção reproduzível, variações/durações/picos/mono 96k (4121.294375ms)
+✔ Passos pesados: duas vozes reservadas, até 25 m, sem disputar quatro passos comuns; aviso grave/baixo (1.038208ms)
+✔ Passos pesados: 14 variações normalizadas por pico, fontes e durações preservadas (0.102792ms)
+✔ Investida: aviso de áudio ocorre uma vez ao começar a antecipação e não repete durante os 0,8 s (232.115458ms)
+✔ S6.12: piso externo repete escala, junta e cores reais do pátio, sem mudar área/altura (104.897083ms)
+✔ S6.12: faces do piso com tile não se sobrepõem nem dividem plano com arquitetura (2360.981334ms)
+✔ S6.12: props exportados não têm área coplanar sobreposta, incluindo caixas, rótulos e bases (332.614667ms)
+✔ S6.12: molduras de porta não dividem plano com a parede (z-fighting dos batentes verdes) (495.260417ms)
+✔ estufa v001: geometria real sem faces coplanares nos dois estados; vidros separados por pelo menos 2 mm (4570.5145ms)
+✔ estufa v001: implantação oeste, contagens, colisores simples constantes e corredor acessível (604.917333ms)
+✔ S6.19c: flag explícita e fronteiras de descarte sempre sob areia opaca (0.600625ms)
+✔ S6.19c: histerese e distância à borda preservam peças grandes perto do jogador (0.132625ms)
+✔ S6.19c: descarte real, terreno preservado, peça retirada não ressuscita e A/B restaura (2.233458ms)
+✔ S6.19c: aproximação revela peça ainda sob areia e giro de câmera não altera raio (0.439292ms)
+✔ S6.19c: preserva cache GLTF e referências dos materiais de corte e folhas (0.593875ms)
+✔ S6.19c: vento respeita pausa e efeitos reduzidos; perfil amplo recompõe o alcance (0.327875ms)
+✔ S6.19c: identidade id_estavel v007 independe do nome saneado pelo GLTFLoader (17.752667ms)
+✔ S6.12: exportação completa B3 sem referências, variantes antigas ou colisores de malha (8.857166ms)
+✔ S6.12: fade contínuo, histerese, materiais privados e piso intacto (50.974084ms)
+✔ S6.12: fade não altera materiais do cache e não oscila ao tangenciar peça (1.314667ms)
+✔ S6.12: vão real não corta parede e apoio não desaparece em cascata (1.125959ms)
+✔ S6.2: foguete/base antigos, deck e serviços retirados só da cópia (22.990291ms)
+✔ S6.12: todas as folhas preservam raio, amortecimento, escala, slide, opacidade e luz (271.771334ms)
+✔ S6.12: embarque acessível antes da base sólida e saída preservada (89.585833ms)
+✔ S6.2: preserva obstáculos da colônia, ARES e console Oeste reposicionado (52.939333ms)
+✔ S6.12: 16 portas alinhadas ao GLB sem interseção durante todo o slide (1767.205833ms)
+✔ S6.12: fachada da porta esmaece como um só grupo e nada translúcido escreve profundidade (3203.695ms)
+✔ S6.12: toda a cobertura usa o fade do teto no mesmo passo, incluindo apoios indiretos (3.600209ms)
+✔ S6.12: GLB real mantém zero diferença absoluta entre os 10 apoios e os 9 tetos (2147.370709ms)
+✔ S6.2: ARES substitui B3 e deixa desembarque livre (211.18625ms)
+✔ S6.2: Rapier bloqueia nave/escada de todos os lados sem autostep por cima (326.7235ms)
+✔ VFX: todo disparo usa ponta real do cano, até com centro→cano bloqueado (177.8285ms)
+✔ VFX: metal, orgânico e parede no ponto do impacto; tranco só visual (326.952375ms)
+✔ VFX: pool estável de 256, vida ≤0,5, clear e tentativa nova sem resíduos (46.374708ms)
+✔ VFX: pausa congela partículas, clarão e tranco junto do combate (56.008042ms)
+✔ VFX reforçado: traçador 2×/0,12 s, clarão 2×, impacto 40; pico do rifle cabe em 256 (89.741917ms)
+✔ Estilhaços: 40 no hemisfério do atirador, 4–7 m/s, 0,35–0,5 s e raio visível até 2,5 m (6.698625ms)
+✔ Ricochete: quatro pisos, energia reduzida, sem afundar e menos quique orgânico; poeira preservada (4.798ms)
+✔ hitscan selects nearest living robot and walls stop bullets; player excluded (67.632292ms)
+✔ manual rifle cadence, kill, finite ammo and partial reload (80.83025ms)
+✔ pause freezes reload, enemy positions, contact immunity, shots and simulation time (74.5775ms)
+✔ five simultaneous contacts use a global damage interval; death is terminal (155.867708ms)
+✔ navigation goes around real Shanghai buildings without crossing their footprint (73.352458ms)
+✔ contact cannot damage through a thin wall (44.414458ms)
+✔ 1, 3 and 5 robot encounters can be cleared with the finite starting loadout (79.440416ms)
+✔ robots still pursue a player hugging a wall with smaller player clearance (20.191333ms)
+✔ visão exige cone frontal, alcance e ausência de parede (17.787167ms)
+✔ horda começa completa, patrulha de forma determinística e respeita prédios (480.065834ms)
+✔ abate gera um conjunto de metais na posição da morte e coleta uma única vez (13.949958ms)
+✔ dois corações curam 50 pontos, limitam a 100 e não são consumidos com vida cheia (18.111625ms)
+✔ coleta respeita pausa, parede, morte e reinício da tentativa (39.604542ms)
+✔ alerta visual inicia na detecção, congela na pausa e expira sem perder perseguição (45.595541ms)
+✔ primeiro tiro recebido identifica o jogador, mesmo pelas costas; tiro errado não (15.787917ms)
+✔ rente pela lateral o robô percebe o jogador; costas, parede e distância bloqueiam (22.921333ms)
+✔ percepção curta inclui 3 m e 135 graus dos dois lados; além deles mantém cone frontal (22.542417ms)
+✔ Marcha em grupo real: quatro tipos entre nove robôs sem giro abrupto ou troca rápida de locomoção (8293.3995ms)
+✔ Rumo visual limita velocidade em 30/60/144 Hz, cruza ±PI pelo lado curto e congela na pausa (0.78375ms)
+✔ Filtro não oscila entre andar/Idle com passos bloqueados alternados; ataque e morte permanecem imediatos (0.617541ms)
+✔ Parada sustentada volta a Idle e cessa passos sem herdar a cadência da marcha (0.318417ms)
+✔ S2.12 B3: distância mista simétrica e movimento preservam a soma dos raios + 8 cm (2920.420417ms)
+✔ S2.12 B3: 32 spawns, candidatos por raio, nove vielas e acessos às duas caixas (1835.674875ms)
+✔ S2.12 B3: caminho não vazio ainda rejeita origem, segmento ou término inválido (0.243125ms)
+✔ S2.12 B3: quatro hordas completas com rifle real, 115 baixas e nenhuma invasão de sólido (5489.907042ms)
+✔ S2.12 B3: dez grandes chegam ao contato pelos caminhos reais sem atravessar sólidos (2530.89375ms)
+✔ S2.12 B3: acerto usa raio próprio, incluindo alvo colado ao cano a 0,85 m (742.16675ms)
+✔ estufa: OFFLINE inicial; materiais, plantas e luzes alternam sem tocar o cache GLB (3.1825ms)
+✔ estufa: ONLINE compõe com corte do teto; plantas ficam, paredes nunca somem (2.095584ms)
+✔ estufa: valida IDs, ciclos, estado operacional, suporte, materiais e orçamento de luzes (1.541583ms)
+✔ estufa: libera recursos próprios uma vez; não descarta geometria nem materiais de origem (2.089417ms)
+✔ estufa: provisório é retirado com seu manifesto antes de criar o runtime da colônia (0.3745ms)
+✔ estufa: candidato real alterna estados e corte após reimportação GLB (51.150625ms)
+✔ S6.12 Hangar A: v001/fonte/texturas preservados, nova variante abaixo de 10 mil triângulos (36.722875ms)
+✔ S6.12 Hangar A: teto próprio e quatro folhas com trilhos do padrão v007; quatro clipes preservados (1.2485ms)
+✔ S6.12 Hangar A: encaixe mantém norte e Refeitório; rampa não invade passarela/console (3.016166ms)
+✔ Hangar runtime: cópia exata v002; três rotas, equipamentos e reserva do deck (7.133584ms)
+✔ Hangar runtime: Rapier caminha praça → interior/rampa/deck/embarque e Refeitório em ambos sentidos (236.792916ms)
+✔ Hangar runtime: corte do teto, portas por proximidade, rampa e canais complementares sem tocar o cache (20.650042ms)
+✔ Hangar runtime: alerta em decolagem/pouso compõe com guindaste e pausa; descarte de recursos privados (7.223667ms)
+✔ Hangar runtime: somente Doca/antecâmara e seus pisos saem; manifesto/cache e Refeitório permanecem (597.177875ms)
+✔ Hangar runtime: envelopes simples contêm carga e ganchos ao compor Idle e CraneWork (408.872917ms)
+✔ Hangar runtime: quatro lados dos dois vãos pretos, sem atlas/emissão; cache e contagem de faces preservados (7.027042ms)
+✔ fila: patrulhas da fase 01 não travam de frente nos cantos compartilhados (1715.107042ms)
+✔ fila: na perseguição a horda cerca o jogador em vez de parar em linha atrás do primeiro (694.26325ms)
+✔ ao avistar o jogador o robô acelera o passo um pouco, sem tranco (21.767167ms)
+✔ caminho suavizado continua livre de prédios e corta a escada da grade (14.071125ms)
+✔ hordas 13 → 26 → 32 → 44 nascem na borda, em pontos distintos, longe do jogador e uma por vez (1207.013375ms)
+✔ horda marcha da borda até o jogador e acelera ao avistá-lo (1265.758333ms)
+✔ seletor aceita hordas como padrão e mantém as patrulhas de teste (0.343584ms)
+✔ integração: horda da S2.4 nos 32 spawns e 4 patrulhas da fase 01 (930.125041ms)
+✔ integração: encontros pequenos nascem perto da chegada; mapa anterior intacto (187.002ms)
+✔ S2.11: apenas ?interp=1 habilita; passo permanece 1/60 e padrão conserva prioridades (25.306334ms)
+✔ S2.11: reposição reseta físico e visual no mesmo instante, sem substituir referências (1.346333ms)
+✔ S2.11: tiro real e checagem centro→cano continuam físicos com visual deslocado (41.933125ms)
+✔ S2.11: câmera visual após Rapier; combate continua referenciando posição física (0.462792ms)
+✔ Laboratório: fonte preservada por SHA-256, escala 1×, rig/atlas/clipes e orçamento reais (90.870667ms)
+✔ Laboratório: sala antiga sai só da cópia; vizinhos, física simples e save v1 permanecem (942.358333ms)
+✔ Laboratório: folhas reais e colisores coincidem em todos os quadros, sem interferência dos quatro modos (263.879083ms)
+✔ Laboratório: gate Sandwind único, distância pela caixa inteira, cache intacto em três montagens (12.386208ms)
+✔ Laboratório: Rapier percorre EDEN → porta oeste → laboratório → porta sul → quartel → praça, ida e volta (304.853708ms)
+✔ Laboratório: portas fechadas, paredes, bancadas, armários e máquina são sólidos; proximidade libera entrada (434.801041ms)
+✔ Laboratório: passarelas ficam fora do descarte, em uma malha/material e sem sobreposição nas quinas (5.620375ms)
+✔ Grande mutante: GLB íntegro, seis clipes, 5.560 triângulos e envelope medido (723.369125ms)
+✔ Grande mutante: 13/26/32/44, 115 ameaças, 127 slots de itens e 12 acertos por grande (881.579584ms)
+✔ Investida: aviso 0,8 s parado, direção fixa, corrida ≤10 m e recarga 3 s (785.7035ms)
+✔ Investida: varredura acerta 30 uma vez, fora da faixa não; imunidade é global (1730.41375ms)
+✔ Investida: para no sólido mesmo inserido depois do aviso; não atravessa a parede (988.171041ms)
+✔ Investida: pausa congela a antecipação; contato de perto causa 15 (1129.900709ms)
+✔ Grande mutante: 12 tiros a 0,85 m, três orgânicas separadas, coleta individual e anéis no piso (1316.338292ms)
+✔ Grande mutante: borda e patrulhas exportadas têm segmentos válidos no raio e fim dentro do contato (1058.5245ms)
+✔ Grande mutante: sons grandes habilitados; morte grave provisória, aviso é visual (6.777875ms)
+✔ Investida: só inicia entre 4–9 m inclusive e com linha livre (4347.756584ms)
+✔ Grande mutante: espaçamento misto conserva a soma dos raios e margem simétrica (0.325083ms)
+✔ Aranha ×2,5: corpo define raio 1,66, contato e faixa conservadora com as patas; investida 10 m (1.101875ms)
+✔ Investida atravessa cinco robôs: deslocamento lateral fora da faixa, sem dano aliado nem sólido (520.892125ms)
+✔ Empurrão: escolhe o lado próximo, tenta o oposto bloqueado e limita em corredor fechado (0.319166ms)
+✔ Investida em corredor estreito atravessa cinco aliados sem espaço lateral, preserva sólidos e vida (439.514416ms)
+✔ Recursos/Patrol grande: GLBs do autor preservados, rigs e clipes esperados (12.426959ms)
+✔ Hordas: robôs preservados, animais adicionais 3/6, com 115 ameaças totais (1587.408083ms)
+✔ Patrol grande: perímetro recuado respeita raio, todos os segmentos e alcance de contato ARES-I (278.782375ms)
+✔ Portes: patrulhas e encontros pequenos continuam comuns; raio do grande participa do hitscan (1028.118667ms)
+✔ Titânio: um único drop de grande, separado de ferro/cobre, bloqueado por parede/pausa/morte (102.377291ms)
+✔ Visual GLB do recurso: spawn, idle, coleta única e pausa, sem modificar asset compartilhado (4.321667ms)
+✔ Patrol grande: ChaseRun, ataque, morte e respawn usam clipes do modelo novo (3.519291ms)
+✔ Horda mista: 90 s válida; neutralizar a primeira linha libera contato dos grandes com ARES-I (5099.790792ms)
+✔ Coleta no mesmo passo da morte ainda apresenta animação GLB uma vez (1.866375ms)
+✔ Patrol grande requer seis acertos do rifle e gera somente um titânio (74.684875ms)
+✔ Contato do grande aplica 25 de dano com intervalo de 1,2 s (133.60525ms)
+✔ Marte ARES: mesma nave, sem impacto urbano, marcador no desembarque e deck plano (99.355666ms)
+✔ Marte ARES: área caminhável fica dentro do octógono e acesso/contorno ficam livres (0.595875ms)
+✔ S0.4: consoles reais reposicionados na cópia, Oeste voltado à colônia e fonte intacta (153.372916ms)
+✔ S0.4/v007: só Oeste ganha colisor de prop; passarela, colônia e embarque livres (183.092792ms)
+✔ S0.4: Rapier bloqueia o console Oeste nas quatro aproximações sem autostep (232.029083ms)
+✔ S0.4: rack junto ao deck recebe ponta original do tubo; tanques grandes imóveis (124.09125ms)
+✔ v007/deck: seis conjuntos v006 nas posições aprovadas, tubo/tanques/carrinhos intactos e cache preservado (558.04675ms)
+✔ v007/deck: nenhum prop invade módulo/colisor/rota; Oeste só ocupa zona B fora da estrada (335.060167ms)
+v007 custo CPU update (3000 passos, Node, sem GPU): 0.0055 ms/passo
+v007 área exata piso/colisões: 1161.177 m²; diferença 0 m²
+✔ v007: módulos exatos, nomes, eixos, portas e conexão EDEN/Lab independentes (4.873625ms)
+✔ v007: GLB/manifesto concordam em IDs, apoios, posições e estado; erros são explícitos (108.211875ms)
+✔ v007: só telhado e apoios ocultam dentro; paredes continuam visíveis em qualquer câmera (139.638958ms)
+✔ v007: portas abrem totalmente antes da passagem e fecham; nenhum trilho empurra física (58.586875ms)
+✔ v007: pavimento em união exata sem faces superiores coplanares duplicadas (578.080792ms)
+✔ v007: fontes anteriores e ARES aprovados preservados por SHA-256 (21.159625ms)
+✔ v007: todos os destinos alcançáveis com raio 0,36m e passo 5cm (1035.998333ms)
+✔ v007: zero faces coplanares sobrepostas na arquitetura e junção com ARES (14619.757042ms)
+✔ v007: entrada da Oficina permanece livre (3.511ms)
+✔ v007 aberta: ligações sem cascos/colisores e tiles originais preservados (40.653583ms)
+✔ Recuperação mede aproximação real: passos laterais não reiniciam janela, ordem 1,5/3/4 s (1.130833ms)
+✔ Recuperação: só o menor cede, por até 1,5 s e alvo de recuo 1 m; pausa e renascimento limpam estado (558.262709ms)
+✔ Recuperação atravessa apenas aliados: jogador e parede continuam sólidos durante passagem (502.563667ms)
+✔ Regressão: grupo misto do bloqueio antigo libera a rua sem mover spawns ou sólidos (2186.125833ms)
+✔ Hordas completas sem fila permanente: desembarque, 115 baixas e parada máxima <10 s (4634.958584ms)
+✔ Hordas completas sem fila permanente: rua norte, 115 baixas e parada máxima <10 s (2743.580708ms)
+✔ Hordas completas sem fila permanente: parede, 115 baixas e parada máxima <10 s (1534.124209ms)
+✔ Recuperação: alvo móvel reancora a janela sem esconder o tempo travado (0.258167ms)
+✔ Shanghai real: investida atravessa cinco robôs em rua ampla, sem aliado em sólido (382.177833ms)
+✔ Shanghai real: investida atravessa cinco robôs em rua estreita, sem aliado em sólido (355.732917ms)
+(node:48259) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ S2.12: W avança, S recua e W + S (ou nenhum) neutralizam (0.613417ms)
+✔ S2.12: A/D não deslocam — não há ação lateral e o deslocamento é sempre paralelo à mira (0.484792ms)
+✔ S2.12: recuo vai na direção oposta à mira sem inverter a orientação do personagem (0.17825ms)
+✔ S2.12: cursor perto do personagem mantém a última direção válida, sem tremor (0.166375ms)
+✔ S2.12: velocidades de corrida e recuo separadas e recuo mais lento; Shift não é necessário (0.068042ms)
+✔ S2.12: locomoção pela velocidade real, com histerese e parada contra parede (0.076042ms)
+✔ S2.12: taxa dos ciclos acompanha a velocidade real dentro dos limites (0.072625ms)
+✔ S2.12: seleção e transição de clipes (Idle, Run, Backward; queda e interação têm prioridade) (0.117208ms)
+✔ S2.12: bloqueios de sessão param o movimento antes de ler as teclas (146.6295ms)
+✔ S2.12: asset r7 separado, com os cinco clipes e o mesmo rig; GLB ativo preservado (15.945ms)
+✔ S2.12: parado, a mira que cruza ±π gira pelo caminho curto (sem volta inteira no eixo) (73.950458ms)
+✔ Patrulha de um tipo: escolhas, quantidade e compatibilidade com o seletor antigo (0.957666ms)
+✔ Patrulha de um tipo: cada tipo × quantidade cria só aquele tipo em pontos válidos da fase 01 (5248.062833ms)
+✔ Patrulha de um tipo: rotas alternadas, bando do mutante pequeno e encontro jogável (2648.415709ms)
+✔ Patrulha de um tipo: blockout antigo cria os tipos sem quebrar (339.666042ms)
+✔ Patrulha de um tipo: store aceita, reinício mantém a escolha e rejeita combinação inválida (0.411333ms)
+✔ S6.1: Patrol Unit do autor entra sem alteração, com os clipes e o orçamento do modelo (12.830291ms)
+✔ S6.1: clipe pelo estado publicado pela simulação, com histerese e cadência pela velocidade (0.16225ms)
+✔ S6.1: rig por robô anda, ataca no contato, morre e some; flash e alerta só no material próprio (4.071792ms)
+✔ S6.1: CombatScene troca as caixas pelo Patrol Unit sem mudar a simulação (0.245334ms)
+✔ S2.9: ativação só com ?perf (1.232583ms)
+✔ S2.9: percentis e intervalos de rAF acima de 33,3 ms e 50 ms (0.238333ms)
+✔ S2.9: dados ausentes aparecem como indisponíveis, nunca como zero (0.648834ms)
+✔ S2.9: recursos separam modelos e não inventam bytes ausentes (0.197458ms)
+✔ S2.9: aba oculta invalida a amostra e pausa vira aviso (0.310166ms)
+✔ S2.9: capacidade cobre a duração pedida e saturação invalida explicitamente (10.060541ms)
+✔ S2.9: prontidão separa dados do mapa, primeiro draw e personagens; entrada inicial inferida (0.280791ms)
+✔ S2.9: troca de mapa durante amostra invalida, resolve a Promise, limpa coletores e remonta sem duplicar (0.312459ms)
+✔ S2.9: espera antes do clique não contamina a amostra (R4) (0.223542ms)
+✔ S2.9: aba oculta durante amostra encerra na hora com motivo (0.1955ms)
+✔ S2.9: armazenamento limitado e relatório com limitações (0.290417ms)
+✔ S2.10: andar escreve na posição mutável sem notificar a store (0.87325ms)
+✔ S2.10: proximidade publica só quando a condição de interação muda (0.812458ms)
+✔ S2.10: guardas de EDEN e de embarque leem a posição mutável (0.247958ms)
+✔ S2.10: viagem, desembarque e retry reposicionam a fonte mutável e a proximidade no mesmo passo (0.236292ms)
+✔ S2.10: consumidores ativos não leem a posição da store nem a assinam por seletor (25.952625ms)
+✔ S2.12 B1: pose segue o corpo sem notificação e reseta em spawn, viagem e retry (0.3465ms)
+✔ Quartel A: doze blobs de origem e seus hashes permanecem intactos, incluindo armário guardado (13.33875ms)
+✔ Quartel A: GLB v002 mantém casco em escala 1, dois acessos, teto/interior próprios e COL sem geometria (0.67775ms)
+✔ Quartel A: paleta PBR reduz para um material sem aumentar a geometria na conversão (1.216ms)
+✔ Quartel A: estudo usa medidas reais do GLB; validação Blender corresponde à fonte da variante (56.038792ms)
+✔ Quartel opção 2: v002 permanece intacta; v003 incorpora 0,75× sem escala duplicada nem perda de contratos (68.533542ms)
+✔ Quartel v004: v003 e anteriores intactas; apenas acessos ampliados, atlas único e encaixe sem conflito (33.316708ms)
+✔ Quartel v005: amplia para leste sem reescalar runtime, móveis +10%, v004 preservada e novos vãos livres (19.533417ms)
+✔ Quartel v006: fonte v005 intacta, exterior idêntico, COL internos e terceira porta com material único (21.64475ms)
+(node:48266) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Quartel v006: escala única, COL orientados batem com GLB e telescópicas liberam os três vãos (39.425417ms)
+✔ Quartel: design sai só da cópia montada; HUD mantém id compatível e save exoden v1 carrega (1165.918333ms)
+✔ Quartel: Rapier percorre praça → rampa oeste → interior → rampa norte → Lab, nos dois sentidos (248.32775ms)
+✔ Quartel: borda do pedestal bloqueia autostep inclusive com apoio elevado desejado, parâmetros intactos (271.951792ms)
+✔ Quartel: pausa congela teto/portas; descarte libera somente o material privado uma vez (6.6455ms)
+✔ Quartel: Rapier bloqueia camas, armários, mesa, bancos, pia, privada e três faces do banheiro (1474.342ms)
+✔ Banheiro: folha fechada bloqueia; proximidade libera 1,20 m, entrada/saída e aproximação da privada (86.664292ms)
+✔ Banheiro: base do chuveiro tem apoio de 6,6 cm e o vidro permanece sólido (96.580583ms)
+✔ Quartel: caixas móveis coincidem com COL do GLB durante todos os quadros de abertura e fechamento (26.579208ms)
+✔ Recursos: anéis com cor fixa, raio pulsante ±12%, fases próprias e flutuação comum (3.957292ms)
+✔ Titânio: novo GLB exato do autor, rig e três clipes; sem lingotes provisórios (310.739375ms)
+✔ Coleta: metade visual a 1×, rampa ease-in e final a 3×, duração 37,5% menor (0.191583ms)
+✔ Três GLBs reais: Idle/PulseGlow sem giro Y/bob interno; anel embutido oculto, média 0,35 m (637.471042ms)
+✔ Comum visual 2,24 m proporcional; grande 3,20 m; raio/contato comuns aplicados na etapa 3 (0.375708ms)
+✔ Drops: rua/calçada/canteiro/grama/pintura pelos dados; anel 6 mm acima, inclusive cantos arredondados (3.336792ms)
+✔ Drops: dois metais amostram pisos diferentes na borda; altura fica cacheada após nascer (0.864208ms)
+✔ Simulação: morte amostra apoio uma vez; passos seguintes e coleta mantêm alturas (69.091292ms)
+✔ S2.12 B1: muzzle corresponde à ponta da arma girada, a 0,85 m; retícula a 0,86 m (2.2675ms)
+✔ S2.12 B1: parede encostada bloqueia centro→cano, consome só um tiro e não fere além (236.140625ms)
+✔ S2.12 B1: quina intercepta o segmento lateral mesmo com muzzle e alvo fora da parede (465.046417ms)
+✔ S2.12 B1: o primeiro obstáculo após o cano interrompe o mesmo segmento que vira traçador (272.007209ms)
+✔ S2.12 B1: acertar usa o primeiro robô vivo, antes da parede, no segmento desenhado (147.084958ms)
+✔ S2.12 B1: cursores perto/longe na mesma direção do cano produzem o mesmo alcance de 32 m (469.450375ms)
+✔ S2.12 B1: cursor sobre o corpo, no cano ou atrás dele usa o rumo do corpo, sem inversão (652.472458ms)
+✔ S2.12 B1: origem acompanha o giro suavizado real, não o rumo instantâneo do cursor (829.757958ms)
+✔ S2.12 B1: fallback próximo preserva a checagem de parede; segmento zero permanece finito (174.053334ms)
+✔ S2.12 B1: centro→cano não causa dano em inimigos; paredes vencem empate exato (0.489041ms)
+✔ S2.12 B1: entradas sem pose válida não disparam e tiro ativo não aponta para o input mutável (342.756125ms)
+(node:48272) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Sandwind v007: prédios, telhados, portas, estufa, ARES e DeckProps recebem pais completos sem mudar transforms (216.694541ms)
+✔ Sandwind v007: descarte não reinicia nem rompe fade de telhado em andamento (195.125333ms)
+✔ Sandwind v007: materiais finais privados, vãos pretos e estados preservam identidade, opacidade e emissão (128.950916ms)
+✔ Sandwind v007: callbacks de shader/cache existentes são encadeados e restaurados (1.207459ms)
+✔ Sandwind v007: caixa completa protege prédio grande, terreno e passarelas fora dos gates (169.388583ms)
+✔ Sandwind v007: três ciclos de montagem/viagem não acumulam patches ou clones; cache sem Sandwind (381.6345ms)
+✔ Sandwind v007: caminho desativado preserva contratos visuais e está restrito a Marte na integração (260.88575ms)
+✔ Sandwind v007: poses de QA exigem três flags e não alteram sessão fora de Marte caminhando (140.817709ms)
+✔ Quartel/Sandwind: fade, portas e caixas de colisão continuam sob descarte do pai, com material privado final (297.919084ms)
+✔ EXODEN: save novo é lido pela chave exoden:hub:v1 (0.516042ms)
+✔ EXODEN: perfil salvo com o nome antigo (horda-survivor:hub:v1) é migrado (0.116625ms)
+✔ EXODEN: a chave nova tem precedência sobre a antiga (0.074291ms)
+✔ EXODEN: sem save, migração do MCP Office continua; armazenamento indisponível não quebra (0.958041ms)
+✔ boarding does not launch; exiting returns to the same map (0.486042ms)
+✔ round trip arrives aboard and duplicate launch/arrival cannot launch twice (0.085208ms)
+✔ failed travel preserves origin and allows another attempt (0.058375ms)
+✔ old profile migrates without connection, workflow or mission state (0.562625ms)
+✔ invalid, corrupt and future saves fall back safely (0.089375ms)
+✔ S6.12: caixa de sombra cobre toda a tela em qualquer giro e zoom (quebra de luz) (78.682709ms)
+✔ S6.12: janela da sombra anda em passos de texel e não refaz a projeção parada (0.939041ms)
+✔ ARES: export só de nave/impacto, agrupado sem perder triângulos do estudo aprovado (39.986209ms)
+✔ ARES: [E], desembarque e retry mantêm o contrato, com espaço livre no pé da escada (1261.92625ms)
+✔ ARES: remove apenas o remendo Chegada do lote original, mantendo todos os demais triângulos (8.506792ms)
+✔ S6.3: índice e cache preservam caminho, desempate e destinos estreitos do BFS anterior (74.775542ms)
+✔ S6.3: todos os 32 trajetos para o desembarque preservam a sequência anterior (4105.127125ms)
+✔ S6.3: limites, pouso e reservas sem spawns (2.068ms)
+✔ S6.3: todos os destinos e patrulhas conectados ao desembarque com folga (769.711667ms)
+✔ S6.3: zoom antigo de Shanghai e enquadramento de Marte preservados (0.276542ms)
+✔ S6.3: peças de 0,26 a 1,55 m estão contidas em colisores simples (29.16925ms)
+✔ S6.3: blockout de comparação preserva o foguete da colônia, sem base (52.493625ms)
+✔ S6.3: blockout anterior preserva colisão do foguete e saída alcançável (4.380667ms)
+✔ S6.3: foguete esmaece ao encobrir o jogador, volta depois e não escreve profundidade translúcido (16.68725ms)
+✔ S2.12 B2: limites verticais inclusivos, abaixo/acima livres; metadados ausentes bloqueiam toda altura (1.712291ms)
+✔ S2.12 B2: mais próximo válido vence, ignorando volumes fora da altura; empate continua da parede (0.416667ms)
+✔ S2.12 B2: centro→cano usa os mesmos limites inclusivos a 0,85 m; alvo atrás só sofre dano se livre (29.906625ms)
+✔ S2.12 B2: 36 alturas exportadas preservadas; caixas e seis volumes ARES-I bloqueiam o tiro real (543.7815ms)
+✔ S2.12 B2: caixas têm corpo fixo 0–1,195 m, tampa/estado não ampliam volume de tiro (0.82275ms)
+✔ S2.12 B2: faixa própria de cada inimigo com extremos inclusivos; cano a 0,85 m fere os três tipos (24.016583ms)
+✔ S2.12 B2: metadados de altura não mudam movimento/grade/visão; perfis vigentes da etapa 3 (7.159291ms)
+✔ S2.12 B2: envelopes reais dos clipes vivos a 120 Hz cabem nas faixas estáveis por tipo (4543.306208ms)
+✔ Mutante/organica: GLBs exatos do autor, orçamento, clipes e dimensões (13.121208ms)
+✔ Hordas: 10+3, 20+6, 25+5+2 e 30+10+4, total 115 e munição por tipo (1529.634125ms)
+✔ Mutante: spawns e todos os segmentos válidos no próprio raio, com contato até ARES-I (206.126542ms)
+✔ Mutante: dois tiros de 25 pelo cano a 0,85 m, alerta e um único drop orgânico (123.007625ms)
+✔ Mutante: marcha 2,2 e perseguição 4,6 m/s; visão igual à do Patrol e dano global (259.573041ms)
+✔ Mutantes: partindo da mesma linha abrem três setores antes de fechar contato; parede não prende (312.08575ms)
+✔ Orgânica: verde, apoio na calçada, Idle sem giro, flutuação e coleta acelerada (48.545084ms)
+✔ Mutante GLB real: marcha, ChaseRun, bote, morte e renascimento no mesmo rig em escala 1 (291.625584ms)
+✔ integration: migrated identity, distance guards, boarding/roundtrip, persistence without transient travel (0.941875ms)
+✔ paused and loading interactions are rejected; save errors are visible (0.34125ms)
+✔ combat death blocks boarding; retry clears transient HUD and restores Shanghai spawn (0.367ms)
+✔ Caixa: somente interação próxima inicia, sem repetir abertura (0.607959ms)
+✔ Caixa: pausa, delta inválido e final não reiniciam revelação (0.105333ms)
+✔ Caixa: GLB traz Open, pivô, efeito recolhido e IDs únicos; sem luzes/física automáticas (2.84125ms)
+✔ Caixas Shanghai: exatamente duas, +48 cada no clarão, sem repetir e sem encher o pente (1092.169042ms)
+✔ Caixas: distância, parede, traseira, pausa, morte e coordenada inválida bloqueiam (125.445916ms)
+✔ Caixas: reserva recebida durante recarga permanece consistente (123.722125ms)
+✔ Caixas: colisão simples bloqueia tiro; acessos e patrulhas continuam conectados (263.839625ms)
+✔ Apoio Shanghai: grade exata nos quatro pisos e bordas; consulta compartilhada sem quantização (669.548833ms)
+✔ Apoio: transição monotônica, independente do FPS, 95% em 0,1 s e Marte imediato (0.636917ms)
+✔ Jogador: Rapier apoia nos quatro pisos e cruza meio-fio nos dois sentidos sem travar ou salto (87.253125ms)
+✔ Marte: spawn → EDEN and launch deck are connected with player clearance (244.088ms)
+✔ Shanghai: disembark point and streets are reachable and within bounds (87.31225ms)
+✔ Shanghai fase 01: contrato de pouso, limites e física independem do GLB (452.306958ms)
+ℹ tests 296
+ℹ suites 0
+ℹ pass 296
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 21879.860709
+
+
+> exoden@0.1.0 build
+> tsc && vite build
+
+vite v4.5.14 building for production...
+transforming...
+✓ 2377 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                                0.39 kB │ gzip:     0.28 kB
+dist/assets/SFX_Patrol_big_step_v01-2a3cc040.mp3               4.84 kB
+dist/assets/SFX_Patrol_big_step_v02-0bfb2112.mp3               4.84 kB
+dist/assets/SFX_Patrol_big_step_v03-75dc9d88.mp3               4.84 kB
+dist/assets/SFX_Patrol_big_step_v04-15844d42.mp3               4.84 kB
+dist/assets/SFX_Patrol_big_step_v05-f6698d9c.mp3               4.84 kB
+dist/assets/SFX_Patrol_small_step_v01-0f954a6c.mp3             4.84 kB
+dist/assets/SFX_Patrol_small_step_v02-44083ef6.mp3             4.84 kB
+dist/assets/SFX_Patrol_small_step_v03-f2e4495b.mp3             4.84 kB
+dist/assets/SFX_Patrol_small_step_v04-242e9235.mp3             4.84 kB
+dist/assets/SFX_Patrol_small_step_v05-e0fe8c90.mp3             4.84 kB
+dist/assets/SFX_Mutant_big_attack_hit_v01-0a529b42.mp3         4.94 kB
+dist/assets/SFX_Mutant_big_step_v11-ed59b860.mp3               4.94 kB
+dist/assets/SFX_Mutant_small_attack_hit_v01-a42420ce.mp3       4.94 kB
+dist/assets/SFX_Mutant_small_attack_hit_v04-ca052e74.mp3       4.94 kB
+dist/assets/SFX_Mutant_small_attack_hit_v02-e10530bd.mp3       5.52 kB
+dist/assets/SFX_Mutant_small_attack_hit_v05-ad1413e8.mp3       5.80 kB
+dist/assets/SFX_Rifle_shot_v01-0dbc39ed.mp3                    5.99 kB
+dist/assets/SFX_Rifle_shot_v02-90df3471.mp3                    5.99 kB
+dist/assets/SFX_Rifle_shot_v03-e8af9b97.mp3                    5.99 kB
+dist/assets/SFX_Rifle_shot_v04-defacb1b.mp3                    5.99 kB
+dist/assets/SFX_Rifle_shot_v05-6fd7a1f6.mp3                    5.99 kB
+dist/assets/SFX_Mutant_small_attack_hit_v07-e69252e6.mp3       6.09 kB
+dist/assets/SFX_Item_collected_v02-e10f73f9.mp3                6.24 kB
+dist/assets/SFX_Mutant_small_attack_hit_v06-071a8138.mp3       6.38 kB
+dist/assets/SFX_Mutant_small_bullet_hit_v02-8316da6d.mp3       6.50 kB
+dist/assets/SFX_Item_collected_v03-30ca86c0.mp3                6.82 kB
+dist/assets/SFX_Mutant_small_attack_hit_v03-6ba2088e.mp3       6.96 kB
+dist/assets/SFX_Patrol_small_attack_hit_v01-f7dcb233.mp3       7.24 kB
+dist/assets/SFX_Item_collected_v04-d8889036.mp3                7.40 kB
+dist/assets/SFX_Mutant_small_attack_hit_v08-324a8a95.mp3       7.53 kB
+dist/assets/SFX_Mutant_small_bullet_hit_v03-b784c95d.mp3       7.65 kB
+dist/assets/SFX_Mutant_small_bullet_hit_v01-8658ebc9.mp3       8.23 kB
+dist/assets/SFX_Item_collected_v01-d5810e14.mp3                8.84 kB
+dist/assets/SFX_Mutant_big_bullet_hit_v01-dc962502.mp3         9.84 kB
+dist/assets/SFX_Patrol_big_bullet_hit_v01-0fa51e39.mp3         9.84 kB
+dist/assets/SFX_Patrol_small_bullet_hit_v01-529d7e19.mp3       9.84 kB
+dist/assets/SFX_Mutant_small_death_hit_v01-ad9e3f88.mp3       16.75 kB
+dist/assets/SFX_Rifle_Reload_v01-b277dfd2.mp3                 18.31 kB
+dist/assets/SFX_Patrol_big_death_hit_v01-7aed0882.mp3         19.63 kB
+dist/assets/SFX_Patrol_small_death_hit_v01-4112ea0b.mp3       19.63 kB
+dist/assets/rocket-b3-2093cb1c.glb                           110.38 kB
+dist/assets/barracks-v006-af8fa852.glb                       722.94 kB
+dist/assets/materia-organica-35ab8351.glb                    769.98 kB
+dist/assets/deck-mars-59b4cb7d.glb                         1,394.90 kB
+dist/assets/laboratorio-v001-d4d1694d.glb                  1,921.48 kB
+dist/assets/cobre-6e8aad10.glb                             2,435.05 kB
+dist/assets/greenhouse-v001-a5668881.glb                   2,591.41 kB
+dist/assets/hangar-v002-efdecfb3.glb                       3,339.99 kB
+dist/assets/caixa-suprimentos-v001-c4fde32f.glb            3,775.36 kB
+dist/assets/ares-lander-2491f474.glb                       4,601.50 kB
+dist/assets/titanio-1bf1c024.glb                           4,983.93 kB
+dist/assets/ferro-bdaf53f4.glb                             5,057.55 kB
+dist/assets/large-patrol-unit-acb2d8e1.glb                 5,337.17 kB
+dist/assets/explorador-r7-143a14d0.glb                     6,537.10 kB
+dist/assets/colony-v006-5a6e6d9c.glb                       7,025.67 kB
+dist/assets/patrol-unit-c01d3ea6.glb                       9,353.24 kB
+dist/assets/large-mutant-70470d2d.glb                     10,534.96 kB
+dist/assets/mutant-animal-6680135e.glb                    10,624.32 kB
+dist/assets/shanghai-fase01-e1061fcc.glb                  11,099.28 kB
+dist/assets/colony-v007-e4af2fda.glb                      11,572.71 kB
+dist/assets/brand-brain-f7c02996.glb                      20,737.33 kB
+dist/assets/player-main-e44fd1a8.glb                      30,684.38 kB
+dist/assets/index-26b89591.css                                12.65 kB │ gzip:     3.67 kB
+dist/assets/marsWorld-f71d074f.js                              0.53 kB │ gzip:     0.30 kB
+dist/assets/ColonySandwind-9837d1d3.js                        11.82 kB │ gzip:     4.95 kB
+dist/assets/PerfProbe-35678b05.js                             15.52 kB │ gzip:     6.32 kB
+dist/assets/shanghaiWorld-86f9ef92.js                         28.19 kB │ gzip:     7.92 kB
+dist/assets/visual-df39b08d.js                                47.53 kB │ gzip:    14.34 kB
+dist/assets/index-edcafef3.js                              3,694.12 kB │ gzip: 1,217.77 kB
+
+(!) Some chunks are larger than 500 kBs after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 4.41s

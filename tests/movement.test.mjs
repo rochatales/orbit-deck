@@ -136,7 +136,7 @@ test('S2.12: asset r7 separado, com os cinco clipes e o mesmo rig; GLB ativo pre
   assert.match(cfg,/EXPLORADOR_R7_ASSET[\s\S]*scale: 0\.857[\s\S]*materialProfile: 'preservar'/);
   assert.match(cfg,/PLAYER_CHARACTER_ASSET[\s\S]*player-main|playerAsset/);
   const escolha=fs.readFileSync('src/characters/player/playerAssetChoice.ts','utf8');
-  assert.match(escolha,/'atual' \? 'atual' : 'r7'/,'a prévia começa com a r7');
+  assert.match(escolha,/variant === 'r7' \|\| variant === 'atual'/,'as duas comparações continuam disponíveis');
 });
 
 test('S2.12: parado, a mira que cruza ±π gira pelo caminho curto (sem volta inteira no eixo)',()=>{

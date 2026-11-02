@@ -1,0 +1,9 @@
+import fs from 'node:fs';
+import {loadSource} from '../../../../tests/load-source.mjs';
+const {COMBAT}=loadSource('src/combat/config.ts'),{Navigation,clearSegment}=loadSource('src/combat/navigation.ts'),{createPhase01Terrain,SHANGHAI_PHASE01:d}=loadSource('src/game/shanghai/layout.ts'),{hordeEdgeSpawns,validContactSpawn}=loadSource('src/combat/simulation.ts');
+const measurement=JSON.parse(fs.readFileSync('docs/handoffs/s3.3-mutante-grande/ajustes-26-10/measurement.json'));
+const radius=Math.ceil((measurement.body.halfWidth+.10)*100)/100,contactRange=radius+.32+.08,t=createPhase01Terrain(),nav=new Navigation(t,radius,COMBAT.grid),edges=hordeEdgeSpawns(t,nav,d.exit,radius,contactRange);
+const old=JSON.parse(fs.readFileSync('docs/handoffs/s2.12-b/etapa-3/ensaios.json'));
+const spawns=d.spawns.map((p,i)=>({index:i,point:p,valid:validContactSpawn(t,nav,p,d.exit,radius,contactRange)}));
+const report={base:'1ade722',decision:'Autor: manter raio 1,66 m e permitir as vielas (26/10/2026)' ,radius,bodyHalfWidth:measurement.body.halfWidth,margin:radius-measurement.body.halfWidth,spacing:2*radius,separation:2*radius+.30,contactRange,nodes:nav.points.length,edges:edges.length,validEdges:edges.filter(p=>validContactSpawn(t,nav,p,d.exit,radius,contactRange)).length,patrolSpawns:spawns,alleys:old.navigation.alleys.map(a=>({width:a.width,free:clearSegment(a.from,a.to,t,radius),clearance:a.width-2*radius})),streets:d.patrolRoutes.map((route,i)=>({index:i,segments:route.map((a,j)=>({from:a,to:route[(j+1)%route.length],direct:clearSegment(a,route[(j+1)%route.length],t,radius),pathValid:validContactSpawn(t,nav,a,route[(j+1)%route.length],radius,contactRange)}))}))};
+fs.writeFileSync('docs/handoffs/s3.3-mutante-grande/ajustes-26-10/navigation.json',JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));

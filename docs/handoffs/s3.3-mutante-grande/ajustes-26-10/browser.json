@@ -1,0 +1,97 @@
+{
+  "base": "1ade722",
+  "method": "Fixture Shanghai em horda 3 (32); posicionamento técnico para comparação de escala e cinco robôs no caminho da investida; passos reais, HP do jogador restaurado só para o ensaio. Captura com passo congelado, sem aceite visual.",
+  "errors": [],
+  "comparison": {
+    "composition": {
+      "patrol": 25,
+      "largePatrol": 5,
+      "largeMutant": 2
+    },
+    "spider": {
+      "x": -4,
+      "z": 4
+    },
+    "patrol": {
+      "x": 4,
+      "z": 4
+    }
+  },
+  "scale": {
+    "scale": 2.5
+  },
+  "push": {
+    "before": [
+      {
+        "id": 0,
+        "x": -0.1,
+        "z": -4
+      },
+      {
+        "id": 1,
+        "x": 0.1,
+        "z": -2.3
+      },
+      {
+        "id": 2,
+        "x": -0.1,
+        "z": -0.6000000000000001
+      },
+      {
+        "id": 3,
+        "x": 0.1,
+        "z": 1.0999999999999996
+      },
+      {
+        "id": 4,
+        "x": -0.1,
+        "z": 2.8
+      }
+    ],
+    "after": [
+      {
+        "id": 0,
+        "x": -1.7248884602182732,
+        "z": -3.3686690943470636,
+        "hp": 75,
+        "free": true
+      },
+      {
+        "id": 1,
+        "x": 1.937564356579108,
+        "z": -1.7720742640716571,
+        "hp": 75,
+        "free": true
+      },
+      {
+        "id": 2,
+        "x": -2.059996902844465,
+        "z": -0.5388447236834902,
+        "hp": 75,
+        "free": true
+      },
+      {
+        "id": 3,
+        "x": 3.113604175780513,
+        "z": 1.001896590896695,
+        "hp": 75,
+        "free": true
+      },
+      {
+        "id": 4,
+        "x": -3.1779586170375764,
+        "z": 2.0530338463707376,
+        "hp": 75,
+        "free": true
+      }
+    ],
+    "pushed": 2,
+    "spider": {
+      "x": 0,
+      "z": 0.750000000000003,
+      "phase": "dash",
+      "traveled": 6.750000000000005
+    }
+  },
+  "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n2 !== 5\n"
+}

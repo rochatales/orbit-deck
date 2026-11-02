@@ -1,0 +1,29 @@
+{
+  "source": "fontes/player_backpack.blend",
+  "source_sha256": "ee2f6f70d0493a793a2f7f0bfa3e2b96bdeb211790ef0ad539ab02280b7e47ea",
+  "output": "export/backpack-v001.glb",
+  "sha256": "a1e05927bc8f3295b245b6a04a10887d1af81b3f6a21720029468e29de9d0f22",
+  "bytes": 126400,
+  "objects": [
+    "Backpack",
+    "Backpack_Casing",
+    "Backpack_Details",
+    "Backpack_Glow",
+    "Backpack_Harness"
+  ],
+  "triangles": 2108,
+  "bounds_blender": {
+    "min": [
+      -0.2849999964237213,
+      -0.02199999988079071,
+      -0.2680000066757202
+    ],
+    "max": [
+      0.2849999964237213,
+      0.25,
+      0.26600000262260437
+    ]
+  },
+  "runtime": "src/assets/characters/player/backpack.glb",
+  "selection": "Backpack e quatro meshes filhos; Cube, Camera e Light exclu\u00eddos sem alterar a fonte"
+}

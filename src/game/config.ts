@@ -1,3 +1,4 @@
+import masterplan from '../world/marsMasterplan.json';
 import type { MapId } from './session';
 import { isShanghaiPhase01 } from './shanghai/previewMode';
 export interface Point {
@@ -12,7 +13,8 @@ export interface NpcConfig {
     position: Point;
     interactionRadius: number;
 }
-export const EDEN: NpcConfig = { id: 'eden', name: 'EDEN', color: '#f2c94c', position: { x: 0, y: 0, z: -10 }, interactionRadius: 2.7 };
+const edenRoom = masterplan.rooms.find(room => room.id === 'brand-brain')!;
+export const EDEN: NpcConfig = { id: 'eden', name: 'EDEN', color: '#f2c94c', position: { x: edenRoom.position.x, y: 0, z: edenRoom.position.z }, interactionRadius: 2.7 };
 export const MAPS: Record<MapId, {
     title: string;
     ship: Point;
@@ -24,7 +26,7 @@ export const MAPS: Record<MapId, {
         maxZ: number;
     };
 }> = {
-    mars: { title: 'Marte · Colônia humana', ship: { x: 0, y: 0, z: 33 }, exit: { x: 0, y: 0, z: 29.5 }, bounds: { minX: -22, maxX: 22, minZ: -15, maxZ: 39 } },
+    mars: { title: 'Marte · Colônia humana', ship: { x: 0, y: 0, z: 33 }, exit: { x: 0, y: 0, z: 29.5 }, bounds: { minX: -22, maxX: 22, minZ: -19, maxZ: 39 } },
     shanghai: { title: 'Terra · Shanghai', ship: { x: 0, y: 0, z: 13 }, exit: { x: 0, y: 0, z: 9.5 }, bounds: isShanghaiPhase01() ? { minX: -51, maxX: 51, minZ: -54, maxZ: 54 } : { minX: -17, maxX: 17, minZ: -18, maxZ: 18 } }
 };
 export const INITIAL_POSITION: Point = { x: 0, y: 0, z: 0.8 };

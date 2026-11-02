@@ -1,0 +1,29 @@
+{
+  "Idle": {
+    "max_vertex_distance_m": 4.805480102731963e-07,
+    "sampled_frames": 16,
+    "minimum_z_m": -0.006818205118179321
+  },
+  "CraneWork": {
+    "max_vertex_distance_m": 3.576872700250533e-07,
+    "sampled_frames": 13,
+    "minimum_z_m": -0.006818205118179321
+  },
+  "RampOpenClose": {
+    "max_vertex_distance_m": 1.5078915112098912e-06,
+    "sampled_frames": 11,
+    "minimum_z_m": -0.006818205118179321
+  },
+  "AlertPulse": {
+    "max_vertex_distance_m": 4.768407961819321e-07,
+    "sampled_frames": 10,
+    "minimum_z_m": -0.006818205118179321
+  },
+  "weights_normalized": true,
+  "bone_count": 11,
+  "imported_meshes": 2,
+  "sha256": {
+    "blend/hangar_mars_v002.blend": "42663409c200cc82f05df0b0694be0299dfe504ef9ae0c32f63d11311bf471d2",
+    "export/hangar_mars_v002.glb": "efdecfb392f69ee92d9eb788653923951573fe1432ae012b06288a6eb27af7d4"
+  }
+}

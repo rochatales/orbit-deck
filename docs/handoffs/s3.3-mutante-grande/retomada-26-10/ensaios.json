@@ -1,0 +1,282 @@
+{
+  "base": "d1ac5c6",
+  "method": "Passo fixo 1/60, terreno/raios/spawns aprovados intactos, rifle real e mira técnica; HP restaurado para observar chegada/conclusão. maxIdle mede posição constante <10 micrômetros por passo; maxNoProgress é o maior relógio de aproximação ao alvo, que também pode crescer durante desvios legítimos.",
+  "waves": {
+    "desembarque": {
+      "player": {
+        "x": 0,
+        "z": 9.5
+      },
+      "maxIdle": 0.8166666666666675,
+      "maxNoProgress": 4.816666666666655,
+      "recovery": {
+        "repath": 13,
+        "yieldRequests": 6,
+        "yield": 4,
+        "pass": 5
+      },
+      "cleared": true,
+      "kills": 115,
+      "seconds": 224.0833333334038,
+      "remaining": 0,
+      "survivors": [],
+      "invalid": 0,
+      "ammo": 21,
+      "reserve": 70,
+      "waves": [
+        {
+          "wave": 1,
+          "spawned": 13,
+          "start": 4.016666666666658,
+          "clearedAt": 48.34999999999854,
+          "recovery": {
+            "repath": 0,
+            "yieldRequests": 0,
+            "yield": 0,
+            "pass": 0
+          }
+        },
+        {
+          "wave": 2,
+          "spawned": 26,
+          "start": 54.36666666666486,
+          "clearedAt": 97.69999999999574,
+          "recovery": {
+            "repath": 0,
+            "yieldRequests": 0,
+            "yield": 0,
+            "pass": 0
+          }
+        },
+        {
+          "wave": 3,
+          "spawned": 32,
+          "start": 103.71666666666206,
+          "clearedAt": 161.40000000002058,
+          "recovery": {
+            "repath": 3,
+            "yieldRequests": 1,
+            "yield": 1,
+            "pass": 1
+          }
+        },
+        {
+          "wave": 4,
+          "spawned": 44,
+          "start": 167.41666666669204,
+          "clearedAt": 224.0833333334038,
+          "recovery": {
+            "repath": 10,
+            "yieldRequests": 5,
+            "yield": 3,
+            "pass": 4
+          }
+        }
+      ]
+    },
+    "ruaNorte": {
+      "player": {
+        "x": 0,
+        "z": -41
+      },
+      "maxIdle": 1.9333333333333313,
+      "maxNoProgress": 4.816666666666655,
+      "recovery": {
+        "repath": 19,
+        "yieldRequests": 5,
+        "yield": 3,
+        "pass": 5
+      },
+      "cleared": true,
+      "kills": 115,
+      "seconds": 247.20000000008886,
+      "remaining": 0,
+      "survivors": [],
+      "invalid": 0,
+      "ammo": 21,
+      "reserve": 70,
+      "waves": [
+        {
+          "wave": 1,
+          "spawned": 13,
+          "start": 4.016666666666658,
+          "clearedAt": 50.7499999999984,
+          "recovery": {
+            "repath": 0,
+            "yieldRequests": 0,
+            "yield": 0,
+            "pass": 0
+          }
+        },
+        {
+          "wave": 2,
+          "spawned": 26,
+          "start": 56.766666666664726,
+          "clearedAt": 108.29999999999514,
+          "recovery": {
+            "repath": 0,
+            "yieldRequests": 0,
+            "yield": 0,
+            "pass": 0
+          }
+        },
+        {
+          "wave": 3,
+          "spawned": 32,
+          "start": 114.31666666666146,
+          "clearedAt": 172.13333333336246,
+          "recovery": {
+            "repath": 3,
+            "yieldRequests": 1,
+            "yield": 1,
+            "pass": 1
+          }
+        },
+        {
+          "wave": 4,
+          "spawned": 44,
+          "start": 178.1500000000339,
+          "clearedAt": 247.20000000008886,
+          "recovery": {
+            "repath": 16,
+            "yieldRequests": 4,
+            "yield": 2,
+            "pass": 4
+          }
+        }
+      ]
+    },
+    "parede": {
+      "player": {
+        "x": 9.6,
+        "z": -5
+      },
+      "maxIdle": 0.8166666666666675,
+      "maxNoProgress": 4.8333333333333215,
+      "recovery": {
+        "repath": 7,
+        "yieldRequests": 2,
+        "yield": 1,
+        "pass": 2
+      },
+      "cleared": true,
+      "kills": 115,
+      "seconds": 225.35000000007147,
+      "remaining": 0,
+      "survivors": [],
+      "invalid": 0,
+      "ammo": 21,
+      "reserve": 70,
+      "waves": [
+        {
+          "wave": 1,
+          "spawned": 13,
+          "start": 4.016666666666658,
+          "clearedAt": 46.38333333333198,
+          "recovery": {
+            "repath": 0,
+            "yieldRequests": 0,
+            "yield": 0,
+            "pass": 0
+          }
+        },
+        {
+          "wave": 2,
+          "spawned": 26,
+          "start": 52.39999999999831,
+          "clearedAt": 97.39999999999576,
+          "recovery": {
+            "repath": 0,
+            "yieldRequests": 0,
+            "yield": 0,
+            "pass": 0
+          }
+        },
+        {
+          "wave": 3,
+          "spawned": 32,
+          "start": 103.41666666666208,
+          "clearedAt": 154.45000000001505,
+          "recovery": {
+            "repath": 1,
+            "yieldRequests": 0,
+            "yield": 0,
+            "pass": 0
+          }
+        },
+        {
+          "wave": 4,
+          "spawned": 44,
+          "start": 160.4666666666865,
+          "clearedAt": 225.35000000007147,
+          "recovery": {
+            "repath": 6,
+            "yieldRequests": 2,
+            "yield": 1,
+            "pass": 2
+          }
+        }
+      ]
+    }
+  },
+  "patrol": {
+    "seconds": 90,
+    "invalid": 0,
+    "maxIdle": 0,
+    "minSeparation": 2.63285262448956,
+    "cornerVisitors": [
+      16,
+      16
+    ],
+    "unalerted": true
+  },
+  "contact": {
+    "seconds": 90,
+    "commonRemovedAt": 45,
+    "commonReached": true,
+    "invalid": 0,
+    "large": [
+      {
+        "id": 3,
+        "distance": 4.653966615591898
+      },
+      {
+        "id": 7,
+        "distance": 7.732090461060445
+      },
+      {
+        "id": 12,
+        "distance": 2.4833005589263544
+      },
+      {
+        "id": 16,
+        "distance": 3.759133290002218
+      },
+      {
+        "id": 20,
+        "distance": 3.0710011521464233
+      },
+      {
+        "id": 25,
+        "distance": 5.4536941212421075
+      },
+      {
+        "id": 29,
+        "distance": 4.238632049083497
+      },
+      {
+        "id": 34,
+        "distance": 5.798847326005939
+      },
+      {
+        "id": 38,
+        "distance": 5.2309389970275175
+      },
+      {
+        "id": 42,
+        "distance": 2.4876936392387194
+      }
+    ],
+    "inContact": 2
+  }
+}

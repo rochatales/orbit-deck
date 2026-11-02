@@ -1,0 +1,372 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1490" viewBox="0 0 2400 1490"><rect width="2400" height="1490" fill="#0c1b23"/><g font-family="Arial,sans-serif">
+<text x="48.00" y="63.06" font-size="38" font-weight="700" fill="#e2edf0" text-anchor="start">QUARTEL · PARADA A · ESTUDO DE ENCAIXE v002</text>
+<text x="48.00" y="104.88" font-size="24" font-weight="400" fill="#a3bdc8" text-anchor="start">Colônia v007 · entrada principal ao norte, voltada ao Laboratório · nenhuma opção aplicada ao jogo ou ao asset</text>
+<text x="52.00" y="167.62" font-size="26" font-weight="700" fill="#ffb7a3" text-anchor="start">A · Centro antigo · não cabe</text>
+<text x="52.00" y="201.40" font-size="20" font-weight="400" fill="#a3bdc8" text-anchor="start">Centro (10.5; 0) m  |  rotação Y −90°  |  1×</text>
+<polyline points="83.00,245.00 83.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="83.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">-4</text>
+<polyline points="125.00,245.00 125.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="125.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">-2</text>
+<polyline points="167.00,245.00 167.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="167.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">0</text>
+<polyline points="209.00,245.00 209.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="209.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">2</text>
+<polyline points="251.00,245.00 251.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="251.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">4</text>
+<polyline points="293.00,245.00 293.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="293.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">6</text>
+<polyline points="335.00,245.00 335.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="335.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">8</text>
+<polyline points="377.00,245.00 377.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="377.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">10</text>
+<polyline points="419.00,245.00 419.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="419.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">12</text>
+<polyline points="461.00,245.00 461.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="461.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">14</text>
+<polyline points="503.00,245.00 503.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="503.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">16</text>
+<polyline points="545.00,245.00 545.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="545.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">18</text>
+<polyline points="587.00,245.00 587.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="587.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">20</text>
+<polyline points="629.00,245.00 629.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="629.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">22</text>
+<polyline points="671.00,245.00 671.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="671.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">24</text>
+<polyline points="713.00,245.00 713.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="713.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">26</text>
+<polyline points="755.00,245.00 755.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="755.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">28</text>
+<polyline points="62.00,266.00 755.00,266.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="52.00" y="270.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">-14</text>
+<polyline points="62.00,308.00 755.00,308.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="52.00" y="312.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">-12</text>
+<polyline points="62.00,350.00 755.00,350.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="52.00" y="354.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">-10</text>
+<polyline points="62.00,392.00 755.00,392.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="52.00" y="396.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">-8</text>
+<polyline points="62.00,434.00 755.00,434.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="52.00" y="438.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">-6</text>
+<polyline points="62.00,476.00 755.00,476.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="52.00" y="480.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">-4</text>
+<polyline points="62.00,518.00 755.00,518.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="52.00" y="522.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">-2</text>
+<polyline points="62.00,560.00 755.00,560.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="52.00" y="564.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">0</text>
+<polyline points="62.00,602.00 755.00,602.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="52.00" y="606.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">2</text>
+<polyline points="62.00,644.00 755.00,644.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="52.00" y="648.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">4</text>
+<polyline points="62.00,686.00 755.00,686.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="52.00" y="690.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">6</text>
+<polyline points="62.00,728.00 755.00,728.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="52.00" y="732.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">8</text>
+<polyline points="62.00,770.00 755.00,770.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="52.00" y="774.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">10</text>
+<polyline points="62.00,812.00 755.00,812.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="52.00" y="816.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">12</text>
+<polyline points="492.50,339.50 597.50,339.50" fill="none" stroke="#a582c6" stroke-width="2" stroke-dasharray="8 5"/>
+<polyline points="597.50,339.50 597.50,864.50" fill="none" stroke="#a582c6" stroke-width="2" stroke-dasharray="8 5"/>
+<polyline points="597.50,864.50 492.50,864.50" fill="none" stroke="#a582c6" stroke-width="2" stroke-dasharray="8 5"/>
+<polyline points="492.50,864.50 492.50,339.50" fill="none" stroke="#a582c6" stroke-width="2" stroke-dasharray="8 5"/>
+<polygon points="492.50,339.50 597.50,339.50 597.50,864.50 492.50,864.50" fill="#3e3548" stroke="#a582c6" stroke-width="2" stroke-dasharray="8 5"/>
+<text x="545.00" y="364.61" font-size="18" font-weight="700" fill="#d7b8f4" text-anchor="middle">ZONA A</text>
+<polygon points="360.20,392.00 414.80,392.00 414.80,491.75 360.20,491.75" fill="#244b5c" stroke="#5398b0" stroke-width="2"/>
+<polygon points="251.00,532.70 319.25,532.70 319.25,587.30 251.00,587.30" fill="#244b5c" stroke="#5398b0" stroke-width="2"/>
+<polygon points="80.69,473.69 253.31,473.69 253.31,646.31 80.69,646.31" fill="#24463e" stroke="#7cac98" stroke-width="2"/>
+<text x="167.00" y="560.96" font-size="18" font-weight="700" fill="#d9eddf" text-anchor="middle">PRAÇA</text>
+<text x="167.00" y="579.17" font-size="16" font-weight="400" fill="#accabc" text-anchor="middle">(0; 0)</text>
+<polygon points="301.19,284.69 473.81,284.69 473.81,394.31 301.19,394.31" fill="#24463e" stroke="#7cac98" stroke-width="2"/>
+<text x="387.50" y="340.46" font-size="18" font-weight="700" fill="#d9eddf" text-anchor="middle">LABORATÓRIO</text>
+<text x="387.50" y="358.67" font-size="16" font-weight="400" fill="#accabc" text-anchor="middle">(10.5; -10.5)</text>
+<polygon points="322.19,678.44 452.81,678.44 452.81,798.56 322.19,798.56" fill="#24463e" stroke="#7cac98" stroke-width="2"/>
+<text x="387.50" y="739.46" font-size="18" font-weight="700" fill="#d9eddf" text-anchor="middle">OFICINA</text>
+<text x="387.50" y="757.67" font-size="16" font-weight="400" fill="#accabc" text-anchor="middle">(10.5; 8.5)</text>
+<polygon points="273.05,658.70 274.85,670.06 280.07,680.30 288.20,688.43 298.44,693.65 309.80,695.45 465.20,695.45 476.56,693.65 486.80,688.43 494.93,680.30 500.15,670.06 501.95,658.70 501.95,461.30 500.15,449.94 494.93,439.70 486.80,431.57 476.56,426.35 465.20,424.55 309.80,424.55 298.44,426.35 288.20,431.57 280.07,439.70 274.85,449.94 273.05,461.30" fill="#334c59" stroke="#a4c8d6" stroke-width="2"/>
+<polygon points="322.19,695.45 452.81,695.45 452.81,678.44 322.19,678.44" fill="#aa5149" stroke="#ffc0a6" stroke-width="2"/>
+<polygon points="367.55,391.76 367.55,425.84 407.45,425.84 407.45,391.76" fill="#326577" stroke="#86d3e2" stroke-width="2"/>
+<polygon points="240.26,540.05 240.26,579.95 274.34,579.95 274.34,540.05" fill="#326577" stroke="#86d3e2" stroke-width="2"/>
+<polyline points="282.50,461.30 282.50,546.35" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="282.50,573.65 282.50,658.70" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="309.80,686.00 465.20,686.00" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="492.50,461.30 492.50,658.70" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="309.80,434.00 373.85,434.00" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="401.15,434.00 465.20,434.00" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="282.50,658.70 283.84,667.14 287.71,674.75 293.75,680.79 301.36,684.66 309.80,686.00" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="465.20,686.00 473.64,684.66 481.25,680.79 487.29,674.75 491.16,667.14 492.50,658.70" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="492.50,461.30 491.16,452.86 487.29,445.25 481.25,439.21 473.64,435.34 465.20,434.00" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="309.80,434.00 301.36,435.34 293.75,439.21 287.71,445.25 283.84,452.86 282.50,461.30" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="282.50,546.35 282.50,573.65" fill="none" stroke="#ffe5a7" stroke-width="5"/>
+<polyline points="373.85,434.00 401.15,434.00" fill="none" stroke="#ffe5a7" stroke-width="5"/>
+<polyline points="319.25,491.75 455.75,491.75" fill="none" stroke="#f3b769" stroke-width="2" stroke-dasharray="8 5"/>
+<polyline points="455.75,491.75 455.75,628.25" fill="none" stroke="#f3b769" stroke-width="2" stroke-dasharray="8 5"/>
+<polyline points="455.75,628.25 319.25,628.25" fill="none" stroke="#f3b769" stroke-width="2" stroke-dasharray="8 5"/>
+<polyline points="319.25,628.25 319.25,491.75" fill="none" stroke="#f3b769" stroke-width="2" stroke-dasharray="8 5"/>
+<polygon points="319.25,491.75 455.75,491.75 455.75,628.25 319.25,628.25" fill="none" stroke="#f3b769" stroke-width="2" stroke-dasharray="8 5"/>
+<text x="387.50" y="624.32" font-size="16" font-weight="400" fill="#ffce8e" text-anchor="middle">design antigo</text>
+<polyline points="251.00,560.00 240.26,560.00 282.50,560.00 387.50,560.00" fill="none" stroke="#ffb19b" stroke-width="3" stroke-dasharray="8 5"/>
+<polygon points="387.50,560.00 375.79,565.65 375.79,554.35" fill="#ffb19b" stroke="#ffb19b" stroke-width="1"/>
+<polyline points="387.50,560.00 387.50,434.00 387.50,391.76 387.50,392.00" fill="none" stroke="#ffb19b" stroke-width="3" stroke-dasharray="8 5"/>
+<polygon points="387.50,392.00 381.85,380.29 393.15,380.29" fill="#ffb19b" stroke="#ffb19b" stroke-width="1"/>
+<text x="387.50" y="596.66" font-size="18" font-weight="700" fill="#e2edf0" text-anchor="middle">QUARTEL</text>
+<circle cx="387.50" cy="441.88" r="11" fill="#173e51" stroke="#9cd8ed" stroke-width="2"/>
+<text x="387.50" y="446.80" font-size="16" font-weight="700" fill="#d8f4ff" text-anchor="middle">1</text>
+<circle cx="285.12" cy="560.00" r="11" fill="#173e51" stroke="#9cd8ed" stroke-width="2"/>
+<text x="285.12" y="564.92" font-size="16" font-weight="700" fill="#d8f4ff" text-anchor="middle">2</text>
+<text x="60.00" y="879.79" font-size="17" font-weight="400" fill="#a3bdc8" text-anchor="start">N ↑ −Z    |    Leste → +X    |    metros</text>
+<text x="60.00" y="919.27" font-size="21" font-weight="700" fill="#ffb7a3" text-anchor="start">Pegada das paredes: 10 × 12 m</text>
+<text x="60.00" y="952.40" font-size="20" font-weight="400" fill="#a3bdc8" text-anchor="start">Envelope sem Ground: 12.46 × 14.46 m</text>
+<text x="60.00" y="998.40" font-size="20" font-weight="400" fill="#e2edf0" text-anchor="start">• Oficina: plinto invade 0,81 m (≈5,04 m²).</text>
+<text x="60.00" y="1030.40" font-size="20" font-weight="400" fill="#e2edf0" text-anchor="start">• Rampa norte entra 0,12 m no envelope do Lab.</text>
+<text x="60.00" y="1062.40" font-size="20" font-weight="400" fill="#e2edf0" text-anchor="start">• Rampa oeste entra no envelope da praça.</text>
+<text x="60.00" y="1094.40" font-size="20" font-weight="400" fill="#e2edf0" text-anchor="start">• Conectores ficam sob o conjunto novo.</text>
+<text x="60.00" y="1126.40" font-size="20" font-weight="400" fill="#e2edf0" text-anchor="start">• Mudar só o piso/conector não resolve a Oficina.</text>
+<text x="60.00" y="1158.40" font-size="20" font-weight="400" fill="#e2edf0" text-anchor="start">• Zona A: pequena invasão do plinto a leste.</text>
+<text x="847.00" y="167.62" font-size="26" font-weight="700" fill="#9fe4c1" text-anchor="start">B · Escala original · expansão leste</text>
+<text x="847.00" y="201.40" font-size="20" font-weight="400" fill="#a3bdc8" text-anchor="start">Centro (19.5; 0.6) m  |  rotação Y −90°  |  1×</text>
+<polyline points="878.00,245.00 878.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="878.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">-4</text>
+<polyline points="920.00,245.00 920.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="920.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">-2</text>
+<polyline points="962.00,245.00 962.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="962.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">0</text>
+<polyline points="1004.00,245.00 1004.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1004.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">2</text>
+<polyline points="1046.00,245.00 1046.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1046.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">4</text>
+<polyline points="1088.00,245.00 1088.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1088.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">6</text>
+<polyline points="1130.00,245.00 1130.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1130.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">8</text>
+<polyline points="1172.00,245.00 1172.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1172.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">10</text>
+<polyline points="1214.00,245.00 1214.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1214.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">12</text>
+<polyline points="1256.00,245.00 1256.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1256.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">14</text>
+<polyline points="1298.00,245.00 1298.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1298.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">16</text>
+<polyline points="1340.00,245.00 1340.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1340.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">18</text>
+<polyline points="1382.00,245.00 1382.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1382.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">20</text>
+<polyline points="1424.00,245.00 1424.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1424.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">22</text>
+<polyline points="1466.00,245.00 1466.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1466.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">24</text>
+<polyline points="1508.00,245.00 1508.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1508.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">26</text>
+<polyline points="1550.00,245.00 1550.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1550.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">28</text>
+<polyline points="857.00,266.00 1550.00,266.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="847.00" y="270.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">-14</text>
+<polyline points="857.00,308.00 1550.00,308.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="847.00" y="312.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">-12</text>
+<polyline points="857.00,350.00 1550.00,350.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="847.00" y="354.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">-10</text>
+<polyline points="857.00,392.00 1550.00,392.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="847.00" y="396.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">-8</text>
+<polyline points="857.00,434.00 1550.00,434.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="847.00" y="438.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">-6</text>
+<polyline points="857.00,476.00 1550.00,476.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="847.00" y="480.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">-4</text>
+<polyline points="857.00,518.00 1550.00,518.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="847.00" y="522.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">-2</text>
+<polyline points="857.00,560.00 1550.00,560.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="847.00" y="564.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">0</text>
+<polyline points="857.00,602.00 1550.00,602.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="847.00" y="606.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">2</text>
+<polyline points="857.00,644.00 1550.00,644.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="847.00" y="648.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">4</text>
+<polyline points="857.00,686.00 1550.00,686.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="847.00" y="690.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">6</text>
+<polyline points="857.00,728.00 1550.00,728.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="847.00" y="732.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">8</text>
+<polyline points="857.00,770.00 1550.00,770.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="847.00" y="774.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">10</text>
+<polyline points="857.00,812.00 1550.00,812.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="847.00" y="816.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">12</text>
+<polyline points="1287.50,339.50 1392.50,339.50" fill="none" stroke="#a582c6" stroke-width="2" stroke-dasharray="8 5"/>
+<polyline points="1392.50,339.50 1392.50,864.50" fill="none" stroke="#a582c6" stroke-width="2" stroke-dasharray="8 5"/>
+<polyline points="1392.50,864.50 1287.50,864.50" fill="none" stroke="#a582c6" stroke-width="2" stroke-dasharray="8 5"/>
+<polyline points="1287.50,864.50 1287.50,339.50" fill="none" stroke="#a582c6" stroke-width="2" stroke-dasharray="8 5"/>
+<polygon points="1287.50,339.50 1392.50,339.50 1392.50,864.50 1287.50,864.50" fill="#3e3548" stroke="#a582c6" stroke-width="2" stroke-dasharray="8 5"/>
+<text x="1340.00" y="364.61" font-size="18" font-weight="700" fill="#d7b8f4" text-anchor="middle">ZONA A</text>
+<polygon points="1155.20,392.00 1209.80,392.00 1209.80,491.75 1155.20,491.75" fill="#244b5c" stroke="#5398b0" stroke-width="2"/>
+<polygon points="1046.00,532.70 1114.25,532.70 1114.25,587.30 1046.00,587.30" fill="#244b5c" stroke="#5398b0" stroke-width="2"/>
+<polygon points="875.69,473.69 1048.31,473.69 1048.31,646.31 875.69,646.31" fill="#24463e" stroke="#7cac98" stroke-width="2"/>
+<text x="962.00" y="560.96" font-size="18" font-weight="700" fill="#d9eddf" text-anchor="middle">PRAÇA</text>
+<text x="962.00" y="579.17" font-size="16" font-weight="400" fill="#accabc" text-anchor="middle">(0; 0)</text>
+<polygon points="1096.19,284.69 1268.81,284.69 1268.81,394.31 1096.19,394.31" fill="#24463e" stroke="#7cac98" stroke-width="2"/>
+<text x="1182.50" y="340.46" font-size="18" font-weight="700" fill="#d9eddf" text-anchor="middle">LABORATÓRIO</text>
+<text x="1182.50" y="358.67" font-size="16" font-weight="400" fill="#accabc" text-anchor="middle">(10.5; -10.5)</text>
+<polygon points="1117.19,678.44 1247.81,678.44 1247.81,798.56 1117.19,798.56" fill="#24463e" stroke="#7cac98" stroke-width="2"/>
+<text x="1182.50" y="739.46" font-size="18" font-weight="700" fill="#d9eddf" text-anchor="middle">OFICINA</text>
+<text x="1182.50" y="757.67" font-size="16" font-weight="400" fill="#accabc" text-anchor="middle">(10.5; 8.5)</text>
+<polygon points="1257.05,671.30 1258.85,682.66 1264.07,692.90 1272.20,701.03 1282.44,706.25 1293.80,708.05 1449.20,708.05 1460.56,706.25 1470.80,701.03 1478.93,692.90 1484.15,682.66 1485.95,671.30 1485.95,473.90 1484.15,462.54 1478.93,452.30 1470.80,444.17 1460.56,438.95 1449.20,437.15 1293.80,437.15 1282.44,438.95 1272.20,444.17 1264.07,452.30 1258.85,462.54 1257.05,473.90" fill="#334c59" stroke="#a4c8d6" stroke-width="2"/>
+<polygon points="1351.55,404.36 1351.55,438.44 1391.45,438.44 1391.45,404.36" fill="#326577" stroke="#86d3e2" stroke-width="2"/>
+<polygon points="1224.26,552.65 1224.26,592.55 1258.34,592.55 1258.34,552.65" fill="#326577" stroke="#86d3e2" stroke-width="2"/>
+<polyline points="1266.50,473.90 1266.50,558.95" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="1266.50,586.25 1266.50,671.30" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="1293.80,698.60 1449.20,698.60" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="1476.50,473.90 1476.50,671.30" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="1293.80,446.60 1357.85,446.60" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="1385.15,446.60 1449.20,446.60" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="1266.50,671.30 1267.84,679.74 1271.71,687.35 1277.75,693.39 1285.36,697.26 1293.80,698.60" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="1449.20,698.60 1457.64,697.26 1465.25,693.39 1471.29,687.35 1475.16,679.74 1476.50,671.30" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="1476.50,473.90 1475.16,465.46 1471.29,457.85 1465.25,451.81 1457.64,447.94 1449.20,446.60" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="1293.80,446.60 1285.36,447.94 1277.75,451.81 1271.71,457.85 1267.84,465.46 1266.50,473.90" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="1266.50,558.95 1266.50,586.25" fill="none" stroke="#ffe5a7" stroke-width="5"/>
+<polyline points="1357.85,446.60 1385.15,446.60" fill="none" stroke="#ffe5a7" stroke-width="5"/>
+<polyline points="1114.25,491.75 1250.75,491.75" fill="none" stroke="#f3b769" stroke-width="2" stroke-dasharray="8 5"/>
+<polyline points="1250.75,491.75 1250.75,628.25" fill="none" stroke="#f3b769" stroke-width="2" stroke-dasharray="8 5"/>
+<polyline points="1250.75,628.25 1114.25,628.25" fill="none" stroke="#f3b769" stroke-width="2" stroke-dasharray="8 5"/>
+<polyline points="1114.25,628.25 1114.25,491.75" fill="none" stroke="#f3b769" stroke-width="2" stroke-dasharray="8 5"/>
+<polygon points="1114.25,491.75 1250.75,491.75 1250.75,628.25 1114.25,628.25" fill="none" stroke="#f3b769" stroke-width="2" stroke-dasharray="8 5"/>
+<text x="1182.50" y="624.32" font-size="16" font-weight="400" fill="#ffce8e" text-anchor="middle">design antigo</text>
+<polyline points="1046.00,560.00 1130.00,560.00 1224.26,572.60 1266.50,572.60 1371.50,572.60" fill="none" stroke="#90f0b8" stroke-width="3" stroke-dasharray="8 5"/>
+<polygon points="1371.50,572.60 1359.79,578.25 1359.79,566.95" fill="#90f0b8" stroke="#90f0b8" stroke-width="1"/>
+<polyline points="1371.50,572.60 1371.50,446.60 1371.50,404.36 1371.50,377.30 1327.40,377.30 1327.40,415.10 1182.50,415.10 1182.50,392.00" fill="none" stroke="#90f0b8" stroke-width="3" stroke-dasharray="8 5"/>
+<polygon points="1182.50,392.00 1188.15,403.71 1176.85,403.71" fill="#90f0b8" stroke="#90f0b8" stroke-width="1"/>
+<text x="1371.50" y="609.26" font-size="18" font-weight="700" fill="#e2edf0" text-anchor="middle">QUARTEL</text>
+<circle cx="1182.50" cy="441.88" r="11" fill="#173e51" stroke="#9cd8ed" stroke-width="2"/>
+<text x="1182.50" y="446.80" font-size="16" font-weight="700" fill="#d8f4ff" text-anchor="middle">1</text>
+<circle cx="1080.12" cy="560.00" r="11" fill="#173e51" stroke="#9cd8ed" stroke-width="2"/>
+<text x="1080.12" y="564.92" font-size="16" font-weight="700" fill="#d8f4ff" text-anchor="middle">2</text>
+<text x="855.00" y="879.79" font-size="17" font-weight="400" fill="#a3bdc8" text-anchor="start">N ↑ −Z    |    Leste → +X    |    metros</text>
+<text x="855.00" y="919.27" font-size="21" font-weight="700" fill="#9fe4c1" text-anchor="start">Pegada das paredes: 10 × 12 m</text>
+<text x="855.00" y="952.40" font-size="20" font-weight="400" fill="#a3bdc8" text-anchor="start">Envelope sem Ground: 12.46 × 14.46 m</text>
+<text x="855.00" y="998.40" font-size="20" font-weight="400" fill="#e2edf0" text-anchor="start">• Mantém escala, portas e mobiliário originais.</text>
+<text x="855.00" y="1030.40" font-size="20" font-weight="400" fill="#e2edf0" text-anchor="start">• Sem sobreposição de plinto com Lab/Oficina.</text>
+<text x="855.00" y="1062.40" font-size="20" font-weight="400" fill="#e2edf0" text-anchor="start">• Ocupa ≈51,6% da zona A e passa 4,45 m a leste.</text>
+<text x="855.00" y="1094.40" font-size="20" font-weight="400" fill="#e2edf0" text-anchor="start">• Exige expansão da implantação e novos pisos.</text>
+<text x="855.00" y="1126.40" font-size="20" font-weight="400" fill="#e2edf0" text-anchor="start">• Rota Lab: desvio ao norte do quartel.</text>
+<text x="855.00" y="1158.40" font-size="20" font-weight="400" fill="#e2edf0" text-anchor="start">• Conector da praça alongado até a rampa oeste.</text>
+<text x="1642.00" y="167.62" font-size="26" font-weight="700" fill="#c5d2ff" text-anchor="start">C · Escala 0,75× · só opção</text>
+<text x="1642.00" y="201.40" font-size="20" font-weight="400" fill="#a3bdc8" text-anchor="start">Centro (10.5; 0) m  |  rotação Y −90°  |  0.75×</text>
+<polyline points="1673.00,245.00 1673.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1673.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">-4</text>
+<polyline points="1715.00,245.00 1715.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1715.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">-2</text>
+<polyline points="1757.00,245.00 1757.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1757.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">0</text>
+<polyline points="1799.00,245.00 1799.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1799.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">2</text>
+<polyline points="1841.00,245.00 1841.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1841.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">4</text>
+<polyline points="1883.00,245.00 1883.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1883.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">6</text>
+<polyline points="1925.00,245.00 1925.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1925.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">8</text>
+<polyline points="1967.00,245.00 1967.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1967.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">10</text>
+<polyline points="2009.00,245.00 2009.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="2009.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">12</text>
+<polyline points="2051.00,245.00 2051.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="2051.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">14</text>
+<polyline points="2093.00,245.00 2093.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="2093.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">16</text>
+<polyline points="2135.00,245.00 2135.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="2135.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">18</text>
+<polyline points="2177.00,245.00 2177.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="2177.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">20</text>
+<polyline points="2219.00,245.00 2219.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="2219.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">22</text>
+<polyline points="2261.00,245.00 2261.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="2261.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">24</text>
+<polyline points="2303.00,245.00 2303.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="2303.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">26</text>
+<polyline points="2345.00,245.00 2345.00,833.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="2345.00" y="237.41" font-size="13" font-weight="400" fill="#718f9d" text-anchor="middle">28</text>
+<polyline points="1652.00,266.00 2345.00,266.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1642.00" y="270.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">-14</text>
+<polyline points="1652.00,308.00 2345.00,308.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1642.00" y="312.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">-12</text>
+<polyline points="1652.00,350.00 2345.00,350.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1642.00" y="354.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">-10</text>
+<polyline points="1652.00,392.00 2345.00,392.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1642.00" y="396.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">-8</text>
+<polyline points="1652.00,434.00 2345.00,434.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1642.00" y="438.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">-6</text>
+<polyline points="1652.00,476.00 2345.00,476.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1642.00" y="480.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">-4</text>
+<polyline points="1652.00,518.00 2345.00,518.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1642.00" y="522.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">-2</text>
+<polyline points="1652.00,560.00 2345.00,560.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1642.00" y="564.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">0</text>
+<polyline points="1652.00,602.00 2345.00,602.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1642.00" y="606.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">2</text>
+<polyline points="1652.00,644.00 2345.00,644.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1642.00" y="648.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">4</text>
+<polyline points="1652.00,686.00 2345.00,686.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1642.00" y="690.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">6</text>
+<polyline points="1652.00,728.00 2345.00,728.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1642.00" y="732.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">8</text>
+<polyline points="1652.00,770.00 2345.00,770.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1642.00" y="774.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">10</text>
+<polyline points="1652.00,812.00 2345.00,812.00" fill="none" stroke="#1d333e" stroke-width="1"/>
+<text x="1642.00" y="816.31" font-size="13" font-weight="400" fill="#718f9d" text-anchor="end">12</text>
+<polyline points="2082.50,339.50 2187.50,339.50" fill="none" stroke="#a582c6" stroke-width="2" stroke-dasharray="8 5"/>
+<polyline points="2187.50,339.50 2187.50,864.50" fill="none" stroke="#a582c6" stroke-width="2" stroke-dasharray="8 5"/>
+<polyline points="2187.50,864.50 2082.50,864.50" fill="none" stroke="#a582c6" stroke-width="2" stroke-dasharray="8 5"/>
+<polyline points="2082.50,864.50 2082.50,339.50" fill="none" stroke="#a582c6" stroke-width="2" stroke-dasharray="8 5"/>
+<polygon points="2082.50,339.50 2187.50,339.50 2187.50,864.50 2082.50,864.50" fill="#3e3548" stroke="#a582c6" stroke-width="2" stroke-dasharray="8 5"/>
+<text x="2135.00" y="364.61" font-size="18" font-weight="700" fill="#d7b8f4" text-anchor="middle">ZONA A</text>
+<polygon points="1950.20,392.00 2004.80,392.00 2004.80,491.75 1950.20,491.75" fill="#244b5c" stroke="#5398b0" stroke-width="2"/>
+<polygon points="1841.00,532.70 1909.25,532.70 1909.25,587.30 1841.00,587.30" fill="#244b5c" stroke="#5398b0" stroke-width="2"/>
+<polygon points="1670.69,473.69 1843.31,473.69 1843.31,646.31 1670.69,646.31" fill="#24463e" stroke="#7cac98" stroke-width="2"/>
+<text x="1757.00" y="560.96" font-size="18" font-weight="700" fill="#d9eddf" text-anchor="middle">PRAÇA</text>
+<text x="1757.00" y="579.17" font-size="16" font-weight="400" fill="#accabc" text-anchor="middle">(0; 0)</text>
+<polygon points="1891.19,284.69 2063.81,284.69 2063.81,394.31 1891.19,394.31" fill="#24463e" stroke="#7cac98" stroke-width="2"/>
+<text x="1977.50" y="340.46" font-size="18" font-weight="700" fill="#d9eddf" text-anchor="middle">LABORATÓRIO</text>
+<text x="1977.50" y="358.67" font-size="16" font-weight="400" fill="#accabc" text-anchor="middle">(10.5; -10.5)</text>
+<polygon points="1912.19,678.44 2042.81,678.44 2042.81,798.56 1912.19,798.56" fill="#24463e" stroke="#7cac98" stroke-width="2"/>
+<text x="1977.50" y="739.46" font-size="18" font-weight="700" fill="#d9eddf" text-anchor="middle">OFICINA</text>
+<text x="1977.50" y="757.67" font-size="16" font-weight="400" fill="#accabc" text-anchor="middle">(10.5; 8.5)</text>
+<polygon points="1891.66,634.02 1893.01,642.54 1896.93,650.23 1903.02,656.32 1910.71,660.24 1919.22,661.59 2035.78,661.59 2044.29,660.24 2051.98,656.32 2058.07,650.23 2061.99,642.54 2063.34,634.02 2063.34,485.98 2061.99,477.46 2058.07,469.77 2051.98,463.68 2044.29,459.76 2035.78,458.41 1919.22,458.41 1910.71,459.76 1903.02,463.68 1896.93,469.77 1893.01,477.46 1891.66,485.98" fill="#334c59" stroke="#a4c8d6" stroke-width="2"/>
+<polygon points="1962.54,433.82 1962.54,459.38 1992.46,459.38 1992.46,433.82" fill="#326577" stroke="#86d3e2" stroke-width="2"/>
+<polygon points="1867.07,545.04 1867.07,574.96 1892.63,574.96 1892.63,545.04" fill="#326577" stroke="#86d3e2" stroke-width="2"/>
+<polyline points="1898.75,485.98 1898.75,549.76" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="1898.75,570.24 1898.75,634.02" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="1919.22,654.50 2035.78,654.50" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="2056.25,485.98 2056.25,634.02" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="1919.22,465.50 1967.26,465.50" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="1987.74,465.50 2035.78,465.50" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="1898.75,634.02 1899.75,640.35 1902.66,646.06 1907.19,650.59 1912.90,653.50 1919.22,654.50" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="2035.78,654.50 2042.10,653.50 2047.81,650.59 2052.34,646.06 2055.25,640.35 2056.25,634.02" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="2056.25,485.98 2055.25,479.65 2052.34,473.94 2047.81,469.41 2042.10,466.50 2035.78,465.50" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="1919.22,465.50 1912.90,466.50 1907.19,469.41 1902.66,473.94 1899.75,479.65 1898.75,485.98" fill="none" stroke="#e9e3ce" stroke-width="5"/>
+<polyline points="1898.75,549.76 1898.75,570.24" fill="none" stroke="#ffe5a7" stroke-width="5"/>
+<polyline points="1967.26,465.50 1987.74,465.50" fill="none" stroke="#ffe5a7" stroke-width="5"/>
+<polyline points="1909.25,491.75 2045.75,491.75" fill="none" stroke="#f3b769" stroke-width="2" stroke-dasharray="8 5"/>
+<polyline points="2045.75,491.75 2045.75,628.25" fill="none" stroke="#f3b769" stroke-width="2" stroke-dasharray="8 5"/>
+<polyline points="2045.75,628.25 1909.25,628.25" fill="none" stroke="#f3b769" stroke-width="2" stroke-dasharray="8 5"/>
+<polyline points="1909.25,628.25 1909.25,491.75" fill="none" stroke="#f3b769" stroke-width="2" stroke-dasharray="8 5"/>
+<polygon points="1909.25,491.75 2045.75,491.75 2045.75,628.25 1909.25,628.25" fill="none" stroke="#f3b769" stroke-width="2" stroke-dasharray="8 5"/>
+<text x="1977.50" y="624.32" font-size="16" font-weight="400" fill="#ffce8e" text-anchor="middle">design antigo</text>
+<polyline points="1841.00,560.00 1867.07,560.00 1898.75,560.00 1977.50,560.00" fill="none" stroke="#90f0b8" stroke-width="3" stroke-dasharray="8 5"/>
+<polygon points="1977.50,560.00 1965.79,565.65 1965.79,554.35" fill="#90f0b8" stroke="#90f0b8" stroke-width="1"/>
+<polyline points="1977.50,560.00 1977.50,465.50 1977.50,433.82 1977.50,392.00" fill="none" stroke="#90f0b8" stroke-width="3" stroke-dasharray="8 5"/>
+<polygon points="1977.50,392.00 1983.15,403.71 1971.85,403.71" fill="#90f0b8" stroke="#90f0b8" stroke-width="1"/>
+<text x="1977.50" y="596.66" font-size="18" font-weight="700" fill="#e2edf0" text-anchor="middle">QUARTEL</text>
+<circle cx="1977.50" cy="441.88" r="11" fill="#173e51" stroke="#9cd8ed" stroke-width="2"/>
+<text x="1977.50" y="446.80" font-size="16" font-weight="700" fill="#d8f4ff" text-anchor="middle">1</text>
+<circle cx="1875.12" cy="560.00" r="11" fill="#173e51" stroke="#9cd8ed" stroke-width="2"/>
+<text x="1875.12" y="564.92" font-size="16" font-weight="700" fill="#d8f4ff" text-anchor="middle">2</text>
+<text x="1650.00" y="879.79" font-size="17" font-weight="400" fill="#a3bdc8" text-anchor="start">N ↑ −Z    |    Leste → +X    |    metros</text>
+<text x="1650.00" y="919.27" font-size="21" font-weight="700" fill="#c5d2ff" text-anchor="start">Pegada das paredes: 7.5 × 9 m</text>
+<text x="1650.00" y="952.40" font-size="20" font-weight="400" fill="#a3bdc8" text-anchor="start">Envelope sem Ground: 9.35 × 10.85 m</text>
+<text x="1650.00" y="998.40" font-size="20" font-weight="400" fill="#e2edf0" text-anchor="start">• Escala é apenas proposta; GLB continua 1×.</text>
+<text x="1650.00" y="1030.40" font-size="20" font-weight="400" fill="#e2edf0" text-anchor="start">• Sem sobreposição com Lab/Oficina/praça.</text>
+<text x="1650.00" y="1062.40" font-size="20" font-weight="400" fill="#e2edf0" text-anchor="start">• Vão 0,975 × 1,665 m acima da soleira.</text>
+<text x="1650.00" y="1094.40" font-size="20" font-weight="400" fill="#e2edf0" text-anchor="start">• Folga sul à Oficina: ≈0,80 m em projeção.</text>
+<text x="1650.00" y="1126.40" font-size="20" font-weight="400" fill="#e2edf0" text-anchor="start">• Encurta conectores até os pés das rampas.</text>
+<text x="1650.00" y="1158.40" font-size="20" font-weight="400" fill="#e2edf0" text-anchor="start">• Reduz camas, móveis e leitura visual: revisar.</text>
+<polyline points="48.00,1220.00 2350.00,1220.00" fill="none" stroke="#395562" stroke-width="2"/>
+<text x="48.00" y="1263.27" font-size="21" font-weight="700" fill="#e2edf0" text-anchor="start">CONTORNOS</text>
+<text x="48.00" y="1302.27" font-size="21" font-weight="400" fill="#a3bdc8" text-anchor="start">Creme: paredes / aberturas amarelas   ·   Azul: plinto e rampas   ·   Laranja tracejado: sala antiga</text>
+<text x="48.00" y="1339.27" font-size="21" font-weight="400" fill="#a3bdc8" text-anchor="start">Verde: vizinhos e rotas propostas   ·   Roxo: zona A   ·   Vermelho: interferência em projeção</text>
+<text x="48.00" y="1376.27" font-size="21" font-weight="400" fill="#a3bdc8" text-anchor="start">1 · Lab–Alojamentos (lab-quarters-connector)   2 · Praça leste (east-connector-design)</text>
+<text x="48.00" y="1422.01" font-size="23" font-weight="700" fill="#ffd49c" text-anchor="start">Parada A: não há runtime, escala aplicada, remoção de sala, piso novo, física ou aceite de jogabilidade.</text>
+<text x="48.00" y="1464.53" font-size="19" font-weight="400" fill="#a3bdc8" text-anchor="start">Fontes: marsMasterplan.json + colony-v007.manifest.json + medidas-v002.json. Detalhes e números completos em notas/encaixe-v002.json.</text>
+</g></svg>

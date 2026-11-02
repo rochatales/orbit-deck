@@ -57,7 +57,7 @@ async function place(page, x, z, angle, zoomFactor) {
 try {
     await server.listen();
     const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
-    await context.addInitScript(() => localStorage.setItem('horda-survivor:hub:v1', JSON.stringify({ version: 1, profile: { displayName: 'QA S6.3', color: '#66e6ff' }, briefingSeen: true })));
+    await context.addInitScript(() => localStorage.setItem('exoden:hub:v1', JSON.stringify({ version: 1, profile: { displayName: 'QA S6.3', color: '#66e6ff' }, briefingSeen: true })));
     const page = await open(context, `${ORIGIN}/tests/shanghai-phase01.html?perf`);
 
     // 8 orientações na chegada e em 3 pontos das rotas, zoom inicial do jogo.

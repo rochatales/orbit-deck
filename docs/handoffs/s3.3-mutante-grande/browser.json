@@ -1,0 +1,61 @@
+{
+  "base": "53b358d",
+  "method": "Fixture Shanghai, horda 3 real (32), progressão acelerada e HP restaurado só no ensaio. Inimigos partem das bordas, sem teleporte; congela no primeiro aviso para capturar os 0,8 s. Sem aceite do autor.",
+  "errors": [],
+  "consoleErrors": [],
+  "warning": {
+    "wave": 3,
+    "total": 115,
+    "alive": 32,
+    "born": {
+      "patrol": 25,
+      "largePatrol": 5,
+      "largeMutant": 2
+    },
+    "seconds": 31.8,
+    "mutants": [
+      {
+        "id": 15,
+        "x": 5.6067033164511715,
+        "z": -12.208678070236397,
+        "phase": "ready",
+        "left": 0,
+        "origin": [
+          0,
+          0
+        ],
+        "direction": [
+          0,
+          1
+        ],
+        "distance": 0
+      },
+      {
+        "id": 31,
+        "x": -8.22774848747112,
+        "z": 3.618051167996368,
+        "phase": "windup",
+        "left": 0.46666666666666584,
+        "origin": [
+          -8.22774848747112,
+          3.618051167996368
+        ],
+        "direction": [
+          0.9154035239938726,
+          -0.40253743709076245
+        ],
+        "distance": 6
+      }
+    ]
+  },
+  "scene": {
+    "warningInstances": 38,
+    "visible": {
+      "PlayerMesh_1": 1,
+      "PlayerMesh_2": 1,
+      "PatrolUnitMesh": 25,
+      "LargePatrolUnitMesh": 5,
+      "LargeMutantMesh": 2
+    }
+  }
+}

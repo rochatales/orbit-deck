@@ -1,6 +1,6 @@
-# Horda Survivor — Sprints do protótipo Shanghai
+# EXODEN — Sprints do protótipo Shanghai
 
-Criado em 28/09/2026; atualizado em 19/10/2026. Status: Sprint 1 implementado; núcleo do Sprint 2, S2.12 A, hordas e caixas consolidados tecnicamente, sem aceite de jogabilidade. S2.9 (medições), S2.12 (revisão A e parte B), S2.11 e validação do autor pendentes. Sprint 0 mantém a pendência de baseline S0.4.
+Criado em 28/09/2026; atualizado em 19/10/2026. Status: Sprint 1 implementado; núcleo do Sprint 2, S2.12 A, hordas e caixas consolidados tecnicamente, sem aceite de jogabilidade. S2.9 (medições) e validação geral do autor pendentes; S2.11 investigada e não adotada após comparação do autor em 144 Hz (26/10/2026). Sprint 0 mantém a pendência de baseline S0.4.
 
 Referência: [Auditoria e decisões de design](HORDA_SURVIVOR_AUDITORIA_E_PLANO.md). Este plano recorta a primeira entrega: sair do hub em Marte, concluir Shanghai, recuperar recursos, retornar e construir a primeira grande máquina no laboratório.
 
@@ -96,14 +96,14 @@ A localização exata do deck será definida no blockout do sprint 1, preservand
 
 ## 4. Sprint 0 — Preservação, inventário e referência
 
-Execução registrada em [Relatório do Sprint 0](sprint-0/RELATORIO.md). Preparação concluída; S0.4 parcial, com limites explícitos no relatório. Nenhuma alteração de gameplay.
+Execução registrada em [Relatório do Sprint 0](sprint-0/RELATORIO.md). **Encerrado em 25/10/2026**: S0.4 aprovada pelo autor na sessão de fechamento; medições no equipamento do autor seguem na S2.9. Nenhuma alteração de gameplay.
 
 Objetivo: preparar uma base recuperável sem perder código ou arte.
 
 - [x] S0.1 Registrar commit/estado atual e criar a branch de implementação `rochatales/horda-survivor`, se ainda não existir.
 - [x] S0.2 Inventariar e preservar separadamente os arquivos não rastreados; verificar a cópia. Não usar a criação de branch como backup desses arquivos.
 - [x] S0.3 Registrar assets ativos, fontes e exportações. Adiar movimentos em massa até atualizar imports; não criar duplicatas de GLBs ativos.
-- [ ] S0.4 Reexecutar build e registrar uma sessão manual: entrada, movimento, câmera e EDEN. Registrar o dispositivo, navegador, resolução e medidas de carregamento/desempenho disponíveis.
+- [x] S0.4 Reexecutar build e registrar uma sessão manual: entrada, movimento, câmera e EDEN. Registrar o dispositivo, navegador, resolução e medidas de carregamento/desempenho disponíveis.
 - [x] S0.5 Confirmar o roteiro de playtest e documentar os defaults usados no protótipo.
 
 Saída: referência recuperável, inventário e baseline registrados. Sem alteração de gameplay neste sprint.
@@ -131,7 +131,7 @@ Saída: abrir o jogo, entrar no hub, falar com EDEN, caminhar ao deck, entrar/sa
 
 ## 6. Sprint 2 — Movimento, tiro e sobrevivência
 
-**Núcleo S2.1–S2.8 implementado em 29/09/2026, ampliado nas integrações de 18–19/10. S2.12 A integrada, sem aceite; S2.9 com medições pendentes; S2.10 já aceita. Revisão específica da parte A, parte B, S2.11 e validação de jogabilidade da etapa 6.5 pendentes.**
+**Núcleo S2.1–S2.8 implementado em 29/09/2026, ampliado nas integrações de 18–19/10. S2.12 A/B concluídas e aprovadas pelo autor em 25–26/10/2026; S2.9 com medições pendentes; S2.10 já aceita. S2.11 concluída: investigada, comparada em 144 Hz pelo autor, não adotada (26/10/2026). Validação geral de jogabilidade da etapa 6.5 pendente.**
 
 [Relatório](sprint-2/RELATORIO.md) · [Checklist de teste manual](sprint-2/VALIDACAO_MANUAL.md). Os checks abaixo registram implementação e verificação técnica; o balanceamento é inicial.
 
@@ -152,10 +152,12 @@ Executar mudanças pequenas após receber o teste do autor, preservando a config
 
 - [ ] S2.9 Instrumentar medição opcional de desenvolvimento: tempo de frame p50/p95, frames longos, draw calls, triângulos, carregamento e memória disponível. Registrar dispositivo, resolução, DPR, navegador e limite da medição; requestAnimationFrame não é tempo de GPU. Iniciar com os dados nativos do renderer e browser, sem exigir biblioteca nova.
 - [x] S2.10 Concluir a separação da posição frequente do player em estado mutável; migrar consumidores ativos (câmera, mapa, combate e proximidade) e publicar na UI apenas mudanças relevantes. Medir renders com profiler e verificar embarque, interação, mira, morte e retry. Não reintroduzir módulos MCP arquivados. *Integrada em `110922a` (09/10/2026) e aceita pelo autor: R1–R8 e comparação `?perf` R10.*
-- [ ] S2.11 Investigar jitter com passo fixo: comparar interpolação visual do Rapier com a configuração atual, mantendo o passo da simulação. Câmera acompanha a posição visual interpolada; tiros e colisões mantêm referência coerente. Adotar só após teste do autor em telas disponíveis; não trocar para timestep variável como correção automática.
-- [ ] S2.12 Registrar e corrigir problemas de controle apontados pelo autor (escopo ampliado pelo autor em 07/10/2026; S2.12 não se restringe à arma):
+- [x] S2.11 Investigar jitter com passo fixo: comparar interpolação visual do Rapier com a configuração atual, mantendo o passo da simulação. Câmera acompanha a posição visual interpolada; tiros e colisões mantêm referência coerente. Adotar só após teste do autor em telas disponíveis; não trocar para timestep variável como correção automática. *Experimento entregue em 26/10/2026, base `0f8d485`: opção `?interp=1`, padrão preservado; [handoff](handoffs/s2.11.md). Concluída em 26/10/2026: investigada, comparada em 144 Hz pelo autor, não adotada. O autor não viu serrilhado nem tremor em nenhuma opção. Padrão mantido; `?interp=1` permanece apenas para comparação (implementação `2d9b45f`).*
+- [x] S2.12 Registrar e corrigir problemas de controle apontados pelo autor (escopo ampliado pelo autor em 07/10/2026; S2.12 não se restringe à arma):
   - **A · Movimento pela mira e Explorador da S6.8** (versão validada pelo autor: r7, `4c0ecfd`, com os cinco clipes). Novo contrato: W corre na direção do cursor; S recua mantendo o personagem voltado ao cursor, sem girar 180°; A/D não deslocam; W + S neutralizam; sem W/S, parado e orientado pelo cursor. A mesma direção horizontal de mira orienta corpo e deslocamento; cursor muito perto mantém a última direção válida. Velocidades de corrida e recuo separadas e ajustáveis, recuo mais lento. Q/C, R, E e Escape preservados; bloqueios de menus, diálogos e transições conferidos; instruções e HUD atualizadas. Integrar o candidato da S6.8 (Explorador r7 com Idle, Run, Talk, Fall e Backward, preservando as correções posteriores à r6) como asset separado, com opção de desenvolvimento para comparar com o personagem atual no mesmo ponto, câmera e luz, sem duplicar personagem ou colisores; prévia de teste começa com a r7. Estados Idle, Run e Backward com transições curtas; reprodução ajustada à velocidade efetiva (0,80 m/s é a referência do Backward, não a velocidade final), contato dos pés conferido contra o deslocamento real no jogo e locomoção parada contra parede. Materiais por asset em `GLBCharacter`, sem `flatShading` indiscriminado; escala, colisores e mapas inalterados. A pose de mira do candidato segue experimental. *Parte A integrada em 18/10 (`cf1bc63`, origem `82e3229`), sem aceite. A revisão específica contra `110922a`, A1–A13 e a decisão sobre corrida/deslizamento do Run permanecem na etapa 6.1; o aceite de jogabilidade segue na etapa 6.5. Fontes r7 preservadas fora do Git da integração, com manifesto da Fase 2.*
   - **B · Coerência entre arma, traçador e colisão.** Três etapas revisáveis decididas em 30/09/2026 ([handoff da S2.9](handoffs/s2.9.md)): origem, mira e traçador; colisão com altura; caixas sólidas e navegação. Depois da parte A.
+  - **Concluída e aprovada pelo autor (26/10/2026):** A1–A13 aprovados em 25/10 (`029f9e7`), corrida/recuo 4,2/1,2 m/s mantidos. B: etapa 1 `f3a93ff`, etapa 2 `aa74335`, etapa 3 `191976c`, apoio no piso `7397c42`. Revisão Claude sem defeitos, 208/208 e build verde; blockout `?shanghaiAtual` conferido em 1/32/hordas. Registros anteriores de pendência são históricos. [Handoff B](handoffs/s2.12-b.md).
+  - **Entregas antecipadas nesta linha:** recursos e Patrol grande, animal mutante, colônia v007 com estufa e Hangar, áudio de combate (parcela da S3.10). Não encerram os itens completos dos sprints futuros; seus checkboxes permanecem pendentes.
   - Não misturar com animações finais de combate. Qualidade visual e jogabilidade são aprovadas só pelo autor.
 
 Aceite do complemento: testes e build passam, nenhum comando/colisão regride e medições comparáveis ficam registradas. A ausência de tela 120/144 Hz é uma limitação explícita, não motivo para declarar essa validação concluída. Instrumentação pode entrar sem mudar gameplay; correções de fluidez dependem da evidência coletada.
@@ -251,6 +253,8 @@ Objetivo: transformar volumes provisórios em elementos reconhecíveis sem alter
   - **8 · Pipeline automatizado no Blender e auditoria anti-*z-fighting*.** Gerar/validar `*_Base`, `*_Cap` e `*_Top` nos scripts de exportação sem alterar o `.blend` fonte (SHA-256 preservado) e estender a auditoria automatizada de coplanaridade (`tests/colony-props.test.mjs`) para tampas de corte, decalques e faixas zebradas.
   - **9 · Extensão para Shanghai em ruínas (`S6.19d` com S6.3/S6.12).** Aplicar o corte de maquete em 1–2 pavimentos, contorno de tinta, vigas expostas, cabos e sinalização de alto contraste às fachadas destruídas, aos 2 depósitos e aos 6 esconderijos de placas de alumínio em Shanghai.
   - **10 · Orçamento e presets (`S2.9` / `S7.8`).** Medir draw calls, triângulos e `rAF p50/p95` antes e depois na Sala da EDEN; instanciar props repetidos e permitir desligar contorno de pós-processo, scanlines e partículas no preset baixo. Colonos animados no laboratório continuam no backlog (item 14.9).
+
+> S6.19c · Decisão do autor em 26/10/2026: [plano de escala e Sandwind](sprint-6/PLANO_ESCALA_COLONIA_E_SANDWIND.md), portado de 6a85445 para o v007 a partir de 5f1ee7f, sem merge da branch antiga. Conceito/cor #b4927a aprovados; prévia opcional só em Marte. Builder, setores, LODs, streaming e residentes fora desta entrega; aceite manual do porte pendente. [Handoff](handoffs/s6.19c-sandwind-v007.md).
 
 - [ ] S6.14 Definir tokens, fontes locais licenciadas e componentes mínimos com variantes EDEN Holographic e Mars Colony Clean. Cobrir estados de interação, foco, carregamento, vazio, erro e sucesso; medir contraste e oferecer efeitos reduzidos. Usar os dois guias visuais preservados no [plano de UI](sprint-6/PLANO_UI.md).
 - [ ] S6.15 Atualizar entrada, perfil, continuar, pausa/controles e configurações com o estilo EDEN, após S6.14. Entrada leva ao hub; partida permanece na nave. Preservar save e acesso por teclado, restaurar foco/pausa e exibir somente configurações funcionais.

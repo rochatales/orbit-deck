@@ -1,3 +1,5 @@
+import { recordCameraFollow } from '../physics/interpolationTelemetry';
+import { INTERPOLATE, CAMERA_PRIORITY } from '../physics/interpolation';
 import { simulationBlocked } from '../game/simulationGate';
 import { useExpeditionStore } from '../state/useExpeditionStore';
 import { OrthographicCamera } from '@react-three/drei';
@@ -5,7 +7,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import { OrthographicCamera as Camera, Vector3 } from 'three';
 import { useGameStore } from '../state/useGameStore';
-import { playerPosition } from '../state/playerTransient';
+import { playerPosition, playerVisualPosition } from '../state/playerTransient';
 import { damp, dampAngle, type RectBounds } from '../utils/math';
 import type { Point } from '../game/config';
 import { cameraFit } from './cameraFraming';
@@ -54,11 +56,13 @@ export function CameraRig({ bounds, spawn, distanceScale = 1, framing }: {
         angle.current = dampAngle(angle.current, s.targetRotation, 8, dt);
         c.zoom = damp(c.zoom, s.targetZoom, 8, dt);
         c.updateProjectionMatrix();
-        target.current.x = damp(target.current.x, playerPosition.x, 6.5, dt);
-        target.current.z = damp(target.current.z, playerPosition.z, 6.5, dt);
+        const follow = INTERPOLATE ? playerVisualPosition : playerPosition;
+        target.current.x = damp(target.current.x, follow.x, 6.5, dt);
+        target.current.z = damp(target.current.z, follow.z, 6.5, dt);
         // Recuo ao longo do mesmo eixo ortográfico: preserva escala e libera as torres altas.
         c.position.set(target.current.x + Math.cos(angle.current) * 18.38 * distanceScale, 0.55 + 13 * distanceScale, target.current.z + Math.sin(angle.current) * 18.38 * distanceScale);
         c.lookAt(target.current);
-    });
+        recordCameraFollow(follow, target.current, angle.current, c.zoom);
+    }, CAMERA_PRIORITY);
     return <OrthographicCamera ref={ref} makeDefault position={[spawn.x + 13 * distanceScale, 0.55 + 13 * distanceScale, spawn.z + 13 * distanceScale]} zoom={fit * 1.6} near={0.1} far={160 * distanceScale}/>;
 }

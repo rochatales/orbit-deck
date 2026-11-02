@@ -1,0 +1,36 @@
+{
+  "versao": "v001",
+  "comprimento_m": 0.75,
+  "eixos": "glTF/three: cano para +Z, topo para +Y, origem no centro do punho (Grip_R)",
+  "dimensoes_m": {
+    "largura_x": 0.1291,
+    "altura_y": 0.4506,
+    "comprimento_z": 0.75
+  },
+  "vazios_gltf_m": {
+    "Grip_R": [
+      0,
+      0,
+      0
+    ],
+    "Grip_L": [
+      0.0,
+      0.0637,
+      0.4012
+    ],
+    "Muzzle": [
+      0.004,
+      0.1711,
+      0.5348
+    ]
+  },
+  "triangulos": 5110,
+  "materiais": 1,
+  "textura_px": 1024,
+  "bytes_glb": 3031088,
+  "sha256": {
+    "fonte_glb": "7efec0783dee0eb5a492da178f3299b8fc00309459205a716d942161d657a4c8",
+    "blend": "20b10cb13caf54f7b10c2e93110c93f330beb3cd696d2aaf7f5e349cf6fbc4b6",
+    "glb": "ac583a8f973602f0757a76ad274fc50bc9fd8f1b7ac192e6224f017f7bcafc9c"
+  }
+}

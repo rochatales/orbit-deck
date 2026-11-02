@@ -1,0 +1,172 @@
+{
+  "sourceSHA": "7c6b2cab394b279eee1ccd392f975e94d9802960",
+  "base": "6184b7c9f4cebb994b566319cba748e062e3f1db",
+  "variant": "v002, escala 1×, sem runtime",
+  "files": [
+    {
+      "path": "art-source/quartel/.gitignore",
+      "bytes": 22,
+      "sha256": "e9377f7afe22fe574eb065f57e80617538d092aeee369d91c702fbb5e779d238"
+    },
+    {
+      "path": "art-source/quartel/README.md",
+      "bytes": 2107,
+      "sha256": "aab934e9d3c6e7892585683d7e89e9d094d08b4dc7fa8ddb87f1e35cfddd12ba"
+    },
+    {
+      "path": "art-source/quartel/blend/barracks-v002.blend",
+      "bytes": 193604,
+      "sha256": "e7c7670d23f1da53e80938ede255340041d631818a2ac4e2cb596c43d7be0e2b"
+    },
+    {
+      "path": "art-source/quartel/blend/barracks.blend",
+      "bytes": 220361,
+      "sha256": "ba30112de72dc8fc222de70f0d67e6e9af315d51b3423b28730ce0174388c959"
+    },
+    {
+      "path": "art-source/quartel/export/barracks-v002.glb",
+      "bytes": 611448,
+      "sha256": "ce80517580a0e56da2f3e51e19ffb2b6e29daf2fdd50c1770224c2e3f2f37fb6"
+    },
+    {
+      "path": "art-source/quartel/export/barracks.glb",
+      "bytes": 495832,
+      "sha256": "9522bc9d17038c39e1ffef8330a27e884a9fb8d34fb80cc1910b43f13fb9bec5"
+    },
+    {
+      "path": "art-source/quartel/export/texturas-v002/basecolor.png",
+      "bytes": 468,
+      "sha256": "de0da290d8d789140c07eec4930fb9e55013b250d422005f17291ddf906ce88d"
+    },
+    {
+      "path": "art-source/quartel/export/texturas-v002/emission.png",
+      "bytes": 329,
+      "sha256": "b23592a1aecb42ef4a837fa0537adfa56886074f403b3ba861763f7ea5f9aca0"
+    },
+    {
+      "path": "art-source/quartel/export/texturas-v002/orm.png",
+      "bytes": 406,
+      "sha256": "d3c97242eb7803736d239ba63cce5438b7a904238220f273e83d535d0a32c3e1"
+    },
+    {
+      "path": "art-source/quartel/notas/PARADA_A.md",
+      "bytes": 12804,
+      "sha256": "bf38b8ea0f5899aa3fa38a7d049caf7848f0fb4ba816421a01bd51e8a3cad8b5"
+    },
+    {
+      "path": "art-source/quartel/notas/build-v002.json",
+      "bytes": 17678,
+      "sha256": "75d96e4f55eab3b0acdbfa23cb88b090475055b4593781f1651aa9478ecf20c3"
+    },
+    {
+      "path": "art-source/quartel/notas/encaixe-v002.json",
+      "bytes": 19467,
+      "sha256": "be23c65cc8eb644ff7d2c4e20d8764989f6425dd15df1c250238982cb9748841"
+    },
+    {
+      "path": "art-source/quartel/notas/medidas-origem.json",
+      "bytes": 4618,
+      "sha256": "7273bffa85e04f269b95504d423b1aec3c642da04f59e4423a4e8cd3184548c1"
+    },
+    {
+      "path": "art-source/quartel/notas/medidas-v002.json",
+      "bytes": 16325,
+      "sha256": "922b658cf7937a327d3d10ad8c595baf668e50e966c49e5094a8f475bf61bf68"
+    },
+    {
+      "path": "art-source/quartel/notas/origem-SHA256SUMS.txt",
+      "bytes": 1510,
+      "sha256": "5ed4fe2d5add4ab38728308aabeac54e4f11ddd65293717a018543f68d5e73f8"
+    },
+    {
+      "path": "art-source/quartel/notas/origem-sha256.json",
+      "bytes": 4100,
+      "sha256": "7ceb574ba5b6c665ba87e702b8f871142d71d5571e6f18a192bb36a749221667"
+    },
+    {
+      "path": "art-source/quartel/notas/validacao-v002.json",
+      "bytes": 1532,
+      "sha256": "817c526f232ae02c97cb5f7de955f640e59374a6e32f2b6596ffe32c84ce0363"
+    },
+    {
+      "path": "art-source/quartel/referencias/_preview_barracks_cutaway.png",
+      "bytes": 1902696,
+      "sha256": "20304f9e1c2915842b09b7e7b31387a8e2549a0358a5df44fc2c7579725997e8"
+    },
+    {
+      "path": "art-source/quartel/referencias/_preview_barracks_cutaway_east.png",
+      "bytes": 1836434,
+      "sha256": "c0ad8353ae5a9a876219c6dec7fdffda87c5e610aee7ac65212f57d825dc0bd1"
+    },
+    {
+      "path": "art-source/quartel/referencias/_preview_barracks_exterior.png",
+      "bytes": 1620614,
+      "sha256": "ca7d1be7fa4b93ce7ff6259c93a404a69a2b9d6a50574df9873141c1a7c26982"
+    },
+    {
+      "path": "art-source/quartel/referencias/_preview_barracks_exterior_back.png",
+      "bytes": 1536884,
+      "sha256": "2e6d0a8fd4fa812422cb528cf414dcd65756e7b795de38c3f9d1b93d8de3e5be"
+    },
+    {
+      "path": "art-source/quartel/renders/planta-colliders-v002.png",
+      "bytes": 55647,
+      "sha256": "574c3457ea2c8bc75d6f7c850fb0adcbbbdbbba563389e858a906d9815096ed1"
+    },
+    {
+      "path": "art-source/quartel/renders/planta-colliders-v002.svg",
+      "bytes": 7876,
+      "sha256": "b8de3d22f1a95a67f9b823f52634dadbdd83ab08876e990801a39f18f75416f0"
+    },
+    {
+      "path": "art-source/quartel/renders/planta-encaixe-v002.png",
+      "bytes": 195524,
+      "sha256": "66110ae4121aa010d705f83a06a9676972d083c7612cc4e4d7fafcf4764eed2e"
+    },
+    {
+      "path": "art-source/quartel/renders/planta-encaixe-v002.svg",
+      "bytes": 43396,
+      "sha256": "1d2ebb83c2b4b36a8f0824ba7e763b6d2d245c7843775803d12790fd6854793a"
+    },
+    {
+      "path": "art-source/quartel/renders/v002-frente.png",
+      "bytes": 1307088,
+      "sha256": "c6b1026b16f01a65cc92585d1945ed2fcd9493725f3a82704b2376a6c8b5ce6d"
+    },
+    {
+      "path": "art-source/quartel/renders/v002-superior-sem-teto.png",
+      "bytes": 1632510,
+      "sha256": "e52efb2f22e1f4d845ec69d24a6025a28096719ec22f3c833a406941096360e3"
+    },
+    {
+      "path": "art-source/quartel/renders/v002-tres-quartos.png",
+      "bytes": 1698935,
+      "sha256": "2440cdd015cddf0c1388b21cbb62e7c440aa3dc08f8a5ba2505a1ffc900c2a3b"
+    },
+    {
+      "path": "art-source/quartel/scripts/build_barracks.py",
+      "bytes": 31964,
+      "sha256": "d91b39f4ecf8f44e1718ee4c1878adc1c8daf7bfe49a3a0f85e642a00ca45ecf"
+    },
+    {
+      "path": "art-source/quartel/scripts/build_barracks_v002.py",
+      "bytes": 13322,
+      "sha256": "18995f08ddb03748e6641aaed7bc8f1540e7e7cc0d7961186fcdd6255cd2b422"
+    },
+    {
+      "path": "art-source/quartel/scripts/measure_barracks.py",
+      "bytes": 1900,
+      "sha256": "bb6ec2a945856fd24f225eda6401f665c5a2d4d0d8289bac6f7587a92601b8a1"
+    },
+    {
+      "path": "art-source/quartel/scripts/planta_encaixe.py",
+      "bytes": 15992,
+      "sha256": "dd93820aa3991c58ed8a875f92a0ad2d3afca593763652f6df873c36f8ff526f"
+    },
+    {
+      "path": "art-source/quartel/scripts/validate_barracks.py",
+      "bytes": 5577,
+      "sha256": "14ddcfa8b80f39f220ca62d3563090b3ee8dd594e537df5c217c0933ff442d14"
+    }
+  ]
+}

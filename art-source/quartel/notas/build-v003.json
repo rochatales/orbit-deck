@@ -1,0 +1,19 @@
+{
+  "variant": "v003",
+  "chosenOption": "2 (C da planta v002)",
+  "chosenBy": "autor, 26/10/2026",
+  "sourceV002SHA256": "e7c7670d23f1da53e80938ede255340041d631818a2ac4e2cb596c43d7be0e2b",
+  "bakedScale": 0.75,
+  "rootScale": [
+    1,
+    1,
+    1
+  ],
+  "placement": {
+    "x": 10.5,
+    "z": 0,
+    "rotationYDeg": -90,
+    "appliedToAsset": false
+  },
+  "runtime": false
+}

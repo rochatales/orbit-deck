@@ -1,0 +1,105 @@
+{
+  "method": "Vértices deformados dos GLBs reais, escala do runtime, clipes vivos usados a 120 Hz incluindo início/fim; texturas omitidas só em memória. Amostragem, não prova de extremos contínuos/crossfades.",
+  "types": {
+    "patrol": {
+      "file": "src/assets/enemies/patrol-unit.glb",
+      "sha256": "c01d3ea675c0bd10bee6ac4b45df59c3fd289f343ebb337c4bfd495412b339ad",
+      "scale": 1.5033557046979866,
+      "clips": {
+        "Idle": {
+          "duration": 2,
+          "samples": 241,
+          "minY": -2.0769212013532579e-7,
+          "maxY": 2.2530407986726457
+        },
+        "PatrolWalk": {
+          "duration": 1.100000023841858,
+          "samples": 134,
+          "minY": -0.014484281886918292,
+          "maxY": 2.282826972105227
+        },
+        "AggressiveLunge": {
+          "duration": 1,
+          "samples": 121,
+          "minY": -0.06487839074456007,
+          "maxY": 2.2915625702234594
+        }
+      },
+      "minY": -0.06487839074456007,
+      "maxY": 2.2915625702234594,
+      "hitHeight": {
+        "minY": 0,
+        "maxY": 2.31
+      }
+    },
+    "largePatrol": {
+      "file": "src/assets/enemies/large-patrol-unit.glb",
+      "sha256": "acb2d8e1846b5bb21e66046549a30170a4de6b5452a4b2f40ea241be1677d6f4",
+      "scale": 1.534713539267303,
+      "clips": {
+        "Idle": {
+          "duration": 2,
+          "samples": 241,
+          "minY": -0.02455557616123717,
+          "maxY": 3.202045083994748
+        },
+        "PatrolWalk": {
+          "duration": 1.2000000476837158,
+          "samples": 146,
+          "minY": -0.018942507522794406,
+          "maxY": 3.2540693528056956
+        },
+        "AggressiveLunge": {
+          "duration": 1,
+          "samples": 121,
+          "minY": -0.12017550168114613,
+          "maxY": 3.1999999999269364
+        }
+      },
+      "minY": -0.12017550168114613,
+      "maxY": 3.2540693528056956,
+      "hitHeight": {
+        "minY": 0,
+        "maxY": 3.28
+      }
+    },
+    "smallMutant": {
+      "file": "src/assets/enemies/mutant-animal.glb",
+      "sha256": "6680135e3ab13a3aa55651426d1bbe8bb9152ce9368ea383a2166e49c66d8796",
+      "scale": 1,
+      "clips": {
+        "Idle": {
+          "duration": 2,
+          "samples": 241,
+          "minY": -0.003725224520724324,
+          "maxY": 0.9766296784037836
+        },
+        "PatrolWalk": {
+          "duration": 1.100000023841858,
+          "samples": 134,
+          "minY": -0.015209889241005914,
+          "maxY": 0.982697093437526
+        },
+        "ChaseRun": {
+          "duration": 0.699999988079071,
+          "samples": 85,
+          "minY": -0.014544501120723585,
+          "maxY": 0.994697178964883
+        },
+        "AggressiveLunge": {
+          "duration": 1,
+          "samples": 121,
+          "minY": -0.08969845690377891,
+          "maxY": 1.1801956110144936
+        }
+      },
+      "minY": -0.08969845690377891,
+      "maxY": 1.1801956110144936,
+      "hitHeight": {
+        "minY": 0,
+        "maxY": 1.2
+      }
+    }
+  },
+  "base": "48e0882c8e26a5f57e6bd70122322d087dea3f48"
+}

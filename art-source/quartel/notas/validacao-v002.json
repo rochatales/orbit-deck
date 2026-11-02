@@ -1,0 +1,49 @@
+{
+  "blendSHA256": "e7c7670d23f1da53e80938ede255340041d631818a2ac4e2cb596c43d7be0e2b",
+  "passed": true,
+  "checks": [
+    {
+      "name": "paredes retas e vãos: Wall vs COL",
+      "samples": 680,
+      "passed": true
+    },
+    {
+      "name": "dois vãos de 1,30 m: sem vidro/parede/props estáticos bloqueando",
+      "samples": 40,
+      "passed": true
+    },
+    {
+      "name": "cantos: cobertura conservadora por caixas tangentes",
+      "samples": 1092,
+      "passed": true,
+      "radialExcessMaxM": 0.025
+    },
+    {
+      "name": "COL da folha W",
+      "aabbErrorMaxM": 4.76837158203125e-07,
+      "passed": true
+    },
+    {
+      "name": "COL da folha S",
+      "aabbErrorMaxM": 4.76837158203125e-07,
+      "passed": true
+    },
+    {
+      "name": "rota interna entre portas: raios, raio de referência 0,38 m",
+      "samples": 72,
+      "passed": true,
+      "limitation": "Amostragem de geometria, não ensaio Rapier ou aceite de jogabilidade."
+    }
+  ],
+  "visualMeshCount": 13,
+  "materials": 1,
+  "COLnodes": 33,
+  "roofNode": "Building_Roof",
+  "interiorNode": "Building_Interior",
+  "limitations": [
+    "COL_* são empties/metadados, não colliders instalados no jogo.",
+    "COL de janelas bloqueiam o vidro; molduras/rodapés decorativos ficam fora do núcleo de parede.",
+    "COL_Floor é referência rounded_rect_floor; rampas analytic_ramp. Nada cria física nesta entrega.",
+    "Teto separado confirmado; paredes internas pertencem a Building_Interior e ficam visíveis no corte de teto."
+  ]
+}

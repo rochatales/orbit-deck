@@ -1,6 +1,8 @@
+import { AudioControls, AudioLifecycle } from '../audio/AudioRuntime';
+import { audio } from '../audio/runtime';
 import { CombatHud, EncounterSelect } from '../combat/CombatHud';
 import { useCombatStore } from '../state/useCombatStore';
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { GameCanvas } from './GameCanvas';
 import { useExpeditionStore } from '../state/useExpeditionStore';
 import { useGameStore } from '../state/useGameStore';
@@ -14,11 +16,13 @@ import type { OfficeWorld } from '../world/createOfficeMap';
 import type { MapId } from '../game/session';
 import { interactWithSupplyCrate } from '../game/props/crateInteraction';
 import { SUPPLY_CRATE } from '../game/props/supplyCrate';
+import { sandwindPanelEnabled } from '../scene/marsColony/sandwindPolicy';
+const SandwindPanel = lazy(() => import('../scene/marsColony/ColonySandwind').then(m => ({ default: m.SandwindPanel })));
 function Welcome() {
     const [name, setName] = useState(''), [color, setColor] = useState('#66e6ff');
     const start = useExpeditionStore(s => s.start);
-    return <main className="welcome"><form onSubmit={e => { e.preventDefault(); start(name, color); }}>
-    <p className="eyebrow">HORDA SURVIVOR · PROTÓTIPO</p><h1>A humanidade começa de novo.</h1>
+    return <main className="welcome"><form onSubmit={e => { e.preventDefault(); void audio.unlock(); start(name, color); }}>
+    <p className="eyebrow">EXODEN · PROTÓTIPO</p><h1>O mundo acabou. A humanidade, não.</h1>
     <p>Marte é nosso lar. A Terra guarda os materiais do próximo passo.</p>
     <label>Nome do explorador<input value={name} onChange={e => setName(e.target.value)} minLength={2} maxLength={32} required autoFocus/></label>
     <label>Cor do traje<input type="color" value={color} onChange={e => setColor(e.target.value)}/></label>
@@ -101,6 +105,7 @@ function Runtime() {
     }, []);
     return <main className={`runtime ${s.session.map === 'shanghai' ? 'in-combat' : 'in-hub'}`}>
     {world && <GameCanvas key={world.map} world={world.data} map={world.map}/>}
+    {world?.map === 'mars' && s.session.map === 'mars' && sandwindPanelEnabled(window.location.search) && <Suspense fallback={null}><SandwindPanel/></Suspense>}
     <header className="hud-top"><div><p className="eyebrow">{MAPS[s.session.map].title}</p><strong>{s.profile?.displayName}</strong></div>
       <nav><button onClick={() => setControls(!controls)}>Controles</button><button disabled={!s.ready || s.session.phase !== 'walking' || !!s.panel || (s.session.map === 'shanghai' && dead)} onClick={() => useGameStore.getState().togglePaused()}>{paused ? 'Retomar' : 'Pausar'}</button></nav>
     </header>
@@ -108,7 +113,7 @@ function Runtime() {
       <p>{s.session.map === 'mars' ? 'EDEN ao norte · Deck de lançamento ao sul, após o complexo.' : 'Neutralize os robôs. Use as esquinas como cobertura e mantenha distância.'}</p>
       <small>Explore · Sobreviva · Recupere materiais.</small>
     </aside>
-    {controls && <aside className="controls">Mouse: mirar e orientar o personagem · W/↑: correr na direção do cursor · S/↓: recuar voltado para o cursor · W + S: parado · botão esquerdo: atirar · R: recarregar · E: interagir / desembarcar · Q/C: girar câmera · roda ou +/−: zoom · Esc: fechar diálogo / pausar.</aside>}
+    {controls && <aside className="controls">Mouse: mirar e orientar o personagem · W/↑: correr na direção do cursor · S/↓: recuar voltado para o cursor · W + S: parado · botão esquerdo: atirar · R: recarregar · Espaço: dash em Shanghai · E: interagir / desembarcar · Q/C: girar câmera · roda ou +/−: zoom · Esc: fechar diálogo / pausar · M: som/mudo.<AudioControls/></aside>}
     {comparacaoDisponivel() && <PlayerAssetBadge/>}
     <footer className="radio"><b>EDEN / RÁDIO</b><p>{s.radio}</p></footer>
     {s.session.map === 'shanghai' && <CombatHud/>}
@@ -128,11 +133,11 @@ function Runtime() {
       {s.session.map === 'shanghai' && <p>Retorno livre à colônia. As peças desta tentativa são temporárias.</p>}
       <div className="actions"><button onClick={() => s.send('depart')}>{s.session.map === 'mars' ? 'Decolar para Shanghai' : 'Retornar a Marte'}</button><button className="secondary" onClick={() => s.send('exit')}>Desembarcar · E</button></div>
     </article></section>}
-    {paused && !(s.session.map === 'shanghai' && dead) && <section className="overlay"><article><h2>Exploração pausada</h2><button onClick={() => useGameStore.getState().togglePaused()}>Retomar exploração</button></article></section>}
+    {paused && !(s.session.map === 'shanghai' && dead) && <section className="overlay"><article><h2>Exploração pausada</h2><AudioControls/><button onClick={() => useGameStore.getState().togglePaused()}>Retomar exploração</button></article></section>}
     {(!s.ready || s.error) && <section className="overlay" role="status"><article><h2>{s.error ? 'Viagem interrompida' : s.session.phase === 'travelling' ? 'Viajando…' : 'Preparando o mapa…'}</h2><p>{s.error ?? 'Aguarde o carregamento da região.'}</p>{s.error && <button onClick={() => { s.setError(null); if (world && s.session.phase === 'aboard')
         s.send('depart');
     else
         setRetry(x => x + 1); }}>Tentar novamente</button>}</article></section>}
   </main>;
 }
-export function App() { const profile = useExpeditionStore(s => s.profile); return profile ? <Runtime /> : <Welcome />; }
+export function App() { const profile = useExpeditionStore(s => s.profile); return <><AudioLifecycle/>{profile ? <Runtime /> : <Welcome />}</>; }

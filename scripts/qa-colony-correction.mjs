@@ -7,7 +7,7 @@ const out='docs/handoffs/s6.12/evidencias/depois';fs.mkdirSync(out,{recursive:tr
 const browser=await chromium.launch({headless:true,args:['--enable-gpu','--use-angle=metal']});
 const context=await browser.newContext({viewport:{width:1440,height:900},recordVideo:{dir:out,size:{width:1440,height:900}}});
 const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(String(e)));
-await page.addInitScript(()=>localStorage.setItem('horda-survivor:hub:v1',JSON.stringify({version:1,profile:{displayName:'Explorador QA',color:'#66e6ff'},briefingSeen:true})));
+await page.addInitScript(()=>localStorage.setItem('exoden:hub:v1',JSON.stringify({version:1,profile:{displayName:'Explorador QA',color:'#66e6ff'},briefingSeen:true})));
 try{
  await page.goto(process.argv[2]??'http://127.0.0.1:5189/');await page.waitForTimeout(6000);
  await page.evaluate(async()=>{

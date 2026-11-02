@@ -1,3 +1,4 @@
+import { AudioFrame } from '../audio/AudioRuntime';
 import { releaseMovementKeys } from '../game/simulationGate';
 import { useGameStore } from '../state/useGameStore';
 import { KeyboardControls } from '@react-three/drei';
@@ -28,6 +29,7 @@ export function GameCanvas({ world, map }: {
     return <KeyboardControls map={KEYBOARD_CONTROLS_MAP}>
     <Canvas className={`game-canvas ${map === "shanghai" ? "combat-canvas" : ""}`} shadows dpr={[1, 1.5]} gl={{ antialias: true }}>
       <Suspense fallback={null}><OfficeScene world={world} map={map}/></Suspense>
+      <AudioFrame/>
       {perf && <Suspense fallback={null}><PerfProbe map={map}/></Suspense>}
     </Canvas>
     {perf && <Suspense fallback={null}><PerfPanel map={map}/></Suspense>}

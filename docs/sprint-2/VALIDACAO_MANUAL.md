@@ -90,3 +90,177 @@ Para cada caso: modo/horda, ação, observado × esperado, resultado, ambiente e
 Minas, barreiras, duas categorias de criaturas, loot persistente, extração obrigatória e construção da máquina permanecem pendentes. Hordas, peças temporárias, corações e caixas já existem neste estado; não equivalem aos Sprints 3–5 completos. Retorno a Marte continua livre; recarregar a página retorna ao hub e não salva a tentativa em Shanghai.
 
 S2.12 B (origem/mira/traçador, colisão com altura e sólidos/navegação) exige proposta da etapa 6.3 para fase 01: altura do Patrol Unit, raio E1, altura das caixas e colisão dos depósitos. S2.11 vem depois, sem adoção automática. Revisão completa e avanço da integração seguem na Fase 4; aceite de jogabilidade somente na etapa 6.5.
+
+## S2.12 B — etapa 1, Parada 1 (25/10/2026)
+
+Autor liberou B após A1–A13, com A12 confirmado: corrida 4,2 m/s, recuo 1,2 m/s.
+Nesta etapa, tiro/cano/plano a 0,85 m e retícula a 0,86 m. Raio, altura de
+colisores e navegação aguardam etapas 2 e 3; depósitos excluídos até S4.3.
+As referências anteriores à proposta pendente são históricas; o escopo vigente
+está no [handoff da etapa 1](../handoffs/s2.12-b.md) e na
+[proposta decidida](../handoffs/s2.12-b-proposta.md).
+
+Testar o **build da worktree `/Users/rochatales/.codex/worktrees/s2-12-b/game-workplace`**,
+branch `rochatales/s2.12-b`, base `2b1c91beeb6a59d3ef8815cdf3f3f1ab66689b28`.
+Comandos: `npm run build` e `npm run preview -- --host 127.0.0.1 --port 4192 --strictPort`.
+A porta 4173 permanece com o fechamento; não trocar sua instância pela tarefa.
+Registrar o SHA real testado. **Todos os itens abaixo aguardam o autor.**
+
+| Caso | Conferir | Resultado |
+|---|---|---|
+| B1.1 · regressão A | Marte: W/S, Q/C, E/EDEN/Esc e velocidades 4,2/1,2 m/s mantidos | pendente |
+| B1.2 · giro/origem | Shanghai, 1 robô, parado/correndo/recuando: girar o cursor; o traçador nasce na ponta da arma suavizada, a 0,85 m | pendente |
+| B1.3 · parede/quina | Encostar e apontar para além: checagem centro→cano impede dano do outro lado; traçador ocluído termina na face | pendente |
+| B1.4 · perto/longe | Na mesma direção do cano, aproximar/afastar o cursor; bala continua além da retícula até colisão/32 m, sem distância do cursor limitar o alcance | pendente |
+| B1.5 · mira próxima | Cursor sobre o corpo, no cano ou atrás dele: tiro horizontal segue o rumo do corpo, sem inversão | pendente |
+| B1.6 · impacto | Robô à frente e parede atrás, depois robô protegido por parede: primeiro contato define fim do traçador e dano | pendente |
+| B1.7 · bloqueios | Atirar/recarregar, pausar, abrir interação, embarcar: sem tiro ou avanço de combate em estado bloqueado | pendente |
+| B1.8 · reset | Viajar/desembarcar e retry após morte: origem/rumo no novo spawn, sem traçador antigo ou gatilho preso | pendente |
+
+Casos geométricos e alcance exato: testes automatizados da etapa 1. A evidência
+em fixture dev é verificação técnica, sem substituir este playtest no build.
+Claude revisa contra a base antes da próxima etapa. **Parar após a etapa 1**;
+sem liberar etapas 2/3, marcar checkbox ou declarar aceite pelo agente.
+
+
+## Animal mutante pequeno / matéria orgânica — roteiro incremental (25/10/2026)
+
+Build da worktree `/Users/rochatales/.codex/worktrees/s2-12-b/game-workplace`,
+branch `rochatales/s2.12-b`. Base do animal: `f786255` (registro documental após
+`daaff88`). Registrar SHA testado. O autor já aprovou mapa v007/deck, estufa e
+anel na calçada; revisão Claude dos commits anteriores sem defeitos, conforme
+relato do autor. **Casos do animal abaixo aguardam o autor**, sem novo aceite.
+
+| Caso | Conferir | Resultado |
+|---|---|---|
+| Animal 1 · composição | Horda 1: 10 comuns + 3 animais = 13; horda 2: 20 + 6 = 26; horda 3: 25 comuns + 5 grandes = 30; horda 4: 30 + 10 = 40, sem animais nas duas últimas. HUD/resultado total 109 | pendente |
+| Animal 2 · velocidade e pressão | Animal marcha/corre, alcança o explorador em perseguição (4,6 > 4,2 m/s) e tenta abrir em setores diferentes a menos de 6 m antes do contato; testar campo aberto, parede e quina | pendente |
+| Animal 3 · ataque e tiro | Dois tiros de rifle matam o animal; cano/traçador a 0,85 m; tiro alerta. Dano de 8 com proteção global: vários animais juntos não somam dano no mesmo intervalo | pendente |
+| Animal 4 · animações | Idle ao nascer; PatrolWalk, ChaseRun, bote e morte conforme estado. Horda 2 reutiliza os rigs sem pose morta/velocidade antiga; ShockAttack não é usado | pendente |
+| Animal 5 · orgânica | Animal morto deixa 1 matéria orgânica, anel verde sobre rua/calçada/canteiro, pulso e flutuação sem giro Y; coletar uma vez, contador ORGÂNICA instantâneo e coleta visual rápida | pendente |
+| Animal 6 · munição/reset | Reposição considera 2 acertos por animal, sem reduzir munição existente; pausa congela combate/efeitos. Retry/viagem zeram orgânica e restauram a primeira horda, sem drop/pose anterior | pendente |
+
+Raio circular 0,50 m não engloba toda a frente/cauda de 2,07 m: observar a
+limitação visual nas paredes, sem colisor de malha. Faixa de tiro vertical do
+animal ainda não implementada; envelope do bote chega a 1,180 m, proposta
+0–1,20 m para a etapa 2. Este roteiro não libera a etapa 2.
+Capturas e método assistido em `docs/handoffs/s6.1-mutante-pequeno/`;
+QA técnico não substitui o playtest. **Parar para revisão Claude antes do avanço.**
+
+
+## S2.12 B · etapa 2 — colisão de tiro com altura (25/10/2026)
+
+**Etapa 2 liberada pelo autor e entregue na Parada 2.** Base de revisão
+`48e0882`; build da worktree `/Users/rochatales/.codex/worktrees/s2-12-b/game-workplace`,
+branch `rochatales/s2.12-b`. Registrar SHA testado. A linha contém áudio S3.10
+antecipado e Hangar S6.12 com contorno preto; Hangar aprovado pelo autor,
+revisão Claude de `bdd4abe` sem defeitos (190/190/build), conforme relato.
+O aceite do Hangar não constitui aceite da etapa 2 B.
+
+| Caso | Conferir | Resultado |
+|---|---|---|
+| B2.1 · mundo e centro→cano | Em Shanghai fase 01, atirar contra prédio/carro/monte/ARES-I; repetir encostado em parede e quina. Cano/traçador seguem a 0,85 m e não atingem alvo atrás do bloqueio | pendente |
+| B2.2 · caixas | Nas duas caixas, tiro contra o corpo bloqueia fechado/abrindo/aberto. Tampa visual não amplia a faixa fixa 0–1,195 m; movimento continua bloqueado pelo corpo | pendente |
+| B2.3 · três inimigos | Comum, grande e animal recebem dano na marcha e no bote; mais próximo protege o de trás, parede à frente protege ambos. Faixas simples estáveis: 0–2,31 / 0–3,28 / 0–1,20 m | pendente |
+| B2.4 · regressão | Conferir movimento/visão/navegação 2D, mesmos raios e escala; viajar a Marte e observar Hangar/contorno preto/áudio preservados | pendente |
+
+Extremos abaixo/no limite/acima, ausência de metadados e preservação das 36
+alturas são ensaiados automaticamente; rifle do jogo permanece horizontal a
+0,85 m. Sem ferramenta de mira vertical nova. Medições dos GLBs a 120 Hz e
+limitações em `docs/handoffs/s2.12-b/alturas-etapa-2.json` e handoff B.
+199/199 testes/build/diff-check verdes. Não houve novo QA de navegador nesta
+etapa; playtest e aceite são do autor. **Parada 2 para revisão Claude contra
+`48e0882`; não iniciar etapa 3.** As restrições anteriores sobre liberação da
+etapa 2 nas seções históricas ficam substituídas por esta liberação expressa.
+
+## S2.12 B — etapa 3, Parada 3 (26/10/2026)
+
+Etapa 2 (`aa74335`) aprovada pelo autor e revisada pelo Claude (199/199, build
+verde, sem defeitos). Contorno preto `48e0882` também revisado sem defeitos.
+Esta etapa parte de `aa74335` na worktree `s2-12-b`; roteiro histórico do checkout
+principal acima não se aplica à entrega ainda não integrada.
+
+- [ ] Observar 32 patrulheiros por 90 s, especialmente (±17,5; −18,5): sem fila
+  permanente, sem atravessar quinas. Comum: raio 0,67, spacing 1,34, separation
+  1,60, contato 1,07 m. Grande e animal conservam perfis próprios.
+- [ ] Alertar o grupo e parar em área livre: cerco de vários lados. Primeira linha
+  comporta quatro comuns pela distância entre centros; dano global preservado.
+- [ ] Encostar o jogador numa parede e contornar quinas: perseguição alcança
+  contato, respeita sólidos; tiro a 0,85 m acerta comum/grande/animal colados.
+- [ ] Jogar hordas 1–4 (13/26/30/40 ativos); conferir animais, grandes e conclusão
+  sem inimigo preso. Grandes têm 0,18 m de folga total na viela mais estreita
+  medida e passam individualmente sem atravessar paredes; conferir visualmente.
+- [ ] Conferir desembarque/ARES-I e acesso às duas caixas, incluindo chegada dos
+  grandes após eliminar a primeira linha de comuns.
+
+Agente: 205/205, build/diff-check verdes; capturas técnicas hordas 1 e 4 e ensaios
+em `docs/handoffs/s2.12-b/etapa-3/`. Revisão Claude e aceite do autor pendentes.
+Parada 3; S2.11 só após aceite do autor.
+
+### Complemento B3 — apoio no piso de Shanghai (26/10/2026)
+
+- [ ] Correr e recuar rua↔calçada, canteiro e grama: pés apoiados, transição
+  curta sem salto perceptível ou travamento no meio-fio.
+- [ ] Observar comum, grande e animal nos mesmos pisos, durante marcha e morte;
+  coletar os drops e conferir anéis acima da superfície.
+- [ ] Conferir caixas Oeste/Nordeste (ambas na rua) e corações apoiados.
+- [ ] Conferir cano visual 12 cm acima do tiro sobre calçada (14,8 cm no canteiro,
+  25 cm na grama). Tiro permanece a 0,85 m da rua por decisão de escopo; avaliar
+  proposta futura de torná-lo relativo ao piso, sem aprová-la implicitamente.
+- [ ] Voltar a Marte e percorrer o Hangar/rampa: apoio anterior preservado.
+
+208/208, build/diff-check verdes. Capturas comparativas e medições técnicas no
+handoff B, `apoio-piso/`; aceite visual do autor e revisão Claude pendentes.
+
+## Entregas antecipadas após S2.11 — 26/10/2026
+
+- [ ] Clarão no cano, metal laranja/branco nos robôs, verde nos animais e poeira
+  na parede; tranco curto sem interromper movimento/dano; pausa/retry sem resíduo.
+- [ ] Hordas 13/26/32/44, total 115; grandes mutantes 0/0/2/4, oito tiros e três
+  orgânicas independentes com anéis apoiados no piso.
+- [ ] Com áudio mudo, aviso de 0,8 s a 4–9 m; desviar saindo de lado, permanecer
+  para conferir 30 de dano, provocar parede e observar recarga de 3 s/contato 15.
+- [ ] Conferir sons grandes, morte provisória grave e legibilidade do aviso quando
+  há outros inimigos na frente. S2.11 segue opcional, sem adoção automática.
+
+227/227, build/diff-check verdes; handoffs `s3.10-efeitos.md` e
+`s3.3-mutante-grande.md`. Aceite visual/jogabilidade é do autor, pendente.
+
+
+## Aranha ×2,5 e recuperação do grupo misto — retomada de 26/10/2026
+
+Base `c7f8bad`, aranha/investida em `d1ac5c6`, recuperação no commit seguinte. Itens abaixo são do autor, permanecem sem marcação.
+
+- [ ] Comparar aranha ao Patrol grande: escala 2,5, corpo com raio 1,66, acerto 0–2,92; conferir vielas (permitidas), tiro a 0,85 m e apoio no piso.
+- [ ] Provocar aviso de 0,8 s, largura 5,16 m e investida de até 10 m em rua ampla com cinco comuns; observar empurrão lateral sem dano aliado.
+- [ ] Repetir numa rua estreita: alguns podem ficar na faixa e são atravessados; ninguém entra em prédio. Parede transversal deve parar a corrida.
+- [ ] Hordas 13→26→32→44 (115): experimentar desembarque (0;9,5), rua norte (0;−41) e parede (9,60;−5); observar inversão de desvio, recuo curto dos menores e eventual passagem entre aliados somente no aperto, sem alterar sólidos do mapa/jogador.
+- [ ] Conferir o antigo grupo preso ao norte agora liberado e os Patrol grandes alcançando a ARES-I após neutralizar comuns; repetir pausa/retry/viagem.
+
+Agente: **245/245**, build/diff-check verdes. Ensaios completos nas três posições em **224,08 / 247,20 / 225,35 s**, 115/115, zero invasões, falta de progresso máxima **4,833 s**; critérios de 360 s/contato mantidos. Capturas e contadores por horda em `docs/handoffs/s3.3-mutante-grande/retomada-26-10/`. Revisão Claude e aceite do autor desta retomada pendentes.
+
+## Complemento da aranha — efeitos, vida e marcha (26/10/2026)
+
+Sobre `72b5b00`; efeitos/vida em `5ee7aa7`, filtros de marcha no commit seguinte.
+Este roteiro atualiza os valores de vida/tiro das entregas históricas acima.
+
+- [ ] Aranha entre 8–10 robôs, especialmente no antigo gargalo norte: conferir
+  rumo suave, caminhada sem Idle intermitente e retomada depois do bloqueio.
+- [ ] Repetir com os outros tipos; ataque, antecipação da investida e morte
+  continuam imediatos. Não deve continuar marchando no lugar ao parar.
+- [ ] Traçador 0,056/halo 0,095, vida 0,12 s, brilho e clarão preservados;
+  faíscas metálicas alongadas ricocheteiam no piso e gotas verdes maiores têm
+  menos quique, inclusive em calçada/canteiro. Poeira de parede igual.
+- [ ] Aranha morre com **12 tiros** (280 HP); reposição das hordas 3/4 agora
+  considera mínimo **194/297**. Hordas permanecem 13/26/32/44, total 115.
+- [ ] Pausa congela efeitos/animação; retry/viagem limpam estados transitórios.
+  Testar também a aproximação dos grandes à ARES-I ao retirar a primeira linha.
+
+Agente: **251/251**, build/diff-check verdes; 115/115 nas três posições em
+**226,00 / 249,32 / 225,35 s**, zero invasões, maior falta de progresso 5,917 s
+(limite original 10 s). Aranha 13→1 trocas em 12 s, giro visual até 2,292°/quadro
+a 60 Hz. `?perf` produção no pico 40 robôs+4 aranhas: pool 119/256, p95 até
+16,8 ms nas duas amostras de 10 s; repetição com item 8: pico 120/256 e
+p95 16,7/16,8 ms. CSVs/JSONs/capturas em
+`docs/handoffs/s3.3-mutante-grande/complemento-26-10/`. Aprovação visual do autor
+e revisão Claude pendentes; nenhuma checkbox marcada pelo agente.

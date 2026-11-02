@@ -1,0 +1,1929 @@
+{
+  "parts": 55,
+  "triangles": 50952,
+  "states": "OFFLINE e ONLINE, sem filtro de visibilidade",
+  "coplanarity": {
+    "planeTolerance": 0.00001,
+    "minimumPairArea": 0.00001,
+    "trianglePairs": 0,
+    "pairs": []
+  },
+  "clearance": {
+    "tolerance": 0.00002,
+    "minimumRequested": 0.002,
+    "interfaces": [
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_0_0",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 0.019999980926513672,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_0_0",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 6.538992887517211,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_0_0",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 8.081070166819488,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_0_0",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 0.09690919399224976,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_0_0",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 4.453473337634271,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_0_0",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 2.150550205177302,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_0_0",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 1.0299993753433228,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_0_1",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 0.02000012993812561,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_0_1",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 6.599721815172974,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_0_1",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 8.120653721976407,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_0_1",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 0.12001391669583156,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_0_1",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 4.453473337634271,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_0_1",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 2.150550205177302,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_0_1",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.07999935746192932,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_1_0",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 0.019999980926513672,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_1_0",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 6.571833839256429,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_1_0",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 5.391605065833807,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_1_0",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 2.7032037961026285,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_1_0",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 5.2332970722496865,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_1_0",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 3.60798665348097,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_1_0",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 1.0299993753433228,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_1_1",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 0.02000012993812561,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_1_1",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 6.648421353807063,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_1_1",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 5.430978462072328,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_1_1",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 2.7427636583309445,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_1_1",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 5.2332970722496865,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_1_1",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 3.607986651704156,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_1_1",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.07999935746192932,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_2_0",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 0.019999980926513672,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_2_0",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 6.571833839256429,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_2_0",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 2.7032028532602292,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_2_0",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 5.3916060143600095,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_2_0",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 7.024976658966357,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_2_0",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 5.987094669405274,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_2_0",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 1.0299993753433228,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_2_1",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 0.02000012993812561,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_2_1",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 6.648421353134669,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_2_1",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 2.7419386385418014,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_2_1",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 5.431395508908813,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_2_1",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 7.024976658966357,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_2_1",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 5.987094669405274,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_2_1",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.07999935746192932,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_3_0",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 0.019999980926513672,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_3_0",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 6.538992887517211,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_3_0",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 0.09690896174853135,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_3_0",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 8.081071117122113,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_3_0",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 9.262040063372822,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_3_0",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 8.549958937618781,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_3_0",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 1.0299993753433228,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_3_1",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 0.02000012993812561,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_3_1",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 6.599721815172974,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_3_1",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 0.10291027713439234,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_3_1",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 8.120932958824227,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_3_1",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 9.262040063372822,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_3_1",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 8.549958937618781,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_N_3_1",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.07999935746192932,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_0_0",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 6.538992887517211,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_0_0",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 0.019999980926513672,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_0_0",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 8.081070166819488,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_0_0",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 4.453473337634271,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_0_0",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 0.09690919068355294,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_0_0",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 2.1505502792482902,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_0_0",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 1.0299990773200989,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_0_1",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 6.599721815172974,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_0_1",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 0.02000012993812561,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_0_1",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 8.120653721976407,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_0_1",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 4.453473337634271,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_0_1",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 0.12001391669583156,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_0_1",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 2.1505502792482902,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_0_1",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.07999905943870544,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_1_0",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 6.571833839256429,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_1_0",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 0.019999980926513672,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_1_0",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 5.391605065833807,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_1_0",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 5.2332970722496865,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_1_0",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 2.7032037961026285,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_1_0",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 3.6079866339666524,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_1_0",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 1.0299990773200989,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_1_1",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 6.648421342376434,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_1_1",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 0.02000012993812561,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_1_1",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 5.430978462072328,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_1_1",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 5.2332970722496865,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_1_1",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 2.7427636583309445,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_1_1",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 3.6079866339666524,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_1_1",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.07999905943870544,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_2_0",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 6.571833839256429,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_2_0",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 0.019999980926513672,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_2_0",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 2.7032028532602292,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_2_0",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 7.024976658966357,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_2_0",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 5.3916060143600095,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_2_0",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 5.98709463294941,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_2_0",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 1.0299990773200989,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_2_1",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 6.648421353807063,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_2_1",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 0.02000012993812561,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_2_1",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 2.7419386385418014,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_2_1",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 7.024976658966357,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_2_1",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 5.431395508908813,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_2_1",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 5.98709463294941,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_2_1",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.07999905943870544,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_3_0",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 6.538992887517211,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_3_0",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 0.019999980926513672,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_3_0",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 0.09690896174853146,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_3_0",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 9.262040063372822,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_3_0",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 8.081071117122113,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_3_0",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 8.549958912090624,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_3_0",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 1.0299990773200989,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_3_1",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 6.599721815172974,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_3_1",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 0.02000012993812561,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_3_1",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 0.10291027713439234,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_3_1",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 9.262040063372822,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_3_1",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 8.120932958824227,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_3_1",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 8.549958912090624,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_S_3_1",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.07999905943870544,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_0",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 0.19268536100954703,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_0",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 5.525554016594816,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_0",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 8.122086915884806,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_0",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 0.1757265460441163,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_0",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 3.5008178285622638,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_0",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 1.511927858653541,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_0",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.04999971389770508,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_1",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 2.0551695910804533,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_1",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 3.6722668633642135,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_1",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 8.245650036628277,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_1",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 1.4109947539128564,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_1",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 1.991006450569007,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_1",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 0.7642265529826405,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_1",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.03999900817871094,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_2",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 3.672266868233562,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_2",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 2.0551695823796883,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_2",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 8.245650036628277,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_2",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 1.991006450569007,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_2",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 1.4109947539128564,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_2",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 0.7642265529826405,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_2",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.040001869201660156,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_3",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 5.52555401983097,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_3",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 0.19268536100954703,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_3",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 8.122086915884806,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_3",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 3.5008178285622638,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_3",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 0.1757265460441163,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_3",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 1.5119276941440225,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_0_3",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.04999971389770508,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_0",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 0.19268503901361822,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_0",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 5.525554004459328,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_0",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 5.4331200770360395,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_0",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 2.746180597215892,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_0",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 4.448854946014616,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_0",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 3.274219452047809,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_0",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.04999876022338867,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_1",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 2.055169547576906,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_1",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 3.6722668451042946,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_1",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 5.616159045900754,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_1",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 3.0909140711706122,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_1",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 3.3909726773704385,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_1",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 2.9964233028878997,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_1",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.03999900817871094,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_2",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 3.672266843886974,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_2",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 2.055169549752067,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_2",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 5.616159045900754,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_2",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 3.3909726773704385,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_2",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 3.0909140711706122,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_2",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 2.9964233028878997,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_2",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.040001869201660156,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_3",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 5.5255540036503,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_3",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 0.19268503782356033,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_3",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 5.4331200770360395,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_3",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 4.448854946014616,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_3",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 2.746180597215892,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_3",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 3.2742194137143104,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_1_3",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.04999876022338867,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_0",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 0.19268503782356033,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_0",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 5.5255540036503,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_0",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 2.746178694159866,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_0",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 5.433121030162475,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_0",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 6.462119611823565,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_0",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 5.7884621594046495,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_0",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.04999876022338867,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_1",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 2.055169549752067,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_1",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 3.672266843886974,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_1",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 3.0909123758464236,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_1",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 5.616159967963388,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_1",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 5.783207970556902,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_1",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 5.638239659458965,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_1",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.03999900817871094,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_2",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 3.6722668451042946,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_2",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 2.055169547576906,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_2",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 3.0909123758464236,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_2",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 5.783207970556902,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_2",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 5.616159967963388,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_2",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 5.638239659458965,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_2",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.040001869201660156,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_3",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 5.525554004459328,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_3",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 0.19268503901361822,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_3",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 2.746178694159866,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_3",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 6.462119611823565,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_3",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 5.433121030162475,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_3",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 5.788462137228558,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_2_3",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.04999876022338867,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_0",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 0.19268506124266857,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_0",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 5.525554006886414,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_0",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 0.1757261810896144,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_0",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 8.122087869314,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_0",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 8.842407854864176,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_0",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 8.412062885668968,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_0",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.04999828338623047,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_1",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 2.055169547576906,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_1",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 3.672266848756261,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_1",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 1.4109947032211987,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_1",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 8.2456509757701,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_1",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 8.357104861117824,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_1",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 8.311025903769982,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_1",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.03999900817871094,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_2",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 3.672266843886974,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_2",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 2.0551695562775603,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_2",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 1.4109947032211987,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_2",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 8.357104861117824,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_2",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 8.2456509757701,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_2",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 8.311025903769982,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_2",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.040001869201660156,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_3",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 5.5255540036503,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_3",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 0.19268506124266857,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_3",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 0.1757261810896144,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_3",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 8.842407854864176,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_3",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 8.122087869314,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_3",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 8.41206287040928,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Teto_3_3",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.04999828338623047,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fachada_-1",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 0.03345621632998115,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fachada_-1",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 4.486605390408273,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fachada_-1",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 10.60884558285453,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fachada_-1",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 0.05000019073486328,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fachada_-1",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 2.400000512599945,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fachada_-1",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 0.10559620949411672,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fachada_-1",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.1997236072438898,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fachada_1",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 4.486605390408273,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fachada_1",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 0.033456215515366886,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fachada_1",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 10.60884558285453,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fachada_1",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 2.400000512599945,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fachada_1",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 0.05000019073486328,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fachada_1",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 0.10559618272111712,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fachada_1",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.19972333315114407,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fundo_-2.25",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 0.009999175965777794,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fundo_-2.25",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 4.402226341505702,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fundo_-2.25",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 0.04000091552734375,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fundo_-2.25",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 10.609117050627676,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fundo_-2.25",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 10.891947664615186,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fundo_-2.25",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 10.798046771363099,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fundo_-2.25",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.1992672085762024,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fundo_0",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 2.154552949315756,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fundo_0",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 2.154552949315756,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fundo_0",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 0.049999237060546875,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fundo_0",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 10.61131570004485,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fundo_0",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 10.61131570004485,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fundo_0",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 10.798106040414531,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fundo_0",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 1.5099992156028748,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fundo_2.25",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 4.402226341505702,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fundo_2.25",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 0.009999175965777794,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fundo_2.25",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 0.04000091552734375,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fundo_2.25",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 10.891947664615186,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fundo_2.25",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 10.609117050627676,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fundo_2.25",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 10.79804677106502,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Fundo_2.25",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.19926762580871582,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Empena_-1",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 0.29625174906935636,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Empena_-1",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 0.29625174906935636,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Empena_-1",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 10.649784583423655,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Empena_-1",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 0.16999995708465576,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Empena_-1",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 0.16999995708465576,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Empena_-1",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 0.04299949109554291,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Empena_-1",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.02367483631993408,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Empena_1",
+        "otherId": "ARQ_Estufa_Parede_N",
+        "minimum": 0.002,
+        "measured": 0.2962517490695101,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Empena_1",
+        "otherId": "ARQ_Estufa_Parede_S",
+        "minimum": 0.002,
+        "measured": 0.2962517490695101,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Empena_1",
+        "otherId": "ARQ_Estufa_Parede_L",
+        "minimum": 0.002,
+        "measured": 0.16999995708465576,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Empena_1",
+        "otherId": "ARQ_Estufa_Parede_O_1",
+        "minimum": 0.002,
+        "measured": 10.644607657693422,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Empena_1",
+        "otherId": "ARQ_Estufa_Parede_O_2",
+        "minimum": 0.002,
+        "measured": 10.644607657693422,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Empena_1",
+        "otherId": "ARQ_Estufa_Portal_Entrada",
+        "minimum": 0.002,
+        "measured": 10.799307053247674,
+        "pass": true
+      },
+      {
+        "panelId": "ARQ_Estufa_Vidro_Empena_1",
+        "otherId": "TET_Estufa",
+        "minimum": 0.002,
+        "measured": 0.023674836319933765,
+        "pass": true
+      }
+    ],
+    "failures": []
+  }
+}

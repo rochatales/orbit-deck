@@ -1,6 +1,6 @@
 /** Estado visual compartilhado pelo jogo e pela prévia isolada. */
 export type CrateState = { phase: 'closed' | 'opening' | 'open'; elapsed: number };
-export const SUPPLY_CRATE = { radius: 1.8, duration: 2.4, rewardAt: .733, ammo: 48, neon: '#39e9ff' } as const;
+export const SUPPLY_CRATE = { minY: 0, maxY: 1.195, radius: 1.8, duration: 2.4, rewardAt: .733, ammo: 48, neon: '#39e9ff' } as const;
 export interface CratePlacement { id: string; x: number; z: number }
 /** Frente +Z; espaço traseiro livre para a tampa. Não ocupa os marcadores de recursos da S4.3. */
 export const SHANGHAI_SUPPLY_CRATES: readonly CratePlacement[] = [
@@ -8,7 +8,7 @@ export const SHANGHAI_SUPPLY_CRATES: readonly CratePlacement[] = [
     { id: 'ammo-northeast', x: 36, z: -22 }
 ];
 export function crateObstacle(p: CratePlacement) {
-    return { minX: p.x - .81, maxX: p.x + .81, minZ: p.z - .7, maxZ: p.z + .7 };
+    return { minX: p.x - .81, maxX: p.x + .81, minZ: p.z - .7, maxZ: p.z + .7, minY: SUPPLY_CRATE.minY, maxY: SUPPLY_CRATE.maxY };
 }
 export function openCrate(state: CrateState, playerX: number, playerZ: number, markerX: number, markerZ: number): boolean {
     if (state.phase !== 'closed' || !Number.isFinite(playerX + playerZ + markerX + markerZ)

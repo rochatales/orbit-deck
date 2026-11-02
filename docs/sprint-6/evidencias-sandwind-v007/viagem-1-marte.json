@@ -1,0 +1,397 @@
+{
+  "perf": {
+    "version": 2,
+    "context": {
+      "interpolation": {
+        "enabled": false,
+        "timeStep": 0.016666666666666666,
+        "frames": 602,
+        "steps": 0,
+        "minStep": null,
+        "maxStep": null,
+        "maxOffset": 0,
+        "maxHorizontal": 0,
+        "physical": {
+          "x": 0,
+          "y": 0,
+          "z": 33
+        },
+        "visual": {
+          "x": 0,
+          "y": 0,
+          "z": 33
+        },
+        "cameraSource": {
+          "x": 0,
+          "y": 0,
+          "z": 33
+        },
+        "cameraTarget": {
+          "x": 0,
+          "y": 0.55,
+          "z": 33
+        },
+        "cameraAngle": 0.7853981633974483,
+        "cameraZoom": 32.82051282051282
+      },
+      "capturedAt": "2026-10-27T00:46:19.303Z",
+      "build": "production",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "browserBrands": "Google Chrome 155, Chromium 155, Not(A:Brand 24",
+      "gpuRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Pro, Unspecified Version)",
+      "hardwareConcurrency": 12,
+      "deviceMemoryGb": 16,
+      "screen": {
+        "width": 1512,
+        "height": 982
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "canvasCss": {
+        "width": 1280,
+        "height": 720
+      },
+      "canvasBuffer": {
+        "width": 1920,
+        "height": 1080
+      },
+      "devicePixelRatio": 2,
+      "rendererPixelRatio": 1.5
+    },
+    "pageLoad": {
+      "responseEndMs": 7.900000000372529,
+      "domContentLoadedMs": 163.2000000011176,
+      "loadEventEndMs": 167.59999999962747,
+      "documentTransferBytes": 695
+    },
+    "resources": {
+      "count": 66,
+      "transferBytes": 127932585,
+      "encodedBytes": 127912785,
+      "models": [
+        {
+          "file": "colony-v007-e4af2fda.glb",
+          "startMs": 278.90000000037253,
+          "responseEndMs": 476.59999999962747,
+          "durationMs": 197.69999999925494,
+          "transferBytes": 11573012,
+          "encodedBytes": 11572712
+        },
+        {
+          "file": "brand-brain-f7c02996.glb",
+          "startMs": 279.2000000011176,
+          "responseEndMs": 630.4000000003725,
+          "durationMs": 351.19999999925494,
+          "transferBytes": 20737632,
+          "encodedBytes": 20737332
+        },
+        {
+          "file": "explorador-r7-143a14d0.glb",
+          "startMs": 303.80000000074506,
+          "responseEndMs": 458.30000000074506,
+          "durationMs": 154.5,
+          "transferBytes": 6537404,
+          "encodedBytes": 6537104
+        },
+        {
+          "file": "ares-lander-2491f474.glb",
+          "startMs": 509.90000000037253,
+          "responseEndMs": 608.3000000007451,
+          "durationMs": 98.40000000037253,
+          "transferBytes": 4601804,
+          "encodedBytes": 4601504
+        },
+        {
+          "file": "deck-mars-59b4cb7d.glb",
+          "startMs": 510,
+          "responseEndMs": 543.5999999996275,
+          "durationMs": 33.59999999962747,
+          "transferBytes": 1395200,
+          "encodedBytes": 1394900
+        },
+        {
+          "file": "colony-v006-5a6e6d9c.glb",
+          "startMs": 511.90000000037253,
+          "responseEndMs": 648.9000000003725,
+          "durationMs": 137,
+          "transferBytes": 7025972,
+          "encodedBytes": 7025672
+        },
+        {
+          "file": "greenhouse-v001-a5668881.glb",
+          "startMs": 512,
+          "responseEndMs": 573.5999999996275,
+          "durationMs": 61.59999999962747,
+          "transferBytes": 2591708,
+          "encodedBytes": 2591408
+        },
+        {
+          "file": "hangar-v002-efdecfb3.glb",
+          "startMs": 512.2000000011176,
+          "responseEndMs": 602.3000000007451,
+          "durationMs": 90.09999999962747,
+          "transferBytes": 3340288,
+          "encodedBytes": 3339988
+        },
+        {
+          "file": "shanghai-fase01-e1061fcc.glb",
+          "startMs": 55851.90000000037,
+          "responseEndMs": 55881.800000000745,
+          "durationMs": 29.90000000037253,
+          "transferBytes": 11099584,
+          "encodedBytes": 11099284
+        },
+        {
+          "file": "ares-lander-2491f474.glb",
+          "startMs": 55852,
+          "responseEndMs": 55873.20000000112,
+          "durationMs": 21.200000001117587,
+          "transferBytes": 4601804,
+          "encodedBytes": 4601504
+        },
+        {
+          "file": "patrol-unit-c01d3ea6.glb",
+          "startMs": 56285,
+          "responseEndMs": 56313.800000000745,
+          "durationMs": 28.800000000745058,
+          "transferBytes": 9353544,
+          "encodedBytes": 9353244
+        },
+        {
+          "file": "large-patrol-unit-acb2d8e1.glb",
+          "startMs": 56709.09999999963,
+          "responseEndMs": 57052.90000000037,
+          "durationMs": 343.80000000074506,
+          "transferBytes": 5337472,
+          "encodedBytes": 5337172
+        },
+        {
+          "file": "mutant-animal-6680135e.glb",
+          "startMs": 57434.59999999963,
+          "responseEndMs": 57459,
+          "durationMs": 24.40000000037253,
+          "transferBytes": 10624616,
+          "encodedBytes": 10624316
+        },
+        {
+          "file": "large-mutant-70470d2d.glb",
+          "startMs": 57859.70000000112,
+          "responseEndMs": 57887.70000000112,
+          "durationMs": 28,
+          "transferBytes": 10535256,
+          "encodedBytes": 10534956
+        },
+        {
+          "file": "cobre-6e8aad10.glb",
+          "startMs": 58295.09999999963,
+          "responseEndMs": 58306.5,
+          "durationMs": 11.400000000372529,
+          "transferBytes": 2435352,
+          "encodedBytes": 2435052
+        },
+        {
+          "file": "caixa-suprimentos-v001-c4fde32f.glb",
+          "startMs": 58295.20000000112,
+          "responseEndMs": 58311.300000000745,
+          "durationMs": 16.09999999962747,
+          "transferBytes": 3775664,
+          "encodedBytes": 3775364
+        },
+        {
+          "file": "ferro-bdaf53f4.glb",
+          "startMs": 58671.300000000745,
+          "responseEndMs": 58684.5,
+          "durationMs": 13.199999999254942,
+          "transferBytes": 5057852,
+          "encodedBytes": 5057552
+        },
+        {
+          "file": "titanio-1bf1c024.glb",
+          "startMs": 59058.40000000037,
+          "responseEndMs": 59070.40000000037,
+          "durationMs": 12,
+          "transferBytes": 4984228,
+          "encodedBytes": 4983928
+        },
+        {
+          "file": "materia-organica-35ab8351.glb",
+          "startMs": 59460.09999999963,
+          "responseEndMs": 59464.800000000745,
+          "durationMs": 4.700000001117587,
+          "transferBytes": 770280,
+          "encodedBytes": 769980
+        }
+      ]
+    },
+    "sceneEvents": [
+      {
+        "kind": "canvas-mounted",
+        "map": "mars",
+        "atMs": 519.5999999996275,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "map-data-ready",
+        "map": "mars",
+        "atMs": 519.5999999996275,
+        "sinceMapLoadingMs": null,
+        "inferred": true
+      },
+      {
+        "kind": "canvas-first-frame",
+        "map": "mars",
+        "atMs": 519.8000000007451,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "scene-first-draw",
+        "map": "mars",
+        "atMs": 1061,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "scene-assets-ready",
+        "map": "mars",
+        "atMs": 1281.5,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "map-loading",
+        "map": "shanghai",
+        "atMs": 55250.09999999963,
+        "sinceMapLoadingMs": 0,
+        "inferred": false
+      },
+      {
+        "kind": "map-data-ready",
+        "map": "shanghai",
+        "atMs": 55552.20000000112,
+        "sinceMapLoadingMs": 302.1000000014901,
+        "inferred": false
+      },
+      {
+        "kind": "canvas-mounted",
+        "map": "shanghai",
+        "atMs": 56285.59999999963,
+        "sinceMapLoadingMs": 1035.5,
+        "inferred": false
+      },
+      {
+        "kind": "canvas-first-frame",
+        "map": "shanghai",
+        "atMs": 56286.09999999963,
+        "sinceMapLoadingMs": 1036,
+        "inferred": false
+      },
+      {
+        "kind": "scene-first-draw",
+        "map": "shanghai",
+        "atMs": 61595.59999999963,
+        "sinceMapLoadingMs": 6345.5,
+        "inferred": false
+      },
+      {
+        "kind": "scene-assets-ready",
+        "map": "shanghai",
+        "atMs": 61662.20000000112,
+        "sinceMapLoadingMs": 6412.10000000149,
+        "inferred": false
+      },
+      {
+        "kind": "map-loading",
+        "map": "mars",
+        "atMs": 66284.30000000075,
+        "sinceMapLoadingMs": 0,
+        "inferred": false
+      },
+      {
+        "kind": "map-data-ready",
+        "map": "mars",
+        "atMs": 66294.40000000037,
+        "sinceMapLoadingMs": 10.099999999627471,
+        "inferred": false
+      },
+      {
+        "kind": "canvas-mounted",
+        "map": "mars",
+        "atMs": 66412.30000000075,
+        "sinceMapLoadingMs": 128,
+        "inferred": false
+      },
+      {
+        "kind": "canvas-first-frame",
+        "map": "mars",
+        "atMs": 66412.59999999963,
+        "sinceMapLoadingMs": 128.2999999988824,
+        "inferred": false
+      },
+      {
+        "kind": "scene-first-draw",
+        "map": "mars",
+        "atMs": 66744.80000000075,
+        "sinceMapLoadingMs": 460.5,
+        "inferred": false
+      },
+      {
+        "kind": "scene-assets-ready",
+        "map": "mars",
+        "atMs": 66744.80000000075,
+        "sinceMapLoadingMs": 460.5,
+        "inferred": false
+      }
+    ],
+    "latestCounters": {
+      "sampledAtMs": 71747.5,
+      "drawCalls": 295,
+      "triangles": 327387,
+      "geometries": 540,
+      "textures": 12,
+      "programs": 27
+    },
+    "heap": {
+      "usedBytes": 374636758,
+      "totalBytes": 466113874,
+      "limitBytes": 4395630592
+    },
+    "samples": [],
+    "limitations": [
+      "Intervalos medidos entre callbacks de requestAnimationFrame: incluem CPU, espera de vsync e agendamento do navegador. Não são tempo de GPU.",
+      "A cadência mínima é limitada pela taxa de atualização da tela; 8,3 ms em 120 Hz não indica folga de GPU.",
+      "Intervalos de rAF acima de 33,3 ms e de 50 ms são contagens próprias, distintas dos eventos da API Long Animation Frames.",
+      "Draw calls e triângulos vêm de renderer.info e refletem o render imediatamente anterior à leitura. Na three 0.165 o reset automático ocorre depois do shadow map, então os passes de sombra não entram nessas contagens.",
+      "Geometrias e texturas são contagens de objetos vivos no renderer, não memória em bytes.",
+      "Memória de heap JS vem de performance.memory, API não padronizada e quantizada (Chromium); ausente nos demais navegadores.",
+      "Medições no servidor de desenvolvimento não são benchmark; prefira o build de produção (npm run preview).",
+      "Aba oculta durante uma amostra a invalida; pausa do jogo durante a amostra é registrada como aviso.",
+      "\"map-data-ready\" indica dados do mapa disponíveis (store da expedição), não cena renderizada. A cena renderizada é \"scene-first-draw\" e, com os personagens GLB, \"scene-assets-ready\".",
+      "Na entrada inicial, \"map-data-ready\" é inferido na montagem do canvas (marcado como inferido); os tempos da entrada inicial contam a partir do início da navegação."
+    ]
+  },
+  "sandwind": {
+    "settings": {
+      "enabled": true,
+      "culling": true,
+      "wind": true,
+      "profile": "extended"
+    },
+    "resources": {
+      "controllers": 1,
+      "clones": 45,
+      "patches": 136
+    },
+    "stats": {
+      "total": 269,
+      "hidden": 2,
+      "retained": 267,
+      "hiddenTriangles": 40,
+      "materials": 136,
+      "clones": 45
+    }
+  }
+}

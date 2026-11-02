@@ -1,3 +1,5 @@
+import { useCombatStore } from '../../state/useCombatStore';
+import { interpolationSnapshot, resetInterpolationTelemetry } from '../../physics/interpolationTelemetry';
 /**
  * S2.9 — instrumentação opcional de desenvolvimento. Só é carregada com `?perf`
  * (ver GameCanvas). Mede sem alterar gameplay, câmera, física ou o renderer:
@@ -55,6 +57,7 @@ export function PerfProbe({ map }: { map: string }) {
 
   useEffect(() => {
     activeGl = gl;
+    resetInterpolationTelemetry();
     assetsPresentRef.current = false;
     lastAssetCheckRef.current = -Infinity;
     trackerRef.current = createSceneTracker(shared, map, performance.now(), useExpeditionStore.getState().ready);
@@ -105,6 +108,7 @@ function readContext(): MeasurementContext {
   const nav = navigator as Navigator & { deviceMemory?: number; userAgentData?: { brands?: Array<{ brand: string; version: string }> } };
   const canvas = gl?.domElement;
   return {
+    interpolation: interpolationSnapshot(),
     capturedAt: new Date().toISOString(),
     build: import.meta.env.DEV ? 'development' : 'production',
     userAgent: nav.userAgent || null,
@@ -140,11 +144,19 @@ function buildFullReport(): PerfReport {
 }
 
 interface HordaPerfApi extends PerfSessionApi {
+  pose: typeof readPose;
   report: () => PerfReport;
 }
 
 declare global {
   interface Window { __hordaPerf?: HordaPerfApi }
+}
+
+function readPose() {
+  const expedition = useExpeditionStore.getState(), combat = useCombatStore.getState();
+  return { ...interpolationSnapshot(), map: expedition.session.map, phase: expedition.session.phase,
+    revision: expedition.session.revision, paused: useGameStore.getState().isPaused,
+    dead: combat.dead, wave: combat.wave, alive: combat.alive };
 }
 
 function browserDeps() {
@@ -171,7 +183,7 @@ function browserDeps() {
       useExpeditionStore.subscribe((state, prev) => {
         if (state.ready !== prev.ready) listener(prev.ready, state.ready, state.session.destination ?? state.session.map, state.session.map);
       }),
-    setGlobalApi: (api: PerfSessionApi) => { window.__hordaPerf = { ...api, report: buildFullReport }; },
+    setGlobalApi: (api: PerfSessionApi) => { window.__hordaPerf = { ...api, report: buildFullReport, pose: readPose }; },
     clearGlobalApi: (api: PerfSessionApi) => { if (window.__hordaPerf?.sample === api.sample) delete window.__hordaPerf; }
   };
 }

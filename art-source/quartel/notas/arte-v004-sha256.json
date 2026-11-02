@@ -1,0 +1,98 @@
+{
+  "variant": "v004",
+  "base": "72a4fda8e975cde3ec0c93a7a705120e5e12f459",
+  "sourceSHA": "7c6b2cab394b279eee1ccd392f975e94d9802960",
+  "sourceV003SHA256": "5bed60912e08c019ae16b8962fbf641a4f8321d53a957f6bbec1be7cdaaca625",
+  "rootScale": [
+    1,
+    1,
+    1
+  ],
+  "files": [
+    {
+      "path": "art-source/quartel/README-v004.md",
+      "bytes": 4758,
+      "sha256": "6d1cffc62e7b9e4452a0d1b2ae91eb6dd17a335b5d8e65e199dfd3acdf0d7aa3"
+    },
+    {
+      "path": "art-source/quartel/blend/barracks-v004.blend",
+      "bytes": 200632,
+      "sha256": "b2a6681d721575730595be3a3ce8372e0998374faea8bd8351e6c85ea5a6800f"
+    },
+    {
+      "path": "art-source/quartel/export/barracks-v004.glb",
+      "bytes": 684824,
+      "sha256": "aee6428f2e5f1f3a7c2f1454a477dff21b340e06a826122f13c155a091fa08c9"
+    },
+    {
+      "path": "art-source/quartel/notas/build-v004.json",
+      "bytes": 540,
+      "sha256": "8c98a3c458f57bfe4f3ad547bfc579f01d60ccd0e37899080014e283aed0d685"
+    },
+    {
+      "path": "art-source/quartel/notas/encaixe-v004.json",
+      "bytes": 1094,
+      "sha256": "f464e86ea1a0cf0de12016f103347cf70d91ab4c75bdb66dcefa34de98008527"
+    },
+    {
+      "path": "art-source/quartel/notas/medidas-v004.json",
+      "bytes": 28306,
+      "sha256": "af40f358d07c0a06410bacd7f60de876e246146d12f8d70f22fd209e665f567c"
+    },
+    {
+      "path": "art-source/quartel/notas/runtime-v004.json",
+      "bytes": 46220,
+      "sha256": "067235ce4605ab42d38bdd59b0a20f1dfd5168c77f2be31eef1a95a04646db2b"
+    },
+    {
+      "path": "art-source/quartel/notas/validacao-v004.json",
+      "bytes": 652,
+      "sha256": "62a1169bcfbc16fd785538b046c4385cb1c2cf8abb52692dac497fafcc01beff"
+    },
+    {
+      "path": "art-source/quartel/renders/planta-encaixe-v004.png",
+      "bytes": 140505,
+      "sha256": "269a2bb79a66a75cec17d5b74da1cf68343bd80f634ea5222235728f1a5d3d4c"
+    },
+    {
+      "path": "art-source/quartel/renders/planta-encaixe-v004.svg",
+      "bytes": 13476,
+      "sha256": "d1e878f831749456fff2467ead068fccc561630cc9907ec042ca954dd395e071"
+    },
+    {
+      "path": "art-source/quartel/renders/v004-frente.png",
+      "bytes": 1318878,
+      "sha256": "7b6c96f2799addd685c1d31411b8f925eff6463fc4b07fa037319efbce35be59"
+    },
+    {
+      "path": "art-source/quartel/renders/v004-superior-sem-teto.png",
+      "bytes": 1640607,
+      "sha256": "d5e34f55be2589aae976840a4fa80d716ce94f2406e255f094dc20160b0b18dc"
+    },
+    {
+      "path": "art-source/quartel/renders/v004-tres-quartos.png",
+      "bytes": 1717338,
+      "sha256": "783517e4e30ac7419fdb5281ead1311a8a5f768cfca2df163c6071400d86a5c6"
+    },
+    {
+      "path": "art-source/quartel/scripts/build_barracks_v004.py",
+      "bytes": 9878,
+      "sha256": "6d6ee1ef38101bed7bae808a5bc8ddd7848386ef65fcbcff657b28559ae66110"
+    },
+    {
+      "path": "art-source/quartel/scripts/export_runtime_v004.mjs",
+      "bytes": 3906,
+      "sha256": "7c27c0bbc09c2f60c8d2f298098ee2b220b870b56e7024c4dc702bd8e622d943"
+    },
+    {
+      "path": "art-source/quartel/scripts/planta_v004.py",
+      "bytes": 6555,
+      "sha256": "b0300ee839ce918b8ef81a92f0fb3690c33b83bb0fd92788b63492417c483a27"
+    },
+    {
+      "path": "art-source/quartel/scripts/validate_barracks_v004.py",
+      "bytes": 3211,
+      "sha256": "5d6f57226ac316f6d05557b466bccf04183f9ce41e570b163ebc1fbad14c2bb5"
+    }
+  ]
+}

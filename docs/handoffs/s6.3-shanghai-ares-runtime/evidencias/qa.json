@@ -1,0 +1,1291 @@
+{
+  "metodo": "Chrome headless com GPU, 1440×900, DPR 1; jogo dev, câmera real; reposição assistida até deck Marte. Não é aceite de jogabilidade nem tempo de GPU.",
+  "views": [
+    {
+      "angle": 0,
+      "camera": [
+        55.13999807079147,
+        39.55,
+        9.514586058826664
+      ],
+      "render": {
+        "frame": 1000,
+        "calls": 78,
+        "triangles": 179347,
+        "points": 0,
+        "lines": 0
+      },
+      "materials": [
+        {
+          "name": "ARES_nave_14",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_08",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_07",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_11",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_17",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_09",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_05",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_06",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_16",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_10",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_13",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_15",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_12",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_04",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_02",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_03",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_00",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_01",
+          "visible": true,
+          "opacity": 1
+        }
+      ]
+    },
+    {
+      "angle": 45,
+      "camera": [
+        39.000122555299,
+        39.55,
+        48.47961057619301
+      ],
+      "render": {
+        "frame": 1078,
+        "calls": 82,
+        "triangles": 183609,
+        "points": 0,
+        "lines": 0
+      },
+      "materials": [
+        {
+          "name": "ARES_nave_14",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_08",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_07",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_11",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_17",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_09",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_05",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_06",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_16",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_10",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_13",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_15",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_12",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_04",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_02",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_03",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_00",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_01",
+          "visible": true,
+          "opacity": 1
+        }
+      ]
+    },
+    {
+      "angle": 90,
+      "camera": [
+        0.01458650057751603,
+        39.55,
+        64.63999807067461
+      ],
+      "render": {
+        "frame": 1156,
+        "calls": 73,
+        "triangles": 177247,
+        "points": 0,
+        "lines": 0
+      },
+      "materials": [
+        {
+          "name": "ARES_nave_14",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_08",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_07",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_11",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_17",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_09",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_05",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_06",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_16",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_10",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_13",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_15",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_12",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_04",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_02",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_03",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_00",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_01",
+          "visible": true,
+          "opacity": 1
+        }
+      ]
+    },
+    {
+      "angle": 135,
+      "camera": [
+        -38.979601691361395,
+        39.55,
+        48.50013143545566
+      ],
+      "render": {
+        "frame": 1233,
+        "calls": 83,
+        "triangles": 184521,
+        "points": 0,
+        "lines": 0
+      },
+      "materials": [
+        {
+          "name": "ARES_nave_14",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_08",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_07",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_11",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_17",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_09",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_05",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_06",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_16",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_10",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_13",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_15",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_12",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_04",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_02",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_03",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_00",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_01",
+          "visible": true,
+          "opacity": 1
+        }
+      ]
+    },
+    {
+      "angle": 180,
+      "camera": [
+        -55.139998058270734,
+        39.55,
+        9.514633314705813
+      ],
+      "render": {
+        "frame": 1310,
+        "calls": 83,
+        "triangles": 185923,
+        "points": 0,
+        "lines": 0
+      },
+      "materials": [
+        {
+          "name": "ARES_nave_14",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_08",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_07",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_11",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_17",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_09",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_05",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_06",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_16",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_10",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_13",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_15",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_12",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_04",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_02",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_03",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_00",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_01",
+          "visible": true,
+          "opacity": 1
+        }
+      ]
+    },
+    {
+      "angle": 225,
+      "camera": [
+        -38.998840807473485,
+        39.55,
+        -29.48089295633619
+      ],
+      "render": {
+        "frame": 1389,
+        "calls": 84,
+        "triangles": 184401,
+        "points": 0,
+        "lines": 0
+      },
+      "materials": [
+        {
+          "name": "ARES_nave_14",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_08",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_07",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_11",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_17",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_09",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_05",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_06",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_16",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_10",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_13",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_15",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_12",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_04",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_02",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_03",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_00",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_01",
+          "visible": true,
+          "opacity": 1
+        }
+      ]
+    },
+    {
+      "angle": 270,
+      "camera": [
+        -0.014539898409807276,
+        39.55,
+        -45.639998082982856
+      ],
+      "render": {
+        "frame": 1466,
+        "calls": 77,
+        "triangles": 182221,
+        "points": 0,
+        "lines": 0
+      },
+      "materials": [
+        {
+          "name": "ARES_nave_14",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_08",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_07",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_11",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_17",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_09",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_05",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_06",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_16",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_10",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_13",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_15",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_12",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_04",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_02",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_03",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_00",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_01",
+          "visible": true,
+          "opacity": 1
+        }
+      ]
+    },
+    {
+      "angle": 315,
+      "camera": [
+        38.98084968544684,
+        39.55,
+        -29.49888405840094
+      ],
+      "render": {
+        "frame": 1543,
+        "calls": 84,
+        "triangles": 184457,
+        "points": 0,
+        "lines": 0
+      },
+      "materials": [
+        {
+          "name": "ARES_nave_14",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_08",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_07",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_11",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_17",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_09",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_05",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_06",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_16",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_10",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_13",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_15",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_nave_12",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_04",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_02",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_03",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_00",
+          "visible": true,
+          "opacity": 1
+        },
+        {
+          "name": "ARES_impacto_01",
+          "visible": true,
+          "opacity": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "antesMars": {
+    "ship": false,
+    "deck": false,
+    "render": {
+      "frame": 421,
+      "calls": 511,
+      "triangles": 129418,
+      "points": 0,
+      "lines": 0
+    }
+  },
+  "antesMarsPerf": {
+    "status": "valid",
+    "invalidReason": null,
+    "warnings": [],
+    "startedAtMs": 7652.699999928474,
+    "requestedMs": 10000,
+    "elapsedMs": 10003.300000071526,
+    "map": "mars",
+    "coverage": {
+      "intervalsCollected": 600,
+      "intervalsCapacity": 5016,
+      "intervalsSaturated": false,
+      "countersCollected": 92,
+      "countersCapacity": 116,
+      "countersSaturated": false
+    },
+    "rafIntervals": {
+      "count": 600,
+      "p50": 16.69999999999891,
+      "p95": 16.700000000000728,
+      "max": 16.80000000000109,
+      "mean": 16.665999999999997,
+      "rafOver33": 0,
+      "rafOver50": 0
+    },
+    "longAnimationFrames": {
+      "supported": true,
+      "count": 0,
+      "maxDurationMs": null
+    },
+    "renderer": {
+      "samples": 92,
+      "firstSampledAtMs": 7657,
+      "lastSampledAtMs": 17606.199999928474,
+      "drawCalls": {
+        "min": 511,
+        "max": 511,
+        "mean": 511
+      },
+      "triangles": {
+        "min": 129418,
+        "max": 129418,
+        "mean": 129418
+      }
+    }
+  },
+  "antes": {
+    "session": {
+      "map": "shanghai",
+      "phase": "walking",
+      "destination": null,
+      "revision": 4
+    },
+    "player": {
+      "x": 0,
+      "y": 0,
+      "z": 9.5
+    },
+    "ares": false,
+    "render": {
+      "frame": 321,
+      "calls": 78,
+      "triangles": 84708,
+      "points": 0,
+      "lines": 0
+    },
+    "memory": {
+      "geometries": 151,
+      "textures": 32
+    }
+  },
+  "antesPerf": {
+    "status": "valid",
+    "invalidReason": null,
+    "warnings": [],
+    "startedAtMs": 24012.699999928474,
+    "requestedMs": 10000,
+    "elapsedMs": 10008.700000047684,
+    "map": "shanghai",
+    "coverage": {
+      "intervalsCollected": 600,
+      "intervalsCapacity": 5016,
+      "intervalsSaturated": false,
+      "countersCollected": 93,
+      "countersCapacity": 116,
+      "countersSaturated": false
+    },
+    "rafIntervals": {
+      "count": 600,
+      "p50": 16.69999999999709,
+      "p95": 16.799999999999272,
+      "max": 16.80000000000291,
+      "mean": 16.666166666666673,
+      "rafOver33": 0,
+      "rafOver50": 0
+    },
+    "longAnimationFrames": {
+      "supported": true,
+      "count": 0,
+      "maxDurationMs": null
+    },
+    "renderer": {
+      "samples": 93,
+      "firstSampledAtMs": 24022.299999952316,
+      "lastSampledAtMs": 34006,
+      "drawCalls": {
+        "min": 76,
+        "max": 77,
+        "mean": 76.0752688172043
+      },
+      "triangles": {
+        "min": 74692,
+        "max": 84668,
+        "mean": 75442.8817204301
+      }
+    }
+  },
+  "depoisMars": {
+    "ship": true,
+    "deck": true,
+    "render": {
+      "frame": 421,
+      "calls": 460,
+      "triangles": 254004,
+      "points": 0,
+      "lines": 0
+    }
+  },
+  "depoisMarsPerf": {
+    "status": "valid",
+    "invalidReason": null,
+    "warnings": [],
+    "startedAtMs": 7668.5,
+    "requestedMs": 10000,
+    "elapsedMs": 10010,
+    "map": "mars",
+    "coverage": {
+      "intervalsCollected": 600,
+      "intervalsCapacity": 5016,
+      "intervalsSaturated": false,
+      "countersCollected": 93,
+      "countersCapacity": 116,
+      "countersSaturated": false
+    },
+    "rafIntervals": {
+      "count": 600,
+      "p50": 16.69999999999891,
+      "p95": 16.700000000000728,
+      "max": 16.80000000000109,
+      "mean": 16.66583333333333,
+      "rafOver33": 0,
+      "rafOver50": 0
+    },
+    "longAnimationFrames": {
+      "supported": true,
+      "count": 0,
+      "maxDurationMs": null
+    },
+    "renderer": {
+      "samples": 93,
+      "firstSampledAtMs": 7679.699999928474,
+      "lastSampledAtMs": 17629.5,
+      "drawCalls": {
+        "min": 460,
+        "max": 460,
+        "mean": 460
+      },
+      "triangles": {
+        "min": 254004,
+        "max": 254004,
+        "mean": 254004
+      }
+    }
+  },
+  "depois": {
+    "session": {
+      "map": "shanghai",
+      "phase": "walking",
+      "destination": null,
+      "revision": 4
+    },
+    "player": {
+      "x": 0,
+      "y": 0,
+      "z": 9.5
+    },
+    "ares": true,
+    "position": [
+      0.72,
+      0.012,
+      13.52
+    ],
+    "render": {
+      "frame": 322,
+      "calls": 84,
+      "triangles": 193625,
+      "points": 0,
+      "lines": 0
+    },
+    "memory": {
+      "geometries": 163,
+      "textures": 32
+    }
+  },
+  "depoisPerf": {
+    "status": "valid",
+    "invalidReason": null,
+    "warnings": [],
+    "startedAtMs": 24070,
+    "requestedMs": 10000,
+    "elapsedMs": 10008.399999976158,
+    "map": "shanghai",
+    "coverage": {
+      "intervalsCollected": 600,
+      "intervalsCapacity": 5016,
+      "intervalsSaturated": false,
+      "countersCollected": 91,
+      "countersCapacity": 116,
+      "countersSaturated": false
+    },
+    "rafIntervals": {
+      "count": 600,
+      "p50": 16.69999999999709,
+      "p95": 16.799999999995634,
+      "max": 16.80000000000291,
+      "mean": 16.665999999999997,
+      "rafOver33": 0,
+      "rafOver50": 0
+    },
+    "longAnimationFrames": {
+      "supported": true,
+      "count": 0,
+      "maxDurationMs": null
+    },
+    "renderer": {
+      "samples": 91,
+      "firstSampledAtMs": 24078.299999952316,
+      "lastSampledAtMs": 33977.699999928474,
+      "drawCalls": {
+        "min": 82,
+        "max": 83,
+        "mean": 82.07692307692308
+      },
+      "triangles": {
+        "min": 183609,
+        "max": 193585,
+        "mean": 184376.38461538462
+      }
+    }
+  },
+  "collision": {
+    "x": 0.19462791085243225,
+    "y": 0,
+    "z": 9.639898300170898
+  },
+  "roundtrip": {
+    "session": {
+      "map": "mars",
+      "phase": "walking",
+      "destination": null,
+      "revision": 7
+    },
+    "player": {
+      "x": 0,
+      "y": 0,
+      "z": 29.5
+    }
+  },
+  "marsViews": [
+    {
+      "angle": 0,
+      "camera": [
+        55.13999979396108,
+        39.55,
+        29.50476675847748
+      ],
+      "ship": true,
+      "deck": true,
+      "render": {
+        "frame": 195,
+        "calls": 429,
+        "triangles": 251108,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "angle": 45,
+      "camera": [
+        38.99391230437344,
+        39.55,
+        68.485823105315
+      ],
+      "ship": true,
+      "deck": true,
+      "render": {
+        "frame": 262,
+        "calls": 460,
+        "triangles": 254004,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "angle": 90,
+      "camera": [
+        0.005735060377276494,
+        39.55,
+        84.63999970175084
+      ],
+      "ship": true,
+      "deck": true,
+      "render": {
+        "frame": 329,
+        "calls": 443,
+        "triangles": 252710,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "angle": 135,
+      "camera": [
+        -38.98584793600715,
+        39.55,
+        68.49388747881552
+      ],
+      "ship": true,
+      "deck": true,
+      "render": {
+        "frame": 396,
+        "calls": 452,
+        "triangles": 253938,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "angle": 180,
+      "camera": [
+        -55.13999977131908,
+        39.55,
+        29.505021845360993
+      ],
+      "ship": true,
+      "deck": true,
+      "render": {
+        "frame": 464,
+        "calls": 429,
+        "triangles": 251108,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "angle": 225,
+      "camera": [
+        -38.99389384864373,
+        39.55,
+        -9.485841564864351
+      ],
+      "ship": true,
+      "deck": true,
+      "render": {
+        "frame": 531,
+        "calls": 491,
+        "triangles": 256920,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "angle": 270,
+      "camera": [
+        -0.005748837585470901,
+        39.55,
+        -25.639999700316153
+      ],
+      "ship": true,
+      "deck": true,
+      "render": {
+        "frame": 598,
+        "calls": 497,
+        "triangles": 258086,
+        "points": 0,
+        "lines": 0
+      }
+    },
+    {
+      "angle": 315,
+      "camera": [
+        38.986030209496334,
+        39.55,
+        -9.49370524205463
+      ],
+      "ship": true,
+      "deck": true,
+      "render": {
+        "frame": 665,
+        "calls": 497,
+        "triangles": 257494,
+        "points": 0,
+        "lines": 0
+      }
+    }
+  ],
+  "secondArrival": {
+    "player": {
+      "x": 0,
+      "y": 0,
+      "z": 9.5
+    },
+    "ship": true,
+    "memory": {
+      "geometries": 163,
+      "textures": 32
+    }
+  }
+}

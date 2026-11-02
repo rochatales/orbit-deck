@@ -1,0 +1,1404 @@
+{
+  "blenderVersion": "5.1.1",
+  "sourceFile": "barracks-v005.blend",
+  "axes": "Blender: X leste, Y norte, Z cima. glTF/Three: x=X, y=Z, z=-Y.",
+  "visualTriangles": 9078,
+  "visualTrianglesNoGround": 9078,
+  "colliderTriangles": 0,
+  "visualMaterialCount": 1,
+  "visualBoundsNoGround": {
+    "min": [
+      -6.0084638595581055,
+      -6.7584638595581055,
+      0.0
+    ],
+    "max": [
+      4.837499618530273,
+      5.587499618530273,
+      4.164000034332275
+    ]
+  },
+  "objects": [
+    {
+      "name": "Anchor_Entrance",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -6.300000190734863,
+        -1.5,
+        0.0
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "Anchor_Entrance_S",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        0.0,
+        -7.050000190734863,
+        0.0
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "Anchor_Interior",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        0.0,
+        0.0,
+        0.26249998807907104
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "Barracks",
+      "type": "EMPTY",
+      "parent": null,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "Building_Interior",
+      "type": "MESH",
+      "parent": "Barracks",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false,
+      "min": [
+        -4.3125,
+        -5.0625,
+        0.25837498903274536
+      ],
+      "max": [
+        4.3125,
+        5.0625,
+        2.8488752841949463
+      ],
+      "size": [
+        8.625,
+        10.125,
+        2.590500295162201
+      ],
+      "triangles": 4572,
+      "materials": [
+        "Quartel_Paleta_Emissivo_v002"
+      ]
+    },
+    {
+      "name": "Building_Roof",
+      "type": "MESH",
+      "parent": "Barracks",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false,
+      "min": [
+        -4.559999942779541,
+        -5.309999942779541,
+        2.8454999923706055
+      ],
+      "max": [
+        4.559999942779541,
+        5.309999942779541,
+        4.164000034332275
+      ],
+      "size": [
+        9.119999885559082,
+        10.619999885559082,
+        1.31850004196167
+      ],
+      "triangles": 800,
+      "materials": [
+        "Quartel_Paleta_Emissivo_v002"
+      ]
+    },
+    {
+      "name": "Building_Shell",
+      "type": "MESH",
+      "parent": "Barracks",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false,
+      "min": [
+        -4.837499618530273,
+        -5.639999866485596,
+        0.0
+      ],
+      "max": [
+        4.837499618530273,
+        5.587499618530273,
+        2.5439999103546143
+      ],
+      "size": [
+        9.674999237060547,
+        11.22749948501587,
+        2.5439999103546143
+      ],
+      "triangles": 1054,
+      "materials": [
+        "Quartel_Paleta_Emissivo_v002"
+      ]
+    },
+    {
+      "name": "COL_Corner_0_0",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        3.6628577709198,
+        -5.145400524139404,
+        1.5449999570846558
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Corner_0_1",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        3.925079107284546,
+        -5.060199737548828,
+        1.5449999570846558
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Corner_0_2",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        4.148138046264648,
+        -4.898138046264648,
+        1.5449999570846558
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Corner_0_3",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        4.310199737548828,
+        -4.675079345703125,
+        1.5449999570846558
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Corner_0_4",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        4.395400524139404,
+        -4.412858009338379,
+        1.5449999570846558
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Corner_1_0",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        4.395400524139404,
+        4.412858009338379,
+        1.5449999570846558
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Corner_1_1",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        4.310199737548828,
+        4.675079345703125,
+        1.5449999570846558
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Corner_1_2",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        4.148138046264648,
+        4.898138046264648,
+        1.5449999570846558
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Corner_1_3",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        3.925079107284546,
+        5.060199737548828,
+        1.5449999570846558
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Corner_1_4",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        3.6628577709198,
+        5.145400524139404,
+        1.5449999570846558
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Corner_2_0",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -3.6628577709198,
+        5.145400524139404,
+        1.5449999570846558
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Corner_2_1",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -3.925079107284546,
+        5.060199737548828,
+        1.5449999570846558
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Corner_2_2",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -4.148138046264648,
+        4.898138046264648,
+        1.5449999570846558
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Corner_2_3",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -4.310199737548828,
+        4.675079345703125,
+        1.5449999570846558
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Corner_2_4",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -4.395400524139404,
+        4.412858009338379,
+        1.5449999570846558
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Corner_3_0",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -4.395400524139404,
+        -4.412858009338379,
+        1.5449999570846558
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Corner_3_1",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -4.310199737548828,
+        -4.675079345703125,
+        1.5449999570846558
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Corner_3_2",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -4.148138046264648,
+        -4.898138046264648,
+        1.5449999570846558
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Corner_3_3",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -3.925079107284546,
+        -5.060199737548828,
+        1.5449999570846558
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Corner_3_4",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -3.6628577709198,
+        -5.145400524139404,
+        1.5449999570846558
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Door_S_L0",
+      "type": "EMPTY",
+      "parent": "Door_S_L0",
+      "location": [
+        -0.6749999523162842,
+        -5.447500228881836,
+        1.2768750190734863
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Door_S_L1",
+      "type": "EMPTY",
+      "parent": "Door_S_L1",
+      "location": [
+        -0.22500000894069672,
+        -5.522500038146973,
+        1.2768750190734863
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Door_S_R0",
+      "type": "EMPTY",
+      "parent": "Door_S_R0",
+      "location": [
+        0.6749999523162842,
+        -5.447500228881836,
+        1.2768750190734863
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Door_S_R1",
+      "type": "EMPTY",
+      "parent": "Door_S_R1",
+      "location": [
+        0.22500000894069672,
+        -5.522500038146973,
+        1.2768750190734863
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Door_W_L0",
+      "type": "EMPTY",
+      "parent": "Door_W_L0",
+      "location": [
+        -4.697500228881836,
+        -0.8250000476837158,
+        1.2768750190734863
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Door_W_L1",
+      "type": "EMPTY",
+      "parent": "Door_W_L1",
+      "location": [
+        -4.772500038146973,
+        -1.274999976158142,
+        1.2768750190734863
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Door_W_R0",
+      "type": "EMPTY",
+      "parent": "Door_W_R0",
+      "location": [
+        -4.697500228881836,
+        -2.174999952316284,
+        1.2768750190734863
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Door_W_R1",
+      "type": "EMPTY",
+      "parent": "Door_W_R1",
+      "location": [
+        -4.772500038146973,
+        -1.725000023841858,
+        1.2768750190734863
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_E_0",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        4.40625,
+        5.740531707902668e-18,
+        1.5449999570846558
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Floor",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        0.0,
+        0.0,
+        0.24375000596046448
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_N_0",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -1.1481063415805336e-17,
+        5.15625,
+        1.5449999570846558
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Pedestal_Corner_0_0",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        3.7303202152252197,
+        -5.571341037750244,
+        0.375
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Pedestal_Corner_0_1",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        4.1208624839782715,
+        -5.444446086883545,
+        0.375
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Pedestal_Corner_0_2",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        4.453077793121338,
+        -5.203077793121338,
+        0.375
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Pedestal_Corner_0_3",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        4.694446086883545,
+        -4.8708624839782715,
+        0.375
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Pedestal_Corner_0_4",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        4.821341037750244,
+        -4.480320453643799,
+        0.375
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Pedestal_Corner_1_0",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        4.821341037750244,
+        4.480320453643799,
+        0.375
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Pedestal_Corner_1_1",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        4.694446086883545,
+        4.8708624839782715,
+        0.375
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Pedestal_Corner_1_2",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        4.453077793121338,
+        5.203077793121338,
+        0.375
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Pedestal_Corner_1_3",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        4.1208624839782715,
+        5.444446086883545,
+        0.375
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Pedestal_Corner_1_4",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        3.7303202152252197,
+        5.571341037750244,
+        0.375
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Pedestal_Corner_2_0",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -3.7303202152252197,
+        5.571341037750244,
+        0.375
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Pedestal_Corner_2_1",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -4.1208624839782715,
+        5.444446086883545,
+        0.375
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Pedestal_Corner_2_2",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -4.453077793121338,
+        5.203077793121338,
+        0.375
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Pedestal_Corner_2_3",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -4.694446086883545,
+        4.8708624839782715,
+        0.375
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Pedestal_Corner_2_4",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -4.821341037750244,
+        4.480320453643799,
+        0.375
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Pedestal_Corner_3_0",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -4.821341037750244,
+        -4.480320453643799,
+        0.375
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Pedestal_Corner_3_1",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -4.694446086883545,
+        -4.8708624839782715,
+        0.375
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Pedestal_Corner_3_2",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -4.453077793121338,
+        -5.203077793121338,
+        0.375
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Pedestal_Corner_3_3",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -4.1208624839782715,
+        -5.444446086883545,
+        0.375
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Pedestal_Corner_3_4",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -3.7303202152252197,
+        -5.571341037750244,
+        0.375
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Pedestal_E_0",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        4.837500095367432,
+        0.0,
+        0.375
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Pedestal_N_0",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        0.0,
+        5.587500095367432,
+        0.375
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Pedestal_S_0",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -2.262500047683716,
+        -5.587500095367432,
+        0.375
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Pedestal_S_1",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        2.262500047683716,
+        -5.587500095367432,
+        0.375
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Pedestal_W_0",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -4.837500095367432,
+        1.8875000476837158,
+        0.375
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Pedestal_W_1",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -4.837500095367432,
+        -3.387500047683716,
+        0.375
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Ramp_S",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        0.0,
+        -6.150000095367432,
+        0.13124999403953552
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_Ramp_W",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -5.400000095367432,
+        -1.5,
+        0.13124999403953552
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_S_0",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -2.2125000953674316,
+        -5.15625,
+        1.5449999570846558
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_S_1",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        2.2125000953674316,
+        -5.15625,
+        1.5449999570846558
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_S_Lintel",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        0.0,
+        -5.15625,
+        2.557499885559082
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_W_0",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -4.40625,
+        1.837499976158142,
+        1.5449999570846558
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_W_1",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -4.40625,
+        -3.3375000953674316,
+        1.5449999570846558
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "COL_W_Lintel",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        -4.40625,
+        -1.5,
+        2.557499885559082
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "Door_S_L0",
+      "type": "MESH",
+      "parent": "EntranceDoor_S",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false,
+      "min": [
+        -0.9192856550216675,
+        -5.494999885559082,
+        0.24375003576278687
+      ],
+      "max": [
+        -0.4307142496109009,
+        -5.400000095367432,
+        2.309999942779541
+      ],
+      "size": [
+        0.4885714054107666,
+        0.09499979019165039,
+        2.066249907016754
+      ],
+      "triangles": 124,
+      "materials": [
+        "Quartel_Paleta_Emissivo_v002"
+      ]
+    },
+    {
+      "name": "Door_S_L1",
+      "type": "MESH",
+      "parent": "EntranceDoor_S",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false,
+      "min": [
+        -0.4692857265472412,
+        -5.570000171661377,
+        0.24375003576278687
+      ],
+      "max": [
+        0.019285714253783226,
+        -5.475000381469727,
+        2.309999942779541
+      ],
+      "size": [
+        0.48857144080102444,
+        0.09499979019165039,
+        2.066249907016754
+      ],
+      "triangles": 124,
+      "materials": [
+        "Quartel_Paleta_Emissivo_v002"
+      ]
+    },
+    {
+      "name": "Door_S_R0",
+      "type": "MESH",
+      "parent": "EntranceDoor_S",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false,
+      "min": [
+        0.4307142496109009,
+        -5.494999885559082,
+        0.24375003576278687
+      ],
+      "max": [
+        0.9192856550216675,
+        -5.400000095367432,
+        2.309999942779541
+      ],
+      "size": [
+        0.4885714054107666,
+        0.09499979019165039,
+        2.066249907016754
+      ],
+      "triangles": 124,
+      "materials": [
+        "Quartel_Paleta_Emissivo_v002"
+      ]
+    },
+    {
+      "name": "Door_S_R1",
+      "type": "MESH",
+      "parent": "EntranceDoor_S",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false,
+      "min": [
+        -0.019285714253783226,
+        -5.570000171661377,
+        0.24375003576278687
+      ],
+      "max": [
+        0.4692857265472412,
+        -5.475000381469727,
+        2.309999942779541
+      ],
+      "size": [
+        0.48857144080102444,
+        0.09499979019165039,
+        2.066249907016754
+      ],
+      "triangles": 124,
+      "materials": [
+        "Quartel_Paleta_Emissivo_v002"
+      ]
+    },
+    {
+      "name": "Door_W_L0",
+      "type": "MESH",
+      "parent": "EntranceDoor",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false,
+      "min": [
+        -4.74500036239624,
+        -1.0692857503890991,
+        0.24375003576278687
+      ],
+      "max": [
+        -4.649999618530273,
+        -0.5807143449783325,
+        2.309999942779541
+      ],
+      "size": [
+        0.0950007438659668,
+        0.4885714054107666,
+        2.066249907016754
+      ],
+      "triangles": 124,
+      "materials": [
+        "Quartel_Paleta_Emissivo_v002"
+      ]
+    },
+    {
+      "name": "Door_W_L1",
+      "type": "MESH",
+      "parent": "EntranceDoor",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false,
+      "min": [
+        -4.820000171661377,
+        -1.5192856788635254,
+        0.24375003576278687
+      ],
+      "max": [
+        -4.724999904632568,
+        -1.0307142734527588,
+        2.309999942779541
+      ],
+      "size": [
+        0.0950002670288086,
+        0.4885714054107666,
+        2.066249907016754
+      ],
+      "triangles": 124,
+      "materials": [
+        "Quartel_Paleta_Emissivo_v002"
+      ]
+    },
+    {
+      "name": "Door_W_R0",
+      "type": "MESH",
+      "parent": "EntranceDoor",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false,
+      "min": [
+        -4.74500036239624,
+        -2.419285774230957,
+        0.24375003576278687
+      ],
+      "max": [
+        -4.649999618530273,
+        -1.9307142496109009,
+        2.309999942779541
+      ],
+      "size": [
+        0.0950007438659668,
+        0.48857152462005615,
+        2.066249907016754
+      ],
+      "triangles": 124,
+      "materials": [
+        "Quartel_Paleta_Emissivo_v002"
+      ]
+    },
+    {
+      "name": "Door_W_R1",
+      "type": "MESH",
+      "parent": "EntranceDoor",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false,
+      "min": [
+        -4.820000171661377,
+        -1.9692857265472412,
+        0.24375003576278687
+      ],
+      "max": [
+        -4.724999904632568,
+        -1.4807143211364746,
+        2.309999942779541
+      ],
+      "size": [
+        0.0950002670288086,
+        0.4885714054107666,
+        2.066249907016754
+      ],
+      "triangles": 124,
+      "materials": [
+        "Quartel_Paleta_Emissivo_v002"
+      ]
+    },
+    {
+      "name": "EntranceDoor",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "EntranceDoor_S",
+      "type": "EMPTY",
+      "parent": "Barracks",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false
+    },
+    {
+      "name": "Entrance_S_Frame",
+      "type": "MESH",
+      "parent": "Barracks",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false,
+      "min": [
+        -1.2567857503890991,
+        -5.609999656677246,
+        0.26249992847442627
+      ],
+      "max": [
+        1.4110714197158813,
+        -5.039999961853027,
+        2.6024997234344482
+      ],
+      "size": [
+        2.6678571701049805,
+        0.5699996948242188,
+        2.339999794960022
+      ],
+      "triangles": 224,
+      "materials": [
+        "Quartel_Paleta_Emissivo_v002"
+      ]
+    },
+    {
+      "name": "Entrance_S_Ramp",
+      "type": "MESH",
+      "parent": "Barracks",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false,
+      "min": [
+        -0.9999999403953552,
+        -6.7584638595581055,
+        0.0
+      ],
+      "max": [
+        0.9999999403953552,
+        -5.541536331176758,
+        0.3192918300628662
+      ],
+      "size": [
+        1.9999998807907104,
+        1.2169275283813477,
+        0.3192918300628662
+      ],
+      "triangles": 88,
+      "materials": [
+        "Quartel_Paleta_Emissivo_v002"
+      ]
+    },
+    {
+      "name": "Entrance_W_Frame",
+      "type": "MESH",
+      "parent": "Barracks",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false,
+      "min": [
+        -4.859999656677246,
+        -2.911071300506592,
+        0.26249992847442627
+      ],
+      "max": [
+        -4.289999961853027,
+        -0.24321426451206207,
+        2.6024997234344482
+      ],
+      "size": [
+        0.5699996948242188,
+        2.6678570359945297,
+        2.339999794960022
+      ],
+      "triangles": 224,
+      "materials": [
+        "Quartel_Paleta_Emissivo_v002"
+      ]
+    },
+    {
+      "name": "Entrance_W_Ramp",
+      "type": "MESH",
+      "parent": "Barracks",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false,
+      "min": [
+        -6.0084638595581055,
+        -2.5,
+        0.0
+      ],
+      "max": [
+        -4.791536331176758,
+        -0.5000000596046448,
+        0.3192918300628662
+      ],
+      "size": [
+        1.2169275283813477,
+        1.9999999403953552,
+        0.3192918300628662
+      ],
+      "triangles": 88,
+      "materials": [
+        "Quartel_Paleta_Emissivo_v002"
+      ]
+    },
+    {
+      "name": "Wall_Corners",
+      "type": "MESH",
+      "parent": "Barracks",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false,
+      "min": [
+        -4.537500381469727,
+        -5.287500381469727,
+        0.22500000894069672
+      ],
+      "max": [
+        4.537500381469727,
+        5.287500381469727,
+        2.8454999923706055
+      ],
+      "size": [
+        9.075000762939453,
+        10.575000762939453,
+        2.6204999834299088
+      ],
+      "triangles": 640,
+      "materials": [
+        "Quartel_Paleta_Emissivo_v002"
+      ]
+    },
+    {
+      "name": "Wall_E",
+      "type": "MESH",
+      "parent": "Barracks",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false,
+      "min": [
+        4.3125,
+        -4.275000095367432,
+        0.22500000894069672
+      ],
+      "max": [
+        4.537500381469727,
+        4.275000095367432,
+        2.8454999923706055
+      ],
+      "size": [
+        0.22500038146972656,
+        8.550000190734863,
+        2.6204999834299088
+      ],
+      "triangles": 84,
+      "materials": [
+        "Quartel_Paleta_Emissivo_v002"
+      ]
+    },
+    {
+      "name": "Wall_N",
+      "type": "MESH",
+      "parent": "Barracks",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false,
+      "min": [
+        -3.5249998569488525,
+        5.062499523162842,
+        0.22500000894069672
+      ],
+      "max": [
+        3.5249998569488525,
+        5.287500381469727,
+        2.8454999923706055
+      ],
+      "size": [
+        7.049999713897705,
+        0.22500085830688477,
+        2.6204999834299088
+      ],
+      "triangles": 48,
+      "materials": [
+        "Quartel_Paleta_Emissivo_v002"
+      ]
+    },
+    {
+      "name": "Wall_S",
+      "type": "MESH",
+      "parent": "Barracks",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false,
+      "min": [
+        -3.5249998569488525,
+        -5.287500381469727,
+        0.22499999403953552
+      ],
+      "max": [
+        3.5249998569488525,
+        -5.0625,
+        2.8454999923706055
+      ],
+      "size": [
+        7.049999713897705,
+        0.22500038146972656,
+        2.62049999833107
+      ],
+      "triangles": 168,
+      "materials": [
+        "Quartel_Paleta_Emissivo_v002"
+      ]
+    },
+    {
+      "name": "Wall_W",
+      "type": "MESH",
+      "parent": "Barracks",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hideRender": false,
+      "min": [
+        -4.537500381469727,
+        -4.275000095367432,
+        0.22499999403953552
+      ],
+      "max": [
+        -4.3125,
+        4.275000095367432,
+        2.8454999923706055
+      ],
+      "size": [
+        0.22500038146972656,
+        8.550000190734863,
+        2.62049999833107
+      ],
+      "triangles": 96,
+      "materials": [
+        "Quartel_Paleta_Emissivo_v002"
+      ]
+    }
+  ]
+}

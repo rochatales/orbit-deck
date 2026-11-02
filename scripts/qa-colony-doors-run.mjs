@@ -32,7 +32,7 @@ async function tourGame(url, dir, sourceAccess) {
     if (m.text().includes('two children with the same key')) warnings.chavesReactDuplicadas = (warnings.chavesReactDuplicadas ?? 0) + 1;
     else errors.push(m.text());
   });
-  await page.addInitScript(() => localStorage.setItem('horda-survivor:hub:v1', JSON.stringify({ version: 1, profile: { displayName: 'Explorador QA', color: '#66e6ff' }, briefingSeen: true })));
+  await page.addInitScript(() => localStorage.setItem('exoden:hub:v1', JSON.stringify({ version: 1, profile: { displayName: 'Explorador QA', color: '#66e6ff' }, briefingSeen: true })));
   let result;
   try {
     await page.goto(url);

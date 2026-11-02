@@ -1,0 +1,844 @@
+{
+  "version": 1,
+  "detector": {
+    "db": -38,
+    "seconds": 0.06
+  },
+  "encoding": {
+    "sampleRate": 48000,
+    "channels": 1,
+    "kbps": 96
+  },
+  "sources": [
+    {
+      "name": "SFX_Item_collected",
+      "original": "art-source/audio/combate-v001/originais/SFX_Item_collected.mp3",
+      "sha256": "67db438069ae0c2fd8037ef15cbe2e239efea46cfc9206f8ba7ba5a14378f747",
+      "sourceDuration": 6.191313,
+      "sourceSampleRate": 48000,
+      "sourceChannels": 2,
+      "detectedSegments": 4,
+      "detectedTakes": 4,
+      "maxDuration": 0.9,
+      "variations": [
+        {
+          "file": "SFX_Item_collected_v01.mp3",
+          "duration": 0.652063,
+          "peakDb": -6.6,
+          "ranges": [
+            [
+              0,
+              0.652062
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Item_collected_v02.mp3",
+          "duration": 0.450417,
+          "peakDb": -7.9,
+          "ranges": [
+            [
+              2.276104,
+              2.726521
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Item_collected_v03.mp3",
+          "duration": 0.496938,
+          "peakDb": -10,
+          "ranges": [
+            [
+              3.847,
+              4.343938
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Item_collected_v04.mp3",
+          "duration": 0.550688,
+          "peakDb": -9.3,
+          "ranges": [
+            [
+              5.377792,
+              5.928479
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SFX_Main_character_step",
+      "original": "art-source/audio/combate-v001/originais/SFX_Main_character_step.mp3",
+      "sha256": "0314677244f207487a15467e5c8059bf642a223f2c246a8626f89b762d4d6938",
+      "sourceDuration": 0.708729,
+      "sourceSampleRate": 48000,
+      "sourceChannels": 2,
+      "detectedSegments": 2,
+      "detectedTakes": 2,
+      "maxDuration": 0.35,
+      "variations": [
+        {
+          "file": "SFX_Main_character_step_v01.mp3",
+          "duration": 0.101438,
+          "peakDb": -3.1,
+          "ranges": [
+            [
+              0,
+              0.101437
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Main_character_step_v02.mp3",
+          "duration": 0.072979,
+          "peakDb": -3.6,
+          "ranges": [
+            [
+              0.540771,
+              0.613583
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SFX_Mutant_big_attack_hit",
+      "original": "art-source/audio/combate-v001/originais/SFX_Mutant_big_attack_hit.mp3",
+      "sha256": "2ac96888fc670f901d90c0759c7bc1e5dea54a8575d9d34d821ea908a8230011",
+      "sourceDuration": 0.435271,
+      "sourceSampleRate": 48000,
+      "sourceChannels": 2,
+      "detectedSegments": 1,
+      "detectedTakes": 1,
+      "maxDuration": 0.8,
+      "variations": [
+        {
+          "file": "SFX_Mutant_big_attack_hit_v01.mp3",
+          "duration": 0.337167,
+          "peakDb": 0,
+          "ranges": [
+            [
+              0,
+              0.337167
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SFX_Mutant_big_bullet_hit",
+      "original": "art-source/audio/combate-v001/originais/SFX_Mutant_big_bullet_hit.mp3",
+      "sha256": "cb16e0f0b04e0d1849a1404eef5aeae53306501c8870143baa193063366c7c71",
+      "sourceDuration": 2.862438,
+      "sourceSampleRate": 48000,
+      "sourceChannels": 2,
+      "detectedSegments": 1,
+      "detectedTakes": 1,
+      "maxDuration": 0.8,
+      "variations": [
+        {
+          "file": "SFX_Mutant_big_bullet_hit_v01.mp3",
+          "duration": 0.765,
+          "peakDb": -7.3,
+          "ranges": [
+            [
+              0.165875,
+              2.320583
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SFX_Mutant_big_step",
+      "original": "art-source/audio/combate-v001/originais/SFX_Mutant_big_step.mp3",
+      "sha256": "5f822f1b47f7123e203de861ac44892c78b81edea738b588ad0e9799162ea8af",
+      "sourceDuration": 6.947729,
+      "sourceSampleRate": 48000,
+      "sourceChannels": 2,
+      "detectedSegments": 14,
+      "detectedTakes": 14,
+      "maxDuration": 0.35,
+      "variations": [
+        {
+          "file": "SFX_Mutant_big_step_v01.mp3",
+          "duration": 0.218479,
+          "peakDb": -6,
+          "ranges": [
+            [
+              0,
+              0.218479
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Mutant_big_step_v02.mp3",
+          "duration": 0.173479,
+          "peakDb": -6.3,
+          "ranges": [
+            [
+              0.423687,
+              0.597167
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Mutant_big_step_v03.mp3",
+          "duration": 0.234208,
+          "peakDb": -5.9,
+          "ranges": [
+            [
+              0.9585,
+              1.192708
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Mutant_big_step_v04.mp3",
+          "duration": 0.124063,
+          "peakDb": -5.6,
+          "ranges": [
+            [
+              1.300854,
+              1.424917
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Mutant_big_step_v05.mp3",
+          "duration": 0.217417,
+          "peakDb": -6,
+          "ranges": [
+            [
+              1.921625,
+              2.139042
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Mutant_big_step_v06.mp3",
+          "duration": 0.192979,
+          "peakDb": -5.8,
+          "ranges": [
+            [
+              2.354979,
+              2.547167
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Mutant_big_step_v07.mp3",
+          "duration": 0.241875,
+          "peakDb": -5.6,
+          "ranges": [
+            [
+              2.866667,
+              3.108542
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Mutant_big_step_v08.mp3",
+          "duration": 0.134021,
+          "peakDb": -6.4,
+          "ranges": [
+            [
+              3.248479,
+              3.3825
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Mutant_big_step_v09.mp3",
+          "duration": 0.118021,
+          "peakDb": -5.9,
+          "ranges": [
+            [
+              3.835667,
+              3.953688
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Mutant_big_step_v10.mp3",
+          "duration": 0.166688,
+          "peakDb": -6.1,
+          "ranges": [
+            [
+              4.197354,
+              4.364042
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Mutant_big_step_v11.mp3",
+          "duration": 0.315,
+          "peakDb": -6,
+          "ranges": [
+            [
+              4.711667,
+              5.136917
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Mutant_big_step_v12.mp3",
+          "duration": 0.203229,
+          "peakDb": -6.2,
+          "ranges": [
+            [
+              5.683271,
+              5.8865
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Mutant_big_step_v13.mp3",
+          "duration": 0.145875,
+          "peakDb": -5.5,
+          "ranges": [
+            [
+              6.137875,
+              6.28375
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Mutant_big_step_v14.mp3",
+          "duration": 0.238625,
+          "peakDb": -6,
+          "ranges": [
+            [
+              6.599854,
+              6.838479
+            ]
+          ]
+        }
+      ],
+      "normalization": {
+        "targetPeakDb": -6,
+        "method": "Pico mono por variação, com segunda passagem corrigindo o pico decodificado do MP3"
+      }
+    },
+    {
+      "name": "SFX_Mutant_small_attack_hit",
+      "original": "art-source/audio/combate-v001/originais/SFX_Mutant_small_attack_hit.mp3",
+      "sha256": "5425e034c554493a28aead0444e7ea7aa64fc59d5c3daf8b83c967a59f8cea11",
+      "sourceDuration": 15.386042,
+      "sourceSampleRate": 48000,
+      "sourceChannels": 2,
+      "detectedSegments": 8,
+      "detectedTakes": 8,
+      "maxDuration": 0.8,
+      "variations": [
+        {
+          "file": "SFX_Mutant_small_attack_hit_v01.mp3",
+          "duration": 0.332688,
+          "peakDb": 0,
+          "ranges": [
+            [
+              0,
+              0.332687
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Mutant_small_attack_hit_v02.mp3",
+          "duration": 0.369188,
+          "peakDb": 0,
+          "ranges": [
+            [
+              1.733729,
+              2.102917
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Mutant_small_attack_hit_v03.mp3",
+          "duration": 0.487229,
+          "peakDb": 0,
+          "ranges": [
+            [
+              3.860125,
+              4.347354
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Mutant_small_attack_hit_v04.mp3",
+          "duration": 0.313271,
+          "peakDb": -0.4,
+          "ranges": [
+            [
+              5.407021,
+              5.720292
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Mutant_small_attack_hit_v05.mp3",
+          "duration": 0.392188,
+          "peakDb": 0,
+          "ranges": [
+            [
+              7.5025,
+              7.894687
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Mutant_small_attack_hit_v06.mp3",
+          "duration": 0.4365,
+          "peakDb": 0,
+          "ranges": [
+            [
+              9.537521,
+              9.974021
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Mutant_small_attack_hit_v07.mp3",
+          "duration": 0.422813,
+          "peakDb": 0,
+          "ranges": [
+            [
+              11.948187,
+              12.371
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Mutant_small_attack_hit_v08.mp3",
+          "duration": 0.530938,
+          "peakDb": -0.2,
+          "ranges": [
+            [
+              14.324979,
+              14.855917
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SFX_Mutant_small_bullet_hit",
+      "original": "art-source/audio/combate-v001/originais/SFX_Mutant_small_bullet_hit.mp3",
+      "sha256": "655323120ee7c0f563de7cbe0fd227934d63c37f060b88d9ebdcc019810d04bf",
+      "sourceDuration": 3.049396,
+      "sourceSampleRate": 48000,
+      "sourceChannels": 2,
+      "detectedSegments": 3,
+      "detectedTakes": 3,
+      "maxDuration": 0.8,
+      "variations": [
+        {
+          "file": "SFX_Mutant_small_bullet_hit_v01.mp3",
+          "duration": 0.620375,
+          "peakDb": -11.9,
+          "ranges": [
+            [
+              0,
+              0.620375
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Mutant_small_bullet_hit_v02.mp3",
+          "duration": 0.470917,
+          "peakDb": -11,
+          "ranges": [
+            [
+              1.013396,
+              1.484312
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Mutant_small_bullet_hit_v03.mp3",
+          "duration": 0.556125,
+          "peakDb": -7.6,
+          "ranges": [
+            [
+              1.940625,
+              2.49675
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SFX_Mutant_small_death_hit",
+      "original": "art-source/audio/combate-v001/originais/SFX_Mutant_small_death_hit.mp3",
+      "sha256": "3339bdab17a351fe1309eae28a234d150329045056ba23b0c41d136702201ecd",
+      "sourceDuration": 1.760688,
+      "sourceSampleRate": 48000,
+      "sourceChannels": 2,
+      "detectedSegments": 1,
+      "detectedTakes": 1,
+      "maxDuration": 1.6,
+      "variations": [
+        {
+          "file": "SFX_Mutant_small_death_hit_v01.mp3",
+          "duration": 1.323083,
+          "peakDb": -7.8,
+          "ranges": [
+            [
+              0,
+              1.323083
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SFX_Patrol_big_bullet_hit",
+      "original": "art-source/audio/combate-v001/originais/SFX_Patrol_big_bullet_hit.mp3",
+      "sha256": "5b60579b8459e83d96774f48c04f0b68f906ccc768c1f039a0d1cf2d8bccd6ab",
+      "sourceDuration": 3,
+      "sourceSampleRate": 48000,
+      "sourceChannels": 2,
+      "detectedSegments": 1,
+      "detectedTakes": 1,
+      "maxDuration": 0.8,
+      "variations": [
+        {
+          "file": "SFX_Patrol_big_bullet_hit_v01.mp3",
+          "duration": 0.765,
+          "peakDb": -2.7,
+          "ranges": [
+            [
+              0,
+              1.614042
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SFX_Patrol_big_death_hit",
+      "original": "art-source/audio/combate-v001/originais/SFX_Patrol_big_death_hit.mp3",
+      "sha256": "59da46350d8e1d07e761fb071e169924579e983e740a3a2e2efd13f81f343995",
+      "sourceDuration": 3.2,
+      "sourceSampleRate": 48000,
+      "sourceChannels": 2,
+      "detectedSegments": 1,
+      "detectedTakes": 1,
+      "maxDuration": 1.6,
+      "variations": [
+        {
+          "file": "SFX_Patrol_big_death_hit_v01.mp3",
+          "duration": 1.565,
+          "peakDb": -2.4,
+          "ranges": [
+            [
+              0,
+              2.345333
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SFX_Patrol_big_step",
+      "original": "art-source/audio/combate-v001/originais/SFX_Patrol_big_step.mp3",
+      "sha256": "2e2c38cdfe497d94c96e6c99b3b575d514205ebbb49d7b0e186ad1d8f9a13fe8",
+      "sourceDuration": 7.509813,
+      "sourceSampleRate": 48000,
+      "sourceChannels": 1,
+      "detectedSegments": 5,
+      "detectedTakes": 5,
+      "maxDuration": 0.35,
+      "variations": [
+        {
+          "file": "SFX_Patrol_big_step_v01.mp3",
+          "duration": 0.315,
+          "peakDb": -10.9,
+          "ranges": [
+            [
+              0,
+              0.810354
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Patrol_big_step_v02.mp3",
+          "duration": 0.315,
+          "peakDb": -11.4,
+          "ranges": [
+            [
+              1.665521,
+              2.436354
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Patrol_big_step_v03.mp3",
+          "duration": 0.315,
+          "peakDb": -10.5,
+          "ranges": [
+            [
+              3.289062,
+              4.103083
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Patrol_big_step_v04.mp3",
+          "duration": 0.315,
+          "peakDb": -11.9,
+          "ranges": [
+            [
+              4.9485,
+              5.717146
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Patrol_big_step_v05.mp3",
+          "duration": 0.315,
+          "peakDb": -11.8,
+          "ranges": [
+            [
+              6.565625,
+              7.415625
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SFX_Patrol_small_attack_hit",
+      "original": "art-source/audio/combate-v001/originais/SFX_Patrol_small_attack_hit.mp3",
+      "sha256": "1837107515aa24af94e334eff7444b6d5d0ac8f476dc2d02b6fb58e6812d10aa",
+      "sourceDuration": 1.262333,
+      "sourceSampleRate": 48000,
+      "sourceChannels": 2,
+      "detectedSegments": 1,
+      "detectedTakes": 1,
+      "maxDuration": 0.8,
+      "variations": [
+        {
+          "file": "SFX_Patrol_small_attack_hit_v01.mp3",
+          "duration": 0.540229,
+          "peakDb": -5.5,
+          "ranges": [
+            [
+              0,
+              0.540229
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SFX_Patrol_small_bullet_hit",
+      "original": "art-source/audio/combate-v001/originais/SFX_Patrol_small_bullet_hit.mp3",
+      "sha256": "31534a583f22390a3fc0ff8c6c657bd05373df99a6b5966593f34a72ee7ec27e",
+      "sourceDuration": 2.347583,
+      "sourceSampleRate": 48000,
+      "sourceChannels": 2,
+      "detectedSegments": 1,
+      "detectedTakes": 1,
+      "maxDuration": 0.8,
+      "variations": [
+        {
+          "file": "SFX_Patrol_small_bullet_hit_v01.mp3",
+          "duration": 0.765,
+          "peakDb": -1,
+          "ranges": [
+            [
+              0,
+              1.354437
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SFX_Patrol_small_death_hit",
+      "original": "art-source/audio/combate-v001/originais/SFX_Patrol_small_death_hit.mp3",
+      "sha256": "c6d3eaaad95725bf844ed47f816b2116e1dd65b5612b61535661b73e1771ee6e",
+      "sourceDuration": 2.9,
+      "sourceSampleRate": 48000,
+      "sourceChannels": 2,
+      "detectedSegments": 1,
+      "detectedTakes": 1,
+      "maxDuration": 1.6,
+      "variations": [
+        {
+          "file": "SFX_Patrol_small_death_hit_v01.mp3",
+          "duration": 1.565,
+          "peakDb": -1.9,
+          "ranges": [
+            [
+              0,
+              1.867021
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SFX_Patrol_small_step",
+      "original": "art-source/audio/combate-v001/originais/SFX_Patrol_small_step.mp3",
+      "sha256": "9322b08ad938ba97668b3f7217e62dd41fcfc40b6faaf67e868ee4ac5471d5fb",
+      "sourceDuration": 13.456729,
+      "sourceSampleRate": 48000,
+      "sourceChannels": 1,
+      "detectedSegments": 5,
+      "detectedTakes": 5,
+      "maxDuration": 0.35,
+      "variations": [
+        {
+          "file": "SFX_Patrol_small_step_v01.mp3",
+          "duration": 0.315,
+          "peakDb": -10,
+          "ranges": [
+            [
+              0,
+              1.323896
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Patrol_small_step_v02.mp3",
+          "duration": 0.315,
+          "peakDb": -10.4,
+          "ranges": [
+            [
+              2.740521,
+              4.172604
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Patrol_small_step_v03.mp3",
+          "duration": 0.315,
+          "peakDb": -10,
+          "ranges": [
+            [
+              5.541437,
+              6.950729
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Patrol_small_step_v04.mp3",
+          "duration": 0.315,
+          "peakDb": -10.2,
+          "ranges": [
+            [
+              8.421271,
+              9.871979
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Patrol_small_step_v05.mp3",
+          "duration": 0.315,
+          "peakDb": -10,
+          "ranges": [
+            [
+              11.2175,
+              12.744854
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SFX_Rifle_Reload",
+      "original": "art-source/audio/combate-v001/originais/SFX_Rifle_Reload.mp3",
+      "sha256": "a4804cded7bc9b718d3a104f56724586de341d852a485be1eb0d136b4d4727af",
+      "sourceDuration": 5.705146,
+      "sourceSampleRate": 48000,
+      "sourceChannels": 2,
+      "detectedSegments": 6,
+      "detectedTakes": 3,
+      "maxDuration": 1.5,
+      "variations": [
+        {
+          "file": "SFX_Rifle_Reload_v01.mp3",
+          "duration": 1.452417,
+          "peakDb": -0.8,
+          "ranges": [
+            [
+              0.0668542,
+              1.519271
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SFX_Rifle_shot",
+      "original": "art-source/audio/combate-v001/originais/SFX_Rifle_shot.mp3",
+      "sha256": "4eba784fb716928c6e413346d3fbc93dd262f1759027d571a15dcef8160fd510",
+      "sourceDuration": 12.798625,
+      "sourceSampleRate": 48000,
+      "sourceChannels": 2,
+      "detectedSegments": 10,
+      "detectedTakes": 5,
+      "maxDuration": 0.45,
+      "variations": [
+        {
+          "file": "SFX_Rifle_shot_v01.mp3",
+          "duration": 0.415,
+          "peakDb": -10.1,
+          "ranges": [
+            [
+              0,
+              1.4975
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Rifle_shot_v02.mp3",
+          "duration": 0.415,
+          "peakDb": -10.3,
+          "ranges": [
+            [
+              2.796542,
+              4.169604
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Rifle_shot_v03.mp3",
+          "duration": 0.415,
+          "peakDb": -10.2,
+          "ranges": [
+            [
+              5.394375,
+              6.871562
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Rifle_shot_v04.mp3",
+          "duration": 0.415,
+          "peakDb": -9.6,
+          "ranges": [
+            [
+              8.160896,
+              9.428229
+            ]
+          ]
+        },
+        {
+          "file": "SFX_Rifle_shot_v05.mp3",
+          "duration": 0.415,
+          "peakDb": -10,
+          "ranges": [
+            [
+              10.618875,
+              12.027625
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

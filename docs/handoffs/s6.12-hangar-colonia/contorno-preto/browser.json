@@ -1,0 +1,38 @@
+{
+  "base": "bdd4abe",
+  "method": "App real em Chromium GPU 1600×1000 DPR1. Posicionamento de fixture para inspeção de materiais/portas; não é aceite visual do autor.",
+  "errors": [],
+  "httpErrors": [],
+  "views": [
+    {
+      "name": "porta-norte-fechada",
+      "color": "050505",
+      "map": false,
+      "emissive": "000000",
+      "offset": true,
+      "triangles": 62,
+      "roof": true,
+      "northDoorX": -0.550000011920929
+    },
+    {
+      "name": "porta-norte-aberta",
+      "color": "050505",
+      "map": false,
+      "emissive": "000000",
+      "offset": true,
+      "triangles": 62,
+      "roof": true,
+      "northDoorX": -1.6900000060849851
+    },
+    {
+      "name": "contorno-interno",
+      "color": "050505",
+      "map": false,
+      "emissive": "000000",
+      "offset": true,
+      "triangles": 62,
+      "roof": false,
+      "northDoorX": -1.6900000119209289
+    }
+  ]
+}

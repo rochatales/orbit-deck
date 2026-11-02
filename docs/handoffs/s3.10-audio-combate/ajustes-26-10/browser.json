@@ -1,0 +1,49 @@
+{
+  "base": "ee3ddcb",
+  "method": "Web Audio real, horda 3 assistida: posição técnica de uma aranha para caminhar/avisar/investir; HP do jogador restaurado para observar o ciclo; dois tiros reais assistidos para impacto e morte. Passos emitidos pelo clipe no render. Sem julgamento auditivo.",
+  "errors": [],
+  "cycle": {
+    "events": {
+      "enemyStep:largeMutant": 11,
+      "chargeWarning:largeMutant": 1,
+      "attack:largeMutant": 1
+    },
+    "played": {
+      "enemyStep:largeMutant": 11,
+      "chargeWarning:largeMutant": 1,
+      "attack:largeMutant": 1
+    }
+  },
+  "audio": {
+    "context": "running",
+    "buffers": 17,
+    "stats": {
+      "events": {
+        "enemyStep:largeMutant": 11,
+        "chargeWarning:largeMutant": 1,
+        "attack:largeMutant": 1,
+        "shot:patrol": 2,
+        "bulletHit:largeMutant": 1,
+        "death:largeMutant": 1
+      },
+      "played": {
+        "SFX_Mutant_big_step": 11,
+        "SFX_Mutant_big_attack_hit": 2,
+        "SFX_Rifle_shot": 2,
+        "SFX_Mutant_big_bullet_hit": 1,
+        "SFX_Mutant_small_death_hit": 1
+      },
+      "playedEvents": {
+        "enemyStep:largeMutant": 11,
+        "chargeWarning:largeMutant": 1,
+        "attack:largeMutant": 1,
+        "shot:patrol": 2,
+        "bulletHit:largeMutant": 1,
+        "death:largeMutant": 1
+      },
+      "stolen": 0,
+      "discarded": 0,
+      "decodeErrors": 0
+    }
+  }
+}

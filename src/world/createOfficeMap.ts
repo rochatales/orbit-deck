@@ -11,7 +11,7 @@ import {
   PointLight,
   Vector3
 } from "three";
-import type { RectBounds } from "../utils/math";
+import type { RectBounds, ShotVolume } from "../utils/math";
 import type { NpcConfig } from "../game/config";
 import { damp } from "../utils/math";
 import {
@@ -44,10 +44,23 @@ import {
   type MapRoomConfig
 } from "./mapConfig";
 
+export interface SimpleCuboid {
+  id: string;
+  position: { x: number; y: number; z: number };
+  halfExtents: number[];
+  rotation: { x: number; y: number; z: number; w: number };
+}
 export interface OfficeWorld {
+  simpleCuboids?: SimpleCuboid[];
+  movingCuboids?: SimpleCuboid[];
+  /** Apoio simples de superfícies elevadas, independente da malha visual. */
+  supportHeight?: (x: number, z: number) => number;
+  /** Suavização vertical opcional; Marte conserva apoio imediato. */
+  supportTransition?: number;
+  surfaceHeight?: (x: number, z: number) => number;
   group: Group;
   bounds: RectBounds;
-  obstacles: RectBounds[];
+  obstacles: ShotVolume[];
   walkableAreas: RectBounds[];
   update: (playerPosition: Vector3, delta: number) => void;
 }

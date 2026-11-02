@@ -1,0 +1,28 @@
+{
+  "build": "production",
+  "url": "http://127.0.0.1:4187/?sandwindPreview&perf&sandwindQA",
+  "method": "Poses explícitas de QA, sem gravar posição; percurso físico em testes Rapier. Sem aceite de jogabilidade.",
+  "logs": [
+    {
+      "level": "warn",
+      "message": "[GLB Debug] This GLB appears to be a single mesh. Arm/hand animation is not practical unless you either separate the model into named parts or rig it with bones in Blender.",
+      "timestamp": "2026-10-27T11:18:58.071Z",
+      "url": "http://127.0.0.1:4187/assets/index-8a7d5640.js"
+    }
+  ],
+  "normalUrl": "http://127.0.0.1:4187/",
+  "normalLogs": [
+    {
+      "level": "warn",
+      "message": "[GLB Debug] This GLB appears to be a single mesh. Arm/hand animation is not practical unless you either separate the model into named parts or rig it with bones in Blender.",
+      "timestamp": "2026-10-27T11:22:06.207Z",
+      "url": "http://127.0.0.1:4187/assets/index-8a7d5640.js"
+    },
+    {
+      "level": "warn",
+      "message": "[GLB Debug] This GLB appears to be a single mesh. Arm/hand animation is not practical unless you either separate the model into named parts or rig it with bones in Blender.",
+      "timestamp": "2026-10-27T11:24:16.579Z",
+      "url": "http://127.0.0.1:4187/assets/index-4a187a19.js"
+    }
+  ]
+}

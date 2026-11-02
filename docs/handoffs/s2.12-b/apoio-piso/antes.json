@@ -1,0 +1,16 @@
+{
+  "stage": "antes",
+  "method": "Fixture técnica: slots isolados e imóveis no mesmo ponto de calçada, câmera próxima; não é aceite do autor.",
+  "errors": [],
+  "types": {
+    "patrol": {
+      "y": 0
+    },
+    "largePatrol": {
+      "y": 0
+    },
+    "smallMutant": {
+      "y": 0
+    }
+  }
+}

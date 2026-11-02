@@ -1,0 +1,225 @@
+{
+  "perf": {
+    "version": 2,
+    "context": {
+      "interpolation": {
+        "enabled": false,
+        "timeStep": 0.016666666666666666,
+        "frames": 6075,
+        "steps": 2925,
+        "minStep": 0.01666666753590107,
+        "maxStep": 0.01666666753590107,
+        "maxOffset": 0,
+        "maxHorizontal": 0,
+        "physical": {
+          "x": 0,
+          "y": 0,
+          "z": 33
+        },
+        "visual": {
+          "x": 0,
+          "y": 0,
+          "z": 33
+        },
+        "cameraSource": {
+          "x": 0,
+          "y": 0,
+          "z": 33
+        },
+        "cameraTarget": {
+          "x": 0,
+          "y": 0.55,
+          "z": 32.99999999999996
+        },
+        "cameraAngle": 0.7853981633974483,
+        "cameraZoom": 32.82051282051282
+      },
+      "capturedAt": "2026-10-27T00:46:02.356Z",
+      "build": "production",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "browserBrands": "Google Chrome 155, Chromium 155, Not(A:Brand 24",
+      "gpuRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Pro, Unspecified Version)",
+      "hardwareConcurrency": 12,
+      "deviceMemoryGb": 16,
+      "screen": {
+        "width": 1512,
+        "height": 982
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "canvasCss": {
+        "width": 1280,
+        "height": 720
+      },
+      "canvasBuffer": {
+        "width": 1920,
+        "height": 1080
+      },
+      "devicePixelRatio": 2,
+      "rendererPixelRatio": 1.5
+    },
+    "pageLoad": {
+      "responseEndMs": 7.900000000372529,
+      "domContentLoadedMs": 163.2000000011176,
+      "loadEventEndMs": 167.59999999962747,
+      "documentTransferBytes": 695
+    },
+    "resources": {
+      "count": 53,
+      "transferBytes": 59334072,
+      "encodedBytes": 59318172,
+      "models": [
+        {
+          "file": "colony-v007-e4af2fda.glb",
+          "startMs": 278.90000000037253,
+          "responseEndMs": 476.59999999962747,
+          "durationMs": 197.69999999925494,
+          "transferBytes": 11573012,
+          "encodedBytes": 11572712
+        },
+        {
+          "file": "brand-brain-f7c02996.glb",
+          "startMs": 279.2000000011176,
+          "responseEndMs": 630.4000000003725,
+          "durationMs": 351.19999999925494,
+          "transferBytes": 20737632,
+          "encodedBytes": 20737332
+        },
+        {
+          "file": "explorador-r7-143a14d0.glb",
+          "startMs": 303.80000000074506,
+          "responseEndMs": 458.30000000074506,
+          "durationMs": 154.5,
+          "transferBytes": 6537404,
+          "encodedBytes": 6537104
+        },
+        {
+          "file": "ares-lander-2491f474.glb",
+          "startMs": 509.90000000037253,
+          "responseEndMs": 608.3000000007451,
+          "durationMs": 98.40000000037253,
+          "transferBytes": 4601804,
+          "encodedBytes": 4601504
+        },
+        {
+          "file": "deck-mars-59b4cb7d.glb",
+          "startMs": 510,
+          "responseEndMs": 543.5999999996275,
+          "durationMs": 33.59999999962747,
+          "transferBytes": 1395200,
+          "encodedBytes": 1394900
+        },
+        {
+          "file": "colony-v006-5a6e6d9c.glb",
+          "startMs": 511.90000000037253,
+          "responseEndMs": 648.9000000003725,
+          "durationMs": 137,
+          "transferBytes": 7025972,
+          "encodedBytes": 7025672
+        },
+        {
+          "file": "greenhouse-v001-a5668881.glb",
+          "startMs": 512,
+          "responseEndMs": 573.5999999996275,
+          "durationMs": 61.59999999962747,
+          "transferBytes": 2591708,
+          "encodedBytes": 2591408
+        },
+        {
+          "file": "hangar-v002-efdecfb3.glb",
+          "startMs": 512.2000000011176,
+          "responseEndMs": 602.3000000007451,
+          "durationMs": 90.09999999962747,
+          "transferBytes": 3340288,
+          "encodedBytes": 3339988
+        }
+      ]
+    },
+    "sceneEvents": [
+      {
+        "kind": "canvas-mounted",
+        "map": "mars",
+        "atMs": 519.5999999996275,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "map-data-ready",
+        "map": "mars",
+        "atMs": 519.5999999996275,
+        "sinceMapLoadingMs": null,
+        "inferred": true
+      },
+      {
+        "kind": "canvas-first-frame",
+        "map": "mars",
+        "atMs": 519.8000000007451,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "scene-first-draw",
+        "map": "mars",
+        "atMs": 1061,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "scene-assets-ready",
+        "map": "mars",
+        "atMs": 1281.5,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      }
+    ],
+    "latestCounters": {
+      "sampledAtMs": 54797.300000000745,
+      "drawCalls": 295,
+      "triangles": 327387,
+      "geometries": 574,
+      "textures": 22,
+      "programs": 31
+    },
+    "heap": {
+      "usedBytes": 177088238,
+      "totalBytes": 235217574,
+      "limitBytes": 4395630592
+    },
+    "samples": [],
+    "limitations": [
+      "Intervalos medidos entre callbacks de requestAnimationFrame: incluem CPU, espera de vsync e agendamento do navegador. Não são tempo de GPU.",
+      "A cadência mínima é limitada pela taxa de atualização da tela; 8,3 ms em 120 Hz não indica folga de GPU.",
+      "Intervalos de rAF acima de 33,3 ms e de 50 ms são contagens próprias, distintas dos eventos da API Long Animation Frames.",
+      "Draw calls e triângulos vêm de renderer.info e refletem o render imediatamente anterior à leitura. Na three 0.165 o reset automático ocorre depois do shadow map, então os passes de sombra não entram nessas contagens.",
+      "Geometrias e texturas são contagens de objetos vivos no renderer, não memória em bytes.",
+      "Memória de heap JS vem de performance.memory, API não padronizada e quantizada (Chromium); ausente nos demais navegadores.",
+      "Medições no servidor de desenvolvimento não são benchmark; prefira o build de produção (npm run preview).",
+      "Aba oculta durante uma amostra a invalida; pausa do jogo durante a amostra é registrada como aviso.",
+      "\"map-data-ready\" indica dados do mapa disponíveis (store da expedição), não cena renderizada. A cena renderizada é \"scene-first-draw\" e, com os personagens GLB, \"scene-assets-ready\".",
+      "Na entrada inicial, \"map-data-ready\" é inferido na montagem do canvas (marcado como inferido); os tempos da entrada inicial contam a partir do início da navegação."
+    ]
+  },
+  "sandwind": {
+    "settings": {
+      "enabled": true,
+      "culling": true,
+      "wind": true,
+      "profile": "extended"
+    },
+    "resources": {
+      "controllers": 1,
+      "clones": 45,
+      "patches": 136
+    },
+    "stats": {
+      "total": 269,
+      "hidden": 2,
+      "retained": 267,
+      "hiddenTriangles": 40,
+      "materials": 136,
+      "clones": 45
+    }
+  }
+}

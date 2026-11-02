@@ -11,7 +11,7 @@ const browser=await chromium.launch({headless:true,args:['--enable-gpu','--use-a
 const page=await browser.newPage({viewport:{width:1440,height:900}});
 const errors=[];
 page.on('pageerror',e=>errors.push(String(e)));
-await page.addInitScript(()=>localStorage.setItem('horda-survivor:hub:v1',JSON.stringify({version:1,profile:{displayName:'Explorador QA',color:'#66e6ff'},briefingSeen:true})));
+await page.addInitScript(()=>localStorage.setItem('exoden:hub:v1',JSON.stringify({version:1,profile:{displayName:'Explorador QA',color:'#66e6ff'},briefingSeen:true})));
 const result={errors,cycles:[],angles:[]};
 try {
  await page.goto(process.argv[2]??'http://127.0.0.1:5188/?perf');

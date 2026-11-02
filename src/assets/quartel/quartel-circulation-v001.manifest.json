@@ -1,0 +1,27 @@
+{
+  "areas": [
+    {
+      "id": "quartel-northeast-circulation",
+      "minX": 14.5,
+      "maxX": 15.5,
+      "minZ": -5.8,
+      "maxZ": -4.8375
+    },
+    {
+      "id": "quartel-southeast-circulation",
+      "minX": 13.75,
+      "maxX": 15.5,
+      "minZ": 4.8375,
+      "maxZ": 5.75
+    }
+  ],
+  "triangles": 143,
+  "areaM2": 2.559374999999999,
+  "sha256": "71c205de74ea9bb504e5b50cfd54b95e6d206a2183c4ed85fce3194f795ddcd7",
+  "reference": "ARQ_Lab_Piso_Patio",
+  "tile": [
+    1.25,
+    1.5
+  ],
+  "joint": 0.03
+}

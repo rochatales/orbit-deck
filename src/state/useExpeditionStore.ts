@@ -5,19 +5,22 @@ import type { MapId } from '../game/session';
 import { useGameStore } from './useGameStore';
 import { isNearEden, isNearShip, placePlayer } from './playerTransient';
 import { useCombatStore } from './useCombatStore';
-const SAVE_KEY = 'horda-survivor:hub:v1';
-function load(): HubSave {
+const SAVE_KEY = 'exoden:hub:v1';
+/** Chave do nome de trabalho anterior (Horda Survivor): só lida para migrar, nunca apagada. */
+const LEGACY_SAVE_KEY = 'horda-survivor:hub:v1';
+export function loadHubSave(storage: () => Pick<Storage, 'getItem'> = () => localStorage): HubSave {
     try {
-        const raw = localStorage.getItem(SAVE_KEY);
+        const source = storage();
+        const raw = source.getItem(SAVE_KEY) ?? source.getItem(LEGACY_SAVE_KEY);
         if (raw !== null)
             return parseSave(raw);
-        return { version: 1, profile: migrateProfile(localStorage.getItem('mcp-office:journey:v1')), briefingSeen: false };
+        return { version: 1, profile: migrateProfile(source.getItem('mcp-office:journey:v1')), briefingSeen: false };
     }
     catch {
         return { version: 1, profile: null, briefingSeen: false };
     }
 }
-const saved = load();
+const saved = loadHubSave();
 /** Reposiciona a fonte mutável e publica a proximidade do novo ponto no mesmo passo. */
 function respawn(spawn: Point, map: MapId) {
     placePlayer(spawn);

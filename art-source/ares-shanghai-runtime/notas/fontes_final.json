@@ -1,0 +1,38 @@
+[
+  {
+    "arquivo": "/Users/rochatales/.codex/worktrees/s6-3-shanghai-ares/game-workplace/art-source/ares-shanghai/blend/shanghai_ares_pouso_v001.blend",
+    "antes": "5650028d671aaa2796ef5b348ff8ce1e3d46f1e0c23cb50c44e24b6f1d059654",
+    "depois": "5650028d671aaa2796ef5b348ff8ce1e3d46f1e0c23cb50c44e24b6f1d059654",
+    "preservado": true
+  },
+  {
+    "arquivo": "/Users/rochatales/.codex/worktrees/s6-3-shanghai-ares/game-workplace/art-source/ares-shanghai/export/shanghai_ares_estudo_v001.glb",
+    "antes": "4266eab3c665bed70f4305745e118fa6d5309fec57818a4639c297f87ed968cd",
+    "depois": "4266eab3c665bed70f4305745e118fa6d5309fec57818a4639c297f87ed968cd",
+    "preservado": true
+  },
+  {
+    "arquivo": "/Users/rochatales/.codex/worktrees/s6-2-ares-mars/game-workplace/art-source/ares-lander/blend/mars_launchpad_ares_v001.blend",
+    "antes": "20fdebc4e29cfd48723ec576fa1315ef752917f112079490ee7953fd9ac73b21",
+    "depois": "20fdebc4e29cfd48723ec576fa1315ef752917f112079490ee7953fd9ac73b21",
+    "preservado": true
+  },
+  {
+    "arquivo": "/Users/rochatales/Automations/game-workplace/src/assets/shanghai-fase01/shanghai-fase01.glb",
+    "antes": "e1061fccfd52a3ed6f86326a1f09ae57795a4a56f27a37b855e4533678da4216",
+    "depois": "e1061fccfd52a3ed6f86326a1f09ae57795a4a56f27a37b855e4533678da4216",
+    "preservado": true
+  },
+  {
+    "arquivo": "/Users/rochatales/Automations/game-workplace/src/assets/shanghai-fase01/layout.json",
+    "antes": "2e0b089c767b465088ffdd507cb1d3ec90e66dcd57bc2a947dbda55845440742",
+    "depois": "2e0b089c767b465088ffdd507cb1d3ec90e66dcd57bc2a947dbda55845440742",
+    "preservado": true
+  },
+  {
+    "arquivo": "/Users/rochatales/Automations/game-workplace/src/assets/colony-v006.glb",
+    "antes": "5a6e6d9c754a8d25296b58598859cff0a9c2b4f9c964306d218bf9b8c71c87a8",
+    "depois": "5a6e6d9c754a8d25296b58598859cff0a9c2b4f9c964306d218bf9b8c71c87a8",
+    "preservado": true
+  }
+]

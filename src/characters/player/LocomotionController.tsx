@@ -1,13 +1,17 @@
+import { ActionTransition } from './actionTransition';
+import { combatRuntime } from '../../state/useCombatStore';
+import { RifleAnimationLayers } from './rifleAnimationLayers';
+import { FootstepClock, playerSounds } from '../../audio/events';
+import { playerPosition } from '../../state/playerTransient';
+import { simulationBlocked } from '../../game/simulationGate';
 import { useFrame } from "@react-three/fiber";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { LoopOnce, LoopRepeat, type AnimationAction } from "three";
 import type { GLBActionMap } from "../GLBCharacter";
-import { playbackRate } from "./aimMovement";
-import { crossfadeFor, pickTargetAction } from "./locomotionClips";
+import type { CharacterAssetConfig } from "../characterAssetConfig";
+import { configureLocomotionAction, crossfadeFor, colonyLocomotionActions, mapLocomotionCalibration, pickTargetAction, updateLocomotionRates } from "./locomotionClips";
 import {
-  PLAYER_BACKWARD_REFERENCE_SPEED,
   PLAYER_LOCOMOTION,
-  PLAYER_RUN_REFERENCE_SPEED,
   type PlayerAnimationState,
   type PlayerMotionState
 } from "./playerConfig";
@@ -15,6 +19,8 @@ import {
 interface LocomotionControllerProps {
   motionRef: React.MutableRefObject<PlayerMotionState>;
   actions: GLBActionMap;
+  asset: CharacterAssetConfig;
+  combat: boolean;
 }
 
 /**
@@ -23,18 +29,29 @@ interface LocomotionControllerProps {
  * in-place: a taxa acompanha a velocidade real (planarSpeed, depois das colisões) para o pé
  * de apoio não deslizar.
  */
-export function LocomotionController({ motionRef, actions }: LocomotionControllerProps) {
+export function LocomotionController({ motionRef, actions, asset, combat }: LocomotionControllerProps) {
+  const layers = useMemo(() => combat && asset.id === 'player-astronauta' && actions.Backward_Rifle && actions.Run
+    ? new RifleAnimationLayers(actions) : null, [combat, asset.id, actions]);
+  useEffect(() => () => layers?.dispose(), [layers]);
+  const colonyActions = useMemo(() => !combat && asset.id === 'player-astronauta'
+    ? colonyLocomotionActions(actions) : actions, [combat, asset.id, actions]);
+  const baseActions = layers?.legs ?? colonyActions;
+  useEffect(() => {
+    if (import.meta.env.DEV) Object.assign(window, { __hordaPlayerBaseActions: baseActions, __hordaRifleLayers: layers });
+  }, [baseActions, layers]);
+  const transition = useMemo(() => new ActionTransition(baseActions), [baseActions]);
+  const calibration = useMemo(() => mapLocomotionCalibration(asset, combat), [asset, combat]);
+  const stepClock = useRef(new FootstepClock());
   const currentRef = useRef<AnimationAction | null>(null);
   const stateRef = useRef<PlayerAnimationState | null>(null);
+  useEffect(() => () => {
+    transition.dispose(); currentRef.current = null; stateRef.current = null;
+  }, [transition]);
 
   // Configure each action's loop behavior once when actions become available.
   useEffect(() => {
-    const fall = actions.Fall;
-    if (fall) {
-      fall.setLoop(LoopOnce, 1);
-      fall.clampWhenFinished = true;
-    }
-    [actions.Idle, actions.Run, actions.Talk, actions.Backward].forEach((action) => {
+    for (const action of [actions.Fall, actions.Dash]) if (action) { action.setLoop(LoopOnce,1); action.clampWhenFinished = true; }
+    [actions.Idle, actions.Run, actions.Talk, actions.Backward, actions.Aim_Rifle, actions.Run_Rifle, actions.Idle_Colony, actions.Run_Colony, actions.Backward_Colony].forEach((action) => {
       if (action) {
         action.setLoop(LoopRepeat, Infinity);
         action.clampWhenFinished = false;
@@ -42,49 +59,40 @@ export function LocomotionController({ motionRef, actions }: LocomotionControlle
     });
 
     // Kick off Idle so the character isn't stuck in T-pose during the first frame.
-    const idle = actions.Idle;
+    const idle = pickTargetAction("idle", baseActions, combat);
     if (idle && !currentRef.current) {
-      idle.reset().fadeIn(PLAYER_LOCOMOTION.crossfade).play();
+      transition.to(idle, 0);
       currentRef.current = idle;
       stateRef.current = "idle";
     }
-  }, [actions.Fall, actions.Idle, actions.Run, actions.Talk, actions.Backward]);
+  }, [actions.Fall, actions.Dash, actions.Idle, actions.Run, actions.Talk, actions.Backward, actions.Aim_Rifle, actions.Run_Rifle, combat, baseActions, transition]);
 
-  useFrame(() => {
+  useFrame((_, delta) => {
     const motion = motionRef.current;
-    const target = pickTargetAction(motion.animationState, actions);
+    const target = pickTargetAction(motion.animationState, baseActions, combat);
     const current = currentRef.current;
 
-    if (target && target !== current) {
+    const onceChanged = motion.animationState !== stateRef.current &&
+      (motion.animationState === 'dashing' || stateRef.current === 'dashing' || motion.animationState === 'falling' || stateRef.current === 'falling');
+    if (target && (target !== current || onceChanged)) {
       const fade = crossfadeFor(stateRef.current, motion.animationState);
-      target.reset();
-      if (motion.animationState === "falling") {
-        target.setLoop(LoopOnce, 1);
-        target.clampWhenFinished = true;
-      } else {
-        target.setLoop(LoopRepeat, Infinity);
-        target.clampWhenFinished = false;
-      }
-      target.fadeIn(fade);
-      target.play();
-      if (current) {
-        current.fadeOut(fade);
-      }
+      configureLocomotionAction(target, motion.animationState);
+      transition.to(target, fade, onceChanged);
       currentRef.current = target;
     }
+    transition.update(simulationBlocked() ? 0 : delta);
     stateRef.current = motion.animationState;
 
     // Taxa dos ciclos in-place pela velocidade real.
     const active = currentRef.current;
-    const run = actions.Run, back = actions.Backward;
-    if (run) run.timeScale = active === run && motion.animationState === "walking"
-      ? playbackRate(motion.planarSpeed, PLAYER_RUN_REFERENCE_SPEED, PLAYER_LOCOMOTION.runTimeScale) : 1;
-    if (back) back.timeScale = active === back
-      ? playbackRate(motion.planarSpeed, PLAYER_BACKWARD_REFERENCE_SPEED, PLAYER_LOCOMOTION.backwardTimeScale) : 1;
-    // asset sem Backward (comparação): o Run, quando usado no recuo, segue a velocidade real
-    if (run && !back && active === run && motion.animationState === "backward")
-      run.timeScale = playbackRate(motion.planarSpeed, PLAYER_RUN_REFERENCE_SPEED, PLAYER_LOCOMOTION.runTimeScale);
-  });
+    updateLocomotionRates(baseActions, active, motion.animationState, motion.planarSpeed, calibration);
+    const simulation = combatRuntime.simulation;
+    layers?.update(motion.animationState, simulation?.reloadLeft ?? 0, (simulation?.cooldown ?? 0) > 0, active, simulationBlocked());
+    if (!simulationBlocked() && active && motion.planarSpeed >= PLAYER_LOCOMOTION.stopSpeed && (motion.animationState === "walking" || motion.animationState === "backward")) {
+      if (stepClock.current.advance(motion.animationState, active.time, active.getClip().duration))
+        playerSounds.emit('playerStep', playerPosition.x, playerPosition.z);
+    } else stepClock.current.reset();
+  }, -40);
 
   return null;
 }

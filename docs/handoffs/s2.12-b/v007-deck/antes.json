@@ -1,0 +1,35 @@
+{
+  "camera": {
+    "position": [
+      -46.14033518893751,
+      39.55,
+      -5.919952876223171
+    ],
+    "quaternion": [
+      0.13871925083912445,
+      0.8472351301607483,
+      0.26934001201353985,
+      -0.43635485742303626
+    ],
+    "zoom": 78.9999995230028,
+    "viewport": {
+      "width": 2722,
+      "height": 1552
+    },
+    "clip": {
+      "x": 760,
+      "y": 0,
+      "width": 1922,
+      "height": 1552
+    },
+    "targetRotation": 3.76118453804778
+  },
+  "player": {
+    "x": -1.25,
+    "y": 0,
+    "z": 26.100000381469727
+  },
+  "consoles": [],
+  "errors": [],
+  "metodo": "DEV, reposição assistida, vista sudoeste, câmera real e mesmo enquadramento antes/depois; não é aceite de jogabilidade."
+}

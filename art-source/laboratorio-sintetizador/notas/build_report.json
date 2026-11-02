@@ -1,0 +1,42 @@
+{
+  "asset": "Laboratory with Diamond Synthesis Machine // Horda Survivor (v001)",
+  "triangles": 7382,
+  "polygons": 3527,
+  "vertices": 4453,
+  "budget_max_triangles": 15000,
+  "within_budget": true,
+  "dimensions_m": {
+    "width_x": 15.5,
+    "length_y": 11.8,
+    "height_z": 4.0,
+    "z_min": -0.4,
+    "z_max": 3.6
+  },
+  "bones": [
+    "Root",
+    "Machine_Base",
+    "Machine_Chassis",
+    "Retrieval_Drawer",
+    "Diamond_Core",
+    "Plasma_Arcs",
+    "Chamber_Pistons",
+    "Lab_ServiceDoor",
+    "Lab_AirlockDoor"
+  ],
+  "bone_count": 9,
+  "animations": [
+    "Drawer_Dispense",
+    "Idle_Ready",
+    "Standby_PowerDown",
+    "Synthesizing"
+  ],
+  "textures_2048": [
+    "laboratorio_basecolor.png",
+    "laboratorio_orm.png",
+    "laboratorio_normal.png",
+    "laboratorio_emission.png"
+  ],
+  "blend_file": "/Users/rochatales/Automations/game-workplace/art-source/laboratorio-sintetizador/blend/laboratorio_sintetizador_v001.blend",
+  "glb_file": "/Users/rochatales/Automations/game-workplace/art-source/laboratorio-sintetizador/export/laboratorio_sintetizador_v001.glb",
+  "glb_size_bytes": 1921476
+}

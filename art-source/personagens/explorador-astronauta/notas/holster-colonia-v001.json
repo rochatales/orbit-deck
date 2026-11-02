@@ -1,0 +1,26 @@
+{
+  "metodo": "Transform local = inversa do Hips no Idle q1 × transform desejado na cena do GLB. Punho em (-0,28;0,64;-0,035), cano 60 graus para baixo/frente, escala mundial 1.",
+  "transform": {
+    "position": [
+      -0.13889160163930517,
+      0.039628645550470465,
+      0.10424504329431789
+    ],
+    "quaternion": [
+      0.4969764461861439,
+      0.3233252003945658,
+      -0.1735340638570748,
+      0.7863594349970252
+    ],
+    "scale": [
+      0.6091301170549727,
+      0.6091300347976606,
+      0.6091299628849569
+    ]
+  },
+  "piso_minimo_cano_m": {
+    "Idle": 0.2216293489273473,
+    "Run_Colony": 0.03626383098319974,
+    "Backward_Rifle": 0.24882424019570143
+  }
+}

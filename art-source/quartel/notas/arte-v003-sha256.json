@@ -1,0 +1,88 @@
+{
+  "variant": "v003",
+  "chosenOption": "2 / C, autor em 26/10/2026",
+  "base": "bfd3e6c31e69f550e4143846ebedd7a2b3b0a2e1",
+  "bakedScale": 0.75,
+  "rootScale": [
+    1,
+    1,
+    1
+  ],
+  "files": [
+    {
+      "path": "art-source/quartel/README-v003.md",
+      "bytes": 3456,
+      "sha256": "e23c2e9aa741b5a43fbff68b8481f089ca85231e847eae78d9de1b2262325cc6"
+    },
+    {
+      "path": "art-source/quartel/blend/barracks-v003.blend",
+      "bytes": 191943,
+      "sha256": "5bed60912e08c019ae16b8962fbf641a4f8321d53a957f6bbec1be7cdaaca625"
+    },
+    {
+      "path": "art-source/quartel/export/barracks-v003.glb",
+      "bytes": 611764,
+      "sha256": "ed4ca838fffcd8f08711c4ea62305e7763f32324237fdb7ec12264360e640bb7"
+    },
+    {
+      "path": "art-source/quartel/notas/build-v003.json",
+      "bytes": 377,
+      "sha256": "0e406e079a33739bacb23112845ae61e4b0af349429f50a3ad9b89efc6ff2f36"
+    },
+    {
+      "path": "art-source/quartel/notas/encaixe-v003.json",
+      "bytes": 1075,
+      "sha256": "1223fe28246c95374d29164520f9e04709a1cd325af33d9c1edb944efe9ea0d4"
+    },
+    {
+      "path": "art-source/quartel/notas/medidas-v003.json",
+      "bytes": 16419,
+      "sha256": "8101a0fbb79c5aafab70834409ec740541a9f26c420c15b86cdaef0078935198"
+    },
+    {
+      "path": "art-source/quartel/notas/validacao-v003.json",
+      "bytes": 633,
+      "sha256": "4d8e016d1c756a8a1c1a8ea2e1eefc847926768f94121a0f73fd085616eed160"
+    },
+    {
+      "path": "art-source/quartel/renders/planta-encaixe-v003.png",
+      "bytes": 142267,
+      "sha256": "252845d4b5dc64c45b656ee60e848b05ad4d252ad4b25970dac9eb9ae21d1746"
+    },
+    {
+      "path": "art-source/quartel/renders/planta-encaixe-v003.svg",
+      "bytes": 13507,
+      "sha256": "bd85162c48658abf8441376c5c4db77847e1b6bc120181bc59750d8fad94efdf"
+    },
+    {
+      "path": "art-source/quartel/renders/v003-frente.png",
+      "bytes": 1307729,
+      "sha256": "8e4a065e15323acc09d339f238275d7ac856466b9ecad1fd9b153937d2375f3b"
+    },
+    {
+      "path": "art-source/quartel/renders/v003-superior-sem-teto.png",
+      "bytes": 1631624,
+      "sha256": "aaa466228b7c2d638bc8bd015a33953e5766955af501a34f70e91c8ea505d1bd"
+    },
+    {
+      "path": "art-source/quartel/renders/v003-tres-quartos.png",
+      "bytes": 1699715,
+      "sha256": "929bc559bb0a40ebecc0fc2296cfe7e3711b61dd4e0bc0546cf7ddec4f785742"
+    },
+    {
+      "path": "art-source/quartel/scripts/build_barracks_v003.py",
+      "bytes": 4021,
+      "sha256": "3b85182475247004db31445ffea57023fc3ffb2137da8e1c9f0e11ba4a5a6eac"
+    },
+    {
+      "path": "art-source/quartel/scripts/planta_v003.py",
+      "bytes": 6538,
+      "sha256": "47ed58dc44f6bbdebb945bc59675955362ca17191eb1da757128fca500a85f0c"
+    },
+    {
+      "path": "art-source/quartel/scripts/validate_barracks_v003.py",
+      "bytes": 3302,
+      "sha256": "eaeb7bf2358bfadef4dba197b5dff9ad03e4d74b0e16d55f1ca6d72279733b9c"
+    }
+  ]
+}

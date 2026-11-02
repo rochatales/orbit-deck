@@ -1,0 +1,14 @@
+{
+  "build": "production",
+  "url": "http://127.0.0.1:4187/?perf",
+  "sandwindUrl": "http://127.0.0.1:4187/?sandwindPreview&perf&sandwindQA",
+  "method": "Capturas por poses explícitas de QA para interior/acessos; sem flags na captura geral. Percurso validado por Rapier automatizado; aceite do autor pendente.",
+  "logs": [
+    {
+      "level": "warn",
+      "message": "[GLB Debug] This GLB appears to be a single mesh. Arm/hand animation is not practical unless you either separate the model into named parts or rig it with bones in Blender.",
+      "timestamp": "2026-10-27T02:24:51.128Z",
+      "url": "http://127.0.0.1:4187/assets/index-6ac9a51c.js"
+    }
+  ]
+}
