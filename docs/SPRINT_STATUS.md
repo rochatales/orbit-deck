@@ -87,6 +87,8 @@ S4.1/S6.6/S6.14–S6.18. Remoto segue `5bc240f`; sem push ou merge.
 
 ## Mira próxima ao jogador · S2.12 · 02/11/2026
 
+**Entregue localmente em `a2be57f`**: cursor livre sobre/atrás do corpo, zona de orientação reduzida a 3,5 cm, sem reter o ponto antigo no centro. Consulta de alvo/tiro mantém proteção centro→cano. 438/438, build e diff-check verdes; preview 4186. Handoff `docs/handoffs/s2.12-mira-proxima.md`. Sem QA de jogo pelo agente, aceite visual pendente do autor.
+
 Codex em `rochatales/s2.12-mira-proxima`, worktree própria, base local `6884730`
 (HUD beta). Pedido do autor: cursor cruza livremente o personagem e permite mirar
 em alvos próximos/virar atirando. Inspeção: retícula era deslocada para a frente do
