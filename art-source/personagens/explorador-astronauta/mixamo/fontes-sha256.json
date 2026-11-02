@@ -90,6 +90,16 @@
       "file": "Rifle _Run_final.fbx",
       "bytes": 7067808,
       "sha256": "5f6df8295cfaf21dcc8efea9ae14c0dc99bd081c2d326b5a1796d01d6391e234"
+    },
+    {
+      "file": "Breathing_Idle.fbx",
+      "bytes": 7740272,
+      "sha256": "e1524389927ce58fd1573b0baf009a88f024b50403ec9b27eaeead4ce40994c9"
+    },
+    {
+      "file": "Walking_Backwards.fbx",
+      "bytes": 7117856,
+      "sha256": "2226ee0435954dc04f4ce1f75453be6ad8e19c3818776c2112b20839bcfed51b"
     }
   ]
 }

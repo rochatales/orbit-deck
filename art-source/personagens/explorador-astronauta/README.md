@@ -1,5 +1,7 @@
 # Explorador astronauta
 
+**Pipeline/runtime ativo v008 (01/11/2026):** `--colony-idle-backward` acrescenta Breathing_Idle / Walking_Backwards somente para Marte; v001–v007 e todas as ações anteriores preservados. Ver [handoff](../../../docs/handoffs/s6.8-idle-recuo-colonia.md). Os avisos de versões anteriores abaixo são históricos.
+
 **Atualização 01/11/2026: pipeline/runtime ativos v007.** `--final-run` gera Run de
 `Rifle _Run_final.fbx`, preservando as outras onze ações v006 e exports históricos.
 Reprodução: `Blender -b --factory-startup -P art-source/personagens/explorador-astronauta/scripts/preparar_f1.py -- --final-run`.

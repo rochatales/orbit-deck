@@ -46,7 +46,7 @@ export function LocomotionController({ motionRef, actions, asset, combat }: Loco
   // Configure each action's loop behavior once when actions become available.
   useEffect(() => {
     for (const action of [actions.Fall, actions.Dash]) if (action) { action.setLoop(LoopOnce,1); action.clampWhenFinished = true; }
-    [actions.Idle, actions.Run, actions.Talk, actions.Backward, actions.Aim_Rifle, actions.Run_Rifle].forEach((action) => {
+    [actions.Idle, actions.Run, actions.Talk, actions.Backward, actions.Aim_Rifle, actions.Run_Rifle, actions.Idle_Colony, actions.Run_Colony, actions.Backward_Colony].forEach((action) => {
       if (action) {
         action.setLoop(LoopRepeat, Infinity);
         action.clampWhenFinished = false;

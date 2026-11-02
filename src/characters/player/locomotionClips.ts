@@ -51,8 +51,10 @@ export function locomotionCalibration(asset: Pick<CharacterAssetConfig, 'runRefe
 
 /** Resolvido fora do quadro; preserva ações e fallback das variantes antigas. */
 export function colonyLocomotionActions(actions: ActionMap): ActionMap {
-  if (!actions.Run_Colony) return actions;
-  return { ...actions, Run: actions.Run_Colony, Backward: actions.Backward_Rifle ?? actions.Backward };
+  if (!actions.Run_Colony && !actions.Idle_Colony && !actions.Backward_Colony) return actions;
+  return { ...actions, Idle: actions.Idle_Colony ?? actions.Idle,
+    Run: actions.Run_Colony ?? actions.Run,
+    Backward: actions.Backward_Colony ?? actions.Backward_Rifle ?? actions.Backward };
 }
 
 export function mapLocomotionCalibration(asset: CharacterAssetConfig, combat: boolean) {
