@@ -1,3 +1,5 @@
+import { PauseMenuFrame } from '../ui/PauseMenuFrame';
+import { GameplayHud, BackpackContents } from '../ui/GameplayHud';
 import { activateWorldInteraction } from '../interactions/runtime';
 import { AudioControls, AudioLifecycle } from '../audio/AudioRuntime';
 import { audio } from '../audio/runtime';
@@ -34,7 +36,7 @@ function Runtime() {
         map: MapId;
         data: OfficeWorld;
     } | null>(null);
-    const [retry, setRetry] = useState(0), [controls, setControls] = useState(false);
+    const [retry, setRetry] = useState(0), [pauseView, setPauseView] = useState<'menu' | 'backpack'>('menu');
     const requested = s.session.destination ?? s.session.map;
     useEffect(() => {
         let cancelled = false;
@@ -81,6 +83,9 @@ function Runtime() {
                 else if (state.session.phase === 'walking')
                     useGameStore.getState().togglePaused();
             }
+            if (e.code === 'KeyB' && state.session.phase === 'walking' && !state.panel) {
+                e.preventDefault(); setPauseView('backpack'); useGameStore.setState({ isPaused: true });
+            }
             if (e.code === 'KeyE' && !useGameStore.getState().isPaused) {
                 if (state.session.phase === 'aboard')
                     state.send('exit');
@@ -96,16 +101,11 @@ function Runtime() {
     return <main className={`runtime ${s.session.map === 'shanghai' ? 'in-combat' : 'in-hub'}`}>
     {world && <GameCanvas key={world.map} world={world.data} map={world.map}/>}
     {world?.map === 'mars' && s.session.map === 'mars' && sandwindPanelEnabled(window.location.search) && <Suspense fallback={null}><SandwindPanel/></Suspense>}
-    <header className="hud-top"><div><p className="eyebrow">{MAPS[s.session.map].title}</p><strong>{s.profile?.displayName}</strong></div>
-      <nav><button onClick={() => setControls(!controls)}>Controles</button><button disabled={!s.ready || s.session.phase !== 'walking' || !!s.panel || (s.session.map === 'shanghai' && dead)} onClick={() => useGameStore.getState().togglePaused()}>{paused ? 'Retomar' : 'Pausar'}</button></nav>
+    <header className="beta-header"><div className="beta-location"><b>EXODEN<span> / BETA</span></b><small>{MAPS[s.session.map].title} · {s.profile?.displayName}</small></div>
+      <nav><button onClick={() => { setPauseView('menu'); useGameStore.setState({ isPaused: true }); }} disabled={!s.ready || s.session.phase !== 'walking' || !!s.panel || (s.session.map === 'shanghai' && dead)}>Controles <span>☰</span></button><button aria-label={paused ? 'Retomar jogo' : 'Pausar jogo'} disabled={!s.ready || s.session.phase !== 'walking' || !!s.panel || (s.session.map === 'shanghai' && dead)} onClick={() => { setPauseView('menu'); useGameStore.getState().togglePaused(); }}>{paused ? 'RETOMAR' : 'Ⅱ'}</button></nav>
     </header>
-    <aside className="mission"><span className="eyebrow">ROTA DE EXPLORAÇÃO</span><h2>{s.session.map === 'mars' ? 'Destino: Shanghai' : 'Combate em Shanghai'}</h2>
-      <p>{s.session.map === 'mars' ? 'EDEN ao norte · Deck de lançamento ao sul, após o complexo.' : 'Neutralize os robôs. Use as esquinas como cobertura e mantenha distância.'}</p>
-      <small>Explore · Sobreviva · Recupere materiais.</small>
-    </aside>
-    {controls && <aside className="controls">Mouse: mirar e orientar o personagem · W/↑: correr na direção do cursor · S/↓: recuar voltado para o cursor · W + S: parado · botão esquerdo: atirar · R: recarregar · Espaço: dash em Shanghai · E: interagir / desembarcar · Q/C: girar câmera · roda ou +/−: zoom · Esc: fechar diálogo / pausar · M: som/mudo.<AudioControls/></aside>}
-    {comparacaoDisponivel() && <PlayerAssetBadge/>}
-    <footer className="radio"><b>EDEN / RÁDIO</b><p>{s.radio}</p></footer>
+    <aside className="beta-objective"><span>OBJETIVO</span>{s.session.map === 'mars' ? 'Prepare sua expedição · Encontre EDEN' : 'Sobreviva às hordas · Recupere materiais'}</aside>
+    <GameplayHud combat={s.session.map === 'shanghai'} openBackpack={() => { if (s.ready && s.session.phase === 'walking' && !s.panel && !dead) { setPauseView('backpack'); useGameStore.setState({ isPaused: true }); } }}/>
     {s.session.map === 'shanghai' && <CombatHud/>}
     {s.saveError && <p className="save-warning" role="alert">{s.saveError}</p>}
     {s.panel === 'eden' && <section className="overlay" role="dialog" aria-label="Conversa com EDEN"><article>
@@ -120,7 +120,18 @@ function Runtime() {
       {s.session.map === 'shanghai' && <p>Retorno livre à colônia. As peças desta tentativa são temporárias.</p>}
       <div className="actions"><button onClick={() => s.send('depart')}>{s.session.map === 'mars' ? 'Decolar para Shanghai' : 'Retornar a Marte'}</button><button className="secondary" onClick={() => s.send('exit')}>Desembarcar · E</button></div>
     </article></section>}
-    {paused && !(s.session.map === 'shanghai' && dead) && <section className="overlay"><article><h2>Exploração pausada</h2><AudioControls/><button onClick={() => useGameStore.getState().togglePaused()}>Retomar exploração</button></article></section>}
+    {paused && !(s.session.map === 'shanghai' && dead) && <PauseMenuFrame label={pauseView === 'backpack' ? 'Mochila' : 'Pausa e controles'}>
+      <div className="beta-menu-heading"><p className="eyebrow">EXODEN · EXPLORAÇÃO PAUSADA</p><button className="secondary" onClick={() => useGameStore.setState({ isPaused: false })} aria-label="Fechar menu">✕</button></div>
+      <div className="beta-menu-tabs"><button className={pauseView === 'menu' ? 'is-active' : 'secondary'} onClick={() => setPauseView('menu')}>Controles</button><button className={pauseView === 'backpack' ? 'is-active' : 'secondary'} onClick={() => setPauseView('backpack')}>Mochila</button></div>
+      {pauseView === 'backpack' ? <BackpackContents combat={s.session.map === 'shanghai'}/> : <>
+        <h2>À sua maneira.</h2><dl className="beta-control-list"><div><dt>W / S</dt><dd>Correr pela mira / recuar</dd></div><div><dt>MOUSE</dt><dd>Mirar · botão esquerdo para atirar</dd></div><div><dt>ESPAÇO</dt><dd>Dash em Shanghai · 2 cargas · recarga total em 5 s</dd></div><div><dt>R / E</dt><dd>Recarregar / interagir</dd></div><div><dt>Q / C</dt><dd>Girar câmera · roda para zoom</dd></div><div><dt>B / ESC / M</dt><dd>Mochila / pausa / som</dd></div></dl>
+        <AudioControls/>
+        <details className="beta-radio-log"><summary>Última transmissão · EDEN</summary><p>{s.radio}</p></details>
+        {s.session.map === 'shanghai' && <details className="beta-test-tools"><summary>Encontro de teste</summary><EncounterSelect/><button onClick={() => { s.restartMission(); }}>Reiniciar encontro</button></details>}
+        {comparacaoDisponivel() && <details className="beta-test-tools"><summary>Comparação de personagem</summary><PlayerAssetBadge/></details>}
+      </>}
+      <button className="beta-resume" onClick={() => useGameStore.setState({ isPaused: false })}>Voltar à exploração <span>ESC</span></button>
+    </PauseMenuFrame>}
     {(!s.ready || s.error) && <section className="overlay" role="status"><article><h2>{s.error ? 'Viagem interrompida' : s.session.phase === 'travelling' ? 'Viajando…' : 'Preparando o mapa…'}</h2><p>{s.error ?? 'Aguarde o carregamento da região.'}</p>{s.error && <button onClick={() => { s.setError(null); if (world && s.session.phase === 'aboard')
         s.send('depart');
     else

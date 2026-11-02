@@ -1,3 +1,5 @@
+import { recoverBackpackEnergy } from '../../game/backpackConfig';
+import { backpackEnergy, resetBackpackEnergy } from '../../state/useBackpackEnergy';
 import { advanceDash, dashEnabled } from './playerDash';
 import { constrainToWalkableAreas } from './playerMovement';
 import { playerActions } from '../../state/playerActions';
@@ -58,6 +60,8 @@ export function PlayerController({
   const { world, rigidBodyStates } = useRapier();
   const revision = useRef(useExpeditionStore.getState().session.revision);
   const blocked = useSimulationBlocked();
+  const sessionRevision = useExpeditionStore(s => s.session.revision);
+  useEffect(() => { resetBackpackEnergy(); }, [officeWorld, sessionRevision]);
   const isDialogOpen = useExpeditionStore((state) => state.panel !== null);
   const activeNpcId = useExpeditionStore((state) => state.panel === "eden" ? "eden" : null);
   const [, getKeys] = useKeyboardControls<GameControl>();
@@ -134,7 +138,8 @@ export function PlayerController({
     const translation = body.translation();
     const keys = getKeys();
     const dashNow = dashClockRef.current;
-    const isDashing = advanceDash(dashNow, !!keys[GameControl.Dash], !dashEnabled(useExpeditionStore.getState().session.map), dashUntilRef, dashCooldownUntilRef, dashHeldRef);
+    recoverBackpackEnergy(backpackEnergy, dt);
+    const isDashing = advanceDash(dashNow, !!keys[GameControl.Dash], !dashEnabled(useExpeditionStore.getState().session.map), dashUntilRef, dashCooldownUntilRef, dashHeldRef, backpackEnergy);
     dashClockRef.current += dt;
     playerActions.dashing = isDashing;
     // S2.12 · contrato pela mira: W corre, S recua, W+S neutraliza; A/D não entram.

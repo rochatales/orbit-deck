@@ -1,3 +1,4 @@
+import { canCarryDrop } from '../game/backpackConfig';
 import type { WeaponMuzzleOffset } from '../state/playerWeaponPose';
 import { ENEMY_MOTION } from './enemyMotion';
 import { newMovementRecovery, resetMovementRecovery, trackMovementGoal, updateMovementRecovery, movementPriority, MOVEMENT_RECOVERY, type MovementRecovery } from './movementRecovery';
@@ -442,7 +443,7 @@ export class CombatSimulation {
         }
         if (this.dead) return;
         for (const drop of this.drops) {
-            if (drop.active && this.canCollect(input.player, drop)) {
+            if (drop.active && this.canCollect(input.player, drop) && canCarryDrop(this, drop.kind)) {
                 drop.active = false;
                 this.sounds.emit('collect', drop.x, drop.z);
                 if (drop.kind === 'metals') this.sounds.emit('collect', drop.x, drop.z); // ferro e cobre: um evento por item

@@ -50,7 +50,7 @@ Sprints são pacotes de entrega, sem duração de calendário presumida. Cada um
 - Movimento pela mira (contrato atualizado pelo autor em 07/10/2026, implementação na S2.12; antes: W avança, S recua, A/D laterais): W/↑ corre na direção do cursor, S/↓ recua mantendo o personagem voltado ao cursor, A/D não deslocam e W + S neutralizam; mouse orienta em Marte e Shanghai, Q/C gira somente a câmera; botão esquerdo para atirar, R para recarregar, E para interagir, 1/2 para selecionar defesa, clique para posicionar e Escape para cancelar posicionamento/pausar conforme o contexto. Disparo e implantação são modos mutuamente exclusivos.
 - Rifle simples com dano instantâneo por raycast, bloqueado por paredes; traçador visual. Dano, cadência, carregador e reserva em configuração, calibrados no sprint 2.
 - Materiais de inimigos coletados por proximidade; depósitos, placas, nave e laboratório por interação. Pilhas de material até 30, quatro espaços iniciais.
-- Sem cura ativa no primeiro teste: HP e dano ajustados para uma missão curta; reavaliar após playtest. Sem stamina.
+- Sem cura ativa no primeiro teste: HP e dano ajustados para uma missão curta; reavaliar após playtest. Decisão do autor em 02/11/2026: energia da mochila limita o Dash a duas cargas, com regeneração total em 5 s; barra azul no HUD beta. Poderes futuros permanecem fora do escopo.
 - Ao perder, reiniciar com kit inicial e HP restaurado. Equipamentos e progresso já consolidados no hub não são perdidos.
 - Fechar/abandonar uma missão descarta seu loot temporário; ao reabrir, retornar ao hub. Sem retomada de onda.
 - Máquina em posição predefinida. Sem construção livre ou catálogo genérico de receitas.
@@ -188,7 +188,7 @@ Saída: três ondas concluíveis; minas/barreiras têm utilidade percebida; paus
 
 Objetivo: ligar combate e exploração à recuperação de recursos.
 
-- [ ] S4.1 Implementar inventário temporário com materiais, munição e dispositivos separados; quantidade empilhada e capacidade visíveis.
+- [ ] S4.1 Implementar inventário temporário com materiais, munição e dispositivos separados; quantidade empilhada e capacidade visíveis. *Parte antecipada por pedido do autor em 02/11/2026: capacidade inicial de 30 kg para recursos (ferro 0,5 kg; cobre 0,3; titânio 0,4; orgânica 0,2), peso real no HUD, quatro espaços de equipamento e mochila acessível por B. Não encerra dispositivos, extração nem persistência. [Handoff](handoffs/s6.6-hud-beta.md).*
 - [ ] S4.2 Garantir drops: cada robô entrega 1 ferro + 1 cobre; pequenos entregam 1 matéria orgânica; grandes entregam 2. Evitar drop duplicado por morte/dano simultâneo.
 - [ ] S4.3 Implementar dois depósitos com 2 ferro + 2 cobre cada e seis placas escondidas em pontos alcançáveis. Persistir loot no mapa até coleta/fim da tentativa.
 - [ ] S4.4 Mostrar objetivo da introdução: 20 ferro, 20 cobre, 4 placas, 10 matérias orgânicas. Garantir capacidade para a carga completa; evitar descarte irreversível de itens obrigatórios no tutorial.
@@ -233,7 +233,7 @@ Objetivo: transformar volumes provisórios em elementos reconhecíveis sem alter
 - [ ] S6.3 Compor Shanghai em ruínas com elementos urbanos reconhecíveis e rotas claras; evitar coberturas que ocultem inimigos/coletáveis da câmera.
 - [ ] S6.4 Ajustar animações de movimento, disparo, dano, morte e investida. Manter antecipação de ataques e diferenciação de categorias.
 - [ ] S6.5 Adaptar a apresentação do laboratório marciano e tornar a instalação da máquina um momento visual destacado.
-- [ ] S6.6 Refinar HUD e mensagens de rádio no estilo EDEN Holographic, após S6.14 e as interfaces funcionais dos Sprints 3–4: vida, pente/reserva explícitos, ondas, defesas, objetivo e interação. Manter centro de combate livre, rádio único por prioridade, sinais além de cor e alerta abaixo de 30% de vida. Valores reais, contraste e efeitos reduzidos conforme o [plano de UI](sprint-6/PLANO_UI.md).
+- [ ] S6.6 Refinar HUD e mensagens de rádio no estilo EDEN Holographic, após S6.14 e as interfaces funcionais dos Sprints 3–4: vida, pente/reserva explícitos, ondas, defesas, objetivo e interação. Manter centro de combate livre, rádio único por prioridade, sinais além de cor e alerta abaixo de 30% de vida. Valores reais, contraste e efeitos reduzidos conforme o [plano de UI](sprint-6/PLANO_UI.md). *Antecipação solicitada pelo autor em 02/11/2026: HUD beta enxuto, vida vermelha, energia azul, quatro slots, ícones ilustrados, carga visível e painéis de teste/radio no menu. Aceite visual pendente; não encerra S6.14–S6.18. [Handoff](handoffs/s6.6-hud-beta.md).*
 - [ ] S6.7 Organizar fontes/exportações e otimizar geometria antes da texturização. Colisores continuam simples e separados da arte.
 
 - [ ] S6.8 Preparar pipeline de assets apenas para o elenco ativo: explorador, EDEN quando sua apresentação exigir e três categorias de inimigos. Otimizar topologia preservando silhueta, UV, rig e clipes; validar articulações antes de trocar os arquivos ativos. Modelos originais permanecem preservados.

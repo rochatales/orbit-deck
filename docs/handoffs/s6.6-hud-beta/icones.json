@@ -1,0 +1,30 @@
+{
+  "generator": "image_gen (ferramenta nativa), skill imagegen",
+  "file": "src/assets/ui/item-icons-beta-v001.png",
+  "sha256": "e19d55672f08f8d00401f62c138fd0d7d08aef341391b97b343e7544747507d9",
+  "width": 1774,
+  "height": 887,
+  "grid": [
+    4,
+    2
+  ],
+  "transparent": true,
+  "cells": [
+    [
+      "iron",
+      "copper",
+      "titanium",
+      "organic"
+    ],
+    [
+      "rifle",
+      "ammo",
+      "backpack",
+      "medical"
+    ]
+  ],
+  "unused": [
+    "medical"
+  ],
+  "prompt": "Create ONE production-ready game UI icon SPRITE ATLAS, transparent background, canvas 2:1 aspect ratio. Precisely 4 equal columns x 2 equal rows, all 8 cell centers perfectly aligned on a uniform grid, each icon entirely contained in its own equal square cell with generous 15% transparent margins, no overlap. TOP ROW left to right: 1 strapped bundle of silver iron ingots, 2 copper wire coil on a dark spool, 3 three titanium ingots warm silver/gold with a small industrial band, 4 organic matter pod with restrained green bioluminescent cells. BOTTOM ROW left to right: 5 futuristic laser rifle orange ivory graphite with small icy blue details, 6 dark olive rifle ammo magazine with a couple visible brass cartridges, 7 compact futuristic astronaut backpack dark graphite ivory and small blue circular reactor, 8 small ivory red emergency medical kit. Style: hand-painted stylized isometric sci-fi survival inventory item illustrations, chunky black outlines, beautifully readable silhouette, layered brushed-metal shading, restrained highlights, matches the user's illustrated Horda Survivor item-icon sheet rather than neon line pictograms. Consistent 3/4 isometric view and lighting for all objects. Every icon colorful in its authentic material color; NO global green tint. No frames, no labels, no letters, no numbers, no logos, no decoration between cells, no text. The atlas will be consumed directly by CSS background-position as 4 columns by 2 rows. True transparent background."
+}
