@@ -53,6 +53,10 @@ base atual para novas tarefas** enquanto esse checkout não for reconciliado.
 A consolidação conserva ambos os históricos, sem rebase/cherry-pick e sem editar
 código em relação ao preview aprovado. [Escopo e publicação](./handoffs/consolidacao-validada-2026-11-02.md).
 
+## Poeira de passos · S3.11 parcial · 02/11/2026
+
+Pedido do autor: poeira avermelhada em Marte e cinza em Shanghai nos passos do explorador. Codex implementa em `rochatales/s3.11-poeira-passos`, worktree própria. Base de continuidade da prévia local: **`a8ae4e8de4e71d6119278473248d71f35c9f4762`**, linha commitada com áudio e portas sincronizadas; a base remota publicada permanece `5bc240f`. Preservar o áudio ao testar o efeito na mesma prévia. Arquivos: novo pool/renderer de poeira, sinal de passos do jogador, composição de cena, testes e handoff. Aceite visual do autor pendente. Sem push ou merge nesta rodada; data center ainda aguarda GLB acessível no Mac.
+
 ## Tarefas
 
 Preencha uma linha por tarefa antes de iniciar. "Base" é o commit/branch do
