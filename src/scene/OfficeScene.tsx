@@ -1,3 +1,4 @@
+import { WorldInteractionBubbles } from '../interactions/WorldInteractionBubbles';
 import { PlayerStepDust } from '../characters/player/PlayerStepDust';
 import { DawnBackground } from './DawnBackground';
 import { PlayerVisorLight } from './PlayerVisorLight';
@@ -42,6 +43,7 @@ export function OfficeScene({ world, map }: {
     <PlayerStepDust key={`dust-${map}-${revision}`} world={world} map={map}/>
     {map === 'shanghai' && <><CombatScene world={world}/><PlayerVisorLight/></>}
     {map === 'mars' ? <MarsColony world={world}/> : <Spacecraft map={map}/>}
+    <WorldInteractionBubbles key={`interactions-${map}-${revision}`} map={map} world={world}/>
     <PlayerReticle key={`reticle-${revision}`} world={world} combat={map === 'shanghai'}/>
   </></ShanghaiAssetGate></Suspense>;
 }

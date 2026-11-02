@@ -170,3 +170,12 @@ nav button:hover:not(:disabled), .secondary:hover:not(:disabled) { color: #09232
 .audio-controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 12px 0; border: 1px solid #66e6ff55; }
 .audio-controls label { display: flex; gap: 10px; align-items: center; }
 .audio-controls input { width: 130px; }
+
+/* Balão mundial compartilhado: Sintetizadora, nave, caixas e NPCs. */
+.interaction-bubble { position: relative; width: 235px; padding: 12px; background: #20282ded; color: #eee4cd; border: 1px solid #8bc9cc; border-radius: 8px; box-shadow: 0 6px 20px #0005; animation: interaction-appear .18s ease-out; }
+.interaction-bubble::after { content: ''; position: absolute; left: calc(50% - 6px); bottom: -7px; width: 12px; height: 12px; background: #20282d; border-right: 1px solid #8bc9cc; border-bottom: 1px solid #8bc9cc; transform: rotate(45deg); }
+.interaction-bubble button { width: 100%; padding: 9px 10px; border-radius: 4px; letter-spacing: .03em; font-size: 11px; }
+.interaction-bubble button + button { margin-top: 6px; }
+.interaction-bubble p { font-size: 12px; margin: 10px 0; }
+@keyframes interaction-appear { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .interaction-bubble { animation: none; } }
