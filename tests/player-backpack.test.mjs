@@ -36,11 +36,7 @@ test('Mochila: encaixe rígido nas costas acompanha todos os clipes, sem alterar
    assert.ok(relative.elements.every((v,k)=>Math.abs(v-local.elements[k])<1e-6),clip.name);
    assert.ok(player.scene.getObjectByName('mixamorigSpine2').quaternion.equals(original));
   }
-  if(clip.name==='Idle'){
-   mixer.setTime(0);character.updateMatrixWorld(true);const b=new Box3().setFromObject(pack);
-   assert.ok(Math.abs(b.min.y-.532)<1e-5&&Math.abs(b.max.y-1.066)<1e-5);
-   assert.ok(Math.abs(b.min.z+.384)<1e-5&&Math.abs(b.max.z+.112)<1e-5);
-  }
+
   detachBackpack(pack);detachBackpack(pack);assert.equal(pack.parent,null);
  }
  assert.equal(asset.scene.parent,null);assert.equal(attachBackpack(new Group(),asset.scene.clone(true)),false);
@@ -66,4 +62,23 @@ test('Mochila neon: uma luz ciano ilumina ao redor e segue o tronco sem tocar no
  mixer.timeScale=0;const paused=light.getWorldPosition(new Vector3());mixer.update(1);character.updateMatrixWorld(true);assert.ok(light.getWorldPosition(new Vector3()).equals(paused));
  detachBackpack(pack);assert.equal(character.getObjectByName('BackpackNeonLight'),undefined);
  let disposed=0;visual.materials[0].addEventListener('dispose',()=>disposed++);visual.materials.forEach(m=>m.dispose());assert.equal(disposed,1);
+});
+
+
+test('Mochila: Breathing_Idle centralizado nas costas, 4 cm acima e sem mudar a profundidade',()=>{
+ const character=clone(player.scene),pack=asset.scene.clone(true),mixer=new AnimationMixer(character);
+ mixer.clipAction(player.animations.find(c=>c.name==='Idle_Colony')).play();
+ attachBackpack(character,pack);mixer.update(0);character.updateMatrixWorld(true);
+ const old=asset.scene.clone(true),historical=JSON.parse(fs.readFileSync('art-source/player-backpack/notas/encaixe-v001.json'));
+ attachBackpack(character,old);old.position.fromArray(historical.position);character.updateMatrixWorld(true);
+ const center=new Box3().setFromObject(pack).getCenter(new Vector3()),before=new Box3().setFromObject(old).getCenter(new Vector3());
+ const left=character.getObjectByName('mixamorigLeftArm').getWorldPosition(new Vector3());
+ const right=character.getObjectByName('mixamorigRightArm').getWorldPosition(new Vector3());
+ assert.ok(left.x>right.x,'+X é a esquerda anatômica do astronauta');
+ assert.ok(Math.abs(center.x-(left.x+right.x)/2)<.005,'centro entre os ombros, sem viés para o direito');
+ assert.ok(center.x-before.x>.065&&center.x-before.x<.075,'deslocamento para a esquerda de aproximadamente 7 cm');
+ assert.ok(Math.abs(center.y-before.y-.04)<1e-6,'elevação de 4 cm');
+ assert.ok(Math.abs(center.z-before.z)<1e-6,'profundidade preservada');
+ assert.ok(pack.quaternion.equals(old.quaternion)&&pack.scale.equals(old.scale),'orientação e tamanho preservados');
+ detachBackpack(pack);detachBackpack(old);
 });

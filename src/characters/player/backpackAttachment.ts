@@ -1,10 +1,10 @@
 import { PointLight, type Mesh, type MeshStandardMaterial, type Object3D } from 'three';
 import { BACKPACK_LIGHT } from '../../scene/lightingConfig';
 
-/** Encaixe no Spine2, medido no Idle do astronauta v007. Compensa a escala do rig.
- * No espaço do personagem: centro (0; 0,80; -0,134), frente da mochila em -0,112 m. */
+/** Encaixe rígido no Spine2. Recentrado no Breathing_Idle do astronauta v009:
+ * +7,10 cm à esquerda do personagem e +4 cm em altura, sem mudar a profundidade. */
 export const BACKPACK_TRANSFORM = {
-  position: [-0.033206232505322786, -0.060893083979673024, -0.05718074044161536],
+  position: [0.00951255261126631, -0.03571622669753994, -0.05930778580974025],
   quaternion: [-0.16821674154672414, 0.1683221972742959, -0.02122256794554227, 0.9710408680447891],
   scale: [0.6091301360096101, 0.6091299448734547, 0.6091299905071628]
 } as const;
