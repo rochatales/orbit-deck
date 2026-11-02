@@ -1,3 +1,4 @@
+import { useStoredMedicalKit } from '../game/props/medicalKitInteraction';
 import { useWeaponStore } from '../state/useWeaponStore';
 import { equipPlayerWeapon } from '../characters/player/WeaponControls';
 import { MACHETE } from '../combat/melee';
@@ -43,9 +44,9 @@ export function GameplayHud({ combat, openBackpack }: { combat: boolean; openBac
       </aside>
       <aside className="beta-loadout" aria-label="Equipamentos · quatro espaços">
         <div className="beta-equipment-slots">
-          {Array.from({ length: BACKPACK.equipmentSlots }, (_, slot) => <button key={slot} disabled={!combat || slot > 1} onClick={() => equipPlayerWeapon(slot === 0 ? 'rifle' : 'machete')} className={`beta-equipment-slot ${slot === (machete ? 1 : 0) ? 'is-equipped' : slot > 1 ? 'is-empty' : ''}`} aria-pressed={slot < 2 ? slot === (machete ? 1 : 0) : undefined} title={slot === 0 ? 'Rifle laser · 1' : slot === 1 ? 'Facão · 2' : 'Espaço de equipamento vazio'}>
-            {slot < 2 ? <ItemArtwork item={slot === 0 ? 'rifle' : 'machete'}/> : <span className="beta-empty-mark" aria-hidden="true">+</span>}
-            <kbd>{slot + 1}</kbd><span className="sr-only">{slot === 0 ? 'Rifle laser' : slot === 1 ? 'Facão' : `Espaço ${slot + 1} vazio`}</span>
+          {Array.from({ length: BACKPACK.equipmentSlots }, (_, slot) => <button key={slot} disabled={!combat || slot > 2 || (slot === 2 && (s.medkits === 0 || s.hp >= COMBAT.playerHp))} onClick={() => slot === 2 ? useStoredMedicalKit() : equipPlayerWeapon(slot === 0 ? 'rifle' : 'machete')} className={`beta-equipment-slot ${slot === (machete ? 1 : 0) ? 'is-equipped' : slot > 2 ? 'is-empty' : ''}`} aria-pressed={slot < 2 ? slot === (machete ? 1 : 0) : undefined} title={slot === 0 ? 'Rifle laser · 1' : slot === 1 ? 'Facão · 2' : slot === 2 ? `Kit médico · +50 HP · 3 · ${s.medkits} unidades` : 'Espaço de equipamento vazio'}>
+            {slot < 3 ? <ItemArtwork item={slot === 0 ? 'rifle' : slot === 1 ? 'machete' : 'medical'}/> : <span className="beta-empty-mark" aria-hidden="true">+</span>}
+            {slot === 2 && <b className="beta-kit-count">×{combat ? s.medkits : 0}</b>}<kbd>{slot + 1}</kbd><span className="sr-only">{slot === 0 ? 'Rifle laser' : slot === 1 ? 'Facão' : slot === 2 ? 'Usar kit médico · 3' : `Espaço ${slot + 1} vazio`}</span>
           </button>)}
         </div>
         <button className={`beta-backpack ${full ? 'is-full' : ''}`} onClick={openBackpack} aria-label="Abrir mochila · B" title="Mochila · B">
@@ -74,7 +75,7 @@ export function BackpackContents({ combat }: { combat: boolean }) {
     <div className="beta-resource-grid">{([['iron', 'Ferro'], ['copper', 'Cobre'], ['titanium', 'Titânio'], ['organic', 'Matéria orgânica']] as const).map(([kind, label]) => <div className="beta-resource" key={kind}>
       <ItemArtwork item={kind}/><b>×{cargo[kind]}</b><span>{label}</span><small>{BACKPACK.itemKg[kind].toFixed(1).replace('.', ',')} kg / un.</small>
     </div>)}</div>
-    <p>Materiais empilhados na mochila. Os quatro espaços rápidos ficam reservados para equipamentos.</p>
+    <p>Materiais empilhados na mochila. Kits médicos: {combat ? s.medkits : 0} · use 3 durante a exploração para recuperar 50 de vida.</p>
     <small>Carga temporária desta tentativa. Sem espaço, o recurso permanece no chão. Munição e cura não ocupam essa carga.</small>
   </section>;
 }

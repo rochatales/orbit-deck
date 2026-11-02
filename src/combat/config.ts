@@ -1,3 +1,4 @@
+import { SHANGHAI_MEDICAL_KITS, MEDICAL_KIT } from '../game/props/medicalKit';
 import phase01 from '../assets/shanghai-fase01/layout.json';
 import { isShanghaiPhase01 } from '../game/shanghai/previewMode';
 /** First playable tuning; units are metres, seconds and hit points. */
@@ -19,7 +20,7 @@ export const COMBAT = {
         directChase: 9,
         waypointReach: 0.5, stuckAdvance: 1.2,
     },
-    pickupRadius: 1.1, heartHeal: 50, alertDuration: 1.5,
+    pickupRadius: 1.1, heartHeal: MEDICAL_KIT.heal, alertDuration: 1.5,
     hearts: [{ x: -5, z: 7 }, { x: 5, z: -5 }],
     grid: 0.5, fixedStep: 1 / 60,
     spawns: [{ x: 0, z: -3 }, { x: -5, z: -8 }, { x: 5, z: -8 }, { x: -14, z: 1 }, { x: 14, z: 1 }],
@@ -103,11 +104,11 @@ const CURRENT_LAYOUT: EncounterLayout = {
 const exit = phase01.exit;
 /**
  * Fase 01 (S6.3): 32 spawns e 4 patrulhas exportados com o mapa. Encontros
- * pequenos usam os spawns mais próximos da chegada; corações nos cruzamentos
- * das rotas a oeste e a leste do desembarque (fora da reserva de pouso).
+ * pequenos usam os spawns mais próximos da chegada; quatro kits médicos
+ * distribuídos entre norte/sul e oeste/leste, fora da reserva de pouso.
  */
 const PHASE01_LAYOUT: EncounterLayout = {
-    routes: phase01.patrolRoutes, spawns: phase01.spawns, hearts: [{ x: -17.5, z: 9.5 }, { x: 17.5, z: 9.5 }],
+    routes: phase01.patrolRoutes, spawns: phase01.spawns, hearts: SHANGHAI_MEDICAL_KITS,
     small: [...phase01.spawns].sort((a, b) => Math.hypot(a.x - exit.x, a.z - exit.z) - Math.hypot(b.x - exit.x, b.z - exit.z)),
     arrival: { x: exit.x, z: exit.z },
 };

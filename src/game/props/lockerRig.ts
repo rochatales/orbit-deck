@@ -1,3 +1,4 @@
+import { createSupplyBeacon } from './supplyLighting';
 import { AnimationClip, AnimationMixer, QuaternionKeyframeTrack, Group, LoopOnce, Mesh, Quaternion, Vector3, type Object3D } from 'three';
 import type { SupplyCrate } from '../../combat/simulation';
 import { SUPPLY_CRATE } from './supplyCrate';
@@ -26,7 +27,9 @@ export function closedLockerClip(source: AnimationClip) {
 export function createLockerRig(source: Object3D, animations: AnimationClip[], crate: SupplyCrate, surfaceY: number) {
   const visual = source.clone(true), root = new Group();
   root.name = crate.id; root.position.set(crate.x, surfaceY, crate.z); root.rotation.y = crate.angle ?? 0;
+  const beacon = createSupplyBeacon('locker');
   root.add(visual);
+  (visual.getObjectByName('Cabinet') ?? visual).add(beacon.mesh);
   visual.traverse(node => { const mesh = node as Mesh; if (mesh.isMesh) { mesh.castShadow = true; mesh.receiveShadow = true; } });
   const original = animations.find(clip => clip.name === 'Door_Open');
   if (!original) throw new Error('Cabine de suprimentos sem Door_Open');
@@ -36,5 +39,5 @@ export function createLockerRig(source: Object3D, animations: AnimationClip[], c
   return { root, update() {
     if (last === crate.elapsed) return;
     mixer.setTime(crate.elapsed / SUPPLY_CRATE.duration * clip.duration); last = crate.elapsed;
-  }, dispose() { mixer.stopAllAction(); mixer.uncacheRoot(visual); } };
+  }, dispose() { mixer.stopAllAction(); mixer.uncacheRoot(visual); beacon.dispose(); } };
 }

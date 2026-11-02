@@ -1,3 +1,4 @@
+import { MEDICAL_KIT } from '../game/props/medicalKit';
 import { MACHETE, meleeCanHit, type PlayerWeapon } from './melee';
 import { canCarryDrop } from '../game/backpackConfig';
 import type { WeaponMuzzleOffset } from '../state/playerWeaponPose';
@@ -176,7 +177,9 @@ export class CombatSimulation {
     titanium = 0;
     organic = 0;
     drops: ResourceDrop[];
+    /** Nome legado mantido para compatibilidade; agora são kits interativos. */
     hearts: Pickup[];
+    medkits = 0;
     elapsed = 0;
     /** Tamanho de cada horda; vazio no encontro fixo (patrulhas presentes desde o início). */
     waves: readonly number[] = [];
@@ -278,7 +281,7 @@ export class CombatSimulation {
         return n;
     }
     get cleared() { return this.wave >= this.waves.length && this.waveLeft === 0 && this.alive === 0; }
-    get snapshot() { return { hp: this.hp, iron: this.iron, copper: this.copper, titanium: this.titanium, organic: this.organic, ammo: this.ammo, reserve: this.reserve, reloading: this.reloadLeft > 0, dead: this.dead, kills: this.kills, total: this.total, cleared: this.cleared, damage: this.damageFlash > 0, hit: this.hitFlash > 0, wave: this.wave, waves: this.waves.length, nextWave: Math.ceil(this.waveLeft), alive: this.alive }; }
+    get snapshot() { return { hp: this.hp, medkits: this.medkits, iron: this.iron, copper: this.copper, titanium: this.titanium, organic: this.organic, ammo: this.ammo, reserve: this.reserve, reloading: this.reloadLeft > 0, dead: this.dead, kills: this.kills, total: this.total, cleared: this.cleared, damage: this.damageFlash > 0, hit: this.hitFlash > 0, wave: this.wave, waves: this.waves.length, nextWave: Math.ceil(this.waveLeft), alive: this.alive }; }
     /**
      * Próxima horda: `count` pontos da borda, um por setor igual do perímetro, com o
      * início girando a cada horda (pontos diferentes). Em cada setor, o primeiro ponto
@@ -310,7 +313,6 @@ export class CombatSimulation {
             r.repath = (i % 10) * COMBAT.fixedStep;
             r.angle = Math.atan2(player.x - p.x, player.z - p.z);
         }
-        for (const heart of this.hearts) heart.active = true;
         const need = Math.ceil(requiredHits * COMBAT.hordes.ammoMargin);
         if (this.ammo + this.reserve < need) this.reserve = need - this.ammo;
     }
@@ -325,6 +327,28 @@ export class CombatSimulation {
         if (paused || this.dead) return false;
         const crate = this.nearbySupplyCrate(player);
         return !!crate && openCrate(crate, player.x, player.z, crate.marker.x, crate.marker.z);
+    }
+    nearbyMedicalKit(player: Position): Pickup | undefined {
+        if (this.dead || !Number.isFinite(player.x + player.z)) return;
+        let nearest: Pickup | undefined, distance = Infinity;
+        for (const kit of this.hearts) {
+            const d = Math.hypot(player.x - kit.x, player.z - kit.z);
+            if (kit.active && d <= MEDICAL_KIT.interactionRadius && d < distance && clearSegment(player, kit, this.terrain, 0)) { nearest = kit; distance = d; }
+        }
+        return nearest;
+    }
+    collectMedicalKit(player: Position, paused = false): boolean {
+        if (paused) return false;
+        const kit = this.nearbyMedicalKit(player);
+        if (!kit) return false;
+        kit.active = false; this.medkits++;
+        this.sounds.emit('collect', kit.x, kit.z);
+        return true;
+    }
+    useMedicalKit(paused = false): boolean {
+        if (paused || this.dead || this.medkits <= 0 || this.hp >= COMBAT.playerHp) return false;
+        this.hp = Math.min(COMBAT.playerHp, this.hp + MEDICAL_KIT.heal); this.medkits--;
+        return true;
     }
     private canCollect(player: Position, pickup: Position) {
         return Math.hypot(player.x - pickup.x, player.z - pickup.z) <= COMBAT.pickupRadius
@@ -464,13 +488,6 @@ export class CombatSimulation {
                 if (drop.kind === 'organic') this.organic++;
                 else if (drop.kind === 'titanium') this.titanium++;
                 else { this.iron++; this.copper++; }
-            }
-        }
-        for (const heart of this.hearts) {
-            if (heart.active && this.hp < COMBAT.playerHp && this.canCollect(input.player, heart)) {
-                heart.active = false;
-                this.sounds.emit('collect', heart.x, heart.z);
-                this.hp = Math.min(COMBAT.playerHp, this.hp + COMBAT.heartHeal);
             }
         }
         if (this.waves.length) {

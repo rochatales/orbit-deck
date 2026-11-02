@@ -1,3 +1,5 @@
+import { MedicalKitBubbles } from '../interactions/MedicalKitBubbles';
+import { SupplyBeaconLights } from '../game/props/SupplyBeaconLights';
 import { HealthPickups } from './HealthPickups';
 import { useWeaponStore } from '../state/useWeaponStore';
 import { EnemyIndicators } from './enemyIndicators';
@@ -211,6 +213,8 @@ export function CombatScene({ world }: {
         <mesh position={[0, -0.16, 0]}><sphereGeometry args={[0.075, 8, 6]}/><meshBasicMaterial color="#ffdb57"/></mesh>
       </Billboard>
     </group>)}
+    <MedicalKitBubbles pickups={simulation.hearts} height={world.surfaceHeight}/>
+    <SupplyBeaconLights kits={simulation.hearts} crates={simulation.crates} height={world.surfaceHeight}/>
     <HealthPickups pickups={simulation.hearts} surfaceHeight={world.surfaceHeight}/>
     {[0, 1, 2].map(i => <mesh key={i} visible={false} ref={m => { tracers.current[i] = m; }}><cylinderGeometry args={[COMBAT_VFX.tracerRadius, COMBAT_VFX.tracerRadius, 1, 8]}/><meshBasicMaterial color={[2,2,2]} toneMapped={false}/><mesh><cylinderGeometry args={[COMBAT_VFX.tracerHaloRadius,COMBAT_VFX.tracerHaloRadius,1,8]}/><meshBasicMaterial color="#ffe052" toneMapped={false} transparent opacity={COMBAT_VFX.tracerHaloOpacity} blending={AdditiveBlending} depthWrite={false}/></mesh></mesh>)}
   </>;

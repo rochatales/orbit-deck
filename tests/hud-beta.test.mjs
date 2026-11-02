@@ -39,7 +39,7 @@ test('HUD beta: vida vermelha/energia azul, quatro slots, mochila e munição; s
     assert.equal((html.match(/class="beta-equipment-slot /g) ?? []).length, 4);
     assert.match(html, /beta-vital life/); assert.match(html, /beta-vital energy/);
     assert.match(html, /Abrir mochila · B/); assert.match(html, /Peso da mochila/);
-    assert.match(html, /Munição do rifle/); assert.match(html, /item-icons-beta-v001.png/);
+    assert.match(html, /Munição do rifle/); assert.match(html, /Usar kit médico · 3/); assert.match(html, /beta-kit-count/); assert.match(html, /item-icons-beta-v001.png/);
     assert.doesNotMatch(html, /combat-hud|equipment-inventory|hud-ident|ITENS \/ EQUIPAMENTOS/);
   }
   const life = render(VitalBar, { label: 'VIDA', value: 23, max: 100, kind: 'life' });

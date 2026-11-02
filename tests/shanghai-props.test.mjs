@@ -58,22 +58,22 @@ test('Shanghai cabines: fechadas até E, porta normalizada 0→108°, instância
  left.dispose();right.dispose();
 });
 
-test('Shanghai kits: modelo de 0,6 m, anel no piso, flutuação uniforme sem giro e coleta some com o item',()=>{
+test('Shanghai kits: modelo de 0,6 m, no solo sem anel/flutuação/giro e coleta some com o item',()=>{
  for(const floor of [0,.12,.148,.25]){
   const pickup={x:0,z:0,active:true},rig=createMedkitRig(medkit.scene,pickup,floor,0),initial=rig.item.quaternion.clone();
-  assert.equal(rig.root.position.y+rig.ringY,floor+.006);
-  for(const time of [0,.4,.8,1.2,1.6]){rig.update(time);assert.ok(rig.item.quaternion.equals(initial));assert.ok(rig.item.position.y>=.29&&rig.item.position.y<=.41);}
+  assert.equal(rig.root.position.y,floor);assert.equal('ringY' in rig,false);
+  for(const time of [0,.4,.8,1.2,1.6]){rig.update(time);assert.ok(rig.item.quaternion.equals(initial));assert.equal(rig.item.position.y,0);}
   rig.update(0);rig.root.updateMatrixWorld(true);const bounds=new Box3().setFromObject(rig.item);assert.ok(Math.abs(bounds.getSize(new Vector3()).x-.6)<1e-6);
-  pickup.active=false;rig.update(0);assert.equal(rig.root.visible,false);
+  pickup.active=false;rig.update(0);assert.equal(rig.root.visible,false);rig.dispose();
  }
  const code=fs.readFileSync('src/combat/CombatScene.tsx','utf8');assert.match(code,/<HealthPickups/);assert.doesNotMatch(code,/heartShape|shapeGeometry/);
 });
 
-test('Shanghai kits: +50 automático, sem gastar com vida cheia, pausa/parede bloqueiam e retry restaura',()=>{
+test('Shanghai kits: coleta por E guarda sem curar; uso separado e retry restaura',()=>{
  const world=createPhase01Terrain(),s=new CombatSimulation(world,1,encounterLayout(true));s.robots.forEach(r=>r.hp=0);const h=s.hearts[0];
  const input={player:h,aim:{x:0,z:0},firing:false,reload:false};s.step(1/60,input);assert.equal(h.active,true);
  s.hp=40;s.step(1/60,input,true);assert.equal(s.hp,40);assert.equal(h.active,true);
- s.step(1/60,input);assert.equal(s.hp,90);assert.equal(h.active,false);s.step(1/60,input);assert.equal(s.hp,90);
+ s.step(1/60,input);assert.equal(s.hp,40);assert.equal(h.active,true);assert.equal(s.collectMedicalKit(h),true);assert.equal(s.medkits,1);assert.equal(s.hp,40);assert.equal(s.useMedicalKit(),true);assert.equal(s.hp,90);assert.equal(h.active,false);s.step(1/60,input);assert.equal(s.hp,90);
  assert.equal(s.sounds.slots.slice(0,s.sounds.count).filter(e=>e.type==='collect').length,1);
  const fresh=new CombatSimulation(world,1,encounterLayout(true));assert.ok(fresh.hearts.every(h=>h.active));
 });

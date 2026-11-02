@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { COMBAT, ENCOUNTER_CHOICES, HORDE_ENCOUNTER, encounterTotal, type EncounterChoice } from '../combat/config';
 import type { CombatSimulation } from '../combat/simulation';
-const initial = { hp: COMBAT.playerHp as number, ammo: COMBAT.rifle.magazine as number, reserve: COMBAT.rifle.reserve as number, reloading: false, dead: false, kills: 0, iron: 0, copper: 0, titanium: 0, organic: 0, total: encounterTotal(HORDE_ENCOUNTER), cleared: false, damage: false, hit: false, wave: 0, waves: 0, nextWave: 0, alive: 0 };
+const initial = { medkits: 0, hp: COMBAT.playerHp as number, ammo: COMBAT.rifle.magazine as number, reserve: COMBAT.rifle.reserve as number, reloading: false, dead: false, kills: 0, iron: 0, copper: 0, titanium: 0, organic: 0, total: encounterTotal(HORDE_ENCOUNTER), cleared: false, damage: false, hit: false, wave: 0, waves: 0, nextWave: 0, alive: 0 };
 export type CombatHud = typeof initial;
 interface CombatState extends CombatHud {
     nearCrate: boolean;

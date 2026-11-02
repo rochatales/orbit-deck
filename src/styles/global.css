@@ -344,3 +344,4 @@ nav button:hover:not(:disabled), .secondary:hover:not(:disabled) { color: #09232
 .beta-equipment-slot:disabled { opacity: 1; }
 .beta-equipment-slot:hover:not(:disabled) { background: #304451; box-shadow: 0 0 10px #8fb2c233; }
 .beta-equipment-slot.is-empty { opacity: .5; }
+.beta-equipment-slot .beta-kit-count { position: absolute; right: 4px; bottom: 4px; color: #f6e2df; font-size: 10px; font-weight: 500; text-shadow: 0 1px 4px #000; }
