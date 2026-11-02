@@ -67,6 +67,8 @@ Pedido do autor: padronizar as interações E pela Sintetizadora, com balão flu
 
 ## Luz do explorador por mapa · S6.8 · 02/11/2026
 
+**Entregue localmente em `eb3fdcc`**: 429/429, build e diff-check verdes; preview de produção na porta 4186. Handoff: `docs/handoffs/s6.8-luz-visor-colonia.md`. Validação visual pendente do autor; sem sessão de jogo pelo agente.
+
 Pedido do autor: em Marte, faixa azul abaixo do capacete e foco frontal suave; mochila totalmente sem emissão/luz. Shanghai conserva exatamente o estado atual. Codex em `rochatales/s6.8-luz-visor-colonia`, worktree própria, base da prévia local `715b70e` (balões, áudio e poeira). Código do acessório/visor, configuração de iluminação, testes e handoff; GLBs/fontes e física intactos. Base remota segue `5bc240f`. Sem push ou merge; aceite visual pendente.
 
 ## Tarefas
