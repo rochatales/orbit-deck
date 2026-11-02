@@ -65,6 +65,10 @@ Pedido do autor: Strung Out em Marte, Dov em Shanghai, mecanismo ao tentar atira
 
 Pedido do autor: padronizar as interações E pela Sintetizadora, com balão flutuante de proximidade para nave, EDEN, caixas e NPCs futuros. Codex em `rochatales/s1.3-baloes-interacao`, worktree própria, base de continuidade da prévia local `dec9d11` (músicas, arma vazia e poeira incluídas). Base remota continua `5bc240f`. Arquivos: componente/roteamento compartilhados, composição, laboratório/App e testes/handoff. Sem novos NPCs nem alteração de recompensas; sem push/merge, aceite visual do autor pendente.
 
+## Luz do explorador por mapa · S6.8 · 02/11/2026
+
+Pedido do autor: em Marte, faixa azul abaixo do capacete e foco frontal suave; mochila totalmente sem emissão/luz. Shanghai conserva exatamente o estado atual. Codex em `rochatales/s6.8-luz-visor-colonia`, worktree própria, base da prévia local `715b70e` (balões, áudio e poeira). Código do acessório/visor, configuração de iluminação, testes e handoff; GLBs/fontes e física intactos. Base remota segue `5bc240f`. Sem push ou merge; aceite visual pendente.
+
 ## Tarefas
 
 Preencha uma linha por tarefa antes de iniciar. "Base" é o commit/branch do
