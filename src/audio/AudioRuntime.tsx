@@ -14,6 +14,7 @@ export function AudioLifecycle() {
         let focused = document.hasFocus();
         const update = () => {
             const blocked = !focused || document.hidden || simulationBlocked();
+            audio.setMap(useExpeditionStore.getState().session.map);
             audio.setBlocked(blocked);
             if (blocked) { playerSounds.clear(); combatRuntime.simulation?.sounds.clear(); }
         };
@@ -34,6 +35,7 @@ export function AudioLifecycle() {
             document.removeEventListener('visibilitychange', update);
             window.removeEventListener('pointerdown', gesture); window.removeEventListener('keydown', gesture); window.removeEventListener('keydown', key);
             audio.setBlocked(true); playerSounds.clear(); combatRuntime.simulation?.sounds.clear();
+            audio.setMap('mars');
         };
     }, []);
     return null;

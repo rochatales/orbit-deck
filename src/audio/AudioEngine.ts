@@ -20,7 +20,13 @@ export class AudioEngine {
     private revision = 0;
     private ready = false;
     private gateRevision = 0;
-    constructor(private factory: () => AudioContext, private files: readonly SoundFile[], private storage?: StorageLike) {
+    private ambienceActive = false;
+    private ambienceBuffer: AudioBuffer | null = null;
+    private ambienceLoading: Promise<void> | null = null;
+    private ambienceSource: AudioBufferSourceNode | null = null;
+    private ambienceOffset = 0;
+    private ambienceStartedAt = 0;
+    constructor(private factory: () => AudioContext, private files: readonly SoundFile[], private storage?: StorageLike, private ambience?: SoundFile) {
         try {
             const saved = JSON.parse(storage?.getItem(AUDIO.storageKey) ?? 'null');
             if (saved && Number.isFinite(saved.volume)) this.volume = Math.max(0, Math.min(1, saved.volume));
@@ -33,6 +39,7 @@ export class AudioEngine {
     setMuted(muted: boolean) { this.muted = muted; if (muted) this.stopAll(); this.settingsChanged(); }
     private settingsChanged() {
         if (this.master && this.context) this.master.gain.setTargetAtTime(this.muted ? 0 : this.volume, this.context.currentTime, .01);
+        this.syncAmbience();
         try { this.storage?.setItem(AUDIO.storageKey, JSON.stringify({ volume: this.volume, muted: this.muted })); } catch { /* Sem persistência: controle continua funcional. */ }
         this.revision++; this.listeners.forEach(f => f());
     }
@@ -45,7 +52,9 @@ export class AudioEngine {
         }
         // resume deve ser chamado na pilha do gesto, antes de aguardar fetch/decode.
         if (!this.blocked) await this.context.resume().catch(() => {});
+        this.prepareAmbience();
         await this.loading;
+        await this.ambienceLoading;
         if (this.blocked) await this.context.suspend().catch(() => {});
     }
     private async load() {
@@ -59,9 +68,49 @@ export class AudioEngine {
         }));
         this.ready = true;
     }
+    /** Uma faixa global, sem atenuação espacial nem disputa com as vozes de combate. */
+    setMap(map: 'mars' | 'shanghai') {
+        const active = map === 'shanghai';
+        if (this.ambienceActive === active) return;
+        this.ambienceActive = active;
+        if (!active) { this.stopAmbience(); this.ambienceOffset = 0; }
+        else { this.prepareAmbience(); this.syncAmbience(); }
+    }
+    private prepareAmbience() {
+        if (!this.context || !this.ambience || !this.ambienceActive || this.ambienceLoading) return;
+        // Carga separada: a faixa de dois minutos não atrasa a disponibilidade dos SFX.
+        this.ambienceLoading = this.loadAmbience();
+    }
+    private async loadAmbience() {
+        try {
+            const response = await fetch(this.ambience!.url);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            this.ambienceBuffer = await this.context!.decodeAudioData(await response.arrayBuffer());
+            this.syncAmbience(); // consulta o mapa/gate atual, inclusive após viagem durante o decode.
+        } catch { this.stats.decodeErrors++; }
+    }
+    private syncAmbience() {
+        if (!this.ambienceActive || this.blocked || this.muted) { this.stopAmbience(); return; }
+        const c = this.context;
+        if (!c || !this.ambienceBuffer || !this.master || this.ambienceSource) return;
+        const source = c.createBufferSource(), gain = c.createGain();
+        source.buffer = this.ambienceBuffer; source.loop = true;
+        gain.gain.setValueAtTime(0, c.currentTime);
+        gain.gain.linearRampToValueAtTime(AUDIO.shanghaiAmbience.volume, c.currentTime + AUDIO.shanghaiAmbience.fadeIn);
+        source.connect(gain); gain.connect(this.master);
+        source.onended = () => { source.disconnect(); gain.disconnect(); };
+        this.ambienceSource = source; this.ambienceStartedAt = c.currentTime;
+        source.start(0, this.ambienceOffset);
+    }
+    private stopAmbience() {
+        if (!this.ambienceSource || !this.context || !this.ambienceBuffer) return;
+        this.ambienceOffset = (this.ambienceOffset + this.context.currentTime - this.ambienceStartedAt) % this.ambienceBuffer.duration;
+        this.ambienceSource.stop(); this.ambienceSource = null;
+    }
     setBlocked(blocked: boolean) {
         if (blocked === this.blocked) return;
         this.blocked = blocked;
+        this.syncAmbience();
         const revision = ++this.gateRevision;
         if (blocked) this.stopAll();
         const c = this.context;

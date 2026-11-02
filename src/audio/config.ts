@@ -2,6 +2,7 @@ import type { SoundEvent } from './events';
 export const AUDIO = {
     storageKey: 'exoden:audio:v1', defaultVolume: .7, near: 4, far: 25, enemyStepDistance: 15, heavyStepDistance: 25,
     stealFade: .03,
+    shanghaiAmbience: { volume: .35, fadeIn: .6 },
     categories: {
         shot: { voices: 4, volume: .65 }, reload: { voices: 1, volume: .65 },
         impacts: { voices: 6, volume: .7 }, deaths: { voices: 6, volume: .8 },
