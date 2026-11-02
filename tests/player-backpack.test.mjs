@@ -6,7 +6,7 @@ import { AnimationMixer, Box3, Group, LoopOnce, Matrix4, Vector3 } from 'three';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
 import { loadGlb } from './load-glb.mjs';
 import { loadSource } from './load-source.mjs';
-const {attachBackpack,detachBackpack}=loadSource('src/characters/player/backpackAttachment.ts');
+const {attachBackpack,detachBackpack,createBackpackVisual}=loadSource('src/characters/player/backpackAttachment.ts');
 const asset=await loadGlb('src/assets/characters/player/backpack.glb');
 const player=await loadGlb('src/assets/characters/player/explorador-astronauta.glb');
 const hash=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
@@ -44,4 +44,22 @@ test('Mochila: encaixe rígido nas costas acompanha todos os clipes, sem alterar
   detachBackpack(pack);detachBackpack(pack);assert.equal(pack.parent,null);
  }
  assert.equal(asset.scene.parent,null);assert.equal(attachBackpack(new Group(),asset.scene.clone(true)),false);
+});
+
+
+test('Mochila neon: uma luz ciano ilumina ao redor e segue o tronco sem tocar no cache',()=>{
+ const character=clone(player.scene),pack=createBackpackVisual(asset.scene);
+ const lights=[];pack.traverse(n=>{if(n.isLight)lights.push(n);});assert.equal(lights.length,1);
+ const light=lights[0];assert.equal(light.color.getHexString(),'00f5ff');assert.equal(light.castShadow,false);
+ assert.ok(light.intensity>0&&light.distance>=3);assert.equal(light.decay,2);
+ assert.equal(asset.scene.getObjectByName('BackpackNeonLight'),undefined);
+ attachBackpack(character,pack);const mixer=new AnimationMixer(character),action=mixer.clipAction(player.animations.find(c=>c.name==='Run'));action.play();
+ const local=light.position.clone();let before;
+ for(let i=0;i<20;i++){
+  mixer.update(1/30);character.updateMatrixWorld(true);
+  const world=light.getWorldPosition(new Vector3());assert.ok(light.position.equals(local));
+  if(!before)before=world;else if(i===19)assert.ok(world.distanceTo(before)>.01);
+ }
+ mixer.timeScale=0;const paused=light.getWorldPosition(new Vector3());mixer.update(1);character.updateMatrixWorld(true);assert.ok(light.getWorldPosition(new Vector3()).equals(paused));
+ detachBackpack(pack);assert.equal(character.getObjectByName('BackpackNeonLight'),undefined);
 });
