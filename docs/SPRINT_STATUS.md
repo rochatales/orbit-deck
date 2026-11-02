@@ -113,12 +113,21 @@ pendente do autor. Não encerra escopos completos dos sprints. Sem push/merge.
 
 ## Shanghai: carros, cabines e kits de vida · S6.12 / S6.13 · 02/11/2026
 
-Codex em `rochatales/s6.13-shanghai-props`, worktree própria, base local
-`ad95ff4` (facão). Pedido do autor: remover carros com X, colocar novo carro
-nas marcações vermelhas e armários de suprimento nas amarelas; kit de vida GLB
-substitui os corações. Fontes somente leitura/cópia, implantação por dados de
-runtime, colisores simples e preservação das regras de munição/cura. Sem push
-ou merge, preview 4186, aceite visual pelo autor.
+**Entregue localmente em `c731ce7`, ponta `13a91a0`** (correção de formatação),
+branch `rochatales/s6.13-shanghai-props`, worktree própria `s6-13-shanghai-props`,
+base `ad95ff4`. Nove carros destruídos, sete cabines nas marcações e medkit 3D
+substituindo coração (+50 HP). Cabines por E/+48, uma vez por tentativa; sete
+concedem até +336 na reserva. Três GLBs fonte/runtime íntegros por SHA-256.
+GLB/layout originais intactos: só 432 triângulos dos carros antigos retirados em
+runtime, com colisores equivalentes trocados; 52 volumes no terreno novo.
+32/32 spawns por tipo, candidatos comum/pequeno 272 e grandes/aranha 266, todos
+válidos pelo critério de contato; nove vielas e sete acessos humanos livres.
+452/452, build e diff-check do intervalo verdes; preview 4186. Handoff
+`docs/handoffs/s6.13-shanghai-props.md`, com planta, números e justificativa dos
+testes atualizados (inclui contato dos grandes medido durante a janela após
+limpar a primeira linha, preservando 90 s e zero invasão de sólidos).
+Aceite visual/jogabilidade pendente do autor; sem QA de jogo pelo agente.
+Sem push ou merge; os itens completos dos sprints não foram marcados.
 
 ## Tarefas
 
