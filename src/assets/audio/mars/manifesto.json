@@ -32,9 +32,9 @@
     "file": "mars-door-open.mp3",
     "source": "door-original.mp3",
     "startSeconds": 2.75,
-    "endSeconds": 3.85,
+    "endSeconds": 3.55,
     "fadeInSeconds": 0.01,
-    "fadeOutSeconds": 0.08,
-    "sha256": "1c95a88fea850ca6df01bb4ee5b6c7760d67d3f51b3ef10a02db1a24d3b736bb"
+    "fadeOutSeconds": 0.16,
+    "sha256": "452acc75be67d5f55504fe0c7df55a3b0f2d1c848b7f645f178c64eba5210056"
   }
 }

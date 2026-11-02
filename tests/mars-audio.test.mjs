@@ -131,12 +131,17 @@ test('Marte: fontes intactas, última ação mecânica forte preservada e recort
     execFileSync('node', ['scripts/audio/preparar-porta-marte.mjs']);
     assert.deepEqual(fs.readFileSync(root + manifest.door.file), before);
     const p = JSON.parse(execFileSync('ffprobe', ['-v', 'error', '-show_format', '-show_streams', '-of', 'json', root + manifest.door.file]));
-    assert.equal(p.streams[0].channels, 1); assert.ok(Number(p.format.duration) >= 1.10 && Number(p.format.duration) < 1.16);
-    assert.equal(manifest.door.startSeconds, 2.75); assert.equal(manifest.door.endSeconds, 3.85);
+    assert.equal(p.streams[0].channels, 1); assert.ok(Number(p.format.duration) >= .80 && Number(p.format.duration) < .86);
+    assert.equal(manifest.door.startSeconds, 2.75); assert.equal(manifest.door.endSeconds, 3.55);
     // Evita regressão ao recorte antigo, que capturava apenas uma cauda quase inaudível.
     const pcm = execFileSync('ffmpeg', ['-v', 'error', '-i', root + manifest.door.file, '-t', '0.25', '-ac', '1', '-ar', '48000', '-f', 'f32le', '-']);
     let energy = 0, peak = 0;
     for (let i = 0; i < pcm.length; i += 4) { const v = pcm.readFloatLE(i); energy += v * v; peak = Math.max(peak, Math.abs(v)); }
     assert.ok(20 * Math.log10(Math.sqrt(energy / (pcm.length / 4))) > -22, 'ataque da ação audível desde o início');
     assert.ok(20 * Math.log10(peak) > -10, 'rajada mecânica presente, não apenas reverberação');
+    const tail = execFileSync('ffmpeg', ['-v', 'error', '-i', root + manifest.door.file, '-af', 'atrim=start=0.76', '-ac', '1', '-ar', '48000', '-f', 'f32le', '-']);
+    let tailPeak = 0;
+    for (let i = 0; i < tail.length; i += 4) tailPeak = Math.max(tailPeak, Math.abs(tail.readFloatLE(i)));
+    assert.ok(20 * Math.log10(tailPeak) < -30, 'últimos 40 ms terminam suaves, sem estalo forte');
+    assert.equal(manifest.door.fadeOutSeconds, .16);
 });
