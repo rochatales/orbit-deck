@@ -12,7 +12,7 @@ import { writeMutantPackTarget } from './mutantPack';
 import { placeResourceDrop } from './resourcePlacement';
 import { COMBAT, LARGE_PATROL, LARGE_MUTANT, MUTANT_CHARGE, SMALL_MUTANT, HORDE_TOTALS, robotConfig, waveRobotKind, parseEncounter, type RobotKind, HIT_LAYER, HORDE_ENCOUNTER, RIFLE_MASK, RIFLE_POSE, writeRifleMuzzle, writeRifleAimTarget, encounterLayout, type EncounterChoice, type EncounterLayout } from './config';
 import { Navigation, clearSegment, segmentBox, smoothPath, traversable, type Position, type Terrain } from './navigation';
-import { advanceCrate, openCrate, SUPPLY_CRATE, type CratePlacement, type CrateState } from '../game/props/supplyCrate';
+import { advanceCrate, openCrate, SUPPLY_CRATE, crateMarker, type CratePlacement, type CrateState } from '../game/props/supplyCrate';
 export interface SupplyCrate extends CrateState, CratePlacement { marker: Position; rewarded: boolean }
 export interface Robot extends Position, ChargeState, MovementRecovery {
     recoil: number; recoilX: number; recoilZ: number;
@@ -189,7 +189,7 @@ export class CombatSimulation {
     private dropCursor = 0;
     crates: SupplyCrate[];
     constructor(public terrain: Terrain, encounter: EncounterChoice, private readonly layout: EncounterLayout = encounterLayout(), crates: readonly CratePlacement[] = []) {
-        this.crates = crates.map(p => ({ ...p, marker: { x: p.x, z: p.z + 1.1 }, phase: 'closed', elapsed: 0, rewarded: false }));
+        this.crates = crates.map(p => ({ ...p, marker: crateMarker(p), phase: 'closed', elapsed: 0, rewarded: false }));
         this.navigation = new Navigation(terrain, COMBAT.robot.radius, COMBAT.grid);
         this.hearts = layout.hearts.map(p => ({ x: p.x, z: p.z, active: true }));
         if (encounter === HORDE_ENCOUNTER) {
@@ -469,6 +469,7 @@ export class CombatSimulation {
         for (const heart of this.hearts) {
             if (heart.active && this.hp < COMBAT.playerHp && this.canCollect(input.player, heart)) {
                 heart.active = false;
+                this.sounds.emit('collect', heart.x, heart.z);
                 this.hp = Math.min(COMBAT.playerHp, this.hp + COMBAT.heartHeal);
             }
         }

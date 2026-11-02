@@ -5,7 +5,7 @@ const { COMBAT, robotConfig, encounterLayout, RIFLE_MASK, HIT_LAYER, writeRifleM
 const { CombatSimulation, hordeEdgeSpawns, validContactSpawn, traceShot } = loadSource('src/combat/simulation.ts');
 const { Navigation, traversable, clearSegment, smoothPath } = loadSource('src/combat/navigation.ts');
 const { createPhase01Terrain, SHANGHAI_PHASE01: data } = loadSource('src/game/shanghai/layout.ts');
-const { SHANGHAI_SUPPLY_CRATES } = loadSource('src/game/props/supplyCrate.ts');
+const { SHANGHAI_SUPPLY_CRATES, crateMarker } = loadSource('src/game/props/supplyCrate.ts');
 const idle = player => ({ player, aim:{x:player.x,z:player.z}, facingAngle:0, firing:false, reload:false });
 const kinds=['patrol','largePatrol','smallMutant'];
 function route(nav,start,goal,contact) {
@@ -27,10 +27,10 @@ export function navigationSizeReport() {
     for(const kind of kinds){
         const R=robotConfig({kind}),nav=new Navigation(terrain,R.radius,COMBAT.grid),candidates=hordeEdgeSpawns(terrain,nav,data.exit,R.radius,R.contactRange),start=nav.points[nav.nearest(data.exit,0)];
         const spawns=data.spawns.map((p,i)=>({index:i,...route(nav,p,data.exit,R.contactRange)})),edges=candidates.map(p=>route(nav,p,data.exit,R.contactRange));
-        report.types[kind]={radius:R.radius,spacing:R.spacing,separation:R.separation,contactRange:R.contactRange,nodes:nav.points.length,arrivalFree:traversable(data.exit,terrain,R.radius),spawnsTotal:spawns.length,spawnsValid:spawns.filter(p=>p.valid&&p.smoothedValid).length,spawns,candidates:candidates.length,candidatesValid:edges.filter(p=>p.valid&&p.smoothedValid).length,segments:edges.reduce((n,p)=>n+p.segments,0),maxContactDistance:Math.max(...spawns.map(p=>p.distance),...edges.map(p=>p.distance)),alleys:alleys.map(a=>({free:clearSegment(a.from,a.to,terrain,R.radius),diameterClearance:a.width-2*R.radius})),crateStart:{x:start.x,z:start.z},crates:SHANGHAI_SUPPLY_CRATES.map(c=>({id:c.id,...route(nav,start,{x:c.x,z:c.z+1.1},R.contactRange)})),invalidCandidateRejected:!validContactSpawn(terrain,{path:()=>[{x:0,z:-100}]},candidates[0],data.exit,R.radius,R.contactRange)};
+        report.types[kind]={radius:R.radius,spacing:R.spacing,separation:R.separation,contactRange:R.contactRange,nodes:nav.points.length,arrivalFree:traversable(data.exit,terrain,R.radius),spawnsTotal:spawns.length,spawnsValid:spawns.filter(p=>p.valid&&p.smoothedValid).length,spawns,candidates:candidates.length,candidatesValid:edges.filter(p=>p.valid&&p.smoothedValid).length,segments:edges.reduce((n,p)=>n+p.segments,0),maxContactDistance:Math.max(...spawns.map(p=>p.distance),...edges.map(p=>p.distance)),alleys:alleys.map(a=>({free:clearSegment(a.from,a.to,terrain,R.radius),diameterClearance:a.width-2*R.radius})),crateStart:{x:start.x,z:start.z},crates:SHANGHAI_SUPPLY_CRATES.map(c=>({id:c.id,...route(nav,start,crateMarker(c),R.contactRange)})),invalidCandidateRejected:!validContactSpawn(terrain,{path:()=>[{x:0,z:-100}]},candidates[0],data.exit,R.radius,R.contactRange)};
     }
     const human=new Navigation(terrain,.36,COMBAT.grid);
-    report.humanCrates=SHANGHAI_SUPPLY_CRATES.map(c=>({id:c.id,...route(human,data.exit,{x:c.x,z:c.z+1.1},1e-8)}));
+    report.humanCrates=SHANGHAI_SUPPLY_CRATES.map(c=>({id:c.id,...route(human,data.exit,crateMarker(c),1e-8)}));
     return report;
 }
 export function patrolSizeReport() {

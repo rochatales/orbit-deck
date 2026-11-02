@@ -1,3 +1,4 @@
+import { HealthPickups } from './HealthPickups';
 import { useWeaponStore } from '../state/useWeaponStore';
 import { EnemyIndicators } from './enemyIndicators';
 import { playerActions } from '../state/playerActions';
@@ -11,7 +12,7 @@ import { AUDIO } from '../audio/config';
 import { useExpeditionStore } from '../state/useExpeditionStore';
 import { useEffect, useMemo, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { Group, Mesh, Shape, Vector3 } from 'three';
+import { Group, Mesh, Vector3 } from 'three';
 import { Billboard, useGLTF } from '@react-three/drei';
 import type { OfficeWorld } from '../world/createOfficeMap';
 import { useGameStore } from '../state/useGameStore';
@@ -65,16 +66,6 @@ export function CombatScene({ world }: {
     useEffect(() => () => { rigs.forEach(rig => rig.dispose()); largeRigs.forEach(rig => rig?.dispose()); mutantRigs.forEach(rig => rig?.dispose()); largeMutantRigs.forEach(rig=>rig?.dispose()); }, [rigs, largeRigs, mutantRigs, largeMutantRigs]);
     const stepSlots = useMemo(() => new Int32Array(4), []), stepDistances = useMemo(() => new Float64Array(4), []);
     const heavySlots=useMemo(()=>new Int32Array(2),[]),heavyDistances=useMemo(()=>new Float64Array(2),[]);
-    const hearts = useRef<(Group | null)[]>([]);
-    const heartShape = useMemo(() => {
-        const shape = new Shape();
-        shape.moveTo(0, -0.4);
-        shape.bezierCurveTo(-0.12, -0.24, -0.5, 0.02, -0.42, 0.27);
-        shape.bezierCurveTo(-0.35, 0.52, -0.08, 0.48, 0, 0.25);
-        shape.bezierCurveTo(0.08, 0.48, 0.35, 0.52, 0.42, 0.27);
-        shape.bezierCurveTo(0.5, 0.02, 0.12, -0.24, 0, -0.4);
-        return shape;
-    }, []);
     const input = useRef({ firing: false, tap: false, reload: false }), clock = useRef(0);
     // Entrada do passo reutilizada: a simulação copia a posição ao registrar disparos e rotas.
     const stepInput = useMemo<CombatInput>(() => ({ player: playerPosition, muzzle: playerWeaponPose, aim: combatRuntime.aim, facingAngle: 0, firing: false, reload: false }), []);
@@ -185,10 +176,7 @@ export function CombatScene({ world }: {
             const r = simulation.robots[i], rig = r.kind === 'largeMutant' ? largeMutantRigs[i]! : r.kind === 'largePatrol' ? largeRigs[i]! : rigs[i];
             if (rig.stepSound) simulation.sounds.emit('enemyStep', r.x, r.z, r.kind);
         }
-        simulation.hearts.forEach((heart, i) => {
-            const mesh = hearts.current[i];
-            if (mesh) mesh.visible = heart.active;
-        });
+
         indicators.root.visible = !simulation.dead;
         indicators.update(simulation.robots, robots.current, camera, size.height, blocked ? 0 : Math.min(delta, .1), alerts.current);
         tracers.current.forEach((mesh, i) => {
@@ -223,10 +211,7 @@ export function CombatScene({ world }: {
         <mesh position={[0, -0.16, 0]}><sphereGeometry args={[0.075, 8, 6]}/><meshBasicMaterial color="#ffdb57"/></mesh>
       </Billboard>
     </group>)}
-    {simulation.hearts.map((heart, i) => <group key={`heart-${run}-${i}`} position={[heart.x, world.surfaceHeight?.(heart.x, heart.z) ?? 0, heart.z]} ref={g => { hearts.current[i] = g; }}>
-      <Billboard position={[0, 0.85, 0]}><mesh><shapeGeometry args={[heartShape]}/><meshBasicMaterial color="#ff4564"/></mesh></Billboard>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.035, 0]}><ringGeometry args={[0.5, 0.57, 24]}/><meshBasicMaterial color="#ff9bac"/></mesh>
-    </group>)}
+    <HealthPickups pickups={simulation.hearts} surfaceHeight={world.surfaceHeight}/>
     {[0, 1, 2].map(i => <mesh key={i} visible={false} ref={m => { tracers.current[i] = m; }}><cylinderGeometry args={[COMBAT_VFX.tracerRadius, COMBAT_VFX.tracerRadius, 1, 8]}/><meshBasicMaterial color={[2,2,2]} toneMapped={false}/><mesh><cylinderGeometry args={[COMBAT_VFX.tracerHaloRadius,COMBAT_VFX.tracerHaloRadius,1,8]}/><meshBasicMaterial color="#ffe052" toneMapped={false} transparent opacity={COMBAT_VFX.tracerHaloOpacity} blending={AdditiveBlending} depthWrite={false}/></mesh></mesh>)}
   </>;
 }

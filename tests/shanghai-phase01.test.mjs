@@ -18,7 +18,8 @@ test('S6.3: todos os destinos e patrulhas conectados ao desembarque com folga',(
   assert.ok(route.length,JSON.stringify(p));let prev=d.exit;
   for(const q of route){assert.ok(clearSegment(prev,q,world,.36));prev=q;}
  }
- for(const route of d.patrolRoutes)for(let i=0;i<route.length;i++) assert.ok(clearSegment(route[i],route[(i+1)%route.length],world,.42),'patrulha cruza obstáculo');
+ const patrolNav=new Navigation(world,.67,.5);
+ for(const route of d.patrolRoutes)for(let i=0;i<route.length;i++){ const path=patrolNav.path(route[i],route[(i+1)%route.length]); assert.ok(path.length,'carros novos exigem contorno, sem mudar waypoints'); let prev=route[i];for(const p of path){assert.ok(clearSegment(prev,p,world,.67));prev=p;} }
 });
 test('S6.3: zoom antigo de Shanghai e enquadramento de Marte preservados',()=>{
  const old={minX:-17,maxX:17,minZ:-18,maxZ:18};

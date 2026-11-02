@@ -15,7 +15,7 @@ test('Apoio Shanghai: grade exata nos quatro pisos e bordas; consulta compartilh
  for(const[x,z,h]of samples){assert.equal(g(x,z),h);assert.equal(g(x,z),reference(x,z));}
  // Centros, bordas e posições não alinhadas; cobre pinturas e contornos arredondados.
  for(let x=-51;x<=51;x+=.47)for(let z=-54;z<=54;z+=.53)assert.equal(g(x,z),reference(x,z),`${x},${z}`);
- for(const p of SHANGHAI_SUPPLY_CRATES){assert.equal(g(p.x,p.z),0,'as duas caixas estão na rua');}
+ for(const p of SHANGHAI_SUPPLY_CRATES){assert.equal(g(p.x,p.z),reference(p.x,p.z),'cabines apoiadas na superfície real, inclusive canteiro/calçada');}
  assert.equal(g(Infinity,0),0);assert.equal(g(200,200),0);
 });
 
