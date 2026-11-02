@@ -71,6 +71,15 @@ Pedido do autor: padronizar as interações E pela Sintetizadora, com balão flu
 
 Pedido do autor: em Marte, faixa azul abaixo do capacete e foco frontal suave; mochila totalmente sem emissão/luz. Shanghai conserva exatamente o estado atual. Codex em `rochatales/s6.8-luz-visor-colonia`, worktree própria, base da prévia local `715b70e` (balões, áudio e poeira). Código do acessório/visor, configuração de iluminação, testes e handoff; GLBs/fontes e física intactos. Base remota segue `5bc240f`. Sem push ou merge; aceite visual pendente.
 
+## HUD beta · S1.3 / S6.8 · 02/11/2026
+
+Codex: remodelação da UI de gameplay solicitada pelo autor, removendo painéis marcados,
+vida vermelha, energia azul da mochila, quatro slots de equipamento, mochila com peso e
+ícones ilustrados. Branch `rochatales/s1.3-hud-beta`, worktree própria, base local
+`eb3fdcc` (visor por mapa); remoto segue `5bc240f`. Áreas: HUD, estilos, energia/inventário,
+testes e handoff. Valores de capacidade/energia aguardam resposta do autor. Sem push ou
+merge; validação visual pelo autor no preview 4186.
+
 ## Tarefas
 
 Preencha uma linha por tarefa antes de iniciar. "Base" é o commit/branch do
