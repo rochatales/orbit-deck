@@ -1,9 +1,9 @@
 import type { SoundEvent } from './events';
 export const AUDIO = {
-    storageKey: 'exoden:audio:v1', defaultVolume: .7, near: 4, far: 25, enemyStepDistance: 15, heavyStepDistance: 25,
+    storageKey: 'exoden:audio:v1', defaultVolume: .7, near: 4, far: 25, enemyStepDistance: 32, heavyStepDistance: 40,
     stealFade: .03,
-    shanghaiAmbience: { volume: .35, fadeIn: .6 },
-    marsAmbience: { outsideVolume: .35, insideVolume: .3, crossfade: .8 },
+    shanghaiAmbience: { volume: .42, fadeIn: .6 },
+    marsAmbience: { outsideVolume: .42, insideVolume: .36, crossfade: .8 },
     categories: {
         shot: { voices: 4, volume: .65 }, reload: { voices: 1, volume: .65 },
         impacts: { voices: 6, volume: .7 }, deaths: { voices: 6, volume: .8 },
@@ -40,8 +40,8 @@ export function soundFor(e: SoundEvent): SoundBinding | null {
         case 'attack': return PROFILES[e.kind].attack;
     }
 }
-export function distanceGain(distance: number) {
-    return Math.max(0, Math.min(1, (AUDIO.far - distance) / (AUDIO.far - AUDIO.near)));
+export function distanceGain(distance: number, far: number = AUDIO.far) {
+    return Math.max(0, Math.min(1, (far - distance) / (far - AUDIO.near)));
 }
 /** Sorteio sem repetir o índice anterior (um único arquivo necessariamente repete). */
 export function variationIndex(count: number, previous: number, random = Math.random()) {

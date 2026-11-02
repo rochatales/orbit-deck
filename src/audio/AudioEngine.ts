@@ -104,8 +104,9 @@ export class AudioEngine {
     }
     play(event: SoundEvent, distance = 0, pan = 0) {
         const sound = soundFor(event), c = this.context;
+        const far = sound?.category === 'enemySteps' ? AUDIO.enemyStepDistance : sound?.category === 'heavySteps' ? AUDIO.heavyStepDistance : AUDIO.far;
         if (!sound || !c || !this.ready || !this.unlocked || this.blocked || this.muted || c.state !== 'running'
-            || distance >= AUDIO.far || (sound.category === 'enemySteps' && distance > AUDIO.enemyStepDistance) || (sound.category === 'heavySteps' && distance > AUDIO.heavyStepDistance)) { this.stats.discarded++; return; }
+            || distance >= far) { this.stats.discarded++; return; }
         const buffers = this.buffers.get(sound.name);
         if (!buffers?.length) { this.stats.discarded++; return; }
         const category = AUDIO.categories[sound.category];
@@ -116,7 +117,7 @@ export class AudioEngine {
         this.previous.set(sound.name, index);
         const source = c.createBufferSource(), gain = c.createGain(), stereo = c.createStereoPanner();
         source.buffer = buffers[index]; source.playbackRate.value = sound.rate;
-        gain.gain.value = category.volume * sound.gain * distanceGain(distance); stereo.pan.value = pan;
+        gain.gain.value = category.volume * sound.gain * distanceGain(distance, far); stereo.pan.value = pan;
         source.connect(gain); gain.connect(stereo); stereo.connect(this.master!);
         const voice: Voice = { source, gain, pan: stereo, category: sound.category, retiring: false };
         this.voices.push(voice);

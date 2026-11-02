@@ -59,7 +59,7 @@ test('S3.10: buffers uma vez, gesto obrigatório, voz por categoria, fade e desc
             assert.deepEqual(retired.gain.gain.ramps.at(-1), [0, 2.03]);
         }
         const before = context.sources.length;
-        engine.play(event('enemyStep'), 15.1); engine.play(event('shot'), 25); engine.play(event('enemyStep', 'smallMutant'));
+        engine.play(event('enemyStep'), AUDIO.enemyStepDistance + .1); engine.play(event('shot'), 25); engine.play(event('enemyStep', 'smallMutant'));
         assert.equal(context.sources.length, before);
         engine.setBlocked(true); await Promise.resolve(); assert.equal(context.state, 'suspended');
         queue.emit('shot', 0, 0); engine.consume(queue, 0, 0, 1, 0); assert.equal(queue.count, 0);
@@ -127,11 +127,18 @@ test('S3.10: 17 fontes intactas, detecção reproduzível, variações/duraçõe
     assert.equal(fs.readdirSync('src/assets/audio/sfx').filter(n => n.endsWith('.mp3')).length, outputs.size);
 });
 
-test('Passos pesados: duas vozes reservadas, até 25 m, sem disputar quatro passos comuns; aviso grave/baixo',async()=>{
+test('Passos: comuns até 32 m e pesados até 40 m, com fade e vozes reservadas; demais sons mantêm alcance',async()=>{
  const context=fakeContext(),oldFetch=globalThis.fetch;globalThis.fetch=async()=>({ok:true,arrayBuffer:async()=>new ArrayBuffer(8)});
  try{const files=manifest.sources.flatMap(s=>s.variations.map(v=>({name:s.name,url:v.file}))),engine=new AudioEngine(()=>context,files);engine.setBlocked(false);await engine.unlock();
- for(let i=0;i<4;i++)engine.play(event('enemyStep'),10);
- for(let i=0;i<3;i++)engine.play(event('enemyStep',i%2?'largePatrol':'largeMutant'),20);
+ for(let i=0;i<4;i++)engine.play(event('enemyStep'),24);
+ assert.equal(engine.voices.at(-1).gain.gain.value,AUDIO.categories.enemySteps.volume*distanceGain(24,32));
+ assert.ok(engine.voices.at(-1).gain.gain.value>0);
+ for(let i=0;i<3;i++)engine.play(event('enemyStep',i%2?'largePatrol':'largeMutant'),34);
+ assert.equal(engine.voices.at(-1).gain.gain.value,AUDIO.categories.heavySteps.volume*distanceGain(34,40));
+ assert.ok(engine.voices.at(-1).gain.gain.value>0);
+ const count=context.sources.length;
+ engine.play(event('enemyStep'),32);engine.play(event('enemyStep','largePatrol'),40);engine.play(event('enemyStep','largeMutant'),41);engine.play(event('shot'),26);
+ assert.equal(context.sources.length,count,'limites próprios sem ampliar tiros/impactos');
  assert.equal(engine.voices.filter(v=>v.category==='enemySteps'&&!v.retiring).length,4);assert.equal(engine.voices.filter(v=>v.category==='heavySteps'&&!v.retiring).length,2);
  assert.equal(engine.stats.stolen,1);assert.equal(soundFor(event('enemyStep','largePatrol')).category,'heavySteps');assert.equal(soundFor(event('enemyStep','largeMutant')).category,'heavySteps');assert.ok(AUDIO.categories.heavySteps.volume>AUDIO.categories.enemySteps.volume);
  engine.play(event('chargeWarning','largeMutant'),2);const warning=engine.voices.at(-1);assert.equal(warning.source.playbackRate.value,.65);assert.equal(warning.gain.gain.value,.75*.25);assert.equal(engine.stats.playedEvents['chargeWarning:largeMutant'],1);
