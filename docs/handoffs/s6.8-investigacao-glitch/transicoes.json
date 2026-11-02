@@ -1,0 +1,42 @@
+{
+  "method": "GLB v008 real, Three AnimationMixer, 144 Hz, alternância a cada 40 ms; cabeça no espaço do modelo, janela 0,5–1,2 s. Ensaio determinístico, não benchmark GPU.",
+  "events": [
+    [
+      "idle",
+      0
+    ],
+    [
+      "walking",
+      0.6
+    ],
+    [
+      "idle",
+      0.64
+    ],
+    [
+      "walking",
+      0.68
+    ],
+    [
+      "idle",
+      0.72
+    ],
+    [
+      "walking",
+      0.76
+    ]
+  ],
+  "results": [
+    {
+      "corrected": false,
+      "maxHeadStepM": 0.2216117693062876,
+      "worstTimeS": 0.7222222222222222
+    },
+    {
+      "corrected": true,
+      "maxHeadStepM": 0.011389652267980778,
+      "worstTimeS": 0.6041666666666666
+    }
+  ],
+  "reductionPercent": 94.86053818186919
+}

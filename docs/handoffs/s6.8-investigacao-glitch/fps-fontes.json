@@ -1,0 +1,26 @@
+[
+  {
+    "file": "Breathing_Idle.fbx",
+    "sha256": "e1524389927ce58fd1573b0baf009a88f024b50403ec9b27eaeead4ce40994c9",
+    "TimeMode": 6,
+    "CustomFrameRate": 30.0
+  },
+  {
+    "file": "Walking_Backwards.fbx",
+    "sha256": "2226ee0435954dc04f4ce1f75453be6ad8e19c3818776c2112b20839bcfed51b",
+    "TimeMode": 6,
+    "CustomFrameRate": 30.0
+  },
+  {
+    "file": "Rifle _Run_final.fbx",
+    "sha256": "5f6df8295cfaf21dcc8efea9ae14c0dc99bd081c2d326b5a1796d01d6391e234",
+    "TimeMode": 6,
+    "CustomFrameRate": 30.0
+  },
+  {
+    "file": "Reloading.fbx",
+    "sha256": "31fd5e586ccdd5315a0a4627ae5fb86095c44d658604ec87aa847e2f40f07265",
+    "TimeMode": 6,
+    "CustomFrameRate": 30.0
+  }
+]

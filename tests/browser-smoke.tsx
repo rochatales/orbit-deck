@@ -35,6 +35,33 @@ function QA() {
         const after = playerPosition;
         setResult(`${forward?'Corrida':'Recuo'}: ${clip} | ${speed?.toFixed(2)} m/s | ${rate?.toFixed(3)}× | `+'Deslocamento em 1s: ' + Math.hypot(after.x - before.x, after.z - before.z).toFixed(2) + ' m');
     }
+    async function transitions() {
+        if (s.session.map !== 'mars' || s.session.phase !== 'walking') return;
+        const debug = window as unknown as { __hordaPlayerScene?: import('three').Object3D; __hordaPlayerBaseActions?: Record<string, import('three').AnimationAction> };
+        const scene = debug.__hordaPlayerScene, head = scene?.getObjectByName('mixamorigHead');
+        if (!scene || !head) { setResult('Transições: aguardando astronauta'); return; }
+        const canvas = document.querySelector('canvas')!, width = canvas.width, height = canvas.height;
+        const point = new Vector3(), previous = new Vector3();
+        let held = false, sampled = false, maxJump = 0, minWeight = Infinity, maxWeight = 0;
+        const start = performance.now(); pointerAt(playerPosition.x, playerPosition.z - 12);
+        setResult('Transições: alternando W/parado por 3 s…');
+        await new Promise<void>(resolve => { function frame() {
+            const elapsed = performance.now() - start;
+            const moving = elapsed > 500 && elapsed < 1800 && Math.floor((elapsed - 500) / 60) % 2 === 0;
+            if (moving !== held) {
+                window.dispatchEvent(new KeyboardEvent(moving ? 'keydown' : 'keyup', { code: 'KeyW', key: 'w', bubbles: true })); held = moving;
+            }
+            scene!.updateWorldMatrix(true, true); head!.getWorldPosition(point); scene!.worldToLocal(point);
+            if (sampled && elapsed > 500) maxJump = Math.max(maxJump, point.distanceTo(previous));
+            previous.copy(point); sampled = true;
+            const actions = [...new Set(Object.values(debug.__hordaPlayerBaseActions ?? {}))];
+            const weight = actions.reduce((sum, action) => sum + (action.isScheduled() ? action.getEffectiveWeight() : 0), 0);
+            minWeight = Math.min(minWeight, weight); maxWeight = Math.max(maxWeight, weight);
+            if (elapsed < 3000) requestAnimationFrame(frame); else resolve();
+        } requestAnimationFrame(frame); });
+        window.dispatchEvent(new KeyboardEvent('keyup', { code: 'KeyW', key: 'w', bubbles: true }));
+        setResult(`Transições: peso ${minWeight.toFixed(3)}–${maxWeight.toFixed(3)} | salto cabeça ${(maxJump*100).toFixed(2)} cm/quadro | resolução ${width}×${height} ${width===canvas.width&&height===canvas.height?'constante':'mudou'}`);
+    }
     async function armedAnimation(reload = false) {
         if (s.session.map !== 'shanghai' || s.session.phase !== 'walking') return;
         const sim = combatRuntime.simulation; if (!sim) return;
@@ -160,7 +187,7 @@ function QA() {
   <button onClick={() => setHidden(!hidden)}>{hidden ? 'Mostrar QA' : 'Ocultar QA'}</button>
   {!hidden && <><p>Fixture DEV · posições preparadas para teste, sem alterar o mapa do produto</p>
   <button onClick={() => place('eden')}>Preparar perto de EDEN</button><button onClick={() => place('deck')}>Preparar no deck</button>
-  <button onClick={()=>movement()}>Testar movimento 1s</button><button onClick={()=>movement(true)}>Testar corrida armada</button><button onClick={rifleAim}>Testar mira/cano</button><button onClick={dash}>Testar Dash Space</button><button onClick={()=>armedAnimation()}>Testar corrida com tiro</button><button onClick={()=>armedAnimation(true)}>Testar Reloading</button><button onClick={sample}>Medir frames 5s</button>
+  <button onClick={transitions}>Testar transições rápidas</button><button onClick={()=>movement()}>Testar movimento 1s</button><button onClick={()=>movement(true)}>Testar corrida armada</button><button onClick={rifleAim}>Testar mira/cano</button><button onClick={dash}>Testar Dash Space</button><button onClick={()=>armedAnimation()}>Testar corrida com tiro</button><button onClick={()=>armedAnimation(true)}>Testar Reloading</button><button onClick={sample}>Medir frames 5s</button>
   <button onClick={()=>encounter(1)}>Combate assistido 1</button><button onClick={()=>encounter(3)}>Combate assistido 3</button><button onClick={()=>encounter(5)}>Combate assistido 5</button>
   <button onClick={pauseCombat}>Testar pausa e recarga</button><button onClick={focusTest}>Testar movimento e foco</button><button onClick={death}>Testar morte natural</button>
   <p role="status">{result}</p><p>{s.session.map} / {s.session.phase} / pronto: {String(s.ready)}</p></>}

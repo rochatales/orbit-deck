@@ -1,3 +1,4 @@
+import { ActionTransition } from './actionTransition';
 import { combatRuntime } from '../../state/useCombatStore';
 import { RifleAnimationLayers } from './rifleAnimationLayers';
 import { FootstepClock, playerSounds } from '../../audio/events';
@@ -38,10 +39,14 @@ export function LocomotionController({ motionRef, actions, asset, combat }: Loco
   useEffect(() => {
     if (import.meta.env.DEV) Object.assign(window, { __hordaPlayerBaseActions: baseActions, __hordaRifleLayers: layers });
   }, [baseActions, layers]);
+  const transition = useMemo(() => new ActionTransition(baseActions), [baseActions]);
   const calibration = useMemo(() => mapLocomotionCalibration(asset, combat), [asset, combat]);
   const stepClock = useRef(new FootstepClock());
   const currentRef = useRef<AnimationAction | null>(null);
   const stateRef = useRef<PlayerAnimationState | null>(null);
+  useEffect(() => () => {
+    transition.dispose(); currentRef.current = null; stateRef.current = null;
+  }, [transition]);
 
   // Configure each action's loop behavior once when actions become available.
   useEffect(() => {
@@ -56,13 +61,13 @@ export function LocomotionController({ motionRef, actions, asset, combat }: Loco
     // Kick off Idle so the character isn't stuck in T-pose during the first frame.
     const idle = pickTargetAction("idle", baseActions, combat);
     if (idle && !currentRef.current) {
-      idle.reset().fadeIn(PLAYER_LOCOMOTION.crossfade).play();
+      transition.to(idle, 0);
       currentRef.current = idle;
       stateRef.current = "idle";
     }
-  }, [actions.Fall, actions.Dash, actions.Idle, actions.Run, actions.Talk, actions.Backward, actions.Aim_Rifle, actions.Run_Rifle, combat, baseActions]);
+  }, [actions.Fall, actions.Dash, actions.Idle, actions.Run, actions.Talk, actions.Backward, actions.Aim_Rifle, actions.Run_Rifle, combat, baseActions, transition]);
 
-  useFrame(() => {
+  useFrame((_, delta) => {
     const motion = motionRef.current;
     const target = pickTargetAction(motion.animationState, baseActions, combat);
     const current = currentRef.current;
@@ -71,15 +76,11 @@ export function LocomotionController({ motionRef, actions, asset, combat }: Loco
       (motion.animationState === 'dashing' || stateRef.current === 'dashing' || motion.animationState === 'falling' || stateRef.current === 'falling');
     if (target && (target !== current || onceChanged)) {
       const fade = crossfadeFor(stateRef.current, motion.animationState);
-      target.reset();
       configureLocomotionAction(target, motion.animationState);
-      target.fadeIn(fade);
-      target.play();
-      if (current && current !== target) {
-        current.fadeOut(fade);
-      }
+      transition.to(target, fade, onceChanged);
       currentRef.current = target;
     }
+    transition.update(simulationBlocked() ? 0 : delta);
     stateRef.current = motion.animationState;
 
     // Taxa dos ciclos in-place pela velocidade real.
