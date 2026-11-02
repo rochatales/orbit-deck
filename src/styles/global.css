@@ -103,7 +103,6 @@ nav button:hover:not(:disabled), .secondary:hover:not(:disabled) { color: #09232
 .weapon-slot small { display: flex; justify-content: space-between; font-size: 7px; letter-spacing: .04em; color: var(--cyan); }
 .weapon-slot small span { color: #90b1b9; }
 .damage-vignette { position: absolute; inset: 0; box-shadow: inset 0 0 110px 28px #ff302c99; pointer-events: none; }
-.hit-feedback { position: absolute; left: 50%; top: 40%; color: #ecffbd; font-size: 11px; letter-spacing: .16em; pointer-events: none; }
 .encounter-result { position: absolute; right: 24px; top: 310px; width: 240px; max-height: calc(100% - 490px); overflow: auto; }
 .encounter-result p, .encounter-result label { font-size: 12px; }
 .encounter-result h2 { font-size: 18px; }

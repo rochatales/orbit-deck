@@ -1,3 +1,4 @@
+import { EnemyIndicators } from './enemyIndicators';
 import { playerActions } from '../state/playerActions';
 import { playerWeaponPose } from '../state/playerWeaponPose';
 import { AdditiveBlending } from 'three';
@@ -18,7 +19,7 @@ import { combatRuntime, useCombatStore } from '../state/useCombatStore';
 import { simulationBlocked } from '../game/simulationGate';
 import { CombatSimulation, type CombatInput } from './simulation';
 import { COMBAT, robotConfig, waveRobotKind, type RobotKind } from './config';
-import { PATROL_UNIT, LARGE_PATROL_VISUAL, SMALL_MUTANT_VISUAL, LARGE_MUTANT_VISUAL, PatrolUnitRig } from './patrolUnit';
+import { PATROL_UNIT, PatrolUnitRig } from './patrolUnit';
 import { ResourceDrops } from './ResourceDrops';
 import largeMutantUrl from '../assets/enemies/large-mutant.glb';
 import mutantUrl from '../assets/enemies/mutant-animal.glb';
@@ -33,6 +34,8 @@ export function CombatScene({ world }: {
     const run = useCombatStore(s => s.run);
     const simulation = useMemo(() => new CombatSimulation(world, useCombatStore.getState().encounter, undefined,
         isShanghaiPhase01() ? SHANGHAI_SUPPLY_CRATES : []), [world, run]);
+    const indicators = useMemo(() => new EnemyIndicators(simulation.robots.length), [simulation]);
+    useEffect(() => () => indicators.dispose(), [indicators]);
     const { gl } = useThree();
     const robots = useRef<(Group | null)[]>([]), tracers = useRef<(Mesh | null)[]>([]);
     const rings = useRef<(Mesh | null)[]>([]), alerts = useRef<(Group | null)[]>([]);
@@ -109,7 +112,7 @@ export function CombatScene({ world }: {
         window.addEventListener('keydown', key);
         return () => { clear(); unsubscribeGame(); unsubscribeExpedition(); canvas.removeEventListener('pointerdown', down); canvas.removeEventListener('pointerleave', clear); window.removeEventListener('pointerup', up); window.removeEventListener('pointercancel', clear); window.removeEventListener('blur', clear); window.removeEventListener('keydown', key); };
     }, [gl]);
-    useFrame((_, delta) => {
+    useFrame(({ camera, size }, delta) => {
         const blocked = simulationBlocked();
         useCombatStore.getState().setNearCrate(!blocked && !!simulation.nearbySupplyCrate(playerPosition));
         if (blocked) {
@@ -171,7 +174,7 @@ export function CombatScene({ world }: {
                 -(r.recoilX*Math.cos(rig.visualAngle)-r.recoilZ*Math.sin(rig.visualAngle))*COMBAT_VFX.recoilTilt*kick);
             const ring = rings.current[i], alert = alerts.current[i];
             if (ring) { ring.visible = r.hp > 0; ring.scale.setScalar(R.radius / COMBAT.robot.radius); }
-            if (alert) { alert.visible = r.hp > 0 && r.alertLeft > 0; alert.position.y = (bigAnimal ? LARGE_MUTANT_VISUAL.height : animal ? SMALL_MUTANT_VISUAL.height : large ? LARGE_PATROL_VISUAL.height : PATROL_UNIT.height) + .45; }
+            if (alert) alert.visible = r.hp > 0 && r.alertLeft > 0;
         });
         for (let slot = 0; slot < stepSlots.length+heavySlots.length; slot++) {
             const i = slot<stepSlots.length?stepSlots[slot]:heavySlots[slot-stepSlots.length]; if (i < 0) continue;
@@ -182,6 +185,8 @@ export function CombatScene({ world }: {
             const mesh = hearts.current[i];
             if (mesh) mesh.visible = heart.active;
         });
+        indicators.root.visible = !simulation.dead;
+        indicators.update(simulation.robots, robots.current, camera, size.height, blocked ? 0 : Math.min(delta, .1), alerts.current);
         tracers.current.forEach((mesh, i) => {
             if (!mesh)
                 return;
@@ -198,6 +203,7 @@ export function CombatScene({ world }: {
 
     });
     return <>
+    <primitive object={indicators.root} dispose={null}/>
     <ChargeWarnings simulation={simulation}/>
     <CombatEffects effects={simulation.effects}/>
     <ResourceDrops drops={simulation.drops}/>
