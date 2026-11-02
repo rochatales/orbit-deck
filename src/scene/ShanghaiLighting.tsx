@@ -15,6 +15,6 @@ export function ShanghaiLighting() {
       <SoftShadows size={22} samples={10} focus={.35}/>
       <hemisphereLight args={[SHANGHAI_DAWN.skyColor, SHANGHAI_DAWN.groundColor, SHANGHAI_DAWN.hemisphereIntensity]}/>
       <directionalLight ref={sun} castShadow position={SHANGHAI_DAWN.sunPosition} color={SHANGHAI_DAWN.sunColor} intensity={SHANGHAI_DAWN.sunIntensity}
-        shadow-mapSize-width={2048} shadow-mapSize-height={2048} shadow-bias={-.0002}/>
+        shadow-mapSize-width={2048} shadow-mapSize-height={2048} shadow-bias={-.0002} shadow-normalBias={SHANGHAI_DAWN.shadowNormalBias}/>
     </>;
 }

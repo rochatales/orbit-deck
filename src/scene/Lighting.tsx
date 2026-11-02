@@ -25,6 +25,7 @@ export function Lighting() {
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
         shadow-bias={-0.0003}
+        shadow-normalBias={MARS_SUNRISE.shadowNormalBias}
       />
     </>
   );

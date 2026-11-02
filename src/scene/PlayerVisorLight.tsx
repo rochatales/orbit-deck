@@ -15,5 +15,5 @@ export function PlayerVisorLight() {
         color={VISOR_LIGHT.color} intensity={VISOR_LIGHT.intensity} distance={VISOR_LIGHT.reach}
         angle={VISOR_LIGHT.angle} penumbra={VISOR_LIGHT.penumbra} decay={2} castShadow
         shadow-mapSize-width={VISOR_LIGHT.shadowMap} shadow-mapSize-height={VISOR_LIGHT.shadowMap}
-        shadow-camera-near={.08} shadow-camera-far={VISOR_LIGHT.reach} shadow-bias={-.0001} shadow-normalBias={.02}/></>;
+        shadow-camera-near={.08} shadow-camera-far={VISOR_LIGHT.reach} shadow-bias={-.0001} shadow-normalBias={VISOR_LIGHT.shadowNormalBias}/></>;
 }

@@ -13,6 +13,7 @@ import { EDEN, MAPS } from '../src/game/config';
 import '../src/styles/global.css';
 function QA() {
     const [result, setResult] = useState('Pronto'), [hidden, setHidden] = useState(false);
+    const [receivingShadows, setReceivingShadows] = useState(true);
     const s = expedition();
     function place(where: 'eden' | 'deck') {
         if (!s.ready || s.session.map !== 'mars')
@@ -34,6 +35,24 @@ function QA() {
         await new Promise(r => setTimeout(r, 300));
         const after = playerPosition;
         setResult(`${forward?'Corrida':'Recuo'}: ${clip} | ${speed?.toFixed(2)} m/s | ${rate?.toFixed(3)}× | `+'Deslocamento em 1s: ' + Math.hypot(after.x - before.x, after.z - before.z).toFixed(2) + ' m');
+    }
+    function compareShadowBias() {
+        let root = (window as unknown as { __hordaPlayerScene?: import('three').Object3D }).__hordaPlayerScene;
+        while (root?.parent) root = root.parent;
+        let bias = 0;
+        root?.traverse(node => {
+            const light = node as import('three').DirectionalLight;
+            if (light.isDirectionalLight) { bias = light.shadow.normalBias > 0 ? 0 : .03; light.shadow.normalBias = bias; }
+        });
+        setResult(`Bias normal do sol: ${(bias*100).toFixed(0)} cm; contraste A/B mantendo sombras`);
+    }
+    function compareCharacterShadows() {
+        const scene = (window as unknown as { __hordaPlayerScene?: import('three').Object3D }).__hordaPlayerScene;
+        if (!scene) return;
+        const enabled = !receivingShadows; let count = 0;
+        scene.traverse(node => { const mesh = node as import('three').Mesh; if (mesh.isMesh) { mesh.receiveShadow = enabled; count++; } });
+        setReceivingShadows(enabled);
+        setResult(`Sombras recebidas pelo personagem: ${enabled?'ligadas':'desligadas'} (${count} meshes); sombras projetadas e luzes preservadas`);
     }
     async function transitions() {
         if (s.session.map !== 'mars' || s.session.phase !== 'walking') return;
@@ -183,11 +202,11 @@ function QA() {
         await new Promise<void>(resolve=>{const off=combat.subscribe(s=>{if(s.dead){off();resolve();}});});
         setResult(`Morte natural: HP ${combat.getState().hp} | mortos ${combat.getState().kills} | clique Tentar novamente`);
     }
-    return <aside style={{ position: 'fixed', right: 12, bottom: 12, zIndex: 20, maxWidth: 360, background: '#12232e', padding: 10, border: '1px solid orange', fontSize: 12 }}>
+    return <aside style={{ position: 'fixed', right: 12, bottom: 12, zIndex: 20, maxWidth: 360, maxHeight: '75vh', overflowY: 'auto', background: '#12232e', padding: 10, border: '1px solid orange', fontSize: 12 }}>
   <button onClick={() => setHidden(!hidden)}>{hidden ? 'Mostrar QA' : 'Ocultar QA'}</button>
   {!hidden && <><p>Fixture DEV · posições preparadas para teste, sem alterar o mapa do produto</p>
   <button onClick={() => place('eden')}>Preparar perto de EDEN</button><button onClick={() => place('deck')}>Preparar no deck</button>
-  <button onClick={transitions}>Testar transições rápidas</button><button onClick={()=>movement()}>Testar movimento 1s</button><button onClick={()=>movement(true)}>Testar corrida armada</button><button onClick={rifleAim}>Testar mira/cano</button><button onClick={dash}>Testar Dash Space</button><button onClick={()=>armedAnimation()}>Testar corrida com tiro</button><button onClick={()=>armedAnimation(true)}>Testar Reloading</button><button onClick={sample}>Medir frames 5s</button>
+  <button onClick={()=>{const g=game.getState();g.setZoomBounds(g.minZoom,g.minZoom*12);g.setZoom(g.minZoom*10);}}>Zoom diagnóstico</button><button onClick={compareShadowBias}>Comparar bias de sombra</button><button onClick={compareCharacterShadows}>{receivingShadows?"Desligar sombras no personagem":"Ligar sombras no personagem"}</button><button onClick={()=>{const a=(window as unknown as {__hordaPlayerActions?:Record<string,import('three').AnimationAction>}).__hordaPlayerActions;const mixer=a?.Idle?.getMixer();if(mixer)mixer.timeScale=mixer.timeScale?0:1;}}>Congelar/descongelar pose</button><button onClick={transitions}>Testar transições rápidas</button><button onClick={()=>movement()}>Testar movimento 1s</button><button onClick={()=>movement(true)}>Testar corrida armada</button><button onClick={rifleAim}>Testar mira/cano</button><button onClick={dash}>Testar Dash Space</button><button onClick={()=>armedAnimation()}>Testar corrida com tiro</button><button onClick={()=>armedAnimation(true)}>Testar Reloading</button><button onClick={sample}>Medir frames 5s</button>
   <button onClick={()=>encounter(1)}>Combate assistido 1</button><button onClick={()=>encounter(3)}>Combate assistido 3</button><button onClick={()=>encounter(5)}>Combate assistido 5</button>
   <button onClick={pauseCombat}>Testar pausa e recarga</button><button onClick={focusTest}>Testar movimento e foco</button><button onClick={death}>Testar morte natural</button>
   <p role="status">{result}</p><p>{s.session.map} / {s.session.phase} / pronto: {String(s.ready)}</p></>}
