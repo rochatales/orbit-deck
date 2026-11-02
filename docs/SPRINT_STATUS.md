@@ -99,12 +99,17 @@ preview 4186, aceite visual pelo autor.
 
 ## Facão e animações de duas mãos · S6.2 / S6.8 · 02/11/2026
 
-Codex em `rochatales/s6.2-facao`, worktree própria, base local `a2be57f`
-(cursor livre + HUD beta). Importação não destrutiva de cinco clipes FBX do autor
-e espada FBX/GLB; pipeline, encaixe, seleção de arma, combate corpo a corpo,
-animações, UI, testes e handoff. Valores iniciais de golpe/bloqueio aguardam
-resposta do autor. Fontes preservadas; sem push/merge, preview 4186 e aceite
-visual pelo autor.
+**Entregue localmente em `ad95ff4`**, branch `rochatales/s6.2-facao`, worktree
+`s6-2-facao`, base `a2be57f`. Decisão do autor: **só golpes, bloqueio adiado**.
+Troca 1/2 ou slots: rifle/facão; corte no botão esquerdo, 50 de dano, arco 120°,
+alcance 2 m até a superfície, ciclo 0,65 s (valores iniciais ajustáveis). Sem gasto
+de munição/energia. Golpe respeita sólidos, usa morte/drop compartilhados e pode
+atingir vários alvos. Idle/Run/Backward/Slash complementares, bind de 57 ossos,
+root in-place, pega dupla e IK esquerda; avatar aprovado intacto. Sete fontes
+originais conferidas por SHA-256, script reproduzível e ícone do próprio asset.
+446/446, build e diff-check verdes; preview 4186. Handoff `docs/handoffs/s6.2-facao.md`,
+com ensaio/limites de pega e roteiro. Sem QA de jogo pelo agente, aceite visual
+pendente do autor. Não encerra escopos completos dos sprints. Sem push/merge.
 
 ## Tarefas
 
