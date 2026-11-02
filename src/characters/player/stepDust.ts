@@ -1,8 +1,8 @@
 import type { Object3D } from 'three';
 export const STEP_DUST = {
-    capacity: 96, perStep: 6, pendingCapacity: 4,
-    minLife: .4, maxLife: .65, groundOffset: .025,
-    initialSize: .09, growth: .28, opacity: .32,
+    capacity: 96, perStep: 8, pendingCapacity: 4,
+    minLife: .45, maxLife: .75, groundOffset: .025,
+    initialSize: .14, growth: .3, opacity: .48, supportTolerance: .1,
     colors: { mars: '#bd6f4c', shanghai: '#a2a5a6' },
 } as const;
 interface DustParticle {
@@ -14,11 +14,16 @@ interface Ground { surfaceHeight?: (x: number, z: number) => number; supportHeig
 export function dustSurfaceHeight(world: Ground, x: number, z: number) {
     return (world.surfaceHeight?.(x, z) ?? world.supportHeight?.(x, z) ?? 0) + STEP_DUST.groundOffset;
 }
+/** O piso é analítico; Rapier pode informar grounded=false mesmo com os pés em y=0. */
+export function hasDustSupport(grounded: boolean, feetY: number, floorY: number) {
+    return grounded || Math.abs(feetY - floorY) <= STEP_DUST.supportTolerance;
+}
 /** Pool e fila fixos; posições em mundo, sem partículas seguindo o corpo depois do passo. */
 export class StepDustPool {
     readonly particles: DustParticle[];
     readonly sides = new Int8Array(STEP_DUST.pendingCapacity);
     readonly angles = new Float32Array(STEP_DUST.pendingCapacity);
+    readonly grounded = new Uint8Array(STEP_DUST.pendingCapacity);
     pending = 0;
     leftFoot: Object3D | null = null;
     rightFoot: Object3D | null = null;
@@ -39,7 +44,8 @@ export class StepDustPool {
         this.owner = null; this.leftFoot = null; this.rightFoot = null; this.reset();
     }
     request(side: number, moveAngle: number, grounded: boolean) {
-        if (!grounded || this.pending === this.sides.length) return;
+        if (this.pending === this.sides.length) return;
+        this.grounded[this.pending] = grounded ? 1 : 0;
         this.sides[this.pending] = side; this.angles[this.pending++] = moveAngle;
     }
     emit(x: number, y: number, z: number, moveAngle: number, random = Math.random) {

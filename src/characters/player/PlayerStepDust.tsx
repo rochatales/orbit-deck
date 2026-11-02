@@ -5,7 +5,7 @@ import { simulationBlocked } from '../../game/simulationGate';
 import type { MapId } from '../../game/session';
 import type { OfficeWorld } from '../../world/createOfficeMap';
 import { playerFacing, playerVisualPosition } from '../../state/playerTransient';
-import { STEP_DUST, dustSurfaceHeight, playerStepDust as pool } from './stepDust';
+import { STEP_DUST, dustSurfaceHeight, hasDustSupport, playerStepDust as pool } from './stepDust';
 
 /** Um batch mundial de billboards suaves; não há textura, luz, sombra ou objeto por passo. */
 export function PlayerStepDust({ world, map }: { world: OfficeWorld; map: MapId }) {
@@ -16,7 +16,7 @@ export function PlayerStepDust({ world, map }: { world: OfficeWorld; map: MapId 
         const geometry = new PlaneGeometry(1, 1); geometry.setAttribute('dustAlpha', alpha);
         const material = new ShaderMaterial({ transparent: true, depthWrite: false, toneMapped: false,
             uniforms: { dustColor: { value: new Color(STEP_DUST.colors[map]) } },
-            vertexShader: 'attribute float dustAlpha; varying vec2 uv0; varying float alpha0; void main(){uv0=uv;alpha0=dustAlpha;gl_Position=projectionMatrix*modelViewMatrix*instanceMatrix*vec4(position,1.);}',
+            vertexShader: 'attribute float dustAlpha; varying vec2 uv0; varying float alpha0; void main(){uv0=uv;alpha0=dustAlpha;vec3 p=position;p.y+=.5;gl_Position=projectionMatrix*modelViewMatrix*instanceMatrix*vec4(p,1.);}',
             fragmentShader: 'uniform vec3 dustColor; varying vec2 uv0; varying float alpha0; void main(){float r=length(uv0*2.-1.);float soft=exp(-r*r*2.5)*(1.-smoothstep(.45,1.,r));gl_FragColor=vec4(dustColor,soft*alpha0);\n#include <colorspace_fragment>\n}',
         });
         return { alpha, geometry, material };
@@ -32,8 +32,10 @@ export function PlayerStepDust({ world, map }: { world: OfficeWorld; map: MapId 
         const blocked = simulationBlocked();
         if (!blocked) {
             pool.step(delta);
+            const floor = pool.pending > 0 ? dustSurfaceHeight(world, playerVisualPosition.x, playerVisualPosition.z) - STEP_DUST.groundOffset : 0;
             // Mixer a -30; amostragem depois da pose animada e da física, no espaço mundial.
             for (let i = 0; i < pool.pending; i++) {
+                if (!hasDustSupport(pool.grounded[i] === 1, playerVisualPosition.y, floor)) continue;
                 const side = pool.sides[i], foot = side === 0 ? pool.leftFoot : pool.rightFoot;
                 if (foot) foot.getWorldPosition(pose.point);
                 else {
