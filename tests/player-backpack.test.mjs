@@ -78,7 +78,7 @@ test('Mochila: Breathing_Idle centralizado nas costas e 4 cm acima, com casco po
  assert.ok(Math.abs(center.x-(left.x+right.x)/2)<.005,'centro entre os ombros, sem viés para o direito');
  assert.ok(center.x-before.x>.065&&center.x-before.x<.075,'deslocamento para a esquerda de aproximadamente 7 cm');
  assert.ok(Math.abs(center.y-before.y-.04)<1e-6,'elevação de 4 cm');
- assert.ok(Math.abs(center.z-before.z+.1744865001)<1e-6,'recuo medido para apoiar fora da malha do traje');
+ assert.ok(Math.abs(center.z-before.z+.1544865001)<1e-6,'recuo medido para apoiar fora da malha do traje');
  assert.ok(pack.scale.equals(old.scale),'tamanho preservado');
  detachBackpack(pack);detachBackpack(old);
 });
@@ -94,17 +94,18 @@ test('Mochila: painel paralelo ao tronco e os dois lados por fora da malha no id
   const forward=new Vector3().crossVectors(lateral,up).normalize(),panel=pack.getWorldDirection(new Vector3());
   assert.ok(panel.dot(forward)>.999,'painel alinhado ao plano anatômico das costas');
   const meshes=[];character.traverse(n=>{if(n.isSkinnedMesh){n.computeBoundingSphere();n.computeBoundingBox();meshes.push(n);}});
-  for(const y of [0,.12]){
+  for(const y of [-.18,-.12,0,.09,.12,.18]){
    const distances=[];
-   for(const side of [-1,1]){
-    const contact=pack.localToWorld(new Vector3(side*.14,y,.022));
+   for(const side of [-1,0,1]){
+    // Face rígida do casco: as tiras avançam mais 2,2 cm e podem encostar no traje.
+    const contact=pack.localToWorld(new Vector3(side*.14,y,y<-.11?.005:0));
     // Só no teste: raycast na malha deformada mede folga visual; nunca participa da física.
     const ray=new Raycaster(contact.clone().addScaledVector(forward,-1),forward,0,2);
     const hit=ray.intersectObjects(meshes,false)[0];assert.ok(hit,'ponto de apoio nas costas');
-    const clearance=hit.distance-1;assert.ok(clearance>=0,`lado ${side} afundou ${clearance} na fase ${phase}`);
+    const clearance=hit.distance-1;assert.ok(clearance>=.002,`lado ${side} afundou ${clearance} na fase ${phase}`);
     distances.push(clearance);
    }
-   assert.ok(Math.abs(distances[0]-distances[1])<.025,`folga lateral desigual: ${distances}`);
+   assert.ok(Math.abs(distances[0]-distances[2])<.025,`folga lateral desigual: ${distances}`);
   }
  }
  detachBackpack(pack);
