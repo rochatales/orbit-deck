@@ -23,6 +23,9 @@ A consolidação só acrescenta/atualiza documentação e mantém ambos os hist�
 As dependências já instaladas da linha aprovada foram reutilizadas por symlink;
 `pnpm-lock.yaml`, versões de bibliotecas e arquivos de runtime são os mesmos.
 
+Merge concluído: **`8a04be81cd7c43278367be1d79690819bc48788c`**, com pais
+`b54162c` e `f8655f1`. Os registros posteriores são documentais.
+
 ## Escopo aprovado neste bate-bola
 
 - Astronauta padrão, rifle laser, PBR corrigido e alternativas reversíveis r7/atual.
@@ -71,7 +74,10 @@ Destinos autorizados em `origin` (`git@github.com:rochatales/orbit-deck.git`):
 - `rochatales/consolidacao-validada-2026-11-02`: merge desta consolidação.
 - **`rochatales/horda-survivor`**: mesma ponta consolidada, integração publicada.
 
-Push normal/atômico, sem force; `main` não é alterada. Para nova tarefa:
+A primeira tentativa de enviar o histórico inteiro caiu por conexão SSH
+(“Broken pipe”), sem criar refs no remoto. A retomada usa checkpoints históricos
+por fast-forward apenas na branch de consolidação; depois publica as três refs
+finais por push atômico. Sem force e sem reescrita; `main` não é alterada. Para nova tarefa:
 
 ```bash
 git fetch origin
