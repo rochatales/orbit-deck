@@ -1,5 +1,7 @@
 # Explorador astronauta
 
+**Pipeline/runtime ativo v009 (02/11/2026):** `--smooth-armed-run` repara RightToeBase q9/q10 do Run de Shanghai antes de recalcular o apoio do Hips. Preserva v001–v008 e as outras 13 ações. Ver [diagnóstico, hashes e roteiro](../../../docs/handoffs/s6.8-corrida-sem-degrau.md). Os registros abaixo são históricos.
+
 **Pipeline/runtime ativo v008 (01/11/2026):** `--colony-idle-backward` acrescenta Breathing_Idle / Walking_Backwards somente para Marte; v001–v007 e todas as ações anteriores preservados. Ver [handoff](../../../docs/handoffs/s6.8-idle-recuo-colonia.md). Os avisos de versões anteriores abaixo são históricos.
 
 **Atualização 01/11/2026: pipeline/runtime ativos v007.** `--final-run` gera Run de

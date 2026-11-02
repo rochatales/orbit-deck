@@ -10,7 +10,7 @@ const hash=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex
 const data=c=>({name:c.name,duration:c.duration,tracks:c.tracks.map(t=>KeyframeTrack.toJSON(t))});
 
 test('Rifle final: fonte intacta, onze ações v006 preservadas e Run in-place apoiado em todo o ciclo',async()=>{
- assert.equal(hash(base+report.glb.arquivo),report.glb.sha256);assert.equal(hash('src/assets/characters/player/explorador-astronauta.glb'),JSON.parse(fs.readFileSync(base+'notas/f1-v008.json')).glb.sha256);
+ assert.equal(hash(base+report.glb.arquivo),report.glb.sha256);assert.equal(hash('src/assets/characters/player/explorador-astronauta.glb'),JSON.parse(fs.readFileSync(base+'notas/f1-v009.json')).glb.sha256);
  const f=report.fontes.arquivos.find(f=>f.file==='Rifle _Run_final.fbx');assert.equal(hash(base+'mixamo/'+f.file),f.sha256);assert.equal(report.fontes.arquivos.length,18);
  for(const p of report.preservados)assert.equal(hash(base+p.glb),p.sha256);
  const g=await loadGlb(base+report.glb.arquivo),old=await loadGlb(base+'export/explorador-astronauta-rig-v006.glb');

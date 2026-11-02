@@ -21,8 +21,8 @@ async function setup(){
 }
 
 test('Colônia: v006 acrescenta Standard_Run sem alterar as onze ações do combate nem os GLBs anteriores',async()=>{
- assert.equal(hash(base+report.glb.arquivo),report.glb.sha256);assert.equal(hash(asset.assetPath),JSON.parse(fs.readFileSync(base+'notas/f1-v008.json')).glb.sha256);
- assert.equal(hash(base+'scripts/preparar_f1.py'),JSON.parse(fs.readFileSync(base+'notas/f1-v008.json')).script_sha256);
+ assert.equal(hash(base+report.glb.arquivo),report.glb.sha256);assert.equal(hash(asset.assetPath),JSON.parse(fs.readFileSync(base+'notas/f1-v009.json')).glb.sha256);
+ assert.equal(hash(base+'scripts/preparar_f1.py'),JSON.parse(fs.readFileSync(base+'notas/f1-v009.json')).script_sha256);
  for(const p of report.preservados)assert.equal(hash(base+p.glb),p.sha256);
  const historical=await loadGlb(base+'export/explorador-astronauta-rig-v006.glb'),old=await loadGlb(base+'export/explorador-astronauta-rig-v005.glb');
  for(const clip of old.animations)assert.deepEqual(clipData(historical.animations.find(c=>c.name===clip.name)),clipData(clip),clip.name);

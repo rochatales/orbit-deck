@@ -45,7 +45,8 @@ test('Mira viva: corrida armada usa a boca animada, com calçada e sem contamina
         close(physical.x,m.x-23);close(physical.z,m.z-35);close(player.y+out.height,m.y);
         min=Math.min(min,out.height);max=Math.max(max,out.height);
     }
-    assert.ok(max-min>.05,'boca acompanha o clipe, sem offset fixo da arma provisória');
+    // A boca segue o ciclo natural (~4 cm); o degrau antigo do Hips acrescentava ~11 cm.
+    assert.ok(max-min>.02 && max-min<.05,'boca animada, sem offset fixo nem salto do corpo');
 });
 
 test('Mira viva: retícula e raycaster compartilham o plano da boca em rua/calçada/canteiro/grama',()=>{

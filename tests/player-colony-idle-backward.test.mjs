@@ -13,7 +13,7 @@ const data=c=>({name:c.name,duration:c.duration,tracks:c.tracks.map(t=>KeyframeT
 
 test('Colônia v008: duas fontes intactas, 14 ações e todas as doze ações v007 preservadas',async()=>{
  assert.equal(hash(base+report.glb.arquivo),report.glb.sha256);
- assert.equal(hash('src/assets/characters/player/explorador-astronauta.glb'),report.glb.sha256);
+ assert.equal(hash('src/assets/characters/player/explorador-astronauta.glb'),JSON.parse(fs.readFileSync(base+'notas/f1-v009.json')).glb.sha256);
  assert.equal(report.fontes.arquivos.length,20);
  for(const f of report.fontes.arquivos)assert.equal(hash(base+'mixamo/'+f.file),f.sha256);
  for(const old of report.preservados)assert.equal(hash(base+old.glb),old.sha256);

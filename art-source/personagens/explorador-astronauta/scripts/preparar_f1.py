@@ -14,8 +14,10 @@ parser.add_argument('--render', action='store_true')
 parser.add_argument('--shanghai', action='store_true', help='v005: recuo Run_Backward para combate; v003 preservado')
 parser.add_argument('--colonia', action='store_true', help='v006: Standard_Run na colônia e combate v005 preservado')
 parser.add_argument('--colony-idle-backward', action='store_true', help='v008: Breathing_Idle / Walking_Backwards somente na colônia')
+parser.add_argument('--smooth-armed-run', action='store_true', help='v009: repara duas chaves do pé direito e remove o degrau da corrida armada')
 parser.add_argument('--final-run', action='store_true', help='v007: Rifle _Run_final em Shanghai, colônia v006 preservada')
 args = parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
+if args.smooth_armed_run: args.colony_idle_backward=True
 if args.colony_idle_backward: args.final_run=True
 if args.final_run: args.colonia=True
 SOURCES = ['Idle.fbx','Running.fbx','Standard_Run.fbx','Sprint Backward.fbx','Jumping Down.fbx','Jumping_Down.fbx','Death From The Front.fbx','Dying.fbx','Firing_Rifle.fbx','Reloading.fbx','Rifle_Start_Run.fbx','Running Dive Roll.fbx','Rifle Jump.fbx','dash_Jump_Over.fbx','Rifle_Run_00.fbx','Backwards_Rifle_Run.fbx']
@@ -39,7 +41,7 @@ if args.colony_idle_backward:
     SOURCES.extend(['Breathing_Idle.fbx','Walking_Backwards.fbx'])
     MAP['Idle_Colony']=('Breathing_Idle.fbx',True)
     MAP['Backward_Colony']=('Walking_Backwards.fbx',True)
-VERSION='v008' if args.colony_idle_backward else 'v007' if args.final_run else 'v006' if args.colonia else 'v005' if args.shanghai else 'v003'
+VERSION='v009' if args.smooth_armed_run else 'v008' if args.colony_idle_backward else 'v007' if args.final_run else 'v006' if args.colonia else 'v005' if args.shanghai else 'v003'
 REPORT_PATH=BASE/f'notas/f1-{VERSION}.json'
 previous_renders=json.loads(REPORT_PATH.read_text()).get('renders',[]) if REPORT_PATH.exists() else []
 for folder in ['mixamo','notas',f'notas/f1-{VERSION}','export',f'texturas/f1-{VERSION}',f'renders/f1-{VERSION}']:
@@ -95,13 +97,13 @@ floor=min(p.z for p in raw_points)
 rest={b.name:[list(row)for row in b.matrix_local]for b in master.data.bones}
 assert len(rest)==57 and all(n.startswith('mixamorig:')for n in rest)
 assert master.pose.bones['mixamorig:Hips'].parent is None
-previous='v007' if args.colony_idle_backward else 'v006' if args.final_run else 'v005' if args.colonia else 'v004'
-preserved=['v001','v002','v003','v004','v005','v006','v007'] if args.colony_idle_backward else ['v001','v002','v003','v004','v005','v006'] if args.final_run else ['v001','v002','v003','v004','v005'] if args.colonia else ['v001','v002','v003','v004'] if args.shanghai else ['v001','v002','v004']
-report={'base':'4034f23' if args.colony_idle_backward else '2661ffd' if args.final_run else '866f26d' if args.colonia else '150a063' if args.shanghai else 'ab46ac2','base_original':'96d8ea5','versao':VERSION,
+previous='v008' if args.smooth_armed_run else 'v007' if args.colony_idle_backward else 'v006' if args.final_run else 'v005' if args.colonia else 'v004'
+preserved=['v001','v002','v003','v004','v005','v006','v007','v008'] if args.smooth_armed_run else ['v001','v002','v003','v004','v005','v006','v007'] if args.colony_idle_backward else ['v001','v002','v003','v004','v005','v006'] if args.final_run else ['v001','v002','v003','v004','v005'] if args.colonia else ['v001','v002','v003','v004'] if args.shanghai else ['v001','v002','v004']
+report={'base':'ff561ab' if args.smooth_armed_run else '4034f23' if args.colony_idle_backward else '2661ffd' if args.final_run else '866f26d' if args.colonia else '150a063' if args.shanghai else 'ab46ac2','base_original':'96d8ea5','versao':VERSION,
         'anterior':{'glb':f'export/explorador-astronauta-rig-{previous}.glb','sha256':sha(BASE/f'export/explorador-astronauta-rig-{previous}.glb'),'notas':f'notas/f1-{previous}.json'},
         'preservados':[{'glb':f'export/explorador-astronauta-rig-{v}.glb','sha256':sha(BASE/f'export/explorador-astronauta-rig-{v}.glb'),'notas':f'notas/f1-{v}.json'} for v in preserved],
         'escala_referencia_coordenacao':1.6714,
-        'decisao_escala':('Escala e doze ações v007 preservadas; Idle_Colony e Backward_Colony adicionados para Marte.' if args.colony_idle_backward else 'Escala do Idle e onze ações do v006 preservadas; Run troca para Rifle _Run_final em Shanghai.' if args.final_run else 'Mantida escala do Idle, onze ações do v005 preservadas e Standard_Run adicionado como Run_Colony.' if args.colonia else 'Mantida a escala do Idle v001; só Run e Backward trocam a fonte nesta consolidação. Root fonte medido no Hips em mundo Blender, antes de aplicar K.'),
+        'decisao_escala':('Escala e treze ações v008 preservadas; só Run recebe reparo de RightToeBase q9/q10 e novo apoio vertical.' if args.smooth_armed_run else 'Escala e doze ações v007 preservadas; Idle_Colony e Backward_Colony adicionados para Marte.' if args.colony_idle_backward else 'Escala do Idle e onze ações do v006 preservadas; Run troca para Rifle _Run_final em Shanghai.' if args.final_run else 'Mantida escala do Idle, onze ações do v005 preservadas e Standard_Run adicionado como Run_Colony.' if args.colonia else 'Mantida a escala do Idle v001; só Run e Backward trocam a fonte nesta consolidação. Root fonte medido no Hips em mundo Blender, antes de aplicar K.'),
         'blender':bpy.app.version_string,'fps':FPS,'altura_idle_fonte_m':raw_height,
         'escala':K,'alvo_m':TARGET,'origem':'piso sob Idle quadro 1; quadril projetado em X/Z=0',
         'eixos':'Blender frente -Y, Z cima; glTF frente +Z, Y cima; rotação importada do armature mantida',
@@ -227,6 +229,24 @@ def correct_height(clip,frame_count,contact_limit):
 report['dash_altura'],dash_before=correct_height('Dash',39,.12)
 report['fall_altura'],fall_before=correct_height('Fall',81,.08)
 report['death_altura'],death_before=correct_height('Death',104,.06)
+if args.smooth_armed_run:
+    # Duas rotações espúrias de RightToeBase invertem a ponta da bota (~-11 cm).
+    # O clamp antigo compensava no Hips e erguia o corpo inteiro nesses quadros.
+    # Reconstrói apenas q9/q10 por slerp entre q8 e q11, antes de medir o solo.
+    set_action(master, actions['Run'])
+    toe=master.pose.bones['mixamorig:RightToeBase']
+    rotations={}
+    for frame in [8,9,10,11]:
+        scene.frame_set(frame);bpy.context.view_layer.update()
+        rotations[frame]=toe.rotation_quaternion.copy()
+    corrected=[]
+    for frame in [9,10]:
+        scene.frame_set(frame)
+        toe.rotation_quaternion=rotations[8].slerp(rotations[11],(frame-8)/3)
+        toe.keyframe_insert('rotation_quaternion',frame=frame,group='mixamorig:RightToeBase')
+        corrected.append({'quadro':frame,'antes_wxyz':list(rotations[frame]),'depois_wxyz':list(toe.rotation_quaternion)})
+    report['run_pe_reparado']={'osso':'mixamorig:RightToeBase','quadros_ancora':[8,11],
+        'metodo':'slerp q8 → q11 apenas em q9/q10; rotações dos demais ossos preservadas', 'perfil':corrected}
 if args.final_run:
     report['run_altura'],_=correct_height('Run',23,.025)
     report['run_altura']['metodo']+='; janela circular no loop Run, limitada a 2 cm sobre o piso nos quadros antes negativos'

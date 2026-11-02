@@ -22,7 +22,7 @@ const bone=(g,name)=>g.scene.getObjectByName('mixamorig'+name);
 test('Shanghai: v005 incorpora Run_Backward in-place; dez ações v003 e fontes anteriores preservadas',async()=>{
  const r=JSON.parse(fs.readFileSync(base+'notas/f1-v005.json'));
  assert.equal(hash(base+r.glb.arquivo),r.glb.sha256);
- assert.equal(hash(base+'scripts/preparar_f1.py'),JSON.parse(fs.readFileSync(base+'notas/f1-v008.json')).script_sha256);assert.equal(r.fontes.arquivos.length,17);
+ assert.equal(hash(base+'scripts/preparar_f1.py'),JSON.parse(fs.readFileSync(base+'notas/f1-v009.json')).script_sha256);assert.equal(r.fontes.arquivos.length,17);
  for(const source of r.fontes.arquivos)assert.equal(hash(base+'mixamo/'+source.file),source.sha256);
  for(const old of r.preservados)assert.equal(hash(base+old.glb),old.sha256);
  const g=await loadGlb(base+r.glb.arquivo),old=await loadGlb(base+'export/explorador-astronauta-rig-v003.glb');
