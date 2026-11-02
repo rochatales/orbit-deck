@@ -124,13 +124,19 @@ test('Portas reais: masterplan emite uma vez por par; Hangar, Quartel, Lab e Con
     playerSounds.clear();
 });
 
-test('Marte: fontes intactas, corte final reproduzível e sem silêncio longo no efeito da porta', () => {
+test('Marte: fontes intactas, última ação mecânica forte preservada e recorte reproduzível', () => {
     const root = 'src/assets/audio/mars/', manifest = JSON.parse(fs.readFileSync(root + 'manifesto.json'));
     for (const source of manifest.sources) assert.equal(createHash('sha256').update(fs.readFileSync(root + source.file)).digest('hex'), source.sha256);
     const before = fs.readFileSync(root + manifest.door.file);
     execFileSync('node', ['scripts/audio/preparar-porta-marte.mjs']);
     assert.deepEqual(fs.readFileSync(root + manifest.door.file), before);
     const p = JSON.parse(execFileSync('ffprobe', ['-v', 'error', '-show_format', '-show_streams', '-of', 'json', root + manifest.door.file]));
-    assert.equal(p.streams[0].channels, 1); assert.ok(Number(p.format.duration) >= .76 && Number(p.format.duration) < .82);
-    assert.equal(manifest.door.startSeconds, 4.05); assert.equal(manifest.door.endSeconds, 4.811);
+    assert.equal(p.streams[0].channels, 1); assert.ok(Number(p.format.duration) >= 1.10 && Number(p.format.duration) < 1.16);
+    assert.equal(manifest.door.startSeconds, 2.75); assert.equal(manifest.door.endSeconds, 3.85);
+    // Evita regressão ao recorte antigo, que capturava apenas uma cauda quase inaudível.
+    const pcm = execFileSync('ffmpeg', ['-v', 'error', '-i', root + manifest.door.file, '-t', '0.25', '-ac', '1', '-ar', '48000', '-f', 'f32le', '-']);
+    let energy = 0, peak = 0;
+    for (let i = 0; i < pcm.length; i += 4) { const v = pcm.readFloatLE(i); energy += v * v; peak = Math.max(peak, Math.abs(v)); }
+    assert.ok(20 * Math.log10(Math.sqrt(energy / (pcm.length / 4))) > -22, 'ataque da ação audível desde o início');
+    assert.ok(20 * Math.log10(peak) > -10, 'rajada mecânica presente, não apenas reverberação');
 });
