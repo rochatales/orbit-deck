@@ -34,7 +34,7 @@ Legenda: 🔲 não iniciado · ◐ em andamento/parcial · ✅ implementado ·
 
 ## Tarefa após a consolidação · 02/11/2026
 
-- **S3.10 parcial — ambiência de Shanghai:** pedido do autor; Codex implementa em `rochatales/s3.10-ambiencia-shanghai`, worktree própria, base fixa `5bc240fd09d3e4e6af10534f8e6ed2a1dae5ebf4`. Arquivos: áudio fornecido, motor/runtime de áudio, testes e `docs/handoffs/s3.10-ambiencia-shanghai.md`. Loop só em Shanghai, volume/mudo/pausa existentes. Aceite auditivo do autor pendente; sem push ou merge até nova consolidação.
+- **S3.10 parcial — ambiência de Shanghai:** pedido do autor; Codex implementa em `rochatales/s3.10-ambiencia-shanghai`, worktree própria, base fixa `5bc240fd09d3e4e6af10534f8e6ed2a1dae5ebf4`. Arquivos: áudio fornecido, motor/runtime de áudio, testes e `docs/handoffs/s3.10-ambiencia-shanghai.md`. Shanghai entregue em `1ed98fb`; continuação solicitada pelo autor: Marte com vento externo, ambiência interna nas dez salas e efeito mecânico no início da abertura das portas. Crossfade e volume/mudo/pausa existentes; mesma branch/worktree da tarefa de áudio. Handoffs `s3.10-ambiencia-shanghai.md` e `s3.10-ambiencia-marte.md`. Aceite auditivo do autor pendente; sem push ou merge até nova consolidação.
 
 ## Base consolidada
 
