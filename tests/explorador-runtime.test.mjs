@@ -20,7 +20,7 @@ test('S6.8 F2: astronauta com loops armados padrão, r7/atual reversíveis na me
     assert.equal(asset.id, 'player-astronauta'); assert.equal(asset.scale, 1);
     assert.deepEqual(asset.positionOffset, [0, 0, 0]); assert.deepEqual(asset.rotationOffset, [0, 0, 0]);
     assert.equal(asset.materialProfile, 'preservar');
-    assert.equal(hash(asset.assetPath), hash('art-source/personagens/explorador-astronauta/export/explorador-astronauta-rig-v006.glb'));
+    assert.equal(hash(asset.assetPath), hash('art-source/personagens/explorador-astronauta/export/explorador-astronauta-rig-v007.glb'));
     // Troca em runtime afeta só escolha/clipes, sem remount do PlayerPhysicsBody.
     for (const variant of ['r7', 'atual', 'astronauta']) {
         choice.usePlayerAsset.getState().setVariant(variant);
@@ -38,7 +38,7 @@ test('S6.8 F2: ações reais seguem passada calibrada; variantes antigas mantêm
     const actions = Object.fromEntries(gltf.animations.map(clip => [clip.name, mixer.clipAction(clip)]));
     const calibration = locomotion.locomotionCalibration(config.EXPLORADOR_ASTRONAUTA_ASSET);
     locomotion.updateLocomotionRates(actions, actions.Run, 'walking', 4.2, calibration);
-    close(actions.Run.timeScale, 4.2 / 2.7706);
+    close(actions.Run.timeScale, 4.2 / 2.1189701557);
     locomotion.updateLocomotionRates(actions, actions.Backward, 'backward', 1.2, calibration);
     close(actions.Backward.timeScale, 1.2 / 1.4012);
     for (const variant of ['r7', 'atual']) {

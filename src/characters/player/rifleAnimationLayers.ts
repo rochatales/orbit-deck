@@ -45,7 +45,7 @@ export class RifleAnimationLayers {
     if (blocked) return; // mixer e timer da simulação também estão suspensos.
     const reload = reloadLeft > 0;
     const special = state === 'dashing' || state === 'falling' || state === 'interacting' || state === 'actionTriggered';
-    // W conserva Rifle_Run_00 no corpo inteiro, mesmo atirando; a recarga continua prioritária.
+    // W conserva o ciclo Run armado no corpo inteiro, mesmo atirando; a recarga continua prioritária.
     const target = special ? null : reload ? this.upper.Reload : state === 'walking' ? this.upper.Run :
       firing ? this.upper.Firing : state === 'backward' ? this.upper.Backward : this.upper.Idle;
     if (target !== this.current) {

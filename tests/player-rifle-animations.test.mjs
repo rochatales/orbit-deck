@@ -22,7 +22,7 @@ const bone=(g,name)=>g.scene.getObjectByName('mixamorig'+name);
 test('Shanghai: v005 incorpora Run_Backward in-place; dez ações v003 e fontes anteriores preservadas',async()=>{
  const r=JSON.parse(fs.readFileSync(base+'notas/f1-v005.json'));
  assert.equal(hash(base+r.glb.arquivo),r.glb.sha256);
- assert.equal(hash(base+'scripts/preparar_f1.py'),JSON.parse(fs.readFileSync(base+'notas/f1-v006.json')).script_sha256);assert.equal(r.fontes.arquivos.length,17);
+ assert.equal(hash(base+'scripts/preparar_f1.py'),JSON.parse(fs.readFileSync(base+'notas/f1-v007.json')).script_sha256);assert.equal(r.fontes.arquivos.length,17);
  for(const source of r.fontes.arquivos)assert.equal(hash(base+'mixamo/'+source.file),source.sha256);
  for(const old of r.preservados)assert.equal(hash(base+old.glb),old.sha256);
  const g=await loadGlb(base+r.glb.arquivo),old=await loadGlb(base+'export/explorador-astronauta-rig-v003.glb');
@@ -32,7 +32,7 @@ test('Shanghai: v005 incorpora Run_Backward in-place; dez ações v003 e fontes 
  for(let f=0;f<16;f++){m.setTime(f/30);g.scene.updateMatrixWorld(true);const p=bone(g,'Hips').getWorldPosition(new Vector3());close(p.x,0);close(p.z,0);}
 });
 
-test('Shanghai: W conserva Rifle_Run_00 no corpo inteiro, inclusive durante os tiros',async()=>{
+test('Shanghai: W conserva Rifle _Run_final no corpo inteiro, inclusive durante os tiros',async()=>{
  const s=await setup(),reference=await setup();
  const leg=s.layers.legs.Run;leg.play();s.layers.update('walking',0,true,leg,false);s.mixer.update(.2);
  reference.actions.Run.play();reference.mixer.update(.2);
@@ -45,7 +45,7 @@ test('Shanghai: W conserva Rifle_Run_00 no corpo inteiro, inclusive durante os t
  const upper=s.layers.upperAction;
  assert.equal(upper.getClip().name,'Run_Tronco');close(upper.time,leg.time);
  assert.ok(upper.getClip().tracks.every(t=>!t.name.includes('Hips')&&!t.name.includes('Leg')&&!t.name.includes('Foot')));
- updateLocomotionRates(s.layers.legs,leg,'walking',4.2,locomotionCalibration({runReferenceSpeed:2.7706}));
+ updateLocomotionRates(s.layers.legs,leg,'walking',4.2,locomotionCalibration({runReferenceSpeed:2.1189701557}));
  s.layers.update('walking',0,true,leg,false);close(upper.timeScale,leg.timeScale);
  s.layers.update('walking',0,false,leg,false);assert.equal(s.layers.upperAction,upper,'soltar tiro não troca o ciclo W');
  s.layers.dispose();reference.layers.dispose();

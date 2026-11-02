@@ -85,6 +85,11 @@
       "file": "Run_Backward.fbx",
       "bytes": 7106544,
       "sha256": "4d7b0306c86d0e0dc6c997b782c0df7452a2f733be68d401eecfa15b11573455"
+    },
+    {
+      "file": "Rifle _Run_final.fbx",
+      "bytes": 7067808,
+      "sha256": "5f6df8295cfaf21dcc8efea9ae14c0dc99bd081c2d326b5a1796d01d6391e234"
     }
   ]
 }

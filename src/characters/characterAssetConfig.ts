@@ -45,13 +45,13 @@ export const PLAYER_CHARACTER_ASSET: CharacterAssetConfig = {
 export const EXPLORADOR_R7_ASSET: CharacterAssetConfig = {
     id: 'player-r7', name: 'Explorador', assetPath: exploradorR7Asset, scale: 0.857, positionOffset: [0, 0, 0], rotationOffset: [0, 0, 0], accentColor: '#66e6ff', fallbackType: 'player', materialProfile: 'preservar'
 };
-/** v006: Standard_Run / Run_Backward na colônia; ciclos armados separados em Shanghai.
+/** v007: Standard_Run / Run_Backward na colônia; Rifle _Run_final em Shanghai.
  * 57 ossos Mixamo, pés na origem, 1,5 m e materiais exportados. */
 export const EXPLORADOR_ASTRONAUTA_ASSET: CharacterAssetConfig = {
     id: 'player-astronauta', name: 'Explorador astronauta', assetPath: astronautaAsset,
     scale: 1, positionOffset: [0, 0, 0], rotationOffset: [0, 0, 0],
     accentColor: '#66e6ff', fallbackType: 'player', materialProfile: 'preservar',
-    runReferenceSpeed: 2.7706, combatRunReferenceSpeed: 2.7706, backwardReferenceSpeed: 1.4012, combatBackwardReferenceSpeed: 2.8689273214, colonyRunReferenceSpeed: 2.7678143978, colonyBackwardReferenceSpeed: 2.8689273214, backwardTimeScale: [0.2, 2.0]
+    runReferenceSpeed: 2.1189701557, combatRunReferenceSpeed: 2.1189701557, backwardReferenceSpeed: 1.4012, combatBackwardReferenceSpeed: 2.8689273214, colonyRunReferenceSpeed: 2.7678143978, colonyBackwardReferenceSpeed: 2.8689273214, backwardTimeScale: [0.2, 2.0]
 };
 export type PlayerAssetVariant = 'astronauta' | 'r7' | 'atual';
 export const PLAYER_ASSET_VARIANTS: Record<PlayerAssetVariant, CharacterAssetConfig> = { astronauta: EXPLORADOR_ASTRONAUTA_ASSET, r7: EXPLORADOR_R7_ASSET, atual: PLAYER_CHARACTER_ASSET };

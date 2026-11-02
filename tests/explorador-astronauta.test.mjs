@@ -36,7 +36,7 @@ function dimensions(image) {
 
 test('S6.8 F1: fontes usadas intactas, pipeline e GLB conferem SHA-256; pacote abaixo de 3 MB', () => {
     assert.equal(hash(file), report.glb.sha256);
-    assert.equal(hash(base + 'scripts/preparar_f1.py'), JSON.parse(fs.readFileSync(base + 'notas/f1-v006.json')).script_sha256);
+    assert.equal(hash(base + 'scripts/preparar_f1.py'), JSON.parse(fs.readFileSync(base + 'notas/f1-v007.json')).script_sha256);
     assert.equal(bytes.length, report.glb.bytes);
     assert.ok(bytes.length <= 3_000_000);
     assert.equal(report.fontes.arquivos.length, 16);

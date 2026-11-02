@@ -31,8 +31,7 @@ function HandRifle({ scene, onAttached, motionRef, combat }: PlayerRifleProps) {
     if (combat && !simulationBlocked() && rifle.parent) rig.update(
       playerWeaponPose, playerPosition, playerFacing.angle, combatRuntime.aimValid ? combatRuntime.aim : null,
       !(combatRuntime.simulation?.reloadLeft) && (motionRef.current.animationState === 'idle' ||
-        motionRef.current.animationState === 'backward' || (motionRef.current.animationState === 'walking' &&
-          (combatRuntime.simulation?.cooldown ?? 0) > 0)), playerHeadPose);
+        motionRef.current.animationState === 'backward' || motionRef.current.animationState === 'walking'), playerHeadPose);
   }, -20);
   useEffect(() => {
     resetPlayerWeaponPose();

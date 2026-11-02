@@ -1,5 +1,12 @@
 # Explorador astronauta
 
+**Atualização 01/11/2026: pipeline/runtime ativos v007.** `--final-run` gera Run de
+`Rifle _Run_final.fbx`, preservando as outras onze ações v006 e exports históricos.
+Reprodução: `Blender -b --factory-startup -P art-source/personagens/explorador-astronauta/scripts/preparar_f1.py -- --final-run`.
+Notas `notas/f1-v007.json`; fonte intacta e hashes em `mixamo/fontes-sha256.json`.
+Detalhes e roteiro no [handoff da corrida final](../../../docs/handoffs/s6.8-rifle-run-final.md).
+Os registros de Parada A/versões antigas abaixo são históricos.
+
 **Pipeline ativo: F1 v003 (Fall/Death com apoio corrigido), ainda na Parada A sem runtime.**
 O registro da v001 abaixo é histórico; ela permanece intacta.
 

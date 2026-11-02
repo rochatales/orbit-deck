@@ -21,11 +21,11 @@ async function setup(){
 }
 
 test('Colônia: v006 acrescenta Standard_Run sem alterar as onze ações do combate nem os GLBs anteriores',async()=>{
- assert.equal(hash(base+report.glb.arquivo),report.glb.sha256);assert.equal(hash(asset.assetPath),report.glb.sha256);
- assert.equal(hash(base+'scripts/preparar_f1.py'),report.script_sha256);
+ assert.equal(hash(base+report.glb.arquivo),report.glb.sha256);assert.equal(hash(asset.assetPath),JSON.parse(fs.readFileSync(base+'notas/f1-v007.json')).glb.sha256);
+ assert.equal(hash(base+'scripts/preparar_f1.py'),JSON.parse(fs.readFileSync(base+'notas/f1-v007.json')).script_sha256);
  for(const p of report.preservados)assert.equal(hash(base+p.glb),p.sha256);
- const s=await setup(),old=await loadGlb(base+'export/explorador-astronauta-rig-v005.glb');
- for(const clip of old.animations)assert.deepEqual(clipData(s.g.animations.find(c=>c.name===clip.name)),clipData(clip),clip.name);
+ const historical=await loadGlb(base+'export/explorador-astronauta-rig-v006.glb'),old=await loadGlb(base+'export/explorador-astronauta-rig-v005.glb');
+ for(const clip of old.animations)assert.deepEqual(clipData(historical.animations.find(c=>c.name===clip.name)),clipData(clip),clip.name);
  const clip=report.clipes.find(c=>c.clipe==='Run_Colony');assert.equal(clip.fonte,'Standard_Run.fbx');assert.equal(clip.quantidade_quadros,23);close(clip.duracao_s,22/30);
  assert.ok(report.glb.bytes<3_000_000);assert.equal(report.fontes.arquivos.length,17);
 });
@@ -36,7 +36,7 @@ test('Colônia: Standard_Run e Run_Backward por mapa, passada calibrada e fallba
  assert.equal(pickTargetAction('idle',colony,false),s.actions.Idle);
  updateLocomotionRates(colony,colony.Run,'walking',4.2,calibration);close(colony.Run.timeScale,4.2/2.7678143978);
  updateLocomotionRates(colony,colony.Backward,'backward',1.2,calibration);close(colony.Backward.timeScale,1.2/2.8689273214);
- close(mapLocomotionCalibration(asset,true).runReferenceSpeed,2.7706);
+ close(mapLocomotionCalibration(asset,true).runReferenceSpeed,2.1189701557);
  const old={Idle:s.actions.Idle,Run:s.actions.Run};assert.equal(colonyLocomotionActions(old),old);close(mapLocomotionCalibration(r7,false).runReferenceSpeed,1.6);
  assert.equal(dashEnabled('mars'),false);assert.equal(dashEnabled('shanghai'),true);
  const a=s.actions.Run_Colony;a.reset().play();for(let f=0;f<23;f++){s.mixer.setTime(f/30);s.g.scene.updateMatrixWorld(true);const hips=s.g.scene.getObjectByName('mixamorigHips').getWorldPosition(new Vector3());close(hips.x,0);close(hips.z,0);}
