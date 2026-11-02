@@ -14,6 +14,7 @@ import '../src/styles/global.css';
 function QA() {
     const [result, setResult] = useState('Pronto'), [hidden, setHidden] = useState(false);
     const [receivingShadows, setReceivingShadows] = useState(true);
+    const [vibrationReport, setVibrationReport] = useState('');
     const s = expedition();
     function place(where: 'eden' | 'deck') {
         if (!s.ready || s.session.map !== 'mars')
@@ -35,6 +36,48 @@ function QA() {
         await new Promise(r => setTimeout(r, 300));
         const after = playerPosition;
         setResult(`${forward?'Corrida':'Recuo'}: ${clip} | ${speed?.toFixed(2)} m/s | ${rate?.toFixed(3)}× | `+'Deslocamento em 1s: ' + Math.hypot(after.x - before.x, after.z - before.z).toFixed(2) + ' m');
+    }
+    async function measureVibration() {
+        if (s.session.phase !== 'walking' || game.getState().isPaused) return;
+        const scene = (window as unknown as { __hordaPlayerScene?: import('three').Object3D }).__hordaPlayerScene;
+        const head = scene?.getObjectByName('mixamorigHead');
+        if (!scene || !head) return;
+        let root = scene; while (root.parent) root = root.parent;
+        let camera: import('three').Camera | undefined;
+        root.traverse(node=>{if ((node as import('three').Camera).isCamera && !camera) camera=node as import('three').Camera;});
+        if (!camera) return;
+        const origin = new Vector3(), localHead = new Vector3(), screen = new Vector3();
+        const rows: {t:number; input:string; x:number; z:number; px:number; pz:number; hx:number; hy:number; hz:number; sx:number; sy:number}[] = [];
+        const canvas = document.querySelector('canvas')!, width=canvas.width, height=canvas.height;
+        const start=performance.now(); let held='';
+        pointerAt(playerPosition.x+20,playerPosition.z);
+        setResult('Vibração: 4 s · W, parar e S…');
+        await new Promise<void>(resolve=>{function frame(){
+            const t=(performance.now()-start)/1000;
+            const key=t>=.5&&t<1.7?'w':t>=2.5&&t<3.7?'s':'';
+            if(key!==held){
+                if(held)window.dispatchEvent(new KeyboardEvent('keyup',{key:held,code:held==='w'?'KeyW':'KeyS',bubbles:true}));
+                if(key)window.dispatchEvent(new KeyboardEvent('keydown',{key,code:key==='w'?'KeyW':'KeyS',bubbles:true}));
+                held=key;
+            }
+            scene!.getWorldPosition(origin);head!.getWorldPosition(localHead);scene!.worldToLocal(localHead);
+            screen.copy(origin).project(camera!);
+            rows.push({t,input:key,x:origin.x,z:origin.z,px:playerPosition.x,pz:playerPosition.z,hx:localHead.x,hy:localHead.y,hz:localHead.z,sx:screen.x,sy:screen.y});
+            if(t<4)requestAnimationFrame(frame);else resolve();
+        }requestAnimationFrame(frame);});
+        if(held)window.dispatchEvent(new KeyboardEvent('keyup',{key:held,code:held==='w'?'KeyW':'KeyS',bubbles:true}));
+        const summary=([['w',.9,1.65],['s',2.9,3.65]] as const).map(([input,from,to])=>{
+            let n=0,still=0,maxStep=0,speed=0,squared=0,maxHead=0;
+            for(let i=1;i<rows.length;i++){
+                const a=rows[i-1],b=rows[i];if(a.t<from||b.t>to)continue;
+                const dt=b.t-a.t,d=Math.hypot(b.x-a.x,b.z-a.z),v=d/dt;n++;if(d<1e-5)still++;maxStep=Math.max(maxStep,d);speed+=v;squared+=v*v;
+                maxHead=Math.max(maxHead,Math.hypot(b.hx-a.hx,b.hy-a.hy,b.hz-a.hz));
+            }
+            const mean=speed/Math.max(n,1);return{input,frames:n,stationaryFrames:still,maxStep,meanSpeed:mean,speedDeviation:Math.sqrt(Math.max(0,squared/Math.max(n,1)-mean*mean)),maxHeadStep:maxHead};
+        });
+        const report={interpolation:new URLSearchParams(location.search).get('interp')==='1',map:s.session.map,width,height,resolutionConstant:width===canvas.width&&height===canvas.height,summary,rows};
+        setVibrationReport(JSON.stringify(report,null,2));
+        setResult('Vibração: '+summary.map(x=>`${x.input.toUpperCase()} · ${x.stationaryFrames}/${x.frames} quadros sem avanço, passo máx ${(x.maxStep*100).toFixed(2)} cm, desvio ${(x.speedDeviation).toFixed(2)} m/s`).join(' | '));
     }
     function compareShadowBias() {
         let root = (window as unknown as { __hordaPlayerScene?: import('three').Object3D }).__hordaPlayerScene;
@@ -206,10 +249,10 @@ function QA() {
   <button onClick={() => setHidden(!hidden)}>{hidden ? 'Mostrar QA' : 'Ocultar QA'}</button>
   {!hidden && <><p>Fixture DEV · posições preparadas para teste, sem alterar o mapa do produto</p>
   <button onClick={() => place('eden')}>Preparar perto de EDEN</button><button onClick={() => place('deck')}>Preparar no deck</button>
-  <button onClick={()=>{const g=game.getState();g.setZoomBounds(g.minZoom,g.minZoom*12);g.setZoom(g.minZoom*10);}}>Zoom diagnóstico</button><button onClick={compareShadowBias}>Comparar bias de sombra</button><button onClick={compareCharacterShadows}>{receivingShadows?"Desligar sombras no personagem":"Ligar sombras no personagem"}</button><button onClick={()=>{const a=(window as unknown as {__hordaPlayerActions?:Record<string,import('three').AnimationAction>}).__hordaPlayerActions;const mixer=a?.Idle?.getMixer();if(mixer)mixer.timeScale=mixer.timeScale?0:1;}}>Congelar/descongelar pose</button><button onClick={transitions}>Testar transições rápidas</button><button onClick={()=>movement()}>Testar movimento 1s</button><button onClick={()=>movement(true)}>Testar corrida armada</button><button onClick={rifleAim}>Testar mira/cano</button><button onClick={dash}>Testar Dash Space</button><button onClick={()=>armedAnimation()}>Testar corrida com tiro</button><button onClick={()=>armedAnimation(true)}>Testar Reloading</button><button onClick={sample}>Medir frames 5s</button>
+  <button onClick={()=>{const g=game.getState();g.setZoomBounds(g.minZoom,g.minZoom*12);g.setZoom(g.minZoom*10);}}>Zoom diagnóstico</button><button onClick={measureVibration}>Medir vibração 4s</button><button onClick={compareShadowBias}>Comparar bias de sombra</button><button onClick={compareCharacterShadows}>{receivingShadows?"Desligar sombras no personagem":"Ligar sombras no personagem"}</button><button onClick={()=>{const a=(window as unknown as {__hordaPlayerActions?:Record<string,import('three').AnimationAction>}).__hordaPlayerActions;const mixer=a?.Idle?.getMixer();if(mixer)mixer.timeScale=mixer.timeScale?0:1;}}>Congelar/descongelar pose</button><button onClick={transitions}>Testar transições rápidas</button><button onClick={()=>movement()}>Testar movimento 1s</button><button onClick={()=>movement(true)}>Testar corrida armada</button><button onClick={rifleAim}>Testar mira/cano</button><button onClick={dash}>Testar Dash Space</button><button onClick={()=>armedAnimation()}>Testar corrida com tiro</button><button onClick={()=>armedAnimation(true)}>Testar Reloading</button><button onClick={sample}>Medir frames 5s</button>
   <button onClick={()=>encounter(1)}>Combate assistido 1</button><button onClick={()=>encounter(3)}>Combate assistido 3</button><button onClick={()=>encounter(5)}>Combate assistido 5</button>
   <button onClick={pauseCombat}>Testar pausa e recarga</button><button onClick={focusTest}>Testar movimento e foco</button><button onClick={death}>Testar morte natural</button>
-  <p role="status">{result}</p><p>{s.session.map} / {s.session.phase} / pronto: {String(s.ready)}</p></>}
+  <p role="status">{result}</p>{vibrationReport&&<textarea aria-label="Diagnóstico de vibração" readOnly value={vibrationReport} style={{width:"100%",height:80}}/>}<p>{s.session.map} / {s.session.phase} / pronto: {String(s.ready)}</p></>}
  </aside>;
 }
 if (import.meta.env.DEV) {

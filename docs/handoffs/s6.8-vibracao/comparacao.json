@@ -1,0 +1,62 @@
+{
+  "padrao": {
+    "map": "mars",
+    "buffer": [
+      1920,
+      1080
+    ],
+    "resolutionConstant": true,
+    "renderHzAproximado": 89.89437410934988,
+    "maxPhysicalVisualOffsetXZ": 0.0,
+    "summary": [
+      {
+        "input": "w",
+        "frames": 66,
+        "stationaryFrames": 22,
+        "maxStep": 0.06999921798706055,
+        "meanSpeed": 4.069502691555814,
+        "speedDeviation": 2.9043819882702744,
+        "maxHeadStep": 0.009588143012610675
+      },
+      {
+        "input": "s",
+        "frames": 65,
+        "stationaryFrames": 20,
+        "maxStep": 0.01999974250793457,
+        "meanSpeed": 1.1953824794808754,
+        "speedDeviation": 0.8042282905640704,
+        "maxHeadStep": 0.010345711320121277
+      }
+    ]
+  },
+  "interpolado": {
+    "map": "mars",
+    "buffer": [
+      1920,
+      1080
+    ],
+    "resolutionConstant": true,
+    "renderHzAproximado": 88.35160434420591,
+    "maxPhysicalVisualOffsetXZ": 0.06854712963103982,
+    "summary": [
+      {
+        "input": "w",
+        "frames": 65,
+        "stationaryFrames": 0,
+        "maxStep": 0.05371125487345818,
+        "meanSpeed": 4.195991608146365,
+        "speedDeviation": 0.18150205542156156,
+        "maxHeadStep": 0.009558150975645168
+      },
+      {
+        "input": "s",
+        "frames": 65,
+        "stationaryFrames": 0,
+        "maxStep": 0.014999449253082275,
+        "meanSpeed": 1.198965974058349,
+        "speedDeviation": 0.03549848821040608,
+        "maxHeadStep": 0.01014375468630988
+      }
+    ]
+  }
+}
