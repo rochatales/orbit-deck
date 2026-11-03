@@ -19,6 +19,20 @@ import { OfficeMap } from '../world/OfficeMap';
 import type { OfficeWorld } from '../world/createOfficeMap';
 import type { MapId } from '../game/session';
 import { MarsColony } from './marsColony/MarsColony';
+import { ShanghaiClouds } from './ShanghaiClouds';
+import { useFrame } from '@react-three/fiber';
+import { playerPosition } from '../state/playerTransient';
+
+function ShanghaiAtmosphere({ world }: { world: OfficeWorld }) {
+    useFrame(({ camera }, dt) => {
+        const fade = world.group.userData.limitsRuinFade;
+        if (fade) {
+            fade.update(playerPosition.x, playerPosition.z, camera, Math.min(dt, 0.1));
+        }
+    });
+    return <ShanghaiClouds />;
+}
+
 export function OfficeScene({ world, map }: {
     world: OfficeWorld;
     map: MapId;
@@ -39,6 +53,7 @@ export function OfficeScene({ world, map }: {
       <Player key={revision} officeWorld={world} spawn={spawn}/>
     </PhysicsWorld>
     {map === 'shanghai' && <CombatScene world={world}/>}
+    {phase01 && <ShanghaiAtmosphere world={world}/>}
     {map === 'mars' ? <MarsColony world={world}/> : <Spacecraft map={map}/>}
     {map === 'mars' && <group position={[EDEN.position.x, 0, EDEN.position.z]}>
       <GLBCharacter {...a} animationState="idle"/>

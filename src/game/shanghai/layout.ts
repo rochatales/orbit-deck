@@ -4,9 +4,11 @@ import type { OfficeWorld } from '../../world/createOfficeMap';
 import type { RectBounds } from '../../utils/math';
 import { Group } from 'three';
 import { addAresCollisions } from './aresLanding';
+import { SHANGHAI_LIMITS } from './limits';
 import { SHANGHAI_SUPPLY_CRATES, crateObstacle } from '../props/supplyCrate';
 /** Dados separados do GLB: nenhum triângulo visual entra na física. */
 export const SHANGHAI_PHASE01 = data;
+export { SHANGHAI_LIMITS };
 export function createPhase01Terrain(): OfficeWorld {
     const height = phase01SurfaceGrid();
     const world: OfficeWorld = {
