@@ -1,3 +1,4 @@
+import sharedFloor from '../assets/buildings/colony-shared-floor-v001.json';
 import manifest from '../assets/buildings/colony-buildings-v001.json';
 import original from '../assets/colony-v007.manifest.json';
 import masterplan from '../world/marsMasterplan.json';
@@ -19,19 +20,13 @@ export const REMOVED_BUILDING_COLLIDERS = new Set(original.colliders.filter(c =>
 ).map(c => c.id));
 export const retainBuildingCollider = (c: RectBounds & { id: string }) => !REMOVED_BUILDING_COLLIDERS.has(c.id);
 export const retainBuildingFloor = (a: RectBounds & { id: string }) => !REPLACED_BUILDING_ROOMS.has(a.id);
-export const BUILDING_FLOOR_CUTS = manifest.map(b => b.pad);
+export const BUILDING_SHARED_FLOOR = sharedFloor;
+// Substituição exata de regiões do pavimento comum, nunca a pegada de um pad do GLB.
+export const BUILDING_FLOOR_CUTS = sharedFloor.areas;
 export function addColonyBuildingsTerrain(world: OfficeWorld) {
     world.simpleCuboids = [...(world.simpleCuboids ?? []), ...manifest.flatMap(b => b.staticCuboids)];
     world.movingCuboids = [...(world.movingCuboids ?? []), ...manifest.flatMap(b => b.dynamicCuboids.map(c => ({ ...c, position: { ...c.position }, rotation: { ...c.rotation } })))];
-    world.walkableAreas.push(...manifest.map(b => b.pad),
-        // As franjas dos pisos das salas retiradas passam a pátio aberto.
-        ...original.walkableAreas.filter(a => REPLACED_BUILDING_ROOMS.has(a.id)),
-        // Pátio entre os dois módulos substituídos, Cafeteria e circulação da estufa.
-        { minX: 4, maxX: 15.8, minZ: 15.1, maxZ: 17.8 });
+    world.walkableAreas.push(...sharedFloor.areas);
     for (const b of manifest) for (const c of b.staticCuboids) world.obstacles.push({ ...c.bounds, physics: false });
-    const previous = world.supportHeight;
-    world.supportHeight = (x, z) => {
-        for (const b of manifest) if (x >= b.pad.minX && x <= b.pad.maxX && z >= b.pad.minZ && z <= b.pad.maxZ) return 0;
-        return previous?.(x, z) ?? 0;
-    };
+    // O pavimento é plano na cota zero. Mantém os apoios de Hangar/Quartel/Lab.
 }

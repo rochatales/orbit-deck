@@ -23,6 +23,9 @@ export class ColonyBuildingRuntime {
         scene.rotation.y = spec.placement.rotationY;
         this.roof = scene.getObjectByName('Building_Roof')!;
         if (!this.roof) throw Error(`Teto ausente: ${spec.id}`);
+        // Bases e pisos do asset não participam do jogo: o chão é o pavimento da colônia.
+        scene.getObjectByName('Building_Floor')?.removeFromParent();
+        scene.getObjectByName('Building_Pad')?.removeFromParent();
         const copies = new Map<Material, Material>();
         scene.traverse(node => {
             const mesh = node as Mesh;
@@ -45,8 +48,6 @@ export class ColonyBuildingRuntime {
             mesh.material = Array.isArray(mesh.material) ? mesh.material.map(copy) : copy(mesh.material);
         });
         this.atlasSampling = new BuildingAtlasSampling(scene);
-        // Pad e piso vieram coplanares da fonte; separa a base por 6 mm sem editar GLB.
-        const pad = scene.getObjectByName('Building_Pad'); if (pad) pad.position.y -= .006;
         this.mixer = new AnimationMixer(scene);
         this.doors = spec.doors.map(d => {
             const clip = clips.find(c => c.name === d.clip);

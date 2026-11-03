@@ -14,6 +14,7 @@ Na raiz da worktree:
 /Applications/Blender.app/Contents/MacOS/Blender -b --python art-source/predios-colonia-v001/scripts/revisar-fontes.py
 /Applications/Blender.app/Contents/MacOS/Blender -b --python art-source/predios-colonia-v001/scripts/padronizar.py
 node art-source/predios-colonia-v001/scripts/manifesto.mjs
+/Applications/Blender.app/Contents/MacOS/Blender -b --python art-source/predios-colonia-v001/scripts/piso-compartilhado.py
 node art-source/predios-colonia-v001/scripts/planta.mjs
 node scripts/arte/gerar-balizas-marte.mjs
 node --test tests/colony-buildings.test.mjs
@@ -37,3 +38,24 @@ antigo são retiradas por componentes conexos; casca, COL estáticos, móveis e
 fontes originais ficam preservados. Os novos hashes e a referência utilizada
 estão em `notas/padronizacao-v002.json`. Só os três prédios novos foram alterados,
 conforme resposta explícita do autor. A Cafeteria gira −90° no centro (11,5; 11,7).
+
+## Correção do pavimento · 03/11/2026
+
+O pedido do autor substitui o piso/pad v002 como solução de runtime: os nós
+`Building_Floor` e `Building_Pad` (incluindo juntas filhas) são retirados da
+cópia montada dos três prédios. Eles permanecem apenas nos arquivos-fonte
+e variantes históricas preservados. Não há base ou plataforma particular ativa.
+
+`piso-compartilhado.py` produz um único pavimento da colônia com duas malhas
+(exterior/interior), na cota zero e sem espessura. Repete o tile real
+`ARQ_Lab_Piso_Patio` do corredor com o utilitário oficial
+`scripts/colony_floor_geometry.py`, mantendo a fase mundial, juntas/chanfros e
+cores externas. Por dentro, só as cores de areia/desgaste são substituídas pela
+placa limpa; a geometria é igual. União disjunta das regiões, sem sobreposição
+de pisos nem recortes pela antiga pegada dos pads. Hashes, células e regiões
+em `notas/piso-compartilhado-v001.json` e no manifesto do asset.
+
+A circulação do Quartel e o v007 recebem recorte exato apenas nas regiões
+repostas pelo pavimento compartilhado, que fica fora dos pais dos prédios,
+dos tetos e dos gates de descarte. Apoios anteriores de Hangar/Quartel/Lab
+permanecem; não existe override de altura pela área de pad.

@@ -2,10 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import crypto from 'node:crypto';
-import { Quaternion, Vector3 } from 'three';
+import { Quaternion, Vector3, Raycaster, Triangle, Color } from 'three';
 import { loadGlb } from './load-glb.mjs';
 import { loadSource } from './load-source.mjs';
-const {COLONY_BUILDINGS:buildings,REPLACED_BUILDING_ROOMS:replaced,REMOVED_BUILDING_COLLIDERS:removed}=loadSource('src/game/colonyBuildingsLayout.ts');
+const {BUILDING_SHARED_FLOOR:shared,COLONY_BUILDINGS:buildings,REPLACED_BUILDING_ROOMS:replaced,REMOVED_BUILDING_COLLIDERS:removed}=loadSource('src/game/colonyBuildingsLayout.ts');
 const {createWorld}=loadSource('src/game/marsWorld.ts');
 const {ColonyBuildingRuntime}=loadSource('src/scene/marsColony/colonyBuildingRuntime.ts');
 const {removeRoomsForBuildings}=loadSource('src/scene/marsColony/colonyBuildingsColony.ts');
@@ -72,6 +72,8 @@ test('S6.12: portas deslizam e seus cuboides acompanham, teto entra/sai, pausa c
  for(const b of buildings){
   const gltf=await loadGlb('src/assets/buildings/'+b.id+'.glb'),scene=gltf.scene.clone(true),world=createWorld();
   const rt=new ColonyBuildingRuntime(scene,gltf.animations,b,world.movingCuboids);
+  assert.equal(scene.getObjectByName('Building_Floor'),undefined);assert.equal(scene.getObjectByName('Building_Pad'),undefined);
+  const remains=[];scene.traverse(n=>{if(n.name.startsWith('Juntas_'))remains.push(n)});assert.equal(remains.length,0);
   for(const d of b.doors){
    const c=world.movingCuboids.find(c=>c.id===b.dynamicCuboids.find(c => c.node.startsWith(`COL_Door${d.side[0]}`)).id),before=JSON.stringify(c.position),rotation=JSON.stringify(c.rotation);
    for(let i=0;i<90;i++)rt.update(d,1/60);
@@ -124,21 +126,40 @@ test('S6.12: cápsula Rapier atravessa as quatro portas novas em ambos os sentid
  }
 });
 
-test('S6.12: pisos usam o atlas da Control Room, mesmas juntas e letreiros próprios no teto',async()=>{
+test('S6.12: letreiros e portas padronizados permanecem; pisos e pads não entram no runtime',async()=>{
  for(const b of buildings){
-  const gltf=await loadGlb('src/assets/buildings/'+b.id+'.glb'),floor=gltf.scene.getObjectByName('Building_Floor').getObjectByProperty('isMesh',true);
-  assert.ok(floor.material.name.startsWith('MAT_Control_Atlas_2K'));
-  for(const name of ['Building_Floor','Building_Pad']){
-   const uv=gltf.scene.getObjectByName(name).getObjectByProperty('isMesh',true).geometry.attributes.uv;
-   for(let i=0;i<uv.count;i++){assert.ok(Math.abs(uv.getX(i)-.125)<1e-6);assert.ok(Math.abs(uv.getY(i)-.875)<1e-6);}
-  }
-  const lines=[];gltf.scene.traverse(n=>{if(n.name.startsWith('Juntas_125x150_30mm'))lines.push(n);});assert.equal(lines.length,2);
-  for(const n of lines){const uv=n.geometry.attributes.uv;for(let i=0;i<uv.count;i++){assert.ok(Math.abs(uv.getX(i)-.375)<1e-6);assert.ok(Math.abs(uv.getY(i)-.875)<1e-6);}}
-  gltf.scene.position.set(b.placement.x,0,b.placement.z);gltf.scene.rotation.y=b.placement.rotationY;gltf.scene.updateMatrixWorld(true);
-  for(const n of lines){const p=n.geometry.attributes.position,index=n.geometry.index,count=index?.count??p.count;for(let at=0;at<count;at+=3){const center=new Vector3();for(let k=0;k<3;k++){const v=new Vector3().fromBufferAttribute(p,index?index.getX(at+k):at+k).applyMatrix4(n.matrixWorld);center.add(v);}center.multiplyScalar(1/3);const dx=Math.abs(center.x/1.25-Math.round(center.x/1.25))*1.25,dz=Math.abs((center.z-.75)/1.5-Math.round((center.z-.75)/1.5))*1.5;assert.ok(Math.min(dx,dz)<.01501,'junta alinhada à grade comum');}}
-
+  const gltf=await loadGlb('src/assets/buildings/'+b.id+'.glb');
   const sign=gltf.scene.getObjectByName('Letreiro_Padrao');assert.ok(sign);assert.equal(sign.parent.name,'Building_Roof');
   assert.ok(sign.children.some(c=>c.name.startsWith('Texto_')));
-  for(const clip of gltf.animations){assert.ok(clip.tracks.every(t=>t.name.endsWith('.position')),'nenhum pivô girando');}
+  for(const clip of gltf.animations)assert.ok(clip.tracks.every(t=>t.name.endsWith('.position')));
  }
+});
+
+test('S6.12: pavimento compartilhado plano, tile real do corredor, interior sem areia e exterior preservado',async()=>{
+ const path='src/assets/buildings/colony-shared-floor-v001.glb';assert.equal(sha(fs.readFileSync(path)),shared.sha256);assert.equal(sha(fs.readFileSync(shared.source)),shared.sourceSha256);
+ const gltf=await loadGlb(path),clean=gltf.scene.getObjectByName('ColonyFloor_Clean'),exterior=gltf.scene.getObjectByName('ColonyFloor_Exterior');
+ assert.ok(clean.material.vertexColors&&exterior.material.vertexColors);assert.equal(clean.material.name,'M_Piso_Patio_Vcol');
+ for(const mesh of [clean,exterior]){const p=mesh.geometry.attributes.position;for(let i=0;i<p.count;i++)assert.ok(Math.abs(p.getY(i))<1e-6,'sem espessura ou plataforma');}
+ const colors=clean.geometry.attributes.color;
+ for(let i=0;i<colors.count;i++)assert.ok(shared.cleanColors.some(c=>Math.hypot(colors.getX(i)-c[0],colors.getY(i)-c[1],colors.getZ(i)-c[2])<1e-5),'apenas placa limpa ou junta');
+ const dirty=new Set(),color=exterior.geometry.attributes.color;for(let i=0;i<color.count;i++)dirty.add([color.getX(i),color.getY(i),color.getZ(i)].map(v=>v.toFixed(4)).join(','));assert.ok(dirty.size>20,'variação de areia permanece fora');
+});
+
+test('S6.12: corredores e interiores cobertos sem buracos ou pisos sobrepostos na montagem',async()=>{
+ const base=await loadGlb('src/assets/colony-v007.glb'),next=await loadGlb('src/assets/buildings/colony-shared-floor-v001.glb'),manifest=JSON.parse(fs.readFileSync('src/assets/colony-v007.manifest.json')),owned=[];
+ removeRoomsForBuildings(base.scene,manifest,owned);base.scene.updateMatrixWorld(true);next.scene.updateMatrixWorld(true);
+ const floors=[base.scene.getObjectByName('PISO_v007_Interno'),base.scene.getObjectByName('PISO_v007_Externo'),...next.scene.children];
+ const ray=new Raycaster(),up=new Vector3(0,-1,0),origin=new Vector3();
+ // Toda célula da união exata e três percursos que antes eram recortados pelas bases.
+ const points=shared.cells.map(([a,b,c,d])=>[a+(b-a)*.50013,c+(d-c)*.50017]);
+ for(let z=5.9;z<17.7;z+=.23)points.push([5.8,z]);
+ for(let x=-16;x< -4.1;x+=.23)points.push([x,.23]);
+ for(let x=5.5;x<15.6;x+=.23)points.push([x,16.3]);
+ for(const [x,z]of points){origin.set(x,1,z);ray.set(origin,up);const hits=ray.intersectObjects(floors,true).filter(h=>Math.abs(h.point.y)<1e-5);assert.ok(hits.length,`buraco ${x}/${z}`);assert.equal(new Set(hits.map(h=>h.object)).size,1,`sobreposição ${x}/${z}`);}
+ // Fase/juntas e cor do exterior coincidem com o piso original dos corredores.
+ const original=await loadGlb('src/assets/colony-v007.glb');original.scene.updateMatrixWorld(true);
+ const colorAt=hit=>{const g=hit.object.geometry,p=g.attributes.position,c=g.attributes.color,f=hit.face,local=hit.object.worldToLocal(hit.point.clone());const bary=Triangle.getBarycoord(local,new Vector3().fromBufferAttribute(p,f.a),new Vector3().fromBufferAttribute(p,f.b),new Vector3().fromBufferAttribute(p,f.c),new Vector3());return new Color().setRGB(c.getX(f.a)*bary.x+c.getX(f.b)*bary.y+c.getX(f.c)*bary.z,c.getY(f.a)*bary.x+c.getY(f.b)*bary.y+c.getY(f.c)*bary.z,c.getZ(f.a)*bary.x+c.getZ(f.b)*bary.y+c.getZ(f.c)*bary.z);};
+ let compared=0;
+ for(const [x,z]of points){origin.set(x,1,z);ray.set(origin,up);const a=ray.intersectObject(original.scene.getObjectByName('PISO_v007_Externo'),true)[0],b=ray.intersectObject(next.scene.getObjectByName('ColonyFloor_Exterior'),true)[0];if(a&&b){const c=colorAt(a),d=colorAt(b);assert.ok(Math.hypot(c.r-d.r,c.g-d.g,c.b-d.b)<1e-4,`fase do corredor ${x}/${z}`);compared++;}}
+ assert.ok(compared>5);owned.forEach(g=>g.dispose());
 });

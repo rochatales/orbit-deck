@@ -29,7 +29,7 @@ test('Hangar runtime: cópia exata v002; três rotas, equipamentos e reserva do 
  for(const p of [{x:1.8,z:13.5},{x:-1.2,z:15.5},{x:1.3,z:15.5},{x:3.9,z:12.5}])assert.equal(traversable(p,w,.32),false,'carga/casco não atravessáveis');
  for(const b of HANGAR.colliders){assert.ok(b.maxZ<25);assert.ok(!(b.minX<-2.5299&&b.maxX>-3.4701&&b.minZ<26.2616&&b.maxZ>25.5384));}
  const retained=[...colony.colliders.filter(retainColonyCollider).filter(retainQuartelCollider).filter(retainLaboratorioCollider).filter(retainControlRoomCollider).filter(retainBuildingCollider),...greenhouse.colliders].map(({minX,maxX,minZ,maxZ})=>({minX,maxX,minZ,maxZ}));assert.deepEqual(w.obstacles.slice(0,retained.length),retained);assert.equal(HANGAR.removedColliders.length,15);
- for(const area of colony.walkableAreas.filter(retainColonyFloor).filter(retainQuartelFloor).filter(retainLaboratorioFloor))assert.ok(w.walkableAreas.some(a=>['minX','maxX','minZ','maxZ'].every(k=>a[k]===area[k])),area.id);
+ for(const area of colony.walkableAreas.filter(retainColonyFloor).filter(retainQuartelFloor).filter(retainLaboratorioFloor))assert.ok(w.walkableAreas.some(a=>['minX','maxX','minZ','maxZ'].every(k=>Math.abs(a[k]-area[k])<1e-6)),area.id);
  assert.equal(hangarSupportHeight(0,14),.16);assert.ok(Math.abs(hangarSupportHeight(0,18.9725)-.09)<1e-9);assert.ok(Math.abs(hangarSupportHeight(0,20.15)-.02)<1e-9);assert.equal(hangarSupportHeight(5.3,15),0);assert.equal(hangarSupportHeight(0,25),0);assert.equal(hangarSupportHeight(0,-10),0);
 });
 

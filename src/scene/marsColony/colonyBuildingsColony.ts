@@ -3,6 +3,7 @@ import { BUILDING_FLOOR_CUTS, REPLACED_BUILDING_ROOMS } from '../../game/colonyB
 import { subtractFloorAreas } from './floorCut';
 import type { MasterplanManifest } from './masterplanRuntime';
 
+/** Recorta só a união integralmente reposta por ColonySharedFloor; não usa pads dos assets. */
 export function cutBuildingFloors(root: Object3D, owned: BufferGeometry[]) {
     root.updateWorldMatrix(true, true);
     root.traverse(node => {
