@@ -16,6 +16,24 @@ export function attachMachete(character: Object3D, weapon: Object3D) {
   return true;
 }
 
+/** Facão na cintura esquerda, mesma escala da versão empunhada. Calibrado no
+ * Breathing_Idle: Grip_R em (-0,31; 0,88; -0,04), lâmina na diagonal para baixo/esquerda (46°). */
+export const MACHETE_HOLSTER_TRANSFORM = {
+  position: [-.28917913412457885, .06862598953553334, -.02182135906359057],
+  quaternion: [.011774260119172885, .006225627145164268, -.38125947306048935, .9243721234232873],
+  scale: [.6574924984993087, .6574925017366609, .65749243261023]
+} as const;
+export function attachHolsteredMachete(character: Object3D, weapon: Object3D) {
+  const hips = character.getObjectByName('mixamorigHips') ?? character.getObjectByName('mixamorig:Hips');
+  if (!hips) return false;
+  weapon.name = 'PlayerMacheteHolstered';
+  weapon.position.fromArray(MACHETE_HOLSTER_TRANSFORM.position);
+  weapon.quaternion.fromArray(MACHETE_HOLSTER_TRANSFORM.quaternion).normalize();
+  weapon.scale.fromArray(MACHETE_HOLSTER_TRANSFORM.scale);
+  hips.add(weapon);
+  return true;
+}
+
 /** Duas mãos do próprio clipe conduzem a pega; sem escala variável ou alocação por quadro. */
 export class MacheteGripRig {
   private readonly hand;

@@ -113,7 +113,7 @@ test('Facão: camada do corte preserva pernas, sincroniza em 0,65 s e pausa/conc
  layers.dispose();assert.equal(mixer.existingAction(upper.getClip(),character),null);
 });
 
-test('Facão: seleção 1/2 só em Shanghai ativo; pausa, diálogo, morte e Marte não equipam outra arma',()=>{
+test('Facão: seleção 1/2 nos dois mapas; inventário permite trocar pausado, sem liberar diálogo/morte/viagem',()=>{
  const { equipPlayerWeapon }=loadSource('src/characters/player/WeaponControls.tsx');
  const { useWeaponStore:weapons }=loadSource('src/state/useWeaponStore.ts');
  const { useExpeditionStore:expedition }=loadSource('src/state/useExpeditionStore.ts');
@@ -127,6 +127,19 @@ test('Facão: seleção 1/2 só em Shanghai ativo; pausa, diálogo, morte e Mart
   game.setState({isPaused:false});expedition.setState({panel:'eden'});equipPlayerWeapon('rifle');assert.equal(weapons.getState().weapon,'machete');
   expedition.setState({panel:null});combat.setState({dead:true});equipPlayerWeapon('rifle');assert.equal(weapons.getState().weapon,'machete');
   combat.setState({dead:false});equipPlayerWeapon('rifle');assert.equal(weapons.getState().weapon,'rifle');
-  expedition.setState({session:{...expedition.getState().session,map:'mars'}});equipPlayerWeapon('machete');assert.equal(weapons.getState().weapon,'rifle');
+  expedition.setState({session:{...expedition.getState().session,map:'mars'}});equipPlayerWeapon('machete');assert.equal(weapons.getState().weapon,'machete');
+  game.setState({isPaused:true});assert.equal(equipPlayerWeapon('rifle','inventory'),true);assert.equal(weapons.getState().weapon,'rifle');assert.equal(game.getState().isPaused,true);
+  for(const map of ['mars','shanghai']){
+   expedition.setState({ready:true,panel:null,session:{map,phase:'walking',destination:null,revision:2}});combat.setState({dead:false});
+   assert.equal(equipPlayerWeapon('machete','inventory'),true);assert.equal(weapons.getState().weapon,'machete');
+   assert.equal(equipPlayerWeapon('rifle'),false,'atalho continua bloqueado pela pausa');
+   expedition.setState({ready:false});assert.equal(equipPlayerWeapon('rifle','inventory'),false);
+   expedition.setState({ready:true,panel:'eden'});assert.equal(equipPlayerWeapon('rifle','inventory'),false);
+   expedition.setState({panel:null,session:{...expedition.getState().session,phase:'aboard'}});assert.equal(equipPlayerWeapon('rifle','inventory'),false);
+   expedition.setState({session:{...expedition.getState().session,phase:'travelling'}});assert.equal(equipPlayerWeapon('rifle','inventory'),false);
+   assert.equal(weapons.getState().weapon,'machete');
+  }
+  expedition.setState({session:{...expedition.getState().session,map:'shanghai',phase:'walking'}});combat.setState({dead:true});assert.equal(equipPlayerWeapon('rifle','inventory'),false);
+  expedition.setState({session:{...expedition.getState().session,map:'mars'}});assert.equal(equipPlayerWeapon('rifle','inventory'),true,'morte antiga em Shanghai não bloqueia Marte');
  } finally {expedition.setState(before[0],true);game.setState(before[1],true);combat.setState(before[2],true);weapons.setState(before[3],true);}
 });

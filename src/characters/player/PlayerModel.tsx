@@ -1,3 +1,4 @@
+import { weaponCarryMode } from './weaponCarry';
 import { useWeaponStore } from '../../state/useWeaponStore';
 import { PlayerMachete, PlayerMacheteClips } from './PlayerMachete';
 import { playerStepDust } from './stepDust';
@@ -29,6 +30,8 @@ export function PlayerModel(props: PlayerModelProps) {
 
 function PlayerVariant({ motionRef, combat, variant }: PlayerModelProps & { variant: PlayerAssetVariant }) {
   const weapon = useWeaponStore(s => s.weapon);
+  const rifleCarry = weaponCarryMode('rifle', weapon, combat);
+  const macheteCarry = weaponCarryMode('machete', weapon, combat);
   const asset = PLAYER_ASSET_VARIANTS[variant];
   const color = useExpeditionStore(s=>s.profile?.color ?? asset.accentColor);
   const [scene, setScene] = useState<Object3D | null>(null);
@@ -76,10 +79,10 @@ function PlayerVariant({ motionRef, combat, variant }: PlayerModelProps & { vari
         </group>
         <LocomotionController motionRef={motionRef} actions={combinedActions} asset={asset} combat={combat} />
         {variant === 'astronauta' && <PlayerMacheteClips actions={actions} ready={setMacheteActions}/>}
-        {variant === 'astronauta' && scene && combat && weapon === 'machete' && <PlayerMachete scene={scene} motionRef={motionRef}/>}
+        {variant === 'astronauta' && scene && macheteCarry !== 'hidden' && <PlayerMachete scene={scene} motionRef={motionRef} combat={combat}/>}
         {variant === 'astronauta' && scene && <PlayerBackpack scene={scene} illuminated={combat} />}
         {variant === 'astronauta' && scene && !combat && <ColonyPlayerVisor scene={scene} />}
-        {variant === 'astronauta' && scene && <PlayerRifle equipped={weapon === 'rifle'} combat={combat} scene={scene} motionRef={motionRef} onAttached={setRifleAttached} />}
+        {variant === 'astronauta' && scene && rifleCarry !== 'hidden' && <PlayerRifle equipped={weapon === 'rifle'} combat={combat} scene={scene} motionRef={motionRef} onAttached={setRifleAttached} />}
       </group>
       {combat && weapon === 'rifle' && !rifleAttached && <group name="PlayerRifle" position={[RIFLE_POSE.side, RIFLE_POSE.height - PLAYER_COLLIDER_CENTER_Y, RIFLE_POSE.gripForward]}>
         <mesh castShadow><boxGeometry args={[0.16, 0.18, 0.7]} /><meshStandardMaterial color="#243842" /></mesh>

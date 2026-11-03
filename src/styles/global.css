@@ -270,6 +270,15 @@ nav button:hover:not(:disabled), .secondary:hover:not(:disabled) { color: #09232
 .beta-cargo-title h2 { margin: 0; font-size: 26px; }
 .beta-cargo-title > strong { margin-left: auto; color: #d7e0e7; font-size: 22px; font-weight: 400; white-space: nowrap; }
 .beta-cargo-title > strong small { font-size: 12px; color: #8ea6b6; }
+.beta-primary-weapon { margin-top: 22px; padding-top: 16px; border-top: 1px solid #7c929f44; }
+.beta-primary-weapon h3 { margin: 0; font-size: 15px; color: #d7e0e7; }
+.beta-primary-weapon p { margin: 5px 0 12px; }
+.beta-weapon-choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.beta-weapon-choice { display: flex; align-items: center; gap: 10px; text-align: left; background: #0d17235c; border: 1px solid #7c929f55; border-radius: 5px; color: #d7e0e7; padding: 10px; }
+.beta-weapon-choice.is-equipped { border-color: #8be2ed; background: #20414a77; }
+.beta-weapon-choice .item-artwork { width: 58px; height: 58px; flex: 0 0 58px; }
+.beta-weapon-choice > span:not(.item-artwork) { font-size: 12px; }
+.beta-weapon-choice small { display: block; margin-top: 5px; font-size: 8px; color: #9ebac6; }
 .beta-resource-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 24px; }
 .beta-resource { position: relative; display: flex; flex-direction: column; align-items: center; min-width: 0; border: 1px solid #7c929f55; border-radius: 5px 5px 8px 5px; background: #0d17235c; padding: 12px 6px; }
 .beta-resource .item-artwork { width: 88px; height: 88px; max-width: 100%; }

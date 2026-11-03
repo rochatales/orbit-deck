@@ -7,9 +7,9 @@ import type { PlayerMotionState } from './playerConfig';
 import type { GLBActionMap } from '../GLBCharacter';
 import weaponAsset from '../../assets/weapons/facao-v001.glb';
 import clipsAsset from '../../assets/characters/player/explorador-facao-v001.glb';
-import { attachMachete, MacheteGripRig } from './macheteAttachment';
+import { attachMachete, attachHolsteredMachete, MacheteGripRig } from './macheteAttachment';
 
-function Sword({ scene, motionRef }: { scene: Object3D; motionRef: MutableRefObject<PlayerMotionState> }) {
+function Sword({ scene, motionRef, combat }: { scene: Object3D; motionRef: MutableRefObject<PlayerMotionState>; combat: boolean }) {
   const gltf = useGLTF(weaponAsset);
   const sword = useMemo(() => {
     const copy = gltf.scene.clone(true);
@@ -17,8 +17,11 @@ function Sword({ scene, motionRef }: { scene: Object3D; motionRef: MutableRefObj
     return copy;
   }, [gltf.scene]);
   const rig = useMemo(() => new MacheteGripRig(scene, sword), [scene, sword]);
-  useFrame(() => { if (!simulationBlocked() && sword.parent) { const state = motionRef.current.animationState; rig.update(state === 'idle' || state === 'walking' || state === 'backward'); } }, -20);
-  useEffect(() => { attachMachete(scene, sword); return () => { sword.removeFromParent(); }; }, [scene, sword]);
+  useFrame(() => { if (combat && !simulationBlocked() && sword.parent) { const state = motionRef.current.animationState; rig.update(state === 'idle' || state === 'walking' || state === 'backward'); } }, -20);
+  useEffect(() => {
+    if (combat) attachMachete(scene, sword); else attachHolsteredMachete(scene, sword);
+    return () => { sword.removeFromParent(); };
+  }, [scene, sword, combat]);
   return null;
 }
 function Clips({ actions, ready }: { actions: GLBActionMap; ready: (actions: GLBActionMap) => void }) {
@@ -38,8 +41,8 @@ class MacheteBoundary extends Component<{ children: ReactNode }, { failed: boole
   static getDerivedStateFromError() { return { failed: true }; }
   render() { return this.state.failed ? null : this.props.children; }
 }
-export function PlayerMachete({ scene, motionRef }: { scene: Object3D; motionRef: MutableRefObject<PlayerMotionState> }) {
-  return <MacheteBoundary><Suspense fallback={null}><Sword scene={scene} motionRef={motionRef}/></Suspense></MacheteBoundary>;
+export function PlayerMachete({ scene, motionRef, combat }: { scene: Object3D; motionRef: MutableRefObject<PlayerMotionState>; combat: boolean }) {
+  return <MacheteBoundary><Suspense fallback={null}><Sword scene={scene} motionRef={motionRef} combat={combat}/></Suspense></MacheteBoundary>;
 }
 export function PlayerMacheteClips(props: { actions: GLBActionMap; ready: (actions: GLBActionMap) => void }) {
   return <MacheteBoundary><Suspense fallback={null}><Clips {...props}/></Suspense></MacheteBoundary>;

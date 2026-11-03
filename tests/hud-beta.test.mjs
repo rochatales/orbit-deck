@@ -39,13 +39,13 @@ test('HUD beta: vida vermelha/energia azul, quatro slots, mochila e munição; s
     assert.equal((html.match(/class="beta-equipment-slot /g) ?? []).length, 4);
     assert.match(html, /beta-vital life/); assert.match(html, /beta-vital energy/);
     assert.match(html, /Abrir mochila · B/); assert.match(html, /Peso da mochila/);
-    assert.match(html, /Munição do rifle/); assert.match(html, /Usar kit médico · 3/); assert.match(html, /beta-kit-count/); assert.match(html, /item-icons-beta-v001.png/);
+    assert.match(html, combat ? /Munição do rifle/ : /Arma principal no coldre/); assert.match(html, /Usar kit médico · 3/); assert.match(html, /beta-kit-count/); assert.match(html, /item-icons-beta-v001.png/);
     assert.doesNotMatch(html, /combat-hud|equipment-inventory|hud-ident|ITENS \/ EQUIPAMENTOS/);
   }
   const life = render(VitalBar, { label: 'VIDA', value: 23, max: 100, kind: 'life' });
   assert.match(life, /aria-valuenow="23"/); assert.match(life, /width:23%/);
   const mars = render(GameplayHud, { combat: false, openBackpack() {} });
-  assert.match(mars, /MOCHILA · EM ESPERA/); assert.match(mars, /ARMA NO COLDRE/);
+  assert.match(mars, /ESPAÇO · 2 DASHs \/ CARGA/); assert.match(mars, /ARMA NO COLDRE/);
   const app = fs.readFileSync('src/app/App.tsx', 'utf8');
   assert.doesNotMatch(app, /className="radio"|className="mission"|className="hud-top"/);
   assert.match(app, /beta-radio-log/); assert.match(app, /Última transmissão/);
@@ -53,6 +53,12 @@ test('HUD beta: vida vermelha/energia azul, quatro slots, mochila e munição; s
 
 test('HUD beta: mochila ilustra os quatro recursos em cores próprias e mostra capacidade/pesos', () => {
   const html = render(BackpackContents, { combat: true });
+  for(const combat of [false,true]){
+    const inventory = render(BackpackContents, { combat });
+    assert.match(inventory, /aria-label="Arma principal"/);
+    assert.equal((inventory.match(/class="beta-weapon-choice /g) ?? []).length, 2);
+    assert.match(inventory, /aria-pressed="true"/);assert.match(inventory, /Rifle laser/);assert.match(inventory, /Facão/);
+  }
   for (const label of ['Ferro', 'Cobre', 'Titânio', 'Matéria orgânica', '/ 30 kg', '0,5 kg', '0,3 kg', '0,4 kg', '0,2 kg']) assert.ok(html.includes(label), label);
   assert.equal((html.match(/class="beta-resource"/g) ?? []).length, 4);
   const bytes = fs.readFileSync('src/assets/ui/item-icons-beta-v001.png');
