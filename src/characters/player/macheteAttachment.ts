@@ -20,7 +20,6 @@ export function attachMachete(character: Object3D, weapon: Object3D) {
  * Breathing_Idle: Grip_R em (-0,26; 0,76; -0,035), lâmina para trás,
  * 21° abaixo da horizontal, face plana junto à lateral do corpo. */
 export const MACHETE_HOLSTER_TILT = 1.2;
-export const MACHETE_HOLSTER_DASH_TILT = 1.45;
 export const MACHETE_HOLSTER_TRANSFORM = {
   position: [-.1595399623819714, .047324204402609094, -.14840342657680608],
   quaternion: [.4022761616528928, .5824139320455158, .4116349056473449, .574042338184172],
@@ -37,8 +36,8 @@ export function attachHolsteredMachete(character: Object3D, weapon: Object3D) {
   return true;
 }
 
-/** A fixação segue o quadril, mas o peso do coldre conserva a inclinação em
- * relação ao corpo, sem herdar balanços/rolagens do Hips nem abrir para o lado. */
+/** Encaixe estável na locomoção; no Dash acompanha integralmente o Hips,
+ * como o rifle pendurado. Ao sair, volta suavemente à inclinação aprovada. */
 export class MacheteHolsterRig {
   private readonly hips;
   private readonly anchor = new Vector3(0, .21, 0);
@@ -47,10 +46,8 @@ export class MacheteHolsterRig {
   private readonly rotation = new Quaternion();
   private readonly tilt = new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), MACHETE_HOLSTER_TILT)
     .multiply(new Quaternion().setFromAxisAngle(new Vector3(0, 1, 0), Math.PI / 2));
-  private readonly dashTilt = new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), MACHETE_HOLSTER_DASH_TILT)
-    .multiply(new Quaternion().setFromAxisAngle(new Vector3(0, 1, 0), Math.PI / 2));
-  private readonly carriedTilt = new Quaternion();
-  private dashBlend = 0;
+  private readonly boneRotation = new Quaternion().fromArray(MACHETE_HOLSTER_TRANSFORM.quaternion).normalize();
+  private bodyRotationBlend = 0;
   constructor(private character: Object3D, private weapon: Object3D) {
     this.hips = character.getObjectByName('mixamorigHips') ?? character.getObjectByName('mixamorig:Hips');
     this.anchor.multiply(this.offset.fromArray(MACHETE_HOLSTER_TRANSFORM.scale))
@@ -59,13 +56,11 @@ export class MacheteHolsterRig {
   }
   update(dashing = false, delta = 0) {
     if (!this.hips || this.weapon.parent !== this.hips) return;
-    // Recolhe levemente a lâmina durante a acrobacia, sem mover o cabo aprovado.
-    // Transição curta; pausa congela e a saída devolve a ponta para baixo.
-    this.dashBlend += ((dashing ? 1 : 0) - this.dashBlend) * (1 - Math.exp(-24 * Math.max(0, Math.min(delta, .05))));
-    this.carriedTilt.slerpQuaternions(this.tilt, this.dashTilt, this.dashBlend);
-    this.character.getWorldQuaternion(this.rotation); this.rotation.multiply(this.carriedTilt);
+    // Não anula as rotações do clipe durante a acrobacia; pausa não avança a volta.
+    this.bodyRotationBlend = dashing ? 1 : this.bodyRotationBlend * Math.exp(-24 * Math.max(0, Math.min(delta, .05)));
+    this.character.getWorldQuaternion(this.rotation); this.rotation.multiply(this.tilt);
     this.hips.getWorldQuaternion(this.parentRotation).invert();
-    this.weapon.quaternion.copy(this.parentRotation).multiply(this.rotation).normalize();
+    this.weapon.quaternion.copy(this.parentRotation).multiply(this.rotation).normalize().slerp(this.boneRotation, this.bodyRotationBlend);
     this.offset.set(0, .21, 0).multiply(this.weapon.scale).applyQuaternion(this.weapon.quaternion);
     this.weapon.position.copy(this.anchor).sub(this.offset);
   }

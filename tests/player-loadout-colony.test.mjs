@@ -6,7 +6,7 @@ import { createRequire } from 'node:module';
 import { loadSource } from './load-source.mjs';
 import { loadGlb } from './load-glb.mjs';
 const { weaponCarryMode } = loadSource('src/characters/player/weaponCarry.ts');
-const { attachHolsteredMachete, attachMachete, MacheteHolsterRig } = loadSource('src/characters/player/macheteAttachment.ts');
+const { attachHolsteredMachete, attachMachete, MacheteHolsterRig, MACHETE_HOLSTER_TRANSFORM } = loadSource('src/characters/player/macheteAttachment.ts');
 const close=(a,b)=>assert.ok(Math.abs(a-b)<1e-5,`${a} != ${b}`);
 
 test('Arma principal: colônia exibe só a seleção no coldre; Shanghai empunha a escolha e preserva o rifle reserva',()=>{
@@ -29,19 +29,24 @@ test('Arma principal: facão preso ao quadril nos clipes da colônia e Dash, sem
   for(let f=0;f<120;f++){
    mixer.setTime(f*clip.duration/120);character.updateMatrixWorld(true);rig.update(name==='Dash',clip.duration/120);character.updateMatrixWorld(true);
    if(name==='Idle_Colony'&&f===0){const grip=weapon.getObjectByName('Grip_R').getWorldPosition(new Vector3());close(grip.x,-.26);close(grip.y,.76);close(grip.z,-.035);}
-   assert.equal(weapon.parent,hips);minimum=Math.min(minimum,new Box3().setFromObject(weapon).min.y);
+   assert.equal(weapon.parent,hips);if(name!=='Dash')minimum=Math.min(minimum,new Box3().setFromObject(weapon).min.y);
    // Cabo preso ao mesmo ponto do quadril; lâmina para trás, paralela à lateral,
    // sem abrir para o lado nem herdar os balanços/rolagens do osso.
    const grip=hips.worldToLocal(weapon.getObjectByName('Grip_R').getWorldPosition(new Vector3()));
    if(!anchor)anchor=grip;else assert.ok(grip.distanceTo(anchor)<1e-5);
-   const direction=new Vector3(0,-1,0).transformDirection(weapon.matrixWorld);
-   assert.ok(Math.abs(direction.x)<1e-5);assert.ok(direction.z<-.93);
-   if(name!=='Dash')assert.ok(direction.y<-.35&&direction.y>-.38,'ponta 21° abaixo, em vez dos 7° anteriores');
-   else {assert.ok(direction.y<-.1&&direction.y>-.37);if(f>100)assert.ok(direction.y>-.14,'recolhe no Dash sem mover o cabo');}
-   const normal=new Vector3(0,0,1).transformDirection(weapon.matrixWorld);assert.ok(normal.x>.999,'face plana junto ao corpo');
+   if(name==='Dash'){
+    const local=new Quaternion().fromArray(MACHETE_HOLSTER_TRANSFORM.quaternion).normalize();
+    assert.ok(weapon.quaternion.angleTo(local)<1e-5,'no Dash segue o osso sem estabilização mundial');
+    weapon.position.toArray().forEach((v,i)=>close(v,MACHETE_HOLSTER_TRANSFORM.position[i]));
+   }else{
+    const direction=new Vector3(0,-1,0).transformDirection(weapon.matrixWorld);
+    assert.ok(Math.abs(direction.x)<1e-5&&direction.z<-.93);
+    assert.ok(direction.y<-.35&&direction.y>-.38,'inclinação aprovada de 21°');
+    const normal=new Vector3(0,0,1).transformDirection(weapon.matrixWorld);assert.ok(normal.x>.999,'face plana junto ao corpo');
+   }
   }
  }
- assert.ok(minimum>.01,`lâmina livre do piso nas amostras: ${minimum}`);
+ assert.ok(minimum>.01,`lâmina livre do piso em Idle/Run/Backward: ${minimum}`);
  mixer.stopAllAction();mixer.clipAction(original.animations.find(c=>c.name==='Idle_Colony')).reset().play();
  for(let f=0;f<60;f++){mixer.update(1/60);character.updateMatrixWorld(true);rig.update(false,1/60);character.updateMatrixWorld(true);}
  const returned=new Vector3(0,-1,0).transformDirection(weapon.matrixWorld);assert.ok(returned.y<-.35&&returned.y>-.38,'após Dash retorna à ponta mais baixa');
@@ -98,4 +103,21 @@ test('Arma principal: escolha do inventário permanece na ida, retry e retorno d
    if(origin==='mars'){const run=combat.getState().run;expedition.getState().restartMission();assert.ok(combat.getState().run>run);assert.equal(weapons.getState().weapon,'machete');}
   }
  }finally{expedition.setState(before[0],true);game.setState(before[1],true);combat.setState(before[2],true);weapons.setState(before[3],true);placePlayer(position);}
+});
+
+
+test('Facão no Dash: rotação mundial acompanha a mesma rotação do rifle em todo o clipe e congela na pausa',async()=>{
+ const {attachHolsteredRifle}=loadSource('src/characters/player/rifleAttachment.ts');
+ const original=await loadGlb('src/assets/characters/player/explorador-astronauta.glb'),sword=await loadGlb('src/assets/weapons/facao-v001.glb'),rifle=await loadGlb('src/assets/weapons/rifle-laser-v001.glb');
+ const character=clone(original.scene),weapon=sword.scene.clone(true),gun=rifle.scene.clone(true),mixer=new AnimationMixer(character),clip=original.animations.find(c=>c.name==='Dash');
+ attachHolsteredMachete(character,weapon);attachHolsteredRifle(character,gun);const rig=new MacheteHolsterRig(character,weapon);
+ mixer.clipAction(clip).play();let firstSword,firstRifle,maximum=0;
+ for(let f=0;f<120;f++){
+  mixer.setTime(f*clip.duration/120);character.updateMatrixWorld(true);rig.update(true,clip.duration/120);character.updateMatrixWorld(true);
+  const a=weapon.getWorldQuaternion(new Quaternion()).normalize(),b=gun.getWorldQuaternion(new Quaternion()).normalize();
+  if(!firstSword){firstSword=a.clone().invert();firstRifle=b.clone().invert();}
+  const da=a.multiply(firstSword),db=b.multiply(firstRifle);assert.ok(da.angleTo(db)<1e-5,`mesma rotação do corpo que o rifle: ${da.angleTo(db)}`);maximum=Math.max(maximum,da.angleTo(new Quaternion()));
+  const before=weapon.matrixWorld.clone();rig.update(true,0);character.updateMatrixWorld(true);assert.ok(weapon.matrixWorld.equals(before));
+ }
+ assert.ok(maximum>1,'não fica estabilizado no espaço durante a acrobacia');
 });
