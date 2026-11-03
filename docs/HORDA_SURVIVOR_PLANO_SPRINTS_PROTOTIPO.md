@@ -1,5 +1,12 @@
 # EXODEN — Sprints do protótipo Shanghai
 
+> **Atualização S6.3 · 03/11/2026:** autor escolheu `8822521` em produção
+> (4174) e autorizou consolidar Shanghai, radar, menus e carga da nave.
+> Publicação por fast-forward sobre `5d4ea01`; código preservado.
+> [Aceite, verificações e falhas técnicas pendentes](handoffs/s6.3-shanghai-atualizacao.md#publicação-e-aceite-do-autor--03112026).
+> Não encerra extração, objetivos obrigatórios nem os demais itens futuros.
+
+
 > **Aceite da versão atual · 03/11/2026:** autor aprovou todos os ajustes
 > até `61f2ec7` e solicitou merge/push da consolidação. Escopos parciais
 > de áudio, HUD/inventário, facão, props, três prédios, pisos e Sandwind

@@ -1,6 +1,6 @@
 # Quadro de execução — EXODEN
 
-> **Versão aprovada pelo autor em 03/11/2026:** código `61f2ec7`, com todos os ajustes deste bate-bola desde a publicação `5bc240f`. Merge e push autorizados pelo pedido de consolidação; execução nesta worktree isolada, sem tocar no checkout principal. Este aceite abrange a composição jogada; não encerra os escopos futuros dos sprints. Os registros de entrega/pendências abaixo são históricos e cedem ao aceite atual. [Consolidação atual](./handoffs/consolidacao-validada-2026-11-03.md).
+> **Versão aprovada e publicada em 03/11/2026:** Shanghai `8822521`, escolhida pelo autor após comparar as prévias 4173/4174. Integra radar, menus, porão de 150 kg e ajustes de limites/destruição/atmosfera/prédios de Shanghai. Publicação por fast-forward sobre `5d4ea01`, sem modificar o código escolhido; registros posteriores só de documentação. Falhas de descarte da fixture DEV permanecem documentadas. [Publicação atual](./handoffs/s6.3-shanghai-atualizacao.md#publicação-e-aceite-do-autor--03112026). Os escopos futuros dos sprints continuam pendentes.
 
 > Quem está fazendo o quê, em qual base e branch. O status oficial de cada
 > item (checkbox) continua em
@@ -27,7 +27,7 @@
 | 6 · Estética dos elementos | ◐ Versão atual aprovada pelo autor em 03/11 | Inclui os três prédios novos, pavimento/corredores contínuos, letreiros, Sandwind avermelhado com vento, HUD beta, facão e acessórios por mapa. Dash também na colônia, arma principal no inventário e facão girando com o corpo no Dash. Itens completos/fases futuras seguem pendentes |
 | 7 · Texturas, materiais e entrega | 🔲 Não iniciado | Acabamento de UI planejado em S7.11 |
 
-Versão aprovada atual: **`61f2ec7`**, **481/481** testes, build e diff-check verdes. A consolidação repete os checks na worktree isolada e preserva integralmente essa árvore fora de `docs/`. [Registro atual](./handoffs/consolidacao-validada-2026-11-03.md); [consolidação anterior](./handoffs/consolidacao-validada-2026-11-02.md).
+Versão aprovada atual: **`8822521`**, **503/503** testes, build e diff-check verdes. Publicada por fast-forward, sem mudar a árvore fora de `docs/`. Teste técnico de localhost parcial por falhas de descarte; autor confirmou posteriormente a prévia de produção 4174. [Publicação atual](./handoffs/s6.3-shanghai-atualizacao.md#publicação-e-aceite-do-autor--03112026); [consolidação anterior](./handoffs/consolidacao-validada-2026-11-03.md).
 
 Legenda: 🔲 não iniciado · ◐ em andamento/parcial · ✅ implementado ·
 ⛔ bloqueado · ⏸ estacionado. "Implementado" não significa aprovado pelo autor.
@@ -42,10 +42,10 @@ Legenda: 🔲 não iniciado · ◐ em andamento/parcial · ✅ implementado ·
 |---|---|
 | Branch de integração remota | `origin/rochatales/horda-survivor` |
 | Branch local desta consolidação | `rochatales/consolidacao-validada-2026-11-02` |
-| Base remota anterior desta rodada | `5bc240fd09d3e4e6af10534f8e6ed2a1dae5ebf4` |
+| Base remota anterior desta rodada | `5d4ea01da2328f709fe42c77659c237c347726ac` |
 | Checkout principal preservado | `b54162c359ad539db34e25f6bc61c6184a87e58a` |
-| Código validado pelo autor | `61f2ec7f60fa9c713dd95e11d3300082294e151f` |
-| Merge da versão aprovada | `dadd884cf6d38cb81b9e6b8587007cfc899efde4`; registros posteriores só de docs |
+| Código validado pelo autor | `8822521a2209d52d269783f195f9695236716194` |
+| Integração atual | Fast-forward `5d4ea01` → `8822521`; registro posterior só de docs |
 | Worktree da consolidação | `/Users/rochatales/.codex/worktrees/consolidacao-validada-2026-11-02/game-workplace` |
 | Referência para nova tarefa após a publicação | `git fetch origin` e `git rev-parse origin/rochatales/horda-survivor`; fixar o SHA resultante |
 
@@ -418,3 +418,5 @@ JSON `complemento-26-10/perf-final.json`; sem testes/build concorrentes na medi�
 03/11/2026 — Autor aprovou todos os ajustes deste bate-bola até **`61f2ec7`** e solicitou consolidação com merge/push, conforme autorização persistente do chat. Base remota conferida por fetch/ls-remote: **`5bc240f`** nas refs de integração/publicação. Reutilizar esta worktree isolada `rochatales/consolidacao-validada-2026-11-02`, com 41 commits de quadro preservados; reunir por merge sem reescrita a linha aprovada de 31 commits. Código deve permanecer idêntico a `61f2ec7`; só docs de aceite/consolidação serão acrescidos. Rodar npm test/build/diff-check antes de publicação atômica da linha aprovada e das duas refs consolidadas. Sem alterar main, checkout principal, fontes do autor ou remover worktrees.
 
 03/11/2026 — Consolidação aprovada concluída no merge **`dadd884`** (pais `1e1bbf8` + `61f2ec7`), união limpa das linhas de código e quadro. **481/481**, build/diff-check verdes e árvore fora de docs idêntica à ponta jogada. Push atômico confirmado: `origin/rochatales/horda-survivor` e `origin/rochatales/consolidacao-validada-2026-11-02` avançaram de `5bc240f` ao merge; `origin/rochatales/s6.8-inventario-dash-colonia` criada em `61f2ec7`. Este registro documental avança junto nas duas refs consolidadas; consultar a ponta final com `git rev-parse origin/rochatales/horda-survivor`. Handoffs/aceites/plano atualizados, sem encerrar escopos futuros. Preview 4186 confirmado por HTTP contra o build integrado. Checkout principal em `b54162c`, main, fontes, arquivos do autor e todas as worktrees preservados; sem force/rebase/squash. [Registro](./handoffs/consolidacao-validada-2026-11-03.md).
+
+03/11/2026 — S6.3 Shanghai: autor escolheu explicitamente a versão **`8822521`** na porta 4174 e reiterou a consolidação/publicação após conhecer o relatório da fixture DEV. Código publicado em `origin/rochatales/horda-survivor` por fast-forward desde `5d4ea01`, sem force ou merge novo. Limites v004, destruição urbana, névoa, fade de prédios, radar/perfil, menus e porão de 150 kg preservados exatamente. 503/503, build/diff-check verdes; mesmas verificações da árvore aprovada inalterada. Localhost técnico parcial: radar alinhado/centro, proximidade/F/duas colunas verificados; reinício da fixture derruba canvas com pieces.dispose/debrisMesh.dispose e light.dispose, sem correção nesta tarefa. Pendências e backups versionados preservados no handoff. Este commit acrescenta apenas docs e avança a publicação; não altera main/principal nem remove worktrees.
