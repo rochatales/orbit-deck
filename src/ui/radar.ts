@@ -1,6 +1,6 @@
 /** Radar do HUD: alcance, cores e projeção mundo → disco, alinhada à câmera ortográfica. */
 export const RADAR = {
-  rangeM: 34, /** Unidades de desenho, não pixels de tela. */ sizePx: 132, pulseSeconds: 2.4, sweepSeconds: 3.6, fps: 30,
+  rangeM: 34, /** Unidades de desenho, não pixels de tela. */ sizePx: 132, profilePx: 30, pulseSeconds: 2.4, sweepSeconds: 3.6, fps: 30,
   colors: { grid: '#83e5d7', aircraft: '#66f0ff', enemy: '#ff4b4b', life: '#ff8fc0', loot: '#ffd65a' }
 } as const;
 export type RadarKind = 'aircraft' | 'enemy' | 'life' | 'loot';

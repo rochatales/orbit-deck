@@ -4,6 +4,7 @@ import type { MapId } from '../game/session';
 import { cameraView, playerPosition } from '../state/playerTransient';
 import { combatRuntime } from '../state/useCombatStore';
 import { RADAR, collectBlips, radarProject, type RadarBlip } from './radar';
+import profileUrl from '../assets/ui/perfil-explorador-v001.png';
 
 /** Coração de vida (rosado, para não confundir com o vermelho dos inimigos). */
 function heart(g: CanvasRenderingContext2D, x: number, y: number, r: number) {
@@ -14,42 +15,12 @@ function heart(g: CanvasRenderingContext2D, x: number, y: number, r: number) {
   g.fill();
 }
 
-/** Miniatura do astronauta de frente: ombros laranja, gola escura, capacete creme, viseira
- * azul-marinho com a borda ciano da referência. Desenhada em vetor, nítida em qualquer DPR. */
-function portrait(g: CanvasRenderingContext2D, c: number, s: number) {
-  g.save();
-  // Sem disco nem contorno: só o busto, com sombra suave para destacar do radar.
-  g.shadowColor = '#000000b0'; g.shadowBlur = 4;
-  const shoulders = new Path2D();
-  shoulders.moveTo(c - s * .86, c + s * 1.3);
-  shoulders.bezierCurveTo(c - s * .9, c + s * .68, c - s * .5, c + s * .42, c, c + s * .42);
-  shoulders.bezierCurveTo(c + s * .5, c + s * .42, c + s * .9, c + s * .68, c + s * .86, c + s * 1.3);
-  shoulders.closePath();
-  g.fillStyle = '#d97a5a'; g.fill(shoulders); // traje
-  g.shadowBlur = 0;
-  g.save(); g.clip(shoulders);
-  g.fillStyle = '#6b4636'; g.fillRect(c - s * .5, c + s * .5, s * .15, s * .9); g.fillRect(c + s * .35, c + s * .5, s * .15, s * .9); // alças
-  g.restore();
-  g.shadowBlur = 4;
-  g.fillStyle = '#2b2a2d'; g.beginPath(); g.ellipse(c, c + s * .56, s * .5, s * .18, 0, 0, Math.PI * 2); g.fill(); // gola
-  g.fillStyle = '#e9e1cd'; // capacete
-  g.beginPath(); g.arc(c, c - s * .05, s * .58, 0, Math.PI * 2); g.fill();
-  g.fillRect(c - s * .66, c - s * .2, s * .14, s * .3); g.fillRect(c + s * .52, c - s * .2, s * .14, s * .3); // orelhas
-  g.shadowBlur = 0;
-  g.fillStyle = '#1b2350'; // viseira
-  g.beginPath(); g.ellipse(c, c + s * .02, s * .42, s * .3, 0, 0, Math.PI * 2); g.fill();
-  g.strokeStyle = '#4ff0ff'; g.lineWidth = Math.max(1, s * .08); // borda ciano inferior
-  g.beginPath(); g.ellipse(c, c + s * .02, s * .4, s * .28, 0, Math.PI * .1, Math.PI * .9); g.stroke();
-  g.fillStyle = '#ffffff40'; g.beginPath(); g.ellipse(c - s * .16, c - s * .1, s * .1, s * .05, -.5, 0, Math.PI * 2); g.fill(); // reflexo
-  g.restore();
-}
-
 const reducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /**
  * Radar ciano acima da vida: anéis, varredura e pulso. Vermelho = inimigos vivos, coração
  * rosado = kits de vida, amarelo = loot (recursos no chão e cabines fechadas), ciano = aeronave
- * (presa na borda quando longe). No centro, miniatura do explorador de frente. Canvas próprio
+ * (presa na borda quando longe). No centro, o perfil do explorador no estilo dos itens. Canvas próprio
  * a 30 fps, lendo dados mutáveis sem render do React.
  */
 export function RadarMap({ map }: { map: MapId }) {
@@ -69,6 +40,8 @@ export function RadarMap({ map }: { map: MapId }) {
     fit();
     const resize = new ResizeObserver(fit);
     resize.observe(el);
+    const profile = new Image();
+    profile.src = profileUrl;
     const blips: RadarBlip[] = [], aircraft = MAPS[map].exit, c = size / 2, R = size / 2 - 3;
     let frame = 0, last = 0;
     const draw = (now: number) => {
@@ -117,8 +90,12 @@ export function RadarMap({ map }: { map: MapId }) {
         else g.arc(x, y, r, 0, Math.PI * 2);
         g.fill();
       }
-      // Explorador no centro: miniatura do perfil, por cima dos pontos.
-      g.globalAlpha = 1; portrait(g, c, 13);
+      // Perfil do explorador por cima dos pontos, em tamanho fixo de tela (não cresce com o disco).
+      if (profile.complete && profile.naturalWidth) {
+        const icon = Math.min(RADAR.profilePx, RADAR.profilePx * thin);
+        g.globalAlpha = 1; g.imageSmoothingQuality = 'high';
+        g.drawImage(profile, c - icon / 2, c - icon / 2, icon, icon);
+      }
     };
     frame = requestAnimationFrame(draw);
     return () => { cancelAnimationFrame(frame); resize.disconnect(); };
