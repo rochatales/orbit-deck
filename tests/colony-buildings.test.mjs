@@ -129,9 +129,44 @@ test('S6.12: cápsula Rapier atravessa as quatro portas novas em ambos os sentid
 test('S6.12: letreiros e portas padronizados permanecem; pisos e pads não entram no runtime',async()=>{
  for(const b of buildings){
   const gltf=await loadGlb('src/assets/buildings/'+b.id+'.glb');
-  const sign=gltf.scene.getObjectByName('Letreiro_Padrao');assert.ok(sign);assert.equal(sign.parent.name,'Building_Roof');
+  const sign=gltf.scene.getObjectByName('Letreiro_Padrao');assert.ok(sign);assert.equal(sign.parent.name,b.id==='meeting-room'?'Wall_E':'Wall_S');
   assert.ok(sign.children.some(c=>c.name.startsWith('Texto_')));
   for(const clip of gltf.animations)assert.ok(clip.tracks.every(t=>t.name.endsWith('.position')));
+ }
+});
+
+test('S6.12: letreiros centralizados acima da porta e presos à fachada; Meeting Room olha para o Hangar',async()=>{
+ for(const b of buildings){
+  const gltf=await loadGlb('src/assets/buildings/'+b.id+'.glb'),scene=gltf.scene;
+  scene.position.set(b.placement.x,0,b.placement.z);scene.rotation.y=b.placement.rotationY;scene.updateMatrixWorld(true);
+  const side=b.id==='meeting-room'?'East':'South',door=b.doors.find(d=>d.side===side),sign=scene.getObjectByName('Letreiro_Padrao');
+  const expected=new Vector3(...(b.id==='meeting-room'?[0,0,1]:b.id==='data-center'?[1,0,0]:[-1,0,0]));
+  const normal=new Vector3(0,0,1).applyQuaternion(sign.getWorldQuaternion(new Quaternion())),tangent=new Vector3(normal.z,0,-normal.x);
+  assert.ok(normal.distanceTo(expected)<1e-5,`${b.id}: face correta`);
+  const origin=new Vector3(door.x,0,door.z),plates=new Box3();
+  for(const p of sign.children.filter(n=>n.name.startsWith('Placa')))plates.union(new Box3().setFromObject(p));
+  const center=plates.getCenter(new Vector3()).sub(origin);
+  assert.ok(Math.abs(center.dot(tangent))<1e-5,'placa composta centralizada no vão, incluindo tag');
+  assert.ok(plates.min.y>2.47&&plates.min.y<2.49);assert.ok(plates.max.y<2.85,'logo acima do cabeçalho, sem subir ao telhado');
+  assert.ok(Math.abs(center.dot(normal)-.28)<1e-5,'sem balanço de 85 cm sobre o corredor');
+  const backing=sign.getObjectByName('Fundo_Letreiro'),backBounds=new Box3().setFromObject(backing);
+  assert.ok(backBounds.intersectsBox(plates),'placas encostadas no fundo');
+  // Fixação real: o fundo chega até a casca, dos dois lados do vão (não só AABB da parede).
+  for(const x of [-1.4,1.4]){
+   const start=origin.clone().addScaledVector(tangent,x).addScaledVector(normal,1);start.y=2.66;
+   const ray=new Raycaster(start,normal.clone().negate());
+   const wallHit=ray.intersectObject(sign.parent,true).find(h=>!sign.children.includes(h.object));
+   assert.ok(wallHit,`${b.id}: casca atrás da fixação ${x}`);
+   const depth=wallHit.point.clone().sub(origin).dot(normal);
+   assert.ok(depth>.12&&depth<.34,'fundo/placa alcançam a superfície da fachada');
+  }
+  const portal=scene.getObjectByName('Padrao_ARQ_Control_Portal_S_'+side),portalBounds=new Box3().setFromObject(portal);
+  const brackets=sign.children.filter(n=>n.name.startsWith('Suporte_Letreiro'));assert.equal(brackets.length,2);
+  for(const bracket of brackets){const bounds=new Box3().setFromObject(bracket);assert.ok(bounds.intersectsBox(portalBounds));assert.ok(bounds.intersectsBox(backBounds));}
+  // Nada da placa é animado com as folhas ou ocultado junto ao teto.
+  const runtime=new ColonyBuildingRuntime(scene,gltf.animations,b,createWorld().movingCuboids),before=sign.matrixWorld.clone();
+  for(let f=0;f<90;f++)runtime.update({x:b.placement.x,z:b.placement.z},1/60);
+  assert.equal(scene.getObjectByName('Building_Roof').visible,false);assert.equal(sign.visible,true);assert.ok(sign.matrixWorld.equals(before));runtime.dispose();
  }
 });
 

@@ -126,7 +126,9 @@ for id,placement in placements.items():
                     b=e.other_vert(a)
                     if b not in seen:seen.add(b);todo.append(b)
             pts=[wall.matrix_world@v.co for v in component]
-            if all(abs(p.dot(tangent))<1.56 and abs((p-center).dot(normal))<1.1 and -.02<=p.z<2.8 for p in pts):remove.extend(component)
+            # A antiga marquise do Data Center vai até 2,92 m; retirar também sua parte alta.
+            portal_top=3.05 if id=='data-center' else 2.8
+            if all(abs(p.dot(tangent))<1.56 and abs((p-center).dot(normal))<1.1 and -.02<=p.z<portal_top for p in pts):remove.extend(component)
         bmesh.ops.delete(bm,geom=remove,context='VERTS');bm.to_mesh(wall.data);bm.free()
         group=bpy.data.objects.new('Door_'+side,None);bpy.context.collection.objects.link(group);group.parent=root;group.location=center
         # Sul da referência olha -Y; Leste precisa de +90° em Blender.
@@ -156,22 +158,31 @@ for id,placement in placements.items():
             data=kit[key].copy();data.use_fake_user=False;data.transform(Matrix.Diagonal((1.7/2.2,1,1,1)))
             o=bpy.data.objects.new('Padrao_'+key+'_'+side,data);bpy.context.collection.objects.link(o);o.parent=group
         doors.append({'side':side,'plane':[center.x,center.y,center.z],'removed_vertices':len(remove),'motion':'sliding','width':1.7})
-    # Letreiro no mesmo acabamento da Control Room: quadro creme, grafite e tag de latão.
-    front=next(d for d in doors if d['side']=='South')['plane'][1]
-    roof=bpy.data.objects['Building_Roof']
-    board=bpy.data.objects.new('Letreiro_Padrao',None);bpy.context.collection.objects.link(board);board.parent=roof
-    for x,width,tile in [(-.38,2.65,0),(1.45,.86,2)]:box('Placa',(x,front-.85,3.1),(width,.24,.36),tile,board,.025)
+    # Placa de fachada, logo acima do portal, com fundo e fixações contínuos.
+    # O Leste da fonte da Meeting Room vira Sul (+Z) após a implantação de -90°.
+    label_side='East' if id=='meeting-room' else 'South'
+    door=next(d for d in doors if d['side']==label_side)
+    board=bpy.data.objects.new('Letreiro_Padrao',None);bpy.context.collection.objects.link(board)
+    board.parent=bpy.data.objects['Wall_'+label_side[0]]
+    board.matrix_world=Matrix.Translation(Vector(door['plane'])) @ Matrix.Rotation(math.pi/2 if label_side=='East' else 0,4,'Z')
+    # Coordenadas locais: texto olha -Y, Z vertical; centro da placa composta em X=0.
+    height=2.66; center_x=.0875
+    box('Fundo_Letreiro',(0,-.18,height),(3.665,.12,.40),1,board,.015)
+    for x,width,tile in [(-.38,2.65,0),(1.45,.86,2)]:
+        box('Placa',(x-center_x,-.28,height),(width,.12,.36),tile,board,.025)
     for text,x,width in [(labels[id][0],-.38,2.48),(labels[id][1],1.45,.7)]:
-        bpy.ops.object.text_add(location=(x,front-.98,3.1));o=bpy.context.object;o.name='Texto_'+text;o.data.body=text;o.data.align_x='CENTER';o.data.align_y='CENTER';o.data.size=.20;o.data.extrude=.002;o.rotation_euler=(math.pi/2,0,0)
+        bpy.ops.object.text_add(location=(x-center_x,-.352,height));o=bpy.context.object;o.name='Texto_'+text;o.data.body=text;o.data.align_x='CENTER';o.data.align_y='CENTER';o.data.size=.20;o.data.extrude=.002;o.rotation_euler=(math.pi/2,0,0)
         bpy.ops.object.convert(target='MESH');bpy.context.view_layer.update()
         if o.dimensions.x>width:o.scale.x*=width/o.dimensions.x
         tile_uv(o.data,1);o.parent=board
-    for x in [-1.25,1.25]:box('Suporte_Letreiro',(x,front-.76,2.76),(.055,.08,.45),1,board)
+    # Prendem o fundo ao cabeçalho do portal (topo medido: 2,460278 m).
+    for x in [-.7,.7]:box('Suporte_Letreiro',(x,-.18,2.45),(.10,.12,.16),1,board)
+    label_mount={'source_door':label_side,'center_height_m':height,'plate_bottom_m':height-.18,'plate_front_from_door_m':.34,'back_from_door_m':.12,'parent':board.parent.name}
     bpy.context.scene.render.fps=24;bpy.context.scene.frame_start=0;bpy.context.scene.frame_end=24;bpy.context.scene.frame_set(0)
     # Ações antigas referem-se aos pivôs retirados e não entram no arquivo selecionado.
     for o in bpy.context.scene.objects:o.select_set(True)
     target=OUT/f'{id}-v002.glb'
     bpy.ops.export_scene.gltf(filepath=str(target),export_format='GLB',use_selection=True,export_animations=True,export_animation_mode='NLA_TRACKS',export_yup=True,export_extras=True)
     (ROOT/'src/assets/buildings'/f'{id}.glb').write_bytes(target.read_bytes())
-    report.append({'id':id,'source_sha256':digest(source),'sha256':digest(target),'bytes':target.stat().st_size,'reference_sha256':ref_hash,'doors':doors,'floor':{'tile_m':[1.25,1.5],'joint_m':.03,'world_aligned':True},'label':labels[id][0]})
+    report.append({'id':id,'source_sha256':digest(source),'sha256':digest(target),'bytes':target.stat().st_size,'reference_sha256':ref_hash,'doors':doors,'floor':{'tile_m':[1.25,1.5],'joint_m':.03,'world_aligned':True},'label':labels[id][0],'label_mount':label_mount})
 (ART/'notas/padronizacao-v002.json').write_text(json.dumps(report,indent=2)+'\n')

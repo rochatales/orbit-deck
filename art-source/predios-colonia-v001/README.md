@@ -99,3 +99,18 @@ a área depois dos recortes; `areas` continua sendo a união lógica caminhável
 com o deck. `cells` registra a partição retangular anterior ao recorte.
 Nenhuma malha nova sobreposta ao deck, nenhum colisor de malha. Teste Rapier
 da volta completa, nos dois sentidos, e cobertura por raios na junção.
+
+## Letreiros de fachada · 03/11/2026
+
+`padronizar.py` fixa as placas em `Wall_E` (Meeting Room) e `Wall_S`
+(Data Center/Cafeteria), com centro a 2,66 m, base a 2,48 m e face a
+0,34 m do plano da folha. Fundo e suportes curtos unem a placa à casca e
+ao cabeçalho. A placa composta é centralizada; Meeting Room usa a porta
+East da fonte para olhar ao sul no mapa, para o Hangar. Fontes intactas,
+mesmos materiais e mesmos colisores. A parte alta da marquise antiga do
+Data Center também é retirada na derivação, até 3,05 m.
+
+Para esse ajuste, basta executar `padronizar.py` e `manifesto.mjs`; o piso
+compartilhado, a planta de circulação e as balizas não mudam. Medidas e
+hashes completos em `notas/padronizacao-v002.json` (`label_mount`); teste
+de fixação e direção usa o GLB real em `tests/colony-buildings.test.mjs`.

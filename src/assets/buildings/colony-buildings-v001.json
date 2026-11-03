@@ -1249,7 +1249,7 @@
         }
       }
     ],
-    "triangles": 11211,
+    "triangles": 11255,
     "clips": [
       {
         "name": "DoorEast_Open",
@@ -1854,7 +1854,7 @@
         }
       }
     ],
-    "triangles": 12269,
+    "triangles": 12289,
     "clips": [
       {
         "name": "DoorSouth_Open",
@@ -2378,7 +2378,7 @@
         }
       }
     ],
-    "triangles": 8550,
+    "triangles": 8594,
     "clips": [
       {
         "name": "DoorSouth_Open",
