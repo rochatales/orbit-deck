@@ -1,0 +1,9 @@
+{
+  "base": "36036c8",
+  "causa": "faces superiores e inferiores do tile projetadas no mesmo plano",
+  "area_projetada_antes_m2": 359.2999993324272,
+  "area_projetada_depois_m2": 179.64999966621374,
+  "correcao": "referência limpa apenas com normais voltadas para cima, incluindo chanfros; exterior preservado",
+  "teste": "uma interseção de raio por amostra em cada um dos três interiores, mais igualdade de área; sem camada coplanar inferior",
+  "exterior_geometria_cores_normais_indices_identicos": true
+}

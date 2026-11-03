@@ -163,3 +163,22 @@ test('S6.12: corredores e interiores cobertos sem buracos ou pisos sobrepostos n
  for(const [x,z]of points){origin.set(x,1,z);ray.set(origin,up);const a=ray.intersectObject(original.scene.getObjectByName('PISO_v007_Externo'),true)[0],b=ray.intersectObject(next.scene.getObjectByName('ColonyFloor_Exterior'),true)[0];if(a&&b){const c=colorAt(a),d=colorAt(b);assert.ok(Math.hypot(c.r-d.r,c.g-d.g,c.b-d.b)<1e-4,`fase do corredor ${x}/${z}`);compared++;}}
  assert.ok(compared>5);owned.forEach(g=>g.dispose());
 });
+
+test('S6.12: interiores têm uma única camada por ponto, sem fundo do tile achatado sobre as juntas',async()=>{
+ const gltf=await loadGlb('src/assets/buildings/colony-shared-floor-v001.glb'),mesh=gltf.scene.getObjectByName('ColonyFloor_Clean');
+ gltf.scene.updateMatrixWorld(true);
+ const p=mesh.geometry.attributes.position,index=mesh.geometry.index,count=index?.count??p.count;
+ let projected=0;
+ for(let at=0;at<count;at+=3){const [a,b,c]=[0,1,2].map(k=>new Vector3().fromBufferAttribute(p,index?index.getX(at+k):at+k));projected+=Math.abs((b.x-a.x)*(c.z-a.z)-(b.z-a.z)*(c.x-a.x))/2;}
+ const expected=shared.interiors.reduce((sum,a)=>sum+(a.maxX-a.minX)*(a.maxZ-a.minZ),0);
+ assert.ok(Math.abs(projected-expected)<1e-4,`cobertura ${projected} m² deve ser ${expected}, nunca o dobro`);
+ const ray=new Raycaster(),origin=new Vector3(),down=new Vector3(0,-1,0);
+ for(const b of shared.interiors){
+  let checked=0;
+  for(let x=b.minX+.137;x<b.maxX-.05;x+=.317)for(let z=b.minZ+.173;z<b.maxZ-.05;z+=.293){
+   origin.set(x,1,z);ray.set(origin,down);assert.equal(ray.intersectObject(mesh).length,1,`camada única ${x}/${z}`);checked++;
+  }
+  assert.ok(checked>400);
+ }
+ assert.equal(shared.interiorTopOnly,true);assert.equal(shared.interiorLayers,1);
+});

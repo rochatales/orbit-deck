@@ -446,7 +446,7 @@
   "tile": "ARQ_Lab_Piso_Patio",
   "source": "src/assets/colony-v006.glb",
   "sourceSha256": "5a6e6d9c754a8d25296b58598859cff0a9c2b4f9c964306d218bf9b8c71c87a8",
-  "sha256": "db3862de7ebebd5b89c357b53ed95670be6f51724a0e17700ab0377d3785a6bc",
+  "sha256": "cdce517675f09b8705670dc6cff09484a0d38401b81098c30f69aac9fc52a306",
   "cleanColors": [
     [
       0.107023105,
@@ -460,5 +460,7 @@
     ]
   ],
   "height": 0,
-  "triangles": 24609
+  "interiorLayers": 1,
+  "interiorTopOnly": true,
+  "triangles": 15994
 }

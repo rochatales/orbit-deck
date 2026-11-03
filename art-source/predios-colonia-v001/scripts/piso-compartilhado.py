@@ -1,5 +1,5 @@
 """Pavimento plano da colônia: tile real do corredor; sem plataformas dos prédios."""
-import bpy, sys, json, hashlib
+import bpy, bmesh, sys, json, hashlib
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[3]
 sys.path.insert(0,str(ROOT/'scripts'))
@@ -44,7 +44,22 @@ for clean in [False,True]:
   start=len(verts);verts.extend([(x0,-z0,0),(x0,-z1,0),(x1,-z1,0),(x1,-z0,0)]);faces.append(tuple(range(start,start+4)))
  me=bpy.data.meshes.new('Pavimento');me.from_pydata(verts,[],faces);me.materials.append(reference.data.materials[0]);me.update()
  obj=bpy.data.objects.new('ColonyFloor_Clean' if clean else 'ColonyFloor_Exterior',me);bpy.context.collection.objects.link(obj)
- tile.FLOORS=(obj.name,);tile.tile_external_floors([obj,reference])
+ tile.FLOORS=(obj.name,)
+ selected_reference=reference
+ reference_name=tile.REFERENCE
+ if clean:
+  # O tile é uma peça fechada: projetar também seu fundo duplica a cobertura
+  # em Z=0 e cria z-fighting. O interior usa apenas as faces voltadas para cima.
+  selected_reference=reference.copy();selected_reference.data=reference.data.copy()
+  bpy.context.collection.objects.link(selected_reference);selected_reference.name='TileInterior_SomenteTopo'
+  bm=bmesh.new();bm.from_mesh(selected_reference.data)
+  normal_matrix=selected_reference.matrix_world.to_3x3().inverted().transposed()
+  lower=[f for f in bm.faces if (normal_matrix@f.normal).z<=1e-6]
+  bmesh.ops.delete(bm,geom=lower,context='FACES');bm.to_mesh(selected_reference.data);bm.free()
+  tile.REFERENCE=selected_reference.name
+ tile.tile_external_floors([obj,selected_reference])
+ tile.REFERENCE=reference_name
+ obj['tile_referencia']=reference_name
  if clean:
   # Mesma geometria de placas/chanfros/juntas. Só retira poeira/desgaste da cor.
   for entry in obj.data.color_attributes['Col'].data:
@@ -56,6 +71,6 @@ out=ART/'export/colony-shared-floor-v001.glb'
 bpy.ops.export_scene.gltf(filepath=str(out),export_format='GLB',use_selection=True,export_animations=False,export_yup=True,export_extras=True)
 (ROOT/'src/assets/buildings/colony-shared-floor-v001.glb').write_bytes(out.read_bytes())
 for o in objects:o.data.calc_loop_triangles()
-report=dict(areas=areas,interiors=interiors,cells=[list(c[:4]) for c in cells],tile='ARQ_Lab_Piso_Patio',source='src/assets/colony-v006.glb',sourceSha256=hashlib.sha256(source.read_bytes()).hexdigest(),sha256=hashlib.sha256(out.read_bytes()).hexdigest(),cleanColors=[[.107023105,.102241732,.086500458],[.275,.259,.220]],height=0,triangles=sum(len(o.data.loop_triangles) for o in objects))
+report=dict(areas=areas,interiors=interiors,cells=[list(c[:4]) for c in cells],tile='ARQ_Lab_Piso_Patio',source='src/assets/colony-v006.glb',sourceSha256=hashlib.sha256(source.read_bytes()).hexdigest(),sha256=hashlib.sha256(out.read_bytes()).hexdigest(),cleanColors=[[.107023105,.102241732,.086500458],[.275,.259,.220]],height=0,interiorLayers=1,interiorTopOnly=True,triangles=sum(len(o.data.loop_triangles) for o in objects))
 (ROOT/'src/assets/buildings/colony-shared-floor-v001.json').write_text(json.dumps(report,indent=2)+'\n')
 (ART/'notas/piso-compartilhado-v001.json').write_text(json.dumps(report,indent=2)+'\n')

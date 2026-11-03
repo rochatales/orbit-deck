@@ -59,3 +59,13 @@ A circulação do Quartel e o v007 recebem recorte exato apenas nas regiões
 repostas pelo pavimento compartilhado, que fica fora dos pais dos prédios,
 dos tetos e dos gates de descarte. Apoios anteriores de Hangar/Quartel/Lab
 permanecem; não existe override de altura pela área de pad.
+
+## Vibração das juntas internas · 03/11/2026
+
+O tile original é um sólido fechado. Para o interior, o gerador agora filtra
+a referência para manter apenas topo/chanfros com normais para cima, evitando
+projetar o fundo no mesmo plano. Área projetada 359,30 → 179,65 m²; teste exige
+cobertura única por ponto e área total correta. O exterior permanece idêntico
+à composição aprovada em `36036c8`. Medições em
+`notas/vibracao-interiores-03-11.json`. Não houve ajuste de offset para esconder
+a sobreposição; a camada inferior foi removida na geração da malha limpa.
