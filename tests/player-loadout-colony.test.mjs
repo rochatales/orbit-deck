@@ -27,7 +27,7 @@ test('Arma principal: facão preso ao quadril nos clipes da colônia e Dash, sem
  for(const name of ['Idle_Colony','Run_Colony','Backward_Colony','Dash']){
   mixer.stopAllAction();const clip=original.animations.find(c=>c.name===name);mixer.clipAction(clip).play();
   for(let f=0;f<120;f++){
-   mixer.setTime(f*clip.duration/120);character.updateMatrixWorld(true);rig.update();character.updateMatrixWorld(true);
+   mixer.setTime(f*clip.duration/120);character.updateMatrixWorld(true);rig.update(name==='Dash',clip.duration/120);character.updateMatrixWorld(true);
    if(name==='Idle_Colony'&&f===0){const grip=weapon.getObjectByName('Grip_R').getWorldPosition(new Vector3());close(grip.x,-.26);close(grip.y,.76);close(grip.z,-.035);}
    assert.equal(weapon.parent,hips);minimum=Math.min(minimum,new Box3().setFromObject(weapon).min.y);
    // Cabo preso ao mesmo ponto do quadril; lâmina para trás, paralela à lateral,
@@ -35,15 +35,20 @@ test('Arma principal: facão preso ao quadril nos clipes da colônia e Dash, sem
    const grip=hips.worldToLocal(weapon.getObjectByName('Grip_R').getWorldPosition(new Vector3()));
    if(!anchor)anchor=grip;else assert.ok(grip.distanceTo(anchor)<1e-5);
    const direction=new Vector3(0,-1,0).transformDirection(weapon.matrixWorld);
-   assert.ok(Math.abs(direction.x)<1e-5);assert.ok(direction.z<-.99);assert.ok(direction.y<-.1&&direction.y>-.14);
+   assert.ok(Math.abs(direction.x)<1e-5);assert.ok(direction.z<-.93);
+   if(name!=='Dash')assert.ok(direction.y<-.35&&direction.y>-.38,'ponta 21° abaixo, em vez dos 7° anteriores');
+   else {assert.ok(direction.y<-.1&&direction.y>-.37);if(f>100)assert.ok(direction.y>-.14,'recolhe no Dash sem mover o cabo');}
    const normal=new Vector3(0,0,1).transformDirection(weapon.matrixWorld);assert.ok(normal.x>.999,'face plana junto ao corpo');
   }
  }
  assert.ok(minimum>.01,`lâmina livre do piso nas amostras: ${minimum}`);
+ mixer.stopAllAction();mixer.clipAction(original.animations.find(c=>c.name==='Idle_Colony')).reset().play();
+ for(let f=0;f<60;f++){mixer.update(1/60);character.updateMatrixWorld(true);rig.update(false,1/60);character.updateMatrixWorld(true);}
+ const returned=new Vector3(0,-1,0).transformDirection(weapon.matrixWorld);assert.ok(returned.y<-.35&&returned.y>-.38,'após Dash retorna à ponta mais baixa');
  const before=weapon.matrixWorld.clone();rig.update();character.updateMatrixWorld(true);assert.ok(weapon.matrixWorld.equals(before),'pose congelada não deriva');
  character.rotation.y=.8;character.updateMatrixWorld(true);rig.update();character.updateMatrixWorld(true);
  const direction=new Vector3(0,-1,0).transformDirection(weapon.matrixWorld).applyQuaternion(character.getWorldQuaternion(new Quaternion()).invert());
- assert.ok(Math.abs(direction.x)<1e-5&&direction.z<-.99,'coldre gira junto com o corpo');
+ assert.ok(Math.abs(direction.x)<1e-5&&direction.z<-.93,'coldre gira junto com o corpo');
  weapon.removeFromParent();assert.equal(attachMachete(character,weapon),true);assert.equal(weapon.parent,character.getObjectByName('mixamorigRightHand'));
  weapon.removeFromParent();assert.equal(asset.scene.parent,null);assert.equal(original.scene.getObjectByName('PlayerMacheteHolstered'),undefined);
  hips.name='mixamorig:Hips';assert.equal(attachHolsteredMachete(character,weapon),true);weapon.removeFromParent();

@@ -18,11 +18,12 @@ export function attachMachete(character: Object3D, weapon: Object3D) {
 
 /** Facão entre braço e cintura esquerda, mesma escala da versão empunhada.
  * Breathing_Idle: Grip_R em (-0,26; 0,76; -0,035), lâmina para trás,
- * 7° abaixo da horizontal, face plana junto à lateral do corpo. */
-export const MACHETE_HOLSTER_TILT = 1.45;
+ * 21° abaixo da horizontal, face plana junto à lateral do corpo. */
+export const MACHETE_HOLSTER_TILT = 1.2;
+export const MACHETE_HOLSTER_DASH_TILT = 1.45;
 export const MACHETE_HOLSTER_TRANSFORM = {
-  position: [-.16014808905915784, .08092313688902752, -.15589112916328715],
-  quaternion: [.4717497708703621, .5277160715365884, .4799917684688694, .518242996730988],
+  position: [-.1595399623819714, .047324204402609094, -.14840342657680608],
+  quaternion: [.4022761616528928, .5824139320455158, .4116349056473449, .574042338184172],
   scale: [.6574924326092453, .6574924326093743, .6574925676275732]
 } as const;
 export function attachHolsteredMachete(character: Object3D, weapon: Object3D) {
@@ -46,15 +47,23 @@ export class MacheteHolsterRig {
   private readonly rotation = new Quaternion();
   private readonly tilt = new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), MACHETE_HOLSTER_TILT)
     .multiply(new Quaternion().setFromAxisAngle(new Vector3(0, 1, 0), Math.PI / 2));
+  private readonly dashTilt = new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), MACHETE_HOLSTER_DASH_TILT)
+    .multiply(new Quaternion().setFromAxisAngle(new Vector3(0, 1, 0), Math.PI / 2));
+  private readonly carriedTilt = new Quaternion();
+  private dashBlend = 0;
   constructor(private character: Object3D, private weapon: Object3D) {
     this.hips = character.getObjectByName('mixamorigHips') ?? character.getObjectByName('mixamorig:Hips');
     this.anchor.multiply(this.offset.fromArray(MACHETE_HOLSTER_TRANSFORM.scale))
       .applyQuaternion(this.rotation.fromArray(MACHETE_HOLSTER_TRANSFORM.quaternion).normalize())
       .add(this.offset.fromArray(MACHETE_HOLSTER_TRANSFORM.position));
   }
-  update() {
+  update(dashing = false, delta = 0) {
     if (!this.hips || this.weapon.parent !== this.hips) return;
-    this.character.getWorldQuaternion(this.rotation); this.rotation.multiply(this.tilt);
+    // Recolhe levemente a lâmina durante a acrobacia, sem mover o cabo aprovado.
+    // Transição curta; pausa congela e a saída devolve a ponta para baixo.
+    this.dashBlend += ((dashing ? 1 : 0) - this.dashBlend) * (1 - Math.exp(-24 * Math.max(0, Math.min(delta, .05))));
+    this.carriedTilt.slerpQuaternions(this.tilt, this.dashTilt, this.dashBlend);
+    this.character.getWorldQuaternion(this.rotation); this.rotation.multiply(this.carriedTilt);
     this.hips.getWorldQuaternion(this.parentRotation).invert();
     this.weapon.quaternion.copy(this.parentRotation).multiply(this.rotation).normalize();
     this.offset.set(0, .21, 0).multiply(this.weapon.scale).applyQuaternion(this.weapon.quaternion);

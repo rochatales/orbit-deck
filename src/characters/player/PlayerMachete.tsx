@@ -18,8 +18,8 @@ function Sword({ scene, motionRef, combat }: { scene: Object3D; motionRef: Mutab
   }, [gltf.scene]);
   const rig = useMemo(() => new MacheteGripRig(scene, sword), [scene, sword]);
   const holster = useMemo(() => new MacheteHolsterRig(scene, sword), [scene, sword]);
-  useFrame(() => {
-    if (!combat) holster.update();
+  useFrame((_, delta) => {
+    if (!combat) holster.update(motionRef.current.animationState === 'dashing', simulationBlocked() ? 0 : delta);
     else if (!simulationBlocked() && sword.parent) { const state = motionRef.current.animationState; rig.update(state === 'idle' || state === 'walking' || state === 'backward'); }
   }, -20);
   useEffect(() => {
