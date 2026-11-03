@@ -7,7 +7,7 @@ import type { PlayerMotionState } from './playerConfig';
 import type { GLBActionMap } from '../GLBCharacter';
 import weaponAsset from '../../assets/weapons/facao-v001.glb';
 import clipsAsset from '../../assets/characters/player/explorador-facao-v001.glb';
-import { attachMachete, attachHolsteredMachete, MacheteGripRig } from './macheteAttachment';
+import { attachMachete, attachHolsteredMachete, MacheteGripRig, MacheteHolsterRig } from './macheteAttachment';
 
 function Sword({ scene, motionRef, combat }: { scene: Object3D; motionRef: MutableRefObject<PlayerMotionState>; combat: boolean }) {
   const gltf = useGLTF(weaponAsset);
@@ -17,11 +17,15 @@ function Sword({ scene, motionRef, combat }: { scene: Object3D; motionRef: Mutab
     return copy;
   }, [gltf.scene]);
   const rig = useMemo(() => new MacheteGripRig(scene, sword), [scene, sword]);
-  useFrame(() => { if (combat && !simulationBlocked() && sword.parent) { const state = motionRef.current.animationState; rig.update(state === 'idle' || state === 'walking' || state === 'backward'); } }, -20);
+  const holster = useMemo(() => new MacheteHolsterRig(scene, sword), [scene, sword]);
+  useFrame(() => {
+    if (!combat) holster.update();
+    else if (!simulationBlocked() && sword.parent) { const state = motionRef.current.animationState; rig.update(state === 'idle' || state === 'walking' || state === 'backward'); }
+  }, -20);
   useEffect(() => {
-    if (combat) attachMachete(scene, sword); else attachHolsteredMachete(scene, sword);
+    if (combat) attachMachete(scene, sword); else { attachHolsteredMachete(scene, sword); holster.update(); }
     return () => { sword.removeFromParent(); };
-  }, [scene, sword, combat]);
+  }, [scene, sword, combat, holster]);
   return null;
 }
 function Clips({ actions, ready }: { actions: GLBActionMap; ready: (actions: GLBActionMap) => void }) {

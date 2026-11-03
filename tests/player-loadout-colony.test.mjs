@@ -1,12 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { AnimationMixer, Box3, Vector3 } from 'three';
+import { AnimationMixer, Box3, Vector3, Quaternion } from 'three';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
 import { createRequire } from 'node:module';
 import { loadSource } from './load-source.mjs';
 import { loadGlb } from './load-glb.mjs';
 const { weaponCarryMode } = loadSource('src/characters/player/weaponCarry.ts');
-const { attachHolsteredMachete, attachMachete } = loadSource('src/characters/player/macheteAttachment.ts');
+const { attachHolsteredMachete, attachMachete, MacheteHolsterRig } = loadSource('src/characters/player/macheteAttachment.ts');
 const close=(a,b)=>assert.ok(Math.abs(a-b)<1e-5,`${a} != ${b}`);
 
 test('Arma principal: colônia exibe só a seleção no coldre; Shanghai empunha a escolha e preserva o rifle reserva',()=>{
@@ -23,18 +23,27 @@ test('Arma principal: facão preso ao quadril nos clipes da colônia e Dash, sem
  const original=await loadGlb('src/assets/characters/player/explorador-astronauta.glb'),asset=await loadGlb('src/assets/weapons/facao-v001.glb');
  const character=clone(original.scene),weapon=asset.scene.clone(true),mixer=new AnimationMixer(character),hips=character.getObjectByName('mixamorigHips');
  assert.equal(attachHolsteredMachete(character,weapon),true);assert.equal(weapon.parent,hips);
- const local=weapon.matrix.clone();let minimum=Infinity;
+ const rig=new MacheteHolsterRig(character,weapon);let anchor,minimum=Infinity;
  for(const name of ['Idle_Colony','Run_Colony','Backward_Colony','Dash']){
   mixer.stopAllAction();const clip=original.animations.find(c=>c.name===name);mixer.clipAction(clip).play();
   for(let f=0;f<120;f++){
-   mixer.setTime(f*clip.duration/120);character.updateMatrixWorld(true);
-   if(name==='Idle_Colony'&&f===0){const grip=weapon.getObjectByName('Grip_R').getWorldPosition(new Vector3());close(grip.x,-.31);close(grip.y,.88);close(grip.z,-.04);}
+   mixer.setTime(f*clip.duration/120);character.updateMatrixWorld(true);rig.update();character.updateMatrixWorld(true);
+   if(name==='Idle_Colony'&&f===0){const grip=weapon.getObjectByName('Grip_R').getWorldPosition(new Vector3());close(grip.x,-.26);close(grip.y,.76);close(grip.z,-.035);}
    assert.equal(weapon.parent,hips);minimum=Math.min(minimum,new Box3().setFromObject(weapon).min.y);
-   // Não segue o movimento das mãos e não altera o transform local por quadro.
-   weapon.updateMatrix();if(f===0&&name==='Idle_Colony')local.copy(weapon.matrix);assert.ok(weapon.matrix.equals(local));
+   // Cabo preso ao mesmo ponto do quadril; lâmina para trás, paralela à lateral,
+   // sem abrir para o lado nem herdar os balanços/rolagens do osso.
+   const grip=hips.worldToLocal(weapon.getObjectByName('Grip_R').getWorldPosition(new Vector3()));
+   if(!anchor)anchor=grip;else assert.ok(grip.distanceTo(anchor)<1e-5);
+   const direction=new Vector3(0,-1,0).transformDirection(weapon.matrixWorld);
+   assert.ok(Math.abs(direction.x)<1e-5);assert.ok(direction.z<-.99);assert.ok(direction.y<-.1&&direction.y>-.14);
+   const normal=new Vector3(0,0,1).transformDirection(weapon.matrixWorld);assert.ok(normal.x>.999,'face plana junto ao corpo');
   }
  }
  assert.ok(minimum>.01,`lâmina livre do piso nas amostras: ${minimum}`);
+ const before=weapon.matrixWorld.clone();rig.update();character.updateMatrixWorld(true);assert.ok(weapon.matrixWorld.equals(before),'pose congelada não deriva');
+ character.rotation.y=.8;character.updateMatrixWorld(true);rig.update();character.updateMatrixWorld(true);
+ const direction=new Vector3(0,-1,0).transformDirection(weapon.matrixWorld).applyQuaternion(character.getWorldQuaternion(new Quaternion()).invert());
+ assert.ok(Math.abs(direction.x)<1e-5&&direction.z<-.99,'coldre gira junto com o corpo');
  weapon.removeFromParent();assert.equal(attachMachete(character,weapon),true);assert.equal(weapon.parent,character.getObjectByName('mixamorigRightHand'));
  weapon.removeFromParent();assert.equal(asset.scene.parent,null);assert.equal(original.scene.getObjectByName('PlayerMacheteHolstered'),undefined);
  hips.name='mixamorig:Hips';assert.equal(attachHolsteredMachete(character,weapon),true);weapon.removeFromParent();

@@ -16,12 +16,14 @@ export function attachMachete(character: Object3D, weapon: Object3D) {
   return true;
 }
 
-/** Facão na cintura esquerda, mesma escala da versão empunhada. Calibrado no
- * Breathing_Idle: Grip_R em (-0,31; 0,88; -0,04), lâmina na diagonal para baixo/esquerda (46°). */
+/** Facão entre braço e cintura esquerda, mesma escala da versão empunhada.
+ * Breathing_Idle: Grip_R em (-0,26; 0,76; -0,035), lâmina para trás,
+ * 7° abaixo da horizontal, face plana junto à lateral do corpo. */
+export const MACHETE_HOLSTER_TILT = 1.45;
 export const MACHETE_HOLSTER_TRANSFORM = {
-  position: [-.28917913412457885, .06862598953553334, -.02182135906359057],
-  quaternion: [.011774260119172885, .006225627145164268, -.38125947306048935, .9243721234232873],
-  scale: [.6574924984993087, .6574925017366609, .65749243261023]
+  position: [-.16014808905915784, .08092313688902752, -.15589112916328715],
+  quaternion: [.4717497708703621, .5277160715365884, .4799917684688694, .518242996730988],
+  scale: [.6574924326092453, .6574924326093743, .6574925676275732]
 } as const;
 export function attachHolsteredMachete(character: Object3D, weapon: Object3D) {
   const hips = character.getObjectByName('mixamorigHips') ?? character.getObjectByName('mixamorig:Hips');
@@ -32,6 +34,32 @@ export function attachHolsteredMachete(character: Object3D, weapon: Object3D) {
   weapon.scale.fromArray(MACHETE_HOLSTER_TRANSFORM.scale);
   hips.add(weapon);
   return true;
+}
+
+/** A fixação segue o quadril, mas o peso do coldre conserva a inclinação em
+ * relação ao corpo, sem herdar balanços/rolagens do Hips nem abrir para o lado. */
+export class MacheteHolsterRig {
+  private readonly hips;
+  private readonly anchor = new Vector3(0, .21, 0);
+  private readonly offset = new Vector3();
+  private readonly parentRotation = new Quaternion();
+  private readonly rotation = new Quaternion();
+  private readonly tilt = new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), MACHETE_HOLSTER_TILT)
+    .multiply(new Quaternion().setFromAxisAngle(new Vector3(0, 1, 0), Math.PI / 2));
+  constructor(private character: Object3D, private weapon: Object3D) {
+    this.hips = character.getObjectByName('mixamorigHips') ?? character.getObjectByName('mixamorig:Hips');
+    this.anchor.multiply(this.offset.fromArray(MACHETE_HOLSTER_TRANSFORM.scale))
+      .applyQuaternion(this.rotation.fromArray(MACHETE_HOLSTER_TRANSFORM.quaternion).normalize())
+      .add(this.offset.fromArray(MACHETE_HOLSTER_TRANSFORM.position));
+  }
+  update() {
+    if (!this.hips || this.weapon.parent !== this.hips) return;
+    this.character.getWorldQuaternion(this.rotation); this.rotation.multiply(this.tilt);
+    this.hips.getWorldQuaternion(this.parentRotation).invert();
+    this.weapon.quaternion.copy(this.parentRotation).multiply(this.rotation).normalize();
+    this.offset.set(0, .21, 0).multiply(this.weapon.scale).applyQuaternion(this.weapon.quaternion);
+    this.weapon.position.copy(this.anchor).sub(this.offset);
+  }
 }
 
 /** Duas mãos do próprio clipe conduzem a pega; sem escala variável ou alocação por quadro. */
