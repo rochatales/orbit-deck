@@ -15,6 +15,7 @@ const {MarsInteriorProbe}=loadSource('src/audio/marsInterior.ts');
 const base='art-source/predios-colonia-v001/';
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 const sources=JSON.parse(fs.readFileSync(base+'notas/fontes.json'));
+const variants=JSON.parse(fs.readFileSync(base+'notas/padronizacao-v002.json'));
 
 // Distância exata círculo–caixa orientada, como os cuboides físicos (não AABB de quina).
 function intersects(c,x,z,r=.32){
@@ -39,8 +40,9 @@ function reachable(world,from,to){
  return false;
 }
 
-test('S6.12: fontes GLB/Blend preservadas por hash, cópias runtime idênticas e portas previstas',async()=>{
- for(const f of sources){assert.equal(sha(fs.readFileSync(base+'originais/'+f.arquivo)),f.sha256);if(f.arquivo.endsWith('.glb'))assert.equal(sha(fs.readFileSync('src/assets/buildings/'+f.arquivo)),f.sha256)}
+test('S6.12: fontes GLB/Blend preservadas por hash, variantes derivadas rastreáveis e portas previstas',async()=>{
+ for(const f of sources){assert.equal(sha(fs.readFileSync(base+'originais/'+f.arquivo)),f.sha256)}
+ for(const v of variants){assert.equal(sha(fs.readFileSync(base+'export/'+v.id+'-v002.glb')),v.sha256);assert.equal(sha(fs.readFileSync('src/assets/buildings/'+v.id+'.glb')),v.sha256);assert.equal(v.source_sha256,sources.find(f=>f.arquivo===v.id+'.glb').sha256);assert.equal(sha(fs.readFileSync('src/assets/control-room/control-room-v002.glb')),v.reference_sha256);}
  assert.equal(replaced.size,4);assert.ok(replaced.has('output-review'));assert.ok(replaced.has('coffee-nook'));
  for(const b of buildings){
   const gltf=await loadGlb('src/assets/buildings/'+b.id+'.glb');
@@ -51,6 +53,7 @@ test('S6.12: fontes GLB/Blend preservadas por hash, cópias runtime idênticas e
  }
  const meeting=buildings[0],dc=buildings[1];
  assert.ok(meeting.doors.some(d=>d.z>3.8&&Math.abs(d.x)<.01));assert.ok(meeting.doors.some(d=>d.x < -3.8&&Math.abs(d.z)<.01));
+ assert.ok(buildings[2].doors[0].x < buildings[2].placement.x);
  assert.ok(dc.doors[0].x > dc.placement.x);assert.equal(dc.placement.z,0);
 });
 
@@ -65,14 +68,14 @@ test('S6.12: substituição remove todos os nós/portas dos quatro ambientes sem
  for(const g of owned)g.dispose();
 });
 
-test('S6.12: portas giram e seus cuboides acompanham, teto entra/sai, pausa congela e cache fica intacto',async()=>{
+test('S6.12: portas deslizam e seus cuboides acompanham, teto entra/sai, pausa congela e cache fica intacto',async()=>{
  for(const b of buildings){
   const gltf=await loadGlb('src/assets/buildings/'+b.id+'.glb'),scene=gltf.scene.clone(true),world=createWorld();
   const rt=new ColonyBuildingRuntime(scene,gltf.animations,b,world.movingCuboids);
   for(const d of b.doors){
-   const c=world.movingCuboids.find(c=>c.id===b.dynamicCuboids.find(c => c.node.startsWith(`COL_Door${d.side[0]}`)).id),before=JSON.stringify(c.rotation);
+   const c=world.movingCuboids.find(c=>c.id===b.dynamicCuboids.find(c => c.node.startsWith(`COL_Door${d.side[0]}`)).id),before=JSON.stringify(c.position),rotation=JSON.stringify(c.rotation);
    for(let i=0;i<90;i++)rt.update(d,1/60);
-   assert.notEqual(JSON.stringify(c.rotation),before);
+   assert.notEqual(JSON.stringify(c.position),before);assert.equal(JSON.stringify(c.rotation),rotation);
   }
   const inside={x:(b.floor.minX+b.floor.maxX)/2,z:(b.floor.minZ+b.floor.maxZ)/2};
   for(let i=0;i<90;i++)rt.update(inside,1/60);
@@ -87,7 +90,7 @@ test('S6.12: portas giram e seus cuboides acompanham, teto entra/sai, pausa cong
 test('S6.12: rotas com cápsula 0,32 m, entrada inicial livre e apoio plano dos três prédios',()=>{
  const world=createWorld();assert.ok(free(world,INITIAL_POSITION.x,INITIAL_POSITION.z),'spawn');
  const start=[0,6];
- for(const target of [[-2.8,0],[-9.5,0],[11.5,14],[0,10],[0,23],[0,29.5],[12,5.3],[0,-6],[-7,6]])assert.ok(reachable(world,start,target),`rota ${target}`);
+ for(const target of [[-2.8,0],[-9.5,0],[8.2,11.7],[0,10],[0,23],[0,29.5],[12,5.3],[0,-6],[-7,6]])assert.ok(reachable(world,start,target),`rota ${target}`);
  for(const b of buildings){assert.equal(world.supportHeight(b.placement.x,b.placement.z),0);for(const d of b.doors)assert.ok(reachable(world,start,[d.x,d.z]),`porta ${b.id}/${d.side}`)}
  assert.ok(world.simpleCuboids.some(c=>c.id===JSON.parse(fs.readFileSync('src/assets/quartel/barracks-v006.manifest.json')).staticCuboids[0].id));
  const probe=new MarsInteriorProbe();for(const b of buildings)assert.equal(probe.update(b.placement.x,b.placement.z),true);
@@ -102,8 +105,6 @@ test('S6.12: cápsula Rapier atravessa as quatro portas novas em ambos os sentid
   for(const door of spec.doors)for(const reverse of [false,true]){
    const source=createWorld(),physics=new R.World({x:0,y:0,z:0}),runtime=new ColonyBuildingRuntime(gltf.scene.clone(true),gltf.animations,spec,source.movingCuboids),moving=[];
    try{
-    // No retorno, a porta já foi aberta pela entrada; evita nascer dentro do arco de uma folha fechada.
-    if(reverse)for(let i=0;i<90;i++)runtime.update(door,1/60);
     for(const c of source.simpleCuboids)physics.createCollider(R.ColliderDesc.cuboid(...c.halfExtents).setTranslation(c.position.x,c.position.y,c.position.z).setRotation(c.rotation));
     for(const c of source.obstacles.filter(c=>c.physics!==false))physics.createCollider(R.ColliderDesc.cuboid((c.maxX-c.minX)/2,1.5,(c.maxZ-c.minZ)/2).setTranslation((c.maxX+c.minX)/2,1.5,(c.maxZ+c.minZ)/2));
     for(const c of source.movingCuboids){const body=physics.createRigidBody(R.RigidBodyDesc.kinematicPositionBased().setTranslation(c.position.x,c.position.y,c.position.z).setRotation(c.rotation));physics.createCollider(R.ColliderDesc.cuboid(...c.halfExtents),body);moving.push([body,c]);}
@@ -120,5 +121,24 @@ test('S6.12: cápsula Rapier atravessa as quatro portas novas em ambos os sentid
     const end=body.translation();assert.ok(Math.hypot(end.x-target.x,end.z-target.z)<.03,JSON.stringify({id:spec.id,door:door.side,reverse,target,end}));
    }finally{runtime.dispose();physics.free();}
   }
+ }
+});
+
+test('S6.12: pisos usam o atlas da Control Room, mesmas juntas e letreiros próprios no teto',async()=>{
+ for(const b of buildings){
+  const gltf=await loadGlb('src/assets/buildings/'+b.id+'.glb'),floor=gltf.scene.getObjectByName('Building_Floor').getObjectByProperty('isMesh',true);
+  assert.ok(floor.material.name.startsWith('MAT_Control_Atlas_2K'));
+  for(const name of ['Building_Floor','Building_Pad']){
+   const uv=gltf.scene.getObjectByName(name).getObjectByProperty('isMesh',true).geometry.attributes.uv;
+   for(let i=0;i<uv.count;i++){assert.ok(Math.abs(uv.getX(i)-.125)<1e-6);assert.ok(Math.abs(uv.getY(i)-.875)<1e-6);}
+  }
+  const lines=[];gltf.scene.traverse(n=>{if(n.name.startsWith('Juntas_125x150_30mm'))lines.push(n);});assert.equal(lines.length,2);
+  for(const n of lines){const uv=n.geometry.attributes.uv;for(let i=0;i<uv.count;i++){assert.ok(Math.abs(uv.getX(i)-.375)<1e-6);assert.ok(Math.abs(uv.getY(i)-.875)<1e-6);}}
+  gltf.scene.position.set(b.placement.x,0,b.placement.z);gltf.scene.rotation.y=b.placement.rotationY;gltf.scene.updateMatrixWorld(true);
+  for(const n of lines){const p=n.geometry.attributes.position,index=n.geometry.index,count=index?.count??p.count;for(let at=0;at<count;at+=3){const center=new Vector3();for(let k=0;k<3;k++){const v=new Vector3().fromBufferAttribute(p,index?index.getX(at+k):at+k).applyMatrix4(n.matrixWorld);center.add(v);}center.multiplyScalar(1/3);const dx=Math.abs(center.x/1.25-Math.round(center.x/1.25))*1.25,dz=Math.abs((center.z-.75)/1.5-Math.round((center.z-.75)/1.5))*1.5;assert.ok(Math.min(dx,dz)<.01501,'junta alinhada à grade comum');}}
+
+  const sign=gltf.scene.getObjectByName('Letreiro_Padrao');assert.ok(sign);assert.equal(sign.parent.name,'Building_Roof');
+  assert.ok(sign.children.some(c=>c.name.startsWith('Texto_')));
+  for(const clip of gltf.animations){assert.ok(clip.tracks.every(t=>t.name.endsWith('.position')),'nenhum pivô girando');}
  }
 });

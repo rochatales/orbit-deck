@@ -6,7 +6,7 @@ import { loadGlb } from '../../../tests/load-glb.mjs';
 const placements = [
  ['meeting-room',0,0,-Math.PI/2,['central-hub']],
  ['data-center',-12.5,0,Math.PI/2,['editorial']],
- ['cafeteria',11.5,10.7,0,['output-review','coffee-nook']]
+ ['cafeteria',11.5,11.7,-Math.PI/2,['output-review','coffee-nook']]
 ];
 const output=[];
 for (const [id,x,z,rotationY,replaces] of placements) {
@@ -23,7 +23,7 @@ for (const [id,x,z,rotationY,replaces] of placements) {
  });
  for(const side of ['South','East']){
   const node=scene.getObjectByName(`Door_${side}`);if(!node)continue;
-  const b=new Box3().setFromObject(node),p=b.getCenter(new Vector3());
+  const a=scene.getObjectByName(`COL_Door${side[0]}_L`).getWorldPosition(new Vector3()), b=scene.getObjectByName(`COL_Door${side[0]}_R`).getWorldPosition(new Vector3()), p=a.add(b).multiplyScalar(.5);
   const clip=gltf.animations.find(c=>c.name===`Door${side}_Open`);
   if(!clip)throw Error('Clipe ausente');
   doors.push({side,x:p.x,z:p.z,clip:clip.name,duration:clip.duration});

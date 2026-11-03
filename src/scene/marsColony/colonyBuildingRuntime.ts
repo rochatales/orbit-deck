@@ -1,3 +1,4 @@
+import { BuildingAtlasSampling } from './buildingAtlasSampling';
 import { AnimationMixer, LoopOnce, Quaternion, Vector3, type AnimationClip, type Material, type Mesh, type Object3D } from 'three';
 import { COLONY_BUILDINGS } from '../../game/colonyBuildingsLayout';
 import type { SimpleCuboid } from '../../world/createOfficeMap';
@@ -16,6 +17,7 @@ export class ColonyBuildingRuntime {
     private readonly scale = new Vector3();
     private readonly rotation = new Quaternion();
     private disposed = false;
+    private readonly atlasSampling: BuildingAtlasSampling;
     constructor(private scene: Object3D, clips: AnimationClip[], private spec: typeof COLONY_BUILDINGS[number], moving: SimpleCuboid[]) {
         scene.position.set(spec.placement.x, 0, spec.placement.z);
         scene.rotation.y = spec.placement.rotationY;
@@ -42,6 +44,7 @@ export class ColonyBuildingRuntime {
             };
             mesh.material = Array.isArray(mesh.material) ? mesh.material.map(copy) : copy(mesh.material);
         });
+        this.atlasSampling = new BuildingAtlasSampling(scene);
         // Pad e piso vieram coplanares da fonte; separa a base por 6 mm sem editar GLB.
         const pad = scene.getObjectByName('Building_Pad'); if (pad) pad.position.y -= .006;
         this.mixer = new AnimationMixer(scene);
@@ -91,5 +94,6 @@ export class ColonyBuildingRuntime {
         if (this.disposed) return; this.disposed = true;
         this.mixer.stopAllAction(); this.mixer.uncacheRoot(this.scene);
         for (const material of this.materials) material.dispose();
+        this.atlasSampling.dispose();
     }
 }

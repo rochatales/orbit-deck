@@ -1,0 +1,100 @@
+[
+  {
+    "id": "meeting-room",
+    "source_sha256": "6a925c9a7587a53ebe62647a2e6c6821d2e6eefe7e621f9ad3802f8acbb7fa5c",
+    "sha256": "babed766dc15e2e377373434cc5df0d5300f53cb863673569080dc0621bf6b61",
+    "bytes": 1829072,
+    "reference_sha256": "a7ece29112a46c5d4784c8a51f61fbfc87893467088f12f8e2810196dc910653",
+    "doors": [
+      {
+        "side": "South",
+        "plane": [
+          0.0,
+          -3.8499999046325684,
+          0.0
+        ],
+        "removed_vertices": 695,
+        "motion": "sliding",
+        "width": 1.7
+      },
+      {
+        "side": "East",
+        "plane": [
+          3.8499999046325684,
+          0.0,
+          0.0
+        ],
+        "removed_vertices": 704,
+        "motion": "sliding",
+        "width": 1.7
+      }
+    ],
+    "floor": {
+      "tile_m": [
+        1.25,
+        1.5
+      ],
+      "joint_m": 0.03,
+      "world_aligned": true
+    },
+    "label": "MEETING ROOM"
+  },
+  {
+    "id": "data-center",
+    "source_sha256": "c76557938ad1202b14a54a58c1ee04df21356501d01fc590d1d4e2858f733a30",
+    "sha256": "13e30b08a735fdbc36b28106c88e3d21ecfb77fdbf6d80b5129b543427d7851d",
+    "bytes": 1908464,
+    "reference_sha256": "a7ece29112a46c5d4784c8a51f61fbfc87893467088f12f8e2810196dc910653",
+    "doors": [
+      {
+        "side": "South",
+        "plane": [
+          0.0,
+          -3.8499999046325684,
+          0.0
+        ],
+        "removed_vertices": 178,
+        "motion": "sliding",
+        "width": 1.7
+      }
+    ],
+    "floor": {
+      "tile_m": [
+        1.25,
+        1.5
+      ],
+      "joint_m": 0.03,
+      "world_aligned": true
+    },
+    "label": "DATA CENTER"
+  },
+  {
+    "id": "cafeteria",
+    "source_sha256": "94778eb18597ca05cab902ba81ea2206e3879c54d84e155d1d276e0bdfef921d",
+    "sha256": "4e4957585566748aa0509b60647c2e7d99b883aec5049ad86f604efab8c42ab5",
+    "bytes": 1660292,
+    "reference_sha256": "a7ece29112a46c5d4784c8a51f61fbfc87893467088f12f8e2810196dc910653",
+    "doors": [
+      {
+        "side": "South",
+        "plane": [
+          0.0,
+          -4.349999904632568,
+          0.0
+        ],
+        "removed_vertices": 252,
+        "motion": "sliding",
+        "width": 1.7
+      }
+    ],
+    "floor": {
+      "tile_m": [
+        1.25,
+        1.5
+      ],
+      "joint_m": 0.03,
+      "world_aligned": true
+    },
+    "label": "CAFETERIA"
+  }
+]

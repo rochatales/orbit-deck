@@ -26,7 +26,7 @@ export function addColonyBuildingsTerrain(world: OfficeWorld) {
     world.walkableAreas.push(...manifest.map(b => b.pad),
         // As franjas dos pisos das salas retiradas passam a pátio aberto.
         ...original.walkableAreas.filter(a => REPLACED_BUILDING_ROOMS.has(a.id)),
-        // Liga os dois módulos substituídos e a entrada sul da Cafeteria à circulação existente.
+        // Pátio entre os dois módulos substituídos, Cafeteria e circulação da estufa.
         { minX: 4, maxX: 15.8, minZ: 15.1, maxZ: 17.8 });
     for (const b of manifest) for (const c of b.staticCuboids) world.obstacles.push({ ...c.bounds, physics: false });
     const previous = world.supportHeight;
