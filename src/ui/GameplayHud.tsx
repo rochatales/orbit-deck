@@ -9,6 +9,8 @@ import { COMBAT } from '../combat/config';
 import { useCombatStore } from '../state/useCombatStore';
 import { useBackpackEnergy, publishBackpackEnergy } from '../state/useBackpackEnergy';
 import { ItemArtwork } from './ItemArtwork';
+import { ShipCargoButton } from './ShipCargoPanel';
+import type { MapId } from '../game/session';
 
 export function VitalBar({ label, value, max, kind }: { label: string; value: number; max: number; kind: 'life' | 'energy' }) {
   const percent = Math.max(0, Math.min(100, value / max * 100));
@@ -21,7 +23,7 @@ export function VitalBar({ label, value, max, kind }: { label: string; value: nu
     </div>
   </div>;
 }
-export function GameplayHud({ combat, openBackpack }: { combat: boolean; openBackpack: () => void }) {
+export function GameplayHud({ combat, map, openBackpack, openCargo }: { combat: boolean; map: MapId; openBackpack: () => void; openCargo: () => void }) {
   useEffect(() => {
     // Publicação limitada a 10 Hz, fora do passo físico e sem render por quadro.
     const clock = window.setInterval(publishBackpackEnergy, 100);
@@ -56,6 +58,7 @@ export function GameplayHud({ combat, openBackpack }: { combat: boolean; openBac
             </div>
           </div><ChevronRight size={13}/>
         </button>
+        <ShipCargoButton map={map} onOpen={openCargo}/>
       </aside>
       <aside className={`beta-ammo ${combat && !machete && s.ammo === 0 ? 'is-empty' : ''}`} aria-label={!combat ? 'Arma principal no coldre' : machete ? 'Facão equipado' : 'Munição do rifle'}>
         <ItemArtwork item={machete ? 'machete' : 'ammo'}/><div><small>{machete ? 'FACÃO' : combat && s.reloading ? 'RECARREGANDO…' : 'RIFLE LASER'}</small>

@@ -1,7 +1,7 @@
 import { useEffect, useRef, type ReactNode } from 'react';
 
 /** Foco fica no menu; ao fechar, volta ao controle que o abriu. */
-export function PauseMenuFrame({ label, children }: { label: string; children: ReactNode }) {
+export function PauseMenuFrame({ label, children, wide = false }: { label: string; children: ReactNode; wide?: boolean }) {
   const root = useRef<HTMLElement>(null);
   useEffect(() => {
     const previous = document.activeElement;
@@ -23,5 +23,5 @@ export function PauseMenuFrame({ label, children }: { label: string; children: R
       if (previous instanceof HTMLElement && previous.isConnected) previous.focus({ preventScroll: true });
     };
   }, []);
-  return <section className="overlay beta-pause" role="dialog" aria-modal="true" aria-label={label} ref={root} tabIndex={-1}><article>{children}</article></section>;
+  return <section className={`overlay beta-pause ${wide ? 'is-wide' : ''}`} role="dialog" aria-modal="true" aria-label={label} ref={root} tabIndex={-1}><article>{children}</article></section>;
 }

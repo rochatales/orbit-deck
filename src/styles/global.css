@@ -354,3 +354,49 @@ nav button:hover:not(:disabled), .secondary:hover:not(:disabled) { color: #09232
 .beta-equipment-slot:hover:not(:disabled) { background: #304451; box-shadow: 0 0 10px #8fb2c233; }
 .beta-equipment-slot.is-empty { opacity: .5; }
 .beta-equipment-slot .beta-kit-count { position: absolute; right: 4px; bottom: 4px; color: #f6e2df; font-size: 10px; font-weight: 500; text-shadow: 0 1px 4px #000; }
+
+/* Carga da aeronave · botão de ação e porão (S6.3) */
+.beta-ship-cargo { display: flex; align-items: center; gap: 9px; height: 60px; padding: 5px 10px; border: 1px solid #748b965c; border-radius: 4px 4px 8px 4px; background: #14202bcc; color: #c3cdd2; pointer-events: auto; font-size: 9px; text-align: left; letter-spacing: .05em; text-transform: none; }
+.beta-ship-cargo > svg { width: 30px; height: 30px; color: #8faeb5; flex: none; }
+.beta-ship-cargo > div { width: 104px; }
+.beta-ship-cargo > div > span { display: flex; justify-content: space-between; color: #9ab0bd; font-size: 8px; }
+.beta-ship-cargo kbd { font-family: inherit; font-size: 7px; color: #c6d0d7; border: 1px solid #78909a77; padding: 0 3px; border-radius: 2px; }
+.beta-ship-cargo strong { display: block; font-size: 12px; margin: 3px 0 5px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.beta-ship-cargo strong small { color: #8b9da7; font-size: 9px; }
+.beta-ship-cargo:disabled { opacity: .42; cursor: default; }
+.beta-ship-cargo.is-near { border-color: #83e5d79c; box-shadow: 0 0 14px #83e5d726; }
+.beta-ship-cargo.is-near > svg { color: var(--cyan); }
+.beta-ship-cargo.is-near .beta-weight-track > i { background: var(--cyan); }
+.beta-ship-cargo:hover:not(:disabled) { background: #243640; color: #e5e9eb; }
+.interaction-bubble button.secondary { margin-top: 5px; background: transparent; }
+
+.beta-pause.is-wide article { width: min(880px, 100%); }
+.beta-ship-icon { width: 46px; height: 46px; color: var(--cyan); flex: none; }
+.beta-hold-columns { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr); gap: 14px; align-items: start; }
+.beta-hold-card { border: 1px solid #7c929f55; border-radius: 5px 5px 10px 5px; background: #0d17235c; padding: 12px; display: grid; gap: 10px; }
+.beta-hold-card.is-ship { border-color: #83e5d757; background: linear-gradient(160deg, #123038a8, #0b1922a8); }
+.beta-hold-card header { display: flex; align-items: center; gap: 8px; }
+.beta-hold-card header .item-artwork, .beta-hold-card header svg { width: 26px; height: 26px; color: var(--cyan); flex: none; }
+.beta-hold-card h3 { margin: 0; font-size: 12px; font-weight: 500; color: #dfe7ea; letter-spacing: .06em; text-transform: uppercase; }
+.beta-hold-card h3 small { color: #8ea6b6; font-weight: 400; }
+.beta-hold-card header > span { margin-left: auto; color: #a9bdc8; font-size: 10px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.beta-hold-card.is-ship .beta-weight-track > i { background: var(--cyan); }
+.beta-hold-card > button { justify-self: stretch; display: flex; justify-content: center; align-items: center; gap: 6px; padding: 9px; font-size: 9px; }
+.beta-slot-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+.beta-hold-card.is-ship .beta-slot-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.beta-slot { position: relative; aspect-ratio: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 6px 4px; border: 1px solid #7c929f66; border-radius: 4px 4px 7px 4px; background: #0a141dc4; color: #c4cfd6; text-transform: none; letter-spacing: .02em; }
+.beta-slot.is-empty { border-style: solid; border-color: #6f86933b; background: #0a141d70; }
+.beta-slot .item-artwork { width: 62%; height: 62%; }
+.beta-slot b { position: absolute; right: 6px; top: 4px; font-size: 11px; font-weight: 500; color: #e4eaec; text-shadow: 0 1px 3px #000; font-variant-numeric: tabular-nums; }
+.beta-slot small { font-size: 8px; color: #93abb9; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.beta-slot:hover:not(:disabled) { border-color: #83e5d7b0; background: #12303a; box-shadow: 0 0 10px #83e5d72b; }
+.beta-slot:disabled { opacity: 1; cursor: default; }
+.beta-hold-note { margin: 14px 0 6px; font-size: 11px; color: #a9bdc8; min-height: 1.4em; }
+.beta-ship-hold > small { font-size: 10px; color: #859fae; line-height: 1.6; }
+@media (max-width: 760px) {
+  .beta-ship-cargo { height: 48px; gap: 5px; padding-right: 6px; }
+  .beta-ship-cargo > svg { width: 22px; height: 22px; }
+  .beta-ship-cargo > div { width: 72px; }
+  .beta-hold-columns { grid-template-columns: 1fr; }
+  .beta-hold-card.is-ship .beta-slot-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}

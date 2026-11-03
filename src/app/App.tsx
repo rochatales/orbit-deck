@@ -1,12 +1,15 @@
 import { WeaponControls } from '../characters/player/WeaponControls';
 import { PauseMenuFrame } from '../ui/PauseMenuFrame';
 import { GameplayHud, BackpackContents } from '../ui/GameplayHud';
+import { ShipCargoPanel } from '../ui/ShipCargoPanel';
+import { OPEN_CARGO_EVENT, isNearCargo } from '../game/shipCargo';
+import { playerPosition } from '../state/playerTransient';
 import { activateWorldInteraction } from '../interactions/runtime';
 import { AudioControls, AudioLifecycle } from '../audio/AudioRuntime';
 import { audio } from '../audio/runtime';
 import { CombatHud, EncounterSelect } from '../combat/CombatHud';
 import { useCombatStore } from '../state/useCombatStore';
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { GameCanvas } from './GameCanvas';
 import { useExpeditionStore } from '../state/useExpeditionStore';
 import { useGameStore } from '../state/useGameStore';
@@ -37,7 +40,9 @@ function Runtime() {
         map: MapId;
         data: OfficeWorld;
     } | null>(null);
-    const [retry, setRetry] = useState(0), [pauseView, setPauseView] = useState<'menu' | 'backpack'>('menu');
+    const [retry, setRetry] = useState(0), [pauseView, setPauseView] = useState<'menu' | 'backpack' | 'cargo'>('menu');
+    const pauseViewRef = useRef(pauseView);
+    pauseViewRef.current = pauseView;
     const requested = s.session.destination ?? s.session.map;
     useEffect(() => {
         let cancelled = false;
@@ -72,6 +77,14 @@ function Runtime() {
         disposeWorld(world.data); }, [world]);
     const dead = useCombatStore(state => state.dead);
     useEffect(() => {
+        /** F, balão ou botão: abre o porão perto da aeronave; F de novo fecha. */
+        const toggleCargo = () => {
+            const state = useExpeditionStore.getState();
+            if (!state.ready || state.session.phase !== 'walking' || state.panel || (state.session.map === 'shanghai' && useCombatStore.getState().dead) || !isNearCargo(state.session.map, playerPosition)) return false;
+            if (useGameStore.getState().isPaused && pauseViewRef.current === 'cargo') useGameStore.setState({ isPaused: false });
+            else { setPauseView('cargo'); useGameStore.setState({ isPaused: true }); }
+            return true;
+        };
         const key = (e: KeyboardEvent) => {
             if (e.repeat || e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement || e.target instanceof HTMLSelectElement || (e.target instanceof HTMLElement && e.target.isContentEditable))
                 return;
@@ -87,6 +100,7 @@ function Runtime() {
             if (e.code === 'KeyB' && state.session.phase === 'walking' && !state.panel) {
                 e.preventDefault(); setPauseView('backpack'); useGameStore.setState({ isPaused: true });
             }
+            if (e.code === 'KeyF' && toggleCargo()) e.preventDefault();
             if (e.code === 'KeyE' && !useGameStore.getState().isPaused) {
                 if (state.session.phase === 'aboard')
                     state.send('exit');
@@ -97,7 +111,8 @@ function Runtime() {
             }
         };
         window.addEventListener('keydown', key);
-        return () => window.removeEventListener('keydown', key);
+        window.addEventListener(OPEN_CARGO_EVENT, toggleCargo);
+        return () => { window.removeEventListener('keydown', key); window.removeEventListener(OPEN_CARGO_EVENT, toggleCargo); };
     }, []);
     return <main className={`runtime ${s.session.map === 'shanghai' ? 'in-combat' : 'in-hub'}`}>
     <WeaponControls/>
@@ -107,7 +122,8 @@ function Runtime() {
       <nav><button onClick={() => { setPauseView('menu'); useGameStore.setState({ isPaused: true }); }} disabled={!s.ready || s.session.phase !== 'walking' || !!s.panel || (s.session.map === 'shanghai' && dead)}>Controles <span>☰</span></button><button aria-label={paused ? 'Retomar jogo' : 'Pausar jogo'} disabled={!s.ready || s.session.phase !== 'walking' || !!s.panel || (s.session.map === 'shanghai' && dead)} onClick={() => { setPauseView('menu'); useGameStore.getState().togglePaused(); }}>{paused ? 'RETOMAR' : 'Ⅱ'}</button></nav>
     </header>
     <aside className="beta-objective"><span>OBJETIVO</span>{s.session.map === 'mars' ? 'Prepare sua expedição · Encontre EDEN' : 'Sobreviva às hordas · Recupere materiais'}</aside>
-    <GameplayHud combat={s.session.map === 'shanghai'} openBackpack={() => { if (s.ready && s.session.phase === 'walking' && !s.panel && !dead) { setPauseView('backpack'); useGameStore.setState({ isPaused: true }); } }}/>
+    <GameplayHud combat={s.session.map === 'shanghai'} map={s.session.map} openBackpack={() => { if (s.ready && s.session.phase === 'walking' && !s.panel && !dead) { setPauseView('backpack'); useGameStore.setState({ isPaused: true }); } }}
+      openCargo={() => { if (s.ready && s.session.phase === 'walking' && !s.panel && !dead) { setPauseView('cargo'); useGameStore.setState({ isPaused: true }); } }}/>
     {s.session.map === 'shanghai' && <CombatHud/>}
     {s.saveError && <p className="save-warning" role="alert">{s.saveError}</p>}
     {s.panel === 'eden' && <section className="overlay" role="dialog" aria-label="Conversa com EDEN"><article>
@@ -122,11 +138,11 @@ function Runtime() {
       {s.session.map === 'shanghai' && <p>Retorno livre à colônia. As peças desta tentativa são temporárias.</p>}
       <div className="actions"><button onClick={() => s.send('depart')}>{s.session.map === 'mars' ? 'Decolar para Shanghai' : 'Retornar a Marte'}</button><button className="secondary" onClick={() => s.send('exit')}>Desembarcar · E</button></div>
     </article></section>}
-    {paused && !(s.session.map === 'shanghai' && dead) && <PauseMenuFrame label={pauseView === 'backpack' ? 'Mochila' : 'Pausa e controles'}>
+    {paused && !(s.session.map === 'shanghai' && dead) && <PauseMenuFrame label={pauseView === 'backpack' ? 'Mochila' : pauseView === 'cargo' ? 'Carga da aeronave' : 'Pausa e controles'} wide={pauseView === 'cargo'}>
       <div className="beta-menu-heading"><p className="eyebrow">EXODEN · EXPLORAÇÃO PAUSADA</p><button className="secondary" onClick={() => useGameStore.setState({ isPaused: false })} aria-label="Fechar menu">✕</button></div>
-      <div className="beta-menu-tabs"><button className={pauseView === 'menu' ? 'is-active' : 'secondary'} onClick={() => setPauseView('menu')}>Controles</button><button className={pauseView === 'backpack' ? 'is-active' : 'secondary'} onClick={() => setPauseView('backpack')}>Mochila</button></div>
-      {pauseView === 'backpack' ? <BackpackContents combat={s.session.map === 'shanghai'}/> : <>
-        <h2>À sua maneira.</h2><dl className="beta-control-list"><div><dt>W / S</dt><dd>Correr pela mira / recuar</dd></div><div><dt>MOUSE</dt><dd>Mirar · botão esquerdo para atirar</dd></div><div><dt>ESPAÇO</dt><dd>Dash na colônia e em Shanghai · 2 cargas · recarga total em 5 s</dd></div><div><dt>1 / 2</dt><dd>Arma principal: rifle / facão · golpes só em Shanghai</dd></div><div><dt>3</dt><dd>Usar kit médico guardado · +50 de vida</dd></div><div><dt>R / E</dt><dd>Recarregar / interagir</dd></div><div><dt>Q / C</dt><dd>Girar câmera · roda para zoom</dd></div><div><dt>B / ESC / M</dt><dd>Mochila / pausa / som</dd></div></dl>
+      <div className="beta-menu-tabs"><button className={pauseView === 'menu' ? 'is-active' : 'secondary'} onClick={() => setPauseView('menu')}>Controles</button><button className={pauseView === 'backpack' ? 'is-active' : 'secondary'} onClick={() => setPauseView('backpack')}>Mochila</button><button className={pauseView === 'cargo' ? 'is-active' : 'secondary'} onClick={() => setPauseView('cargo')}>Aeronave</button></div>
+      {pauseView === 'cargo' ? <ShipCargoPanel map={s.session.map}/> : pauseView === 'backpack' ? <BackpackContents combat={s.session.map === 'shanghai'}/> : <>
+        <h2>À sua maneira.</h2><dl className="beta-control-list"><div><dt>W / S</dt><dd>Correr pela mira / recuar</dd></div><div><dt>MOUSE</dt><dd>Mirar · botão esquerdo para atirar</dd></div><div><dt>ESPAÇO</dt><dd>Dash na colônia e em Shanghai · 2 cargas · recarga total em 5 s</dd></div><div><dt>1 / 2</dt><dd>Arma principal: rifle / facão · golpes só em Shanghai</dd></div><div><dt>3</dt><dd>Usar kit médico guardado · +50 de vida</dd></div><div><dt>R / E</dt><dd>Recarregar / interagir</dd></div><div><dt>Q / C</dt><dd>Girar câmera · roda para zoom</dd></div><div><dt>B / F</dt><dd>Mochila / carga da aeronave (perto dela)</dd></div><div><dt>ESC / M</dt><dd>Pausa / som</dd></div></dl>
         <AudioControls/>
         <details className="beta-radio-log"><summary>Última transmissão · EDEN</summary><p>{s.radio}</p></details>
         {s.session.map === 'shanghai' && <details className="beta-test-tools"><summary>Encontro de teste</summary><EncounterSelect/><button onClick={() => { s.restartMission(); }}>Reiniciar encontro</button></details>}
