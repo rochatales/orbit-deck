@@ -1,6 +1,11 @@
-"""Blender 5.1 · S6.3 Limites de Shanghai: geração com blend orgânico, PBR e game design.
+"""Blender 5.1 · S6.3 Limites de Shanghai v003: baseado na folha de estudo de referência.
 
-Uso: Blender --background --python art-source/shanghai-limites/scripts/build_blender.py
+Implementa:
+- ASSET STUDY A: Collapsed Apartment Block com corte interior, lajes quebradas e escadas zig-zag
+- ASSET STUDY B: Debris Pile com lajes de concreto sobrepostas (tectonic plates), tijolos e vergalhões
+- ASSET STUDY C: Burnt-out Vehicles (ônibus urbano carbonizado e carcaças de sedans como barricadas)
+- SCENE RECONSTRUCTION: Bloqueio do corredor viário natural, sem linha reta de transição
+- PBR textures e normal maps empacotados no GLB
 """
 import bpy, bmesh, json, math, random, sys
 from pathlib import Path
@@ -23,19 +28,20 @@ scene.collection.children.link(export)
 helpers = bpy.data.collections.new('02_COLISORES_REFERENCIA')
 scene.collection.children.link(helpers)
 
-# ---------------------------------------------------------------- Setup de Materiais PBR com texturas empacotadas
+# ---------------------------------------------------------------- Materiais PBR
 MATERIAL_DEFS = {
-    'entulho': dict(color='#d6ccbc', tex='entulho', rough=0.86, norm=0.35),
-    'terra': dict(color='#524638', tex='entulho', rough=0.94, norm=0.40, tint=True),
-    'asfalto_quebrado': dict(color='#424446', tex='asfalto', rough=0.90, norm=0.30, tint=True),
-    'concreto': dict(color='#dbd8ce', tex='concreto', rough=0.78, norm=0.30),
-    'calcada': dict(color='#b8b5a2', tex='calcada', rough=0.82, norm=0.28),
-    'tijolo': dict(color='#9c523c', tex='entulho', rough=0.88, norm=0.38, tint=True),
-    'metal': dict(color='#404445', tex='concreto', rough=0.46, norm=0.25, metal=0.75, tint=True),
-    'azul': dict(color='#6e8b8c', tex='fachada', rough=0.85, norm=0.30, tint=True),
-    'terracota': dict(color='#ae6049', tex='fachada', rough=0.85, norm=0.30, tint=True),
-    'bege': dict(color='#baa986', tex='fachada', rough=0.85, norm=0.30, tint=True),
-    'sombra': dict(color='#262828', tex=None, rough=0.95),
+    'entulho': dict(color='#d4cbb9', tex='entulho', rough=0.86, norm=0.35),
+    'terra': dict(color='#544636', tex='entulho', rough=0.95, norm=0.40, tint=True),
+    'asfalto_quebrado': dict(color='#3a3c3e', tex='asfalto', rough=0.92, norm=0.32, tint=True),
+    'concreto': dict(color='#dcd8cd', tex='concreto', rough=0.78, norm=0.30),
+    'calcada': dict(color='#b8b5a0', tex='calcada', rough=0.82, norm=0.28),
+    'tijolo': dict(color='#9c5038', tex='entulho', rough=0.88, norm=0.38, tint=True),
+    'metal': dict(color='#3a3d3e', tex='concreto', rough=0.48, norm=0.25, metal=0.80, tint=True),
+    'veiculo_ferrugem': dict(color='#684232', tex='entulho', rough=0.72, norm=0.35, metal=0.45, tint=True),
+    'azul': dict(color='#6c8a8c', tex='fachada', rough=0.85, norm=0.30, tint=True),
+    'terracota': dict(color='#b05e46', tex='fachada', rough=0.85, norm=0.30, tint=True),
+    'bege': dict(color='#bca984', tex='fachada', rough=0.85, norm=0.30, tint=True),
+    'sombra': dict(color='#1c1d1e', tex=None, rough=0.96),
 }
 
 mats = {}
@@ -63,7 +69,6 @@ for name, spec in MATERIAL_DEFS.items():
             t_node.image.pack()
 
             if spec.get('tint'):
-                # Bake tint into a private image copy for reliable glTF material export
                 img_copy = t_node.image.copy()
                 img_copy.name = f'{name}_tint'
                 pix = list(img_copy.pixels)
@@ -140,10 +145,10 @@ class Batch:
 BOX_FACES = [(0, 3, 2, 1), (4, 5, 6, 7), (0, 1, 5, 4), (1, 2, 6, 5), (2, 3, 7, 6), (3, 0, 4, 7)]
 
 
-def box_verts(cx, cy, cz, w, h, d, yaw=0.0, tilt=0.0, tilt_dir=0.0):
+def box_verts(cx, cy, cz, w, h, d, yaw=0.0, tilt=0.0, tdir=0.0):
     out = []
     ct, st = math.cos(tilt), math.sin(tilt)
-    ax, az = math.cos(tilt_dir), math.sin(tilt_dir)
+    ax, az = math.cos(tdir), math.sin(tdir)
     for x, y, z in [(-w / 2, -h / 2, -d / 2), (w / 2, -h / 2, -d / 2), (w / 2, -h / 2, d / 2), (-w / 2, -h / 2, d / 2),
                     (-w / 2, h / 2, -d / 2), (w / 2, h / 2, -d / 2), (w / 2, h / 2, d / 2), (-w / 2, h / 2, d / 2)]:
         x, z = x * math.cos(yaw) - z * math.sin(yaw), x * math.sin(yaw) + z * math.cos(yaw)
@@ -157,58 +162,116 @@ def box_verts(cx, cy, cz, w, h, d, yaw=0.0, tilt=0.0, tilt_dir=0.0):
     return out
 
 
-def add_ibeam(batch, cx, cy, cz, length, width=0.28, height=0.35, flange_t=0.035, web_t=0.03, yaw=0.0, tilt=0.3, tdir=0.0):
-    """Gera uma viga em I realista com mesa superior, inferior e alma."""
-    # Mesa superior
-    batch.add('metal', box_verts(cx, cy + height / 2 - flange_t / 2, cz, width, flange_t, length, yaw, tilt, tdir), BOX_FACES)
-    # Mesa inferior
-    batch.add('metal', box_verts(cx, cy - height / 2 + flange_t / 2, cz, width, flange_t, length, yaw, tilt, tdir), BOX_FACES)
-    # Alma central
-    batch.add('metal', box_verts(cx, cy, cz, web_t, height - 2 * flange_t, length, yaw, tilt, tdir), BOX_FACES)
+# ---------------------------------------------------------------- ASSET STUDY C: Veículos Carbonizados / Barricadas
+def add_burnt_bus(batch, cx, cy, cz, yaw=0.0, tilt=0.0, tdir=0.0):
+    """Ônibus urbano queimado com janelas vazias, teto rompido e carcaça metálica."""
+    L_bus = 9.8
+    W_bus = 2.5
+    H_bus = 2.8
+    # 1. Chassi inferior e piso
+    batch.add('veiculo_ferrugem', box_verts(cx, cy + 0.35, cz, W_bus, 0.5, L_bus, yaw, tilt, tdir), BOX_FACES)
+    # 2. Interior escuro/carbonizado
+    batch.add('sombra', box_verts(cx, cy + 0.9, cz, W_bus - 0.2, 0.8, L_bus - 0.4, yaw, tilt, tdir), BOX_FACES)
+    # 3. Colunas de janela (Pilares laterais vazados)
+    num_windows = 5
+    for side in (-W_bus / 2 + 0.08, W_bus / 2 - 0.08):
+        for col in range(num_windows + 1):
+            offset_z = -L_bus / 2 + 0.6 + col * ((L_bus - 1.2) / num_windows)
+            batch.add('veiculo_ferrugem', box_verts(cx, cy + 1.45, cz, 0.12, 1.2, 0.15, yaw, tilt, tdir), BOX_FACES)
+    # 4. Teto metálico amassado
+    batch.add('veiculo_ferrugem', box_verts(cx, cy + 2.15, cz, W_bus - 0.1, 0.2, L_bus - 0.2, yaw, tilt, tdir), BOX_FACES)
+    # 5. Frente (para-brisa oco) e Traseira
+    batch.add('veiculo_ferrugem', box_verts(cx, cy + 1.2, cz + L_bus / 2 - 0.15, W_bus, 1.5, 0.3, yaw, tilt, tdir), BOX_FACES)
+    batch.add('veiculo_ferrugem', box_verts(cx, cy + 1.2, cz - L_bus / 2 + 0.15, W_bus, 1.5, 0.3, yaw, tilt, tdir), BOX_FACES)
+    # 6. Rodas / Eixos queimados
+    for sx in (-W_bus / 2, W_bus / 2):
+        for sz_ratio in (-0.35, 0.28, 0.38):
+            batch.add('sombra', box_verts(cx, cy + 0.4, cz + sz_ratio * L_bus, 0.35, 0.75, 0.75, yaw, tilt, tdir), BOX_FACES)
 
 
-def add_pipe(batch, cx, cy, cz, length, r_out=0.48, r_in=0.38, segments=10, yaw=0.0, tilt=0.1, tdir=0.0):
-    """Gera um duto/tubulação de drenagem urbana oca e partida."""
-    verts = []
-    faces = []
-    cy_mid = 0
-    # Gera cilindro oco ao longo do eixo Z local
-    ct, st = math.cos(tilt), math.sin(tilt)
-    ax, az = math.cos(tdir), math.sin(tdir)
-
-    def rot(lx, ly, lz):
-        lx, lz = lx * math.cos(yaw) - lz * math.sin(yaw), lx * math.sin(yaw) + lz * math.cos(yaw)
-        dot = lx * ax + lz * az
-        cxv, cyv, czv = -az * ly, az * lx - ax * lz, ax * ly
-        rx = lx * ct + cxv * st + ax * dot * (1.0 - ct)
-        ry = ly * ct + cyv * st
-        rz = lz * ct + czv * st + az * dot * (1.0 - ct)
-        return (cx + rx, cy + ry, cz + rz)
-
-    for side in (-length / 2, length / 2):
-        for i in range(segments):
-            ang = i * 2.0 * math.pi / segments
-            verts.append(rot(math.cos(ang) * r_out, math.sin(ang) * r_out, side))
-        for i in range(segments):
-            ang = i * 2.0 * math.pi / segments
-            verts.append(rot(math.cos(ang) * r_in, math.sin(ang) * r_in, side))
-
-    s = segments
-    # Lados externos
-    for i in range(s):
-        faces.append((i, (i + 1) % s, (i + 1) % s + 2 * s, i + 2 * s))
-    # Lados internos
-    for i in range(s):
-        faces.append((i + s + 2 * s, (i + 1) % s + s + 2 * s, (i + 1) % s + s, i + s))
-    # Tampas das pontas
-    for i in range(s):
-        faces.append(((i + 1) % s, i, i + s, (i + 1) % s + s))
-        faces.append((i + 2 * s, (i + 1) % s + 2 * s, (i + 1) % s + 3 * s, i + 3 * s))
-
-    batch.add('concreto', verts, faces)
+def add_burnt_sedan(batch, cx, cy, cz, yaw=0.0, tilt=0.0, tdir=0.0):
+    """Carro de passeio sedan amassado e queimado."""
+    L_car = 4.2
+    W_car = 1.8
+    # 1. Chassi e capô
+    batch.add('veiculo_ferrugem', box_verts(cx, cy + 0.4, cz, W_car, 0.65, L_car, yaw, tilt, tdir), BOX_FACES)
+    # 2. Habitáculo com pilares vazados (colunas A, B, C)
+    batch.add('sombra', box_verts(cx, cy + 0.9, cz - 0.1, W_car - 0.2, 0.6, 2.1, yaw, tilt, tdir), BOX_FACES)
+    # Teto
+    batch.add('veiculo_ferrugem', box_verts(cx, cy + 1.25, cz - 0.15, W_car - 0.25, 0.12, 1.8, yaw, tilt, tdir), BOX_FACES)
+    # Colunas
+    for sx in (-W_car / 2 + 0.1, W_car / 2 - 0.1):
+        # Coluna A dianteira
+        batch.add('veiculo_ferrugem', box_verts(cx, cy + 1.0, cz + 0.8, 0.1, 0.55, 0.1, yaw, tilt + 0.25, tdir), BOX_FACES)
+        # Coluna C traseira
+        batch.add('veiculo_ferrugem', box_verts(cx, cy + 1.0, cz - 1.0, 0.1, 0.55, 0.1, yaw, tilt - 0.25, tdir), BOX_FACES)
+    # Rodas
+    for sx in (-W_car / 2, W_car / 2):
+        for sz_ratio in (-0.3, 0.3):
+            batch.add('sombra', box_verts(cx, cy + 0.3, cz + sz_ratio * L_car, 0.22, 0.55, 0.55, yaw, tilt, tdir), BOX_FACES)
 
 
-# ---------------------------------------------------------------- Terreno com Blend Orgânico de Materiais
+# ---------------------------------------------------------------- ASSET STUDY A: Collapsed Apartment Block
+def build_collapsed_apartment(r):
+    """Prédio de apartamentos em colapso com corte interior e escadas zig-zag."""
+    batch = Batch()
+    W = r['w']
+    D = r['d']
+    floors = r['floors']
+    H = floors * L.FLOOR
+    cx, cz = r['x'], r['z']
+    mat = r['material']
+
+    # Parede dos fundos (externa, intacta)
+    batch.add(mat, box_verts(cx, H / 2, cz - D / 2 + 0.25, W, H, 0.5), BOX_FACES)
+
+    # Paredes laterais (degraus quebrados descendo em direção à frente)
+    for side in (-W / 2 + 0.25, W / 2 - 0.25):
+        side_h = H * 0.75
+        batch.add(mat, box_verts(cx + side, side_h / 2, cz, 0.5, side_h, D), BOX_FACES)
+        # Borda quebrada da lateral
+        batch.add('tijolo', box_verts(cx + side, side_h + 0.15, cz + D * 0.15, 0.45, 0.3, D * 0.6, 0, 0.2, 0), BOX_FACES)
+
+    # Lajes de piso e corte interior exposto
+    for fl in range(1, floors + 1):
+        fl_y = fl * L.FLOOR
+        # Laje de concreto armado
+        slab_d = D * (0.85 - 0.08 * fl) # lajes mais altas mais quebradas e curtas
+        batch.add('concreto', box_verts(cx, fl_y - 0.15, cz - (D - slab_d) / 2, W - 0.6, 0.3, slab_d), BOX_FACES)
+
+        # Parede interna de alvenaria com tijolo aparente
+        if fl < floors:
+            batch.add('tijolo', box_verts(cx - W * 0.15, fl_y + 1.3, cz - D * 0.25, 0.2, 2.6, slab_d * 0.6), BOX_FACES)
+
+        # Escada zig-zag interna de concreto (Asset Study A, Phase 1 & 2)
+        if fl < floors:
+            dir_stair = 1 if fl % 2 == 1 else -1
+            stair_w = 1.3
+            stair_len = 3.6
+            # Rampa/degraus da escada conectando o piso fl_y ao próximo piso fl_y + L.FLOOR
+            tilt_ang = math.atan2(L.FLOOR, stair_len)
+            stair_x = cx + dir_stair * (W * 0.22)
+            stair_z = cz - D * 0.32
+            batch.add('concreto', box_verts(stair_x, fl_y + L.FLOOR / 2, stair_z, stair_w, 0.22, stair_len, 0, tilt_ang * dir_stair, 0), BOX_FACES)
+
+        # Vergalhões e vigas saindo da borda fraturada da laje
+        for rb in range(4):
+            rx = cx - W * 0.35 + rb * (W * 0.22)
+            rz = cz - (D - slab_d) / 2 + slab_d / 2
+            batch.add('metal', box_verts(rx, fl_y - 0.05, rz + 0.6, 0.04, 0.04, 1.4, 0, rng.uniform(-0.3, 0.3), rng.uniform(0, 6.28)), BOX_FACES)
+
+    # Talus / Apron de escombros desmoronados na frente aberta do prédio
+    for k in range(24):
+        sx = cx + rng.uniform(-W * 0.45, W * 0.45)
+        sz = cz + D * 0.35 + rng.uniform(0.5, 4.0)
+        gh = L.height(sx, sz) or 0.3
+        batch.add('concreto', box_verts(sx, gh + 0.2, sz, rng.uniform(1.2, 2.8), 0.25, rng.uniform(1.0, 2.2), rng.uniform(0, 6.28), rng.uniform(0.15, 0.5), rng.uniform(0, 6.28)), BOX_FACES)
+        batch.add('tijolo', box_verts(sx + 0.3, gh + 0.35, sz, rng.uniform(0.6, 1.4), 0.3, rng.uniform(0.6, 1.2), rng.uniform(0, 6.28), rng.uniform(0.1, 0.4), rng.uniform(0, 6.28)), BOX_FACES)
+
+    return batch
+
+
+# ---------------------------------------------------------------- ASSET STUDY B: Debris Pile & Layered Slabs
 terrain = Batch()
 nx = int(round(2 * (L.HALF_X + L.OUTER) / L.CELL))
 nz = int(round(2 * (L.HALF_Z + L.OUTER) / L.CELL))
@@ -248,12 +311,10 @@ for i in range(nx):
         avg_h = sum(heights[c] for c in corners) / 4.0
         e_raw = L.outside_raw(cx, cz)
 
-        # Blend score com multi-frequência de ruído para transição suave e fractal
         n_blend = L.noise(cx, cz, seed=173, scale=5.0) * 0.5 + L.noise(cx, cz, seed=291, scale=2.2) * 0.3
         score = (avg_h / 2.5) * 0.5 + n_blend
 
         if e_raw <= 0.6:
-            # Zona de transição sobre e rente à borda do asfalto
             if score < -0.05:
                 mat_choice = 'asfalto_quebrado'
             elif score < 0.28:
@@ -261,7 +322,6 @@ for i in range(nx):
             else:
                 mat_choice = 'entulho'
         else:
-            # Encosta da berma e cristas externas
             if score < 0.15:
                 mat_choice = 'terra'
             elif score < 0.65:
@@ -278,169 +338,98 @@ for material, faces in quads.items():
     terrain.add(material, [verts[v] for v in used], [tuple(remap[v] for v in f) for f in faces])
 terrain_objects = terrain.build('Limite_Terreno')
 
-# ---------------------------------------------------------------- Ruínas (3 prédios altos)
+# ---------------------------------------------------------------- Construção das Ruínas (Asset Study A)
 ruin_boxes = []
-ruin_objects = {}
 for r in L.RUINS:
-    rr = random.Random(r['seed'])
     root = bpy.data.objects.new(r['id'], None)
     export.objects.link(root)
     root['id_estavel'] = r['id']
     root['papel'] = 'limite_ruina'
-    batch = Batch()
-    ncx, ncz = max(2, round(r['w'] / 3.3)), max(2, round(r['d'] / 3.3))
-    cw, cd = r['w'] / ncx, r['d'] / ncz
-    lowx, lowz = r['low']
-    norm = math.hypot(lowx, lowz) or 1.0
-    tops = {}
-    for i in range(ncx):
-        for j in range(ncz):
-            u = (i + .5) / ncx * 2.0 - 1.0
-            v = (j + .5) / ncz * 2.0 - 1.0
-            t = (u * lowx + v * lowz) / norm
-            drop = max(0.0, t) * r['floors'] * .55 + rr.uniform(0, 1.6)
-            floors = max(1, r['floors'] - int(drop))
-            tops[i, j] = floors * L.FLOOR - rr.uniform(0, .9)
-    full = max(tops, key=lambda k: tops[k])
-    tops[full] = r['floors'] * L.FLOOR
-
-    for (i, j), top in tops.items():
-        cx = r['x'] - r['w'] / 2 + (i + .5) * cw
-        cz = r['z'] - r['d'] / 2 + (j + .5) * cd
-        base = -2.0
-        # Fachada texturizada do prédio
-        batch.add(r['material'], box_verts(cx, (top + base) / 2, cz, cw, top - base, cd), BOX_FACES)
-
-        # Seção interna de alvenaria com tijolos aparentes sob a quebra
-        broken = top < r['floors'] * L.FLOOR - .5
-        if broken:
-            batch.add('tijolo', box_verts(cx, top - 0.4, cz, cw * 0.92, 0.7, cd * 0.92), BOX_FACES)
-
-        tilt = rr.uniform(.04, .24) if broken else 0
-        batch.add('concreto', box_verts(cx, top + .12, cz, cw + .35, .32, cd + .35, 0, tilt, rr.uniform(0, 6.28)), BOX_FACES)
-
-        # Vergalhões expostos e vigas
-        if broken:
-            for k in range(rr.randint(3, 7)):
-                bx = cx + rr.uniform(-cw / 2.3, cw / 2.3)
-                bz = cz + rr.uniform(-cd / 2.3, cd / 2.3)
-                ln = rr.uniform(1.0, 2.5)
-                batch.add('metal', box_verts(bx, top + ln / 2, bz, .04, ln, .04, rr.uniform(0, 6.28), rr.uniform(.15, .65), rr.uniform(0, 6.28)), BOX_FACES)
-
-    # Lajes penduradas e vigas de aço cravadas no topo
-    for (i, j), top in tops.items():
-        for di, dj in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-            n = (i + di, j + dj)
-            if n not in tops or tops[n] - top < L.FLOOR * 1.5:
-                continue
-            level = top + L.FLOOR * rr.randint(1, max(1, int((tops[n] - top) / L.FLOOR) - 1))
-            cx = r['x'] - r['w'] / 2 + (i + .5) * cw + di * cw * .3
-            cz = r['z'] - r['d'] / 2 + (j + .5) * cd + dj * cd * .3
-            batch.add('concreto', box_verts(cx, level, cz, cw * (.55 if di else .95), .25, cd * (.55 if dj else .95), 0,
-                                            rr.uniform(.15, .45), math.atan2(dj, di) + math.pi / 2), BOX_FACES)
-            # Adiciona uma viga I pendurada na laje rompida
-            add_ibeam(batch, cx, level - 0.2, cz, length=rr.uniform(2.5, 4.2), yaw=rr.uniform(0, 6.28), tilt=rr.uniform(0.2, 0.6), tdir=rr.uniform(0, 6.28))
-
-    ruin_objects[r['id']] = batch.build(r['id'], root)
+    b_ruin = build_collapsed_apartment(r)
+    b_ruin.build(r['id'], root)
     ruin_boxes.append((r['x'] - r['w'] / 2 - 2, r['x'] + r['w'] / 2 + 2, r['z'] - r['d'] / 2 - 2, r['z'] + r['d'] / 2 + 2))
 
-# ---------------------------------------------------------------- Detalhes Ricos de Escombros (Game Designer Pass)
+# ---------------------------------------------------------------- BARRICADAS DE VEÍCULOS E ESCOMBROS (Asset Study B & C)
 debris = Batch()
 
-# 1. Vigas de aço em 'I' (H-Beams) espalhadas na berma e morros
-for k in range(28):
-    x = rng.uniform(-L.HALF_X - L.OUTER + 3, L.HALF_X + L.OUTER - 3)
-    z = rng.uniform(-L.HALF_Z - L.OUTER + 3, L.HALF_Z + L.OUTER - 3)
-    e = L.outside_raw(x, z)
-    if e < 1.2 or e > L.OUTER - 4: continue
-    gh = L.height(x, z)
-    if gh is None: continue
-    add_ibeam(debris, x, gh + rng.uniform(0.2, 0.8), z, length=rng.uniform(3.0, 5.5), yaw=rng.uniform(0, 6.28), tilt=rng.uniform(0.15, 0.65), tdir=rng.uniform(0, 6.28))
+# 1. Barricada no bloqueio central da frente (x=0, z=-54) — Como em Scene Reconstruction Panel 4!
+# Ônibus urbano carbonizado atravessado bloqueando o corredor da avenida
+add_burnt_bus(debris, cx=-1.2, cy=0.08, cz=-53.8, yaw=math.radians(16), tilt=0.08, tdir=math.radians(45))
+# Carro sedan amassado e soterrado ao lado do ônibus
+add_burnt_sedan(debris, cx=4.2, cy=0.06, cz=-53.0, yaw=math.radians(-32), tilt=0.18, tdir=math.radians(-80))
+# Segundo sedan amassado contra a calçada oposta
+add_burnt_sedan(debris, cx=-6.8, cy=0.06, cz=-53.4, yaw=math.radians(65), tilt=0.12, tdir=math.radians(30))
 
-# 2. Dutos e tubulações de concreto partidos expostos na encosta
-for k in range(12):
-    x = rng.uniform(-L.HALF_X - L.OUTER + 3, L.HALF_X + L.OUTER - 3)
-    z = rng.uniform(-L.HALF_Z - L.OUTER + 3, L.HALF_Z + L.OUTER - 3)
-    e = L.outside_raw(x, z)
-    if e < 2.0 or e > L.OUTER - 4.5: continue
-    gh = L.height(x, z)
-    if gh is None: continue
-    add_pipe(debris, x, gh + 0.25, z, length=rng.uniform(2.5, 4.5), yaw=rng.uniform(0, 6.28), tilt=rng.uniform(0.05, 0.25), tdir=rng.uniform(0, 6.28))
+# 2. Veículos adicionais nas barricadas das outras quinas e bordas
+add_burnt_sedan(debris, cx=-49.2, cy=0.12, cz=-52.6, yaw=math.radians(-45), tilt=0.22, tdir=math.radians(50)) # Quina Sudoeste
+add_burnt_sedan(debris, cx=49.0, cy=0.14, cz=52.8, yaw=math.radians(110), tilt=0.15, tdir=math.radians(-20))  # Quina Nordeste
+add_burnt_sedan(debris, cx=-52.0, cy=0.25, cz=51.5, yaw=math.radians(25), tilt=0.25, tdir=math.radians(70))   # Quina Noroeste
 
-# 3. Lajes de concreto armado fraturadas com feixes de vergalhões
-for k in range(35):
+# 3. Lajes de Concreto Sobrepostas (Asset Study B: 3D Scatter & Contours)
+# Placas planas de concreto fraturadas sobrepostas como telhas/placas tectônicas
+for k in range(55):
     x = rng.uniform(-L.HALF_X - L.OUTER + 2.5, L.HALF_X + L.OUTER - 2.5)
     z = rng.uniform(-L.HALF_Z - L.OUTER + 2.5, L.HALF_Z + L.OUTER - 2.5)
-    e = L.outside_raw(x, z)
-    if e < 0.8 or e > L.OUTER - 3.5: continue
+    if abs(x) > 46.5 and abs(z) > 49.0: continue # Protege loot em (48, -51) e (48, 51)
+    e_raw = L.outside_raw(x, z)
+    if e_raw < 0.6 or e_raw > L.OUTER - 3.0: continue
     gh = L.height(x, z)
     if gh is None: continue
-    w_sl = rng.uniform(2.0, 3.8)
-    d_sl = rng.uniform(1.2, 2.5)
-    yaw_sl = rng.uniform(0, 6.28)
-    tilt_sl = rng.uniform(0.1, 0.45)
-    debris.add('concreto', box_verts(x, gh + 0.15, z, w_sl, 0.26, d_sl, yaw_sl, tilt_sl, rng.uniform(0, 6.28)), BOX_FACES)
-    # Feixe de vergalhões saindo da borda
-    for rb in range(rng.randint(2, 5)):
-        off_x = (rb / 4.0 - 0.5) * w_sl * 0.8
-        debris.add('metal', box_verts(x + off_x, gh + 0.25, z + d_sl / 2 + 0.4, 0.035, 0.035, rng.uniform(0.8, 1.6), yaw_sl, tilt_sl + rng.uniform(-0.1, 0.3), rng.uniform(0, 6.28)), BOX_FACES)
 
-# 4. Meio-fios de calçada arrancados e fragmentados na margem do asfalto
+    w_sl = rng.uniform(2.2, 4.2)
+    d_sl = rng.uniform(1.4, 2.8)
+    yaw_sl = rng.uniform(0, 6.28)
+    tilt_sl = rng.uniform(0.12, 0.42)
+    tdir_sl = rng.uniform(0, 6.28)
+
+    # Laje de concreto
+    debris.add('concreto', box_verts(x, gh + 0.16, z, w_sl, 0.26, d_sl, yaw_sl, tilt_sl, tdir_sl), BOX_FACES)
+
+    # Vergalhões e espirais de arame projetando-se das lajes (Rebar & Wire Spirals)
+    for rb in range(rng.randint(2, 5)):
+        off_x = (rb / 4.0 - 0.5) * w_sl * 0.85
+        wire_len = rng.uniform(1.2, 2.4)
+        debris.add('metal', box_verts(x + off_x, gh + 0.28, z + d_sl / 2 + wire_len / 2 - 0.2, 0.04, 0.04, wire_len, yaw_sl, tilt_sl + rng.uniform(-0.15, 0.35), tdir_sl), BOX_FACES)
+
+    # Pedaço de alvenaria de tijolo sob/ao lado da laje
+    if k % 2 == 0:
+        debris.add('tijolo', box_verts(x + rng.uniform(-0.6, 0.6), gh + 0.22, z + rng.uniform(-0.6, 0.6), rng.uniform(0.8, 1.8), 0.32, rng.uniform(0.8, 1.6), yaw_sl, tilt_sl * 0.6, tdir_sl), BOX_FACES)
+
+# 4. Meio-fios de calçada arrancados e fragmentados
 for k in range(50):
     side = rng.randint(0, 3)
-    t = rng.uniform(-0.9, 0.9)
-    if side == 0:   # Norte
-        x, z = t * L.HALF_X, -L.HALF_Z + rng.uniform(-0.8, 1.2)
-    elif side == 1: # Sul
-        x, z = t * L.HALF_X, L.HALF_Z + rng.uniform(-1.2, 0.8)
-    elif side == 2: # Oeste
-        x, z = -L.HALF_X + rng.uniform(-0.8, 1.2), t * L.HALF_Z
-    else:           # Leste
-        x, z = L.HALF_X + rng.uniform(-1.2, 0.8), t * L.HALF_Z
-    # Evita obstruir o loot em (48, -51) e (48, 51)
+    t = rng.uniform(-0.88, 0.88)
+    if side == 0: x, z = t * L.HALF_X, -L.HALF_Z + rng.uniform(-0.6, 1.2)
+    elif side == 1: x, z = t * L.HALF_X, L.HALF_Z + rng.uniform(-1.2, 0.6)
+    elif side == 2: x, z = -L.HALF_X + rng.uniform(-0.6, 1.2), t * L.HALF_Z
+    else: x, z = L.HALF_X + rng.uniform(-1.2, 0.6), t * L.HALF_Z
     if abs(x) > 46.5 and abs(z) > 49.0: continue
-    gh = L.height(x, z)
-    if gh is None: gh = 0.02
-    debris.add('calcada', box_verts(x, gh + 0.08, z, rng.uniform(0.8, 1.6), 0.16, 0.28, rng.uniform(0, 6.28), rng.uniform(0.05, 0.35), rng.uniform(0, 6.28)), BOX_FACES)
+    gh = L.height(x, z) or 0.02
+    debris.add('calcada', box_verts(x, gh + 0.08, z, rng.uniform(0.9, 1.8), 0.16, 0.28, rng.uniform(0, 6.28), rng.uniform(0.05, 0.35), rng.uniform(0, 6.28)), BOX_FACES)
 
-# 5. Pilhas de tijolos e restos de alvenaria vermelha
-for k in range(30):
-    x = rng.uniform(-L.HALF_X - L.OUTER + 2, L.HALF_X + L.OUTER - 2)
-    z = rng.uniform(-L.HALF_Z - L.OUTER + 2, L.HALF_Z + L.OUTER - 2)
-    e = L.outside_raw(x, z)
-    if e < 0.8 or e > L.OUTER - 3.5: continue
-    gh = L.height(x, z)
-    if gh is None: continue
-    debris.add('tijolo', box_verts(x, gh + 0.15, z, rng.uniform(1.0, 2.2), rng.uniform(0.3, 0.7), rng.uniform(0.8, 1.8), rng.uniform(0, 6.28), rng.uniform(0.05, 0.35), rng.uniform(0, 6.28)), BOX_FACES)
-
-# 6. Scatter Skirt: fragmentos de concreto, pedregulhos e asfalto estilhaçado na zona de blend
-KINDS = [('bloco_concreto', 'concreto', 0.30), ('asfalto_lasca', 'asfalto_quebrado', 0.28), ('terra_monte', 'terra', 0.22), ('tijolo_solto', 'tijolo', 0.20)]
+# 5. Scatter de transição fina (Dithering skirt)
+KINDS = [('concreto', 0.35), ('asfalto_quebrado', 0.25), ('terra', 0.20), ('tijolo', 0.20)]
 placed = 0
-for n in range(3500):
-    if placed >= 450: break
+for n in range(4000):
+    if placed >= 480: break
     x = rng.uniform(-L.HALF_X - L.OUTER + 1.5, L.HALF_X + L.OUTER - 1.5)
     z = rng.uniform(-L.HALF_Z - L.OUTER + 1.5, L.HALF_Z + L.OUTER - 1.5)
-    # Protege área de loot
     if abs(x) > 46.5 and abs(z) > 49.0: continue
-    e_raw = L.outside_raw(x, z)
     e_org = L.outside_organic(x, z)
-
-    # Prioriza a zona de transição e invasão na borda da rua
-    if not (-0.4 <= e_org <= 5.0): continue
+    if not (-0.4 <= e_org <= 4.5): continue
     gh = L.height(x, z)
     if gh is None: continue
 
-    r_kind = rng.choice(KINDS)
-    mat = r_kind[1]
+    r_kind = rng.choice(KINDS)[0]
     w = rng.uniform(0.35, 1.1)
-    h = rng.uniform(0.12, 0.45)
+    h = rng.uniform(0.12, 0.42)
     d = rng.uniform(0.35, 0.95)
-    debris.add(mat, box_verts(x, gh + h / 2 - 0.04, z, w, h, d, rng.uniform(0, 6.28), rng.uniform(0.05, 0.4), rng.uniform(0, 6.28)), BOX_FACES)
+    debris.add(r_kind, box_verts(x, gh + h / 2 - 0.03, z, w, h, d, rng.uniform(0, 6.28), rng.uniform(0.05, 0.4), rng.uniform(0, 6.28)), BOX_FACES)
     placed += 1
 
 debris_objects = debris.build('Limite_Detritos')
 
-# ---------------------------------------------------------------- Colisores de referência no blend
+# ---------------------------------------------------------------- Colisores de referência
 data = L.runtime_data()
 for c in data['colliders']:
     o = bpy.data.objects.new(c['id'], None)
@@ -477,7 +466,7 @@ for o in export.objects:
 (L.RUNTIME / 'limites.json').write_text(json.dumps(data, indent=2, ensure_ascii=False) + '\n')
 BLEND.parent.mkdir(parents=True, exist_ok=True)
 
-scene['autor'] = 'Antigravity / Codex — S6.3 limites v002'
+scene['autor'] = 'Antigravity / Codex — S6.3 limites v003'
 scene['convencao'] = 'Blender X=x, Y=-z, Z=altura; 1m'
 bpy.ops.wm.save_as_mainfile(filepath=str(BLEND))
 
@@ -490,4 +479,4 @@ asset = dict(
     glbBytes=GLB.stat().st_size
 )
 (ART / 'notas/asset.json').write_text(json.dumps(asset, indent=2, ensure_ascii=False) + '\n')
-print('BUILD_SUCCESS_V002:', json.dumps(asset, ensure_ascii=False))
+print('BUILD_SUCCESS_V003:', json.dumps(asset, ensure_ascii=False))
