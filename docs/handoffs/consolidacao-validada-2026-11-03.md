@@ -96,3 +96,17 @@ O servidor **4186** continua na worktree da linha aprovada, servindo o mesmo
 runtime consolidado, sem alteração de jogo por este merge documental.
 Para os próximos ajustes, manter o fluxo: implementar/checks → URL para o
 autor testar → retorno/aceite → consolidação e publicação quando solicitadas.
+
+## Resultado da publicação
+
+Merge **`dadd884cf6d38cb81b9e6b8587007cfc899efde4`**, pais `1e1bbf8` e
+`61f2ec7`. Push atômico concluído nas três referências listadas: integração
+e consolidação avançaram de `5bc240f` ao merge; a branch da linha aprovada
+foi criada em `61f2ec7`. Sem force, rejeição ou conflito. O registro posterior
+de publicação é somente documental e avança junto nas duas refs consolidadas;
+a ponta final é a retornada por `git rev-parse origin/rochatales/horda-survivor`.
+
+**481/481**, build e diff-check verdes, árvore fora de docs idêntica a
+`61f2ec7`. Índice e bundle servidos em 4186 conferidos por HTTP contra o
+build da consolidação. Nenhum novo teste de jogo pelo agente. O aceite
+é o explicitamente informado pelo autor.
