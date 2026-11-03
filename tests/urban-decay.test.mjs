@@ -4,7 +4,7 @@ import { loadSource } from './load-source.mjs';
 import { loadGlb } from './load-glb.mjs';
 const D = loadSource('src/game/shanghai/urbanDecay.ts');
 const { stripCratePlate, CRATE_IMPACT } = loadSource('src/game/props/crateImpact.ts');
-const { stripCarPlate } = loadSource('src/game/shanghai/propVisuals.ts');
+const { stripCarPlate, blackenCarWindows } = loadSource('src/game/shanghai/propVisuals.ts');
 const { SHANGHAI_CARS } = loadSource('src/game/shanghai/propPlacements.ts');
 import { Box3 } from 'three';
 const { phase01SurfaceGrid } = loadSource('src/game/shanghai/surfaceGrid.ts');
@@ -69,4 +69,15 @@ test('Carros: placa de entulho removida, rodas e lataria mantidas, mancha de ól
   for (const car of SHANGHAI_CARS) {
     for (const w of weeds) assert.ok(Math.abs(w.x - car.x) > 1.2 || Math.abs(w.z - car.z) > 1.2, 'nada brota sob a lataria');
   }
+});
+
+test('Carros: buracos brancos dos vidros viram interior escuro no shader, um material para todas', async () => {
+  const glb = await loadGlb('src/assets/props/shanghai/rusted-car.glb'), source = glb.scene;
+  assert.equal(blackenCarWindows(source), 1);
+  assert.equal(blackenCarWindows(source.clone(true)), 0, 'clones compartilham o material já tratado');
+  let material; source.traverse(o => { if (o.isMesh) material = o.material; });
+  const shader = { fragmentShader: 'void main(){\n#include <map_fragment>\n}' };
+  material.onBeforeCompile(shader);
+  assert.match(shader.fragmentShader, /carHole/);
+  assert.match(shader.fragmentShader, /#include <map_fragment>/, 'textura continua amostrada antes');
 });

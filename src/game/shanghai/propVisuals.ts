@@ -59,6 +59,30 @@ export function stripCarPlate(source: Object3D) {
   source.userData.carPlateStripped = removed;
   return removed;
 }
+/** O fundo dos vidros quebrados vem branco na textura escaneada: no shader, texel claro e sem
+ * saturação (só os buracos das janelas, ~1% da textura) vira interior escuro, com rampa na borda.
+ * Um único material compartilhado por todas as carcaças; zero custo de CPU. */
+export const CAR_WINDOW_HOLE = `#include <map_fragment>
+  vec3 carSrgb = pow(max(diffuseColor.rgb, vec3(0.0)), vec3(1.0 / 2.2));
+  float carLo = min(min(carSrgb.r, carSrgb.g), carSrgb.b), carHi = max(max(carSrgb.r, carSrgb.g), carSrgb.b);
+  float carHole = smoothstep(0.74, 0.84, carLo) * (1.0 - smoothstep(0.1, 0.18, carHi - carLo));
+  diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.012), carHole);`;
+export function blackenCarWindows(source: Object3D) {
+  let patched = 0;
+  source.traverse(node => {
+    const mesh = node as Mesh;
+    if (!mesh.isMesh) return;
+    for (const material of Array.isArray(mesh.material) ? mesh.material : [mesh.material]) {
+      if (material.userData.carWindows) continue;
+      material.userData.carWindows = true;
+      material.onBeforeCompile = shader => { shader.fragmentShader = shader.fragmentShader.replace('#include <map_fragment>', CAR_WINDOW_HOLE); };
+      material.customProgramCacheKey = () => 'carro-janelas-pretas';
+      material.needsUpdate = true;
+      patched++;
+    }
+  });
+  return patched;
+}
 /** Clona o carro enferrujado na escala aprovada, apoiado em `y` pelo fundo da caixa. */
 export function placeCarWreck(source: Object3D, id: string, x: number, y: number, z: number, angle: number) {
   source.updateWorldMatrix(true, true);

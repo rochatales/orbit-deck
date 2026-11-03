@@ -3,7 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import { CanvasTexture, InstancedBufferAttribute, InstancedMesh, MeshBasicMaterial, Object3D, PlaneGeometry, SRGBColorSpace, Vector2 } from 'three';
 import { simulationBlocked } from '../game/simulationGate';
 import { playerPosition } from '../state/playerTransient';
-import { cloudLayout, CLOUD_CLEAR } from './shanghaiCloudLayout';
+import { cloudLayout, CLOUD_CLEAR, CLOUD_WIND } from './shanghaiCloudLayout';
 import { crateRandom } from '../game/props/crateImpact';
 
 const reducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -37,7 +37,7 @@ function createCloudTexture(size = 256) {
 }
 
 /**
- * Névoa baixa de Shanghai (S6.3): densa nas bordas, tênue no centro.
+ * Névoa baixa de Shanghai (S6.3): densa nas bordas e bancos que cruzam o mapa com o vento.
  * - Desenhada por cima da cena (sem teste de profundidade): não corta a berma facetada nem as
  *   ruínas em degraus — era daí o aspecto pixelado.
  * - Clareira em volta do explorador para não esconder combate; dithering contra faixas.
@@ -89,7 +89,7 @@ export function ShanghaiClouds() {
     const dt = Math.min(delta, .1);
     for (let i = 0; i < instances.length; i++) {
       const c = instances[i];
-      c.x += c.drift * dt; c.z += c.drift * .4 * dt; c.spin += c.drift * .004 * dt;
+      c.x += c.drift * CLOUD_WIND.x * dt; c.z += c.drift * CLOUD_WIND.z * dt; c.spin += c.drift * .004 * dt;
       if (c.x > c.maxX) c.x = c.minX;
       if (c.z > c.maxZ) c.z = c.minZ;
       place(mesh, i);

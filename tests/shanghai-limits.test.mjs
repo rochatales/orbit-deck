@@ -141,15 +141,25 @@ test('S6.3 Limites: LimitsRuinFade esmaece ruínas quando encobrem o jogador e r
     fader.dispose();
 });
 
-test('S6.3 Limites: névoa baixa densa fora da borda, tênue no centro e com clareira no explorador', () => {
-    const { cloudLayout, CLOUD_CLEAR } = loadSource('src/scene/shanghaiCloudLayout.ts');
+test('S6.3 Limites: névoa densa fora da borda, bancos cruzando o mapa e clareira no explorador', () => {
+    const { cloudLayout, CLOUD_CLEAR, CLOUD_WIND } = loadSource('src/scene/shanghaiCloudLayout.ts');
     const clouds = cloudLayout(), still = cloudLayout(true);
-    const outside = clouds.filter(c => Math.abs(c.x) > 51 || Math.abs(c.z) > 54);
-    assert.ok(outside.length >= 60, `${outside.length} puffs fora do distrito`);
-    for (const c of clouds) assert.ok(c.alpha <= .45 && c.scale <= 30);
-    assert.ok(clouds.filter(c => !outside.includes(c)).every(c => c.alpha <= .1), 'centro tênue');
+    const banks = clouds.filter(c => c.bank), ring = clouds.filter(c => !c.bank && (Math.abs(c.x) > 51 || Math.abs(c.z) > 54));
+    assert.ok(ring.length >= 60, `${ring.length} puffs fora do distrito`);
+    assert.ok(banks.length >= 30 && banks.every(c => c.drift >= .6 && c.alpha <= .35 && c.maxX - c.minX >= 150), 'bancos atravessam o mapa inteiro');
+    // Frequência: em 60 s de vento, algum banco passa a menos de 10 m de qualquer ponto do distrito.
+    for (const [px, pz] of [[0, 9.5], [-30, -30], [35, 25], [-40, 40], [20, -45]]) {
+        let near = false;
+        for (let t = 0; t <= 60 && !near; t += 1) for (const c of banks) {
+            const span = c.maxX - c.minX, x = ((c.x + c.drift * CLOUD_WIND.x * t - c.minX) % span + span) % span + c.minX;
+            const spanZ = c.maxZ - c.minZ, z = ((c.z + c.drift * CLOUD_WIND.z * t - c.minZ) % spanZ + spanZ) % spanZ + c.minZ;
+            if (Math.hypot(x - px, z - pz) < 10 + c.scale * .3) near = true;
+        }
+        assert.ok(near, `banco passa por (${px}, ${pz}) em até 60 s`);
+    }
+    for (const c of clouds) assert.ok(c.alpha <= .5 && c.scale <= 30);
     assert.ok(still.every(c => c.drift === 0), 'prefers-reduced-motion para a deriva');
-    assert.ok(CLOUD_CLEAR.inner >= 10 && CLOUD_CLEAR.outer > CLOUD_CLEAR.inner);
+    assert.ok(CLOUD_CLEAR.inner >= 5 && CLOUD_CLEAR.outer > CLOUD_CLEAR.inner);
 });
 
 test('S6.3 Limites: materiais chapados reaproveitam a instância texturizada do mapa pelo nome', () => {
