@@ -400,3 +400,17 @@ nav button:hover:not(:disabled), .secondary:hover:not(:disabled) { color: #09232
   .beta-hold-columns { grid-template-columns: 1fr; }
   .beta-hold-card.is-ship .beta-slot-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+
+/* Radar ciano acima da vida (S6.3) */
+.beta-radar { position: relative; margin: 0 0 10px 2px; width: max-content; pointer-events: none; }
+.beta-radar canvas { display: block; border-radius: 50%; box-shadow: 0 0 0 1px #83e5d755, 0 0 18px #83e5d733, inset 0 0 12px #000; animation: beta-radar-glow 2.4s ease-in-out infinite; }
+.beta-radar figcaption { display: flex; gap: 9px; margin-top: 6px; font-size: 7px; letter-spacing: .12em; color: #8faeb5; text-shadow: 0 1px 3px #000; }
+.beta-radar figcaption span::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 4px; vertical-align: -1px; }
+.beta-radar .is-enemy::before { background: #ff4b4b; }
+.beta-radar .is-life::before { background: #ff8fc0; border-radius: 0; clip-path: path('M3 6 C-1.5 3.3 0.3 0 3 1.7 C5.7 0 7.5 3.3 3 6Z'); }
+.beta-radar .is-loot::before { background: #ffd65a; }
+.beta-radar .is-ship::before { background: #66f0ff; border-radius: 0; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+@keyframes beta-radar-glow { 50% { box-shadow: 0 0 0 1px #83e5d78c, 0 0 26px #83e5d75c, inset 0 0 12px #000; } }
+@media (prefers-reduced-motion: reduce) { .beta-radar canvas { animation: none; } }
+@media (max-width: 760px) { .beta-radar canvas { width: 96px !important; height: 96px !important; } .beta-radar figcaption { display: none; } }
+@media (max-height: 640px) { .beta-radar canvas { width: 96px !important; height: 96px !important; } }

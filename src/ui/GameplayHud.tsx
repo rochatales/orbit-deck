@@ -10,6 +10,7 @@ import { useCombatStore } from '../state/useCombatStore';
 import { useBackpackEnergy, publishBackpackEnergy } from '../state/useBackpackEnergy';
 import { ItemArtwork } from './ItemArtwork';
 import { ShipCargoButton } from './ShipCargoPanel';
+import { RadarMap } from './RadarMap';
 import type { MapId } from '../game/session';
 
 export function VitalBar({ label, value, max, kind }: { label: string; value: number; max: number; kind: 'life' | 'energy' }) {
@@ -40,6 +41,7 @@ export function GameplayHud({ combat, map, openBackpack, openCargo }: { combat: 
     </div>}
     <div className="beta-bottom">
       <aside className="beta-vitals" aria-label="Condição do explorador">
+        <RadarMap map={map}/>
         <VitalBar label="VIDA" value={combat ? s.hp : COMBAT.playerHp} max={COMBAT.playerHp} kind="life"/>
         <VitalBar label="ENERGIA" value={energy} max={100} kind="energy"/>
         <small className="beta-vital-note">{energy < 50 ? 'RECARREGANDO · 2 DASHs / CARGA' : 'ESPAÇO · 2 DASHs / CARGA'}</small>

@@ -15,6 +15,9 @@ export const SHIP_INTERACTION_RADIUS = 2.7;
  */
 export const playerPosition: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0.8 };
 
+/** Azimute atual da câmera (já amortecido), escrito pelo CameraRig; o radar gira com a tela. */
+export const cameraView = { angle: Math.PI / 4 };
+
 /** Pés do grupo interpolado do Rapier; apenas câmera/desenho, nunca combate. */
 export const playerVisualPosition = { x: 0, y: 0, z: .8 };
 export function writePlayerVisualPosition(x: number, y: number, z: number) {
