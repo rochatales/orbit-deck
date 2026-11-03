@@ -1,5 +1,5 @@
 {
-  "version": "s6.3-limites-v002",
+  "version": "s6.3-limites-v004",
   "bounds": {
     "minX": -51.0,
     "maxX": 51.0,
@@ -71,6 +71,62 @@
       "minZ": -67.0,
       "maxZ": -56.0,
       "height": 23.1
+    }
+  ],
+  "wrecks": [
+    {
+      "id": "wreck-borda-norte-leste",
+      "x": 17.5,
+      "z": 57.4,
+      "angle": 1.32,
+      "pitch": -0.12,
+      "roll": 0.18,
+      "y": 1.415
+    },
+    {
+      "id": "wreck-borda-norte-oeste",
+      "x": -21.0,
+      "z": 57.9,
+      "angle": -0.35,
+      "pitch": 0.1,
+      "roll": -0.22,
+      "y": 1.912
+    },
+    {
+      "id": "wreck-borda-oeste-norte",
+      "x": -57.2,
+      "z": 18.5,
+      "angle": 0.22,
+      "pitch": 0.16,
+      "roll": 0.1,
+      "y": 2.384
+    },
+    {
+      "id": "wreck-borda-oeste-sul",
+      "x": -57.6,
+      "z": -18.9,
+      "angle": 1.85,
+      "pitch": -0.1,
+      "roll": 0.24,
+      "y": 1.958
+    },
+    {
+      "id": "wreck-borda-leste-norte",
+      "x": 57.3,
+      "z": 19.2,
+      "angle": -1.2,
+      "pitch": 0.14,
+      "roll": -0.16,
+      "y": 2.351
+    },
+    {
+      "id": "wreck-borda-sul-leste",
+      "x": 21.5,
+      "z": -57.5,
+      "angle": 2.7,
+      "pitch": 0.12,
+      "roll": 0.2,
+      "y": 1.183
     }
   ]
 }

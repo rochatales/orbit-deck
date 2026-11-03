@@ -14,14 +14,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 ART = ROOT / 'art-source/shanghai-limites'
 RUNTIME = ROOT / 'src/assets/shanghai-limites'
-VERSION = 's6.3-limites-v002'
+VERSION = 's6.3-limites-v004'
 
 BOUNDS = dict(minX=-51.0, maxX=51.0, minZ=-54.0, maxZ=54.0)
 HALF_X, HALF_Z = 51.0, 54.0
 CAMERA_SLOPE = 13.0 / 18.38
 TERRAIN_SLOPE = 0.45
 OUTER = 16.0
-CELL = 0.8                         # grade mais densa (0.8m) para silhueta mais orgânica
+CELL = 1.2                         # v004: grade leve; o relevo vem dos terraços e do scatter
+TERRACE = 0.45                     # degraus de contorno da berma (folha de estudo B)
 
 # Morros das esquinas frontais (z=-54)
 CORNER_RADIUS = 3.2
@@ -116,6 +117,10 @@ def height(x, z):
             base = base * (1.0 - t) + (-1.5) * t
         amp = min(1.3, 0.2 * e_raw)
         best = base + amp * noise(x, z, 11, 4.0)
+        # Camadas de contorno: placas sobrepostas em degraus, sem linha reta.
+        if e_raw > 1.5 and best > TERRACE:
+            k = min(1.0, (e_raw - 1.5) / 3.0) * 0.5
+            best = best * (1 - k) + round(best / TERRACE) * TERRACE * k
 
     # Morros nos cantos frontais
     cmd = corner_mound_d(x, z)
@@ -142,6 +147,26 @@ def border_colliders():
     return out
 
 
+# Fechamento dos corredores (folha D): carcaças nas saídas das avenidas, fora do distrito.
+# Ônibus são procedurais no GLB; carros reaproveitam o rusted-car.glb já carregado no mapa.
+BUSES = [
+    dict(id='Onibus_Saida_Sul', x=-17.5, z=-57.6, yaw=math.radians(84), roll=0.10, pitch=-0.05),
+    dict(id='Onibus_Saida_Leste', x=57.8, z=-18.5, yaw=math.radians(-8), roll=-0.08, pitch=0.06),
+]
+WRECKS = [
+    dict(id='wreck-borda-norte-leste', x=17.5, z=57.4, angle=1.32, pitch=-0.12, roll=0.18),
+    dict(id='wreck-borda-norte-oeste', x=-21.0, z=57.9, angle=-0.35, pitch=0.10, roll=-0.22),
+    dict(id='wreck-borda-oeste-norte', x=-57.2, z=18.5, angle=0.22, pitch=0.16, roll=0.10),
+    dict(id='wreck-borda-oeste-sul', x=-57.6, z=-18.9, angle=1.85, pitch=-0.10, roll=0.24),
+    dict(id='wreck-borda-leste-norte', x=57.3, z=19.2, angle=-1.2, pitch=0.14, roll=-0.16),
+    dict(id='wreck-borda-sul-leste', x=21.5, z=-57.5, angle=2.7, pitch=0.12, roll=0.20),
+]
+
+
+def surface(x, z):
+    return height(x, z) or 0.0
+
+
 def runtime_data():
     ruins = [
         dict(
@@ -161,7 +186,8 @@ def runtime_data():
         terrainSlope=TERRAIN_SLOPE,
         outerRing=OUTER,
         colliders=border_colliders(),
-        ruins=ruins
+        ruins=ruins,
+        wrecks=[dict(w, y=round(surface(w['x'], w['z']) - 0.28, 3)) for w in WRECKS]
     )
 
 
@@ -169,4 +195,4 @@ if __name__ == '__main__':
     RUNTIME.mkdir(parents=True, exist_ok=True)
     data = runtime_data()
     (RUNTIME / 'limites.json').write_text(json.dumps(data, indent=2, ensure_ascii=False) + '\n')
-    print(f"Limites v002 gerados: {len(data['colliders'])} colisores, {len(data['ruins'])} ruínas")
+    print(f"Limites v004 gerados: {len(data['colliders'])} colisores, {len(data['ruins'])} ruínas")

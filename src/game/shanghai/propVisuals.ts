@@ -31,17 +31,20 @@ export function removeLegacyCars(scene: Object3D) {
   if (removed !== 432) throw new Error(`Carros antigos incompatíveis: ${removed}/432 triângulos`);
   return removed;
 }
-export function createDestroyedCars(source: Object3D, height: (x: number, z: number) => number) {
-  const group = new Group(); group.name = 'ShanghaiDestroyedCars';
+/** Clona o carro enferrujado na escala aprovada, apoiado em `y` pelo fundo da caixa. */
+export function placeCarWreck(source: Object3D, id: string, x: number, y: number, z: number, angle: number) {
   source.updateWorldMatrix(true, true);
   const box = new Box3().setFromObject(source), center = box.getCenter(new Vector3());
-  for (const car of SHANGHAI_CARS) {
-    const root = new Group(), visual = source.clone(true), scale = DESTROYED_CAR.scale;
-    visual.scale.setScalar(scale);
-    visual.position.set(-center.x * scale, -box.min.y * scale, -center.z * scale);
-    root.name = car.id; root.position.set(car.x, height(car.x, car.z), car.z); root.rotation.y = car.angle;
-    root.add(visual); group.add(root);
-    visual.traverse(node => { const mesh = node as Mesh; if (mesh.isMesh) { mesh.castShadow = true; mesh.receiveShadow = true; } });
-  }
+  const root = new Group(), visual = source.clone(true), scale = DESTROYED_CAR.scale;
+  visual.scale.setScalar(scale);
+  visual.position.set(-center.x * scale, -box.min.y * scale, -center.z * scale);
+  root.name = id; root.position.set(x, y, z); root.rotation.y = angle;
+  root.add(visual);
+  visual.traverse(node => { const mesh = node as Mesh; if (mesh.isMesh) { mesh.castShadow = true; mesh.receiveShadow = true; } });
+  return root;
+}
+export function createDestroyedCars(source: Object3D, height: (x: number, z: number) => number) {
+  const group = new Group(); group.name = 'ShanghaiDestroyedCars';
+  for (const car of SHANGHAI_CARS) group.add(placeCarWreck(source, car.id, car.x, height(car.x, car.z), car.z, car.angle));
   return group;
 }

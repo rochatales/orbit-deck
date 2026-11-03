@@ -1,6 +1,7 @@
 import limitsData from '../../assets/shanghai-limites/limites.json';
 import type { OfficeWorld } from '../../world/createOfficeMap';
-import { Box3, Mesh, Ray, Vector3, type Camera, type Material, type Object3D } from 'three';
+import { Box3, Group, Mesh, Ray, Vector3, type Camera, type Material, type Object3D } from 'three';
+import { placeCarWreck } from './propVisuals';
 
 export interface ShanghaiLimitCollider {
     id: string;
@@ -21,11 +22,22 @@ export interface ShanghaiLimitRuin {
     height: number;
 }
 
+export interface ShanghaiLimitWreck {
+    id: string;
+    x: number;
+    y: number;
+    z: number;
+    angle: number;
+    pitch: number;
+    roll: number;
+}
+
 export interface ShanghaiLimitsManifest {
     version: string;
     bounds: { minX: number; maxX: number; minZ: number; maxZ: number };
     colliders: ShanghaiLimitCollider[];
     ruins: ShanghaiLimitRuin[];
+    wrecks: ShanghaiLimitWreck[];
 }
 
 export const SHANGHAI_LIMITS = limitsData as ShanghaiLimitsManifest;
@@ -42,6 +54,43 @@ export function addLimitsCollisions(world: OfficeWorld): void {
             maxY: c.maxY ?? 4.0
         });
     }
+}
+
+/**
+ * O GLB dos limites não embute imagens: cada material chapado tem o nome de um
+ * material texturizado da fase 01 e passa a usar a mesma instância (zero textura extra).
+ */
+export function shareMapMaterials(limits: Object3D, map: Object3D): number {
+    const byName = new Map<string, Material>();
+    map.traverse(object => {
+        const mesh = object as Mesh;
+        if (!mesh.isMesh) return;
+        for (const material of Array.isArray(mesh.material) ? mesh.material : [mesh.material])
+            if (!byName.has(material.name)) byName.set(material.name, material);
+    });
+    let shared = 0;
+    limits.traverse(object => {
+        const mesh = object as Mesh;
+        if (!mesh.isMesh || Array.isArray(mesh.material)) return;
+        const match = byName.get(mesh.material.name);
+        if (!match || match === mesh.material) return;
+        mesh.material.dispose();
+        mesh.material = match;
+        shared++;
+    });
+    return shared;
+}
+
+/** Carcaças nas saídas das avenidas, fora do distrito: só visual, sem colisor. */
+export function createBorderWrecks(source: Object3D): Group {
+    const group = new Group();
+    group.name = 'ShanghaiLimitesCarcacas';
+    for (const wreck of SHANGHAI_LIMITS.wrecks) {
+        const root = placeCarWreck(source, wreck.id, wreck.x, wreck.y, wreck.z, wreck.angle);
+        root.rotation.set(wreck.pitch, wreck.angle, wreck.roll, 'YXZ');
+        group.add(root);
+    }
+    return group;
 }
 
 /**

@@ -4,12 +4,12 @@ import { readFileSync, existsSync } from 'node:fs';
 import { loadSource } from './load-source.mjs';
 import { Box3, Vector3, OrthographicCamera, Group, Mesh, BoxGeometry, MeshBasicMaterial } from 'three';
 
-const { SHANGHAI_LIMITS, LimitsRuinFade, RUIN_FADED } = loadSource('src/game/shanghai/limits.ts');
+const { SHANGHAI_LIMITS, LimitsRuinFade, RUIN_FADED, shareMapMaterials } = loadSource('src/game/shanghai/limits.ts');
 const { createPhase01Terrain, SHANGHAI_PHASE01: d } = loadSource('src/game/shanghai/layout.ts');
 const { Navigation, traversable, clearSegment } = loadSource('src/combat/navigation.ts');
 
 test('S6.3 Limites: manifesto e geometria dos limites respeitam contratos do mapa', () => {
-    assert.equal(SHANGHAI_LIMITS.version, 's6.3-limites-v002');
+    assert.equal(SHANGHAI_LIMITS.version, 's6.3-limites-v004');
     assert.deepEqual(SHANGHAI_LIMITS.bounds, { minX: -51, maxX: 51, minZ: -54, maxZ: 54 });
 
     // 3 ruínas altas (fundo oeste, fundo leste, frente centro)
@@ -24,6 +24,14 @@ test('S6.3 Limites: manifesto e geometria dos limites respeitam contratos do map
         // Prédios ficam fora do distrito jogável
         const outside = r.maxX <= -51 || r.minX >= 51 || r.maxZ <= -54 || r.minZ >= 54;
         assert.ok(outside, `${r.id} fica fora do distrito jogável`);
+    }
+
+    // Carcaças da borda (folha D): fora do distrito, longe do loot das quinas
+    assert.ok(SHANGHAI_LIMITS.wrecks.length >= 4, 'saídas das avenidas fechadas por carcaças');
+    for (const w of SHANGHAI_LIMITS.wrecks) {
+        const out = Math.max(Math.abs(w.x) - 51, Math.abs(w.z) - 54);
+        assert.ok(out >= 2.5, `${w.id} fica fora do distrito jogável (${out.toFixed(2)} m)`);
+        for (const loot of d.loot) assert.ok(Math.hypot(w.x - loot.x, w.z - loot.z) > 6, `${w.id} longe de ${loot.id}`);
     }
 
     // Colisores das bordas ficam fora ou no perímetro
@@ -47,6 +55,9 @@ test('S6.3 Limites: GLB versionado existe, tem cabeçalho válido e orçamento d
     const gltfJson = JSON.parse(buffer.toString('utf8', 20, 20 + jsonLength));
     assert.ok(gltfJson.nodes.length >= 5, 'nós de ruínas e terreno presentes');
 
+    // v004 leve: nenhuma imagem embutida; texturas vêm dos materiais da fase 01
+    assert.ok(buffer.length <= 2_000_000, `GLB leve (${buffer.length} bytes <= 2 MB)`);
+    assert.equal((gltfJson.images ?? []).length, 0, 'GLB sem imagens embutidas');
     const materials = gltfJson.materials.map(m => m.name);
     assert.ok(materials.includes('entulho'));
     assert.ok(materials.includes('concreto'));
@@ -54,11 +65,17 @@ test('S6.3 Limites: GLB versionado existe, tem cabeçalho válido e orçamento d
 
     // Verifica notas do asset
     const assetMeta = JSON.parse(readFileSync('art-source/shanghai-limites/notas/asset.json', 'utf8'));
-    assert.ok(assetMeta.triangles <= 35000, `Orçamento de triângulos respeitado (${assetMeta.triangles} <= 35000)`);
+    assert.ok(assetMeta.triangles <= 30000, `Orçamento de triângulos respeitado (${assetMeta.triangles} <= 30000)`);
 });
 
 test('S6.3 Limites: nenhum spawn, rota de patrulha ou loot é obstruído', () => {
     const world = createPhase01Terrain();
+    // Rotas contra os limites (colisores de borda + pegadas das ruínas); carros do autor
+    // dentro do distrito são contornados pela navegação e cobertos por shanghai-props.
+    const limitsOnly = { ...world, obstacles: [
+        ...SHANGHAI_LIMITS.colliders.map(c => ({ ...c })),
+        ...SHANGHAI_LIMITS.ruins.map(r => ({ minX: r.minX, maxX: r.maxX, minZ: r.minZ, maxZ: r.maxZ, minY: 0, maxY: r.height }))
+    ] };
 
     // Spawns
     for (const p of d.spawns) {
@@ -73,7 +90,7 @@ test('S6.3 Limites: nenhum spawn, rota de patrulha ou loot é obstruído', () =>
     // Patrulhas
     for (const route of d.patrolRoutes) {
         for (let i = 0; i < route.length; i++) {
-            assert.ok(clearSegment(route[i], route[(i + 1) % route.length], world, 0.42), 'segmento de patrulha livre');
+            assert.ok(clearSegment(route[i], route[(i + 1) % route.length], limitsOnly, 0.42), 'segmento de patrulha livre');
         }
     }
 });
@@ -134,4 +151,16 @@ test('S6.3 Limites: textura da atmosfera de nuvens existe e é carregável', () 
     assert.equal(buf[1], 0x50);
     assert.equal(buf[2], 0x4E);
     assert.equal(buf[3], 0x47);
+});
+
+test('S6.3 Limites: materiais chapados reaproveitam a instância texturizada do mapa pelo nome', () => {
+    const map = new Group(), limits = new Group();
+    const textured = new MeshBasicMaterial({ name: 'concreto' });
+    map.add(new Mesh(new BoxGeometry(), textured));
+    const flat = new MeshBasicMaterial({ name: 'concreto' }), own = new MeshBasicMaterial({ name: 'ferrugem' });
+    const a = new Mesh(new BoxGeometry(), flat), b = new Mesh(new BoxGeometry(), own);
+    limits.add(a, b);
+    assert.equal(shareMapMaterials(limits, map), 1);
+    assert.equal(a.material, textured, 'mesmo material (e textura) do mapa');
+    assert.equal(b.material, own, 'material sem par no mapa fica chapado');
 });
