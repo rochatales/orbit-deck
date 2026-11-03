@@ -368,7 +368,9 @@ nav button:hover:not(:disabled), .secondary:hover:not(:disabled) { color: #09232
 .beta-ship-cargo.is-near > svg { color: var(--cyan); }
 .beta-ship-cargo.is-near .beta-weight-track > i { background: var(--cyan); }
 .beta-ship-cargo:hover:not(:disabled) { background: #243640; color: #e5e9eb; }
-.interaction-bubble button.secondary { margin-top: 5px; background: transparent; }
+.interaction-bubble button.secondary { margin-top: 5px; background: transparent; color: #cdeee9; border-color: #83e5d79c; }
+/* Hover do atalho F: o .secondary global escurece o texto; aqui o fundo também acende para manter contraste. */
+.interaction-bubble button.secondary:hover:not(:disabled) { background: #83e5d72e; color: #f1fffc; border-color: var(--cyan); box-shadow: 0 0 12px #83e5d733; }
 
 .beta-pause.is-wide article { width: min(880px, 100%); }
 .beta-ship-icon { width: 46px; height: 46px; color: var(--cyan); flex: none; }
