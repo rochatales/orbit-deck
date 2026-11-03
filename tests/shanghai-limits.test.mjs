@@ -9,7 +9,7 @@ const { createPhase01Terrain, SHANGHAI_PHASE01: d } = loadSource('src/game/shang
 const { Navigation, traversable, clearSegment } = loadSource('src/combat/navigation.ts');
 
 test('S6.3 Limites: manifesto e geometria dos limites respeitam contratos do mapa', () => {
-    assert.equal(SHANGHAI_LIMITS.version, 's6.3-limites-v001');
+    assert.equal(SHANGHAI_LIMITS.version, 's6.3-limites-v002');
     assert.deepEqual(SHANGHAI_LIMITS.bounds, { minX: -51, maxX: 51, minZ: -54, maxZ: 54 });
 
     // 3 ruínas altas (fundo oeste, fundo leste, frente centro)

@@ -1,19 +1,12 @@
-"""S6.3 · Limites de Shanghai: fonte única da geometria e colisores (sem Blender).
+"""S6.3 · Limites de Shanghai: fonte matemática refinada (blend orgânico e game design).
 
 Convenção do jogo:
 - X / Z no plano, Y é altura (metros).
 - Distrito jogável: x ∈ [-51, 51], z ∈ [-54, 54].
-- Topo da imagem do autor = +Z (z=54).
-- Base da imagem do autor = -Z (z=-54).
-- Esquerda da imagem do autor = -X (x=-51).
-- Direita da imagem do autor = +X (x=51).
-
-Elementos da imagem (02/11/2026):
-1. Borda contínua de escombros em todo o perímetro (berma irregular de entulho).
-2. Duas esquinas do topo (fundo): x=-51, z=54 e x=51, z=54 com prédios altos em ruína e escombros.
-3. Duas esquinas da base (frente): x=-51, z=-54 e x=51, z=-54 cobertas por morro baixo de escombros.
-4. Meio da borda da base (frente): x=0, z=-54 com um prédio alto em ruína.
-5. Nuvens em branco cobrindo bordas e suaves no centro do mapa.
+- Topo da imagem = +Z (z=54).
+- Base da imagem = -Z (z=-54).
+- Esquerda = -X (x=-51).
+- Direita = +X (x=51).
 """
 import json, math
 from pathlib import Path
@@ -21,27 +14,26 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 ART = ROOT / 'art-source/shanghai-limites'
 RUNTIME = ROOT / 'src/assets/shanghai-limites'
-VERSION = 's6.3-limites-v001'
+VERSION = 's6.3-limites-v002'
 
 BOUNDS = dict(minX=-51.0, maxX=51.0, minZ=-54.0, maxZ=54.0)
 HALF_X, HALF_Z = 51.0, 54.0
-CAMERA_SLOPE = 13.0 / 18.38        # elevação ortográfica da câmera
-TERRAIN_SLOPE = 0.45               # inclinação das bermas
-OUTER = 16.0                       # anel externo em metros
-CELL = 1.0                         # resolução da grade do terreno
+CAMERA_SLOPE = 13.0 / 18.38
+TERRAIN_SLOPE = 0.45
+OUTER = 16.0
+CELL = 0.8                         # grade mais densa (0.8m) para silhueta mais orgânica
 
-# Cantos da base (frente: z=-54): morros baixos que cobrem a quina
-CORNER_RADIUS = 2.2
-HILL_MAX_HEIGHT = 2.4
+# Morros das esquinas frontais (z=-54)
+CORNER_RADIUS = 3.2
+HILL_MAX_HEIGHT = 2.6
 
-# Prédios altos em ruína (todos fora do distrito jogável, com faces a >= 1m da borda)
 FLOOR = 3.3
 RUINS = [
-    # Topo-esquerda (fundo):
+    # Fundo oeste:
     dict(id='Ruina_Fundo_Oeste', x=-57.0, z=59.0, w=10.0, d=10.0, floors=7, material='azul', seed=71, low=(-1, 1)),
-    # Topo-direita (fundo):
+    # Fundo leste:
     dict(id='Ruina_Fundo_Leste', x=57.0, z=59.0, w=10.0, d=10.0, floors=6, material='terracota', seed=72, low=(1, 1)),
-    # Meio da borda da frente (base z=-54, x=0):
+    # Frente centro:
     dict(id='Ruina_Frente_Centro', x=0.0, z=-61.5, w=12.0, d=11.0, floors=7, material='bege', seed=73, low=(0, -1)),
 ]
 
@@ -67,62 +59,82 @@ def noise(x, z, seed=0, scale=4.0):
     return total / norm
 
 
-def outside(x, z):
-    """Distância signed até o retângulo [-51, 51] x [-54, 54] (>=0 fora, <0 dentro)."""
+def outside_raw(x, z):
     ex, ez = abs(x) - HALF_X, abs(z) - HALF_Z
     if ex > 0 and ez > 0:
         return math.hypot(ex, ez)
     return max(ex, ez)
 
 
+def border_wave(x, z):
+    """Perturbação orgânica da borda para quebrar a linha reta do asfalto."""
+    w1 = noise(x, z, seed=83, scale=7.0) * 1.3
+    w2 = noise(x, z, seed=157, scale=3.0) * 0.5
+    wave = w1 + w2
+
+    # Perto dos pontos de loot nas quinas (48, -51) e (48, 51), amortecer para não invadir o loot
+    if abs(x) > 45.0 and abs(z) > 48.0:
+        wave = min(wave, 0.3)
+    return wave
+
+
+def outside_organic(x, z):
+    """Distância signed com contorno orgânico (valores negativos invadem levemente o asfalto)."""
+    return outside_raw(x, z) - border_wave(x, z)
+
+
 def corner_mound_d(x, z):
     """Distância radial aos cantos frontais (-51, -54) e (+51, -54)."""
-    if z > -50:
+    if z > -48.0:
         return None
     d1 = math.hypot(x - (-HALF_X), z - (-HALF_Z))
     d2 = math.hypot(x - HALF_X, z - (-HALF_Z))
     return min(d1, d2)
 
 
-def berm_height(e):
-    if e < 0:
-        return None
-    base = 0.05 + 4.2 * (1.0 - math.exp(-e / 8.5))
-    if e > OUTER - 3.0:
-        t = min(1.0, (e - (OUTER - 3.0)) / 3.0)
-        base = base * (1.0 - t) + (-1.5) * t
-    return base
-
-
 def height(x, z):
-    """Altura da superfície do terreno de limites (None se for o asfalto interno)."""
-    e = outside(x, z)
-    best = None
-    b = berm_height(e)
-    if b is not None:
-        amp = min(1.2, 0.16 * e)
-        best = b + amp * noise(x, z, 11)
+    """Altura da superfície do terreno de limites."""
+    e_org = outside_organic(x, z)
+    e_raw = outside_raw(x, z)
 
+    # Se estiver muito dentro do asfalto (além da onda orgânica de avanço), não gera terreno
+    if e_org < -0.2:
+        return None
+
+    # Berma contínua com subida gradual
+    # Na franja de invasão sobre o asfalto (e_raw <= 0), a altura fica entre 0.02 e 0.16m
+    if e_raw <= 0:
+        t = (border_wave(x, z) - (e_raw)) / max(0.1, border_wave(x, z) + 0.2)
+        h = max(0.015, t * 0.16)
+        h += 0.02 * noise(x, z, 55, 1.5)
+        best = h
+    else:
+        # Fora do distrito: sobe de 0.16m até 4.5m
+        base = 0.16 + 4.2 * (1.0 - math.exp(-e_raw / 8.0))
+        if e_raw > OUTER - 3.0:
+            t = min(1.0, (e_raw - (OUTER - 3.0)) / 3.0)
+            base = base * (1.0 - t) + (-1.5) * t
+        amp = min(1.3, 0.2 * e_raw)
+        best = base + amp * noise(x, z, 11, 4.0)
+
+    # Morros nos cantos frontais
     cmd = corner_mound_d(x, z)
     if cmd is not None:
-        if e <= 0:
+        if e_raw <= 0:
             if cmd <= CORNER_RADIUS:
                 t = (CORNER_RADIUS - cmd) / CORNER_RADIUS
-                h = t * 0.45
-                best = h if best is None else max(best, h)
+                h_c = t * 0.55 + 0.04 * noise(x, z, 23, 1.8)
+                best = h_c if best is None else max(best, h_c)
         else:
-            dist_from_corner = cmd
-            if dist_from_corner < 12.0:
-                h_mound = HILL_MAX_HEIGHT * math.exp(-dist_from_corner / 6.0) + 0.3 * noise(x, z, 37, 2.5)
+            if cmd < 13.0:
+                h_mound = HILL_MAX_HEIGHT * math.exp(-cmd / 6.5) + 0.35 * noise(x, z, 37, 2.5)
                 best = h_mound if best is None else max(best, h_mound)
 
     return best
 
 
 def border_colliders():
-    """Gera colisores estáticos apenas na berma externa / morros de canto (fora das rotas)."""
     out = []
-    # 4 paredes externas que impedem sair do mapa pelo terreno íngreme (minY=0, maxY=4.0)
     out.append(dict(id='COL_Limite_Norte', minX=-HALF_X, maxX=HALF_X, minZ=-HALF_Z - 3.0, maxZ=-HALF_Z, minY=0.0, maxY=4.0))
     out.append(dict(id='COL_Limite_Sul', minX=-HALF_X, maxX=HALF_X, minZ=HALF_Z, maxZ=HALF_Z + 3.0, minY=0.0, maxY=4.0))
     out.append(dict(id='COL_Limite_Oeste', minX=-HALF_X - 3.0, maxX=-HALF_X, minZ=-HALF_Z, maxZ=HALF_Z, minY=0.0, maxY=4.0))
@@ -157,4 +169,4 @@ if __name__ == '__main__':
     RUNTIME.mkdir(parents=True, exist_ok=True)
     data = runtime_data()
     (RUNTIME / 'limites.json').write_text(json.dumps(data, indent=2, ensure_ascii=False) + '\n')
-    print(f"Limites gerados: {len(data['colliders'])} colisores, {len(data['ruins'])} ruínas")
+    print(f"Limites v002 gerados: {len(data['colliders'])} colisores, {len(data['ruins'])} ruínas")

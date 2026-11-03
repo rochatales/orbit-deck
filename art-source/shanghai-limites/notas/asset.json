@@ -1,21 +1,26 @@
 {
-  "version": "s6.3-limites-v001",
-  "triangles": 24048,
+  "version": "s6.3-limites-v002",
+  "triangles": 33134,
   "trianglesByNode": {
-    "Limite_Terreno_entulho": 13126,
-    "Limite_Terreno_terra": 2366,
-    "Ruina_Fundo_Oeste": 540,
-    "Ruina_Fundo_Leste": 672,
-    "Ruina_Frente_Centro": 744,
-    "Limite_Detritos_concreto": 3228,
-    "Limite_Detritos_entulho": 888,
-    "Limite_Detritos_metal": 1596,
-    "Limite_Detritos_tijolo": 888
+    "Limite_Terreno_asfalto_quebrado": 160,
+    "Limite_Terreno_concreto": 5650,
+    "Limite_Terreno_entulho": 13438,
+    "Limite_Terreno_terra": 4810,
+    "Ruina_Fundo_Oeste": 732,
+    "Ruina_Fundo_Leste": 1032,
+    "Ruina_Frente_Centro": 1044,
+    "Limite_Detritos_asfalto_quebrado": 1260,
+    "Limite_Detritos_calcada": 600,
+    "Limite_Detritos_concreto": 1324,
+    "Limite_Detritos_metal": 876,
+    "Limite_Detritos_terra": 1092,
+    "Limite_Detritos_tijolo": 1116
   },
-  "debris": 550,
   "materials": [
+    "asfalto_quebrado",
     "azul",
     "bege",
+    "calcada",
     "concreto",
     "entulho",
     "metal",
@@ -24,5 +29,5 @@
     "tijolo"
   ],
   "colliders": 4,
-  "glbBytes": 1697884
+  "glbBytes": 9102372
 }

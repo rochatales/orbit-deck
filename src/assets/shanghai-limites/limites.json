@@ -1,5 +1,5 @@
 {
-  "version": "s6.3-limites-v001",
+  "version": "s6.3-limites-v002",
   "bounds": {
     "minX": -51.0,
     "maxX": 51.0,
