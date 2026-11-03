@@ -197,7 +197,9 @@ nav button:hover:not(:disabled), .secondary:hover:not(:disabled) { color: #09232
 .beta-wave > span:not(.beta-signal), .beta-wave small { font-size: 9px; color: #9eafb7; font-variant-numeric: tabular-nums; }
 .beta-signal { width: 4px; height: 4px; border-radius: 50%; background: #e3b773; box-shadow: 0 0 7px #d2995750; }
 .beta-bottom { position: absolute; bottom: 25px; inset-inline: 26px; display: grid; grid-template-columns: minmax(180px, 1fr) auto minmax(140px, 1fr); align-items: end; gap: clamp(14px, 3vw, 60px); pointer-events: none; }
-.beta-vitals { width: 252px; max-width: 100%; padding: 9px 14px 8px 0; background: linear-gradient(90deg, #11191d80, transparent); }
+.beta-vitals { position: relative; isolation: isolate; width: 252px; max-width: 100%; padding: 9px 14px 8px 0; }
+/* Fade de fundo sem borda: elipse que chega a zero antes de qualquer lado da caixa. */
+.beta-vitals::before { content: ''; position: absolute; z-index: -1; inset: -40px -56px -48px -60px; background: radial-gradient(closest-side, #11191d99 0, #11191d73 52%, #11191d26 82%, transparent 100%); pointer-events: none; }
 .beta-vital { display: flex; align-items: end; gap: 9px; --vital: #ed7976; --vital-dark: #7c3039; color: var(--vital); }
 .beta-vital + .beta-vital { margin-top: 10px; }
 .beta-vital.energy { --vital: #69b9f2; --vital-dark: #244b7f; }
@@ -404,9 +406,9 @@ nav button:hover:not(:disabled), .secondary:hover:not(:disabled) { color: #09232
 }
 
 /* Radar ciano acima da vida (S6.3) */
-.beta-radar { position: relative; margin: 0 0 10px 2px; width: max-content; pointer-events: none; }
-.beta-radar canvas { display: block; border-radius: 50%; box-shadow: 0 0 0 1px #83e5d755, 0 0 18px #83e5d733, inset 0 0 12px #000; animation: beta-radar-glow 2.4s ease-in-out infinite; }
-.beta-radar figcaption { display: flex; gap: 9px; margin-top: 6px; font-size: 7px; letter-spacing: .12em; color: #8faeb5; text-shadow: 0 1px 3px #000; }
+.beta-radar { position: relative; margin: 0 0 10px; width: 100%; max-width: 34vh; pointer-events: none; }
+.beta-radar canvas { display: block; width: 100%; aspect-ratio: 1; border-radius: 50%; box-shadow: 0 0 0 1px #83e5d755, 0 0 18px #83e5d733, inset 0 0 12px #000; animation: beta-radar-glow 2.4s ease-in-out infinite; }
+.beta-radar figcaption { display: flex; justify-content: space-between; gap: 9px; margin-top: 6px; font-size: 7px; letter-spacing: .12em; color: #8faeb5; text-shadow: 0 1px 3px #000; }
 .beta-radar figcaption span::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 4px; vertical-align: -1px; }
 .beta-radar .is-enemy::before { background: #ff4b4b; }
 .beta-radar .is-life::before { background: #ff8fc0; border-radius: 0; clip-path: path('M3 6 C-1.5 3.3 0.3 0 3 1.7 C5.7 0 7.5 3.3 3 6Z'); }
@@ -414,5 +416,4 @@ nav button:hover:not(:disabled), .secondary:hover:not(:disabled) { color: #09232
 .beta-radar .is-ship::before { background: #66f0ff; border-radius: 0; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
 @keyframes beta-radar-glow { 50% { box-shadow: 0 0 0 1px #83e5d78c, 0 0 26px #83e5d75c, inset 0 0 12px #000; } }
 @media (prefers-reduced-motion: reduce) { .beta-radar canvas { animation: none; } }
-@media (max-width: 760px) { .beta-radar canvas { width: 96px !important; height: 96px !important; } .beta-radar figcaption { display: none; } }
-@media (max-height: 640px) { .beta-radar canvas { width: 96px !important; height: 96px !important; } }
+@media (max-width: 760px) { .beta-radar { width: 96px; } .beta-radar figcaption { display: none; } }

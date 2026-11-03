@@ -57,8 +57,18 @@ export function RadarMap({ map }: { map: MapId }) {
   useEffect(() => {
     const el = canvas.current, g = el?.getContext('2d');
     if (!el || !g) return;
-    const dpr = Math.min(2, window.devicePixelRatio || 1), size = RADAR.sizePx;
-    el.width = el.height = Math.round(size * dpr);
+    // Desenho em unidades fixas; o diâmetro real vem do CSS (largura do bloco da vida).
+    const size = RADAR.sizePx;
+    let scale = 1, thin = 1;
+    const fit = () => {
+      const css = el.clientWidth || size;
+      scale = Math.min(2, window.devicePixelRatio || 1) * css / size;
+      thin = size / css; // linhas da grade seguem finas no disco maior
+      el.width = el.height = Math.round(size * scale);
+    };
+    fit();
+    const resize = new ResizeObserver(fit);
+    resize.observe(el);
     const blips: RadarBlip[] = [], aircraft = MAPS[map].exit, c = size / 2, R = size / 2 - 3;
     let frame = 0, last = 0;
     const draw = (now: number) => {
@@ -66,13 +76,13 @@ export function RadarMap({ map }: { map: MapId }) {
       if (now - last < 1000 / RADAR.fps) return;
       last = now;
       const t = reducedMotion ? 0 : now / 1000;
-      g.setTransform(dpr, 0, 0, dpr, 0, 0);
+      g.setTransform(scale, 0, 0, scale, 0, 0);
       g.clearRect(0, 0, size, size);
       // Disco e grade.
       const bg = g.createRadialGradient(c, c, 0, c, c, R);
       bg.addColorStop(0, '#0f3a42d9'); bg.addColorStop(1, '#06161ce6');
       g.fillStyle = bg; g.beginPath(); g.arc(c, c, R, 0, Math.PI * 2); g.fill();
-      g.strokeStyle = RADAR.colors.grid; g.lineWidth = 1;
+      g.strokeStyle = RADAR.colors.grid; g.lineWidth = 1.1 * thin;
       for (const [r, a] of [[1, .7], [.66, .28], [.33, .28]] as const) { g.globalAlpha = a; g.beginPath(); g.arc(c, c, R * r, 0, Math.PI * 2); g.stroke(); }
       g.globalAlpha = .18; g.beginPath(); g.moveTo(c - R, c); g.lineTo(c + R, c); g.moveTo(c, c - R); g.lineTo(c, c + R); g.stroke();
       // Varredura (cone com rastro) e pulso expansivo.
@@ -84,7 +94,7 @@ export function RadarMap({ map }: { map: MapId }) {
           g.arc(c, c, R, sweep - (i + 1) * .045, sweep - i * .045); g.closePath(); g.fill();
         }
         const pulse = (t % RADAR.pulseSeconds) / RADAR.pulseSeconds;
-        g.globalAlpha = .55 * (1 - pulse); g.lineWidth = 1.5;
+        g.globalAlpha = .55 * (1 - pulse); g.lineWidth = 1.8 * thin;
         g.beginPath(); g.arc(c, c, R * pulse, 0, Math.PI * 2); g.stroke();
       }
       // Pontos.
@@ -111,10 +121,10 @@ export function RadarMap({ map }: { map: MapId }) {
       g.globalAlpha = 1; portrait(g, c, 13);
     };
     frame = requestAnimationFrame(draw);
-    return () => cancelAnimationFrame(frame);
+    return () => { cancelAnimationFrame(frame); resize.disconnect(); };
   }, [map]);
   return <figure className="beta-radar" aria-label="Radar: vermelho são inimigos, corações rosados são kits de vida, amarelo é loot e ciano é a aeronave">
-    <canvas ref={canvas} style={{ width: RADAR.sizePx, height: RADAR.sizePx }}/>
+    <canvas ref={canvas}/>
     <figcaption><span className="is-enemy">INIMIGO</span><span className="is-life">VIDA</span><span className="is-loot">LOOT</span><span className="is-ship">AERONAVE</span></figcaption>
   </figure>;
 }
