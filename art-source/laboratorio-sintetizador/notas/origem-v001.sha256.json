@@ -1,0 +1,166 @@
+{
+  "origem": "/Users/rochatales/Automations/game-workplace/art-source/laboratorio-sintetizador",
+  "base": "f1756c4923e758cf4e8ced985e7a8f23b94c62dc",
+  "arquivos": [
+    {
+      "arquivo": "RELATORIO.md",
+      "bytes": 8659,
+      "sha256": "d3af037c8f9212b4465f7f4e263ae6afe434f5c707eea5b093001fdbb45bfd4a"
+    },
+    {
+      "arquivo": "blend/laboratorio_sintetizador_v001.blend",
+      "bytes": 1274972,
+      "sha256": "22e7cc43720d7184d1e2ad0b99e9b874dfba225bfaaba08c3f99656c68a6de89"
+    },
+    {
+      "arquivo": "blend/laboratorio_sintetizador_v001.blend1",
+      "bytes": 1224487,
+      "sha256": "0455846feb8773afa7873f64385b0a8e632633cc4c6dee64f62b9ff035b1e636"
+    },
+    {
+      "arquivo": "export/laboratorio_sintetizador_v001.glb",
+      "bytes": 1921476,
+      "sha256": "d4d1694d3ad07cc97054fd6effa4d111882f00399f14c99ac62adb89b14de66b"
+    },
+    {
+      "arquivo": "notas/build_report.json",
+      "bytes": 1115,
+      "sha256": "77d9e164880dd4f7fd177f2f9229f9a5de785d752d3cd17c0f73108c99660a8a"
+    },
+    {
+      "arquivo": "referencia/laboratorio_estudo.jpg",
+      "bytes": 224189,
+      "sha256": "9f58b07564815e0c9b7fac6488d83f930012a61aec009f676d65d757001d6764"
+    },
+    {
+      "arquivo": "referencia/maquina_estudo.jpg",
+      "bytes": 224316,
+      "sha256": "5eb4e3faab9a39cd1b5c83463f90bc9b3217793592e2262edea1c98446879468"
+    },
+    {
+      "arquivo": "referencia/maquina_render.jpg",
+      "bytes": 202257,
+      "sha256": "71982c6ad0385717db846f0e1c5016a9a94a2683c176483b2f30c37512fd90c1"
+    },
+    {
+      "arquivo": "renders/01_front.png",
+      "bytes": 607043,
+      "sha256": "e183fd6c00c3b01ead4d0b4954836453d6e73564fa0888b101490f98d242b557"
+    },
+    {
+      "arquivo": "renders/02_side.png",
+      "bytes": 625377,
+      "sha256": "4a7bc8fa897c398e299e6b912538e56c96297326ce738209f8b3ecaa4a791241"
+    },
+    {
+      "arquivo": "renders/03_back.png",
+      "bytes": 651047,
+      "sha256": "791e9ecce48607b4a95d37d3d5d98e47909724dc951d584e4f6d384fa6810e1c"
+    },
+    {
+      "arquivo": "renders/04_3q.png",
+      "bytes": 683669,
+      "sha256": "473c99faa041d6229ffaeabbc470ddfc9a6c34b0731cdb5eef1b5c6d336488f2"
+    },
+    {
+      "arquivo": "renders/anim_Drawer_Dispense.png",
+      "bytes": 683395,
+      "sha256": "59f041563dd78389f335a49f89e1a738c16604de215a7ed8b8c8f002d9b7c1c4"
+    },
+    {
+      "arquivo": "renders/anim_Idle_Ready.png",
+      "bytes": 683595,
+      "sha256": "7ca842ac9e5cccc52e184a661c1c98e84004671988fb166c2b66e2dc6a46a3d9"
+    },
+    {
+      "arquivo": "renders/anim_Standby_PowerDown.png",
+      "bytes": 683984,
+      "sha256": "d429ad43c323f938d6196880dc812c6391c6a179f7c0f178372bb9cee2036b88"
+    },
+    {
+      "arquivo": "renders/anim_Synthesizing.png",
+      "bytes": 683040,
+      "sha256": "78918a2cb195a7441bf16693a669e7a62b90508954a99084595f91f4a5a4636d"
+    },
+    {
+      "arquivo": "renders/folha_4_animacoes_3d.png",
+      "bytes": 1760004,
+      "sha256": "2697b88df1496b90c838a9727099532fca56516e8b2c009a56a7eeafef986695"
+    },
+    {
+      "arquivo": "renders/folha_comparacao_referencia_x_3d.png",
+      "bytes": 1272416,
+      "sha256": "a1d0c14c8a65458267703c42da32fb81491cd2148629be856b3c6b85bf7ed061"
+    },
+    {
+      "arquivo": "renders/folha_turnaround_2x2_vistas.png",
+      "bytes": 2033123,
+      "sha256": "c362d90d66e7e5aa6935101ac4fb8df829ed8213d175c45752ce4678d2e948bf"
+    },
+    {
+      "arquivo": "renders/folha_turnaround_4_vistas.png",
+      "bytes": 1620248,
+      "sha256": "f2fe780f15c5617538ca631197b975ffb4602f2ee092f171daf5114522cbf274"
+    },
+    {
+      "arquivo": "renders/folha_wireframe_4_vistas.png",
+      "bytes": 2609665,
+      "sha256": "669b9c7bff7910ef826bf52ac020ed3d578dc4da6c8dfbd30c6ae127c633f793"
+    },
+    {
+      "arquivo": "renders/jogo_zoom_maximo.png",
+      "bytes": 810474,
+      "sha256": "8c9be584c7dd61f3ee21df61338406b1b0324373745483596f9a19b7122a49df"
+    },
+    {
+      "arquivo": "renders/wf_01_front.png",
+      "bytes": 770691,
+      "sha256": "93f6b5d0830f94840aa3f0ae513b6b192fdb0666d3d425114f4af4e29e81140e"
+    },
+    {
+      "arquivo": "renders/wf_02_side.png",
+      "bytes": 809443,
+      "sha256": "488a298537089b6d30a7677a8a425016a0951738f59bf0a6f19d5d719b78807c"
+    },
+    {
+      "arquivo": "renders/wf_03_back.png",
+      "bytes": 816188,
+      "sha256": "597ec595d44d72592b185d89f6e8812c3a1f7686b52c65bd0ac390266113c417"
+    },
+    {
+      "arquivo": "renders/wf_04_3q.png",
+      "bytes": 884059,
+      "sha256": "6c12c5e669d44d5873e11969eba4fbe08f12002f5c95d2a14664e7e87c72f60e"
+    },
+    {
+      "arquivo": "scripts/build_laboratorio.py",
+      "bytes": 55337,
+      "sha256": "9b59050ee11ffce3045e2110aecd85c1d0c8dc045883bcb03f58bc1375f71b8d"
+    },
+    {
+      "arquivo": "scripts/render_laboratorio.py",
+      "bytes": 10768,
+      "sha256": "7cb9c8e4e8746357a281a445a1a02c556dc42899f0687b55548d80711228cbe9"
+    },
+    {
+      "arquivo": "texturas/laboratorio_basecolor.png",
+      "bytes": 530322,
+      "sha256": "861938cf13135e5b3544864c7a30a88922a2429a03f5b18f6108598917c735fb"
+    },
+    {
+      "arquivo": "texturas/laboratorio_emission.png",
+      "bytes": 90981,
+      "sha256": "532b983aaa9985a0f181a1a7a9cd19848d32f7a6cb978753894fcc9d4f39362a"
+    },
+    {
+      "arquivo": "texturas/laboratorio_normal.png",
+      "bytes": 59579,
+      "sha256": "123eadc1c58faf317e13bbb0a6e11d0526740a2f4c733c6b41d7f952a9f1c704"
+    },
+    {
+      "arquivo": "texturas/laboratorio_orm.png",
+      "bytes": 475122,
+      "sha256": "d6bbdf7c0a44f3008900792e77d08902c844fa6d1b7f745aa98471a9c53ee31d"
+    }
+  ]
+}

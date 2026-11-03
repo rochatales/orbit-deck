@@ -1,0 +1,44 @@
+[
+  {
+    "source": "/Users/rochatales/Game Development/Horda Survivor/Personagens/3D/espada_duas_maos_back_Run.fbx",
+    "copy": "fontes/espada_duas_maos_back_Run.fbx",
+    "bytes": 7042032,
+    "sha256": "3fc59588be40d564bcad0d76a00c48f0b49b47f80b6841dfe742272b5b999056"
+  },
+  {
+    "source": "/Users/rochatales/Game Development/Horda Survivor/Personagens/3D/espada_duas_maos_blocking.fbx",
+    "copy": "fontes/espada_duas_maos_blocking.fbx",
+    "bytes": 7043984,
+    "sha256": "3fb4ec828cb7f07b6b7b16f6a22d04d074329800b3e36271f632cc2c5d4fe3b2"
+  },
+  {
+    "source": "/Users/rochatales/Game Development/Horda Survivor/Personagens/3D/Espada_duas_maos_Idle.fbx",
+    "copy": "fontes/Espada_duas_maos_Idle.fbx",
+    "bytes": 7146368,
+    "sha256": "36faa474336cfebdf27ca40adc11b7674f33ec61c0e59cbaecc72dbb359ff5b6"
+  },
+  {
+    "source": "/Users/rochatales/Game Development/Horda Survivor/Personagens/3D/espada_duas_maos_Slash.fbx",
+    "copy": "fontes/espada_duas_maos_Slash.fbx",
+    "bytes": 7096496,
+    "sha256": "e933844ef104a90e8fa16776b7f4072a627ad865e0de4df8efe2628060aa717e"
+  },
+  {
+    "source": "/Users/rochatales/Game Development/Horda Survivor/Personagens/3D/Espada_duas_maps_Run.fbx",
+    "copy": "fontes/Espada_duas_maps_Run.fbx",
+    "bytes": 7042032,
+    "sha256": "fe2be0fcdcc8d7689522f5258176bd8119b633b0ea82282608b4156ce21f30a4"
+  },
+  {
+    "source": "/Users/rochatales/Game Development/Horda Survivor/Armamentos/Sci-fi Energy Sword-9a80e18f4877cda4ade8f7fb711913dc.fbx",
+    "copy": "fontes/Sci-fi Energy Sword-9a80e18f4877cda4ade8f7fb711913dc.fbx",
+    "bytes": 7619212,
+    "sha256": "1c12c55762e3b459e41028773245070c5755231ee5456df2a005ea867e793f87"
+  },
+  {
+    "source": "/Users/rochatales/Game Development/Horda Survivor/Armamentos/Sci-fi Energy Sword-f13f5e9ef449e19e4a0074055bc7bd6c.glb",
+    "copy": "fontes/Sci-fi Energy Sword-f13f5e9ef449e19e4a0074055bc7bd6c.glb",
+    "bytes": 7332972,
+    "sha256": "f53aa6d67260c43d258659c17abb8219f457530d4e00cb01fb70acae5f4afcae"
+  }
+]

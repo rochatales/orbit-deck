@@ -61,7 +61,7 @@ test('ARES: [E], desembarque e retry mantêm o contrato, com espaço livre no p�
     assert.ok(Math.abs(p.x - 0.72) < 1e-6 && Math.abs(p.z - 4.02 - MAPS.shanghai.exit.z) < 1e-6);
     const world = createPhase01Terrain(), exit = MAPS.shanghai.exit;
     assert.equal(isNearShip('shanghai', exit), true);
-    assert.equal(world.obstacles.length, layout.obstacles.length + 2 + ARES_COLLIDERS.length);
+    assert.equal(world.obstacles.length, layout.obstacles.filter(o=>!o.source.startsWith('Carro_')).length + 9 + 7 + ARES_COLLIDERS.length);
     for (const radius of [0.32, 0.36, 0.42]) {
         assert.ok(traversable(exit, world, radius));
         assert.ok(clearSegment(exit, { x: -8, z: 9.5 }, world, radius));

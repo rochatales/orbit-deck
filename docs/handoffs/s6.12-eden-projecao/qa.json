@@ -1,0 +1,6 @@
+{
+  "build": "producao porta 4186",
+  "pedestal": "Somente projeção e emissor da Control Room, sem personagem legado sobreposto",
+  "interacao": "E · Conversar com EDEN abre Uma nova expedição.",
+  "erros": []
+}

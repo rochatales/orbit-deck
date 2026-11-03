@@ -1,31 +1,47 @@
 import type { SoundEvent } from './events';
 export const AUDIO = {
-    storageKey: 'exoden:audio:v1', defaultVolume: .7, near: 4, far: 25, enemyStepDistance: 15, heavyStepDistance: 25,
+    storageKey: 'exoden:audio:v1', defaultVolume: .7, near: 4, far: 25, enemyStepDistance: 32, heavyStepDistance: 40,
     stealFade: .03,
+    music: { volume: .22, fadeIn: 1 },
+    shanghaiAmbience: { volume: .42, fadeIn: .6 },
+    marsAmbience: { outsideVolume: .42, insideVolume: .36, crossfade: .8 },
     categories: {
-        shot: { voices: 4, volume: .65 }, reload: { voices: 1, volume: .65 },
+        dryFire: { voices: 1, volume: .6 }, shot: { voices: 4, volume: .65 }, reload: { voices: 1, volume: .65 },
         impacts: { voices: 6, volume: .7 }, deaths: { voices: 6, volume: .8 },
         attacks: { voices: 3, volume: .75 }, enemySteps: { voices: 4, volume: .45 },
         heavySteps: { voices: 2, volume: .8 },
         playerSteps: { voices: 2, volume: .28 }, collect: { voices: 2, volume: .65 },
+        doors: { voices: 2, volume: .45 },
     },
 } as const;
 export type Category = keyof typeof AUDIO.categories;
 interface SoundBinding { name: string; category: Category; rate: number; gain: number }
 const binding = (name: string, category: Category, rate = 1, gain = 1): SoundBinding => ({ name: `SFX_${name}`, category, rate, gain });
 const SHOT = binding('Rifle_shot', 'shot'), RELOAD = binding('Rifle_Reload', 'reload');
+const DRY_FIRE = binding('Rifle_Empty', 'dryFire');
 const PLAYER_STEP = binding('Main_character_step', 'playerSteps'), COLLECT = binding('Item_collected', 'collect');
+const DOOR_OPEN = binding('Mars_Door_Open', 'doors');
+const HANGAR_DOOR_OPEN = binding('Hangar_Front_Open', 'doors');
+const HANGAR_DOOR_CLOSE = binding('Hangar_Front_Close', 'doors');
+const QUARTEL_DOOR_OPEN = binding('Quartel_Door_Open', 'doors');
+const QUARTEL_DOOR_CLOSE = binding('Quartel_Door_Close', 'doors');
 const CHARGE_WARNING = binding('Mutant_big_attack_hit', 'attacks', .65, .25);
 const PROFILES = {
-    patrol: { step: binding('Patrol_small_step', 'enemySteps'), hit: binding('Patrol_small_bullet_hit', 'impacts'), death: binding('Patrol_small_death_hit', 'deaths'), attack: binding('Patrol_small_attack_hit', 'attacks') },
+    patrol: { step: binding('Patrol_small_step', 'enemySteps'), hit: binding('Patrol_small_bullet_hit', 'impacts', 1, .6), death: binding('Patrol_small_death_hit', 'deaths'), attack: binding('Patrol_small_attack_hit', 'attacks') },
     largePatrol: { step: binding('Patrol_big_step', 'heavySteps'), hit: binding('Patrol_big_bullet_hit', 'impacts'), death: binding('Patrol_big_death_hit', 'deaths'), attack: binding('Patrol_small_attack_hit', 'attacks', .8) },
     largeMutant: { step: binding('Mutant_big_step', 'heavySteps'), hit: binding('Mutant_big_bullet_hit', 'impacts'), death: binding('Mutant_small_death_hit', 'deaths', .8), attack: binding('Mutant_big_attack_hit', 'attacks') },
     smallMutant: { step: null, hit: binding('Mutant_small_bullet_hit', 'impacts'), death: binding('Mutant_small_death_hit', 'deaths'), attack: binding('Mutant_small_attack_hit', 'attacks') },
 };
 export function soundFor(e: SoundEvent): SoundBinding | null {
     switch (e.type) {
+        case 'doorOpen': case 'doorClose': return DOOR_OPEN;
+        case 'quartelDoorOpen': return QUARTEL_DOOR_OPEN;
+        case 'quartelDoorClose': return QUARTEL_DOOR_CLOSE;
+        case 'hangarDoorOpen': return HANGAR_DOOR_OPEN;
+        case 'hangarDoorClose': return HANGAR_DOOR_CLOSE;
         case 'chargeWarning': return e.kind === 'largeMutant' ? CHARGE_WARNING : null;
         case 'shot': return SHOT;
+        case 'dryFire': return DRY_FIRE;
         case 'reload': return RELOAD;
         case 'playerStep': return PLAYER_STEP;
         case 'collect': return COLLECT;
@@ -35,8 +51,8 @@ export function soundFor(e: SoundEvent): SoundBinding | null {
         case 'attack': return PROFILES[e.kind].attack;
     }
 }
-export function distanceGain(distance: number) {
-    return Math.max(0, Math.min(1, (AUDIO.far - distance) / (AUDIO.far - AUDIO.near)));
+export function distanceGain(distance: number, far: number = AUDIO.far) {
+    return Math.max(0, Math.min(1, (far - distance) / (far - AUDIO.near)));
 }
 /** Sorteio sem repetir o índice anterior (um único arquivo necessariamente repete). */
 export function variationIndex(count: number, previous: number, random = Math.random()) {

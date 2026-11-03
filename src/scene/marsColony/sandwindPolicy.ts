@@ -1,3 +1,8 @@
+/** Cor de saída próxima ao solo marciano iluminado; evita a cortina bege clara. */
+export const SANDWIND_APPEARANCE = {
+    color: '#613b27', cloudColor: '#90543a', falloffExponent: 1.75, turbulence: .12
+} as const;
+
 /** S6.19c / S7.8 — política da prévia; distâncias no plano XZ, não da câmera. */
 export const SANDWIND_PROFILES = {
     compact: { label: 'Compacto', clear: 12, opaque: 28, hide: 34, reveal: 30 },
@@ -8,7 +13,16 @@ export type SandwindProfile = keyof typeof SANDWIND_PROFILES;
 export interface GroundBounds { minX: number; maxX: number; minZ: number; maxZ: number }
 
 export function sandwindPreviewEnabled(search: string) {
-    return new URLSearchParams(search).has('sandwindPreview');
+    return new URLSearchParams(search).get('sandwindPreview') !== '0';
+}
+
+/** HUD só mediante pedido explícito; a atmosfera não depende do painel. */
+export function sandwindPanelEnabled(search: string) {
+    const params = new URLSearchParams(search);
+    return params.get('sandwindPreview') === '1' || params.has('sandwindPanel') || params.has('sandwindQA');
+}
+export function defaultSandwindSettings(reducedMotion: boolean) {
+    return { enabled: true, culling: true, wind: !reducedMotion, profile: 'compact' as const };
 }
 
 /** Distância à borda mais próxima: prédios grandes não somem pelo seu centro. */

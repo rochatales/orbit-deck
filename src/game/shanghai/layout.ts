@@ -1,3 +1,4 @@
+import { SHANGHAI_CARS, carObstacle, retainPhase01Obstacle } from './propPlacements';
 import data from '../../assets/shanghai-fase01/layout.json';
 import { phase01SurfaceGrid, SURFACE_TRANSITION } from './surfaceGrid';
 import type { OfficeWorld } from '../../world/createOfficeMap';
@@ -14,9 +15,10 @@ export function createPhase01Terrain(): OfficeWorld {
     const world: OfficeWorld = {
         surfaceHeight: height, supportHeight: height, supportTransition: SURFACE_TRANSITION,
         group: new Group(), bounds: { ...data.bounds },
-        obstacles: data.obstacles.map(o => ({ minX: o.minX, maxX: o.maxX, minZ: o.minZ, maxZ: o.maxZ, minY: o.minY, maxY: o.maxY })),
+        obstacles: data.obstacles.filter(retainPhase01Obstacle).map(o => ({ minX: o.minX, maxX: o.maxX, minZ: o.minZ, maxZ: o.maxZ, minY: o.minY, maxY: o.maxY })),
         walkableAreas: data.walkableAreas.map(a => ({ ...a })), update: () => { }
     };
+    world.obstacles.push(...SHANGHAI_CARS.map(car => carObstacle(car, height(car.x, car.z))));
     world.obstacles.push(...SHANGHAI_SUPPLY_CRATES.map(crateObstacle));
     addAresCollisions(world);
     return world;

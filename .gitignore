@@ -1,4 +1,4 @@
-node_modules/
+node_modules
 server/node_modules/
 dist/
 .DS_Store
@@ -8,3 +8,5 @@ dist/
 
 archive/**/node_modules/
 archive/**/dist/
+
+__pycache__/

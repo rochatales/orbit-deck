@@ -1,17 +1,14 @@
 import { create } from 'zustand';
 import type { PlayerAssetVariant } from '../characterAssetConfig';
 
-/**
- * Qual GLB o player usa (S2.12): a prévia começa com o Explorador r7. `?personagem=atual`
- * abre com o GLB ativo anterior, para comparar no mesmo ponto, câmera e luz. Só o visual
- * muda: corpo físico, colisor e controle são os mesmos.
- */
-function varianteInicial(): PlayerAssetVariant {
+/** Troca só o visual: query string e seletor preservam corpo, câmera, luz e controles. */
+export function varianteInicial(search = globalThis.location?.search ?? ''): PlayerAssetVariant {
     try {
-        return new URLSearchParams(globalThis.location?.search ?? '').get('personagem') === 'atual' ? 'atual' : 'r7';
+        const variant = new URLSearchParams(search).get('personagem');
+        return variant === 'r7' || variant === 'atual' ? variant : 'astronauta';
     }
     catch {
-        return 'r7';
+        return 'astronauta';
     }
 }
 

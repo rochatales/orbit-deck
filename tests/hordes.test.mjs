@@ -105,7 +105,7 @@ test('hordas 13 → 26 → 32 → 44 nascem na borda, em pontos distintos, longe
         }
         const sides = new Set(alive.map(r => { const d = [r.z - b.minZ, b.maxZ - r.z, r.x - b.minX, b.maxX - r.x]; return d.indexOf(Math.min(...d)); }));
         assert.equal(sides.size, 4, 'chegam pelos quatro lados');
-        assert.ok(sim.hearts.every(h => h.active), 'corações repostos');
+        assert.ok(sim.hearts.every(h => h.active), 'kits não coletados permanecem disponíveis');
         assert.ok(sim.ammo + sim.reserve >= alive.reduce((hits,r)=>hits+Math.ceil(robotConfig(r).hp/COMBAT.rifle.damage),0) * COMBAT.hordes.ammoMargin, 'reabastecimento proporcional à vida de cada tipo');
         previous = points;
         step(sim, player, 3);

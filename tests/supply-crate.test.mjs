@@ -29,20 +29,20 @@ const {CombatSimulation,traceShot}=loadSource('src/combat/simulation.ts');
 const {COMBAT,encounterLayout}=loadSource('src/combat/config.ts');
 const {createPhase01Terrain,SHANGHAI_PHASE01}=loadSource('src/game/shanghai/layout.ts');
 const {Navigation,clearSegment,traversable}=loadSource('src/combat/navigation.ts');
-const {SHANGHAI_SUPPLY_CRATES,crateObstacle}=loadSource('src/game/props/supplyCrate.ts');
+const {SHANGHAI_SUPPLY_CRATES,crateMarker,crateObstacle}=loadSource('src/game/props/supplyCrate.ts');
 function mission(){const s=new CombatSimulation(createPhase01Terrain(),1,encounterLayout(true),SHANGHAI_SUPPLY_CRATES);s.robots.forEach(r=>r.hp=0);return s;}
 function input(player){return {player,aim:{x:0,z:-10},firing:false,reload:false};}
 function tick(s,seconds,p,paused=false){for(let f=0;f<Math.ceil(seconds*60);f++)s.step(1/60,input(p),paused);}
 
-test('Caixas Shanghai: exatamente duas, +48 cada no clarão, sem repetir e sem encher o pente',()=>{
- const s=mission();assert.equal(s.crates.length,2);s.ammo=3;
+test('Caixas Shanghai: sete cabines, +48 cada no clarão, sem repetir e sem encher o pente',()=>{
+ const s=mission();assert.equal(s.crates.length,7);s.ammo=3;
  for(let i=0;i<s.crates.length;i++){
   const c=s.crates[i],p=c.marker,before=s.reserve;
   assert.equal(s.openSupplyCrate(p),true);tick(s,.5,p);assert.equal(s.reserve,before);
   assert.equal(s.openSupplyCrate(p),false);tick(s,.5,p);assert.equal(s.reserve,before+48);assert.equal(s.ammo,3);
   tick(s,3,p);assert.equal(c.phase,'open');assert.equal(s.openSupplyCrate(p),false);assert.equal(s.reserve,before+48);
  }
- assert.equal(s.reserve,COMBAT.rifle.reserve+96);assert.equal(s.snapshot.reserve,s.reserve);
+ assert.equal(s.reserve,COMBAT.rifle.reserve+7*48);assert.equal(s.snapshot.reserve,s.reserve);
  const fresh=mission();assert.equal(fresh.reserve,96);assert.ok(fresh.crates.every(c=>c.phase==='closed'&&!c.rewarded));
 });
 test('Caixas: distância, parede, traseira, pausa, morte e coordenada inválida bloqueiam',()=>{
@@ -51,8 +51,8 @@ test('Caixas: distância, parede, traseira, pausa, morte e coordenada inválida 
  assert.equal(s.openSupplyCrate({x:NaN,z:p.z}),false);
  assert.equal(s.openSupplyCrate({x:c.x,z:c.z-.4}),false,'não atravessa a caixa');
  assert.equal(s.openSupplyCrate(p,true),false);
- s.terrain.obstacles.push({minX:c.x-2,maxX:c.x+2,minZ:c.z+1.3,maxZ:c.z+1.4});
- assert.equal(s.openSupplyCrate({x:c.x,z:c.z+1.8}),false,'não atravessa paredes');s.terrain.obstacles.pop();
+ s.terrain.obstacles.push({minX:c.x-2,maxX:c.x+2,minZ:c.z+1.9,maxZ:c.z+2.0});
+ assert.equal(s.openSupplyCrate({x:c.x,z:c.z+2.4}),false,'não atravessa paredes');s.terrain.obstacles.pop();
  assert.equal(s.openSupplyCrate(p),true);tick(s,.3,p);const elapsed=c.elapsed;
  tick(s,3,p,true);assert.equal(c.elapsed,elapsed);assert.equal(s.reserve,96);
  tick(s,.5,p);assert.equal(s.reserve,144);
@@ -71,12 +71,12 @@ test('Caixas: reserva recebida durante recarga permanece consistente',()=>{
 test('Caixas: colisão simples bloqueia tiro; acessos e patrulhas continuam conectados',()=>{
  const world=createPhase01Terrain(),nav=new Navigation(world,.36,.5),start={x:0,z:9.5};
  for(const c of SHANGHAI_SUPPLY_CRATES){
-  const marker={x:c.x,z:c.z+1.1},footprint=crateObstacle(c);
+  const marker=crateMarker(c),footprint=crateObstacle(c);
   assert.ok(world.obstacles.some(o=>JSON.stringify(o)===JSON.stringify(footprint)));
   assert.equal(traversable(c,world,.32),false);assert.ok(traversable(marker,world,.36));
   const route=nav.path(start,marker);assert.ok(route.length);let previous=start;
   for(const p of route){assert.ok(clearSegment(previous,p,world,.36));previous=p;}
-  const hit=traceShot(marker,{x:c.x,z:c.z-2},world,[]);assert.ok(Math.abs(hit.to.z-(c.z+.7))<1e-8);
+  const hit=traceShot(marker,{x:c.x,z:c.z},{...world,obstacles:[footprint]},[]);assert.equal(hit.blocked,true);
   assert.ok(!SHANGHAI_PHASE01.loot.some(p=>Math.hypot(p.x-c.x,p.z-c.z)<2));
  }
  const robots=new Navigation(world,COMBAT.robot.radius,COMBAT.grid);

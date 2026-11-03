@@ -1,0 +1,105 @@
+{
+  "fonte": "/Users/rochatales/Game Development/Horda Survivor/Personagens/3D",
+  "arquivos": [
+    {
+      "file": "Idle.fbx",
+      "bytes": 7364528,
+      "sha256": "87d7fdbce58a9ccbf3617a7fc25fe1c22974a6e648ba5321dfadb099eb1e1b12"
+    },
+    {
+      "file": "Running.fbx",
+      "bytes": 7060080,
+      "sha256": "d2d29644935bac850c424cbb325a350cb1b9130d1b2f6ac640cfd1c572d5ccd6"
+    },
+    {
+      "file": "Standard_Run.fbx",
+      "bytes": 7069392,
+      "sha256": "1d0ddd20921bea8850417e229ebf8771767f5160085770102266d97198d12299"
+    },
+    {
+      "file": "Sprint Backward.fbx",
+      "bytes": 7109104,
+      "sha256": "4be782fb85c0273468cc85cac7dd553e4fd1c170ec2ff187f86210af55928bae"
+    },
+    {
+      "file": "Jumping Down.fbx",
+      "bytes": 7207568,
+      "sha256": "bcfe457ae877e534db83fe93f342698bf2ac0a6ec0027aae5dea0dae2b29d73f"
+    },
+    {
+      "file": "Jumping_Down.fbx",
+      "bytes": 7218720,
+      "sha256": "35669fa9a5948a3dac03d228e2e1f43d0f9a3950c3ec03eefbb8ada27f3f9f00"
+    },
+    {
+      "file": "Death From The Front.fbx",
+      "bytes": 7290976,
+      "sha256": "2cbb6d95525f7e120852ae374034191b09ec23775a6cec9f89902944d54a558b"
+    },
+    {
+      "file": "Dying.fbx",
+      "bytes": 7456000,
+      "sha256": "308deb04c06b314d8ffba37c622c05852bcd700fe7e8e540a6f7a7e93612187a"
+    },
+    {
+      "file": "Firing_Rifle.fbx",
+      "bytes": 7109472,
+      "sha256": "a76bef87dbad73d652dc864f036604ebd0b36dc5c9ad5fb935b7bb857d9d8f50"
+    },
+    {
+      "file": "Reloading.fbx",
+      "bytes": 7322032,
+      "sha256": "31fd5e586ccdd5315a0a4627ae5fb86095c44d658604ec87aa847e2f40f07265"
+    },
+    {
+      "file": "Rifle_Start_Run.fbx",
+      "bytes": 7156448,
+      "sha256": "cbe7a38855243e715f19ee3597dbd559f65e819bb31272546c06efb5fc8372cb"
+    },
+    {
+      "file": "Running Dive Roll.fbx",
+      "bytes": 7167488,
+      "sha256": "51cd2b46f290ea807d6cd78b33948ba1d572024fdc67aa2bf93bf61e590afa46"
+    },
+    {
+      "file": "Rifle Jump.fbx",
+      "bytes": 7224992,
+      "sha256": "4c35abafd4e5d7b1756a6a09d541c64fe87d975769813f4af1c6c2533e1b4d0b"
+    },
+    {
+      "file": "dash_Jump_Over.fbx",
+      "bytes": 7128192,
+      "sha256": "3498697c73bb2a84c71b252b8c8bd4409aefc418f8c126c13fc8d95d0957ff67"
+    },
+    {
+      "file": "Rifle_Run_00.fbx",
+      "bytes": 7047008,
+      "sha256": "bc694cd51d02f99a89a608a6fab58ae5f889b8c1acb722c9c198adf7bc06a81b"
+    },
+    {
+      "file": "Backwards_Rifle_Run.fbx",
+      "bytes": 7042032,
+      "sha256": "25f2a898d8c85cec24225791246ffa96b53013c6578550ce48b548e7ff1dabbb"
+    },
+    {
+      "file": "Run_Backward.fbx",
+      "bytes": 7106544,
+      "sha256": "4d7b0306c86d0e0dc6c997b782c0df7452a2f733be68d401eecfa15b11573455"
+    },
+    {
+      "file": "Rifle _Run_final.fbx",
+      "bytes": 7067808,
+      "sha256": "5f6df8295cfaf21dcc8efea9ae14c0dc99bd081c2d326b5a1796d01d6391e234"
+    },
+    {
+      "file": "Breathing_Idle.fbx",
+      "bytes": 7740272,
+      "sha256": "e1524389927ce58fd1573b0baf009a88f024b50403ec9b27eaeead4ce40994c9"
+    },
+    {
+      "file": "Walking_Backwards.fbx",
+      "bytes": 7117856,
+      "sha256": "2226ee0435954dc04f4ce1f75453be6ad8e19c3818776c2112b20839bcfed51b"
+    }
+  ]
+}

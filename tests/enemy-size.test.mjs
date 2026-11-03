@@ -21,9 +21,9 @@ test('S2.12 B3: distância mista simétrica e movimento preservam a soma dos rai
     }
 });
 
-test('S2.12 B3: 32 spawns, candidatos por raio, nove vielas e acessos às duas caixas',()=>{
+test('S2.12 B3: 32 spawns, candidatos por raio, nove vielas e acessos às sete cabines',()=>{
     const report=navigationSizeReport();assert.equal(report.alleys.length,9);
-    for(const [kind,count] of [['patrol',272],['largePatrol',271],['smallMutant',272]]){
+    for(const [kind,count] of [['patrol',272],['largePatrol',266],['smallMutant',272]]){
         const r=report.types[kind];assert.equal(r.spawnsValid,32);assert.equal(r.candidates,count);assert.equal(r.candidatesValid,count);
         assert.ok(r.maxContactDistance<=robotConfig({kind}).contactRange);assert.ok(r.invalidCandidateRejected);
         assert.ok(r.alleys.every(a=>a.free&&a.diameterClearance>0));assert.ok(r.crates.every(c=>c.valid&&c.smoothedValid));

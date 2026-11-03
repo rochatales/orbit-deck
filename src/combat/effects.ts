@@ -10,19 +10,19 @@ export function impactKind(kind?: string): ImpactKind {
 /** Estado visual pré-alocado; piso consultado na mesma grade O(1) do mundo. */
 export class CombatEffects {
     readonly particles = Array.from({ length: COMBAT_VFX.capacity }, () => ({ x:0, y:0, z:0, vx:0, vy:0, vz:0, life:0, duration:0, kind:'dust' as ImpactKind, white:false, originX:0,originZ:0,range:0,bounces:0,maxBounces:0 }));
-    readonly muzzle = { x:0, y:RIFLE_POSE.height, z:0, life:0, serial:0 };
-    readonly contacts = Array.from({length: 4}, () => ({x:0,y:RIFLE_POSE.height,z:0,life:0,kind:'dust' as ImpactKind}));
+    readonly muzzle = { x:0, y:RIFLE_POSE.height as number, z:0, life:0, serial:0 };
+    readonly contacts = Array.from({length: 4}, () => ({x:0,y:RIFLE_POSE.height as number,z:0,life:0,kind:'dust' as ImpactKind}));
     private contactCursor = 0;
     private cursor = 0;
     constructor(private readonly surfaceHeight?: (x:number,z:number)=>number,private readonly random=Math.random) {}
-    fire(x: number, z: number) { const m=this.muzzle; m.x=x; m.z=z; m.life=COMBAT_VFX.flash; m.serial++; }
-    impact(x: number, z: number, kind: ImpactKind, towardX=0, towardZ=-1) {
-        const contact=this.contacts[this.contactCursor++ % this.contacts.length];contact.x=x;contact.z=z;contact.life=COMBAT_VFX.contactFlash;contact.kind=kind;
+    fire(x: number, z: number, height: number = RIFLE_POSE.height) { const m=this.muzzle; m.x=x; m.y=height; m.z=z; m.life=COMBAT_VFX.flash; m.serial++; }
+    impact(x: number, z: number, kind: ImpactKind, towardX=0, towardZ=-1, height: number = RIFLE_POSE.height) {
+        const contact=this.contacts[this.contactCursor++ % this.contacts.length];contact.x=x;contact.y=height;contact.z=z;contact.life=COMBAT_VFX.contactFlash;contact.kind=kind;
         const d=Math.hypot(towardX,towardZ),nx=d>1e-8?towardX/d:0,nz=d>1e-8?towardZ/d:-1;
         const count=kind==='dust'?COMBAT_VFX.dustCount:COMBAT_VFX.impactCount;
         for(let i=0;i<count;i++) {
             const p=this.particles[this.cursor++ % this.particles.length];
-            p.x=p.originX=x;p.y=RIFLE_POSE.height;p.z=p.originZ=z;p.kind=kind;p.white=kind==='metal'&&i%3===0;p.bounces=0;
+            p.x=p.originX=x;p.y=height;p.z=p.originZ=z;p.kind=kind;p.white=kind==='metal'&&i%3===0;p.bounces=0;
             if(kind==='dust'){
                 const angle=i*2.399963+this.cursor*.37;p.vx=Math.cos(angle)*.9;p.vz=Math.sin(angle)*.9;p.vy=.6+(i%4)*.35;p.life=p.duration=.18+(i%4)*.04;p.maxBounces=0;p.range=0;
             }else{

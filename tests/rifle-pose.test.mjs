@@ -16,9 +16,9 @@ function fire({ terrain = ground, player = { x: 0, z: 0 }, aim = { x: .34, z: 10
     return sim;
 }
 
-test('S2.12 B1: muzzle corresponde à ponta da arma girada, a 0,85 m; retícula a 0,86 m', () => {
-    close(P.height, .85); close(P.height + P.reticleLift, .86);
-    close(P.height - PLAYER_COLLIDER_CENTER_Y, .225);
+test('S2.12 B1: muzzle corresponde à ponta da arma girada, a 1,09 m; retícula a 1,10 m', () => {
+    close(P.height, 1.09); close(P.height + P.reticleLift, 1.10);
+    close(P.height - PLAYER_COLLIDER_CENTER_Y, .465);
     const forward = P.gripForward + P.barrelForward + P.barrelLength / 2;
     close(forward, .95);
     const out = { x: 0, z: 0 };

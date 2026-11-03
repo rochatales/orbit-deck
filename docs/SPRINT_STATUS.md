@@ -1,5 +1,7 @@
 # Quadro de execução — EXODEN
 
+> **Versão aprovada pelo autor em 03/11/2026:** código `61f2ec7`, com todos os ajustes deste bate-bola desde a publicação `5bc240f`. Merge e push autorizados pelo pedido de consolidação; execução nesta worktree isolada, sem tocar no checkout principal. Este aceite abrange a composição jogada; não encerra os escopos futuros dos sprints. Os registros de entrega/pendências abaixo são históricos e cedem ao aceite atual. [Consolidação atual](./handoffs/consolidacao-validada-2026-11-03.md).
+
 > Quem está fazendo o quê, em qual base e branch. O status oficial de cada
 > item (checkbox) continua em
 > [HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md](./HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md).
@@ -19,33 +21,125 @@
 | 0 · Preservação e baseline | ✅ Encerrado em 25/10/2026 | — (S0.4 aprovada pelo autor; medições no equipamento do autor seguem na S2.9) |
 | 1 · Base local e viagem Marte–Shanghai | ✅ Implementado (S1.1–S1.10) | — |
 | 2 · Movimento, tiro e sobrevivência | ◐ Núcleo e S2.12 concluídos/aprovados | A1–A13 (25/10), B em três etapas e apoio no piso (26/10). S2.11 concluída: comparada em 144 Hz pelo autor, não adotada (`?interp=1` só comparação); S2.9 e aceite geral da etapa 6.5 permanecem |
-| 3 · Ondas, categorias e dispositivos | 🔲 Escopo oficial pendente | Hordas 10→20→30→40 antecipadas pela S2.4; não concluem S3.1/S3.4/S3.8. Defesas e categorias ainda pendentes |
-| 4 · Loot, orientação e retorno | 🔲 Não iniciado | — |
+| 3 · Ondas, categorias e dispositivos | ◐ Entregas antecipadas aprovadas | Versão atual: hordas 13/26/32/44 (115), quatro tipos de inimigo, investida, recursos, áudio, efeitos e vida/acerto individuais. Demais dispositivos/critério completo S3 seguem pendentes |
+| 4 · Loot, orientação e retorno | ◐ Parte antecipada aprovada | Inventário temporário, peso, quatro espaços, kits interativos e seleção de arma presentes; dispositivos, objetivos obrigatórios, extração e persistência continuam pendentes |
 | 5 · Construção da máquina | 🔲 Não iniciado | — |
-| 6 · Estética dos elementos | ◐ Partes antecipadas integradas, sem aceite | Colônia B3, Patrol Unit, Shanghai fase 01 e caixas; não encerram os itens completos. S6.5 estacionada; fontes S6.8 fora do Git da integração. S6.6/S6.14–S6.19 planejadas; demais entregas dependem do ciclo funcional/playtest do Sprint 5 |
+| 6 · Estética dos elementos | ◐ Versão atual aprovada pelo autor em 03/11 | Inclui os três prédios novos, pavimento/corredores contínuos, letreiros, Sandwind avermelhado com vento, HUD beta, facão e acessórios por mapa. Dash também na colônia, arma principal no inventário e facão girando com o corpo no Dash. Itens completos/fases futuras seguem pendentes |
 | 7 · Texturas, materiais e entrega | 🔲 Não iniciado | Acabamento de UI planejado em S7.11 |
 
-Testes automatizados: **104/104** (`npm test`) na consolidação da Fase 1 (`7e91c1a`) e na reexecução da Fase 2; build e diff-check verdes. Não é medição de GPU nem aceite de jogabilidade. [Fase 1](./handoffs/integracao-2026-10-19/README.md) · [Fases 2–3](./handoffs/integracao-2026-10-19-s0-s2.md).
+Versão aprovada atual: **`61f2ec7`**, **481/481** testes, build e diff-check verdes. A consolidação repete os checks na worktree isolada e preserva integralmente essa árvore fora de `docs/`. [Registro atual](./handoffs/consolidacao-validada-2026-11-03.md); [consolidação anterior](./handoffs/consolidacao-validada-2026-11-02.md).
 
 Legenda: 🔲 não iniciado · ◐ em andamento/parcial · ✅ implementado ·
 ⛔ bloqueado · ⏸ estacionado. "Implementado" não significa aprovado pelo autor.
+
+## Tarefa após a consolidação · 02/11/2026
+
+- **S3.10 parcial — ambiência de Shanghai:** pedido do autor; Codex implementa em `rochatales/s3.10-ambiencia-shanghai`, worktree própria, base fixa `5bc240fd09d3e4e6af10534f8e6ed2a1dae5ebf4`. Arquivos: áudio fornecido, motor/runtime de áudio, testes e `docs/handoffs/s3.10-ambiencia-shanghai.md`. Shanghai entregue em `1ed98fb`; continuação solicitada pelo autor: Marte com vento externo, ambiência interna nas dez salas e efeito mecânico no início da abertura das portas. Crossfade e volume/mudo/pausa existentes; mesma branch/worktree da tarefa de áudio. Handoffs `s3.10-ambiencia-shanghai.md` e `s3.10-ambiencia-marte.md`. Aceite auditivo do autor pendente; sem push ou merge até nova consolidação.
 
 ## Base consolidada
 
 | Campo | Valor |
 |---|---|
-| Branch de integração | `rochatales/horda-survivor` |
-| Branch de origem da consolidação | `rochatales/integracao-2026-10-19-s0-s2` |
-| Base de comparação da revisão (B1) | `1637449be4880ac2c7021b5ebe931c6b55e36a43` |
-| Commit consolidado de código e fontes (Fase 2) | `989b81ff2489e169e82bb2d3a817990020800063` |
-| Ponta após o avanço | O `--ff-only` da Fase 4.2 faz a ponta de `rochatales/horda-survivor` corresponder à ponta desta consolidação, incluindo os commits documentais posteriores à Fase 2 |
-| Revisão técnica | Fase 4.1 revisada pelo Claude, conforme relato do autor: código sem defeitos; 104/104 testes, build e diff-check verdes. Aceite de jogabilidade permanece na etapa 6.5 |
-| Regra de avanço | Na Fase 4.2, o autor executa `git merge --ff-only rochatales/integracao-2026-10-19-s0-s2` no checkout principal; Fases 5 e 6 seguem o plano |
-| Commit-base histórico do piloto | `a40dac41e4637156140e304454f6b4f3afdc2ba0` |
-| Base de execução S0.4 / revisão S2.12 A | `796ae3a6776a623fb2c839310f04eb58925efc93`, ponta avançada pelo autor; fixada antes de criar branches de correção |
-| Base do fechamento S0.4 / S2.9 / S2.11 / S2.12 | `720527d4b06d8325ec97b90214b75fc314fbef65`, confirmada com `git rev-parse rochatales/horda-survivor` em 24/10/2026. Branch `rochatales/fechamento-s0-s2`; worktree `/Users/rochatales/.codex/worktrees/fechamento-s0-s2/game-workplace`. Todo registro desta tarefa ocorre nela; avanço da integração pelo autor com `--ff-only`. |
-| Runtime do fechamento após ARES-I | Merge `fcdb34e23b0127fd749bce1939c46eeae57b9a41`: pais `aa8765062fd84429ba8e0c34f60621580f50a4d8` e `a12294fa73e0f710807c612cf535adeeef14d9a8`. Integração principal permanece em `720527d`. Decisão do autor após `c92ed79`: contato ≤1,20 m; reensaio a 0,42/0,80 m passou. Sessão usa build desta branch de fechamento. |
-| Referência para nova tarefa | Após o avanço da Fase 4.2, resolver `git rev-parse rochatales/horda-survivor` e registrar esse SHA imutável antes de criar a branch/worktree da tarefa |
+| Branch de integração remota | `origin/rochatales/horda-survivor` |
+| Branch local desta consolidação | `rochatales/consolidacao-validada-2026-11-02` |
+| Base remota anterior desta rodada | `5bc240fd09d3e4e6af10534f8e6ed2a1dae5ebf4` |
+| Checkout principal preservado | `b54162c359ad539db34e25f6bc61c6184a87e58a` |
+| Código validado pelo autor | `61f2ec7f60fa9c713dd95e11d3300082294e151f` |
+| Merge da versão aprovada | `dadd884cf6d38cb81b9e6b8587007cfc899efde4`; registros posteriores só de docs |
+| Worktree da consolidação | `/Users/rochatales/.codex/worktrees/consolidacao-validada-2026-11-02/game-workplace` |
+| Referência para nova tarefa após a publicação | `git fetch origin` e `git rev-parse origin/rochatales/horda-survivor`; fixar o SHA resultante |
+
+O checkout principal permanece em `b54162c`, com alterações locais e artes sem
+rastreio do autor preservadas. A ref local `rochatales/horda-survivor` **não é a
+base atual para novas tarefas** enquanto esse checkout não for reconciliado.
+A consolidação conserva ambos os históricos, sem rebase/cherry-pick e sem editar
+código em relação ao preview aprovado. [Escopo e publicação atuais](./handoffs/consolidacao-validada-2026-11-03.md).
+
+## Poeira de passos · S3.11 parcial · 02/11/2026
+
+Pedido do autor: poeira avermelhada em Marte e cinza em Shanghai nos passos do explorador. Codex implementa em `rochatales/s3.11-poeira-passos`, worktree própria. Base de continuidade da prévia local: **`a8ae4e8de4e71d6119278473248d71f35c9f4762`**, linha commitada com áudio e portas sincronizadas; a base remota publicada permanece `5bc240f`. Preservar o áudio ao testar o efeito na mesma prévia. Arquivos: novo pool/renderer de poeira, sinal de passos do jogador, composição de cena, testes e handoff. Aceite visual do autor pendente. Sem push ou merge nesta rodada; data center ainda aguarda GLB acessível no Mac.
+
+## Música e gatilho vazio · S3.10 parcial · 02/11/2026
+
+Pedido do autor: Strung Out em Marte, Dov em Shanghai, mecanismo ao tentar atirar sem munição e volume menor só do Patrol comum recebendo tiro (confirmado pelo autor). Codex em `rochatales/s3.10-musicas-gatilho-vazio`, worktree própria. Base de continuidade da prévia local: `68f2714` (poeira corrigida e linha anterior de áudio); integração publicada permanece `5bc240f`. Arquivos: áudio/runtime/simulação, fontes copiadas sem alterar originais, testes e handoff. Sem push ou merge; validação auditiva do autor pendente.
+
+## Balões de interação · S1.3 / S6.13 · 02/11/2026
+
+Pedido do autor: padronizar as interações E pela Sintetizadora, com balão flutuante de proximidade para nave, EDEN, caixas e NPCs futuros. Codex em `rochatales/s1.3-baloes-interacao`, worktree própria, base de continuidade da prévia local `dec9d11` (músicas, arma vazia e poeira incluídas). Base remota continua `5bc240f`. Arquivos: componente/roteamento compartilhados, composição, laboratório/App e testes/handoff. Sem novos NPCs nem alteração de recompensas; sem push/merge, aceite visual do autor pendente.
+
+## Luz do explorador por mapa · S6.8 · 02/11/2026
+
+**Entregue localmente em `eb3fdcc`**: 429/429, build e diff-check verdes; preview de produção na porta 4186. Handoff: `docs/handoffs/s6.8-luz-visor-colonia.md`. Validação visual pendente do autor; sem sessão de jogo pelo agente.
+
+Pedido do autor: em Marte, faixa azul abaixo do capacete e foco frontal suave; mochila totalmente sem emissão/luz. Shanghai conserva exatamente o estado atual. Codex em `rochatales/s6.8-luz-visor-colonia`, worktree própria, base da prévia local `715b70e` (balões, áudio e poeira). Código do acessório/visor, configuração de iluminação, testes e handoff; GLBs/fontes e física intactos. Base remota segue `5bc240f`. Sem push ou merge; aceite visual pendente.
+
+## HUD beta · S6.6 / parte de S4.1 · 02/11/2026
+
+**Entregue localmente em `6884730`**, branch `rochatales/s6.6-hud-beta`, worktree
+`s1-3-hud-beta`, base local `eb3fdcc`. Vida vermelha, energia azul, quatro slots de
+equipamento, mochila por B/clique com peso real, ícones ilustrados e retirada dos
+painéis marcados; rádio e comparação/teste no menu. Decisão explícita do autor:
+30 kg (ferro 0,5; cobre 0,3; titânio 0,4; orgânica 0,2 kg/un.); **duas cargas de
+Dash**, regeneração total em **5 s**, exclusiva de Shanghai. Recursos excedentes
+ficam no chão. Código frequente mutável, HUD com publicação limitada a 10 Hz.
+434/434, build e diff-check verdes; preview 4186. Handoff:
+`docs/handoffs/s6.6-hud-beta.md`, com prompt/hash da arte e roteiro. Aceite visual
+pendente do autor; sem QA de jogo pelo agente. Não encerra os escopos completos de
+S4.1/S6.6/S6.14–S6.18. Remoto segue `5bc240f`; sem push ou merge.
+
+## Mira próxima ao jogador · S2.12 · 02/11/2026
+
+**Entregue localmente em `a2be57f`**: cursor livre sobre/atrás do corpo, zona de orientação reduzida a 3,5 cm, sem reter o ponto antigo no centro. Consulta de alvo/tiro mantém proteção centro→cano. 438/438, build e diff-check verdes; preview 4186. Handoff `docs/handoffs/s2.12-mira-proxima.md`. Sem QA de jogo pelo agente, aceite visual pendente do autor.
+
+Codex em `rochatales/s2.12-mira-proxima`, worktree própria, base local `6884730`
+(HUD beta). Pedido do autor: cursor cruza livremente o personagem e permite mirar
+em alvos próximos/virar atirando. Inspeção: retícula era deslocada para a frente do
+cano na zona próxima; orientação tinha zona morta de 0,9 m e projeção retinha o
+ponto anterior abaixo de 0,1 m. Escopo: cursor/projeção/orientação e regressões,
+sem alterar cápsula, rifle/colisores, física ou conteúdo da UI. Sem push ou merge;
+preview 4186, aceite visual pelo autor.
+
+## Facão e animações de duas mãos · S6.2 / S6.8 · 02/11/2026
+
+**Entregue localmente em `ad95ff4`**, branch `rochatales/s6.2-facao`, worktree
+`s6-2-facao`, base `a2be57f`. Decisão do autor: **só golpes, bloqueio adiado**.
+Troca 1/2 ou slots: rifle/facão; corte no botão esquerdo, 50 de dano, arco 120°,
+alcance 2 m até a superfície, ciclo 0,65 s (valores iniciais ajustáveis). Sem gasto
+de munição/energia. Golpe respeita sólidos, usa morte/drop compartilhados e pode
+atingir vários alvos. Idle/Run/Backward/Slash complementares, bind de 57 ossos,
+root in-place, pega dupla e IK esquerda; avatar aprovado intacto. Sete fontes
+originais conferidas por SHA-256, script reproduzível e ícone do próprio asset.
+446/446, build e diff-check verdes; preview 4186. Handoff `docs/handoffs/s6.2-facao.md`,
+com ensaio/limites de pega e roteiro. Sem QA de jogo pelo agente, aceite visual
+pendente do autor. Não encerra escopos completos dos sprints. Sem push/merge.
+
+## Shanghai: carros, cabines e kits de vida · S6.12 / S6.13 · 02/11/2026
+
+**Entregue localmente em `c731ce7`, ponta `13a91a0`** (correção de formatação),
+branch `rochatales/s6.13-shanghai-props`, worktree própria `s6-13-shanghai-props`,
+base `ad95ff4`. Nove carros destruídos, sete cabines nas marcações e medkit 3D
+substituindo coração (+50 HP). Cabines por E/+48, uma vez por tentativa; sete
+concedem até +336 na reserva. Três GLBs fonte/runtime íntegros por SHA-256.
+GLB/layout originais intactos: só 432 triângulos dos carros antigos retirados em
+runtime, com colisores equivalentes trocados; 52 volumes no terreno novo.
+32/32 spawns por tipo, candidatos comum/pequeno 272 e grandes/aranha 266, todos
+válidos pelo critério de contato; nove vielas e sete acessos humanos livres.
+452/452, build e diff-check do intervalo verdes; preview 4186. Handoff
+`docs/handoffs/s6.13-shanghai-props.md`, com planta, números e justificativa dos
+testes atualizados (inclui contato dos grandes medido durante a janela após
+limpar a primeira linha, preservando 90 s e zero invasão de sólidos).
+Aceite visual/jogabilidade pendente do autor; sem QA de jogo pelo agente.
+Sem push ou merge; os itens completos dos sprints não foram marcados.
+
+## Kits médicos guardados e luz dos suprimentos · S6.13 / S4.1 · 02/11/2026
+
+**Entregue localmente em `80d6e02`**: quatro kits no solo, sem anel/bob, E guarda no terceiro espaço e 3/clique usa +50 HP (sem gasto com vida cheia). Não reaparecem entre as quatro hordas; nova tentativa restaura os quatro e zera itens. Balizas/emissão permanentes em kits/cabines, com pool de até três focos próximos sem sombras. 458/458, build e diff-check verdes; preview 4186. Handoff `docs/handoffs/s6.13-kits-interativos.md`. Aceite visual pendente do autor; sem QA de jogo pelo agente, push ou merge.
+
+Pedido do autor: quatro kits no solo, sem anel/flutuação, coletados por E para os
+itens e usados depois para curar; não renascem entre as quatro hordas. Kits e
+cabines com luz própria identificável no escuro. Codex em
+`rochatales/s6.13-kits-interativos`, worktree própria, base local `13a91a0`.
+Sem push/merge; preview 4186 e aceite visual pelo autor.
 
 ## Tarefas
 
@@ -54,6 +148,11 @@ qual a worktree parte e contra o qual a revisão compara.
 
 | Tarefa | Base | Branch | Arquivos principais | Implementa | Revisa | Estado |
 |---|---|---|---|---|---|---|
+| Consolidação das entregas aprovadas · S6.8/S6.2, colônia e feedback de combate | `b54162c` + `f8655f1` | `rochatales/consolidacao-validada-2026-11-02` → `origin/rochatales/horda-survivor` | Linha integral aprovada, handoffs e quadro; código preservado | Codex | Autor: aceite da versão `f8655f1` | ✅ Aprovada pelo autor em 02/11/2026; merge/publicação pedidos. Preserva checkout principal e worktrees. Escopos completos de sprints e S2.9 não encerrados automaticamente. [Handoff](./handoffs/consolidacao-validada-2026-11-02.md) |
+| S6.12 Control Room — candidato EDEN | `f1756c4` (colônia com Quartel v006 consolidada em commit; sem merge) | `rochatales/s6.12-control-room` | `art-source/control-room/**`, testes do asset e `docs/handoffs/s6.12-control-room.md` | Codex | Claude / Autor | ✅ Composição runtime final com projeção do pedestal aprovada em `f8655f1` (02/11); asset/implantação/acabamento na linha consolidada. O candidato histórico `a57d7ea` foi corrigido em `cf8916a` e integrado por `9ed6817`; não encerra o plano completo da EDEN. |
+| S6.12 Hangar — asset modular animado | `4f821fe` (Greenhouse consolidada, sem merge) | `rochatales/s6.12-hangar-mars` | `art-source/hangar/**`, testes do asset e `docs/handoffs/s6.12-hangar-mars.md` | Codex | Claude / Autor | ✅ Hangar v002 implantado, portas/contorno e acabamento aprovados na composição `f8655f1` (02/11). Estudo original preservado; runtime da linha consolidada, sem substituir Refeitório. |
+| S6.12 Greenhouse — módulos OFFLINE/ONLINE | `a865046` (masterplan v007 aberto, prévia sem merge) | `rochatales/s6.12-greenhouse-estados` | `art-source/greenhouse-v001/`, `src/assets/greenhouse/`, `src/scene/marsColony/Greenhouse*`, composição Marte, colisores/áreas da estufa, testes e handoff | Codex | Claude / Autor | ✅ Estados OFFLINE/ONLINE e implantação aprovados pelo autor, preservados na versão `f8655f1` e nesta consolidação. Progressão/construção futura permanece fora desta entrega. |
+| S6.12 Masterplan v007 — layout da colônia | `a12294fa73e0f710807c612cf535adeeef14d9a8` (prévia ARES-I aprovada; sem merge) | `rochatales/s6.12-mars-masterplan-v007` | `src/world/mapConfig.ts`, `src/game/marsWorld.ts`, configuração EDEN, novos dados/GLB/manifesto v007 e leitor em `src/scene/marsColony/`, fonte Blender em `art-source/mars-masterplan-v007/`, testes e handoff | Codex | Claude / Autor | ✅ Colônia aberta v007 com deck completo e prédios finais aprovada pelo autor e presente em `f8655f1`; fontes e versões históricas preservadas. Não encerra S6.12 inteira. |
 | S0.4 · Ajuste do autor nos consoles e rack do deck de Marte | `0c56448055a65cef3813171f48035ae02259eb69` | `rochatales/fechamento-s0-s2` | `src/scene/marsColony/layout.ts`, `src/game/marsLanding.ts`, testes, kit e evidências no handoff | Codex | Autor / Claude | ◐ Implementado: Oeste (−3; 25,9), tela para −Z e um colisor; Leste (6,85; 31,8), sem colisor. Folgas dos consoles 0,658 m / 0,408 m. Rack (−6,75; 31,6), fileira X, folga 0,07 m, ligado à ponta original do tubo fundido; tanques grandes imóveis e sem colisor novo. Passarela e embarque preservados. 113/113 testes, build/diff-check verdes; duas vistas antes/depois e QA no navegador. Complemento no mesmo commit, substituindo o SHA local 350b584. Aceite do autor pendente. [Handoff](./handoffs/fechamento-s0-s2/consoles-marte/README.md) |
 | S0.4 / S2.9 / S2.11 / S2.12 · Fechamento das Sprints 0 e 2 | `720527d4b06d8325ec97b90214b75fc314fbef65` | `rochatales/fechamento-s0-s2` | `docs/sprint-2/SESSAO_FECHAMENTO_S0_S2.md`, `docs/handoffs/fechamento-s0-s2.md` e este quadro; relatórios, handoffs S2.9/S2.12 e plano somente após resultados do autor | Codex | Claude / Autor | ◐ **Parada 1: kit ARES-I pronto**, build/preview nesta worktree, porta 4173. Autor resolveu o critério após `c92ed79`: término livre com segmentos válidos a ≤1,20 m da saída. Reensaio a 0,42/0,80 m: 32/32 spawns, 272/272 candidatos, 9/9 vielas e 2/2 caixas humanas. ARES-I permanece em `fcdb34e`; 109/109 testes, build e diff-check verdes. Resultados e medições do autor pendentes; nenhum aceite ou checkbox alterado. S2.12 B em branch própria a partir da ponta do fechamento, somente após A1–A13 e liberação; três etapas com paradas. S2.11 posterior, comparativa e sem adoção automática. Checkout principal preservado; sem push, merge ou remoção de worktrees. [Handoff](./handoffs/fechamento-s0-s2.md) |
 | S6.8 Astro Explorer — modelagem e cinco ações | `10e5ca741c1cf47204e6065198ee837c8c7dc3e4` | `rochatales/s6.8-astro-explorer-model-rig` | Novo `art-source/astro-explorer-rig/` (scripts, Blender, GLB candidato, evidências, validação) e `docs/handoffs/s6.8-astro-explorer-model-rig.md`; fontes soltas e runtime preservados | Codex | Claude / Autor | ◐ Em execução: modelagem a partir do estudo `414daae`; rig e ações Idle, Run, Backward, Reload e Aim. Orçamento total inferior a 10 mil triângulos. Sem integração ou merge. |
@@ -98,6 +197,9 @@ Fase 6. A revisão/validação da parte A vem antes de ambas.
 
 ## Log
 
+- 02/11/2026 · autor/codex · Autor aprovou a composição final `f8655f1` e pediu consolidar todos os ajustes validados, com merge e push conforme combinado. Integração isolada sobre `b54162c`; conflito apenas documental no quadro, preservando os registros dos dois lados. Sem alteração de runtime ou adoção automática de interpolação. O preview validado usa `?interp=1`; a opção continua disponível, padrão preservado. Checkout principal com alterações locais preservado.
+
+- 24/10/2026 · autor/codex · Masterplan v007 autorizado pelo anexo técnico. Base consolidada específica `a12294f`, pois a prévia ARES-I aprovada ainda não foi integrada. A tarefa anterior Astro Explorer permanece preservada em sua worktree, sem alterações nesta rodada. Alterações do autor no checkout principal ficam fora do registro. Sem merge.
 - 25/10/2026 · codex · Animal pequeno e matéria orgânica entregues em um commit após `f786255`: assets exatos com SHA-256 completo no handoff, escala1, hordas 13/26/30/40 (109), navegação própria e distribuição por setores, cerco, dois tiros, dano global e munição por tipo. Pool de seis rigs; orgânica com anel verde apoiado e contador temporário. Envelope vivo do animal até 1,180196 m: proposta 0–1,20 para etapa 2; grande medido até 3,254069, proposta 0–3,28; comum preservado. 176/176 testes, build/diff-check verdes, QA e capturas. Autor valida o novo conteúdo e Claude revisa antes da etapa 2. Sem push, merge ou edição do principal/art-source.
 
 - 25/10/2026 · autor/codex · **Aprovados no jogo pelo autor:** mapa v007/deck completo `daaff88`, estufa OFFLINE/ONLINE e anel na calçada `e0eef58`. Autor relata revisão Claude de `42ac773`/`e0eef58`/`daaff88` e código v007/estufa sem defeitos, 168/168 testes e build verde. Pedido do animal mutante pequeno autorizado nesta worktree, base `daaff889cc25d2fee57a5a52ac4ac68b8c6c81da`, com registro documental separado e depois um commit de implementação. Etapa 2 ainda não iniciada; revisão Claude antes do avanço. Sem push/merge na integração.
@@ -178,6 +280,19 @@ Fase 6. A revisão/validação da parte A vem antes de ambas.
 
 - 22/10/2026 · codex · autor solicitou iniciar modelagem e rig do novo Astro Explorer com cinco ações. Base imutável `10e5ca7`, branch/worktree própria; estudo `414daae` como referência. As fontes soltas `art-source/astro-explorer/`, versões Explorador e GLBs ativos permanecem preservados.
 
+- 25/10/2026 · autor/codex · Masterplan v007: revisão de circulação aberta autorizada na mesma branch/worktree; preservar estudo fechado e recuperar tiles da fonte v006. Sem merge.
+
+- 25/10/2026 · autor/codex · Greenhouse autorizada como refinamento S6.12, a partir da prévia aberta consolidada `a865046`; nova branch/worktree, sem merge. Estados são preparação do asset, sem antecipar progressão/sistema de construção.
+
+- 25/10/2026 · codex · Greenhouse S6.12 entregue na branch `rochatales/s6.12-greenhouse-estados`, base `a865046`, ponta `4f821fe`. Entrada oeste autorizada, circulação externa preservada e percurso leste/sul ampliado após revisão Claude. 127/127, build, diff-check, QA de estados/W/S/giros/viagem/pausa e 16 destinos alcançáveis. Handoff `docs/handoffs/s6.12-greenhouse-estados.md` na worktree da tarefa; prévia 4183, anterior 4182 preservada. Sem merge, sem aceite artístico/jogabilidade.
+
+- 25/10/2026 · Codex · Hangar registrado a pedido do autor, base 4f821fe, branch própria; entrega isolada e preservação dos assets existentes.
+
+- 25/10/2026 · Codex · Hangar S6.12 entregue em `rochatales/s6.12-hangar-mars`, ponta `755f32f`, base `4f821fe`. Fonte/GLB e 30 imagens, 8.596 triângulos, rig mecânico e quatro clipes. Claude confirmou seis correções; testes 131/131, build/diff-check e hashes conferidos. Pasta solicitada recebeu cópia completa verificada; sem merge/push ou alteração de runtime.
+
+- 31/10/2026 · Codex · Control Room autorizada pelo anexo e referência; base específica `f1756c4`, preservando implantação mais recente da colônia. Tarefa isolada de modelagem/exportação, sem merge.
+
+- 31/10/2026 · Codex · Control Room S6.12 entregue em `rochatales/s6.12-control-room`, base `f1756c4`, ponta `a57d7ea`. 8.212 triângulos, 26 objetos, dois materiais, teto modular, console/EDEN separados. Piso nivelado, suportes/envelopes corrigidos após revisão Claude. 295/295, build/diff-check e hashes verdes; 19 imagens incluindo comparação real com r7 de 1,48985 m. GLB/fonte/texturas/manifesto copiados para pasta de arte; runtime preservado, sem merge.
 26/10/2026 — **S2.12 concluída**, aceite explícito do autor na branch S2.12 B:
 A1–A13 aprovados em 25/10 (`029f9e7`), velocidades 4,2/1,2 mantidas; B1 `f3a93ff`,
 B2 `aa74335`, B3 `191976c`, apoio `7397c42`. Claude sem defeitos, 208/208/build
@@ -251,3 +366,55 @@ Parada para revisão Claude e aceite visual do autor; sprints futuros não encer
 Repetição `?perf` do build final com item 8: pico **120/256**, p95 **16,7/16,8 ms**,
 zero rAF>33 ms, draw máximo 172 e +1.500 triângulos sobre o baseline (~0,25%).
 JSON `complemento-26-10/perf-final.json`; sem testes/build concorrentes na medição.
+
+02/11/2026 — S6.12 · Data Center, Meeting Room e Cafeteria: pedido do autor; base local de prévia `80d6e02` (kits interativos, linha de trabalho atual), branch `rochatales/s6.12-predios-colonia`, worktree própria. Fontes `orbit_deck_buildings2` somente leitura/cópia; implantação, portas, teto e colisores simples, sem push/merge ou edição do checkout principal. Codex implementa; autor valida no servidor. Esta base local não substitui a integração remota `5bc240f`.
+
+02/11/2026 — S6.12 três prédios entregues localmente em **`783eb44`**, base `80d6e02`, branch/worktree `rochatales/s6.12-predios-colonia`. Data Center (−12,5; 0), Meeting Room (0; 0), duas portas oeste/sul; Cafeteria (11,5; 10,7) substitui Oficina + Refeitório. GLBs/Blends fonte copiados com hashes e preservados; portas/cuboides articulados, teto, pisos, ambiência e Sandwind implantados. 463/463, build e diff-check `80d6e02..783eb44` verdes; cápsula Rapier atravessa as quatro portas em ambos os sentidos. Início (0; 6), antes dentro da mesa nova. Preview 4186 serve este build; índice e três assets conferidos via HTTP. Handoff `docs/handoffs/s6.12-predios-colonia.md` e planta na branch da tarefa. Aceite visual exclusivamente do autor; sem QA de jogo, push ou merge.
+
+03/11/2026 — Ajuste do autor sobre `783eb44`, mesma tarefa/branch `rochatales/s6.12-predios-colonia`: padronizar pisos, portas automáticas e letreiros pela Control Room EDEN; Cafeteria com entrada voltada ao Hangar. Fontes preservadas, sem push/merge; escopo das demais salas consultado ao autor.
+
+03/11/2026 — Padronização dos três prédios entregue em **`d0c1c30`**, sobre `783eb44`, mesma branch/worktree `rochatales/s6.12-predios-colonia`. Autor confirmou escopo restrito aos três novos. Pisos/pads com atlas da Control Room, ladrilhos 1,25 × 1,50 m/junta 30 mm alinhados no mundo; quatro portas deslizantes com kit visual da Control Room, letreiros creme/latão com nome próprio. Cafeteria (11,5; 11,7), giro −90°, entrada oeste (7,15; 11,7) para Hangar. Variantes v002 por script reprodutível, fontes GLB/Blend e demais prédios preservados. 464/464, build e diff-check `783eb44..d0c1c30` verdes; Rapier passa as quatro portas em ambos os sentidos desde fechadas; grade de juntas testada após rotação. Preview 4186/HTTP conferido, handoff atualizado. Aceite visual do autor pendente; sem QA no navegador, push ou merge.
+
+03/11/2026 — Correção do autor sobre `d0c1c30`: bases/pisos particulares dos três prédios não atendem ao padrão e causam recortes nos corredores. Mesma branch/worktree, sem push/merge: remover Floor/Pad no runtime, restaurar pavimento contínuo usando o tile exato dos corredores, limpo apenas no interior. Preservar portas/letreiros e entrada oeste da Cafeteria.
+
+03/11/2026 — Correção do pavimento entregue em **`36036c8`**, base `d0c1c30`, mesma branch `rochatales/s6.12-predios-colonia`: Floor/Pad e juntas filhas removidos da cópia runtime dos três prédios. Pavimento comum plano, sem plataforma, com tile real dos corredores (`ARQ_Lab_Piso_Patio`), mesma fase de juntas; interior limpo sem areia, exterior com cores originais. Recortes agora correspondem exatamente à união reposta, sem pegadas de pad; alturas anteriores de Hangar/Quartel/Lab preservadas. 466/466, build/diff-check verdes; cobertura de células e três percursos sem buracos/sobreposição, cor/fase externa comparada à fonte. Preview 4186/HTTP atualizado; roteiro e planta no handoff. Aceite visual do autor pendente; sem jogo no navegador pelo agente, push ou merge.
+
+03/11/2026 — Autor aprovou a composição do piso de `36036c8` e relatou vibração das juntas dos três interiores ao andar. Mesma tarefa/worktree: investigação encontrou dupla área projetada no pavimento limpo (topo e face inferior do tile achatados em Y=0). Corrigir somente a camada interior coplanar, preservar pavimento contínuo, portas e implantação; teste visual pelo autor.
+
+03/11/2026 — Vibração das juntas internas corrigida em **`29b30aa`**, base `36036c8`, mesma branch/worktree `rochatales/s6.12-predios-colonia`. Autor aprovou composição do pavimento anterior; esta correção visual aguarda teste. Gerador limpo agora descarta faces inferiores da referência antes da projeção: 359,30 → 179,65 m², uma camada por ponto nos três interiores. Teste de regressão de área e interseções dentro da própria malha; exterior com geometria/cores/normais/índices idênticos à versão aprovada. 467/467, build/diff-check verdes; preview 4186/HTTP com asset atualizado; handoff e medições registrados. Sem jogo no navegador pelo agente, push ou merge.
+
+03/11/2026 — Autor aprovou a correção dos interiores `29b30aa` e pediu aplicar o mesmo ajuste aos corredores ao redor dos prédios. Mesma branch/worktree: filtrar fundo do tile também no exterior compartilhado e no pavimento externo v007 montado; manter areia, implantação e caminhos. Sem push/merge, validação visual pelo autor.
+
+03/11/2026 — Entorno corrigido em **`ccae1fa`**, base `29b30aa`, mesma branch/worktree: exterior compartilhado somente com topo/chanfros, área projetada 134,53 → 67,26 m², camada única. Areia preservada a partir de COLOR_0 da fonte em FLOAT_COLOR. Diagnóstico completo corrigiu a hipótese inicial: corredores originais v007 já têm cobertura única e NÃO foram alterados; só entorno novo corrigido. Interiores aprovados idênticos (geometria/normais/cores/índices). 468/468, build/diff-check verdes, preview 4186/HTTP atualizado. Handoff/medições registrados, aceite visual externo pendente do autor. Sem QA de jogo pelo agente, push ou merge.
+
+03/11/2026 — Nova tarefa S6.19c/S6.12 sobre prévia local aprovada `ccae1fa`, branch `rochatales/s6.19-areia-pavimento`, worktree própria: tirar aspecto branco da vinheta e aproximar cor do terreno; nuvens avermelhadas com vento/inércia; completar tiles no entorno da estufa e corredor Cafeteria–Quartel. Codex implementa, autor testa no servidor. Sem push/merge, sem editar checkout principal; base remota não avançada.
+
+03/11/2026 — S6.19c/S6.12 entregue localmente em **`375f6ea`**, base `ccae1fa`, branch/worktree `rochatales/s6.19-areia-pavimento`. Fundo/névoa #613b27 com transição 1,75; 28 nuvens #90543a instanciadas, vento (1,4;0,45) m/s com inércia/rajadas, pausa/redução de movimento e máscara de salas. Sem luzes novas; gates e perfis de descarte preservados. Pavimento ampliado +208,2284 m² no pátio da estufa e entre Quartel/Cafeteria, com tile original e camada única; áreas caminháveis e balizas atualizadas, colisores/apoios existentes preservados. 473/473, build/diff-check verdes; preview 4186 na worktree nova e HTTP do índice/GLB/bundle conferidos. Handoff `docs/handoffs/s6.19c-areia-pavimento.md`. Aceite visual no zoom/movimento pelo autor pendente; sem QA de jogo pelo agente, push ou merge.
+
+03/11/2026 — Complemento sobre `375f6ea`, mesma branch/worktree `rochatales/s6.19-areia-pavimento`: autor pede corredor Cafeteria–Hangar completo e retorno externo da estufa até deck. Confirmadas faixa sem piso junto à lateral do Hangar e interrupção da área caminhável na aproximação diagonal ao deck. Corrigir pavimento/ligação e testar o percurso real, preservando prédios, nave e sólidos; sem push/merge.
+
+03/11/2026 — Corredores corrigidos em **`3fd1811`**, base `375f6ea`, mesma branch/worktree `rochatales/s6.19-areia-pavimento`. Faixa Hangar–Cafeteria X4,79…8,5/Z10,5…21,5 e ligação ao deck X0…8,5/Z25…30; pavimento recortado pelo contorno real da base do deck e acesso ARES para evitar sobreposição. Interrupção anterior reproduzida em X5,71/Z28,6; teste Rapier completo Cafeteria → lateral Hangar → norte/leste/sul estufa → deck/embarque passa ida e volta, com constrainToWalkableAreas e sólidos originais. +19,0366 m² reais de piso; prédios/nave/colisores preservados. 475/475, build/diff-check verdes; preview 4186/HTTP com índice/GLB final. Handoff, planta e medições atualizados; teste visual do autor pendente. Sem QA de jogo pelo agente, push ou merge.
+
+03/11/2026 — Ajuste dos letreiros sobre `3fd1811`, mesma branch/worktree `rochatales/s6.19-areia-pavimento`: autor pede placas dos três prédios acima das portas, presas à fachada, com Meeting Room voltada ao sul para o Hangar. Corrigir derivação dos GLBs e conferir transformações/geometria por teste; fontes intactas, autor valida no servidor, sem QA de jogo pelo agente, push ou merge.
+
+03/11/2026 — Letreiros corrigidos em **`9ed8843`**, base `3fd1811`, mesma branch/worktree `rochatales/s6.19-areia-pavimento`. Placas centralizadas acima das portas, centro 2,66 m/base 2,48 m, face a 0,34 m do plano da folha, com fundo contínuo e suportes ao cabeçalho/casca. Meeting Room na porta sul (+Z), voltada ao Hangar; Data Center leste e Cafeteria oeste. Fixação nas paredes, independente do fade do teto; retirada da sobra alta da antiga marquise do Data Center. Fontes GLB/Blend intactas por hash; implantação, pisos, portas/animações e todos os colisores idênticos à base. 14/14 específicos, 476/476 totais, build e diff-check `3fd1811..9ed8843` verdes; índice e três GLBs do preview 4186 conferidos por HTTP. Handoff dos prédios e ponte no handoff S6.19c atualizados. Aparência aguarda autor no servidor; sem QA de jogo pelo agente, push ou merge.
+
+03/11/2026 — Nova tarefa S6.8/S6.2 · arma principal no inventário e Dash na colônia, pedido do autor. Base local `9ed8843` da linha de prévia atual; branch `rochatales/s6.8-inventario-dash-colonia`, worktree própria. Seleção de rifle/facão no inventário com arma escolhida pendurada em Marte, manutenção da seleção entre mapas e Dash com energia também na colônia. Codex implementa, autor testa no servidor; sem push/merge ou alteração do checkout principal/fontes. A base remota permanece separada.
+
+03/11/2026 — S6.8/S6.2 entregue em **`32a4b63`**, base `9ed8843`, branch/worktree `rochatales/s6.8-inventario-dash-colonia`. Mochila B permite escolher Rifle/Facão com jogo pausado, sem retomar simulação; slots/1–2 funcionam também em Marte. Arma principal selecionada pendurada na cintura em Marte; facão com encaixe no Hips, mesma escala e clipes desarmados preservados. Escolha mantida na ida, retry e retorno da missão. Dash liberado na colônia com os mesmos 7,2 m/s/0,72 s, duas cargas e recarga completa em 5 s; HUD mostra energia real em ambos os mapas. 480/480, build e diff-check `9ed8843..32a4b63` verdes; ensaio Rapier real de Dash no pátio, parede do Hangar e porta fechada da Meeting Room; arma acima do piso em 480 amostras de clipes. Preview 4186 movido para a worktree nova, índice/bundle conferidos via HTTP. Handoff `docs/handoffs/s6.8-inventario-dash-colonia.md`; aceite visual do autor pendente. Sem jogo no navegador pelo agente, push, merge ou edição de fontes/checkout principal.
+
+03/11/2026 — Correção do coldre do facão sobre `32a4b63`, mesma branch/worktree `rochatales/s6.8-inventario-dash-colonia`: autor pede arma na cintura, entre braço e corpo, inclinada para trás, substituindo a diagonal lateral. Ajuste visual de encaixe, fontes/combate intactos; autor testa no servidor, sem push/merge.
+
+03/11/2026 — Coldre do facão corrigido em **`0dcfd09`**, base `32a4b63`, mesma branch/worktree `rochatales/s6.8-inventario-dash-colonia`. Por retorno do autor, sai a diagonal lateral: cabo 12 cm mais baixo/5 cm mais próximo do eixo, em (−0,26;0,76;−0,035) no Idle; lâmina para trás, 7° abaixo da horizontal, face plana junto à lateral, entre braço e cintura. Fixação segue quadril com orientação estabilizada no referencial do corpo, sem alocação por quadro; preservados tamanho, encaixe de combate e Dash físico. Testes verificam direção, âncora, giro, pausa e lâmina acima do piso em 480 amostras dos quatro clipes. 480/480 testes, build/diff-check `32a4b63..0dcfd09` verdes; preview 4186/HTTP atualizado. Handoff atualizado; aparência aguarda autor, sem jogo pelo agente, push/merge ou alteração de fontes/principal.
+
+03/11/2026 — Autor aprovou a posição do coldre em `0dcfd09` e pediu somente inclinar mais a ponta para baixo. Mesma branch/worktree `rochatales/s6.8-inventario-dash-colonia`, base `0dcfd09`: preservar cabo/encaixe aprovado, ajustar ângulo da lâmina e verificar clipes/Dash; aceite visual pelo autor no servidor, sem push/merge.
+
+03/11/2026 — Inclinação fina entregue em **`8c4da1b`**, base `0dcfd09`, mesma branch/worktree `rochatales/s6.8-inventario-dash-colonia`. Autor aprovou posição do cabo; ponta agora 21° abaixo da horizontal (antes 7°), sem mudar âncora da cintura (−0,26;0,76;−0,035), escala ou face lateral. Recolhimento suave ao ângulo anterior só durante Dash, retorno à nova inclinação após acrobacia, pausa congela; zero alocações por quadro. Mantidos testes de âncora, giro, 480 amostras acima do piso e retorno após Dash. 480/480, build e diff-check `0dcfd09..8c4da1b` verdes; preview 4186/HTTP atualizado. Handoff registrado; novo ângulo aguarda autor, sem jogo pelo agente, push/merge ou alteração de fontes/principal.
+
+03/11/2026 — Retorno do autor sobre `8c4da1b`: espada deve herdar rotação do jogador durante Dash, como o rifle. Mesma branch/worktree `rochatales/s6.8-inventario-dash-colonia`; preservar encaixe/ângulo aprovados em repouso, substituir estabilização no Dash por acoplamento ao Hips e testar rotação do clipe. Sem push/merge; teste visual pelo autor no 4186.
+
+03/11/2026 — Rotação do facão no Dash corrigida em **`61f2ec7`**, base `8c4da1b`, mesma branch/worktree `rochatales/s6.8-inventario-dash-colonia`. Arma herda integralmente rotação do Hips na acrobacia, como o rifle, sem estabilização mundial/recolhimento de ângulo durante Dash. Encaixe/escala de cintura e inclinação de 21° no repouso mantidos; retorno suave à estabilização na locomoção e pausa congelada. Novo teste compara rotação mundial relativa real do facão/rifle em 120 pontos do clipe; transform local fixo. Critério de altura mundial só nos três ciclos de locomoção (360 amostras); Dash passa a validar fidelidade ao clipe conforme pedido explícito, com justificativa no handoff. 481/481, build e diff-check `8c4da1b..61f2ec7` verdes, preview 4186/HTTP atualizado. Aceite visual pelo autor; sem jogo pelo agente, push/merge ou alteração de fontes/principal.
+
+03/11/2026 — Autor aprovou todos os ajustes deste bate-bola até **`61f2ec7`** e solicitou consolidação com merge/push, conforme autorização persistente do chat. Base remota conferida por fetch/ls-remote: **`5bc240f`** nas refs de integração/publicação. Reutilizar esta worktree isolada `rochatales/consolidacao-validada-2026-11-02`, com 41 commits de quadro preservados; reunir por merge sem reescrita a linha aprovada de 31 commits. Código deve permanecer idêntico a `61f2ec7`; só docs de aceite/consolidação serão acrescidos. Rodar npm test/build/diff-check antes de publicação atômica da linha aprovada e das duas refs consolidadas. Sem alterar main, checkout principal, fontes do autor ou remover worktrees.
+
+03/11/2026 — Consolidação aprovada concluída no merge **`dadd884`** (pais `1e1bbf8` + `61f2ec7`), união limpa das linhas de código e quadro. **481/481**, build/diff-check verdes e árvore fora de docs idêntica à ponta jogada. Push atômico confirmado: `origin/rochatales/horda-survivor` e `origin/rochatales/consolidacao-validada-2026-11-02` avançaram de `5bc240f` ao merge; `origin/rochatales/s6.8-inventario-dash-colonia` criada em `61f2ec7`. Este registro documental avança junto nas duas refs consolidadas; consultar a ponta final com `git rev-parse origin/rochatales/horda-survivor`. Handoffs/aceites/plano atualizados, sem encerrar escopos futuros. Preview 4186 confirmado por HTTP contra o build integrado. Checkout principal em `b54162c`, main, fontes, arquivos do autor e todas as worktrees preservados; sem force/rebase/squash. [Registro](./handoffs/consolidacao-validada-2026-11-03.md).

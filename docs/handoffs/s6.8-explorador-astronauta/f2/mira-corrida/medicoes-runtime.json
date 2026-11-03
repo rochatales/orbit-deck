@@ -1,0 +1,10 @@
+{
+  "base": "b56a8e4",
+  "mira": "Mira: erro de altura 0.0000 m | desvio do cano 0.007°",
+  "corrida": {
+    "clipe": "Run_Rifle",
+    "velocidade_m_s": 4.2,
+    "taxa": 1.516,
+    "fonte": "Rifle_Run_00.fbx"
+  }
+}

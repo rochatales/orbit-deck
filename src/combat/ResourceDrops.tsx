@@ -1,7 +1,8 @@
+import { createGroundRingMaterial } from './groundRingMaterial';
 import { useEffect, useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
-import { Color, Matrix4, Quaternion, RingGeometry, ShaderMaterial, Vector3, type InstancedMesh } from 'three';
+import { Matrix4, Quaternion, RingGeometry, Vector3, type InstancedMesh } from 'three';
 import type { ResourceDrop } from './simulation';
 import { simulationBlocked } from '../game/simulationGate';
 import { ResourceRig } from './resourceRig';
@@ -11,25 +12,6 @@ import ironUrl from '../assets/props/ferro.glb';
 import organicUrl from '../assets/props/materia-organica.glb';
 import titaniumUrl from '../assets/props/titanio.glb';
 
-function ringMaterial(kind: ResourceKind) {
-    return new ShaderMaterial({ transparent: true, depthWrite: false, toneMapped: false,
-        uniforms: { color: { value: new Color(RESOURCE_VISUAL.colors[kind]) } },
-        vertexShader: `varying vec2 ground;
-            void main() { ground = position.xy; vec4 p = vec4(position, 1.0);
-            #ifdef USE_INSTANCING
-                p = instanceMatrix * p;
-            #endif
-                gl_Position = projectionMatrix * modelViewMatrix * p; }`,
-        fragmentShader: `uniform vec3 color; varying vec2 ground;
-            void main() { float d = abs(length(ground) - 0.76);
-                float thin = 1.0 - smoothstep(0.009, 0.026, d);
-                float halo = 0.24 * exp(-d * d / 0.012);
-                float a = min(0.95, thin + halo); if (a < 0.003) discard;
-                gl_FragColor = vec4(color * (1.0 + thin * 0.7), a);
-                #include <colorspace_fragment>
-            }`,
-    });
-}
 
 /** Uma geometria, três materiais/batches de anéis; GLBs e animações compartilhados por tipo. */
 export function ResourceDrops({ drops }: { drops: ResourceDrop[] }) {
@@ -39,7 +21,7 @@ export function ResourceDrops({ drops }: { drops: ResourceDrop[] }) {
     const counts = useMemo(() => ({ titanium: 0, copper: 0, iron: 0, organic: 0 }), []);
     const pose = useMemo(() => ({ matrix: new Matrix4(), position: new Vector3(), scale: new Vector3(), rotation: new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), -Math.PI / 2) }), []);
     const ground = useMemo(() => ({ geometry: new RingGeometry(0, 1, 64), materials: {
-        titanium: ringMaterial('titanium'), copper: ringMaterial('copper'), iron: ringMaterial('iron'), organic: ringMaterial('organic'),
+        titanium: createGroundRingMaterial(RESOURCE_VISUAL.colors.titanium), copper: createGroundRingMaterial(RESOURCE_VISUAL.colors.copper), iron: createGroundRingMaterial(RESOURCE_VISUAL.colors.iron), organic: createGroundRingMaterial(RESOURCE_VISUAL.colors.organic),
     } }), []);
     const rigs = useMemo(() => drops.map((_, i) => ({
         copper: new ResourceRig(copper.scene, copper.animations, resourcePhase(i, 'copper')),

@@ -144,3 +144,16 @@ test('Quartel v005: amplia para leste sem reescalar runtime, móveis +10%, v004 
     for(const name of ['Laboratório','Oficina','Praça / hub'])assert.deepEqual(fit.componentAABBIntersections[name],[]);
     assert.equal(fit.eastAdvanceFromV004M,3);assert.ok(fit.zoneAOccupiedM2>19&&fit.zoneAOccupiedM2<20);assert.ok(fit.workshopGapM>.8);assert.equal(fit.removedZoneMarkers.length,12);
 });
+
+test('Quartel v006: fonte v005 intacta, exterior idêntico, COL internos e terceira porta com material único',()=>{
+    for(const file of read('arte-v005-sha256.json').files)assert.equal(hash(file.path),file.sha256,file.path);
+    for(const file of read('arte-v006-sha256.json').files)assert.equal(hash(file.path),file.sha256,file.path);
+    const data=fs.readFileSync(root+'export/barracks-v006.glb'),json=JSON.parse(data.subarray(20,20+data.readUInt32LE(12)));
+    const build=read('build-v006.json'),validation=read('validacao-v006.json');
+    assert.equal(validation.passed,true);assert.equal(validation.blendSHA256,hash(root+'blend/barracks-v006.blend'));assert.equal(validation.sourceV005SHA256,hash(root+'blend/barracks-v005.blend'));
+    assert.equal(validation.unchangedExteriorMeshes.length,19);assert.equal(validation.interiorCOLChecked,25);assert.ok(validation.COLMaxErrorM<1e-6);assert.ok(validation.doorCOLMaxErrorM<1e-6);
+    assert.equal(validation.freeOpeningRaySamples,20);assert.equal(validation.bathroomLeafSweepSamples,40);assert.equal(build.bathroomDoor.width,1.2);assert.equal(build.bathroomDoor.height,2);
+    assert.equal(json.materials.length,1);assert.equal(json.meshes.length,24);assert.equal(json.meshes.flatMap(m=>m.primitives).reduce((n,p)=>n+json.accessors[p.indices].count/3,0),9410);assert.equal(json.nodes.filter(n=>n.name?.startsWith('COL_')).length,90);
+    assert.deepEqual(json.animations.map(a=>a.name).sort(),['Bathroom_Open','Door_Open','Door_S_Open']);assert.equal(json.animations.find(a=>a.name==='Bathroom_Open').channels.length,2);
+    for(const name of ['Bathroom_Walls','Bathroom_Frame','Door_Bathroom_0','Door_Bathroom_1'])assert.ok(json.nodes.find(n=>n.name===name)?.mesh!==undefined,name);
+});

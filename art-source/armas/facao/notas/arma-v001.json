@@ -1,0 +1,24 @@
+{
+  "source": "fontes/Sci-fi Energy Sword-f13f5e9ef449e19e4a0074055bc7bd6c.glb",
+  "source_sha256": "f53aa6d67260c43d258659c17abb8219f457530d4e00cb01fb70acae5f4afcae",
+  "glb_sha256": "8ddd124b14df0c153b9b773b2c3129353a177ddcad9791edd0a7d0ea0c9c2e4c",
+  "icon_sha256": "7032b121282ce85fbce07b545172092915de7259eb5bbc48e0699902fb07bb9e",
+  "length_m": 1.002528,
+  "markers": {
+    "Grip_R": [
+      0,
+      0.21,
+      0
+    ],
+    "Grip_L": [
+      0,
+      0.39,
+      0
+    ],
+    "Tip": [
+      0,
+      -0.5,
+      0
+    ]
+  }
+}

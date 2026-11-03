@@ -1,0 +1,17 @@
+[
+  {
+    "source": "/Users/rochatales/Game Development/Horda Survivor/Predios/3D/Rusted Derelict Car-c7d11f58ea213e168d76a4b5ed9d3d64.glb",
+    "copy": "fontes/rusted-car.glb",
+    "sha256": "71e3742224cee8ea85d96017bc904f331639105dc5e4692fa5a0eadcb6f07dbc"
+  },
+  {
+    "source": "/Users/rochatales/Game Development/Horda Survivor/Itens/3D/Red Futuristic Medkit-88444b1f50a331f77bbd28f60878ccae.glb",
+    "copy": "fontes/medkit.glb",
+    "sha256": "69b490644405a0e237361b40ad6431ece55d523d65bd5e67746621d80f2d1975"
+  },
+  {
+    "source": "/Users/rochatales/Game Development/Horda Survivor/orbit_deck_props/emergency-locker.glb",
+    "copy": "fontes/emergency-locker.glb",
+    "sha256": "4a716ae65dfc01351fa6804800f77a1236a169f83eb0c0be2b3a021e0091dde1"
+  }
+]

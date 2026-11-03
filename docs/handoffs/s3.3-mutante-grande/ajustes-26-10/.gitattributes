@@ -1,0 +1,2 @@
+# Em patches, uma linha de contexto vazia começa obrigatoriamente com um espaço.
+candidato-nao-aplicado.patch whitespace=-blank-at-eol

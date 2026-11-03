@@ -1,14 +1,25 @@
+import { phase01SurfaceGrid } from '../shanghai/surfaceGrid';
 /** Estado visual compartilhado pelo jogo e pela prévia isolada. */
 export type CrateState = { phase: 'closed' | 'opening' | 'open'; elapsed: number };
-export const SUPPLY_CRATE = { minY: 0, maxY: 1.195, radius: 1.8, duration: 2.4, rewardAt: .733, ammo: 48, neon: '#39e9ff' } as const;
-export interface CratePlacement { id: string; x: number; z: number }
-/** Frente +Z; espaço traseiro livre para a tampa. Não ocupa os marcadores de recursos da S4.3. */
+export const SUPPLY_CRATE = { minY: 0, maxY: 2.09, radius: 1.8, duration: 2.4, rewardAt: .733, ammo: 48, neon: '#39e9ff' } as const;
+export interface CratePlacement { id: string; x: number; z: number; angle?: number }
+/** Cabines amarelas: frente orientada para a rua, sem deslocar os waypoints. */
 export const SHANGHAI_SUPPLY_CRATES: readonly CratePlacement[] = [
-    { id: 'ammo-west', x: -10, z: 12 },
-    { id: 'ammo-northeast', x: 36, z: -22 }
+    { id: 'ammo-northwest', x: -44, z: -27, angle: 0 },
+    { id: 'ammo-north', x: -8.5, z: -27, angle: 0 },
+    { id: 'ammo-northeast', x: 44, z: -27.6, angle: Math.PI / 2 },
+    { id: 'ammo-west', x: -34.3, z: 10.5, angle: 0 },
+    { id: 'ammo-east', x: 24.5, z: -10.8, angle: -Math.PI / 2 },
+    { id: 'ammo-southwest', x: -45, z: 27.5, angle: -Math.PI / 2 },
+    { id: 'ammo-southeast', x: 41.5, z: 26.5, angle: Math.PI }
 ];
+export function crateMarker(p: CratePlacement) {
+    return { x: p.x + Math.sin(p.angle ?? 0) * 1.6, z: p.z + Math.cos(p.angle ?? 0) * 1.6 };
+}
 export function crateObstacle(p: CratePlacement) {
-    return { minX: p.x - .81, maxX: p.x + .81, minZ: p.z - .7, maxZ: p.z + .7, minY: SUPPLY_CRATE.minY, maxY: SUPPLY_CRATE.maxY };
+    const c = Math.abs(Math.cos(p.angle ?? 0)), s = Math.abs(Math.sin(p.angle ?? 0)), floor = phase01SurfaceGrid()(p.x, p.z);
+    const halfX = c * .9 + s, halfZ = s * .9 + c;
+    return { minX: p.x - halfX, maxX: p.x + halfX, minZ: p.z - halfZ, maxZ: p.z + halfZ, minY: floor + SUPPLY_CRATE.minY, maxY: floor + SUPPLY_CRATE.maxY };
 }
 export function openCrate(state: CrateState, playerX: number, playerZ: number, markerX: number, markerZ: number): boolean {
     if (state.phase !== 'closed' || !Number.isFinite(playerX + playerZ + markerX + markerZ)

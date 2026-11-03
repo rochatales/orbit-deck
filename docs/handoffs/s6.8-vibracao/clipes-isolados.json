@@ -1,0 +1,29 @@
+{
+  "method": "Clipes reais v008 isolados, duas voltas do loop, taxas calibradas do jogo, cabeça no espaço do modelo a 144 Hz; sem movimento físico ou câmera.",
+  "results": [
+    {
+      "clip": "Idle_Colony",
+      "rate": 1,
+      "maxHeadStepAt144HzM": 0.0004687448406332252,
+      "at": 15.333333333333334
+    },
+    {
+      "clip": "Run_Colony",
+      "rate": 1.5174427892774798,
+      "maxHeadStepAt144HzM": 0.005783385198846211,
+      "at": 0.6736111111111112
+    },
+    {
+      "clip": "Backward_Colony",
+      "rate": 1.7554582275420083,
+      "maxHeadStepAt144HzM": 0.006335303722035952,
+      "at": 1.2083333333333333
+    },
+    {
+      "clip": "Run",
+      "rate": 1.9820949288511964,
+      "maxHeadStepAt144HzM": 0.04520427917816029,
+      "at": 0.1597222222222222
+    }
+  ]
+}

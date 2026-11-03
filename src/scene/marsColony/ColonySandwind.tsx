@@ -1,4 +1,11 @@
-import { useEffect, useRef, useState, type CSSProperties, type RefObject } from 'react';
+import { SandClouds } from './SandClouds';
+import { SandwindWind } from './sandwindWind';
+import sharedFloorUrl from '../../assets/buildings/colony-shared-floor-v001.glb';
+import { COLONY_BUILDING_URLS } from './ColonyBuildings';
+import controlRoomUrl from '../../assets/control-room/control-room-v002.glb';
+import circulationUrl from '../../assets/quartel/quartel-circulation-v001.glb';
+import laboratorioUrl from '../../assets/laboratorio/laboratorio-v002.glb';
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type RefObject } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import { create } from 'zustand';
@@ -7,11 +14,11 @@ import { simulationBlocked } from '../../game/simulationGate';
 import { playerPosition } from '../../state/playerTransient';
 import { useGameStore } from '../../state/useGameStore';
 import { sandwindQAEnabled, sandwindQAPose } from './sandwindQA';
-import { SANDWIND_PROFILES, type SandwindProfile } from './sandwindPolicy';
+import { SANDWIND_PROFILES, defaultSandwindSettings, type SandwindProfile } from './sandwindPolicy';
 import { SandwindController, sandwindResources, type SandwindSettings } from './SandwindController';
 import manifest from '../../assets/colony-v007.manifest.json';
 import { sandwindTargets } from './sandwindTargets';
-import quartelUrl from '../../assets/quartel/barracks-v005.glb';
+import quartelUrl from '../../assets/quartel/barracks-v006.glb';
 import colonyUrl from '../../assets/colony-v007.glb';
 import hangarUrl from '../../assets/hangar/hangar-v002.glb';
 import greenhouseUrl from '../../assets/greenhouse/greenhouse-v001.glb';
@@ -20,7 +27,7 @@ import shipUrl from '../../assets/ares-lander/ares-lander.glb';
 import deckUrl from '../../assets/ares-mars/deck-mars.glb';
 
 const reducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const usePreview = create<SandwindSettings>(() => ({ enabled: true, culling: true, wind: !reducedMotion, profile: 'balanced' }));
+const usePreview = create<SandwindSettings>(() => defaultSandwindSettings(reducedMotion));
 let activeController: SandwindController | null = null;
 
 export function ColonySandwind({ scope, masterplan }: { scope: RefObject<Group>; masterplan: RefObject<Group> }) {
@@ -30,17 +37,19 @@ export function ColonySandwind({ scope, masterplan }: { scope: RefObject<Group>;
     // useLoader usa a lista de URLs como chave: chamadas individuais devem casar
     // com Masterplan/Hangar/Greenhouse/DeckProps; AresLanding usa o par de URLs.
     const colony = useGLTF(colonyUrl), hangar = useGLTF(hangarUrl), greenhouse = useGLTF(greenhouseUrl), legacy = useGLTF(legacyUrl);
-    const quartel = useGLTF(quartelUrl);
+    const circulation = useGLTF(circulationUrl), quartel = useGLTF(quartelUrl), laboratorio = useGLTF(laboratorioUrl), controlRoom = useGLTF(controlRoomUrl);
+    const sharedFloor = useGLTF(sharedFloorUrl);
     const [ship, deck] = useGLTF([shipUrl, deckUrl]);
-    const controller = useRef<SandwindController | null>(null);
+    const meetingRoom = useGLTF(COLONY_BUILDING_URLS[0]), dataCenter = useGLTF(COLONY_BUILDING_URLS[1]), cafeteria = useGLTF(COLONY_BUILDING_URLS[2]);
+    const controller = useRef<SandwindController | null>(null), wind = useMemo(() => new SandwindWind(), []);
     const enabled = usePreview(s => s.enabled);
     useEffect(() => {
         const root = scope.current!, architecture = masterplan.current!.children[0];
-        const next = new SandwindController(root, [colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene],
-            sandwindTargets(root, architecture, manifest), gl.outputColorSpace);
+        const next = new SandwindController(root, [colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene, laboratorio.scene, circulation.scene, controlRoom.scene, meetingRoom.scene, dataCenter.scene, cafeteria.scene, sharedFloor.scene],
+            sandwindTargets(root, architecture, manifest), gl.outputColorSpace, wind);
         controller.current = next; activeController = next;
         return () => { if (activeController === next) activeController = null; controller.current = null; next.dispose(); };
-    }, [scope, masterplan, colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene, gl]);
+    }, [scope, masterplan, colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene, laboratorio.scene, circulation.scene, controlRoom.scene, meetingRoom.scene, dataCenter.scene, cafeteria.scene, sharedFloor.scene, gl, wind]);
     useEffect(() => {
         if (!enabled) return;
         const original = scene.fog;
@@ -48,7 +57,7 @@ export function ColonySandwind({ scope, masterplan }: { scope: RefObject<Group>;
         return () => { scene.fog = original; };
     }, [scene, enabled]);
     useFrame((_, delta) => controller.current?.update(playerPosition.x, playerPosition.z, delta, usePreview.getState(), simulationBlocked()));
-    return null;
+    return <SandClouds wind={wind} settings={usePreview.getState}/>;
 }
 
 const panelStyle: CSSProperties = {
@@ -85,7 +94,9 @@ export function SandwindPanel() {
         {sandwindQAEnabled(window.location.search) && <fieldset style={{ margin: '10px 0' }}><legend>Poses de QA · sem salvar</legend>
             <button onClick={() => sandwindQAPose(window.location.search, 'plaza')}>QA · Praça</button>
             <button onClick={() => sandwindQAPose(window.location.search, 'deck')}>QA · Deck</button>
-            {(['quartel', 'quartel-west', 'quartel-north'] as const).map(pose => <button key={pose} onClick={() => sandwindQAPose(window.location.search, pose)}>QA · {pose}</button>)}
+            {(['quartel', 'quartel-west', 'quartel-north', 'laboratorio', 'lab-console', 'lab-west', 'lab-south', 'control-south', 'control-inside', 'hangar-front', 'hangar-inside'] as const).map(pose => <button key={pose} onClick={() => sandwindQAPose(window.location.search, pose)}>QA · {pose}</button>)}
+            <button onClick={() => sandwindQAPose(window.location.search, 'bathroom-front')}>QA · Banheiro (fora)</button>
+            <button onClick={() => sandwindQAPose(window.location.search, 'bathroom-inside')}>QA · Banheiro (dentro)</button>
             <button onClick={() => useGameStore.getState().setZoom(useGameStore.getState().minZoom)}>QA · Afastar</button>
         </fieldset>}
         {report && <textarea aria-label="Relatório QA Sandwind" readOnly value={report} style={{ width: '100%', height: 100, fontSize: 10 }}/>}

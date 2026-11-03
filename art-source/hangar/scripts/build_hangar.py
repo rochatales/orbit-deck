@@ -38,16 +38,12 @@ parents={'Hull_Main':'Root','Access_Ramp':'Root','Crane_Bridge':'Hull_Main',
  'Crane_Hook_R':'Crane_Bridge','Cooling_Fans':'Hull_Main','Portal_Shutter':'Hull_Main'}
 # Tiles: creme, grafite, ferrugem, amarelo, aço, ciano, âmbar, hazard,
 # escuro, corrugado, creme painel, ferrugem painel, piso, borracha, vidro, placa.
-def finish(o,name,tile=0,bone='Hull_Main',bevel=0):
- o.name=name; bpy.context.view_layer.objects.active=o
- bpy.ops.object.transform_apply(location=False,rotation=False,scale=True)
- if bevel:
-  m=o.modifiers.new('Arestas chanfradas','BEVEL'); m.width=bevel;m.segments=1
-  bpy.ops.object.modifier_apply(modifier=m.name)
- # Porta leste ocupa o centro da lateral: banco de resfriamento sobe ao norte.
- if o.location.x+sum(v.co.x for v in o.data.vertices)/len(o.data.vertices)>0 and name.startswith(('Side_Cooler','Intake_','Fan_Blade','Telemetry_')):
-  o.location.y+=1.75
- mesh=o.data; uv=mesh.uv_layers.active or mesh.uv_layers.new(name='AtlasUV')
+def map_uv(o,tile):
+ mesh=o.data
+ if mesh.uv_layers:
+  uv=mesh.uv_layers[0];uv.name='UVMap'
+ else:
+  uv=mesh.uv_layers.new(name='UVMap')
  # Projeção planar por face; margem ampla evita sangramento no mipmap.
  for p in mesh.polygons:
   n=p.normal; axis=max(range(3),key=lambda k:abs(n[k])); axes=[k for k in range(3) if k!=axis]
@@ -56,6 +52,17 @@ def finish(o,name,tile=0,bone='Hull_Main',bevel=0):
   for l,v in zip(p.loop_indices,coords):
    u=(v[axes[0]]-mn[0])/max(mx[0]-mn[0],1e-8); w=(v[axes[1]]-mn[1])/max(mx[1]-mn[1],1e-8)
    uv.data[l].uv=((tile%4+.035+.93*u)/4,(3-tile//4+.035+.93*w)/4)
+
+def finish(o,name,tile=0,bone='Hull_Main',bevel=0):
+ o.name=name; o['atlas_tile']=tile; bpy.context.view_layer.objects.active=o
+ bpy.ops.object.transform_apply(location=False,rotation=False,scale=True)
+ if bevel:
+  m=o.modifiers.new('Arestas chanfradas','BEVEL'); m.width=bevel;m.segments=1
+  bpy.ops.object.modifier_apply(modifier=m.name)
+ # Porta leste ocupa o centro da lateral: banco de resfriamento sobe ao norte.
+ if o.location.x+sum(v.co.x for v in o.data.vertices)/len(o.data.vertices)>0 and name.startswith(('Side_Cooler','Intake_','Fan_Blade','Telemetry_')):
+  o.location.y+=1.75
+ mesh=o.data; map_uv(o,tile)
  g=o.vertex_groups.new(name=bone); g.add(list(range(len(mesh.vertices))),1,'REPLACE')
  parts.append(o);catalog.append({'piece':name,'bone':bone,'tile':tile})
  return o
@@ -124,7 +131,7 @@ for s in [-1,1]:
   for k in range(3):
    o=box('Fan_Blade',(s*4.77,y,.7),(.025,.32,.045),4);o.rotation_euler.x=k*math.pi/3
  box('Telemetry_Frame',(s*4.24,0,2.12),(.25,1.35,.42),1,bev=.04)
- box('Telemetry_Display',(s*4.38,0,2.12),(.025,1.08,.14),5)
+ box('Telemetry_Display',(s*4.38,0,2.12),(.025,1.08,.14),8)
  for y in [-1.72,-1.27,1.27,1.72]:
   if s==1 and y==-1.27:continue # Tubo removido da passagem leste; demais preservados.
   pipe('Coolant_Down',[(s*4.55,y,.10),(s*4.55,y,.32),(s*4.38,y,.50),(s*4.38,y,2.35),(s*4.25,y,2.52),(s*4.10,y,2.52)],.11)
@@ -156,7 +163,7 @@ for s in [-1,1]:
  box('Portal_Post',(s*2.64,-3.28,1.48),(.35,.42,2.66),1,bev=.05)
  beam('Portal_Diagonal',(s*2.64,-3.28,2.8),(s*2.0,-3.28,3.55),.35,1)
  box('Post_Hazard',(s*2.64,-3.505,.58),(.27,.025,.77),7)
- for z,t in [(.30,5),(.61,5),(1.0,6)]:
+ for z,t in [(.30,8),(.61,8),(1.0,6)]:
   cyl('Beacon_Base',(s*2.64,-3.52,z),(s*2.64,-3.6,z),.115,1)
   cyl('Beacon_Lens',(s*2.64,-3.605,z),(s*2.64,-3.64,z),.075,t)
 extrude('Front_Upper',[(-2.8,3.45),(2.8,3.45),(2.8,4.35),(-2.8,4.35)],-3.15,-2.93,10)
@@ -171,10 +178,11 @@ box('Upper_Shutter',(0,-3.0,3.75),(4.75,.12,1.10),9,'Portal_Shutter')
 # Ramp is initially flat with top at .16 m; pivot on threshold, bevel edges.
 box('Access_Ramp',(0,-4.32,.08),(4.9,2.2,.16),12,'Access_Ramp',.045)
 for x in [-2.40,2.40]:box('Ramp_Edge',(x,-4.32,.19),(.12,2.15,.12),1,'Access_Ramp',.025)
-box('Threshold_Hazard',(0,-3.33,.167),(4.55,.20,.013),7,'Access_Ramp')
-for x in [-1.6,0,1.6]:box('Ramp_Seam',(x,-4.36,.168),(.014,1.79,.012),8,'Access_Ramp')
+box('Threshold_Hazard',(0,-3.25,.162),(4.62,.04,.005),13,'Access_Ramp')
+for x in [-1.875,-.625,.625,1.875]:box('Ramp_Seam',(x,-4.32,.162),(.03,2.12,.005),13,'Access_Ramp')
+box('Ramp_Seam_Y',(0,-4.32,.162),(4.62,.03,.005),13,'Access_Ramp')
 for x in [-2.28,2.28]:
- for y,t in [(-3.55,5),(-5.12,6)]:
+ for y,t in [(-3.55,8),(-5.12,6)]:
   cyl('Ramp_Beacon',(x,y,.24),(x,y,.34),.10,1,'Access_Ramp')
   cyl('Ramp_Lens',(x,y,.34),(x,y,.41),.075,t,'Access_Ramp')
 for x in [-3.15,-3.55]:
@@ -206,8 +214,9 @@ box('Vehicle_Hood',(1.9,.60,1.23),(1.12,.75,.22),4,bev=.05)
 box('Vehicle_Cab',(1.9,1.63,1.27),(.95,.72,.4),1,bev=.07)
 box('Vehicle_Windshield',(1.9,1.255,1.32),(.68,.018,.21),14)
 for x in [1.5,2.3]:box('Vehicle_Light',(x,.08,.96),(.14,.03,.10),6)
-# Floor lane markings, inspection plates and bolts.
-for x in [-2.95,2.95]:box('Floor_Hazard',(x,.15,.168),(.15,5.2,.014),7)
+# Floor tile grid (1.25 m x 1.50 m, 30 mm joints in Floor_Dark tile 13, same style as Quartel & outside patio).
+for x in [-3.125,-1.875,-.625,.625,1.875,3.125]:box('Floor_Joint_X',(x,0,.162),(.03,6.32,.004),13)
+for y in [-2.25,-.75,.75,2.25]:box('Floor_Joint_Y',(0,y,.162),(7.92,.03,.004),13)
 for s in [-1,1]:
  for y in [-2.2,2.2]:
   box('Service_Hatch',(s*4.235,y,.94),(.045,.55,.45),1,bev=.02)
@@ -244,7 +253,9 @@ for label,center,size in portals:
   bpy.ops.object.modifier_apply(modifier=mod.name)
   if not len(o.data.polygons):
    removed.append(o.name);parts.remove(o);bpy.data.objects.remove(o,do_unlink=True)
-  else:cut.append({'piece':o.name,'portal':label})
+  else:
+   map_uv(o,o.get('atlas_tile',0))
+   cut.append({'piece':o.name,'portal':label})
  bpy.data.objects.remove(cutter,do_unlink=True)
 # Reconstituir grupos rígidos normalizados depois dos booleanos (somente casco).
 for o in parts:
@@ -266,7 +277,9 @@ roof=[o for o in parts if o.name.startswith(('Roof_','Spine_','Vent_'))]
 body=[o for o in parts if o not in roof and o not in leaves]
 def join(objects,name):
  bpy.ops.object.select_all(action='DESELECT')
- for o in objects:o.select_set(True)
+ for o in objects:
+  if o.data.uv_layers:o.data.uv_layers[0].name='UVMap'
+  o.select_set(True)
  bpy.context.view_layer.objects.active=objects[0];bpy.ops.object.join();o=bpy.context.object;o.name=name
  bpy.context.scene.cursor.location=(0,0,0);bpy.ops.object.origin_set(type='ORIGIN_CURSOR');return o
 # Limites por peça para planta/colisores simples futuros, registrados antes de unir.
@@ -287,10 +300,10 @@ V002_REPORT['changes']=['Porta norte e leste, vão 2,20×2,40 m acima do piso 0,
 # Atlas material including packed ORM and actual normal map.
 mat=bpy.data.materials.new('MAT_Hangar_Atlas_2K');mat.use_nodes=True;n=mat.node_tree.nodes;l=mat.node_tree.links;p=n.get('Principled BSDF')
 for kind in ['basecolor','orm','normal','emission']:
- im=bpy.data.images.load(str(ROOT/'texturas'/('hangar_'+kind+'.png')));im.colorspace_settings.name='sRGB' if kind in ['basecolor','emission'] else 'Non-Color'
+ im=bpy.data.images.load(str(ROOT/'texturas'/('hangar_v002_'+kind+'.png')));im.colorspace_settings.name='sRGB' if kind in ['basecolor','emission'] else 'Non-Color'
  tex=n.new('ShaderNodeTexImage');tex.image=im;tex.label=kind;tex.location=(-600,-['basecolor','orm','normal','emission'].index(kind)*250)
  if kind=='basecolor':l.new(tex.outputs['Color'],p.inputs['Base Color'])
- elif kind=='emission':l.new(tex.outputs['Color'],p.inputs['Emission Color']);p.inputs['Emission Strength'].default_value=2.5
+ elif kind=='emission':l.new(tex.outputs['Color'],p.inputs['Emission Color']);p.inputs['Emission Strength'].default_value=1.2
  elif kind=='normal':nm=n.new('ShaderNodeNormalMap');l.new(tex.outputs['Color'],nm.inputs['Color']);l.new(nm.outputs['Normal'],p.inputs['Normal'])
  else:
   sep=n.new('ShaderNodeSeparateColor');l.new(tex.outputs['Color'],sep.inputs['Color']);l.new(sep.outputs['Green'],p.inputs['Roughness']);l.new(sep.outputs['Blue'],p.inputs['Metallic'])
@@ -300,8 +313,8 @@ for o in meshes:
  o.data.materials.clear();o.data.materials.append(mat)
  for poly in o.data.polygons:poly.material_index=0
 glass=bpy.data.materials.new('MAT_Hangar_Porta_V007');glass.use_nodes=True
-pglass=glass.node_tree.nodes.get('Principled BSDF');pglass.inputs['Base Color'].default_value=(.32,.58,.62,.32)
-pglass.inputs['Alpha'].default_value=.32;pglass.inputs['Metallic'].default_value=.1;pglass.inputs['Roughness'].default_value=.62
+pglass=glass.node_tree.nodes.get('Principled BSDF');pglass.inputs['Base Color'].default_value=(.15,.18,.21,.38)
+pglass.inputs['Alpha'].default_value=.38;pglass.inputs['Metallic'].default_value=.25;pglass.inputs['Roughness'].default_value=.25
 glass.surface_render_method='DITHERED'
 for o in leaves:o.data.materials.clear();o.data.materials.append(glass)
 # Rig with all components 100% rigid weights; no bone scaling of the hull.

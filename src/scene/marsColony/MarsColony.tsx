@@ -1,3 +1,12 @@
+import { ColonySharedFloor } from './ColonySharedFloor';
+import { ColonyBuildings } from './ColonyBuildings';
+import { removeRoomsForBuildings } from './colonyBuildingsColony';
+import { ControlRoom } from './ControlRoom';
+import { removeRoomForControlRoom } from './controlRoomColony';
+import { PerimeterSoftLights } from './PerimeterSoftLights';
+import { QuartelCirculation } from './QuartelCirculation';
+import { Laboratorio } from './Laboratorio';
+import { removeRoomForLaboratorio } from './laboratorioColony';
 import { Quartel } from './Quartel';
 import { removeRoomForQuartel } from './quartelColony';
 import { useGLTF } from '@react-three/drei';
@@ -25,14 +34,16 @@ export function MarsColony({ world }: { world: OfficeWorld }) {
     const visual = useRef<Group>(null), runtime = useRef<MasterplanRuntime>();
     useLayoutEffect(() => {
         const scene = gltf.scene.clone(true), geometry: BufferGeometry[] = [];
-        const filtered = removeRoomForQuartel(scene, removeDockForHangar(scene, removeProvisionalGreenhouse(scene, manifest), geometry), geometry);
+        const filteredQuartel = removeRoomForQuartel(scene, removeDockForHangar(scene, removeProvisionalGreenhouse(scene, manifest), geometry), geometry);
+        const filteredLab = removeRoomForLaboratorio(scene, filteredQuartel, geometry);
+        const filtered = removeRoomsForBuildings(scene, removeRoomForControlRoom(scene, filteredLab, geometry), geometry);
         const instance = new MasterplanRuntime(scene, filtered);
         runtime.current = instance; visual.current!.add(scene);
         return () => { scene.removeFromParent(); instance.dispose(); geometry.forEach(g => g.dispose()); runtime.current = undefined; };
     }, [gltf.scene]);
     useFrame((_, delta) => runtime.current?.update(playerPosition, delta));
-    const visuals = <><group ref={visual} dispose={null}/><AresLanding/><DeckProps/><Greenhouse/><Hangar/><Quartel world={world}/></>;
-    // Sem flag: mesma árvore anterior. Só o Sandwind possui estes pais de descarte.
+    const visuals = <><group ref={visual} dispose={null}/><AresLanding/><DeckProps/><Greenhouse/><Hangar/><Quartel world={world}/><QuartelCirculation/><Laboratorio world={world}/><ControlRoom/><ColonySharedFloor/><ColonyBuildings world={world}/><PerimeterSoftLights/></>;
+    // Atmosfera fixa por padrão; ?sandwindPreview=0 conserva a comparação sem descarte.
     return preview ? <group ref={scope} name="SandwindColonyV007">{visuals}
         <Suspense fallback={null}><ColonySandwind scope={scope} masterplan={visual}/></Suspense>
     </group> : visuals;

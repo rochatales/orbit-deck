@@ -8,11 +8,13 @@ import type { KeyboardControlsEntry } from "@react-three/drei";
 export enum GameControl {
   Forward = "forward",
   Backward = "backward",
+  Dash = "dash",
   Interact = "interact"
 }
 
 export const KEYBOARD_CONTROLS_MAP: KeyboardControlsEntry<GameControl>[] = [
   { name: GameControl.Forward, keys: ["KeyW", "ArrowUp"] },
   { name: GameControl.Backward, keys: ["KeyS", "ArrowDown"] },
+  { name: GameControl.Dash, keys: ["Space"] },
   { name: GameControl.Interact, keys: ["KeyE"] }
 ];

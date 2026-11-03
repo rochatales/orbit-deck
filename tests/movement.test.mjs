@@ -45,15 +45,17 @@ test('S2.12: recuo vai na direção oposta à mira sem inverter a orientação d
   }
 });
 
-test('S2.12: cursor perto do personagem mantém a última direção válida, sem tremor',()=>{
-  const min=C.PLAYER_LOCOMOTION.aimMinDistance; assert.ok(min>=0.3);
+test('S2.12: só o centro exato estabiliza o rumo; cursor próximo permite virar',()=>{
+  const min=C.PLAYER_LOCOMOTION.aimMinDistance; assert.equal(min,0.035);
   let ang=M.updateAimAngle(0,0,0,3,3,true,min); close(ang,Math.PI/4);
-  for(let i=0;i<200;i++){   // cursor oscilando sobre o corpo (raio < min)
+  for(let i=0;i<200;i++){   // pequena zona singular no centro; não cobre mais a silhueta
     const r=(min*0.9)*((i%7)/7), t=i*2.39;
     ang=M.updateAimAngle(ang,0,0,r*Math.sin(t),r*Math.cos(t),true,min);
     close(ang,Math.PI/4);
   }
   ang=M.updateAimAngle(ang,0,0,-4,0,false,min); close(ang,Math.PI/4);   // sem mira válida: mantém
+  ang=M.updateAimAngle(ang,0,0,-.1,0,true,min); close(ang,-Math.PI/2);
+  ang=M.updateAimAngle(ang,0,0,.1,0,true,min); close(ang,Math.PI/2);
   ang=M.updateAimAngle(ang,0,0,-4,0,true,min); close(ang,-Math.PI/2);   // longe de novo: atualiza
 });
 
@@ -136,7 +138,7 @@ test('S2.12: asset r7 separado, com os cinco clipes e o mesmo rig; GLB ativo pre
   assert.match(cfg,/EXPLORADOR_R7_ASSET[\s\S]*scale: 0\.857[\s\S]*materialProfile: 'preservar'/);
   assert.match(cfg,/PLAYER_CHARACTER_ASSET[\s\S]*player-main|playerAsset/);
   const escolha=fs.readFileSync('src/characters/player/playerAssetChoice.ts','utf8');
-  assert.match(escolha,/'atual' \? 'atual' : 'r7'/,'a prévia começa com a r7');
+  assert.match(escolha,/variant === 'r7' \|\| variant === 'atual'/,'as duas comparações continuam disponíveis');
 });
 
 test('S2.12: parado, a mira que cruza ±π gira pelo caminho curto (sem volta inteira no eixo)',()=>{

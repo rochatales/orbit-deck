@@ -18,6 +18,9 @@ export const PLAYER_MOVEMENT = {
   // para avaliação do autor. Antes: 3,2 m/s andando e 5,6 m/s com Shift.
   runSpeed: 4.2,
   backSpeed: 1.2,
+  dashSpeed: 7.2,
+  dashDuration: 0.72,
+  dashCooldown: 0.95,
   acceleration: 10,
   deceleration: 14,
   rotationLerp: 0.18,
@@ -50,7 +53,8 @@ export type PlayerAnimationState =
   | "backward"
   | "interacting"
   | "actionTriggered"
-  | "falling";
+  | "falling"
+  | "dashing";
 
 export interface PlayerMotionState {
   animationState: PlayerAnimationState;
@@ -103,10 +107,8 @@ export const PLAYER_LOCOMOTION = {
   crossfade: 0.18,
   crossfadeReverse: 0.14,
   crossfadeFall: 0.06,
-  /**
-   * Cursor mais perto que isto do centro do player não muda a direção (mantém a última). A mira
-   * é projetada no plano y = 0,9 e a câmera mira y = 0,55: o cursor sobre a silhueta cai a até
-   * ~0,6 m do centro nesse plano; 0,9 m cobre a silhueta com folga.
-   */
-  aimMinDistance: 0.9
+  crossfadeDash: 0.08,
+  /** Só 3,5 cm no centro estabilizam a orientação; cursor visual continua livre.
+   * A zona antiga de 0,9 m impedia mirar/virar contra inimigos próximos. */
+  aimMinDistance: 0.035
 } as const;

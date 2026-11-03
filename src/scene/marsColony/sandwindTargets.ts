@@ -1,3 +1,4 @@
+import { COLONY_BUILDINGS } from '../../game/colonyBuildingsLayout';
 import type { Object3D } from 'three';
 import type { MasterplanManifest, MasterplanPart } from './masterplanRuntime';
 import type { SandwindTarget } from './SandwindController';
@@ -23,9 +24,13 @@ export function sandwindTargets(scope: Object3D, masterplan: Object3D, manifest:
         if (!target) { target = { id, nodes: [] }; targets.set(id, target); }
         target.nodes.push(node);
     }
-    for (const [id, name] of [['hangar', 'Hangar'], ['greenhouse', 'Greenhouse'], ['deck-props', 'MarsDeckPropsV006'], ['quartel', 'Quartel']] as const) {
+    for (const [id, name] of [['hangar', 'Hangar'], ['greenhouse', 'Greenhouse'], ['deck-props', 'MarsDeckPropsV006'], ['quartel', 'Quartel'], ['laboratorio', 'Laboratorio'], ['control-room', 'ControlRoom']] as const) {
         const root = scope.getObjectByName(name);
         if (root) targets.set(id, { id, nodes: [root] });
+    }
+    for (const b of COLONY_BUILDINGS) {
+        const root = scope.getObjectByName(`ColonyBuilding-${b.id}`);
+        if (root) targets.set(b.id, { id: b.id, nodes: [root] });
     }
     const hangar = targets.get('hangar');
     if (hangar) hangar.bounds = {
