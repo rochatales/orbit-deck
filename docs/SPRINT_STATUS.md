@@ -364,3 +364,5 @@ Parada para revisão Claude e aceite visual do autor; sprints futuros não encer
 Repetição `?perf` do build final com item 8: pico **120/256**, p95 **16,7/16,8 ms**,
 zero rAF>33 ms, draw máximo 172 e +1.500 triângulos sobre o baseline (~0,25%).
 JSON `complemento-26-10/perf-final.json`; sem testes/build concorrentes na medição.
+
+02/11/2026 — S6.12 · Data Center, Meeting Room e Cafeteria: pedido do autor; base local de prévia `80d6e02` (kits interativos, linha de trabalho atual), branch `rochatales/s6.12-predios-colonia`, worktree própria. Fontes `orbit_deck_buildings2` somente leitura/cópia; implantação, portas, teto e colisores simples, sem push/merge ou edição do checkout principal. Codex implementa; autor valida no servidor. Esta base local não substitui a integração remota `5bc240f`.
