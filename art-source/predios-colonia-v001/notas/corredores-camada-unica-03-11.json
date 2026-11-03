@@ -1,0 +1,14 @@
+{
+  "base": "29b30aa",
+  "entorno": {
+    "antes_m2": 134.52998754501357,
+    "depois_m2": 67.26499377250678,
+    "camadas": 1
+  },
+  "interiores_aprovados_geometria_normais_cores_indices_identicos": true,
+  "corredores_originais_v007": {
+    "alterados": false,
+    "justificativa": "área projetada original 784,737498 m² coincide com a união original; já possuem camada única"
+  },
+  "cores": "COLOR_0 da fonte restaurado em FLOAT_COLOR antes do BMesh para preservar a areia sem quantização BYTE_COLOR"
+}

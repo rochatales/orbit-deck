@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import crypto from 'node:crypto';
-import { Quaternion, Vector3, Raycaster, Triangle, Color } from 'three';
+import { Quaternion, Vector3, Raycaster, Triangle, Color, Box3 } from 'three';
 import { loadGlb } from './load-glb.mjs';
 import { loadSource } from './load-source.mjs';
 const {BUILDING_SHARED_FLOOR:shared,COLONY_BUILDINGS:buildings,REPLACED_BUILDING_ROOMS:replaced,REMOVED_BUILDING_COLLIDERS:removed}=loadSource('src/game/colonyBuildingsLayout.ts');
@@ -157,10 +157,11 @@ test('S6.12: corredores e interiores cobertos sem buracos ou pisos sobrepostos n
  for(let x=5.5;x<15.6;x+=.23)points.push([x,16.3]);
  for(const [x,z]of points){origin.set(x,1,z);ray.set(origin,up);const hits=ray.intersectObjects(floors,true).filter(h=>Math.abs(h.point.y)<1e-5);assert.ok(hits.length,`buraco ${x}/${z}`);assert.equal(new Set(hits.map(h=>h.object)).size,1,`sobreposição ${x}/${z}`);}
  // Fase/juntas e cor do exterior coincidem com o piso original dos corredores.
- const original=await loadGlb('src/assets/colony-v007.glb');original.scene.updateMatrixWorld(true);
+ const original=await loadGlb('src/assets/colony-v006.glb');original.scene.updateMatrixWorld(true);
+ const tile=original.scene.getObjectByName('ARQ_Lab_Piso_Patio'),bounds=new Box3().setFromObject(tile),repeat=(v,lo,size)=>lo+((v-lo)%size+size)%size;
  const colorAt=hit=>{const g=hit.object.geometry,p=g.attributes.position,c=g.attributes.color,f=hit.face,local=hit.object.worldToLocal(hit.point.clone());const bary=Triangle.getBarycoord(local,new Vector3().fromBufferAttribute(p,f.a),new Vector3().fromBufferAttribute(p,f.b),new Vector3().fromBufferAttribute(p,f.c),new Vector3());return new Color().setRGB(c.getX(f.a)*bary.x+c.getX(f.b)*bary.y+c.getX(f.c)*bary.z,c.getY(f.a)*bary.x+c.getY(f.b)*bary.y+c.getY(f.c)*bary.z,c.getZ(f.a)*bary.x+c.getZ(f.b)*bary.y+c.getZ(f.c)*bary.z);};
  let compared=0;
- for(const [x,z]of points){origin.set(x,1,z);ray.set(origin,up);const a=ray.intersectObject(original.scene.getObjectByName('PISO_v007_Externo'),true)[0],b=ray.intersectObject(next.scene.getObjectByName('ColonyFloor_Exterior'),true)[0];if(a&&b){const c=colorAt(a),d=colorAt(b);assert.ok(Math.hypot(c.r-d.r,c.g-d.g,c.b-d.b)<1e-4,`fase do corredor ${x}/${z}`);compared++;}}
+ for(const [x,z]of points){origin.set(repeat(x,bounds.min.x,5),1,repeat(z,bounds.min.z,9));ray.set(origin,up);const a=ray.intersectObject(tile,true)[0];origin.set(x,1,z);ray.set(origin,up);const b=ray.intersectObject(next.scene.getObjectByName('ColonyFloor_Exterior'),true)[0];if(a&&b){const c=colorAt(a),d=colorAt(b);assert.ok(Math.hypot(c.r-d.r,c.g-d.g,c.b-d.b)<1e-4,`fase do corredor ${x}/${z}`);compared++;}}
  assert.ok(compared>5);owned.forEach(g=>g.dispose());
 });
 
@@ -181,4 +182,17 @@ test('S6.12: interiores têm uma única camada por ponto, sem fundo do tile acha
   assert.ok(checked>400);
  }
  assert.equal(shared.interiorTopOnly,true);assert.equal(shared.interiorLayers,1);
+});
+
+test('S6.12: entorno dos prédios tem uma camada por ponto, preservando tile e areia',async()=>{
+ const gltf=await loadGlb('src/assets/buildings/colony-shared-floor-v001.glb');gltf.scene.updateMatrixWorld(true);
+ const outside=shared.cells.filter(([a,b,c,d])=>!shared.interiors.some(r=>(a+b)/2>r.minX&&(a+b)/2<r.maxX&&(c+d)/2>r.minZ&&(c+d)/2<r.maxZ));
+ const ray=new Raycaster(),origin=new Vector3(),down=new Vector3(0,-1,0);
+ for(const [name,cells]of [['ColonyFloor_Exterior',outside]]){
+  const m=gltf.scene.getObjectByName(name),p=m.geometry.attributes.position,index=m.geometry.index;let area=0;
+  for(let i=0;i<(index?.count??p.count);i+=3){const[a,b,c]=[0,1,2].map(k=>new Vector3().fromBufferAttribute(p,index?index.getX(i+k):i+k));area+=Math.abs((b.x-a.x)*(c.z-a.z)-(b.z-a.z)*(c.x-a.x))/2;}
+  const expected=cells.reduce((sum,[a,b,c,d])=>sum+(b-a)*(d-c),0);assert.ok(Math.abs(area-expected)<1e-4,`${name} área ${area} vs ${expected}`);
+  for(const [a,b,c,d]of cells){if(b-a<.001||d-c<.001)continue;origin.set(a+(b-a)*.41713,1,c+(d-c)*.53647);ray.set(origin,down);assert.equal(ray.intersectObject(m).length,1,`${name} camada ${origin.x}/${origin.z}`);}
+ }
+ assert.equal(shared.exteriorLayers,1);
 });

@@ -1,5 +1,5 @@
 """Pavimento plano da colônia: tile real do corredor; sem plataformas dos prédios."""
-import bpy, bmesh, sys, json, hashlib
+import bpy, bmesh, sys, json, hashlib, struct
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[3]
 sys.path.insert(0,str(ROOT/'scripts'))
@@ -26,37 +26,55 @@ source=ROOT/'src/assets/colony-v006.glb'
 bpy.ops.import_scene.gltf(filepath=str(source));bpy.context.view_layer.update()
 reference=bpy.data.objects[tile.REFERENCE]
 world=reference.matrix_world.copy();reference.parent=None;reference.matrix_world=world
-col=reference.data.color_attributes.active_color
-if col.name!='Col':
- old=col.name;col.name='Col'
- for m in reference.data.materials:
-  if m and m.use_nodes:
-   for n in m.node_tree.nodes:
-    if n.type=='VERTEX_COLOR':n.layer_name='Col'
-    if n.type=='ATTRIBUTE' and n.attribute_name==old:n.attribute_name='Col'
+# O importador usa BYTE_COLOR; restaura COLOR_0 em FLOAT_COLOR para não
+# quantizar a areia ao passar pelo BMesh. Coordenadas e cor vêm do GLB intacto.
+raw=source.read_bytes();jl=struct.unpack_from('<I',raw,12)[0];doc=json.loads(raw[20:20+jl]);binary=20+jl+8
+formats={5126:('f',4),5121:('B',1),5123:('H',2)}
+def values(accessor):
+ a=doc['accessors'][accessor];v=doc['bufferViews'][a['bufferView']];fmt,size=formats[a['componentType']];n={'VEC3':3,'VEC4':4}[a['type']]
+ offset=binary+v.get('byteOffset',0)+a.get('byteOffset',0);stride=v.get('byteStride',n*size)
+ out=[struct.unpack_from('<'+fmt*n,raw,offset+i*stride) for i in range(a['count'])]
+ if a.get('normalized'):out=[tuple(x/((1<<(size*8))-1) for x in row) for row in out]
+ return out
+lookup={}
+node=next(n for n in doc['nodes'] if n.get('name')==tile.REFERENCE)
+for primitive in doc['meshes'][node['mesh']]['primitives']:
+ for p,c in zip(values(primitive['attributes']['POSITION']),values(primitive['attributes']['COLOR_0'])):
+  key=tuple(round(x,5) for x in (p[0],-p[2],p[1]));lookup.setdefault(key,[]).append(tuple(c)+(1.,)*(4-len(c)))
+old_col=reference.data.color_attributes.active_color;old_name=old_col.name
+restored=reference.data.color_attributes.new(name='Col_Float',type='FLOAT_COLOR',domain='CORNER')
+for loop in reference.data.loops:
+ key=tuple(round(x,5) for x in reference.data.vertices[loop.vertex_index].co)
+ candidates=lookup[key];old=old_col.data[loop.index].color
+ restored.data[loop.index].color=min(candidates,key=lambda c:sum((c[k]-old[k])**2 for k in range(3)))
+reference.data.color_attributes.remove(old_col);restored.name='Col';reference.data.color_attributes.active_color=restored
+for m in reference.data.materials:
+ if m and m.use_nodes:
+  for n in m.node_tree.nodes:
+   if n.type=='VERTEX_COLOR':n.layer_name='Col'
+   if n.type=='ATTRIBUTE' and n.attribute_name==old_name:n.attribute_name='Col'
 for o in list(bpy.data.objects):
  if o!=reference:bpy.data.objects.remove(o,do_unlink=True)
+# Referência só com topo/chanfros para todas as superfícies projetadas.
+selected_reference=reference.copy();selected_reference.data=reference.data.copy()
+bpy.context.collection.objects.link(selected_reference);selected_reference.name='Tile_SomenteTopo'
+bm=bmesh.new();bm.from_mesh(selected_reference.data)
+normal_matrix=selected_reference.matrix_world.to_3x3().inverted().transposed()
+lower=[f for f in bm.faces if (normal_matrix@f.normal).z<=1e-6]
+bmesh.ops.delete(bm,geom=lower,context='FACES');bm.to_mesh(selected_reference.data);bm.free()
 objects=[]
-for clean in [False,True]:
+for category in ['exterior','clean']:
+ clean=category=='clean'
+ selected_cells=cells
  verts=[];faces=[]
- for x0,x1,z0,z1,c in cells:
+ for x0,x1,z0,z1,c in selected_cells:
   if c!=clean:continue
   start=len(verts);verts.extend([(x0,-z0,0),(x0,-z1,0),(x1,-z1,0),(x1,-z0,0)]);faces.append(tuple(range(start,start+4)))
  me=bpy.data.meshes.new('Pavimento');me.from_pydata(verts,[],faces);me.materials.append(reference.data.materials[0]);me.update()
  obj=bpy.data.objects.new('ColonyFloor_Clean' if clean else 'ColonyFloor_Exterior',me);bpy.context.collection.objects.link(obj)
  tile.FLOORS=(obj.name,)
- selected_reference=reference
  reference_name=tile.REFERENCE
- if clean:
-  # O tile é uma peça fechada: projetar também seu fundo duplica a cobertura
-  # em Z=0 e cria z-fighting. O interior usa apenas as faces voltadas para cima.
-  selected_reference=reference.copy();selected_reference.data=reference.data.copy()
-  bpy.context.collection.objects.link(selected_reference);selected_reference.name='TileInterior_SomenteTopo'
-  bm=bmesh.new();bm.from_mesh(selected_reference.data)
-  normal_matrix=selected_reference.matrix_world.to_3x3().inverted().transposed()
-  lower=[f for f in bm.faces if (normal_matrix@f.normal).z<=1e-6]
-  bmesh.ops.delete(bm,geom=lower,context='FACES');bm.to_mesh(selected_reference.data);bm.free()
-  tile.REFERENCE=selected_reference.name
+ tile.REFERENCE=selected_reference.name
  tile.tile_external_floors([obj,selected_reference])
  tile.REFERENCE=reference_name
  obj['tile_referencia']=reference_name
@@ -71,6 +89,6 @@ out=ART/'export/colony-shared-floor-v001.glb'
 bpy.ops.export_scene.gltf(filepath=str(out),export_format='GLB',use_selection=True,export_animations=False,export_yup=True,export_extras=True)
 (ROOT/'src/assets/buildings/colony-shared-floor-v001.glb').write_bytes(out.read_bytes())
 for o in objects:o.data.calc_loop_triangles()
-report=dict(areas=areas,interiors=interiors,cells=[list(c[:4]) for c in cells],tile='ARQ_Lab_Piso_Patio',source='src/assets/colony-v006.glb',sourceSha256=hashlib.sha256(source.read_bytes()).hexdigest(),sha256=hashlib.sha256(out.read_bytes()).hexdigest(),cleanColors=[[.107023105,.102241732,.086500458],[.275,.259,.220]],height=0,interiorLayers=1,interiorTopOnly=True,triangles=sum(len(o.data.loop_triangles) for o in objects))
+report=dict(areas=areas,interiors=interiors,cells=[list(c[:4]) for c in cells],tile='ARQ_Lab_Piso_Patio',source='src/assets/colony-v006.glb',sourceSha256=hashlib.sha256(source.read_bytes()).hexdigest(),sha256=hashlib.sha256(out.read_bytes()).hexdigest(),cleanColors=[[.107023105,.102241732,.086500458],[.275,.259,.220]],height=0,interiorLayers=1,interiorTopOnly=True,exteriorLayers=1,triangles=sum(len(o.data.loop_triangles) for o in objects))
 (ROOT/'src/assets/buildings/colony-shared-floor-v001.json').write_text(json.dumps(report,indent=2)+'\n')
 (ART/'notas/piso-compartilhado-v001.json').write_text(json.dumps(report,indent=2)+'\n')

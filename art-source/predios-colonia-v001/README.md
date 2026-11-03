@@ -69,3 +69,14 @@ cobertura única por ponto e área total correta. O exterior permanece idêntico
 à composição aprovada em `36036c8`. Medições em
 `notas/vibracao-interiores-03-11.json`. Não houve ajuste de offset para esconder
 a sobreposição; a camada inferior foi removida na geração da malha limpa.
+
+## Mesmo ajuste no entorno · 03/11/2026
+
+Após aceite dos interiores `29b30aa`, o autor pediu corrigir os corredores
+ao redor. A referência somente com topo agora atende também ao exterior
+compartilhado: área projetada 134,53 → 67,26 m². A areia é mantida com os
+valores COLOR_0 da fonte em FLOAT_COLOR, evitando quantização do importador
+Blender. Testes verificam área, camada única e fase/cores do topo do tile.
+Interiores aprovados idênticos por comparação de posições/normais/cores/índices.
+Os corredores originais v007 já têm área/camada corretas e não foram alterados.
+Dados em `notas/corredores-camada-unica-03-11.json`.
