@@ -1,0 +1,28 @@
+{
+  "version": "s6.3-limites-v001",
+  "triangles": 24048,
+  "trianglesByNode": {
+    "Limite_Terreno_entulho": 13126,
+    "Limite_Terreno_terra": 2366,
+    "Ruina_Fundo_Oeste": 540,
+    "Ruina_Fundo_Leste": 672,
+    "Ruina_Frente_Centro": 744,
+    "Limite_Detritos_concreto": 3228,
+    "Limite_Detritos_entulho": 888,
+    "Limite_Detritos_metal": 1596,
+    "Limite_Detritos_tijolo": 888
+  },
+  "debris": 550,
+  "materials": [
+    "azul",
+    "bege",
+    "concreto",
+    "entulho",
+    "metal",
+    "terra",
+    "terracota",
+    "tijolo"
+  ],
+  "colliders": 4,
+  "glbBytes": 1697884
+}

@@ -1,0 +1,76 @@
+{
+  "version": "s6.3-limites-v001",
+  "bounds": {
+    "minX": -51.0,
+    "maxX": 51.0,
+    "minZ": -54.0,
+    "maxZ": 54.0
+  },
+  "cameraSlope": 0.707291,
+  "terrainSlope": 0.45,
+  "outerRing": 16.0,
+  "colliders": [
+    {
+      "id": "COL_Limite_Norte",
+      "minX": -51.0,
+      "maxX": 51.0,
+      "minZ": -57.0,
+      "maxZ": -54.0,
+      "minY": 0.0,
+      "maxY": 4.0
+    },
+    {
+      "id": "COL_Limite_Sul",
+      "minX": -51.0,
+      "maxX": 51.0,
+      "minZ": 54.0,
+      "maxZ": 57.0,
+      "minY": 0.0,
+      "maxY": 4.0
+    },
+    {
+      "id": "COL_Limite_Oeste",
+      "minX": -54.0,
+      "maxX": -51.0,
+      "minZ": -54.0,
+      "maxZ": 54.0,
+      "minY": 0.0,
+      "maxY": 4.0
+    },
+    {
+      "id": "COL_Limite_Leste",
+      "minX": 51.0,
+      "maxX": 54.0,
+      "minZ": -54.0,
+      "maxZ": 54.0,
+      "minY": 0.0,
+      "maxY": 4.0
+    }
+  ],
+  "ruins": [
+    {
+      "id": "Ruina_Fundo_Oeste",
+      "minX": -62.0,
+      "maxX": -52.0,
+      "minZ": 54.0,
+      "maxZ": 64.0,
+      "height": 23.1
+    },
+    {
+      "id": "Ruina_Fundo_Leste",
+      "minX": 52.0,
+      "maxX": 62.0,
+      "minZ": 54.0,
+      "maxZ": 64.0,
+      "height": 19.8
+    },
+    {
+      "id": "Ruina_Frente_Centro",
+      "minX": -6.0,
+      "maxX": 6.0,
+      "minZ": -67.0,
+      "maxZ": -56.0,
+      "height": 23.1
+    }
+  ]
+}
