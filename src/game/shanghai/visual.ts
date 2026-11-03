@@ -1,4 +1,4 @@
-import { createDestroyedCars, removeLegacyCars } from './propVisuals';
+import { createDestroyedCars, removeLegacyCars, stripCarPlate } from './propVisuals';
 import carUrl from '../../assets/props/shanghai/rusted-car.glb';
 import { Mesh } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -32,6 +32,7 @@ export async function loadPhase01Visual(world: OfficeWorld, cancelled: () => boo
     try {
         removeOldLandingPatch(map.value.scene);
         removeLegacyCars(map.value.scene);
+        stripCarPlate(cars.value.scene);
         prepareAresVisual(ship.value.scene);
         map.value.scene.traverse(o => { if (o instanceof Mesh) { o.castShadow = true; o.receiveShadow = true; } });
         map.value.scene.name = 'ShanghaiFase01Visual';

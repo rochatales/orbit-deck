@@ -50,17 +50,8 @@ const CELLS: ((g: G, rand: () => number, c: number) => void)[] = [
   // 0–1 rede de trincas
   (g, r, c) => { grime(g, r, c, c, 90, '20,19,18', .25, 10); for (let i = 0; i < 5; i++) crack(g, r, c + (r() - .5) * 60, c + (r() - .5) * 60, r() * 7, 14, 2.6, .2); },
   (g, r, c) => { grime(g, r, c, c, 80, '20,19,18', .2, 8); for (let i = 0; i < 4; i++) crack(g, r, c, c, i * 1.6 + r(), 16, 3, .22); chips(g, r, c, c, 40, 18, 'rgba(98,96,92,.6)'); },
-  // 2 couro de jacaré: placas poligonais soltas
-  (g, r, c) => {
-    grime(g, r, c, c, 90, '16,15,14', .35, 12);
-    const pts: P[][] = [];
-    for (let j = -3; j <= 3; j++) { const row: P[] = []; for (let i = -3; i <= 3; i++) row.push([c + i * 26 + (r() - .5) * 14 + (j % 2) * 13, c + j * 26 + (r() - .5) * 14]); pts.push(row); }
-    for (let j = 0; j < 7; j++) for (let i = 0; i < 7; i++) {
-      const [x, y] = pts[j][i]; if (Math.hypot(x - c, y - c) > 92) continue;
-      if (i < 6) stroke(g, [[x, y], pts[j][i + 1]], 1.6);
-      if (j < 6) stroke(g, [[x, y], pts[j + 1][i]], 1.6);
-    }
-  },
+  // 2 estrela de impacto: trincas que partem de um ponto e se abrem (sem malha em grade)
+  (g, r, c) => { grime(g, r, c, c, 60, '14,13,12', .35, 8); blob(g, r, c, c, 10, 'rgba(10,9,8,.85)', .6, 8); for (let i = 0, n = 6 + Math.floor(r() * 3); i < n; i++) crack(g, r, c, c, i / n * Math.PI * 2 + r() * .6, 11 + Math.floor(r() * 5), 2.6, .12); },
   // 3 trinca longa atravessando a faixa
   (g, r, c) => { crack(g, r, 20, c + (r() - .5) * 40, (r() - .5) * .3, 26, 3.6, .18); crack(g, r, c, 30, Math.PI / 2 + (r() - .5) * .4, 14, 2, .1); },
   // 4–5 buraco: fundo escuro, cascalho, borda quebrada e trincas saindo

@@ -4,6 +4,9 @@ import { loadSource } from './load-source.mjs';
 import { loadGlb } from './load-glb.mjs';
 const D = loadSource('src/game/shanghai/urbanDecay.ts');
 const { stripCratePlate, CRATE_IMPACT } = loadSource('src/game/props/crateImpact.ts');
+const { stripCarPlate } = loadSource('src/game/shanghai/propVisuals.ts');
+const { SHANGHAI_CARS } = loadSource('src/game/shanghai/propPlacements.ts');
+import { Box3 } from 'three';
 const { phase01SurfaceGrid } = loadSource('src/game/shanghai/surfaceGrid.ts');
 const { SHANGHAI_PHASE01: layout } = loadSource('src/game/shanghai/layout.ts');
 const height = phase01SurfaceGrid();
@@ -50,4 +53,20 @@ test('Baú sem a chapa: some terra/laje/trinca do GLB e a cabine desce o topo da
   visual.traverse(o => { if (o.isMesh && o.visible) kept.push(o.material.name); });
   for (const name of ['Brick', 'Rebar', 'Sign_Blue', 'Sign_White', 'Concrete_Dark', 'Paint_Orange']) assert.ok(kept.includes(name), `${name} mantido`);
   glb.scene.traverse(o => { if (o.isMesh) assert.equal(o.visible, true, 'cache do GLB intacto'); });
+});
+
+test('Carros: placa de entulho removida, rodas e lataria mantidas, mancha de óleo e cacos no piso', async () => {
+  const glb = await loadGlb('src/assets/props/shanghai/rusted-car.glb'), source = glb.scene;
+  const before = new Box3().setFromObject(source), count = () => { let n = 0; source.traverse(o => { if (o.isMesh) n += o.geometry.index.count / 3; }); return n; };
+  const total = count(), removed = stripCarPlate(source);
+  assert.ok(removed > 400 && removed < total * .35, `${removed}/${total} faces da placa`);
+  assert.equal(count(), total - removed);
+  assert.equal(stripCarPlate(source), removed, 'só uma vez por fonte');
+  const after = new Box3().setFromObject(source);
+  assert.ok(after.min.y >= before.min.y, 'rodas seguem tocando o chão');
+  assert.ok(after.max.y === before.max.y && after.max.x - after.min.x > (before.max.x - before.min.x) * .9, 'lataria inteira');
+  assert.ok(SHANGHAI_CARS.filter(car => decals.some(d => d.cell === 6 && d.x === car.x && d.z === car.z)).length >= 7, 'carcaças com mancha de óleo');
+  for (const car of SHANGHAI_CARS) {
+    for (const w of weeds) assert.ok(Math.abs(w.x - car.x) > 1.2 || Math.abs(w.z - car.z) > 1.2, 'nada brota sob a lataria');
+  }
 });

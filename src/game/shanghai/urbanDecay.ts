@@ -1,6 +1,7 @@
 import layout from '../../assets/shanghai-fase01/layout.json';
 import { SHANGHAI_SUPPLY_CRATES } from '../props/supplyCrate';
 import { CRATE_IMPACT, crateRandom } from '../props/crateImpact';
+import { SHANGHAI_CARS, carObstacle } from './propPlacements';
 
 /** Destruição urbana de Shanghai (S6.3): só visual, sem colisor e sem asset novo.
  * Rua e calçada vêm da grade de superfícies (0 m / 0,12 m); prédios, canteiros e as
@@ -13,7 +14,7 @@ export const DECAY = {
 } as const;
 /** Atlas 4×4: 0–7 rua, 8–15 calçada. */
 export const DECAL = {
-  rua: [{ cell: 0, size: [2.4, 4.6] }, { cell: 1, size: [2.4, 4.6] }, { cell: 2, size: [1.6, 3] }, { cell: 3, size: [3, 5.5] },
+  rua: [{ cell: 0, size: [2.4, 4.6] }, { cell: 1, size: [2.4, 4.6] }, { cell: 2, size: [1.8, 3.4] }, { cell: 3, size: [3, 5.5] },
     { cell: 4, size: [.9, 1.8] }, { cell: 5, size: [1.1, 2.2] }, { cell: 6, size: [1.6, 3.2] }, { cell: 7, size: [1.2, 2.4] }],
   calcada: [{ cell: 8, size: [1.2, 2.6] }, { cell: 9, size: [1.2, 2.6] }, { cell: 10, size: [1, 1.8] }, { cell: 11, size: [1, 1.8] },
     { cell: 12, size: [1.2, 2.8] }, { cell: 13, size: [1.2, 2.8] }, { cell: 14, size: [1, 2.2] }, { cell: 15, size: [.8, 1.8] }]
@@ -30,6 +31,9 @@ const footprints = layout.buildings.map(b => ({ minX: b.x - b.w / 2 - .15, maxX:
 const inBuilding = (x: number, z: number) => footprints.some(f => x > f.minX && x < f.maxX && z > f.minZ && z < f.maxZ);
 const nearBuilding = (x: number, z: number, m: number) => footprints.some(f => x > f.minX - m && x < f.maxX + m && z > f.minZ - m && z < f.maxZ + m) && !inBuilding(x, z);
 const inCrater = (x: number, z: number, pad = 0) => SHANGHAI_SUPPLY_CRATES.some(c => Math.hypot(x - c.x, z - c.z) < CRATE_IMPACT.scarRadius * .8 + pad);
+const carBoxes = SHANGHAI_CARS.map(car => carObstacle(car));
+/** Debaixo da lataria nada brota nem se empilha (atravessaria o carro). */
+const underCar = (x: number, z: number, pad = .2) => carBoxes.some(b => x > b.minX - pad && x < b.maxX + pad && z > b.minZ - pad && z < b.maxZ + pad);
 const landing = layout.landingReservation;
 const onLanding = (x: number, z: number) => x > landing.minX && x < landing.maxX && z > landing.minZ && z < landing.maxZ;
 
@@ -74,6 +78,18 @@ export function createDecals(height: Height): Decal[] {
       placed++;
     }
   }
+  // Carros abandonados: mancha de óleo/fuligem e cacos de vidro colando a carcaça no asfalto.
+  for (const car of SHANGHAI_CARS) {
+    const ground = groundAt(car.x, car.z, height);
+    if (!ground) continue;
+    const y = height(car.x, car.z) + (ground === 'rua' ? DECAY.streetLift : DECAY.sidewalkLift);
+    // Encolhe até caber no mesmo piso (carro encostado no meio-fio não dobra a mancha).
+    for (const [cell, start, angle] of [[6, 5.2, car.angle + Math.PI / 2], [15, 4.2, car.angle]] as const) {
+      let size: number = start;
+      while (size > 2.4 && !sameGround(car.x, car.z, size * .5, ground, height)) size *= .85;
+      if (size > 2.4) out.push({ x: car.x, z: car.z, y, size, cell, ground, angle });
+    }
+  }
   return out;
 }
 
@@ -94,9 +110,14 @@ export function createDebris(height: Height, decals: readonly Decal[]): Debris[]
     const count = 3 + Math.floor(rand() * 7), big = rand() < .25 ? 1.8 : 1;
     for (let k = 0; k < count; k++) {
       const px = x + (rand() - .5) * 1.6, pz = z + (rand() - .5) * 1.6, g = groundAt(px, pz, height);
-      if (g && !inCrater(px, pz)) piece(px, pz, g, k === 0 ? big : 1);
+      if (g && !inCrater(px, pz) && !underCar(px, pz)) piece(px, pz, g, k === 0 ? big : 1);
     }
     clusters++;
+  }
+  // Lataria e vidro soltos em volta de cada carcaça.
+  for (const car of SHANGHAI_CARS) for (let k = 0; k < 9; k++) {
+    const a = rand() * Math.PI * 2, r = 1.7 + rand() * 1.4, x = car.x + Math.cos(a) * r, z = car.z + Math.sin(a) * r, g = groundAt(x, z, height);
+    if (g && !underCar(x, z)) piece(x, z, g, .6, rand() < .5 ? 'concreto' : 'asfalto');
   }
   // Buraco na rua cospe pedaços de asfalto em volta.
   for (const d of decals) if (POTHOLES.has(d.cell)) for (let k = 0; k < 5; k++) {
@@ -115,7 +136,7 @@ export function createDebris(height: Height, decals: readonly Decal[]): Debris[]
 export function createWeeds(height: Height, decals: readonly Decal[]): Weed[] {
   const rand = crateRandom('shanghai-mato'), out: Weed[] = [];
   const tuft = (x: number, z: number, scale: number) => {
-    if (out.length >= DECAY.weedMax || !groundAt(x, z, height) || inCrater(x, z)) return;
+    if (out.length >= DECAY.weedMax || !groundAt(x, z, height) || inCrater(x, z) || underCar(x, z)) return;
     out.push({ x, z, y: height(x, z) - .01, height: (.28 + rand() * .42) * scale, width: (.38 + rand() * .4) * scale, yaw: rand() * Math.PI, tone: rand() });
   };
   for (const d of decals) if (MISSING_TILES.has(d.cell)) for (let k = 0, n = 2 + Math.floor(rand() * 3); k < n; k++)

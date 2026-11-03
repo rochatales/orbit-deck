@@ -141,16 +141,15 @@ test('S6.3 Limites: LimitsRuinFade esmaece ruínas quando encobrem o jogador e r
     fader.dispose();
 });
 
-test('S6.3 Limites: textura da atmosfera de nuvens existe e é carregável', () => {
-    const cloudPath = 'src/assets/shanghai-limites/nuvem.png';
-    assert.ok(existsSync(cloudPath), 'textura nuvem.png existe no diretório de assets');
-    const buf = readFileSync(cloudPath);
-    assert.ok(buf.length > 500, 'textura nuvem.png tem conteúdo válido');
-    // Magic PNG: 0x89 0x50 0x4E 0x47
-    assert.equal(buf[0], 0x89);
-    assert.equal(buf[1], 0x50);
-    assert.equal(buf[2], 0x4E);
-    assert.equal(buf[3], 0x47);
+test('S6.3 Limites: névoa baixa densa fora da borda, tênue no centro e com clareira no explorador', () => {
+    const { cloudLayout, CLOUD_CLEAR } = loadSource('src/scene/shanghaiCloudLayout.ts');
+    const clouds = cloudLayout(), still = cloudLayout(true);
+    const outside = clouds.filter(c => Math.abs(c.x) > 51 || Math.abs(c.z) > 54);
+    assert.ok(outside.length >= 60, `${outside.length} puffs fora do distrito`);
+    for (const c of clouds) assert.ok(c.alpha <= .45 && c.scale <= 30);
+    assert.ok(clouds.filter(c => !outside.includes(c)).every(c => c.alpha <= .1), 'centro tênue');
+    assert.ok(still.every(c => c.drift === 0), 'prefers-reduced-motion para a deriva');
+    assert.ok(CLOUD_CLEAR.inner >= 10 && CLOUD_CLEAR.outer > CLOUD_CLEAR.inner);
 });
 
 test('S6.3 Limites: materiais chapados reaproveitam a instância texturizada do mapa pelo nome', () => {

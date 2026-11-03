@@ -31,6 +31,34 @@ export function removeLegacyCars(scene: Object3D) {
   if (removed !== 432) throw new Error(`Carros antigos incompatíveis: ${removed}/432 triângulos`);
   return removed;
 }
+/** A carcaça vem fundida numa placa de entulho que destoava do piso: remove, uma vez por
+ * fonte, as faces dos 10% mais baixos e as faces planas viradas para cima no primeiro quarto
+ * da altura. Rodas e lataria ficam; o encaixe no chão usa a nova caixa da fonte. */
+export const CAR_PLATE = { cut: .1, flatBand: .25, flatNormal: .8 } as const;
+export function stripCarPlate(source: Object3D) {
+  if (source.userData.carPlateStripped) return source.userData.carPlateStripped as number;
+  let removed = 0;
+  source.traverse(node => {
+    const mesh = node as Mesh;
+    if (!mesh.isMesh || !mesh.geometry.index) return;
+    const geometry = mesh.geometry.clone(), index = geometry.index!, p = geometry.attributes.position;
+    geometry.computeBoundingBox();
+    const lo = geometry.boundingBox!.min.y, span = geometry.boundingBox!.max.y - lo, keep: number[] = [];
+    const a = new Vector3(), b = new Vector3(), c = new Vector3(), d = new Vector3(), n = new Vector3();
+    for (let i = 0; i < index.count; i += 3) {
+      a.fromBufferAttribute(p, index.getX(i)); b.fromBufferAttribute(p, index.getX(i + 1)); c.fromBufferAttribute(p, index.getX(i + 2));
+      n.subVectors(c, b).cross(d.subVectors(b, a)).normalize();
+      const top = Math.max(a.y, b.y, c.y), mid = (a.y + b.y + c.y) / 3;
+      if (top < lo + CAR_PLATE.cut * span || (mid < lo + CAR_PLATE.flatBand * span && Math.abs(n.y) > CAR_PLATE.flatNormal)) { removed++; continue; }
+      keep.push(index.getX(i), index.getX(i + 1), index.getX(i + 2));
+    }
+    geometry.setIndex(keep);
+    geometry.computeBoundingBox(); geometry.computeBoundingSphere();
+    mesh.geometry.dispose(); mesh.geometry = geometry;
+  });
+  source.userData.carPlateStripped = removed;
+  return removed;
+}
 /** Clona o carro enferrujado na escala aprovada, apoiado em `y` pelo fundo da caixa. */
 export function placeCarWreck(source: Object3D, id: string, x: number, y: number, z: number, angle: number) {
   source.updateWorldMatrix(true, true);
