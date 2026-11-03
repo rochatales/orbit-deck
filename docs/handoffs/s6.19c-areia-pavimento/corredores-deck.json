@@ -1,0 +1,67 @@
+{
+  "base": "375f6ea",
+  "interrupcao_reproduzida_antes": {
+    "inicio": [
+      6.2,
+      28.6
+    ],
+    "alvo": [
+      0,
+      28.6
+    ],
+    "parava_em": [
+      5.709999999999998,
+      28.6
+    ]
+  },
+  "corredor_hangar_cafeteria": {
+    "minX": 4.79,
+    "maxX": 8.5,
+    "minZ": 10.5,
+    "maxZ": 21.5
+  },
+  "ligacao_deck": {
+    "minX": 0,
+    "maxX": 8.5,
+    "minZ": 25,
+    "maxZ": 30
+  },
+  "recorte": "contorno superior real de MARTE_DECK_05 + acesso ARES já aprovado, sem editar o GLB do deck",
+  "deckFonteSha256": "59b4cb7dbeb09699416207cc97863a42027f2cd131f887b9caf4050bbf121354",
+  "area_antes_m2": 455.1434458999999,
+  "area_depois_m2": 474.18000606457093,
+  "rota_rapier_ida_volta": [
+    [
+      5.2,
+      11.7
+    ],
+    [
+      5.2,
+      17.2
+    ],
+    [
+      20.6,
+      17.2
+    ],
+    [
+      20.6,
+      28.6
+    ],
+    [
+      6.2,
+      28.6
+    ],
+    [
+      0,
+      28.6
+    ],
+    [
+      0,
+      29.5
+    ]
+  ],
+  "tolerancia_chegada_m": 0.03,
+  "raio_capsula_m": 0.32,
+  "colisores_preservados": true,
+  "pavimento_sha256": "6e4a656b5eb94d41c0d04f55fff03bf8192f52893aef768da8557786204b2df8"
+}

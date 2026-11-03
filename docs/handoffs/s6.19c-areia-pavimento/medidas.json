@@ -19,10 +19,11 @@
   },
   "pavimento": {
     "antes_m2": 246.9150084,
-    "depois_m2": 455.1434458999999,
-    "adicionado_m2": 208.2284374999999,
-    "triangulos": 21773,
-    "sha256": "f9b32e9225b20f5bd6aa91b54a5942af5cc8247e8f395f372031dd0b3a8ecd02"
+    "depois_m2": 474.18000606457093,
+    "adicionado_m2": 227.26499766457093,
+    "triangulos": 24280,
+    "sha256": "6e4a656b5eb94d41c0d04f55fff03bf8192f52893aef768da8557786204b2df8"
   },
-  "qa": "teste visual pelo autor no servidor; sem QA de jogo pelo agente"
+  "qa": "teste visual pelo autor no servidor; sem QA de jogo pelo agente",
+  "complemento_base": "375f6ea"
 }

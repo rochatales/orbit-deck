@@ -88,3 +88,14 @@ Pedido de Sandwind/piso sobre `ccae1fa`: união ampliada na faixa Cafeteria–Qu
 Mantidos tile original, areia e superfície única. As faixas também são
 caminháveis, respeitando colisores existentes. Balizas regeradas pelo script
 `gerar-balizas-marte.mjs`. Handoff `docs/handoffs/s6.19c-areia-pavimento.md`.
+
+## Ligação Cafeteria–Hangar e retorno ao deck · 03/11/2026
+
+Sobre `375f6ea`: faixa lateral X 4,79…8,5 / Z 10,5…21,5; ligação ao deck
+X 0…8,5 / Z 25…30. Recorte por diferença convexa com o contorno superior
+real de MARTE_DECK_05 (GLB só lido) e a faixa do acesso ARES existente.
+`surfaceCells` guarda os polígonos efetivamente renderizados e `surfaceAreaM2`
+a área depois dos recortes; `areas` continua sendo a união lógica caminhável
+com o deck. `cells` registra a partição retangular anterior ao recorte.
+Nenhuma malha nova sobreposta ao deck, nenhum colisor de malha. Teste Rapier
+da volta completa, nos dois sentidos, e cobertura por raios na junção.

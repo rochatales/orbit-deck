@@ -151,7 +151,7 @@ test('S6.12: corredores e interiores cobertos sem buracos ou pisos sobrepostos n
  const floors=[base.scene.getObjectByName('PISO_v007_Interno'),base.scene.getObjectByName('PISO_v007_Externo'),...next.scene.children];
  const ray=new Raycaster(),up=new Vector3(0,-1,0),origin=new Vector3();
  // Toda célula da união exata e três percursos que antes eram recortados pelas bases.
- const points=shared.cells.map(([a,b,c,d])=>[a+(b-a)*.50013,c+(d-c)*.50017]);
+ const points=shared.surfaceCells.map(c=>{const n=c.polygon.length,total=n*(n+1)/2;return [c.polygon.reduce((s,v,i)=>s+v[0]*(i+1),0)/total,c.polygon.reduce((s,v,i)=>s+v[1]*(i+1),0)/total]});
  for(let z=5.9;z<17.7;z+=.23)points.push([5.8,z]);
  for(let x=-16;x< -4.1;x+=.23)points.push([x,.23]);
  for(let x=5.5;x<15.6;x+=.23)points.push([x,16.3]);
@@ -191,8 +191,8 @@ test('S6.12: entorno dos prédios tem uma camada por ponto, preservando tile e a
  for(const [name,cells]of [['ColonyFloor_Exterior',outside]]){
   const m=gltf.scene.getObjectByName(name),p=m.geometry.attributes.position,index=m.geometry.index;let area=0;
   for(let i=0;i<(index?.count??p.count);i+=3){const[a,b,c]=[0,1,2].map(k=>new Vector3().fromBufferAttribute(p,index?index.getX(i+k):i+k));area+=Math.abs((b.x-a.x)*(c.z-a.z)-(b.z-a.z)*(c.x-a.x))/2;}
-  const expected=cells.reduce((sum,[a,b,c,d])=>sum+(b-a)*(d-c),0);assert.ok(Math.abs(area-expected)<1e-4,`${name} área ${area} vs ${expected}`);
-  for(const [a,b,c,d]of cells){if(b-a<.001||d-c<.001)continue;origin.set(a+(b-a)*.41713,1,c+(d-c)*.53647);ray.set(origin,down);assert.equal(ray.intersectObject(m).length,1,`${name} camada ${origin.x}/${origin.z}`);}
+  const expected=shared.exteriorAreaM2;assert.ok(Math.abs(area-expected)<1e-4,`${name} área ${area} vs ${expected}`);
+  for(const cell of shared.surfaceCells.filter(c=>!c.clean)){const weights=cell.polygon.map((_,i)=>(i+1)**2+.137*(i+1)),total=weights.reduce((a,b)=>a+b,0);origin.set(cell.polygon.reduce((s,v,i)=>s+v[0]*weights[i],0)/total,1,cell.polygon.reduce((s,v,i)=>s+v[1]*weights[i],0)/total);ray.set(origin,down);assert.equal(ray.intersectObject(m).length,1,`${name} camada ${origin.x}/${origin.z}`);}
  }
  assert.equal(shared.exteriorLayers,1);
 });
@@ -202,4 +202,43 @@ test('S6.12: pavimento fecha faixa Cafeteria–Quartel e todo o pátio em volta 
  const ray=new Raycaster(),origin=new Vector3(),down=new Vector3(0,-1,0),world=createWorld();
  const points=[[14.5,6.5],[16,5.5],[6.2,17],[6.2,28],[20.5,28.3],[20.5,17.5],[10,28.5]];
  for(const [baseX,baseZ]of points){const x=baseX+.0137,z=baseZ+.0173;origin.set(x,1,z);ray.set(origin,down);assert.equal(ray.intersectObject(gltf.scene,true).length,1,`tile ${x}/${z}`);assert.ok(world.walkableAreas.some(a=>x>=a.minX&&x<=a.maxX&&z>=a.minZ&&z<=a.maxZ),`área caminhável ${x}/${z}`);}
+});
+
+test('S6.12: ligação sul cobre a transição diagonal ao deck sem sobrepor piso à base da nave',async()=>{
+ const floor=await loadGlb('src/assets/buildings/colony-shared-floor-v001.glb'),deck=await loadGlb('src/assets/ares-mars/deck-mars.glb');
+ assert.equal(sha(fs.readFileSync('src/assets/ares-mars/deck-mars.glb')),shared.deckSourceSha256);
+ deck.scene.position.z=33;deck.scene.updateMatrixWorld(true);floor.scene.updateMatrixWorld(true);
+ const ray=new Raycaster(),origin=new Vector3(),down=new Vector3(0,-1,0);
+ for(let x=.0173;x<6.25;x+=.117){origin.set(x,1,28.6137);ray.set(origin,down);
+  const ground=ray.intersectObject(floor.scene,true),platform=ray.intersectObject(deck.scene,true).filter(h=>h.point.y>-.26);
+  assert.ok(ground.length||platform.length,`ligação sem buraco ${x}`);
+  for(const a of ground)for(const b of platform)assert.ok(Math.abs(a.point.y-b.point.y)>.0005,'sem faces coplanares entre piso e deck');
+ }
+});
+
+test('S6.12: Rapier percorre Cafeteria → lateral Hangar → volta externa estufa → deck nos dois sentidos',async()=>{
+ const {createRequire}=await import('node:module'),require=createRequire(import.meta.url),R=createRequire(require.resolve('@react-three/rapier'))('@dimforge/rapier3d-compat');await R.init();
+ const {PLAYER_COLLIDER_CENTER_Y:Y,PLAYER_COLLIDER_HALF_HEIGHT:half,PLAYER_MOVEMENT:M,PLAYER_PHYSICS:P}=loadSource('src/characters/player/playerConfig.ts');
+ const {constrainToWalkableAreas}=loadSource('src/characters/player/playerMovement.ts');
+ const route=[[5.2,11.7],[5.2,17.2],[20.6,17.2],[20.6,28.6],[6.2,28.6],[0,28.6],[0,29.5]];
+ for(const reverse of [false,true]){
+  const source=createWorld(),physics=new R.World({x:0,y:0,z:0}),path=reverse?[...route].reverse():route;
+  try{
+   for(const c of source.obstacles.filter(c=>c.physics!==false))physics.createCollider(R.ColliderDesc.cuboid((c.maxX-c.minX)/2,P.obstacleHeight/2,(c.maxZ-c.minZ)/2).setTranslation((c.minX+c.maxX)/2,P.obstacleHeight/2,(c.minZ+c.maxZ)/2));
+   for(const c of [...source.simpleCuboids,...source.movingCuboids])physics.createCollider(R.ColliderDesc.cuboid(...c.halfExtents).setTranslation(c.position.x,c.position.y,c.position.z).setRotation(c.rotation));
+   const start=path[0],body=physics.createRigidBody(R.RigidBodyDesc.kinematicPositionBased().setTranslation(start[0],Y+source.supportHeight(...start),start[1])),capsule=physics.createCollider(R.ColliderDesc.capsule(half,M.colliderRadius),body),controller=physics.createCharacterController(P.controllerOffset),out={x:0,z:0};
+   controller.enableAutostep(P.autostepMaxHeight,P.autostepMinWidth,false);controller.enableSnapToGround(P.snapToGroundDistance);physics.step();
+   for(const [x,z]of path.slice(1)){
+    for(let frame=0;frame<1200;frame++){
+     const p=body.translation(),distance=Math.hypot(x-p.x,z-p.z);if(distance<.025)break;
+     const step=Math.min(distance,M.runSpeed/60);constrainToWalkableAreas(p.x,p.z,(x-p.x)/distance*step,(z-p.z)/distance*step,source.bounds,source.walkableAreas,M.colliderRadius,out);
+     controller.computeColliderMovement(capsule,{x:out.x,y:Y+source.supportHeight(p.x+out.x,p.z+out.z)-p.y,z:out.z});
+     const delta=controller.computedMovement(),nx=p.x+delta.x,nz=p.z+delta.z;
+     body.setNextKinematicTranslation({x:nx,y:Y+source.supportHeight(nx,nz),z:nz});physics.step();
+     assert.ok(free(source,nx,nz),`sem invadir sólido ${nx}/${nz}`);
+    }
+    const end=body.translation();assert.ok(Math.hypot(end.x-x,end.z-z)<.03,JSON.stringify({reverse,x,z,end}));
+   }
+  }finally{physics.free();}
+ }
 });
