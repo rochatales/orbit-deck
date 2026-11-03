@@ -18,23 +18,30 @@ function heart(g: CanvasRenderingContext2D, x: number, y: number, r: number) {
  * azul-marinho com a borda ciano da referência. Desenhada em vetor, nítida em qualquer DPR. */
 function portrait(g: CanvasRenderingContext2D, c: number, s: number) {
   g.save();
-  g.beginPath(); g.arc(c, c, s, 0, Math.PI * 2); g.closePath();
-  g.fillStyle = '#0a1c22'; g.fill();
-  g.clip();
-  g.fillStyle = '#d97a5a'; // traje
-  g.beginPath(); g.ellipse(c, c + s * 1.05, s * .95, s * .62, 0, 0, Math.PI * 2); g.fill();
-  g.fillStyle = '#6b4636'; g.fillRect(c - s * .55, c + s * .55, s * .16, s * .6); g.fillRect(c + s * .39, c + s * .55, s * .16, s * .6); // alças
-  g.fillStyle = '#2b2a2d'; g.beginPath(); g.ellipse(c, c + s * .52, s * .44, s * .16, 0, 0, Math.PI * 2); g.fill(); // gola
+  // Sem disco nem contorno: só o busto, com sombra suave para destacar do radar.
+  g.shadowColor = '#000000b0'; g.shadowBlur = 4;
+  const shoulders = new Path2D();
+  shoulders.moveTo(c - s * .86, c + s * 1.3);
+  shoulders.bezierCurveTo(c - s * .9, c + s * .68, c - s * .5, c + s * .42, c, c + s * .42);
+  shoulders.bezierCurveTo(c + s * .5, c + s * .42, c + s * .9, c + s * .68, c + s * .86, c + s * 1.3);
+  shoulders.closePath();
+  g.fillStyle = '#d97a5a'; g.fill(shoulders); // traje
+  g.shadowBlur = 0;
+  g.save(); g.clip(shoulders);
+  g.fillStyle = '#6b4636'; g.fillRect(c - s * .5, c + s * .5, s * .15, s * .9); g.fillRect(c + s * .35, c + s * .5, s * .15, s * .9); // alças
+  g.restore();
+  g.shadowBlur = 4;
+  g.fillStyle = '#2b2a2d'; g.beginPath(); g.ellipse(c, c + s * .56, s * .5, s * .18, 0, 0, Math.PI * 2); g.fill(); // gola
   g.fillStyle = '#e9e1cd'; // capacete
   g.beginPath(); g.arc(c, c - s * .05, s * .58, 0, Math.PI * 2); g.fill();
   g.fillRect(c - s * .66, c - s * .2, s * .14, s * .3); g.fillRect(c + s * .52, c - s * .2, s * .14, s * .3); // orelhas
+  g.shadowBlur = 0;
   g.fillStyle = '#1b2350'; // viseira
   g.beginPath(); g.ellipse(c, c + s * .02, s * .42, s * .3, 0, 0, Math.PI * 2); g.fill();
   g.strokeStyle = '#4ff0ff'; g.lineWidth = Math.max(1, s * .08); // borda ciano inferior
   g.beginPath(); g.ellipse(c, c + s * .02, s * .4, s * .28, 0, Math.PI * .1, Math.PI * .9); g.stroke();
   g.fillStyle = '#ffffff40'; g.beginPath(); g.ellipse(c - s * .16, c - s * .1, s * .1, s * .05, -.5, 0, Math.PI * 2); g.fill(); // reflexo
   g.restore();
-  g.strokeStyle = '#83e5d7'; g.lineWidth = 1.2; g.beginPath(); g.arc(c, c, s, 0, Math.PI * 2); g.stroke();
 }
 
 const reducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -101,7 +108,7 @@ export function RadarMap({ map }: { map: MapId }) {
         g.fill();
       }
       // Explorador no centro: miniatura do perfil, por cima dos pontos.
-      g.globalAlpha = 1; portrait(g, c, 12);
+      g.globalAlpha = 1; portrait(g, c, 13);
     };
     frame = requestAnimationFrame(draw);
     return () => cancelAnimationFrame(frame);
