@@ -80,3 +80,11 @@ Blender. Testes verificam área, camada única e fase/cores do topo do tile.
 Interiores aprovados idênticos por comparação de posições/normais/cores/índices.
 Os corredores originais v007 já têm área/camada corretas e não foram alterados.
 Dados em `notas/corredores-camada-unica-03-11.json`.
+
+## Pátio completo · 03/11/2026
+
+Pedido de Sandwind/piso sobre `ccae1fa`: união ampliada na faixa Cafeteria–Quartel
+(X 6,4125…17,5875 / Z 4,8375…8,5) e pátio da estufa (X 5,7…21,5 / Z 16,6…29).
+Mantidos tile original, areia e superfície única. As faixas também são
+caminháveis, respeitando colisores existentes. Balizas regeradas pelo script
+`gerar-balizas-marte.mjs`. Handoff `docs/handoffs/s6.19c-areia-pavimento.md`.

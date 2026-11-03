@@ -1,3 +1,8 @@
+/** Cor de saída próxima ao solo marciano iluminado; evita a cortina bege clara. */
+export const SANDWIND_APPEARANCE = {
+    color: '#613b27', cloudColor: '#90543a', falloffExponent: 1.75, turbulence: .12
+} as const;
+
 /** S6.19c / S7.8 — política da prévia; distâncias no plano XZ, não da câmera. */
 export const SANDWIND_PROFILES = {
     compact: { label: 'Compacto', clear: 12, opaque: 28, hide: 34, reveal: 30 },

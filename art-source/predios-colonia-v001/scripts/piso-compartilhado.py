@@ -12,6 +12,9 @@ replaced={r for b in buildings for r in b['replaces']}
 areas=[{k:a[k] for k in ['minX','maxX','minZ','maxZ']} for a in original['walkableAreas'] if a['id'] in replaced]
 areas += [b['floor'] for b in buildings]
 areas += [dict(minX=5.3,maxX=8.5,minZ=10.5,maxZ=16.9),dict(minX=5.3,maxX=15.8,minZ=14.9,maxZ=17.8)]
+# Fechamento dos vazios do corredor Cafeteria–Quartel e pátio da estufa.
+areas += [dict(minX=6.4125,maxX=17.5875,minZ=4.8375,maxZ=8.5),
+          dict(minX=5.7,maxX=21.5,minZ=16.6,maxZ=29)]
 areas=[{k:round(v,6) for k,v in a.items()} for a in areas]
 interiors=[{k:round(v,6) for k,v in b['floor'].items()} for b in buildings]
 inside=lambda x,z,rects:any(r['minX']<x<r['maxX'] and r['minZ']<z<r['maxZ'] for r in rects)

@@ -1,9 +1,11 @@
+import { SandClouds } from './SandClouds';
+import { SandwindWind } from './sandwindWind';
 import sharedFloorUrl from '../../assets/buildings/colony-shared-floor-v001.glb';
 import { COLONY_BUILDING_URLS } from './ColonyBuildings';
 import controlRoomUrl from '../../assets/control-room/control-room-v002.glb';
 import circulationUrl from '../../assets/quartel/quartel-circulation-v001.glb';
 import laboratorioUrl from '../../assets/laboratorio/laboratorio-v002.glb';
-import { useEffect, useRef, useState, type CSSProperties, type RefObject } from 'react';
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type RefObject } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import { create } from 'zustand';
@@ -39,15 +41,15 @@ export function ColonySandwind({ scope, masterplan }: { scope: RefObject<Group>;
     const sharedFloor = useGLTF(sharedFloorUrl);
     const [ship, deck] = useGLTF([shipUrl, deckUrl]);
     const meetingRoom = useGLTF(COLONY_BUILDING_URLS[0]), dataCenter = useGLTF(COLONY_BUILDING_URLS[1]), cafeteria = useGLTF(COLONY_BUILDING_URLS[2]);
-    const controller = useRef<SandwindController | null>(null);
+    const controller = useRef<SandwindController | null>(null), wind = useMemo(() => new SandwindWind(), []);
     const enabled = usePreview(s => s.enabled);
     useEffect(() => {
         const root = scope.current!, architecture = masterplan.current!.children[0];
         const next = new SandwindController(root, [colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene, laboratorio.scene, circulation.scene, controlRoom.scene, meetingRoom.scene, dataCenter.scene, cafeteria.scene, sharedFloor.scene],
-            sandwindTargets(root, architecture, manifest), gl.outputColorSpace);
+            sandwindTargets(root, architecture, manifest), gl.outputColorSpace, wind);
         controller.current = next; activeController = next;
         return () => { if (activeController === next) activeController = null; controller.current = null; next.dispose(); };
-    }, [scope, masterplan, colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene, laboratorio.scene, circulation.scene, controlRoom.scene, meetingRoom.scene, dataCenter.scene, cafeteria.scene, sharedFloor.scene, gl]);
+    }, [scope, masterplan, colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene, laboratorio.scene, circulation.scene, controlRoom.scene, meetingRoom.scene, dataCenter.scene, cafeteria.scene, sharedFloor.scene, gl, wind]);
     useEffect(() => {
         if (!enabled) return;
         const original = scene.fog;
@@ -55,7 +57,7 @@ export function ColonySandwind({ scope, masterplan }: { scope: RefObject<Group>;
         return () => { scene.fog = original; };
     }, [scene, enabled]);
     useFrame((_, delta) => controller.current?.update(playerPosition.x, playerPosition.z, delta, usePreview.getState(), simulationBlocked()));
-    return null;
+    return <SandClouds wind={wind} settings={usePreview.getState}/>;
 }
 
 const panelStyle: CSSProperties = {

@@ -196,3 +196,10 @@ test('S6.12: entorno dos prédios tem uma camada por ponto, preservando tile e a
  }
  assert.equal(shared.exteriorLayers,1);
 });
+
+test('S6.12: pavimento fecha faixa Cafeteria–Quartel e todo o pátio em volta da estufa',async()=>{
+ const gltf=await loadGlb('src/assets/buildings/colony-shared-floor-v001.glb');gltf.scene.updateMatrixWorld(true);
+ const ray=new Raycaster(),origin=new Vector3(),down=new Vector3(0,-1,0),world=createWorld();
+ const points=[[14.5,6.5],[16,5.5],[6.2,17],[6.2,28],[20.5,28.3],[20.5,17.5],[10,28.5]];
+ for(const [baseX,baseZ]of points){const x=baseX+.0137,z=baseZ+.0173;origin.set(x,1,z);ray.set(origin,down);assert.equal(ray.intersectObject(gltf.scene,true).length,1,`tile ${x}/${z}`);assert.ok(world.walkableAreas.some(a=>x>=a.minX&&x<=a.maxX&&z>=a.minZ&&z<=a.maxZ),`área caminhável ${x}/${z}`);}
+});
