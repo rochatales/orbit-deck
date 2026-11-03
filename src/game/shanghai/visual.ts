@@ -9,6 +9,8 @@ import type { OfficeWorld } from '../../world/createOfficeMap';
 import { disposeWorld } from '../worldUtils';
 import { prepareAresVisual, removeOldLandingPatch } from './aresVisual';
 import { LimitsRuinFade, createBorderWrecks, shareMapMaterials } from './limits';
+import { BuildingFade } from './buildingFade';
+import layout from '../../assets/shanghai-fase01/layout.json';
 /** Recursos próprios por carregamento; nunca compartilha/dispose o cache de personagens. */
 export async function loadPhase01Visual(world: OfficeWorld, cancelled: () => boolean) {
     const loader = new GLTFLoader();
@@ -41,6 +43,8 @@ export async function loadPhase01Visual(world: OfficeWorld, cancelled: () => boo
         limits.value.scene.traverse(o => { if (o instanceof Mesh) { o.castShadow = true; o.receiveShadow = true; } });
         limits.value.scene.name = 'ShanghaiLimitesVisual';
         world.group.userData.limitsRuinFade = new LimitsRuinFade(limits.value.scene);
+        // Depois do compartilhamento: a berma usa os materiais originais, nunca os do prédio que esmaece.
+        world.group.userData.buildingFade = new BuildingFade(map.value.scene, layout.buildings);
         world.group.add(map.value.scene, ship.value.scene, createDestroyedCars(cars.value.scene, world.surfaceHeight ?? (() => 0)), limits.value.scene, createBorderWrecks(cars.value.scene));
     } catch (error) {
         release();

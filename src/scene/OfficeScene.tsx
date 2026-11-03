@@ -30,10 +30,9 @@ import { playerPosition } from '../state/playerTransient';
 
 function ShanghaiAtmosphere({ world }: { world: OfficeWorld }) {
     useFrame(({ camera }, dt) => {
-        const fade = world.group.userData.limitsRuinFade;
-        if (fade) {
-            fade.update(playerPosition.x, playerPosition.z, camera, Math.min(dt, 0.1));
-        }
+        const step = Math.min(dt, 0.1), { limitsRuinFade, buildingFade } = world.group.userData;
+        limitsRuinFade?.update(playerPosition.x, playerPosition.z, camera, step);
+        buildingFade?.update(playerPosition.x, playerPosition.z, camera, step);
     });
     return <><ShanghaiClouds /><ShanghaiDecay world={world}/></>;
 }
