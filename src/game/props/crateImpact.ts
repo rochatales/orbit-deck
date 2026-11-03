@@ -1,11 +1,11 @@
-import { BufferAttribute, BufferGeometry } from 'three';
+import { BufferAttribute, BufferGeometry, type Mesh, type Object3D } from 'three';
 import type { CratePlacement } from './supplyCrate';
 
 type Height = (x: number, z: number) => number;
 /** Cabines caídas do alto: base enterrada, piso afundado/rachado e placas levantadas.
  * Tudo deriva da superfície já compilada (calçada 0,12–0,15 m ou rua 0 m), sem colisor novo. */
 export const CRATE_IMPACT = {
-  baseHalf: .85, sink: .09, maxTilt: .035, curbTilt: .05,
+  baseHalf: .85, sink: .04, plateTop: .14, plate: ['Dirt', 'Concrete', 'Crack'], maxTilt: .035, curbTilt: .05,
   scarRadius: 3.4, scarCell: .25, scarLift: .018,
   chunks: 20, chunkHeight: .16
 } as const;
@@ -28,7 +28,19 @@ const footprint = (p: CratePlacement) => {
   return out;
 };
 
-/** Assentamento: abaixo do ponto mais baixo da pegada (a borda dura da base some no piso)
+/** A chapa do GLB (terra, laje e decalque de trinca) destoava do piso: some em runtime e a
+ * cabine desce o topo da chapa, mantendo só ela e os destroços de cima (placa, tijolos, pedras). */
+export function stripCratePlate(visual: Object3D) {
+  let hidden = 0;
+  visual.traverse(node => {
+    const mesh = node as Mesh;
+    if (mesh.isMesh && !Array.isArray(mesh.material) && (CRATE_IMPACT.plate as readonly string[]).includes(mesh.material.name)) { mesh.visible = false; hidden++; }
+  });
+  visual.position.y -= CRATE_IMPACT.plateTop;
+  return hidden;
+}
+
+/** Assentamento: abaixo do ponto mais baixo da pegada (a cabine entra uns centímetros no piso)
  * e inclinado para o lado mais baixo quando caiu sobre o meio-fio. */
 export function crateSeat(p: CratePlacement, height: Height) {
   const rand = crateRandom(p.id), points = footprint(p), heights = points.map(([x, z]) => height(x, z));

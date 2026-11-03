@@ -24,6 +24,7 @@ import type { OfficeWorld } from '../world/createOfficeMap';
 import type { MapId } from '../game/session';
 import { MarsColony } from './marsColony/MarsColony';
 import { ShanghaiClouds } from './ShanghaiClouds';
+import { ShanghaiDecay } from './ShanghaiDecay';
 import { useFrame } from '@react-three/fiber';
 import { playerPosition } from '../state/playerTransient';
 
@@ -34,7 +35,7 @@ function ShanghaiAtmosphere({ world }: { world: OfficeWorld }) {
             fade.update(playerPosition.x, playerPosition.z, camera, Math.min(dt, 0.1));
         }
     });
-    return <ShanghaiClouds />;
+    return <><ShanghaiClouds /><ShanghaiDecay world={world}/></>;
 }
 
 export function OfficeScene({ world, map }: {

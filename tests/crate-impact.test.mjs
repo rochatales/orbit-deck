@@ -6,13 +6,13 @@ const { SHANGHAI_SUPPLY_CRATES } = loadSource('src/game/props/supplyCrate.ts');
 const { phase01SurfaceGrid } = loadSource('src/game/shanghai/surfaceGrid.ts');
 const height = phase01SurfaceGrid();
 
-test('Baús caídos: base enterrada abaixo do piso mais baixo e pendendo para fora do meio-fio', () => {
+test('Baús caídos: cabine enterrada abaixo do piso mais baixo e pendendo para fora do meio-fio', () => {
   let curbs = 0;
   for (const p of SHANGHAI_SUPPLY_CRATES) {
     const seat = crateSeat(p, height);
     let low = Infinity;
     for (const u of [-.85, 0, .85]) for (const v of [-.85, 0, .85]) low = Math.min(low, height(p.x + u, p.z + v), height(p.x + v, p.z + u));
-    assert.ok(seat.y <= low - .05 && seat.y >= low - .15, `${p.id} enterrado ${(low - seat.y).toFixed(3)} m`);
+    assert.ok(seat.y <= low - .02 && seat.y >= low - .1, `${p.id} enterrado ${(low - seat.y).toFixed(3)} m`);
     assert.ok(Math.hypot(seat.tiltX, seat.tiltZ) < .1, `${p.id} inclinação discreta`);
     if (seat.curb) { curbs++; assert.ok(Math.hypot(seat.tiltX, seat.tiltZ) > .01); }
     assert.deepEqual(crateSeat(p, height), seat, 'determinístico por id');

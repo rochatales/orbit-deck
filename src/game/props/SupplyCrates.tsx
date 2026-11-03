@@ -6,7 +6,7 @@ import type { SupplyCrate } from '../../combat/simulation';
 import { SUPPLY_CRATE, revealIntensity } from './supplyCrate';
 import { createLockerRig } from './lockerRig';
 import crateUrl from '../../assets/props/shanghai/emergency-locker.glb';
-import { crateSeat, impactChunks, impactScarGeometry, chunkGeometry } from './crateImpact';
+import { crateSeat, impactChunks, impactScarGeometry, chunkGeometry, stripCratePlate } from './crateImpact';
 import { createImpactTexture } from './crateImpactTexture';
 
 const SIDEWALK = new Color('#8d887b'), ASPHALT = new Color('#35383b');
@@ -33,9 +33,10 @@ function createImpactVisual(crates: SupplyCrate[], height: (x: number, z: number
 export function SupplyCrates({ crates, surfaceHeight }: { crates: SupplyCrate[]; surfaceHeight?: (x: number, z: number) => number }) {
   const asset = useGLTF(crateUrl);
   const rigs = useMemo(() => crates.map(crate => {
-    // Caiu do alto: base enterrada abaixo do ponto mais baixo e pendendo para fora do meio-fio.
+    // Caiu do alto: sem a chapa, a cabine entra no piso mais baixo e pende para fora do meio-fio.
     const seat = crateSeat(crate, surfaceHeight ?? (() => 0)), rig = createLockerRig(asset.scene, asset.animations, crate, seat.y);
     rig.root.rotation.set(seat.tiltX, crate.angle ?? 0, seat.tiltZ, 'XZY');
+    stripCratePlate(rig.root.children[0]);
     return rig;
   }), [asset, crates, surfaceHeight]);
   const impact = useMemo(() => createImpactVisual(crates, surfaceHeight ?? (() => 0)), [crates, surfaceHeight]);
