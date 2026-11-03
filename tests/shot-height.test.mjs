@@ -7,7 +7,7 @@ const { traceShot, CombatSimulation, canSeePlayer } = loadSource('src/combat/sim
 const { RIFLE_POSE, RIFLE_MASK, COMBAT, LARGE_PATROL, SMALL_MUTANT, robotConfig } = loadSource('src/combat/config.ts');
 const { Navigation, clearSegment, traversable } = loadSource('src/combat/navigation.ts');
 const { createPhase01Terrain, SHANGHAI_PHASE01 } = loadSource('src/game/shanghai/layout.ts');
-const { SHANGHAI_SUPPLY_CRATES, crateObstacle, openCrate, advanceCrate } = loadSource('src/game/props/supplyCrate.ts');
+const { SHANGHAI_SUPPLY_CRATES, SUPPLY_CRATE, crateMarker, crateObstacle, openCrate, advanceCrate } = loadSource('src/game/props/supplyCrate.ts');
 const b = { minX: -10, maxX: 10, minZ: -10, maxZ: 10 }, ground = { bounds: b, walkableAreas: [b], obstacles: [] };
 const a = { x: 0, z: 0 }, end = { x: 0, z: 9 };
 const box = (minY, maxY) => ({ minX: -1, maxX: 1, minZ: 3, maxZ: 4, minY, maxY });
@@ -49,14 +49,15 @@ test('S2.12 B2: centro→cano usa os mesmos limites inclusivos na altura atual d
     }
 });
 
-test('S2.12 B2: 36 alturas preservadas: 30 bloqueiam a 1,09 m, seis montes ficam abaixo; caixas e ARES-I bloqueiam', () => {
+test('S2.12 B2: alturas do mapa preservadas sem carros antigos; veículos novos/cabines e ARES-I bloqueiam', () => {
     const world = createPhase01Terrain(), exported = SHANGHAI_PHASE01.obstacles;
-    assert.equal(exported.length, 36); assert.equal(world.obstacles.length, 44);
+    assert.equal(exported.length, 36); assert.equal(world.obstacles.length, 52);
     const below = exported.filter(o => o.maxY < RIFLE_POSE.height);
     assert.deepEqual(below.map(o => o.id), Array.from({length:6}, (_,i) => `COL_Monte_${i}`));
     assert.ok(below.every(o => o.maxY === .96));
-    for (let i = 0; i < exported.length; i++) {
-        const o = exported[i], actual = world.obstacles[i];
+    const retained=exported.filter(o=>!o.source.startsWith('Carro_'));
+    for (let i = 0; i < retained.length; i++) {
+        const o = retained[i], actual = world.obstacles[i];
         assert.deepEqual(actual, { minX:o.minX, maxX:o.maxX, minZ:o.minZ, maxZ:o.maxZ, minY:o.minY, maxY:o.maxY });
         assert.ok(Number.isFinite(o.minY) && Number.isFinite(o.maxY)); assert.ok(o.minY <= RIFLE_POSE.height);
     }
@@ -67,17 +68,17 @@ test('S2.12 B2: 36 alturas preservadas: 30 bloqueiam a 1,09 m, seis montes ficam
         assert.equal(hit.blocked, blocks);
         if (blocks) close(hit.to.z,o.minZ);
         else assert.ok(o.maxY === .96 && i < 36);
-        if (i >= 38) { assert.equal(o.minY, undefined); assert.equal(o.maxY, undefined); }
+        if (i >= 46) { assert.equal(o.minY, undefined); assert.equal(o.maxY, undefined); }
     }
 });
 
-test('S2.12 B2: caixas têm corpo fixo 0–1,195 m, tampa/estado não ampliam volume de tiro', () => {
+test('S2.12 B2: cabines têm casco medido de 2,09 m apoiado no piso; porta não amplia volume de tiro', () => {
     for (const p of SHANGHAI_SUPPLY_CRATES) {
         const before = crateObstacle(p), state = { phase:'closed', elapsed:0 }, x=p.x;
-        assert.deepEqual([before.minY,before.maxY],[0,1.195]);
-        for (const height of [0,RIFLE_POSE.height,1.195]) assert.equal(traceShot({x,z:p.z+2},{x,z:p.z-2},{...ground,obstacles:[before]},[],RIFLE_MASK,undefined,height).blocked,true);
-        assert.equal(traceShot({x,z:p.z+2},{x,z:p.z-2},{...ground,obstacles:[before]},[],RIFLE_MASK,undefined,1.195+1e-6).blocked,false);
-        assert.equal(openCrate(state,p.x,p.z+1.1,p.x,p.z+1.1),true);
+        close(before.maxY-before.minY,SUPPLY_CRATE.maxY);
+        for (const height of [before.minY,RIFLE_POSE.height,before.maxY]) assert.equal(traceShot({x,z:p.z+2},{x,z:p.z-2},{...ground,obstacles:[before]},[],RIFLE_MASK,undefined,height).blocked,true);
+        assert.equal(traceShot({x,z:p.z+2},{x,z:p.z-2},{...ground,obstacles:[before]},[],RIFLE_MASK,undefined,before.maxY+1e-6).blocked,false);
+        const marker=crateMarker(p);assert.equal(openCrate(state,marker.x,marker.z,marker.x,marker.z),true);
         advanceCrate(state,1); assert.equal(state.phase,'opening'); assert.deepEqual(crateObstacle(p),before);
         advanceCrate(state,10); assert.equal(state.phase,'open'); assert.deepEqual(crateObstacle(p),before);
     }

@@ -1,0 +1,22 @@
+{
+  "sources": [
+    {
+      "source": "/Users/rochatales/Game Development/Horda Survivor/00_Audios/ES_Strung Out - Daniella Ljungsberg.mp3",
+      "file": "mars-strung-out.mp3",
+      "sha256": "41a4cff128c339b2bb6f868b7b32a683b41176b413e56b3b4b0675bb4b2e4a75",
+      "bytes": 11320959,
+      "durationSeconds": 364.604688,
+      "channels": 2,
+      "sampleRate": 48000
+    },
+    {
+      "source": "/Users/rochatales/Game Development/Horda Survivor/00_Audios/ES_Dov - Blue Saga.mp3",
+      "file": "shanghai-dov.mp3",
+      "sha256": "7541631cc76eeda35ec29bbc6aba04614baad8a38766c7cb210dad4bc4679dc0",
+      "bytes": 8735393,
+      "durationSeconds": 285.175521,
+      "channels": 2,
+      "sampleRate": 48000
+    }
+  ]
+}

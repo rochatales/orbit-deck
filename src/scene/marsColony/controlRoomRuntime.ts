@@ -1,3 +1,4 @@
+import { DoorSoundClock } from '../../audio/events';
 import { BuildingAtlasSampling } from './buildingAtlasSampling';
 import { EDEN } from '../../game/config';
 import type { Material, Mesh, Object3D } from 'three';
@@ -6,6 +7,7 @@ import { CONTROL_ROOM } from '../../game/controlRoomLayout';
 const ROOF_NODE_NAMES = ['TET_Control', 'PROP_Control_Telhado', 'TET_Control_Luminarias'] as const;
 
 interface DoorPair {
+    sound: DoorSoundClock;
     side: 'south' | 'east';
     x: number;
     z: number;
@@ -74,6 +76,7 @@ export class ControlRoomRuntime {
             const leafB = scene.getObjectByName(spec.leafB);
             if (!leafA || !leafB) continue;
             this.doors.push({
+                sound: new DoorSoundClock(),
                 side: spec.side,
                 x: spec.x,
                 z: spec.z,
@@ -131,6 +134,7 @@ export class ControlRoomRuntime {
             const dx = player.x - door.x;
             const dz = player.z - door.z;
             const openTarget = dx * dx + dz * dz < 2.6 * 2.6 ? 1 : 0;
+            door.sound.update(openTarget === 1, this.status[door.side], door.x, door.z);
             this.status[door.side] += (openTarget - this.status[door.side]) * step;
             const offset = this.status[door.side] * door.slide;
             if (door.axis === 'x') {

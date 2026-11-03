@@ -1,3 +1,4 @@
+import { MarsInteriorProbe } from './marsInterior';
 import { Vector3 } from 'three';
 import { useEffect, useMemo, useSyncExternalStore } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
@@ -14,6 +15,7 @@ export function AudioLifecycle() {
         let focused = document.hasFocus();
         const update = () => {
             const blocked = !focused || document.hidden || simulationBlocked();
+            audio.setMap(useExpeditionStore.getState().session.map);
             audio.setBlocked(blocked);
             if (blocked) { playerSounds.clear(); combatRuntime.simulation?.sounds.clear(); }
         };
@@ -34,16 +36,20 @@ export function AudioLifecycle() {
             document.removeEventListener('visibilitychange', update);
             window.removeEventListener('pointerdown', gesture); window.removeEventListener('keydown', gesture); window.removeEventListener('keydown', key);
             audio.setBlocked(true); playerSounds.clear(); combatRuntime.simulation?.sounds.clear();
+            audio.setMap('mars');
         };
     }, []);
     return null;
 }
 export function AudioFrame() {
     const { camera } = useThree();
+    const interior = useMemo(() => new MarsInteriorProbe(), []);
     const point = useMemo(() => new Vector3(), []);
     const screenPan = useMemo(() => (x: number, z: number) =>
         Math.max(-1, Math.min(1, point.set(x, .65, z).project(camera).x)), [point, camera]);
     useFrame(() => {
+        if (useExpeditionStore.getState().session.map === 'mars')
+            audio.setMarsInterior(interior.update(playerPosition.x, playerPosition.z));
         const matrix = camera.matrixWorld.elements;
         audio.consume(playerSounds, playerPosition.x, playerPosition.z, matrix[0], matrix[2], screenPan);
         if (combatRuntime.simulation) audio.consume(combatRuntime.simulation.sounds, playerPosition.x, playerPosition.z, matrix[0], matrix[2], screenPan);

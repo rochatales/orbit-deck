@@ -1,0 +1,1696 @@
+{
+  "method": "Origem livre; todos os segmentos brutos e suavizados válidos; término livre a ≤ contato do destino. 32 spawns exportados ensaiados por raio, patrulha real só comum. Caixas: marcador frontal; tipos partem do nó livre mais próximo do desembarque; humano parte do desembarque exato.",
+  "alleys": [
+    {
+      "buildings": [
+        "Predio_000",
+        "Predio_001"
+      ],
+      "width": 3.480000000000004,
+      "from": {
+        "x": -35,
+        "z": -39.735
+      },
+      "to": {
+        "x": -35,
+        "z": -33.375
+      }
+    },
+    {
+      "buildings": [
+        "Predio_010",
+        "Predio_011"
+      ],
+      "width": 3.6899999999999977,
+      "from": {
+        "x": -35.105,
+        "z": -5.625
+      },
+      "to": {
+        "x": -35.105,
+        "z": 5.625
+      }
+    },
+    {
+      "buildings": [
+        "Predio_020",
+        "Predio_021"
+      ],
+      "width": 3.480000000000004,
+      "from": {
+        "x": -35,
+        "z": 33.375
+      },
+      "to": {
+        "x": -35,
+        "z": 39.625
+      }
+    },
+    {
+      "buildings": [
+        "Predio_100",
+        "Predio_101"
+      ],
+      "width": 3.48,
+      "from": {
+        "x": 0,
+        "z": -39.625
+      },
+      "to": {
+        "x": 0,
+        "z": -33.375
+      }
+    },
+    {
+      "buildings": [
+        "Predio_110",
+        "Predio_111"
+      ],
+      "width": 5.4799999999999995,
+      "from": {
+        "x": 0,
+        "z": -9.625
+      },
+      "to": {
+        "x": 0,
+        "z": -0.375
+      }
+    },
+    {
+      "buildings": [
+        "Predio_120",
+        "Predio_121"
+      ],
+      "width": 3.48,
+      "from": {
+        "x": 0,
+        "z": 33.375
+      },
+      "to": {
+        "x": 0,
+        "z": 39.625
+      }
+    },
+    {
+      "buildings": [
+        "Predio_200",
+        "Predio_201"
+      ],
+      "width": 3.480000000000004,
+      "from": {
+        "x": 35,
+        "z": -39.735
+      },
+      "to": {
+        "x": 35,
+        "z": -33.375
+      }
+    },
+    {
+      "buildings": [
+        "Predio_210",
+        "Predio_211"
+      ],
+      "width": 3.6899999999999977,
+      "from": {
+        "x": 34.895,
+        "z": -5.625
+      },
+      "to": {
+        "x": 34.895,
+        "z": 5.625
+      }
+    },
+    {
+      "buildings": [
+        "Predio_220",
+        "Predio_221"
+      ],
+      "width": 3.480000000000004,
+      "from": {
+        "x": 35,
+        "z": 33.375
+      },
+      "to": {
+        "x": 35,
+        "z": 39.625
+      }
+    }
+  ],
+  "types": {
+    "patrol": {
+      "radius": 0.67,
+      "spacing": 1.34,
+      "separation": 1.6,
+      "contactRange": 1.07,
+      "nodes": 34647,
+      "arrivalFree": false,
+      "spawnsTotal": 32,
+      "spawnsValid": 32,
+      "spawns": [
+        {
+          "index": 0,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 149,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 1,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 127,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 2,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 152,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 3,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 118,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 4,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 84,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 5,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 62,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 6,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 95,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 7,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 129,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 8,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 66,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 9,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 99,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 10,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 109,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 11,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 110,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 12,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 113,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 13,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 81,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 14,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 48,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 15,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 34,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 16,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 145,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 17,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 112,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 18,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 78,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 19,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 44,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 20,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 62,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 21,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 96,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 22,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 105,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 23,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 125,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 24,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 98,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 25,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 131,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 26,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 139,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 27,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 105,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 28,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 109,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 29,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 75,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 30,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 42,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        },
+        {
+          "index": 31,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 64,
+          "distance": 0.5,
+          "end": {
+            "x": 0,
+            "z": 9
+          }
+        }
+      ],
+      "candidates": 272,
+      "candidatesValid": 272,
+      "segments": 42258,
+      "maxContactDistance": 0.5,
+      "alleys": [
+        {
+          "free": true,
+          "diameterClearance": 2.140000000000004
+        },
+        {
+          "free": true,
+          "diameterClearance": 2.349999999999998
+        },
+        {
+          "free": true,
+          "diameterClearance": 2.140000000000004
+        },
+        {
+          "free": true,
+          "diameterClearance": 2.1399999999999997
+        },
+        {
+          "free": true,
+          "diameterClearance": 4.14
+        },
+        {
+          "free": true,
+          "diameterClearance": 2.1399999999999997
+        },
+        {
+          "free": true,
+          "diameterClearance": 2.140000000000004
+        },
+        {
+          "free": true,
+          "diameterClearance": 2.349999999999998
+        },
+        {
+          "free": true,
+          "diameterClearance": 2.140000000000004
+        }
+      ],
+      "crateStart": {
+        "x": 0,
+        "z": 9
+      },
+      "crates": [
+        {
+          "id": "ammo-northwest",
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 157,
+          "distance": 0.3999999999999986,
+          "end": {
+            "x": -44,
+            "z": -25
+          }
+        },
+        {
+          "id": "ammo-north",
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 86,
+          "distance": 0.3999999999999986,
+          "end": {
+            "x": -8.5,
+            "z": -25
+          }
+        },
+        {
+          "id": "ammo-northeast",
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 166,
+          "distance": 0.412310562561765,
+          "end": {
+            "x": 46,
+            "z": -27.5
+          }
+        },
+        {
+          "id": "ammo-west",
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 77,
+          "distance": 0.44721359549995954,
+          "end": {
+            "x": -34.5,
+            "z": 12.5
+          }
+        },
+        {
+          "id": "ammo-east",
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 86,
+          "distance": 0.4472135954999564,
+          "end": {
+            "x": 22.5,
+            "z": -11
+          }
+        },
+        {
+          "id": "ammo-southwest",
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 132,
+          "distance": 0.3999999999999986,
+          "end": {
+            "x": -47,
+            "z": 27.5
+          }
+        },
+        {
+          "id": "ammo-southeast",
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 115,
+          "distance": 0.3999999999999986,
+          "end": {
+            "x": 41.5,
+            "z": 24.5
+          }
+        }
+      ],
+      "invalidCandidateRejected": true
+    },
+    "largePatrol": {
+      "radius": 1.65,
+      "spacing": 3.3,
+      "separation": 3.6,
+      "contactRange": 2.5,
+      "nodes": 28289,
+      "arrivalFree": false,
+      "spawnsTotal": 32,
+      "spawnsValid": 32,
+      "spawns": [
+        {
+          "index": 0,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 147,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 1,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 125,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 2,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 150,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 3,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 116,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 4,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 82,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 5,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 60,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 6,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 93,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 7,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 127,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 8,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 68,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 9,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 101,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 10,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 111,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 11,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 116,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 12,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 117,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 13,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 83,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 14,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 50,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 15,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 38,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 16,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 143,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 17,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 110,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 18,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 76,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 19,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 42,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 20,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 64,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 21,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 98,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 22,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 123,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 23,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 123,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 24,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 96,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 25,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 129,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 26,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 137,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 27,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 103,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 28,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 111,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 29,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 77,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 30,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 44,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        },
+        {
+          "index": 31,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 62,
+          "distance": 1.5,
+          "end": {
+            "x": 0,
+            "z": 8
+          }
+        }
+      ],
+      "candidates": 266,
+      "candidatesValid": 266,
+      "segments": 41303,
+      "maxContactDistance": 1.5,
+      "alleys": [
+        {
+          "free": true,
+          "diameterClearance": 0.18000000000000416
+        },
+        {
+          "free": true,
+          "diameterClearance": 0.3899999999999979
+        },
+        {
+          "free": true,
+          "diameterClearance": 0.18000000000000416
+        },
+        {
+          "free": true,
+          "diameterClearance": 0.18000000000000016
+        },
+        {
+          "free": true,
+          "diameterClearance": 2.1799999999999997
+        },
+        {
+          "free": true,
+          "diameterClearance": 0.18000000000000016
+        },
+        {
+          "free": true,
+          "diameterClearance": 0.18000000000000416
+        },
+        {
+          "free": true,
+          "diameterClearance": 0.3899999999999979
+        },
+        {
+          "free": true,
+          "diameterClearance": 0.18000000000000416
+        }
+      ],
+      "crateStart": {
+        "x": 0,
+        "z": 8
+      },
+      "crates": [
+        {
+          "id": "ammo-northwest",
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 153,
+          "distance": 1.3999999999999986,
+          "end": {
+            "x": -44,
+            "z": -24
+          }
+        },
+        {
+          "id": "ammo-north",
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 82,
+          "distance": 1.3999999999999986,
+          "end": {
+            "x": -8.5,
+            "z": -24
+          }
+        },
+        {
+          "id": "ammo-northeast",
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 166,
+          "distance": 1.4035668847618186,
+          "end": {
+            "x": 47,
+            "z": -27.5
+          }
+        },
+        {
+          "id": "ammo-west",
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 81,
+          "distance": 1.4142135623730958,
+          "end": {
+            "x": -34.5,
+            "z": 13.5
+          }
+        },
+        {
+          "id": "ammo-east",
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 82,
+          "distance": 1.4142135623730934,
+          "end": {
+            "x": 21.5,
+            "z": -11
+          }
+        },
+        {
+          "id": "ammo-southwest",
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 136,
+          "distance": 1.3999999999999986,
+          "end": {
+            "x": -48,
+            "z": 27.5
+          }
+        },
+        {
+          "id": "ammo-southeast",
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 115,
+          "distance": 1.3999999999999986,
+          "end": {
+            "x": 41.5,
+            "z": 23.5
+          }
+        }
+      ],
+      "invalidCandidateRejected": true
+    },
+    "smallMutant": {
+      "radius": 0.5,
+      "spacing": 0.65,
+      "separation": 1.1,
+      "contactRange": 0.9,
+      "nodes": 35732,
+      "arrivalFree": true,
+      "spawnsTotal": 32,
+      "spawnsValid": 32,
+      "spawns": [
+        {
+          "index": 0,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 151,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 1,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 129,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 2,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 154,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 3,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 120,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 4,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 86,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 5,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 1,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 6,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 97,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 7,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 131,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 8,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 66,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 9,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 99,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 10,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 109,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 11,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 108,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 12,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 113,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 13,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 81,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 14,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 48,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 15,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 34,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 16,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 1,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 17,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 114,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 18,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 80,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 19,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 1,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 20,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 62,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 21,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 96,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 22,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 107,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 23,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 127,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 24,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 100,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 25,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 133,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 26,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 141,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 27,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 107,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 28,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 109,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 29,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 75,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 30,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 42,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        },
+        {
+          "index": 31,
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 66,
+          "distance": 0,
+          "end": {
+            "x": 0,
+            "z": 9.5
+          }
+        }
+      ],
+      "candidates": 272,
+      "candidatesValid": 272,
+      "segments": 40334,
+      "maxContactDistance": 0,
+      "alleys": [
+        {
+          "free": true,
+          "diameterClearance": 2.480000000000004
+        },
+        {
+          "free": true,
+          "diameterClearance": 2.6899999999999977
+        },
+        {
+          "free": true,
+          "diameterClearance": 2.480000000000004
+        },
+        {
+          "free": true,
+          "diameterClearance": 2.48
+        },
+        {
+          "free": true,
+          "diameterClearance": 4.4799999999999995
+        },
+        {
+          "free": true,
+          "diameterClearance": 2.48
+        },
+        {
+          "free": true,
+          "diameterClearance": 2.480000000000004
+        },
+        {
+          "free": true,
+          "diameterClearance": 2.6899999999999977
+        },
+        {
+          "free": true,
+          "diameterClearance": 2.480000000000004
+        }
+      ],
+      "crateStart": {
+        "x": 0,
+        "z": 9.5
+      },
+      "crates": [
+        {
+          "id": "ammo-northwest",
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 1,
+          "distance": 0,
+          "end": {
+            "x": -44,
+            "z": -25.4
+          }
+        },
+        {
+          "id": "ammo-north",
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 88,
+          "distance": 0,
+          "end": {
+            "x": -8.5,
+            "z": -25.4
+          }
+        },
+        {
+          "id": "ammo-northeast",
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 168,
+          "distance": 0,
+          "end": {
+            "x": 45.6,
+            "z": -27.6
+          }
+        },
+        {
+          "id": "ammo-west",
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 77,
+          "distance": 0,
+          "end": {
+            "x": -34.3,
+            "z": 12.1
+          }
+        },
+        {
+          "id": "ammo-east",
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 1,
+          "distance": 0,
+          "end": {
+            "x": 22.9,
+            "z": -10.8
+          }
+        },
+        {
+          "id": "ammo-southwest",
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 132,
+          "distance": 0,
+          "end": {
+            "x": -46.6,
+            "z": 27.5
+          }
+        },
+        {
+          "id": "ammo-southeast",
+          "valid": true,
+          "smoothedValid": true,
+          "segments": 115,
+          "distance": 0,
+          "end": {
+            "x": 41.5,
+            "z": 24.9
+          }
+        }
+      ],
+      "invalidCandidateRejected": true
+    }
+  },
+  "humanCrates": [
+    {
+      "id": "ammo-northwest",
+      "valid": true,
+      "smoothedValid": true,
+      "segments": 1,
+      "distance": 0,
+      "end": {
+        "x": -44,
+        "z": -25.4
+      }
+    },
+    {
+      "id": "ammo-north",
+      "valid": true,
+      "smoothedValid": true,
+      "segments": 89,
+      "distance": 0,
+      "end": {
+        "x": -8.5,
+        "z": -25.4
+      }
+    },
+    {
+      "id": "ammo-northeast",
+      "valid": true,
+      "smoothedValid": true,
+      "segments": 167,
+      "distance": 0,
+      "end": {
+        "x": 45.6,
+        "z": -27.6
+      }
+    },
+    {
+      "id": "ammo-west",
+      "valid": true,
+      "smoothedValid": true,
+      "segments": 1,
+      "distance": 0,
+      "end": {
+        "x": -34.3,
+        "z": 12.1
+      }
+    },
+    {
+      "id": "ammo-east",
+      "valid": true,
+      "smoothedValid": true,
+      "segments": 1,
+      "distance": 0,
+      "end": {
+        "x": 22.9,
+        "z": -10.8
+      }
+    },
+    {
+      "id": "ammo-southwest",
+      "valid": true,
+      "smoothedValid": true,
+      "segments": 131,
+      "distance": 0,
+      "end": {
+        "x": -46.6,
+        "z": 27.5
+      }
+    },
+    {
+      "id": "ammo-southeast",
+      "valid": true,
+      "smoothedValid": true,
+      "segments": 116,
+      "distance": 0,
+      "end": {
+        "x": 41.5,
+        "z": 24.9
+      }
+    }
+  ],
+  "largeMutant": {
+    "spawns": 32,
+    "candidates": 266,
+    "valid": 266
+  }
+}

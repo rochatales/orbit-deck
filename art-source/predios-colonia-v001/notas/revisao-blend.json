@@ -1,0 +1,87 @@
+[
+  {
+    "file": "data_center.blend",
+    "objects": 40,
+    "colliders": [
+      {
+        "name": "COL_AC_Unit",
+        "display": "CUBE",
+        "size": 0.20000000298023224
+      },
+      {
+        "name": "COL_Core",
+        "display": "CUBE",
+        "size": 0.20000000298023224
+      },
+      {
+        "name": "COL_Corner_E",
+        "display": "CUBE",
+        "size": 0.20000000298023224
+      }
+    ],
+    "actions": [
+      "DoorSouth_Close_DoorS_PivotL",
+      "DoorSouth_Close_DoorS_PivotR",
+      "DoorSouth_Open_DoorS_PivotL",
+      "DoorSouth_Open_DoorS_PivotR"
+    ]
+  },
+  {
+    "file": "meeting_room.blend",
+    "objects": 70,
+    "colliders": [
+      {
+        "name": "COL_Console",
+        "display": "CUBE",
+        "size": 0.20000000298023224
+      },
+      {
+        "name": "COL_Corner_E",
+        "display": "CUBE",
+        "size": 0.20000000298023224
+      },
+      {
+        "name": "COL_Corner_N",
+        "display": "CUBE",
+        "size": 0.20000000298023224
+      }
+    ],
+    "actions": [
+      "DoorEast_Close_DoorE_PivotL",
+      "DoorEast_Close_DoorE_PivotR",
+      "DoorEast_Open_DoorE_PivotL",
+      "DoorEast_Open_DoorE_PivotR",
+      "DoorSouth_Close_DoorS_PivotL",
+      "DoorSouth_Close_DoorS_PivotR",
+      "DoorSouth_Open_DoorS_PivotL",
+      "DoorSouth_Open_DoorS_PivotR"
+    ]
+  },
+  {
+    "file": "cafeteria.blend",
+    "objects": 37,
+    "colliders": [
+      {
+        "name": "COL_Condenser",
+        "display": "CUBE",
+        "size": 0.20000000298023224
+      },
+      {
+        "name": "COL_Corner_E",
+        "display": "CUBE",
+        "size": 0.20000000298023224
+      },
+      {
+        "name": "COL_Corner_N",
+        "display": "CUBE",
+        "size": 0.20000000298023224
+      }
+    ],
+    "actions": [
+      "DoorSouth_Close_DoorS_PivotL",
+      "DoorSouth_Close_DoorS_PivotR",
+      "DoorSouth_Open_DoorS_PivotL",
+      "DoorSouth_Open_DoorS_PivotR"
+    ]
+  }
+]

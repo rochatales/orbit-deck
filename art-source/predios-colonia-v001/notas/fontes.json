@@ -1,0 +1,32 @@
+[
+  {
+    "arquivo": "data-center.glb",
+    "sha256": "c76557938ad1202b14a54a58c1ee04df21356501d01fc590d1d4e2858f733a30",
+    "bytes": 581940
+  },
+  {
+    "arquivo": "data_center.blend",
+    "sha256": "9bed1a7dd0c86408b2e60ecf0aca268834756b2dbcdedf19bfa925ade5596b14",
+    "bytes": 197842
+  },
+  {
+    "arquivo": "meeting-room.glb",
+    "sha256": "6a925c9a7587a53ebe62647a2e6c6821d2e6eefe7e621f9ad3802f8acbb7fa5c",
+    "bytes": 528324
+  },
+  {
+    "arquivo": "meeting_room.blend",
+    "sha256": "9e9bcc862868dda8bdb4adecfaad3fe20844acc406e9b80407fe188652bab376",
+    "bytes": 182142
+  },
+  {
+    "arquivo": "cafeteria.glb",
+    "sha256": "94778eb18597ca05cab902ba81ea2206e3879c54d84e155d1d276e0bdfef921d",
+    "bytes": 406820
+  },
+  {
+    "arquivo": "cafeteria.blend",
+    "sha256": "34d9ee3e34a4862d5340982810f6ad5da92ac7f981b315037d979e357572d263",
+    "bytes": 175733
+  }
+]

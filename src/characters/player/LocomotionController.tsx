@@ -1,3 +1,7 @@
+import { useWeaponStore } from '../../state/useWeaponStore';
+import { MACHETE } from '../../combat/melee';
+import { MacheteAnimationLayers } from './macheteAnimationLayers';
+import { playerStepDust } from './stepDust';
 import { ActionTransition } from './actionTransition';
 import { combatRuntime } from '../../state/useCombatStore';
 import { RifleAnimationLayers } from './rifleAnimationLayers';
@@ -30,17 +34,26 @@ interface LocomotionControllerProps {
  * de apoio não deslizar.
  */
 export function LocomotionController({ motionRef, actions, asset, combat }: LocomotionControllerProps) {
-  const layers = useMemo(() => combat && asset.id === 'player-astronauta' && actions.Backward_Rifle && actions.Run
-    ? new RifleAnimationLayers(actions) : null, [combat, asset.id, actions]);
+  const weapon = useWeaponStore(s => s.weapon);
+  const machete = combat && weapon === 'machete';
+  const swordLayers = useMemo(() => machete && asset.id === 'player-astronauta' && actions.Machete_Idle && actions.Machete_Run && actions.Machete_Slash
+    ? new MacheteAnimationLayers(actions) : null, [machete, asset.id, actions]);
+  useEffect(() => () => swordLayers?.dispose(), [swordLayers]);
+  const layers = useMemo(() => !machete && combat && asset.id === 'player-astronauta' && actions.Backward_Rifle && actions.Run
+    ? new RifleAnimationLayers(actions) : null, [machete, combat, asset.id, actions]);
   useEffect(() => () => layers?.dispose(), [layers]);
   const colonyActions = useMemo(() => !combat && asset.id === 'player-astronauta'
     ? colonyLocomotionActions(actions) : actions, [combat, asset.id, actions]);
-  const baseActions = layers?.legs ?? colonyActions;
+  const baseActions = swordLayers?.legs ?? layers?.legs ?? colonyActions;
   useEffect(() => {
     if (import.meta.env.DEV) Object.assign(window, { __hordaPlayerBaseActions: baseActions, __hordaRifleLayers: layers });
   }, [baseActions, layers]);
   const transition = useMemo(() => new ActionTransition(baseActions), [baseActions]);
-  const calibration = useMemo(() => mapLocomotionCalibration(asset, combat), [asset, combat]);
+  const calibration = useMemo(() => {
+    const config = mapLocomotionCalibration(asset, combat);
+    if (machete) { config.runReferenceSpeed = MACHETE.runReferenceSpeed; config.backwardReferenceSpeed = MACHETE.backwardReferenceSpeed; }
+    return config;
+  }, [asset, combat, machete]);
   const stepClock = useRef(new FootstepClock());
   const currentRef = useRef<AnimationAction | null>(null);
   const stateRef = useRef<PlayerAnimationState | null>(null);
@@ -87,10 +100,13 @@ export function LocomotionController({ motionRef, actions, asset, combat }: Loco
     const active = currentRef.current;
     updateLocomotionRates(baseActions, active, motion.animationState, motion.planarSpeed, calibration);
     const simulation = combatRuntime.simulation;
+    swordLayers?.update(motion.animationState, simulation?.meleeLeft ?? 0, simulation?.swingId ?? 0, active, simulationBlocked());
     layers?.update(motion.animationState, simulation?.reloadLeft ?? 0, (simulation?.cooldown ?? 0) > 0, active, simulationBlocked());
     if (!simulationBlocked() && active && motion.planarSpeed >= PLAYER_LOCOMOTION.stopSpeed && (motion.animationState === "walking" || motion.animationState === "backward")) {
-      if (stepClock.current.advance(motion.animationState, active.time, active.getClip().duration))
+      if (stepClock.current.advance(motion.animationState, active.time, active.getClip().duration)) {
         playerSounds.emit('playerStep', playerPosition.x, playerPosition.z);
+        playerStepDust.request(Math.floor(active.time / active.getClip().duration * 2) % 2, motion.moveAngle, motion.isGrounded);
+      }
     } else stepClock.current.reset();
   }, -40);
 

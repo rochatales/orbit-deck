@@ -1,0 +1,87 @@
+{
+  "image": "/Users/rochatales/Desktop/Screenshot 2026-11-02 at 16.02.19.png",
+  "image_sha256": "e6ccff7ca9b085494c75a07872e14c665ec04eb75e0534771f275a48bfb18b8f",
+  "redCars": [
+    [
+      894,
+      204
+    ],
+    [
+      1262,
+      283
+    ],
+    [
+      573,
+      353
+    ],
+    [
+      1504,
+      469
+    ],
+    [
+      510,
+      591
+    ],
+    [
+      403,
+      674
+    ],
+    [
+      1216,
+      624
+    ],
+    [
+      1393,
+      918
+    ],
+    [
+      1044,
+      1122
+    ]
+  ],
+  "yellowLockers": [
+    [
+      650,
+      253
+    ],
+    [
+      1005,
+      337
+    ],
+    [
+      1553,
+      459
+    ],
+    [
+      615,
+      542
+    ],
+    [
+      1330,
+      581
+    ],
+    [
+      347,
+      678
+    ],
+    [
+      1444,
+      1002
+    ]
+  ],
+  "redX": [
+    [
+      1201,
+      284
+    ],
+    [
+      1506,
+      768
+    ]
+  ],
+  "redXSources": [
+    "Carro_3",
+    "Carro_1"
+  ],
+  "mapping": "Referência perspectiva aproximada em quatro carros identificáveis (0,3,5,1); coordenadas arredondadas e deslocamentos locais só para acomodar o novo volume fora de prédios, bordas e passagens. O aceite do posicionamento final é do autor."
+}

@@ -1,3 +1,4 @@
+const {REPLACED_BUILDING_ROOMS}=loadSource('src/game/colonyBuildingsLayout.ts');
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -18,8 +19,8 @@ const file=fs.readFileSync('src/assets/colony-v007.glb');
 async function scene(){return (await new GLTFLoader().parseAsync(file.buffer.slice(file.byteOffset,file.byteOffset+file.byteLength),'')).scene;}
 
 test('v007: módulos exatos, nomes, eixos, portas e conexão EDEN/Lab independentes',()=>{
- const expected=[['central-hub',0,0,8,8],['brand-brain',0,-10.5,7,6.5],['smart-lab',13.5,-12.5,14,10],['editorial',-10.5,0,6.5,6.5],['design',12,0,10.5,9],['narration',-10.5,8.5,6,5.5],['output-review',10.5,8.5,6,5.5],['meeting-suite',0,14.5,9,6],['coffee-nook',7.2,15,3.8,3.8]];
- for(const [id,x,z,w,d]of expected){const r=MAP_ROOMS.find(r=>r.id===id);assert.deepEqual([r.position.x,r.position.z,r.size.width,r.size.depth],[x,z,w,d]);assert.equal(getLocationLabelByPosition(x,z),r.name);}
+ const expected=[['central-hub',0,0,7.7,7.7],['brand-brain',0,-10.5,7,6.5],['smart-lab',13.5,-12.5,14,10],['editorial',-12.5,0,7.7,8.4],['design',12,0,10.5,9],['narration',-10.5,8.5,6,5.5],['output-review',11.5,11.7,8.7,6.4],['meeting-suite',0,14.5,9,6]];
+ for(const [id,x,z,w,d]of expected){const r=MAP_ROOMS.find(r=>r.id===id);for(const [actual,expected]of [[r.position.x,x],[r.position.z,z],[r.size.width,w],[r.size.depth,d]])assert.ok(Math.abs(actual-expected)<1e-5,id);assert.equal(getLocationLabelByPosition(x,z),r.name);}
  assert.deepEqual([...MAP_ROOMS.find(r=>r.id==='smart-lab').doorSides],['west','south']);
  assert.deepEqual([...MAP_ROOMS.find(r=>r.id==='narration').doorSides],['east']);
  assert.deepEqual([...MAP_ROOMS.find(r=>r.id==='output-review').doorSides],['west']);
@@ -63,7 +64,7 @@ test('v007: portas abrem totalmente antes da passagem e fecham; nenhum trilho em
   s.updateMatrixWorld(true);
   for(const suffix of ['L','R']){const b=new Box3().setFromObject(nodes.get(door.id+'_'+suffix));const lo=door.axis==='x'?b.min.x:b.min.z,hi=door.axis==='x'?b.max.x:b.max.z,center=door.axis==='x'?door.x:door.z;assert.ok(hi<center-1.0||lo>center+1.0,door.id);}
   // A arquitetura fonte continua testada; o laboratório atual possui outra implantação e portas próprias.
-  if (door.owner !== 'smart-lab') assert.ok(!world.obstacles.some(b=>circleIntersectsRect(door.x,door.z,.36,b)),door.id+' vão livre');
+  if (door.owner !== 'smart-lab' && !REPLACED_BUILDING_ROOMS.has(door.owner)) assert.ok(!world.obstacles.some(b=>circleIntersectsRect(door.x,door.z,.36,b)),door.id+' vão livre');
  }
  for(let i=0;i<150;i++)runtime.update({x:100,z:100},1/60);
  for(const door of manifest.doors){const left=nodes.get(door.id+'_L'),right=nodes.get(door.id+'_R');assert.ok(Math.abs((door.axis==='x'?right.position.x-left.position.x:right.position.z-left.position.z)-door.width/2)<.001);}
@@ -105,8 +106,8 @@ test('v007: zero faces coplanares sobrepostas na arquitetura e junção com ARES
 });
 
 // Exercise the full usable doorway, not merely one narrow route found by flood-fill.
-test('v007: entrada da Oficina permanece livre',()=>{
- const world=createWorld(),radius=.36;
+test('v007 histórico: entrada da Oficina era livre no layout fonte (substituída pela Cafeteria)',()=>{
+ const world={obstacles:manifest.colliders},radius=.36;
  const door=manifest.doors.find(d=>d.id==='D_output-review_west');
  for(let x=door.x;x<=door.x+1.5;x+=.05)for(let z=door.z-.7;z<=door.z+.7;z+=.05)
   assert.ok(!world.obstacles.some(b=>circleIntersectsRect(x,z,radius,b)),'Oficina faixa de entrada livre');

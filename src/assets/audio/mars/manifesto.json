@@ -1,0 +1,104 @@
+{
+  "sources": [
+    {
+      "source": "/Users/rochatales/Game Development/Horda Survivor/00_Audios/ES_Ambience, Desert, Desolation, Canyon, Wind - Epidemic Sound.mp3",
+      "file": "mars-desert.mp3",
+      "sha256": "1f69f6d7c8efd7b262dc62e77922d0d7be6f622115dc9f26e843bfb6d4d94241",
+      "bytes": 1662174,
+      "durationSeconds": 53.394708,
+      "channels": 2,
+      "sampleRate": 48000
+    },
+    {
+      "source": "/Users/rochatales/Game Development/Horda Survivor/00_Audios/ES_Ambience, Room Tone, Interior, Bathroom F - Epidemic Sound.mp3",
+      "file": "mars-interior.mp3",
+      "sha256": "d42d96475216fb3cd62c65b7680500d40f0cee76dde2ecf517bf962360e096f6",
+      "bytes": 3395165,
+      "durationSeconds": 109.41425,
+      "channels": 2,
+      "sampleRate": 48000
+    },
+    {
+      "source": "/Users/rochatales/Game Development/Horda Survivor/00_Audios/ES_Scifi, Door, Big, Air Release - Epidemic Sound.mp3",
+      "file": "door-original.mp3",
+      "sha256": "58a65e70e0af23583dba68f0378056ad460e3feb06e489298653e4b1266fe45d",
+      "bytes": 179129,
+      "durationSeconds": 7.126229,
+      "channels": 2,
+      "sampleRate": 48000
+    },
+    {
+      "source": "/Users/rochatales/Game Development/Horda Survivor/00_Audios/ES_Scifi, Door, Big, Air Release - Epidemic Sound.wav",
+      "file": "door-original.wav",
+      "sha256": "4f6757ac9867d688ee5fe44f39485b5f2783532522a1a7da6bf3139fc2a098e6",
+      "bytes": 357762,
+      "durationSeconds": 1.8,
+      "channels": 2,
+      "sampleRate": 48000
+    },
+    {
+      "source": "/Users/rochatales/Game Development/Horda Survivor/00_Audios/ES_Scifi, Door, Elevator Door Mechanism, Lock - Epidemic Sound.mp3",
+      "file": "hangar-door-original.mp3",
+      "sha256": "68ba4677c6997b97d4a9ba10ac08289eb1f0b2024e14f470fdbea777aed16584",
+      "bytes": 72750,
+      "durationSeconds": 4.017063,
+      "channels": 2,
+      "sampleRate": 48000
+    }
+  ],
+  "door": {
+    "file": "mars-door-open.wav",
+    "source": "door-original.wav",
+    "startSeconds": 0,
+    "endSeconds": 0.8,
+    "durationSeconds": 0.4,
+    "tempo": 2,
+    "fadeInSeconds": 0.003,
+    "fadeOutSeconds": 0.025,
+    "sha256": "251b67e35f5bddc78660bf9feb865a00afe5beaadf153bc5d79ce3e5f81a489a"
+  },
+  "hangarFrontDoor": {
+    "file": "hangar-front-open.wav",
+    "source": "hangar-door-original.mp3",
+    "startSeconds": 0.12,
+    "endSeconds": 1.45,
+    "durationSeconds": 0.2,
+    "tempo": 6.65,
+    "fadeInSeconds": 0.003,
+    "fadeOutSeconds": 0.025,
+    "sha256": "8d1e43f94e6aa5e0fa1f66ac7a04a5d4202e49b956b0fdbeedfa663cae7fb4f2"
+  },
+  "quartelDoorOpen": {
+    "file": "quartel-door-open.wav",
+    "source": "door-original.wav",
+    "startSeconds": 0,
+    "endSeconds": 0.8,
+    "durationSeconds": 0.25,
+    "tempo": 3.2,
+    "fadeInSeconds": 0.003,
+    "fadeOutSeconds": 0.025,
+    "sha256": "0c08592c6bc764c7d879f795ee691f3b7b82a7c317dfc44460dc5a15ff651f17"
+  },
+  "quartelDoorClose": {
+    "file": "quartel-door-close.wav",
+    "source": "door-original.wav",
+    "startSeconds": 0,
+    "endSeconds": 0.8,
+    "durationSeconds": 0.2,
+    "tempo": 4,
+    "fadeInSeconds": 0.003,
+    "fadeOutSeconds": 0.025,
+    "sha256": "ebf92514c3d267f6fc728b5936e50030e8322e452893085f226c1ab75af372e6"
+  },
+  "hangarFrontDoorClose": {
+    "file": "hangar-front-close.wav",
+    "source": "hangar-door-original.mp3",
+    "startSeconds": 0.12,
+    "endSeconds": 1.45,
+    "durationSeconds": 0.28,
+    "tempo": 4.75,
+    "fadeInSeconds": 0.003,
+    "fadeOutSeconds": 0.025,
+    "sha256": "70028f4828e02bb4fb7ac2d8856b58339a5765e8c7ac5755c161558f1e8bd7a5"
+  }
+}

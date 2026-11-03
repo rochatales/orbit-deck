@@ -95,16 +95,19 @@ test('Horda mista: 90 s válida; neutralizar a primeira linha libera contato dos
   if(w<4)sim.robots.forEach(r=>{r.hp=0});
  }
  const starts=sim.robots.map(r=>Math.hypot(r.x-input.player.x,r.z-input.player.z));
- let commonReached=false;
+ let commonReached=false, largeReachedAfterClear=false;
  for(let frame=0;frame<90*60;frame++){
   if(frame===45*60)sim.robots.filter(r=>r.kind==='patrol').forEach(r=>{r.hp=0});
+  if(frame>45*60&&sim.robots.some(r=>r.hp>0&&r.kind==='largePatrol'&&Math.hypot(r.x-input.player.x,r.z-input.player.z)<=LARGE_PATROL.contactRange+.05))largeReachedAfterClear=true;
   if(sim.robots.some(r=>r.hp>0&&r.kind==='patrol'&&Math.hypot(r.x-input.player.x,r.z-input.player.z)<=COMBAT.robot.contactRange+.05))commonReached=true;
   sim.hp=100;sim.step(1/60,input);
   for(const r of sim.robots)assert.ok(traversable(r,terrain,robotConfig(r).radius),`${r.kind} ${r.id} dentro de sólido`);
  }
  const large=sim.robots.filter(r=>r.kind==='largePatrol');assert.equal(large.length,10);
  for(const r of large)assert.ok(Math.hypot(r.x-input.player.x,r.z-input.player.z)<starts[r.id]-10,`grande ${r.id} precisa avançar`);
- assert.ok(large.some(r=>Math.hypot(r.x-input.player.x,r.z-input.player.z)<=LARGE_PATROL.contactRange+.05),'grandes chegam a contato');
+ // No novo mapa, grandes chegam e depois cedem espaço às aranhas; chegada é
+ // medida na janela após limpar a primeira linha, não só no snapshot de 90 s.
+ assert.ok(largeReachedAfterClear,'grandes chegam a contato após limpar a primeira linha');
  assert.ok(commonReached,'comuns alcançam contato antes de serem neutralizados');
 });
 

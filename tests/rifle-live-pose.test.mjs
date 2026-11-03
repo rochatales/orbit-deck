@@ -84,7 +84,7 @@ test('Mira viva: retry/viagem invalidam a amostra, sem reaproveitar pose da roda
     placePlayer({x:0,y:0,z:9.5});assert.equal(state.playerWeaponPose.valid,false);
 });
 
-test('Mira viva: retícula perto/atrás usa a mesma direção efetiva do tiro, na frente da boca',()=>{
+test('Mira viva: disparo perto/atrás usa direção segura, sem inverter o cano',()=>{
     const {writeRifleAimTarget}=loadSource('src/combat/config.ts');
     const player={x:0,z:0},muzzle={x:.2,z:.7},out={x:0,z:0};
     for(const aim of[{x:0,z:0},{x:0,z:.5},{x:-2,z:-3}]){

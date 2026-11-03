@@ -1,3 +1,4 @@
+import { COLONY_BUILDINGS } from '../game/colonyBuildingsLayout';
 import { LABORATORIO } from '../game/laboratorioLayout';
 import { QUARTEL, QUARTEL_CIRCULATION } from '../game/quartelLayout';
 import masterplan from './marsMasterplan.json';
@@ -46,7 +47,7 @@ export interface CorridorConfig {
   railings?: boolean;
 }
 
-export const PLAYER_SPAWN = new Vector3(0, 0, 0.8);
+export const PLAYER_SPAWN = new Vector3(0, 0, 6);
 
 export const OFFICE_MAP_BOUNDS: RectBounds = {
   minX: -22,
@@ -56,16 +57,18 @@ export const OFFICE_MAP_BOUNDS: RectBounds = {
 };
 
 // Masterplan v007: posições e dimensões exatas, sem arredondar para ladrilhos.
-export const MAP_ROOMS: MapRoomConfig[] = masterplan.rooms.map(room => {
+export const MAP_ROOMS: MapRoomConfig[] = masterplan.rooms.filter(room => room.id !== 'coffee-nook').map(room => {
+  const current = COLONY_BUILDINGS.find(b => b.replaces.includes(room.id));
+  const currentSize = current ? { width: current.floor.maxX - current.floor.minX, depth: current.floor.maxZ - current.floor.minZ } : room.size;
   // ID design preservado para consumidores e saves anteriores; nome/pegada atuais.
-  const size = room.id === 'design' ? QUARTEL.dimensions : room.id === 'smart-lab' ? LABORATORIO.dimensions : room.size;
-  const position = room.id === 'design' ? QUARTEL.placement : room.id === 'smart-lab' ? LABORATORIO.placement : room.position;
+  const size = room.id === 'design' ? QUARTEL.dimensions : room.id === 'smart-lab' ? LABORATORIO.dimensions : currentSize;
+  const position = room.id === 'design' ? QUARTEL.placement : room.id === 'smart-lab' ? LABORATORIO.placement : current?.placement ?? room.position;
   return {
-    id: room.id, name: room.id === 'design' ? 'Quartel' : room.name, position, size,
+    id: room.id, name: room.id === 'design' ? 'Quartel' : current?.id === 'cafeteria' ? 'Cafeteria' : room.name, position, size,
     type: room.id === 'central-hub' ? 'hub' : room.id === 'smart-lab' ? 'lab' : 'station',
     accentColor: room.id === 'brand-brain' ? '#F2C94C' : '#00E6FF',
     npcId: room.id === 'brand-brain' ? 'eden' : undefined,
-    doorSides: room.doorSides as DoorSide[],
+    doorSides: current ? current.doors.map(d => Math.abs(d.x - current.placement.x) > Math.abs(d.z - current.placement.z) ? d.x > current.placement.x ? 'east' : 'west' : d.z > current.placement.z ? 'south' : 'north') as DoorSide[] : room.doorSides as DoorSide[],
     desk: { position: new Vector3(position.x, 0, position.z - 0.6), rotationY: Math.PI },
     anchors: {
       roomLabel: new Vector3(position.x, 2.95, position.z - size.depth / 2 + 0.5),

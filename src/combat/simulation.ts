@@ -1,3 +1,6 @@
+import { MEDICAL_KIT } from '../game/props/medicalKit';
+import { MACHETE, meleeCanHit, type PlayerWeapon } from './melee';
+import { canCarryDrop } from '../game/backpackConfig';
 import type { WeaponMuzzleOffset } from '../state/playerWeaponPose';
 import { ENEMY_MOTION } from './enemyMotion';
 import { newMovementRecovery, resetMovementRecovery, trackMovementGoal, updateMovementRecovery, movementPriority, MOVEMENT_RECOVERY, type MovementRecovery } from './movementRecovery';
@@ -10,7 +13,7 @@ import { writeMutantPackTarget } from './mutantPack';
 import { placeResourceDrop } from './resourcePlacement';
 import { COMBAT, LARGE_PATROL, LARGE_MUTANT, MUTANT_CHARGE, SMALL_MUTANT, HORDE_TOTALS, robotConfig, waveRobotKind, parseEncounter, type RobotKind, HIT_LAYER, HORDE_ENCOUNTER, RIFLE_MASK, RIFLE_POSE, writeRifleMuzzle, writeRifleAimTarget, encounterLayout, type EncounterChoice, type EncounterLayout } from './config';
 import { Navigation, clearSegment, segmentBox, smoothPath, traversable, type Position, type Terrain } from './navigation';
-import { advanceCrate, openCrate, SUPPLY_CRATE, type CratePlacement, type CrateState } from '../game/props/supplyCrate';
+import { advanceCrate, openCrate, SUPPLY_CRATE, crateMarker, type CratePlacement, type CrateState } from '../game/props/supplyCrate';
 export interface SupplyCrate extends CrateState, CratePlacement { marker: Position; rewarded: boolean }
 export interface Robot extends Position, ChargeState, MovementRecovery {
     recoil: number; recoilX: number; recoilZ: number;
@@ -85,6 +88,8 @@ export interface Shot {
     hit: boolean;
 }
 export interface CombatInput {
+    weapon?: PlayerWeapon;
+    dashing?: boolean;
     player: Position & { y?: number };
     muzzle?: WeaponMuzzleOffset;
     aim: Position;
@@ -142,6 +147,12 @@ export class CombatSimulation {
     reserve: number = COMBAT.rifle.reserve;
     reloadLeft = 0;
     cooldown = 0;
+    meleeCooldown = 0;
+    meleeLeft = 0;
+    swingId = 0;
+    private meleeHit = false;
+    private dryCooldown = 0;
+    private wasFiring = false;
     invulnerable = 0;
     damageFlash = 0;
     hitFlash = 0;
@@ -166,7 +177,9 @@ export class CombatSimulation {
     titanium = 0;
     organic = 0;
     drops: ResourceDrop[];
+    /** Nome legado mantido para compatibilidade; agora são kits interativos. */
     hearts: Pickup[];
+    medkits = 0;
     elapsed = 0;
     /** Tamanho de cada horda; vazio no encontro fixo (patrulhas presentes desde o início). */
     waves: readonly number[] = [];
@@ -179,7 +192,7 @@ export class CombatSimulation {
     private dropCursor = 0;
     crates: SupplyCrate[];
     constructor(public terrain: Terrain, encounter: EncounterChoice, private readonly layout: EncounterLayout = encounterLayout(), crates: readonly CratePlacement[] = []) {
-        this.crates = crates.map(p => ({ ...p, marker: { x: p.x, z: p.z + 1.1 }, phase: 'closed', elapsed: 0, rewarded: false }));
+        this.crates = crates.map(p => ({ ...p, marker: crateMarker(p), phase: 'closed', elapsed: 0, rewarded: false }));
         this.navigation = new Navigation(terrain, COMBAT.robot.radius, COMBAT.grid);
         this.hearts = layout.hearts.map(p => ({ x: p.x, z: p.z, active: true }));
         if (encounter === HORDE_ENCOUNTER) {
@@ -268,7 +281,7 @@ export class CombatSimulation {
         return n;
     }
     get cleared() { return this.wave >= this.waves.length && this.waveLeft === 0 && this.alive === 0; }
-    get snapshot() { return { hp: this.hp, iron: this.iron, copper: this.copper, titanium: this.titanium, organic: this.organic, ammo: this.ammo, reserve: this.reserve, reloading: this.reloadLeft > 0, dead: this.dead, kills: this.kills, total: this.total, cleared: this.cleared, damage: this.damageFlash > 0, hit: this.hitFlash > 0, wave: this.wave, waves: this.waves.length, nextWave: Math.ceil(this.waveLeft), alive: this.alive }; }
+    get snapshot() { return { hp: this.hp, medkits: this.medkits, iron: this.iron, copper: this.copper, titanium: this.titanium, organic: this.organic, ammo: this.ammo, reserve: this.reserve, reloading: this.reloadLeft > 0, dead: this.dead, kills: this.kills, total: this.total, cleared: this.cleared, damage: this.damageFlash > 0, hit: this.hitFlash > 0, wave: this.wave, waves: this.waves.length, nextWave: Math.ceil(this.waveLeft), alive: this.alive }; }
     /**
      * Próxima horda: `count` pontos da borda, um por setor igual do perímetro, com o
      * início girando a cada horda (pontos diferentes). Em cada setor, o primeiro ponto
@@ -300,7 +313,6 @@ export class CombatSimulation {
             r.repath = (i % 10) * COMBAT.fixedStep;
             r.angle = Math.atan2(player.x - p.x, player.z - p.z);
         }
-        for (const heart of this.hearts) heart.active = true;
         const need = Math.ceil(requiredHits * COMBAT.hordes.ammoMargin);
         if (this.ammo + this.reserve < need) this.reserve = need - this.ammo;
     }
@@ -315,6 +327,28 @@ export class CombatSimulation {
         if (paused || this.dead) return false;
         const crate = this.nearbySupplyCrate(player);
         return !!crate && openCrate(crate, player.x, player.z, crate.marker.x, crate.marker.z);
+    }
+    nearbyMedicalKit(player: Position): Pickup | undefined {
+        if (this.dead || !Number.isFinite(player.x + player.z)) return;
+        let nearest: Pickup | undefined, distance = Infinity;
+        for (const kit of this.hearts) {
+            const d = Math.hypot(player.x - kit.x, player.z - kit.z);
+            if (kit.active && d <= MEDICAL_KIT.interactionRadius && d < distance && clearSegment(player, kit, this.terrain, 0)) { nearest = kit; distance = d; }
+        }
+        return nearest;
+    }
+    collectMedicalKit(player: Position, paused = false): boolean {
+        if (paused) return false;
+        const kit = this.nearbyMedicalKit(player);
+        if (!kit) return false;
+        kit.active = false; this.medkits++;
+        this.sounds.emit('collect', kit.x, kit.z);
+        return true;
+    }
+    useMedicalKit(paused = false): boolean {
+        if (paused || this.dead || this.medkits <= 0 || this.hp >= COMBAT.playerHp) return false;
+        this.hp = Math.min(COMBAT.playerHp, this.hp + MEDICAL_KIT.heal); this.medkits--;
+        return true;
     }
     private canCollect(player: Position, pickup: Position) {
         return Math.hypot(player.x - pickup.x, player.z - pickup.z) <= COMBAT.pickupRadius
@@ -336,6 +370,12 @@ export class CombatSimulation {
             }
         }
         this.cooldown = Math.max(0, this.cooldown - dt);
+        this.meleeCooldown = Math.max(0, this.meleeCooldown - dt);
+        this.meleeLeft = Math.max(0, this.meleeLeft - dt);
+        const machete = input.weapon === 'machete';
+        if (!machete || input.dashing) this.meleeLeft = 0;
+        if (machete) this.reloadLeft = 0;
+        this.dryCooldown = Math.max(0, this.dryCooldown - dt);
         this.invulnerable = Math.max(0, this.invulnerable - dt);
         this.damageFlash = Math.max(0, this.damageFlash - dt);
         this.hitFlash = Math.max(0, this.hitFlash - dt);
@@ -359,11 +399,18 @@ export class CombatSimulation {
                 this.reserve -= transfer;
             }
         }
-        if (input.reload && this.reloadLeft === 0 && this.ammo < COMBAT.rifle.magazine && this.reserve > 0) {
+        if (!machete && input.reload && this.reloadLeft === 0 && this.ammo < COMBAT.rifle.magazine && this.reserve > 0) {
             this.reloadLeft = COMBAT.rifle.reload;
             this.sounds.emit('reload', input.player.x, input.player.z);
         }
-        if (input.firing && this.reloadLeft === 0 && this.cooldown === 0 && this.ammo > 0
+        const triggerPressed = input.firing && !this.wasFiring;
+        this.wasFiring = input.firing;
+        if (!machete && input.firing && this.reloadLeft === 0 && this.cooldown === 0 && this.ammo === 0
+            && (triggerPressed || this.dryCooldown === 0) && Number.isFinite(input.player.x + input.player.z)) {
+            this.sounds.emit('dryFire', input.player.x, input.player.z);
+            this.dryCooldown = COMBAT.rifle.dryInterval;
+        }
+        if (!machete && input.firing && this.reloadLeft === 0 && this.cooldown === 0 && this.ammo > 0
             && Number.isFinite(input.facingAngle) && Number.isFinite(input.player.x + input.player.z + input.aim.x + input.aim.z)) {
             const { muzzle, rifleEnd } = this;
             const pose = input.muzzle?.valid ? input.muzzle : undefined;
@@ -392,20 +439,22 @@ export class CombatSimulation {
             shot.life = COMBAT_VFX.tracerLife; shot.hit = !!hit.robot;
             this.shots.push(shot);
             if (hit.robot) {
-                hit.robot.hp = Math.max(0, hit.robot.hp - COMBAT.rifle.damage);
-                this.sounds.emit(hit.robot.hp > 0 ? 'bulletHit' : 'death', hit.robot.x, hit.robot.z, hit.robot.kind);
-                hit.robot.recoil=COMBAT_VFX.recoil;hit.robot.recoilX=dx/length;hit.robot.recoilZ=dz/length;
-                hit.robot.flash = 0.15;
-                this.hitFlash = 0.15;
-                // O primeiro tiro recebido identifica o jogador, mesmo fora do campo de visão.
-                if (hit.robot.hp > 0) alertRobot(hit.robot);
-                if (hit.robot.hp === 0) {
-                    this.kills++;
-                    const drop = this.drops[hit.robot.drop];
-                    if(hit.robot.kind === 'largeMutant') {
-                        for(let i=0;i<3;i++) placeResourceDrop(this.drops[hit.robot.drop+i],hit.robot.x+Math.cos(i*Math.PI*2/3)*.75,hit.robot.z+Math.sin(i*Math.PI*2/3)*.75,'organic',this.terrain.surfaceHeight);
-                    } else placeResourceDrop(drop, hit.robot.x, hit.robot.z, hit.robot.kind === 'smallMutant' ? 'organic' : hit.robot.kind === 'largePatrol' ? 'titanium' : 'metals', this.terrain.surfaceHeight);
-                }
+                this.damageRobot(hit.robot, COMBAT.rifle.damage, dx / length, dz / length);
+            }
+        }
+        if (machete && !input.dashing && input.firing && this.meleeCooldown <= 1e-8 && Number.isFinite(input.facingAngle)) {
+            this.meleeCooldown = this.meleeLeft = MACHETE.interval;
+            this.meleeHit = false;
+            this.swingId++;
+        }
+        if (machete && this.meleeLeft > 0 && !this.meleeHit && this.meleeLeft <= MACHETE.interval - MACHETE.impactDelay + 1e-8) {
+            this.meleeHit = true;
+            for (const robot of this.robots) {
+                if (robot.hp <= 0 || !meleeCanHit(input.player, input.facingAngle, robot, robotConfig(robot).radius, this.terrain)) continue;
+                const dx = robot.x - input.player.x, dz = robot.z - input.player.z, distance = Math.hypot(dx, dz);
+                const nx = distance > 1e-8 ? dx / distance : Math.sin(input.facingAngle), nz = distance > 1e-8 ? dz / distance : Math.cos(input.facingAngle);
+                this.effects.impact(robot.x - nx * robotConfig(robot).radius * .7, robot.z - nz * robotConfig(robot).radius * .7, impactKind(robot.kind), -nx, -nz, (input.player.y ?? 0) + .85);
+                this.damageRobot(robot, MACHETE.damage, nx, nz);
             }
         }
         for (const robot of this.robots) {
@@ -432,7 +481,7 @@ export class CombatSimulation {
         }
         if (this.dead) return;
         for (const drop of this.drops) {
-            if (drop.active && this.canCollect(input.player, drop)) {
+            if (drop.active && this.canCollect(input.player, drop) && canCarryDrop(this, drop.kind)) {
                 drop.active = false;
                 this.sounds.emit('collect', drop.x, drop.z);
                 if (drop.kind === 'metals') this.sounds.emit('collect', drop.x, drop.z); // ferro e cobre: um evento por item
@@ -441,18 +490,29 @@ export class CombatSimulation {
                 else { this.iron++; this.copper++; }
             }
         }
-        for (const heart of this.hearts) {
-            if (heart.active && this.hp < COMBAT.playerHp && this.canCollect(input.player, heart)) {
-                heart.active = false;
-                this.hp = Math.min(COMBAT.playerHp, this.hp + COMBAT.heartHeal);
-            }
-        }
         if (this.waves.length) {
             if (this.waveLeft > 0) {
                 this.waveLeft = Math.max(0, this.waveLeft - dt);
                 if (this.waveLeft === 0) this.startWave(input.player);
             }
             else if (this.wave < this.waves.length && this.alive === 0) this.waveLeft = COMBAT.hordes.intermission;
+        }
+    }
+    /** Rifle e facão compartilham morte/drop/contadores: um único caminho de dano. */
+    private damageRobot(robot: Robot, damage: number, dx: number, dz: number) {
+        robot.hp = Math.max(0, robot.hp - damage);
+        this.sounds.emit(robot.hp > 0 ? 'bulletHit' : 'death', robot.x, robot.z, robot.kind);
+        robot.recoil=COMBAT_VFX.recoil;robot.recoilX=dx;robot.recoilZ=dz;
+        robot.flash = 0.15;
+        this.hitFlash = 0.15;
+        // O primeiro tiro recebido identifica o jogador, mesmo fora do campo de visão.
+        if (robot.hp > 0) alertRobot(robot);
+        if (robot.hp === 0) {
+            this.kills++;
+            const drop = this.drops[robot.drop];
+            if(robot.kind === 'largeMutant') {
+                for(let i=0;i<3;i++) placeResourceDrop(this.drops[robot.drop+i],robot.x+Math.cos(i*Math.PI*2/3)*.75,robot.z+Math.sin(i*Math.PI*2/3)*.75,'organic',this.terrain.surfaceHeight);
+            } else placeResourceDrop(drop, robot.x, robot.z, robot.kind === 'smallMutant' ? 'organic' : robot.kind === 'largePatrol' ? 'titanium' : 'metals', this.terrain.surfaceHeight);
         }
     }
     /** Investe na faixa previamente avisada; dano usa a mesma invulnerabilidade global. */

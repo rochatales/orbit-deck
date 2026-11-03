@@ -1,3 +1,4 @@
+import { DoorSoundClock } from '../../audio/events';
 import { type Mesh, Quaternion, Vector3, type Material, type Object3D } from 'three';
 import type { RectBounds } from '../../utils/math';
 
@@ -62,8 +63,8 @@ export class MasterplanRuntime {
     private readonly visuals: VisualPart[] = [];
     private readonly visualsById = new Map<string, VisualPart>();
     private readonly roofs = new Map<string, { area: RectBounds; opacity: number; inside: boolean }>();
-    private readonly doors: { node: Object3D; x: number; z: number; dx: number; dz: number; originX: number; originZ: number; amount: number }[] = [];
-    constructor(scene: Object3D, manifest: MasterplanManifest) {
+    private readonly doors: { node: Object3D; x: number; z: number; dx: number; dz: number; originX: number; originZ: number; amount: number; sound?: DoorSoundClock }[] = [];
+    constructor(scene: Object3D, manifest: MasterplanManifest, private soundOffsetZ = 0) {
         const { nodes, parts } = validateMasterplan(scene, manifest);
         const roofAncestors = (id: string): string[] => {
             const part = parts.get(id)!;
@@ -100,7 +101,7 @@ export class MasterplanRuntime {
                 if (!door) throw new Error(`Porta sem âncora: ${part.id}`);
                 const dx = node.userData.slide_x, dz = node.userData.slide_z;
                 if (!Number.isFinite(dx) || !Number.isFinite(dz)) throw new Error(`Trilho inválido: ${part.id}`);
-                this.doors.push({ node, x: door.x, z: door.z, dx, dz, originX: node.position.x, originZ: node.position.z, amount: 0 });
+                this.doors.push({ node, x: door.x, z: door.z, dx, dz, originX: node.position.x, originZ: node.position.z, amount: 0, sound: part.id === `${door.id}_L` ? new DoorSoundClock() : undefined });
             }
         }
     }
@@ -147,7 +148,9 @@ export class MasterplanRuntime {
         }
         for (const door of this.doors) {
             const dx = player.x - door.x, dz = player.z - door.z;
-            door.amount += ((dx * dx + dz * dz < 2.35 * 2.35 ? 1 : 0) - door.amount) * step;
+            const open = dx * dx + dz * dz < 2.35 * 2.35;
+            door.sound?.update(open, door.amount, door.x, door.z + this.soundOffsetZ);
+            door.amount += ((open ? 1 : 0) - door.amount) * step;
             door.node.position.x = door.originX + door.dx * door.amount;
             door.node.position.z = door.originZ + door.dz * door.amount;
         }

@@ -8,6 +8,6 @@ export function interactWithSupplyCrate(): boolean {
     if (simulationBlocked() || useExpeditionStore.getState().session.map !== 'shanghai') return false;
     if (!combatRuntime.simulation?.openSupplyCrate(playerPosition)) return false;
     useCombatStore.getState().setNearCrate(false);
-    useExpeditionStore.getState().setRadio('Caixa de munição aberta. O brilho azul libera 48 munições de reserva. Use R para recarregar.');
+    useExpeditionStore.getState().setRadio('Cabine de suprimentos aberta. O brilho azul libera 48 munições de reserva. Use R para recarregar.');
     return true;
 }

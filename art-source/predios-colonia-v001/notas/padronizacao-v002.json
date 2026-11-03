@@ -1,0 +1,124 @@
+[
+  {
+    "id": "meeting-room",
+    "source_sha256": "6a925c9a7587a53ebe62647a2e6c6821d2e6eefe7e621f9ad3802f8acbb7fa5c",
+    "sha256": "f83ceb1b655bd2de001f22a51a543f4a5d8952cd4240553e079dfc6dc5f255bd",
+    "bytes": 1833016,
+    "reference_sha256": "a7ece29112a46c5d4784c8a51f61fbfc87893467088f12f8e2810196dc910653",
+    "doors": [
+      {
+        "side": "South",
+        "plane": [
+          0.0,
+          -3.8499999046325684,
+          0.0
+        ],
+        "removed_vertices": 695,
+        "motion": "sliding",
+        "width": 1.7
+      },
+      {
+        "side": "East",
+        "plane": [
+          3.8499999046325684,
+          0.0,
+          0.0
+        ],
+        "removed_vertices": 704,
+        "motion": "sliding",
+        "width": 1.7
+      }
+    ],
+    "floor": {
+      "tile_m": [
+        1.25,
+        1.5
+      ],
+      "joint_m": 0.03,
+      "world_aligned": true
+    },
+    "label": "MEETING ROOM",
+    "label_mount": {
+      "source_door": "East",
+      "center_height_m": 2.66,
+      "plate_bottom_m": 2.48,
+      "plate_front_from_door_m": 0.34,
+      "back_from_door_m": 0.12,
+      "parent": "Wall_E"
+    }
+  },
+  {
+    "id": "data-center",
+    "source_sha256": "c76557938ad1202b14a54a58c1ee04df21356501d01fc590d1d4e2858f733a30",
+    "sha256": "e684750c6d669b8be53642eee27bad6d0d9e149b4c8e5f7c80f114fda8feeb05",
+    "bytes": 1910608,
+    "reference_sha256": "a7ece29112a46c5d4784c8a51f61fbfc87893467088f12f8e2810196dc910653",
+    "doors": [
+      {
+        "side": "South",
+        "plane": [
+          0.0,
+          -3.8499999046325684,
+          0.0
+        ],
+        "removed_vertices": 228,
+        "motion": "sliding",
+        "width": 1.7
+      }
+    ],
+    "floor": {
+      "tile_m": [
+        1.25,
+        1.5
+      ],
+      "joint_m": 0.03,
+      "world_aligned": true
+    },
+    "label": "DATA CENTER",
+    "label_mount": {
+      "source_door": "South",
+      "center_height_m": 2.66,
+      "plate_bottom_m": 2.48,
+      "plate_front_from_door_m": 0.34,
+      "back_from_door_m": 0.12,
+      "parent": "Wall_S"
+    }
+  },
+  {
+    "id": "cafeteria",
+    "source_sha256": "94778eb18597ca05cab902ba81ea2206e3879c54d84e155d1d276e0bdfef921d",
+    "sha256": "16812921f6643e0fbbe42d1ba3ab4f490e5f99971eda16f2b433845a345e491e",
+    "bytes": 1664180,
+    "reference_sha256": "a7ece29112a46c5d4784c8a51f61fbfc87893467088f12f8e2810196dc910653",
+    "doors": [
+      {
+        "side": "South",
+        "plane": [
+          0.0,
+          -4.349999904632568,
+          0.0
+        ],
+        "removed_vertices": 252,
+        "motion": "sliding",
+        "width": 1.7
+      }
+    ],
+    "floor": {
+      "tile_m": [
+        1.25,
+        1.5
+      ],
+      "joint_m": 0.03,
+      "world_aligned": true
+    },
+    "label": "CAFETERIA",
+    "label_mount": {
+      "source_door": "South",
+      "center_height_m": 2.66,
+      "plate_bottom_m": 2.48,
+      "plate_front_from_door_m": 0.34,
+      "back_from_door_m": 0.12,
+      "parent": "Wall_S"
+    }
+  }
+]

@@ -1,3 +1,4 @@
+import { meleeCanHit } from '../../combat/melee';
 import { COMBAT, HIT_LAYER, RIFLE_MASK, robotConfig, writeRifleAimTarget, writeRifleMuzzle } from '../../combat/config';
 import { traceShot, type Robot, type ShotTrace } from '../../combat/simulation';
 import type { Position, Terrain } from '../../combat/navigation';
@@ -17,9 +18,12 @@ export class ReticleAim {
 
   target(player: Position, aim: Position, angle: number, pose: WeaponMuzzleOffset, height: number, terrain: Terrain, robots: Robot[]) {
     writeRifleMuzzle(this.muzzle, player.x, player.z, angle, pose.valid ? pose : undefined);
-    writeRifleAimTarget(this.marker, player, aim, angle, this.muzzle);
+    // A retícula acompanha o ponteiro, inclusive sobre/atrás do jogador. Só o
+    // raio de consulta usa o rumo seguro do tiro quando o cursor passa do cano.
+    this.marker.x = aim.x; this.marker.z = aim.z;
+    writeRifleAimTarget(this.end, player, aim, angle, this.muzzle);
     if (traceShot(player, this.muzzle, terrain, robots, HIT_LAYER.world, this.trace, height).blocked) return null;
-    const dx = this.marker.x - this.muzzle.x, dz = this.marker.z - this.muzzle.z;
+    const dx = this.end.x - this.muzzle.x, dz = this.end.z - this.muzzle.z;
     const distance = Math.hypot(dx, dz);
     this.end.x = this.muzzle.x + dx / distance * COMBAT.rifle.range;
     this.end.z = this.muzzle.z + dz / distance * COMBAT.rifle.range;
@@ -56,4 +60,17 @@ export function reticlePixelScale(projectionY: number, height: number, cameraDep
 /** Dash mantém a mesma mira; só bloqueios da sessão ou ponteiro inválido a escondem. */
 export function reticleVisible(blocked: boolean, aimValid: boolean) {
   return !blocked && aimValid;
+}
+
+/** No facão, destaca só o alvo sob o cursor que cabe no arco/alcance real. */
+export function meleeReticleTarget(player: Position, aim: Position, angle: number, terrain: Terrain, robots: Robot[]) {
+  let closest: Robot | null = null, distance = Infinity;
+  for (const robot of robots) {
+    if (robot.hp <= 0) continue;
+    const radius = robotConfig(robot).radius;
+    if ((aim.x - robot.x) ** 2 + (aim.z - robot.z) ** 2 > radius * radius || !meleeCanHit(player, angle, robot, radius, terrain)) continue;
+    const d = (robot.x - player.x) ** 2 + (robot.z - player.z) ** 2;
+    if (d < distance) { closest = robot; distance = d; }
+  }
+  return closest;
 }

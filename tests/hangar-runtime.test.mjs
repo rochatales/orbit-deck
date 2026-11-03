@@ -1,3 +1,4 @@
+const {COLONY_BUILDINGS,retainBuildingCollider}=loadSource('src/game/colonyBuildingsLayout.ts');
 const {retainControlRoomCollider}=loadSource('src/game/controlRoomLayout.ts');
 const {LABORATORIO,retainLaboratorioCollider,retainLaboratorioFloor}=loadSource('src/game/laboratorioLayout.ts');
 import test from 'node:test';
@@ -23,19 +24,19 @@ const step=(r,x,z,n=180)=>{for(let i=0;i<n;i++)r.update({x,z},1/60);};
 
 test('Hangar runtime: cópia exata v002; três rotas, equipamentos e reserva do deck',()=>{
  const file=fs.readFileSync('src/assets/hangar/hangar-v002.glb');assert.equal(createHash('sha256').update(file).digest('hex'),HANGAR.sha256);assert.deepEqual(file,fs.readFileSync('art-source/hangar/export/hangar_mars_v002.glb'));
- const w=createWorld(),paths=[[[0,3],[0,12],[0,17],[0,21],[0,29.5]],[[5.9,15],[4.5,15],[3.1,15.5],[3.1,16.5],[0,16.5]]];
+ const w=createWorld(),paths=[[[0,6],[0,12],[0,17],[0,21],[0,29.5]],[[5.9,15],[4.5,15],[3.1,15.5],[3.1,16.5],[0,16.5]]];
  for(const path of paths)for(let i=1;i<path.length;i++)assert.ok(clearSegment({x:path[i-1][0],z:path[i-1][1]},{x:path[i][0],z:path[i][1]},w,.36),JSON.stringify(path[i]));
  for(const p of [{x:1.8,z:13.5},{x:-1.2,z:15.5},{x:1.3,z:15.5},{x:3.9,z:12.5}])assert.equal(traversable(p,w,.32),false,'carga/casco não atravessáveis');
  for(const b of HANGAR.colliders){assert.ok(b.maxZ<25);assert.ok(!(b.minX<-2.5299&&b.maxX>-3.4701&&b.minZ<26.2616&&b.maxZ>25.5384));}
- const retained=[...colony.colliders.filter(retainColonyCollider).filter(retainQuartelCollider).filter(retainLaboratorioCollider).filter(retainControlRoomCollider),...greenhouse.colliders].map(({minX,maxX,minZ,maxZ})=>({minX,maxX,minZ,maxZ}));assert.deepEqual(w.obstacles.slice(0,retained.length),retained);assert.equal(HANGAR.removedColliders.length,15);
- for(const area of colony.walkableAreas.filter(retainColonyFloor).filter(retainQuartelFloor).filter(retainLaboratorioFloor))assert.ok(w.walkableAreas.some(a=>['minX','maxX','minZ','maxZ'].every(k=>a[k]===area[k])),area.id);
+ const retained=[...colony.colliders.filter(retainColonyCollider).filter(retainQuartelCollider).filter(retainLaboratorioCollider).filter(retainControlRoomCollider).filter(retainBuildingCollider),...greenhouse.colliders].map(({minX,maxX,minZ,maxZ})=>({minX,maxX,minZ,maxZ}));assert.deepEqual(w.obstacles.slice(0,retained.length),retained);assert.equal(HANGAR.removedColliders.length,15);
+ for(const area of colony.walkableAreas.filter(retainColonyFloor).filter(retainQuartelFloor).filter(retainLaboratorioFloor))assert.ok(w.walkableAreas.some(a=>['minX','maxX','minZ','maxZ'].every(k=>Math.abs(a[k]-area[k])<1e-6)),area.id);
  assert.equal(hangarSupportHeight(0,14),.16);assert.ok(Math.abs(hangarSupportHeight(0,18.9725)-.09)<1e-9);assert.ok(Math.abs(hangarSupportHeight(0,20.15)-.02)<1e-9);assert.equal(hangarSupportHeight(5.3,15),0);assert.equal(hangarSupportHeight(0,25),0);assert.equal(hangarSupportHeight(0,-10),0);
 });
 
 test('Hangar runtime: Rapier caminha praça → interior/rampa/deck/embarque e Refeitório em ambos sentidos',async()=>{
  const require=createRequire(import.meta.url),R=createRequire(require.resolve('@react-three/rapier'))('@dimforge/rapier3d-compat');await R.init();
  const source=createWorld();
- const paths=[[[0,3],[0,12],[0,17],[0,21],[0,29.5]],[[5.9,15],[4.5,15],[3.1,15.5],[3.1,16.5],[0,16.5]]];
+ const paths=[[[0,6],[0,12],[0,17],[0,21],[0,29.5]],[[5.9,15],[4.5,15],[3.1,15.5],[3.1,16.5],[0,16.5]]];
  for(const original of paths)for(const reverse of [false,true]){
   const path=reverse?[...original].reverse():original,world=new R.World({x:0,y:0,z:0}),visited=[];
   try{

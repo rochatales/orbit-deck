@@ -24,3 +24,13 @@ export const BACKPACK_LIGHT = {
     // Origem acima e atrás do casco da mochila; coordenadas do acessório antes do encaixe.
     position: [0, .15, -.28] as [number, number, number]
 } as const;
+
+/** Visor da colônia: foco azul amplo e suave, independente do farol de Shanghai. */
+export const COLONY_VISOR_LIGHT = {
+    color: '#83dfff', intensity: 3, reach: 4, decay: 2,
+    angle: Math.PI / 3.5, penumbra: 1,
+    // Espaço local do Head, medido no Idle_Colony do astronauta (cabeça a 1,096 m).
+    position: [.02195134, .07430776, .18511355] as [number, number, number],
+    target: [.19069824, -.20240352, 1.85690782] as [number, number, number],
+    stripeColor: '#4bd4ff', stripeRadius: .0038, haloRadius: .008, haloOpacity: .14
+} as const;

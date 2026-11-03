@@ -12,11 +12,13 @@ const refs=()=>({until:{current:0},cooldown:{current:0},held:{current:false}});
 const tick=(s,now,pressed,blocked=false)=>advanceDash(now,pressed,blocked,s.until,s.cooldown,s.held);
 const close=(a,b)=>assert.ok(Math.abs(a-b)<1e-5,`${a} != ${b}`);
 
-test('Dash: só Shanghai; Marte não inicia nem mantém impulso',()=>{
- const s=refs();assert.equal(dashEnabled('mars'),false);assert.equal(dashEnabled('shanghai'),true);
- assert.equal(tick(s,0,true,!dashEnabled('mars')),false);assert.equal(s.until.current,0);
- assert.equal(tick(s,0,true,!dashEnabled('shanghai')),true);
- assert.equal(tick(s,.1,true,!dashEnabled('mars')),false);assert.equal(s.until.current,0);
+test('Dash: liberado em Marte e Shanghai, sem liberar mapas desconhecidos',()=>{
+ for(const map of ['mars','shanghai']){
+  const s=refs();assert.equal(dashEnabled(map),true);
+  assert.equal(tick(s,0,true,!dashEnabled(map)),true);close(s.until.current,.72);
+ }
+ const s=refs();assert.equal(dashEnabled('desconhecido'),false);
+ tick(s,0,true);assert.equal(tick(s,.1,true,!dashEnabled('desconhecido')),false);assert.equal(s.until.current,0);
 });
 
 test('Dash: borda de Espaço, 0,72 s, cooldown 0,95 s desde o início e sem repetir segurando',()=>{

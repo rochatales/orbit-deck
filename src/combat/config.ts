@@ -1,9 +1,10 @@
+import { SHANGHAI_MEDICAL_KITS, MEDICAL_KIT } from '../game/props/medicalKit';
 import phase01 from '../assets/shanghai-fase01/layout.json';
 import { isShanghaiPhase01 } from '../game/shanghai/previewMode';
 /** First playable tuning; units are metres, seconds and hit points. */
 export const COMBAT = {
     version: 's2.4-hordas-1', encounterSize: 32, playerHp: 100,
-    rifle: { magazine: 24, reserve: 96, damage: 25, interval: 0.18, reload: 1.5, range: 32 },
+    rifle: { magazine: 24, reserve: 96, damage: 25, interval: 0.18, dryInterval: .45, reload: 1.5, range: 32 },
     robot: {
         hitHeight: { minY: 0, maxY: 2.31 },
         hp: 75, speed: 1.65, radius: 0.67, contactRange: 1.07, damage: 15, contactInterval: 0.8, repath: 0.5, visionRange: 10, visionCos: Math.cos(Math.PI / 3),
@@ -19,7 +20,7 @@ export const COMBAT = {
         directChase: 9,
         waypointReach: 0.5, stuckAdvance: 1.2,
     },
-    pickupRadius: 1.1, heartHeal: 50, alertDuration: 1.5,
+    pickupRadius: 1.1, heartHeal: MEDICAL_KIT.heal, alertDuration: 1.5,
     hearts: [{ x: -5, z: 7 }, { x: 5, z: -5 }],
     grid: 0.5, fixedStep: 1 / 60,
     spawns: [{ x: 0, z: -3 }, { x: -5, z: -8 }, { x: 5, z: -8 }, { x: -14, z: 1 }, { x: 14, z: 1 }],
@@ -103,11 +104,11 @@ const CURRENT_LAYOUT: EncounterLayout = {
 const exit = phase01.exit;
 /**
  * Fase 01 (S6.3): 32 spawns e 4 patrulhas exportados com o mapa. Encontros
- * pequenos usam os spawns mais próximos da chegada; corações nos cruzamentos
- * das rotas a oeste e a leste do desembarque (fora da reserva de pouso).
+ * pequenos usam os spawns mais próximos da chegada; quatro kits médicos
+ * distribuídos entre norte/sul e oeste/leste, fora da reserva de pouso.
  */
 const PHASE01_LAYOUT: EncounterLayout = {
-    routes: phase01.patrolRoutes, spawns: phase01.spawns, hearts: [{ x: -17.5, z: 9.5 }, { x: 17.5, z: 9.5 }],
+    routes: phase01.patrolRoutes, spawns: phase01.spawns, hearts: SHANGHAI_MEDICAL_KITS,
     small: [...phase01.spawns].sort((a, b) => Math.hypot(a.x - exit.x, a.z - exit.z) - Math.hypot(b.x - exit.x, b.z - exit.z)),
     arrival: { x: exit.x, z: exit.z },
 };
@@ -130,7 +131,8 @@ export function writeRifleMuzzle(out: { x: number; z: number }, x: number, z: nu
     out.z = z - side * sin + forward * cos;
 }
 
-/** Retícula e disparo compartilham o alvo: cursor atrás/perto não inverte o cano. */
+/** Direção segura do disparo/consulta de acerto: cursor atrás/perto não inverte o cano.
+ * A posição visual do cursor permanece livre, sem ser empurrada por esta proteção. */
 export function writeRifleAimTarget(out: { x: number; z: number }, player: { x: number; z: number }, aim: { x: number; z: number }, angle: number, muzzle: { x: number; z: number }) {
     const forwardX = Math.sin(angle), forwardZ = Math.cos(angle);
     const dx = aim.x - muzzle.x, dz = aim.z - muzzle.z;

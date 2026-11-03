@@ -1,0 +1,117 @@
+{
+  "blender": "5.1.1",
+  "fps": 30,
+  "escala": 1.6416854052987617,
+  "base_glb_sha256": "166e2f982dbb2d67e328ea7d246552a8753aa198d8d896cae72dc5494428aee5",
+  "base_bind_sha256": "87d7fdbce58a9ccbf3617a7fc25fe1c22974a6e648ba5321dfadb099eb1e1b12",
+  "root_motion": "Hips X/Y neutralizados no mundo Blender; altura e rotações preservadas",
+  "clipes": [
+    {
+      "name": "Machete_Idle",
+      "file": "Espada_duas_maos_Idle.fbx",
+      "source_frames": [
+        1,
+        61
+      ],
+      "source_fps": 30.0,
+      "duration": 2.0,
+      "loop": true,
+      "root_original_m": [
+        1.7671845853328705e-07,
+        -5.638692528009415e-06,
+        3.933906555175781e-06
+      ],
+      "referenceSpeed": null,
+      "runtime": true
+    },
+    {
+      "name": "Machete_Run",
+      "file": "Espada_duas_maps_Run.fbx",
+      "source_frames": [
+        1,
+        19
+      ],
+      "source_fps": 30.0,
+      "duration": 0.6,
+      "loop": true,
+      "root_original_m": [
+        2.7939677238464355e-09,
+        -1.635388970375061,
+        -5.960464477539063e-08
+      ],
+      "referenceSpeed": 2.9589122906327248,
+      "runtime": true
+    },
+    {
+      "name": "Machete_Backward",
+      "file": "espada_duas_maos_back_Run.fbx",
+      "source_frames": [
+        1,
+        19
+      ],
+      "source_fps": 30.0,
+      "duration": 0.6,
+      "loop": true,
+      "root_original_m": [
+        0.008996671065688133,
+        1.4782718420028687,
+        0.0038387179374694824
+      ],
+      "referenceSpeed": 2.4191343784332275,
+      "runtime": true
+    },
+    {
+      "name": "Machete_Slash",
+      "file": "espada_duas_maos_Slash.fbx",
+      "source_frames": [
+        1,
+        37
+      ],
+      "source_fps": 30.0,
+      "duration": 1.2,
+      "loop": false,
+      "root_original_m": [
+        -4.493631422519684e-08,
+        -1.210719347000122e-08,
+        5.960464477539063e-08
+      ],
+      "referenceSpeed": null,
+      "runtime": true
+    },
+    {
+      "name": "Machete_Block",
+      "file": "espada_duas_maos_blocking.fbx",
+      "source_frames": [
+        1,
+        17
+      ],
+      "source_fps": 30.0,
+      "duration": 0.5333333333333333,
+      "loop": true,
+      "root_original_m": [
+        0.043402716517448425,
+        0.0030443966388702393,
+        0.13987872004508972
+      ],
+      "referenceSpeed": null,
+      "runtime": false
+    }
+  ],
+  "palms": {
+    "RightHand": [
+      -0.18473775684833527,
+      -0.34735214710235596,
+      0.6349790096282959
+    ],
+    "LeftHand": [
+      0.12342186272144318,
+      -0.28939199447631836,
+      0.5663800239562988
+    ]
+  },
+  "glb": {
+    "file": "export/explorador-facao-v001.glb",
+    "sha256": "cda925f7b20cb906a7236a4f7cc76e4e1cda4a6ffeff153870e2859abfbaaf9f",
+    "bytes": 713168
+  }
+}

@@ -114,22 +114,23 @@ test('abate gera um conjunto de metais na posição da morte e coleta uma única
  ticks(sim,1,{...input,player:{x:0,z:0}});assert.equal(sim.iron,1);assert.equal(sim.copper,1);
  assert.equal(sim.snapshot.iron,1);
 });
-test('dois corações curam 50 pontos, limitam a 100 e não são consumidos com vida cheia',()=>{
+test('kits do blockout também são guardados por interação e usados sem gastar com vida cheia',()=>{
  const sim=new CombatSimulation(createWorld(),1);sim.robots[0].hp=0;
  assert.equal(sim.hearts.length,2);
  for(const h of sim.hearts)assert.ok(traversable(h,sim.terrain,.32));
  const first={...input,player:sim.hearts[0]};
- sim.step(1/60,first);assert.equal(sim.hearts[0].active,true);
- sim.hp=20;sim.step(1/60,first);assert.equal(sim.hp,70);assert.equal(sim.hearts[0].active,false);
- sim.step(1/60,first);assert.equal(sim.hp,70);
- sim.step(1/60,{...input,player:sim.hearts[1]});assert.equal(sim.hp,100);assert.equal(sim.hearts[1].active,false);
+ sim.step(1/60,first);assert.equal(sim.hearts[0].active,true);assert.equal(sim.medkits,0);
+ assert.equal(sim.collectMedicalKit(first.player),true);assert.equal(sim.medkits,1);assert.equal(sim.hp,100);
+ assert.equal(sim.useMedicalKit(),false);assert.equal(sim.medkits,1);
+ sim.hp=20;assert.equal(sim.useMedicalKit(),true);assert.equal(sim.hp,70);assert.equal(sim.medkits,0);
+ assert.equal(sim.collectMedicalKit(sim.hearts[1]),true);assert.equal(sim.useMedicalKit(),true);assert.equal(sim.hp,100);assert.equal(sim.medkits,0);
 });
 test('coleta respeita pausa, parede, morte e reinício da tentativa',()=>{
  const wall={...terrain,obstacles:[{minX:-2,maxX:2,minZ:0,maxZ:.1}]};
  const sim=new CombatSimulation(wall,1);sim.robots[0].hp=0;
  Object.assign(sim.drops[0],{x:0,z:-.4,active:true});Object.assign(sim.hearts[0],{x:0,z:-.4});sim.hp=50;
  const close={...input,player:{x:0,z:.4}};
- sim.step(1/60,close);assert.equal(sim.iron,0);assert.equal(sim.hp,50);
+ sim.step(1/60,close);assert.equal(sim.collectMedicalKit(close.player),false);assert.equal(sim.iron,0);assert.equal(sim.hp,50);
  const sameSide={...input,player:{x:0,z:-.4}};
  sim.step(1/60,sameSide,true);assert.equal(sim.iron,0);assert.equal(sim.hp,50);
  sim.hp=0;sim.step(1/60,sameSide);assert.equal(sim.iron,0);assert.equal(sim.hp,0);

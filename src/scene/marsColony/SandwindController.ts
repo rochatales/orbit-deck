@@ -1,5 +1,6 @@
+import { SandwindWind, SAND_NOISE_GLSL } from './sandwindWind';
 import { Box3, Color, Group, Vector2, type Mesh, type ColorSpace, type Material, type Object3D } from 'three';
-import { distanceToBoundsSquared, SANDWIND_PROFILES, shouldHideInSandwind, type GroundBounds, type SandwindProfile } from './sandwindPolicy';
+import { distanceToBoundsSquared, SANDWIND_APPEARANCE, SANDWIND_PROFILES, shouldHideInSandwind, type GroundBounds, type SandwindProfile } from './sandwindPolicy';
 
 export interface SandwindTarget { id: string; nodes: Object3D[]; bounds?: GroundBounds }
 interface Entry { gate: Group; bounds: GroundBounds; hidden: boolean; triangles: number }
@@ -21,10 +22,12 @@ const VERTEX_POSITION = `
 `;
 const FRAGMENT_FOG = `
     float swDistance = length(vSandwindPosition.xz - swCenter);
-    float swDensity = smoothstep(swClear, swOpaque, swDistance) * swEnabled;
-    float swWave = (sin(dot(vSandwindPosition.xz, vec2(0.17, 0.09)) - swTime * 0.7) * 0.5 + 0.5)
-                 * (sin(dot(vSandwindPosition.xz, vec2(-0.06, 0.13)) - swTime * 0.31) * 0.5 + 0.5);
-    float swFog = clamp(swDensity + swDensity * (1.0 - swDensity) * swWave * 0.45, 0.0, 1.0);
+    float swDensity = pow(smoothstep(swClear, swOpaque, swDistance), swFalloff) * swEnabled;
+    float swFog = swDensity;
+    if (swDensity > .001 && swDensity < .999) {
+        float swWave = sandCloudNoise((vSandwindPosition.xz - swDrift) * .085);
+        swFog = clamp(swDensity + swDensity * (1.0 - swDensity) * (swWave - .5) * swTurbulence, 0.0, 1.0);
+    }
     gl_FragColor.rgb = mix(gl_FragColor.rgb, swColor, swFog);
 `;
 
@@ -35,7 +38,8 @@ const FRAGMENT_FOG = `
 export class SandwindController {
     readonly uniforms = {
         swCenter: { value: new Vector2() }, swClear: { value: 22 }, swOpaque: { value: 42 },
-        swTime: { value: 0 }, swEnabled: { value: 1 }, swColor: { value: new Color() }
+        swTime: { value: 0 }, swDrift: { value: new Vector2() },
+        swFalloff: { value: SANDWIND_APPEARANCE.falloffExponent }, swTurbulence: { value: SANDWIND_APPEARANCE.turbulence }, swEnabled: { value: 1 }, swColor: { value: new Color() }
     };
     readonly stats = { total: 0, hidden: 0, retained: 0, hiddenTriangles: 0, materials: 0, clones: 0 };
     private readonly entries: Entry[] = [];
@@ -48,8 +52,8 @@ export class SandwindController {
     private wasActive = false;
     private disposed = false;
 
-    constructor(scope: Object3D, sources: readonly Object3D[], targets: SandwindTarget[], outputColorSpace: ColorSpace) {
-        new Color('#b4927a').getRGB(this.uniforms.swColor.value, outputColorSpace);
+    constructor(scope: Object3D, sources: readonly Object3D[], targets: SandwindTarget[], outputColorSpace: ColorSpace, readonly wind = new SandwindWind()) {
+        new Color(SANDWIND_APPEARANCE.color).getRGB(this.uniforms.swColor.value, outputColorSpace);
         const shared = new Set<Material>();
         for (const source of sources) source.traverse(object => {
             const mesh = object as Mesh;
@@ -67,9 +71,9 @@ export class SandwindController {
                 shader.vertexShader = 'varying vec3 vSandwindPosition;\n' + shader.vertexShader;
                 shader.vertexShader = shader.vertexShader.replace('#include <project_vertex>', '#include <project_vertex>\n' + VERTEX_POSITION);
                 shader.fragmentShader = `varying vec3 vSandwindPosition;
-                    uniform vec2 swCenter;
-                    uniform float swClear, swOpaque, swTime, swEnabled;
-                    uniform vec3 swColor;\n` + shader.fragmentShader;
+                    uniform vec2 swCenter, swDrift;
+                    uniform float swClear, swOpaque, swTime, swEnabled, swFalloff, swTurbulence;
+                    uniform vec3 swColor;\n${SAND_NOISE_GLSL}\n` + shader.fragmentShader;
                 shader.fragmentShader = shader.fragmentShader.replace('#include <fog_fragment>', '#include <fog_fragment>\n' + FRAGMENT_FOG);
             };
             material.customProgramCacheKey = () => key.call(material) + ':exoden-sandwind-v007';
@@ -77,7 +81,7 @@ export class SandwindController {
         };
         scope.traverse(object => {
             const mesh = object as Mesh;
-            if (!mesh.isMesh) return;
+            if (!mesh.isMesh || mesh.userData.sandwindCloud) return;
             const original = mesh.material;
             const prepare = (material: Material) => {
                 // Apenas os materiais ainda vindos do cache são clonados. Fades,
@@ -129,7 +133,9 @@ export class SandwindController {
         this.uniforms.swCenter.value.set(x, z);
         this.uniforms.swClear.value = p.clear; this.uniforms.swOpaque.value = p.opaque;
         this.uniforms.swEnabled.value = settings.enabled ? 1 : 0;
-        if (settings.enabled && settings.wind && !paused) this.uniforms.swTime.value += Math.min(delta, 0.05);
+        this.wind.update(delta, settings.enabled && settings.wind, paused);
+        this.uniforms.swTime.value = this.wind.time;
+        this.uniforms.swDrift.value.set(this.wind.offsetX, this.wind.offsetZ);
         this.elapsed += Math.min(delta, 0.2);
         const active = settings.enabled && settings.culling;
         const changed = settings.profile !== this.signature || active !== this.wasActive;

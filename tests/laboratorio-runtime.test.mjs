@@ -1,3 +1,4 @@
+const {COLONY_BUILDINGS}=loadSource('src/game/colonyBuildingsLayout.ts');
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -53,7 +54,7 @@ test('Laboratório: sala antiga sai só da cópia; vizinhos, física simples e s
  validateMasterplan(s,filtered);assert.ok(source.scene.getObjectByName('TET_smart-lab'));assert.equal(s.getObjectByName('TET_smart-lab'),undefined);
  for(const id of ['TET_brand-brain','TET_output-review','TET_design'])assert.ok(s.getObjectByName(id),id);
  for(const id of L.removedParts)assert.equal(s.getObjectByName(id),undefined,id);
- const world=createWorld();assert.equal(world.movingCuboids.length,Q.dynamicCuboids.length+2);assert.equal(world.simpleCuboids.length,Q.staticCuboids.length+25);
+ const world=createWorld();assert.equal(world.movingCuboids.length,Q.dynamicCuboids.length+2+COLONY_BUILDINGS.reduce((n,b)=>n+b.dynamicCuboids.length,0));assert.equal(world.simpleCuboids.length,Q.staticCuboids.length+25+COLONY_BUILDINGS.reduce((n,b)=>n+b.staticCuboids.length,0));
  for(const box of L.staticCuboids){assert.ok(box.halfExtents.every(n=>n>0));assert.ok(world.simpleCuboids.some(c=>c.id===box.id));}
  for(const c of base.colliders.filter(c=>L.removedColliders.includes(c.id)))assert.ok(!world.obstacles.some(b=>b.minX===c.minX&&b.maxX===c.maxX&&b.minZ===c.minZ&&b.maxZ===c.maxZ),c.id);
  const {MAP_ROOMS,getLocationLabelByPosition}=loadSource('src/world/mapConfig.ts');assert.equal(MAP_ROOMS.find(r=>r.id==='smart-lab').position.x,13.5);assert.equal(getLocationLabelByPosition(18,-16),'Laboratório');
@@ -106,7 +107,7 @@ async function physics(start,automaticDoors=true){await R.init();const source=cr
  return {...f,move,dispose(){f.runtime.dispose();qr.dispose();world.free();}};
 }
 test('Laboratório: Rapier percorre EDEN → porta oeste → laboratório → porta sul → quartel → praça, ida e volta',async()=>{
- const path=[[3,-10.5],[5.5,-10.5],[5.5,-12.7],[9.5,-12.7],[9.5,-9.5],[15.5,-9.5],[15.5,-6.4],[10.5,-6.4],[10.5,-3.5],[10.5,0],[6.8,0],[3,0]];
+ const path=[[3,-10.5],[5.5,-10.5],[5.5,-12.7],[9.5,-12.7],[9.5,-9.5],[15.5,-9.5],[15.5,-6.4],[10.5,-6.4],[10.5,-3.5],[10.5,0],[6.8,0],[5.5,0],[5.5,6],[0,6]];
  for(const reverse of [false,true]){const route=reverse?[...path].reverse():path,f=await physics(route[0]);try{for(const[x,z]of route.slice(1)){const p=f.move(x,z);assert.ok(Math.hypot(p.x-x,p.z-z)<.03,JSON.stringify({reverse,x,z,p}));}}finally{f.dispose();}}
 });
 test('Laboratório: portas fechadas, paredes, bancadas, armários e máquina são sólidos; proximidade libera entrada',async()=>{

@@ -1,6 +1,6 @@
 # Quadro de execução — EXODEN
 
-> **Consolidação aprovada pelo autor em 02/11/2026:** código `f8655f1`, reunido com `b54162c` em worktree isolada, com merge e push expressamente solicitados. O aceite se refere à versão jogada neste bate-bola. Os registros anteriores abaixo são históricos; não encerram automaticamente os escopos futuros dos sprints.
+> **Versão aprovada pelo autor em 03/11/2026:** código `61f2ec7`, com todos os ajustes deste bate-bola desde a publicação `5bc240f`. Merge e push autorizados pelo pedido de consolidação; execução nesta worktree isolada, sem tocar no checkout principal. Este aceite abrange a composição jogada; não encerra os escopos futuros dos sprints. Os registros de entrega/pendências abaixo são históricos e cedem ao aceite atual. [Consolidação atual](./handoffs/consolidacao-validada-2026-11-03.md).
 
 > Quem está fazendo o quê, em qual base e branch. O status oficial de cada
 > item (checkbox) continua em
@@ -22,12 +22,12 @@
 | 1 · Base local e viagem Marte–Shanghai | ✅ Implementado (S1.1–S1.10) | — |
 | 2 · Movimento, tiro e sobrevivência | ◐ Núcleo e S2.12 concluídos/aprovados | A1–A13 (25/10), B em três etapas e apoio no piso (26/10). S2.11 concluída: comparada em 144 Hz pelo autor, não adotada (`?interp=1` só comparação); S2.9 e aceite geral da etapa 6.5 permanecem |
 | 3 · Ondas, categorias e dispositivos | ◐ Entregas antecipadas aprovadas | Versão atual: hordas 13/26/32/44 (115), quatro tipos de inimigo, investida, recursos, áudio, efeitos e vida/acerto individuais. Demais dispositivos/critério completo S3 seguem pendentes |
-| 4 · Loot, orientação e retorno | 🔲 Não iniciado | — |
+| 4 · Loot, orientação e retorno | ◐ Parte antecipada aprovada | Inventário temporário, peso, quatro espaços, kits interativos e seleção de arma presentes; dispositivos, objetivos obrigatórios, extração e persistência continuam pendentes |
 | 5 · Construção da máquina | 🔲 Não iniciado | — |
-| 6 · Estética dos elementos | ◐ Versão atual aprovada pelo autor em 02/11 | Astronauta v009/rifle, mochila, colônia v007/estufa/Hangar/Quartel/Laboratório/Control Room, projeção EDEN, Sandwind e iluminação presentes. Não encerra os itens completos/fases futuras do plano; S6.5 e demais pendências conservam seu escopo |
+| 6 · Estética dos elementos | ◐ Versão atual aprovada pelo autor em 03/11 | Inclui os três prédios novos, pavimento/corredores contínuos, letreiros, Sandwind avermelhado com vento, HUD beta, facão e acessórios por mapa. Dash também na colônia, arma principal no inventário e facão girando com o corpo no Dash. Itens completos/fases futuras seguem pendentes |
 | 7 · Texturas, materiais e entrega | 🔲 Não iniciado | Acabamento de UI planejado em S7.11 |
 
-Testes na versão aprovada `f8655f1`: **396/396**, build e diff-check verdes. A consolidação repete os checks na worktree isolada e preserva a árvore de código aprovada. [Registro atual](./handoffs/consolidacao-validada-2026-11-02.md). O histórico de 104 testes das fases de 19/10 permanece nos relatórios correspondentes.
+Versão aprovada atual: **`61f2ec7`**, **481/481** testes, build e diff-check verdes. A consolidação repete os checks na worktree isolada e preserva integralmente essa árvore fora de `docs/`. [Registro atual](./handoffs/consolidacao-validada-2026-11-03.md); [consolidação anterior](./handoffs/consolidacao-validada-2026-11-02.md).
 
 Legenda: 🔲 não iniciado · ◐ em andamento/parcial · ✅ implementado ·
 ⛔ bloqueado · ⏸ estacionado. "Implementado" não significa aprovado pelo autor.
@@ -42,8 +42,9 @@ Legenda: 🔲 não iniciado · ◐ em andamento/parcial · ✅ implementado ·
 |---|---|
 | Branch de integração remota | `origin/rochatales/horda-survivor` |
 | Branch local desta consolidação | `rochatales/consolidacao-validada-2026-11-02` |
-| Base local de integração preservada | `b54162c359ad539db34e25f6bc61c6184a87e58a` |
-| Código validado pelo autor | `f8655f10a968e0a2f2988d7241a2bab2a0b40860` |
+| Base remota anterior desta rodada | `5bc240fd09d3e4e6af10534f8e6ed2a1dae5ebf4` |
+| Checkout principal preservado | `b54162c359ad539db34e25f6bc61c6184a87e58a` |
+| Código validado pelo autor | `61f2ec7f60fa9c713dd95e11d3300082294e151f` |
 | Worktree da consolidação | `/Users/rochatales/.codex/worktrees/consolidacao-validada-2026-11-02/game-workplace` |
 | Referência para nova tarefa após a publicação | `git fetch origin` e `git rev-parse origin/rochatales/horda-survivor`; fixar o SHA resultante |
 
@@ -51,7 +52,7 @@ O checkout principal permanece em `b54162c`, com alterações locais e artes sem
 rastreio do autor preservadas. A ref local `rochatales/horda-survivor` **não é a
 base atual para novas tarefas** enquanto esse checkout não for reconciliado.
 A consolidação conserva ambos os históricos, sem rebase/cherry-pick e sem editar
-código em relação ao preview aprovado. [Escopo e publicação](./handoffs/consolidacao-validada-2026-11-02.md).
+código em relação ao preview aprovado. [Escopo e publicação atuais](./handoffs/consolidacao-validada-2026-11-03.md).
 
 ## Poeira de passos · S3.11 parcial · 02/11/2026
 

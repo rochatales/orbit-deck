@@ -38,7 +38,7 @@ test('Colônia: Standard_Run, Walking_Backwards e Breathing_Idle por mapa, passa
  updateLocomotionRates(colony,colony.Backward,'backward',1.2,calibration);close(colony.Backward.timeScale,1.2/0.6835822016);
  close(mapLocomotionCalibration(asset,true).runReferenceSpeed,2.1189701557);
  const old={Idle:s.actions.Idle,Run:s.actions.Run};assert.equal(colonyLocomotionActions(old),old);close(mapLocomotionCalibration(r7,false).runReferenceSpeed,1.6);
- assert.equal(dashEnabled('mars'),false);assert.equal(dashEnabled('shanghai'),true);
+ assert.equal(dashEnabled('mars'),true);assert.equal(dashEnabled('shanghai'),true);
  const a=s.actions.Run_Colony;a.reset().play();for(let f=0;f<23;f++){s.mixer.setTime(f/30);s.g.scene.updateMatrixWorld(true);const hips=s.g.scene.getObjectByName('mixamorigHips').getWorldPosition(new Vector3());close(hips.x,0);close(hips.z,0);}
 });
 

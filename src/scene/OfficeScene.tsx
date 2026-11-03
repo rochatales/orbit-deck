@@ -1,3 +1,6 @@
+import { SANDWIND_APPEARANCE } from './marsColony/sandwindPolicy';
+import { WorldInteractionBubbles } from '../interactions/WorldInteractionBubbles';
+import { PlayerStepDust } from '../characters/player/PlayerStepDust';
 import { DawnBackground } from './DawnBackground';
 import { PlayerVisorLight } from './PlayerVisorLight';
 import { SHANGHAI_DAWN } from './lightingConfig';
@@ -26,7 +29,7 @@ export function OfficeScene({ world, map }: {
 }) {
     const spawn = useExpeditionStore(s => s.spawn), revision = useExpeditionStore(s => s.session.revision);
     const phase01 = map === 'shanghai' && isShanghaiPhase01();
-    const sky = map === 'mars' ? '#b4927a' : SHANGHAI_DAWN.horizon;
+    const sky = map === 'mars' ? SANDWIND_APPEARANCE.color : SHANGHAI_DAWN.horizon;
     return <Suspense fallback={<Html center><p role="status">Carregando Shanghai fase 01…</p></Html>}><ShanghaiAssetGate world={world}><>
     {map === 'mars' ? <color attach="background" args={[sky]}/> : <DawnBackground/>}
     <fog attach="fog" args={map === 'mars' ? [sky, 130, 270] : [sky, SHANGHAI_DAWN.fogNear, SHANGHAI_DAWN.fogFar]}/>
@@ -38,8 +41,10 @@ export function OfficeScene({ world, map }: {
       <OfficeMap officeWorld={world} animate={map !== 'mars'}/>
       <Player key={revision} officeWorld={world} spawn={spawn}/>
     </PhysicsWorld>
+    <PlayerStepDust key={`dust-${map}-${revision}`} world={world} map={map}/>
     {map === 'shanghai' && <><CombatScene world={world}/><PlayerVisorLight/></>}
     {map === 'mars' ? <MarsColony world={world}/> : <Spacecraft map={map}/>}
+    <WorldInteractionBubbles key={`interactions-${map}-${revision}`} map={map} world={world}/>
     <PlayerReticle key={`reticle-${revision}`} world={world} combat={map === 'shanghai'}/>
   </></ShanghaiAssetGate></Suspense>;
 }
