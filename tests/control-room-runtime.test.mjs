@@ -47,7 +47,7 @@ test('Prédios aprovados: snapshot íntegro; 9320/8732 triângulos e UVs válido
 });
 
 test('Control Room: praça/porta sul e conector leste chegam a EDEN; pedestal e móveis sólidos',()=>{
- const w=createWorld(),paths=[[[0,-3.1],[0,-7.25],[0,-8.9]],[[5.5,-10.5],[3.5,-10.5],[1.5,-10.5],[1.5,-8.9],[0,-8.9]],[[0,-8.9],[-1.5,-8.9],[-1.5,-12],[1.5,-12]]];
+ const w=createWorld(),paths=[[[0,-6],[0,-7.25],[0,-8.9]],[[5.5,-10.5],[3.5,-10.5],[1.5,-10.5],[1.5,-8.9],[0,-8.9]],[[0,-8.9],[-1.5,-8.9],[-1.5,-12],[1.5,-12]]];
  for(const path of paths)for(let i=1;i<path.length;i++)assert.ok(clearSegment({x:path[i-1][0],z:path[i-1][1]},{x:path[i][0],z:path[i][1]},w,.36),JSON.stringify(path[i]));
  for(const p of [{x:0,z:-10.5},{x:-2.54,z:-13.07},{x:1.2,z:-13.05}])assert.equal(traversable(p,w,.32),false);
  const removed=manifest.colliders.filter(c=>!retainControlRoomCollider(c));assert.equal(removed.length,7);
@@ -77,7 +77,7 @@ test('Control Room: recorte dos dois pisos globais elimina sobreposição e pres
 test('Control Room: cápsula Rapier atravessa as portas sul/leste em ambos os sentidos e chega à interação',async()=>{
  const {createRequire}=await import('node:module'),require=createRequire(import.meta.url),R=createRequire(require.resolve('@react-three/rapier'))('@dimforge/rapier3d-compat');await R.init();
  const {PLAYER_COLLIDER_CENTER_Y:y,PLAYER_COLLIDER_HALF_HEIGHT:h,PLAYER_MOVEMENT:M}=loadSource('src/characters/player/playerConfig.ts'),w=createWorld();
- const routes=[[[0,-3.1],[0,-7.25],[0,-8.9]],[[5.5,-10.5],[3.5,-10.5],[1.5,-10.5],[1.5,-8.9],[0,-8.9]]];
+ const routes=[[[0,-6],[0,-7.25],[0,-8.9]],[[5.5,-10.5],[3.5,-10.5],[1.5,-10.5],[1.5,-8.9],[0,-8.9]]];
  for(const route of routes)for(const reverse of [false,true]){
   const path=reverse?[...route].reverse():route,world=new R.World({x:0,y:0,z:0});
   try{

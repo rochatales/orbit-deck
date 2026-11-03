@@ -81,7 +81,7 @@ export function OfficeColliders({ officeWorld }: { officeWorld: OfficeWorld }) {
 
 function MovingCollider({ entry }: { entry: SimpleCuboid }) {
   const body = useRef<RapierRigidBody>(null);
-  useBeforePhysicsStep(() => { body.current?.setNextKinematicTranslation(entry.position); });
+  useBeforePhysicsStep(() => { body.current?.setNextKinematicTranslation(entry.position); body.current?.setNextKinematicRotation(entry.rotation); });
   return <RigidBody ref={body} type="kinematicPosition" colliders={false}
     position={[entry.position.x, entry.position.y, entry.position.z]}
     quaternion={[entry.rotation.x, entry.rotation.y, entry.rotation.z, entry.rotation.w]}>

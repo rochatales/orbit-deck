@@ -55,7 +55,7 @@ async function physicsFixture(start,auditWalkable=false,automaticDoors=true){awa
  return {world,source,body,runtime,moveTo,dispose(){runtime.dispose();labRuntime.dispose();world.free();}};
 }
 test('Quartel: Rapier percorre praça → rampa oeste → interior → rampa norte → Lab, nos dois sentidos',async()=>{
- const route=[[3,0],[5.5,0],[6.8,0],[10.5,0],[10.5,-4.6],[10.5,-6.4],[15.5,-6.4],[15.5,-9]];
+ const route=[[0,6],[5.5,6],[5.5,0],[6.8,0],[10.5,0],[10.5,-4.6],[10.5,-6.4],[15.5,-6.4],[15.5,-9]];
  for(const reverse of [false,true]){const path=reverse?[...route].reverse():route,f=await physicsFixture(path[0],true);try{for(const [x,z]of path.slice(1)){const end=f.moveTo(x,z);assert.ok(Math.hypot(x-end.x,z-end.z)<.03,JSON.stringify({reverse,x,z,end}));assert.ok(Math.abs(end.y-Y-f.source.supportHeight(end.x,end.z))<1e-6);assert.ok(f.source.walkableAreas.some(a=>end.x>=a.minX&&end.x<=a.maxX&&end.z>=a.minZ&&end.z<=a.maxZ));}}finally{f.dispose();}}
 });
 test('Quartel: borda do pedestal bloqueia autostep inclusive com apoio elevado desejado, parâmetros intactos',async()=>{

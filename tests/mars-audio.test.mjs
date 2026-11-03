@@ -75,9 +75,9 @@ test('Marte: troca antes do decode mantém vento, e pausa/mudo/gesto usam o gate
     } finally { globalThis.fetch = original; }
 });
 
-test('Marte: todas as dez salas ativas, exterior e histerese da soleira sem plantas antigas', () => {
-    assert.equal(MARS_AUDIO_INTERIORS.length, 10);
-    for (const [x, z] of [[0, 0], [0, -9], [18, -15], [16, 1], [-10, 0], [-10, 8], [10, 8], [7, 15], [0, 15], [14, 22]])
+test('Marte: todas as nove salas ativas, exterior e histerese da soleira sem plantas antigas', () => {
+    assert.equal(MARS_AUDIO_INTERIORS.length, 9);
+    for (const [x, z] of [[0, 0], [0, -9], [18, -15], [16, 1], [-10, 0], [-10, 8], [11.5, 8], [0, 15], [14, 22]])
         assert.equal(new MarsInteriorProbe().update(x, z), true, `${x};${z}`);
     for (const [x, z] of [[0, 8], [0, 29.5], [0, 19], [-5, 15], [20, 18], [5, -10.5]])
         assert.equal(new MarsInteriorProbe().update(x, z), false, `${x};${z}`);

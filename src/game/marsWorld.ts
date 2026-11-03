@@ -1,3 +1,4 @@
+import { addColonyBuildingsTerrain, retainBuildingCollider, retainBuildingFloor } from './colonyBuildingsLayout';
 import { addControlRoomTerrain, retainControlRoomCollider } from './controlRoomLayout';
 import { addLaboratorioTerrain, retainLaboratorioCollider, retainLaboratorioFloor } from './laboratorioLayout';
 import { addQuartelTerrain, retainQuartelCollider, retainQuartelFloor } from './quartelLayout';
@@ -16,8 +17,8 @@ export function createWorld(): OfficeWorld {
     const world: OfficeWorld = {
         group: new Group(),
         bounds: { ...MAPS.mars.bounds },
-        obstacles: [...manifest.colliders.filter(retainColonyCollider).filter(retainQuartelCollider).filter(retainLaboratorioCollider).filter(retainControlRoomCollider), ...greenhouse.colliders].map(({ minX, maxX, minZ, maxZ }) => ({ minX, maxX, minZ, maxZ })),
-        walkableAreas: manifest.walkableAreas.filter(retainColonyFloor).filter(retainQuartelFloor).filter(retainLaboratorioFloor).map(({ minX, maxX, minZ, maxZ }) => ({ minX, maxX, minZ, maxZ })),
+        obstacles: [...manifest.colliders.filter(retainColonyCollider).filter(retainQuartelCollider).filter(retainLaboratorioCollider).filter(retainControlRoomCollider).filter(retainBuildingCollider), ...greenhouse.colliders].map(({ minX, maxX, minZ, maxZ }) => ({ minX, maxX, minZ, maxZ })),
+        walkableAreas: manifest.walkableAreas.filter(retainColonyFloor).filter(retainQuartelFloor).filter(retainLaboratorioFloor).filter(retainBuildingFloor).map(({ minX, maxX, minZ, maxZ }) => ({ minX, maxX, minZ, maxZ })),
         update: () => {}
     };
     addHangarTerrain(world);
@@ -25,5 +26,6 @@ export function createWorld(): OfficeWorld {
     addQuartelTerrain(world);
     addLaboratorioTerrain(world);
     addControlRoomTerrain(world);
+    addColonyBuildingsTerrain(world);
     return world;
 }

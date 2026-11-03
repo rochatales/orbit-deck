@@ -1,0 +1,8 @@
+import fs from 'node:fs';
+const buildings=JSON.parse(fs.readFileSync('src/assets/buildings/colony-buildings-v001.json'));
+const rect=(a,color,label,dash='')=>`<rect x="${a.minX}" y="${a.minZ}" width="${a.maxX-a.minX}" height="${a.maxZ-a.minZ}" fill="${color}" stroke="#b9c8ce" stroke-width=".08" ${dash}/><text x="${(a.minX+a.maxX)/2}" y="${(a.minZ+a.maxZ)/2}" text-anchor="middle" font-size=".6" fill="#fff">${label}</text>`;
+let svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="-23 -21 46 61" width="920" height="1220"><rect x="-23" y="-21" width="46" height="61" fill="#17212a"/><g font-family="sans-serif"><text x="-21" y="-19" fill="#fff" font-size="1">EXODEN · implantação medida · norte ↑ / +Z ↓</text>';
+for(const [a,label] of [[[-3.5,3.5,-13.75,-7.25],'Control Room'],[[5.3,20.89,-18.01,-6],'Laboratório'],[[6.41,17.59,-4.84,4.84],'Quartel'],[[-13.5,-7.5,5.75,11.25],'Operações'],[[-4.79,4.79,11.5,20.15],'Hangar'],[[8.3,19.66,18.75,26.18],'Estufa'],[[-20,-9,-14,-8],'Fazenda solar'],[[-2,2,25,27.4],'Passarela'],[[-6,6,27,39],'Deck / ARES-I']])svg+=rect({minX:a[0],maxX:a[1],minZ:a[2],maxZ:a[3]},'#37404b',label);
+for(const b of buildings){svg+=rect(b.pad,'#2c4550','');svg+=rect(b.floor,'#5c6358',b.id);for(const d of b.doors)svg+=`<circle cx="${d.x}" cy="${d.z}" r=".4" fill="#ffd37c"/>`;}
+svg+='<path d="M -8.65 0 L -3.85 0 M 0 3.85 L 0 11.5 M 4.1 15 L 5.8 15 L 5.8 16.7 L 11.5 16.7 L 11.5 15.05 M 0 20.15 L 0 29.5" fill="none" stroke="#81d6ad" stroke-width=".2" stroke-dasharray=".5 .25"/><circle cx="0" cy="6" r=".32" fill="#fff"/><text x="-21" y="37.5" fill="#fff" font-size=".65">Dourado: portas · verde: ligações · branco: início (0; 6)</text></g></svg>\n';
+fs.writeFileSync('docs/handoffs/s6.12-predios-colonia/planta.svg',svg);
