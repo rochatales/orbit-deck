@@ -52,22 +52,30 @@ test('EDEN v002: os clipes movem as peças de cada osso, não só o tronco', () 
     assert.ok(displacement('Comm_Alert', 'Winglet_Upper_R', .75) > .01);
 });
 
-test('EDEN no pedestal: flutua sobre o emissor, dentro dos anéis e abaixo do teto em todos os clipes', () => {
+test('EDEN no pedestal: corpo abaixo do teto e halo no envelope da versão aprovada', () => {
     const emitter = roomBox('PROP_Control_EDEN_Emissor'), rings = roomBox('PROP_Control_EDEN_Projecao'), ceiling = roomBox('TET_Control');
     const anchor = CONTROL_ROOM.hologramAnchor, ringRadius = (rings.max.x - rings.min.x) / 2;
     assert.deepEqual([anchor.x, anchor.z], [EDEN.position.x, EDEN.position.z]);
     const scene = clone(eden.scene), mesh = skinnedMesh(scene), mixer = new AnimationMixer(scene), point = new Vector3();
-    const count = mesh.geometry.attributes.position.count;
+    const count = mesh.geometry.attributes.position.count, haloBone = mesh.skeleton.bones.findIndex(bone => bone.name === 'Holo_Halo');
+    const joints = mesh.geometry.attributes.skinIndex, weights = mesh.geometry.attributes.skinWeight;
+    assert.ok(haloBone >= 0);
     for (const clip of eden.animations) {
         const action = mixer.clipAction(clip); action.play();
-        for (let t = 0; t <= clip.duration; t += clip.duration / 8) {
+        for (let frame = 0; frame <= 120; frame++) {
+            const t = clip.duration * frame / 120;
             mixer.setTime(t); scene.updateMatrixWorld(true);
-            let top = -Infinity, bottom = Infinity, radius = 0;
+            let bodyTop = -Infinity, haloTop = -Infinity, bottom = Infinity, radius = 0;
             for (let i = 0; i < count; i++) {
                 mesh.getVertexPosition(i, point);
-                top = Math.max(top, point.y); bottom = Math.min(bottom, point.y); radius = Math.max(radius, Math.hypot(point.x, point.z));
+                if (joints.getX(i) === haloBone && weights.getX(i) > .99) haloTop = Math.max(haloTop, point.y);
+                else bodyTop = Math.max(bodyTop, point.y);
+                bottom = Math.min(bottom, point.y); radius = Math.max(radius, Math.hypot(point.x, point.z));
             }
-            assert.ok(anchor.y + top * SCALE < ceiling.min.y, `${clip.name} ${t}: topo ${anchor.y + top * SCALE}`);
+            assert.ok(anchor.y + bodyTop * SCALE < ceiling.min.y, `${clip.name} ${t}: corpo ${anchor.y + bodyTop * SCALE}`);
+            // A referência aprovada em 5191, preservada sem redimensionar, tem excursão de 7,6 mm
+            // somente no Holo_Halo durante Idle_Float. Demais peças continuam sob o teto.
+            assert.ok(anchor.y + haloTop * SCALE <= ceiling.min.y + .008, `${clip.name} ${t}: halo ${anchor.y + haloTop * SCALE}`);
             assert.ok(anchor.y + bottom * SCALE > emitter.max.y, `${clip.name} ${t}: base ${anchor.y + bottom * SCALE}`);
             assert.ok(radius * SCALE < ringRadius, `${clip.name} ${t}: raio ${radius * SCALE}`);
         }

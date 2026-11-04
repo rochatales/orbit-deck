@@ -1,0 +1,39 @@
+{
+  "scale": 0.8,
+  "ceiling": 2.5500000417232513,
+  "emitter": 0.9259999692440033,
+  "ringRadius": 0.5709999799728394,
+  "clips": [
+    {
+      "clip": "Comm_Alert",
+      "top": 2.3876963611789708,
+      "bottom": 0.9319999997317792,
+      "radius": 0.3520000077004174,
+      "peakTime": 0
+    },
+    {
+      "clip": "Coordinate_Telemetry",
+      "top": 2.4760905098291364,
+      "bottom": 0.9319999997317792,
+      "radius": 0.3614383314169276,
+      "peakTime": 1
+    },
+    {
+      "clip": "Heart_Surge",
+      "top": 2.4333977022137043,
+      "bottom": 0.9319999997317792,
+      "radius": 0.375920644125163,
+      "peakTime": 0
+    },
+    {
+      "clip": "Idle_Float",
+      "top": 2.557599401114599,
+      "bottom": 0.9319999997317792,
+      "radius": 0.3734817298079287,
+      "peakTime": 1.1458333333333333
+    }
+  ],
+  "source_commit": "23b17ff101a51ee57c85ce3c053ec3ec7c9c75e3",
+  "glb_sha256": "99a284e519af6f4eecd87244e1be3ded7d8f6bf2b73e0796cb8c2d85be17d411",
+  "nota": "Excursão de 7,6 mm só no Holo_Halo em Idle_Float, preservada para manter exatamente a versão aprovada."
+}
