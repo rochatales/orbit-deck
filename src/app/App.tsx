@@ -13,7 +13,7 @@ import { CombatHud, EncounterSelect } from '../combat/CombatHud';
 import { useCombatStore } from '../state/useCombatStore';
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { GameCanvas } from './GameCanvas';
-import { useExpeditionStore } from '../state/useExpeditionStore';
+import { useExpeditionStore, SCENE_STALLED_ERROR } from '../state/useExpeditionStore';
 import { useGameStore } from '../state/useGameStore';
 import { MAPS } from '../game/config';
 import { PlayerAssetBadge } from '../characters/player/PlayerAssetBadge';
@@ -24,6 +24,7 @@ import type { OfficeWorld } from '../world/createOfficeMap';
 import type { MapId } from '../game/session';
 import { sandwindPanelEnabled } from '../scene/marsColony/sandwindPolicy';
 const SandwindPanel = lazy(() => import('../scene/marsColony/ColonySandwind').then(m => ({ default: m.SandwindPanel })));
+const SCENE_STALL_MS = 90000;
 function Runtime() {
     const s = useExpeditionStore();
     const paused = useGameStore(g => g.isPaused);
@@ -52,7 +53,7 @@ function Runtime() {
                 state.send('arrive');
                 state.setRadio(requested === 'shanghai' ? SHANGHAI_BRIEFING : 'Pousamos em Marte. Desembarque para voltar à colônia.');
             }
-            state.setReady(true);
+            // setReady(true) vem de SceneReady, quando o mapa já desenhou.
             state.setError(null);
         }).catch(() => {
             if (cancelled)
@@ -66,6 +67,11 @@ function Runtime() {
     }, [requested, retry]);
     useEffect(() => () => { if (world)
         disposeWorld(world.data); }, [world]);
+    useEffect(() => {
+        if (s.ready || s.error) return;
+        const timer = window.setTimeout(() => { if (!useExpeditionStore.getState().ready) useExpeditionStore.getState().setError(SCENE_STALLED_ERROR); }, SCENE_STALL_MS);
+        return () => window.clearTimeout(timer);
+    }, [s.ready, s.error]);
     const dead = useCombatStore(state => state.dead);
     useEffect(() => {
         /** F, balão ou botão: abre o porão perto da aeronave; F de novo fecha. */
@@ -125,7 +131,7 @@ function Runtime() {
       <button onClick={() => { s.setRadio('Siga ao sul até o deck de lançamento. Entre na aeronave e escolha Shanghai.'); s.closePanel(); }}>Entendido · Voltar à exploração</button>
     </article></section>}
     {inCockpit && <ShipCockpit map={s.session.map} phase={s.session.phase} ready={s.ready} error={s.error} name={s.profile?.displayName ?? 'Explorador'}
-      onDepart={() => s.send('depart')} onExit={() => s.send('exit')} onRetry={() => { s.setError(null); s.send('depart'); }}
+      onDepart={() => s.send('depart')} onExit={() => s.send('exit')} onRetry={() => { if (s.error === SCENE_STALLED_ERROR) { window.location.reload(); return; } s.setError(null); s.send('depart'); }}
       encounter={s.session.map === 'mars' ? <EncounterSelect/> : undefined}/>}
     {paused && !(s.session.map === 'shanghai' && dead) && <PauseMenuFrame label={pauseView === 'backpack' ? 'Mochila' : pauseView === 'cargo' ? 'Carga da aeronave' : 'Pausa e controles'} wide={pauseView === 'cargo'}>
       <div className="beta-menu-heading"><p className="eyebrow">EXODEN · EXPLORAÇÃO PAUSADA</p><button className="secondary" onClick={() => useGameStore.setState({ isPaused: false })} aria-label="Fechar menu">✕</button></div>
@@ -139,7 +145,7 @@ function Runtime() {
       </>}
       <button className="beta-resume" onClick={() => useGameStore.setState({ isPaused: false })}>Voltar à exploração <span>ESC</span></button>
     </PauseMenuFrame>}
-    {!inCockpit && (!s.ready || s.error) && <section className="overlay" role="status"><article><h2>{s.error ? 'Viagem interrompida' : s.session.phase === 'travelling' ? 'Viajando…' : 'Preparando o mapa…'}</h2><p>{s.error ?? 'Aguarde o carregamento da região.'}</p>{s.error && <button onClick={() => { s.setError(null); if (world && s.session.phase === 'aboard')
+    {!inCockpit && (!s.ready || s.error) && <section className="overlay" role="status"><article><h2>{s.error ? 'Viagem interrompida' : s.session.phase === 'travelling' ? 'Viajando…' : 'Preparando o mapa…'}</h2><p>{s.error ?? 'Aguarde o carregamento da região.'}</p>{s.error && <button onClick={() => { if (s.error === SCENE_STALLED_ERROR) { window.location.reload(); return; } s.setError(null); if (world && s.session.phase === 'aboard')
         s.send('depart');
     else
         setRetry(x => x + 1); }}>Tentar novamente</button>}</article></section>}

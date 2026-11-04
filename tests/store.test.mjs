@@ -37,3 +37,13 @@ test('combat death blocks boarding; retry clears transient HUD and restores Shan
  store.getState().send('board');assert.equal(store.getState().session.phase,'aboard');
  const before=combat.getState().run;store.getState().restartMission();assert.equal(combat.getState().run,before,'cannot restart aboard');
 });
+
+test('cabine: pausa por perda de foco não trava desembarque, decolagem nem reaparece depois',()=>{
+ const before=store.getState(),gameBefore=game.getState();
+ try{
+  store.setState({ready:true,panel:'ship',session:{map:'shanghai',phase:'aboard',destination:null,revision:1},error:null});game.setState({isPaused:true});
+  store.getState().send('exit');
+  assert.equal(store.getState().session.phase,'walking','Desembarcar funciona');assert.equal(game.getState().isPaused,false,'sem menu de pausa escondido');
+  game.setState({isPaused:true});store.getState().send('board');assert.equal(store.getState().session.phase,'walking','caminhando, a pausa continua bloqueando');
+ }finally{store.setState(before,true);game.setState(gameBefore,true);}
+});

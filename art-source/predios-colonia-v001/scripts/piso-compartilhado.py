@@ -16,7 +16,7 @@ areas += [b['floor'] for b in buildings]
 areas += [dict(minX=4.79,maxX=8.5,minZ=10.5,maxZ=21.5),dict(minX=5.3,maxX=17.05,minZ=14.9,maxZ=17.8)]
 # Fechamento dos vazios do corredor Cafeteria–Quartel e pátio da estufa.
 areas += [dict(minX=6.4125,maxX=18.8375,minZ=4.8375,maxZ=8.5),
-          dict(minX=6.2,maxX=7.45,minZ=-17.8,maxZ=-7.2),dict(minX=7.5,maxX=7.7,minZ=-4.8375,maxZ=4.8375),
+          dict(minX=6.2,maxX=7.7,minZ=-19.3,maxZ=-5.8),dict(minX=7.7,maxX=23.6,minZ=-19.3,maxZ=-17.75),dict(minX=22,maxX=23.6,minZ=-19.3,maxZ=-5.8),dict(minX=7.7,maxX=23.6,minZ=-7.45,maxZ=-5.8),dict(minX=7.5,maxX=7.7,minZ=-4.8375,maxZ=4.8375),
           dict(minX=5.7,maxX=21.5,minZ=16.6,maxZ=29)]
 # Anteparo de ligação ao deck: o pavimento respeita o contorno da base real.
 areas += [dict(minX=0,maxX=8.5,minZ=25,maxZ=30)]
@@ -53,9 +53,12 @@ def outside_polygon(poly,outline):
  return out
 
 access_outline=[(-2,25),(2,25),(2,27.4),(-2,27.4)]
+# O Laboratório traz pavimento próprio nos acessos: nada coplanar por cima dele.
+lab=json.loads((ROOT/'src/assets/laboratorio/laboratorio-v002-ala-leste.manifest.json').read_text())
+lab_outlines=[[(a['minX'],a['minZ']),(a['maxX'],a['minZ']),(a['maxX'],a['maxZ']),(a['minX'],a['maxZ'])] for a in lab['connectors']+lab['areas'] if a['id'] not in ('smart-lab','eden-lab-connector')]
 def outside_deck(poly):
  pieces=[poly]
- for exclusion in [deck_outline,access_outline]:
+ for exclusion in [deck_outline,access_outline,*lab_outlines]:
   pieces=[part for piece in pieces for part in outside_polygon(piece,exclusion)]
  return pieces
 

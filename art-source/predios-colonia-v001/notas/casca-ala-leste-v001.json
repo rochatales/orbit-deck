@@ -8,8 +8,8 @@
   },
   {
     "arquivo": "src/assets/laboratorio/laboratorio-casca-v001.glb",
-    "sha256": "b7ca4c0f0eeaa7397a3f1d33932eaf6f571ba550d780fa0eb990779426370c79",
-    "bytes": 382960,
+    "sha256": "de9299d7e11ccb288e1055fa734063b3b67ed494b88abef4ad8b3ce7383fdc81",
+    "bytes": 1556732,
     "referencia": "src/assets/laboratorio/laboratorio-v002.glb",
     "referencia_sha256": "4dfd07a28d6a6d017233a0a085a80a60e8a4275345070b90f9fdb2d0a32502c8"
   }

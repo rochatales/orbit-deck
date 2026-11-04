@@ -7,6 +7,7 @@ import { SHANGHAI_DAWN } from './lightingConfig';
 import { Suspense } from 'react';
 import { Html } from '@react-three/drei';
 import { ShanghaiLighting } from './ShanghaiLighting';
+import { SceneReady } from './SceneReady';
 import { ShanghaiAssetGate } from './ShanghaiAssetGate';
 import { PlayerReticle } from '../characters/player/PlayerReticle';
 import { PlayerAim } from '../characters/player/PlayerAim';
@@ -61,5 +62,6 @@ export function OfficeScene({ world, map }: {
     {map === 'mars' ? <MarsColony world={world}/> : <Spacecraft map={map}/>}
     <WorldInteractionBubbles key={`interactions-${map}-${revision}`} map={map} world={world}/>
     <PlayerReticle key={`reticle-${revision}`} world={world} combat={map === 'shanghai'}/>
+    <SceneReady world={world}/>
   </></ShanghaiAssetGate></Suspense>;
 }

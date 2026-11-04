@@ -1,5 +1,6 @@
 import { DoorSoundClock } from '../../audio/events';
 import { AnimationClip, AnimationMixer, LoopOnce, LoopRepeat, Vector3, type AnimationAction, type Bone, type Material, type Mesh, type Object3D } from 'three';
+import { BuildingAtlasSampling } from './buildingAtlasSampling';
 import { LABORATORIO, createLaboratorioDoorColliders } from '../../game/laboratorioLayout';
 import type { SimpleCuboid } from '../../world/createOfficeMap';
 export const LABORATORIO_MODES = ['Idle_Ready', 'Synthesizing', 'Drawer_Dispense', 'Standby_PowerDown'] as const;
@@ -19,6 +20,8 @@ export class LaboratorioRuntime {
     private actions: AnimationAction[];
     private bones: Bone[];
     private closed: Vector3[];
+    private leaves: ({ left: Object3D; right: Object3D; rest: number } | null)[];
+    private readonly atlasSampling: BuildingAtlasSampling;
     private motions: SimpleCuboid[];
     private disposed = false;
 
@@ -49,6 +52,14 @@ export class LaboratorioRuntime {
             return bone;
         });
         this.closed = this.bones.map(bone => bone.position.clone());
+        // Casca com kit padrão: a folha antiga, presa ao osso, some; as duas novas abrem para os lados.
+        this.leaves = LABORATORIO.doors.map((door, i) => {
+            const left = scene.getObjectByName(`${door.bone}_L`), right = scene.getObjectByName(`${door.bone}_R`);
+            if (!left || !right) return null;
+            this.bones[i].scale.setScalar(1e-4);
+            return { left, right, rest: Math.abs(right.position.x) };
+        });
+        this.atlasSampling = new BuildingAtlasSampling(scene);
         scene.traverse(node => { const mesh = node as Mesh; if (mesh.isMesh) { mesh.castShadow = true; mesh.receiveShadow = true; if (mesh.type === 'SkinnedMesh') mesh.frustumCulled = false; } });
         this.mixer = new AnimationMixer(scene);
         this.actions = LABORATORIO_MODES.map(name => {
@@ -93,6 +104,11 @@ export class LaboratorioRuntime {
             this.doors[i] += ((open ? 1 : 0) - this.doors[i]) * step;
             // Root tem eixos glTF de mundo, sem rotação/escala de implantação.
             this.bones[i].position.set(closed.x + slide[0] * this.doors[i], closed.y + slide[1] * this.doors[i], closed.z + slide[2] * this.doors[i]);
+            const leaves = this.leaves[i];
+            if (leaves) {
+                const x = leaves.rest + this.doors[i] * leaves.rest * 2;
+                leaves.left.position.x = -x; leaves.right.position.x = x;
+            }
             const source = LABORATORIO.dynamicCuboids[i].position, output = this.motions[i].position;
             output.x = source.x + slide[0] * this.doors[i];
             output.y = source.y + slide[1] * this.doors[i];
@@ -101,6 +117,7 @@ export class LaboratorioRuntime {
     }
 
     dispose() {
+        this.atlasSampling.dispose();
         if (this.disposed) return;
         this.disposed = true;
         this.mixer.stopAllAction(); this.mixer.uncacheRoot(this.scene);

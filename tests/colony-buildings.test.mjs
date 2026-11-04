@@ -33,7 +33,7 @@ function reachable(world,from,to){
   const [x,z]=queue[at];if(Math.hypot(x*step-to[0],z*step-to[1])<.24)return true;
   for(const [dx,dz]of [[1,0],[-1,0],[0,1],[0,-1]]){
    const nx=x+dx,nz=z+dz,k=key(nx,nz);
-   if(seen.has(k)||nx*step < -21||nx*step>21||nz*step < -18||nz*step>30||!free(world,nx*step,nz*step))continue;
+   if(seen.has(k)||nx*step < -21||nx*step>24||nz*step < -20||nz*step>30||!free(world,nx*step,nz*step))continue;
    seen.add(k);queue.push([nx,nz]);
   }
  }
@@ -92,6 +92,17 @@ test('S6.12: cascas de Quartel e Laboratório montam na cópia, trocam o telhado
   scene.updateMatrixWorld(true);const box=new Box3().setFromObject(roof);assert.ok(box.max.y>4&&box.min.y>2.8,source);
  }
  const lab=(await loadGlb(cases[1][0])).scene.clone(true);applyColonyShell(lab,(await loadGlb(cases[1][1])).scene,['Building_Roof']);assert.equal(lab.getObjectByName('Casca_Parede').parent.name,'Building_Walls');
+});
+
+test('S6.12: portas do Laboratório usam o kit padrão, e a areia do contorno fica abaixo do piso',async()=>{
+ const {flattenSandForLabRing,LAB_RING}=loadSource('src/scene/marsColony/terrainCut.ts');
+ const casca=await loadGlb('src/assets/laboratorio/laboratorio-casca-v001.glb');
+ for(const door of ['Lab_ServiceDoor','Lab_AirlockDoor'])for(const part of [`${door}_L`,`${door}_R`,`Padrao_ARQ_Control_Portal_S_${door}`])assert.ok(casca.scene.getObjectByName(part),part);
+ const colony=await loadGlb('src/assets/colony-v007.glb'),solo=colony.scene.getObjectByName('TER_Solo'),original=solo.geometry,copy=flattenSandForLabRing(colony.scene);
+ assert.notEqual(copy,original);let checked=0;
+ for(let i=0;i<copy.attributes.position.count;i++){const x=copy.attributes.position.getX(i),z=copy.attributes.position.getZ(i);if(x>LAB_RING.minX&&x<LAB_RING.maxX&&z>LAB_RING.minZ&&z<LAB_RING.maxZ){assert.ok(copy.attributes.position.getY(i)<=-.29);checked++;}}
+ assert.ok(checked>0);
+ const world=createWorld();for(const target of [[22.9,-12.5],[15,-18.7],[6.8,-16],[20,-6.6]])assert.ok(reachable(world,[0,6],target),`contorno ${target}`);
 });
 
 test('S6.12: faixas tracejadas das zonas de obra saem da montagem',async()=>{

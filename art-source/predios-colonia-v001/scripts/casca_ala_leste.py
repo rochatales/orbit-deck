@@ -251,13 +251,14 @@ plan = Plan(.1, .1, 7.15, 5.15, 0)
 fixed, roof, cover = Parts(), Parts(), Parts()
 bpy.data.objects['Building_Roof'].hide_render = True
 SERVICE, AIRLOCK = 2 - .1, .2 - .1
-GAPS = {'S': [(SERVICE - 1.4, SERVICE + 1.4)], 'W': [(AIRLOCK - 1.4, AIRLOCK + 1.4)], 'N': [], 'E': []}
+PORTAL_TOP = 2.63
+GAPS = {'S': [(SERVICE - 1.22, SERVICE + 1.22)], 'W': [(AIRLOCK - 1.12, AIRLOCK + 1.12)], 'N': [], 'E': []}
 for side in 'SNEW':
     plan.segments(fixed, side, 0, .15, 0, 1.1, TERRA, GAPS[side])
     plan.segments(fixed, side, 0, .08, 1.1, 1.35, GRAPHITE, GAPS[side])
     plan.layer(fixed, side, 0, .02, 3.5, 3.54, TRIM)
     plan.segments(cover, side, 0, .012, 1.35, 3.6, CREAM, GAPS[side])
-    for g0, g1 in GAPS[side]: plan.layer(cover, side, 0, .012, 2.7, 3.6, CREAM, g0, g1)
+    for g0, g1 in GAPS[side]: plan.layer(cover, side, 0, .012, PORTAL_TOP, 3.6, CREAM, g0, g1)
 for side, t in [('S', -3.2), ('S', -5.6), ('S', 5.6), ('N', -4.2), ('N', 0), ('N', 4.2), ('E', -2.4), ('E', 2.4), ('W', -3.3), ('W', 3.4)]: buttress(fixed, plan, side, t)
 EAVE_X, EAVE_Y, TOP_X, TOP_Y, Z0, Z1 = 7.42, 5.42, 4.5, 2.5, 3.6, 4.75
 hip(roof, plan, EAVE_X, EAVE_Y, .7, TOP_X, TOP_Y, .3, Z0, Z1)
@@ -265,10 +266,28 @@ panel(roof, -3.2, 3.0, -1.6, 1.4, Z1, 24)
 fixed_obj = write(fixed, 'Casca_Fixa', root, material)
 roof_obj = write(roof, 'Building_Roof', root, material)
 write(cover, 'Casca_Parede', root, material)
-extra = Parts(); placa(extra, root, material, 2, -5.05, 2.95, 'LABORATORY', 'LB')
+extra = Parts(); placa(extra, root, material, 2, -5.05, PORTAL_TOP + .18, 'LABORATORY', 'LB')
 write(extra, 'Casca_Placa', fixed_obj, material)
 for o in [o for o in root.children if o.name.startswith('Texto_')]: o.parent = fixed_obj
 roof_texts(plan, TOP_X, TOP_Y, EAVE_X, EAVE_Y, Z0, Z1, 'LABORATORY', 'SYNTHESIS', roof_obj, material)
+# Portas: kit e desenho da Control Room, como nos outros prédios, na largura dos vãos do Laboratório.
+before = set(bpy.data.objects)
+bpy.ops.import_scene.gltf(filepath=str(ROOT / 'src/assets/control-room/control-room-v002.glb')); bpy.context.view_layer.update()
+kit = {}
+for name in ['ARQ_Control_Portal_S', 'PROP_Control_Status_S', 'D_Control_S_A', 'D_Control_S_B']:
+    o = bpy.data.objects[name]; data = o.data.copy(); data.transform(o.matrix_world); data.transform(Matrix.Translation((0, -7.325, 0))); data.use_fake_user = True; kit[name] = data
+bpy.data.materials['MAT_Control_Atlas_2K'].use_fake_user = True
+for o in [o for o in bpy.data.objects if o not in before]: bpy.data.objects.remove(o, do_unlink=True)
+HEIGHT = 2.375 / 2.2
+for door, location, angle, width in [('Lab_ServiceDoor', (2, -4.76, 0), 0, 2.05), ('Lab_AirlockDoor', (-6.76, .2, 0), -math.pi / 2, 1.85)]:
+    group = bpy.data.objects.new(door + '_Kit', None); bpy.context.collection.objects.link(group); group.parent = root; group.location = location; group.rotation_euler.z = angle
+    for suffix, key, sx in [('L', 'D_Control_S_A', -1), ('R', 'D_Control_S_B', 1)]:
+        data = kit[key].copy(); data.use_fake_user = False
+        data.transform(Matrix.Translation((-sx * .535, 0, 0))); data.transform(Matrix.Diagonal((width / 2 / 1.054, 1, HEIGHT, 1)))
+        leaf = bpy.data.objects.new(f'{door}_{suffix}', data); bpy.context.collection.objects.link(leaf); leaf.parent = group; leaf.location.x = sx * width / 4
+    for key in ['ARQ_Control_Portal_S', 'PROP_Control_Status_S']:
+        data = kit[key].copy(); data.use_fake_user = False; data.transform(Matrix.Diagonal((width / 2.2, 1, HEIGHT, 1)))
+        o = bpy.data.objects.new(f'Padrao_{key}_{door}', data); bpy.context.collection.objects.link(o); o.parent = group
 report.append(export(root, 'src/assets/laboratorio/laboratorio-casca-v001.glb', source, REFERENCE, 21))
 (ART / 'notas/casca-ala-leste-v001.json').write_text(json.dumps(report, indent=2, ensure_ascii=False) + '\n')
 print('CASCA', report)

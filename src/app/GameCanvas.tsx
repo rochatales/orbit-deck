@@ -4,6 +4,7 @@ import { useGameStore } from '../state/useGameStore';
 import { KeyboardControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Suspense, lazy, useEffect, useState } from 'react';
+import { useExpeditionStore } from '../state/useExpeditionStore';
 import { OfficeScene } from '../scene/OfficeScene';
 import { KEYBOARD_CONTROLS_MAP } from '../controls/keyboardControls';
 import type { OfficeWorld } from '../world/createOfficeMap';
@@ -19,7 +20,7 @@ export function GameCanvas({ world, map }: {
 }) {
     const [perf] = useState(() => isPerfEnabled(window.location.search));
     useEffect(() => {
-        const release = () => { releaseMovementKeys(); useGameStore.setState({ isPaused: true }); };
+        const release = () => { releaseMovementKeys(); if (useExpeditionStore.getState().session.phase === 'walking') useGameStore.setState({ isPaused: true }); };
         const hidden = () => { if (document.hidden) release(); };
         const unsubscribe = useGameStore.subscribe((state,previous) => { if(state.isPaused && !previous.isPaused) releaseMovementKeys(); });
         window.addEventListener('blur', release);

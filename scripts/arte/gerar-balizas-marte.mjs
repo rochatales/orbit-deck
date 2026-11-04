@@ -8,7 +8,8 @@ import { loadSource } from '../../tests/load-source.mjs';
 const hash=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
 const source='src/assets/colony-v007.glb',{createWorld}=loadSource('src/game/marsWorld.ts'),world=createWorld();
 const {perimeterLightPositions}=loadSource('src/scene/marsColony/perimeterLights.ts');
-const g=await loadGlb(source),ground=g.scene.getObjectByName('TER_Solo');
+const {flattenSandForLabRing}=loadSource('src/scene/marsColony/terrainCut.ts');
+const g=await loadGlb(source);flattenSandForLabRing(g.scene);const ground=g.scene.getObjectByName('TER_Solo');
 if(!ground)throw new Error('TER_Solo ausente');g.scene.updateMatrixWorld(true);
 const ray=new Raycaster(),origin=new Vector3(),down=new Vector3(0,-1,0),normal=new Vector3(),matrix=new Matrix3().getNormalMatrix(ground.matrixWorld);
 const positions=perimeterLightPositions(world.walkableAreas,world.obstacles).map(p=>{

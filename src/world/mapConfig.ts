@@ -51,8 +51,8 @@ export const PLAYER_SPAWN = new Vector3(0, 0, 6);
 
 export const OFFICE_MAP_BOUNDS: RectBounds = {
   minX: -22,
-  maxX: 22,
-  minZ: -19,
+  maxX: 24,
+  minZ: -20,
   maxZ: 39
 };
 

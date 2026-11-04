@@ -1,6 +1,7 @@
 import { ColonySharedFloor } from './ColonySharedFloor';
 import { ColonyBuildings } from './ColonyBuildings';
 import { removeRoomsForBuildings } from './colonyBuildingsColony';
+import { flattenSandForLabRing } from './terrainCut';
 import { ControlRoom } from './ControlRoom';
 import { ControlRoomEden } from './ControlRoomEden';
 import { removeRoomForControlRoom } from './controlRoomColony';
@@ -35,6 +36,8 @@ export function MarsColony({ world }: { world: OfficeWorld }) {
     const visual = useRef<Group>(null), runtime = useRef<MasterplanRuntime>();
     useLayoutEffect(() => {
         const scene = gltf.scene.clone(true), geometry: BufferGeometry[] = [];
+        const sand = flattenSandForLabRing(scene);
+        if (sand) geometry.push(sand);
         const filteredQuartel = removeRoomForQuartel(scene, removeDockForHangar(scene, removeProvisionalGreenhouse(scene, manifest), geometry), geometry);
         const filteredLab = removeRoomForLaboratorio(scene, filteredQuartel, geometry);
         const filtered = removeRoomsForBuildings(scene, removeRoomForControlRoom(scene, filteredLab, geometry), geometry);

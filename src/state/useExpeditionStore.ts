@@ -54,6 +54,8 @@ function save(profile: Profile | null, briefingSeen: boolean): string | null {
         return 'Não foi possível salvar neste navegador. O progresso desta sessão não está garantido.';
     }
 }
+/** Cena não desenhou a tempo: recarregar é a saída segura, a sessão de perfil fica salva. */
+export const SCENE_STALLED_ERROR = 'O destino está demorando para abrir. Recarregue o jogo para tentar de novo.';
 export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
     profile: saved.profile, briefingSeen: saved.briefingSeen, session: { ...INITIAL_SESSION }, spawn: INITIAL_POSITION,
     panel: null, ready: false, error: null, saveError: null,
@@ -73,8 +75,11 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
         set({ panel: null }); },
     send: (event) => {
         const s = get();
-        if (['board', 'exit', 'depart'].includes(event) && (!s.ready || useGameStore.getState().isPaused || (s.session.map === 'shanghai' && useCombatStore.getState().dead)))
+        const paused = useGameStore.getState().isPaused;
+        if (['board', 'exit', 'depart'].includes(event) && (!s.ready || (paused && s.session.phase === 'walking') || (s.session.map === 'shanghai' && useCombatStore.getState().dead)))
             return;
+        // A cabine cobre o menu de pausa: uma pausa antiga não pode travar nem reaparecer ao desembarcar.
+        if (paused && s.session.phase !== 'walking') useGameStore.setState({ isPaused: false });
         if (event === 'board' && (s.panel || !isNearShip(s.session.map)))
             return;
         const session = transition(s.session, event);
