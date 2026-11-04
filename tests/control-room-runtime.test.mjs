@@ -119,7 +119,7 @@ test('Atlas: filtro sem mipmaps evita filetes; texturas privadas compartilham s�
 });
 
 
-test('EDEN: somente projeção do pedestal, com interação e pausa preservadas',()=>{
+test('EDEN: personagem legado fora da cena; projeção do pedestal, interação e pausa preservadas',()=>{
  const office=fs.readFileSync('src/scene/OfficeScene.tsx','utf8');
  assert.ok(!office.includes('EDEN_CHARACTER_ASSET'));
  assert.ok(!office.includes('<GLBCharacter'));

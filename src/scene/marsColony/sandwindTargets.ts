@@ -24,7 +24,7 @@ export function sandwindTargets(scope: Object3D, masterplan: Object3D, manifest:
         if (!target) { target = { id, nodes: [] }; targets.set(id, target); }
         target.nodes.push(node);
     }
-    for (const [id, name] of [['hangar', 'Hangar'], ['greenhouse', 'Greenhouse'], ['deck-props', 'MarsDeckPropsV006'], ['quartel', 'Quartel'], ['laboratorio', 'Laboratorio'], ['control-room', 'ControlRoom']] as const) {
+    for (const [id, name] of [['hangar', 'Hangar'], ['greenhouse', 'Greenhouse'], ['deck-props', 'MarsDeckPropsV006'], ['quartel', 'Quartel'], ['laboratorio', 'Laboratorio'], ['control-room', 'ControlRoom'], ['control-room-eden', 'ControlRoomEden']] as const) {
         const root = scope.getObjectByName(name);
         if (root) targets.set(id, { id, nodes: [root] });
     }

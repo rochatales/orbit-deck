@@ -31,7 +31,7 @@ export function InteractionBubble({ id, label, position, point, radius, priority
     </Html>;
 }
 /** Futuro NPC usa este componente, sua configuração local e seu callback de conversa. */
-export function NpcInteractionBubble({ npc, onInteract }: { npc: NpcConfig; onInteract: () => void }) {
+export function NpcInteractionBubble({ npc, height = 1.8, onInteract }: { npc: NpcConfig; height?: number; onInteract: () => void }) {
     return <InteractionBubble id={`npc:${npc.id}`} label={`Conversar com ${npc.name}`} point={npc.position}
-        position={[npc.position.x, npc.position.y + 1.8, npc.position.z]} radius={npc.interactionRadius} priority={30} onInteract={onInteract}/>;
+        position={[npc.position.x, npc.position.y + height, npc.position.z]} radius={npc.interactionRadius} priority={30} onInteract={onInteract}/>;
 }

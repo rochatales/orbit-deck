@@ -1,0 +1,14 @@
+{
+  "art-source/eden-control-room/blend/eden_v001.blend": "852c455b1be5c4ab766eff18abc8dec79851bf7bda67efaf10684557bc5ef573",
+  "art-source/eden-control-room/notas/export_runtime.json": "f142688866ba9b34fb9b03f626ca11d788a114b96427ce2d29dde146f00d0963",
+  "art-source/eden-control-room/scripts/exportar_runtime.py": "b0cd3d308fd0ccc3c05cd597bbe7a4ad0a51a2ce248465320f803ee1cb10d355",
+  "src/assets/characters/npcs/eden-v002.glb": "99a284e519af6f4eecd87244e1be3ded7d8f6bf2b73e0796cb8c2d85be17d411",
+  "src/interactions/InteractionBubble.tsx": "408d857d2ed21f34809d949b233d919780a5972c142bf1dc645baa05e1378bae",
+  "src/interactions/WorldInteractionBubbles.tsx": "72daba311028fabcc829e2ae0b74c9b6fd436575089a81bfb7588b3bbd915bd1",
+  "src/scene/marsColony/ControlRoomEden.tsx": "ec16fd27bca2e38565825819006c655d11b4cd9f35f6d9f1dbafbb8f325b18cd",
+  "src/scene/marsColony/MarsColony.tsx": "ee789fb4928d75c47d64da6224734fc7a5fccab53e3a3c9779801ca2fe2128e2",
+  "src/scene/marsColony/edenRuntime.ts": "1499725b623b0dcf9383f14f23e51ed7f031213d6e3d166891c7b220a302a9fb",
+  "src/scene/marsColony/sandwindTargets.ts": "384344b156b109aae8680a8e7cc4f683e50b13ee1bae05cd74ea83eb138dcded",
+  "tests/control-room-runtime.test.mjs": "7a18886ed8fb05e2b1be4021c0db10adf2fdd01f29e340ff90d51fd52963c1d7",
+  "tests/eden-control-room.test.mjs": "c6a86fa0225d53fbb2f5a73afa0cc09bf8000a759899ab1bcf8c6d78c88c88a6"
+}

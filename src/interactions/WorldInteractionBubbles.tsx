@@ -18,7 +18,8 @@ export function WorldInteractionBubbles({ map, world }: { map: MapId; world: Off
             position={[exit.x, height(exit.x, exit.z) + 1.8, exit.z]} onInteract={board}>
             <button type="button" className="secondary" onClick={event => { event.stopPropagation(); requestShipCargo(); }}>F · Carga da aeronave</button>
         </InteractionBubble>
-        {map === 'mars' && <NpcInteractionBubble npc={EDEN} onInteract={talkToEden}/>}
+        {/* Acima do halo: a EDEN flutua sobre o pedestal e vai até 2,51 m. */}
+        {map === 'mars' && <NpcInteractionBubble npc={EDEN} height={3} onInteract={talkToEden}/>}
         {map === 'shanghai' && SHANGHAI_SUPPLY_CRATES.map(crate => <InteractionBubble key={crate.id} id={`crate:${crate.id}`}
             label={`Abrir cabine · +${SUPPLY_CRATE.ammo} munições`} point={crateMarker(crate)} radius={SUPPLY_CRATE.radius} priority={20}
             position={[crate.x, height(crate.x, crate.z) + SUPPLY_CRATE.maxY + .45, crate.z]}
