@@ -2,6 +2,7 @@ import { WeaponControls } from '../characters/player/WeaponControls';
 import { PauseMenuFrame } from '../ui/PauseMenuFrame';
 import { GameplayHud, BackpackContents } from '../ui/GameplayHud';
 import { ShipCargoPanel } from '../ui/ShipCargoPanel';
+import { ShipCockpit } from '../ui/ShipCockpit';
 import { OPEN_CARGO_EVENT, isNearCargo } from '../game/shipCargo';
 import { playerPosition } from '../state/playerTransient';
 import { activateWorldInteraction } from '../interactions/runtime';
@@ -86,13 +87,15 @@ function Runtime() {
             return true;
         };
         const key = (e: KeyboardEvent) => {
-            if (e.repeat || e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement || e.target instanceof HTMLSelectElement || (e.target instanceof HTMLElement && e.target.isContentEditable))
+            if (e.repeat || (e.code !== 'Escape' && (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement || e.target instanceof HTMLSelectElement || (e.target instanceof HTMLElement && e.target.isContentEditable))))
                 return;
             const state = useExpeditionStore.getState();
             if (!state.ready || state.session.phase === 'travelling' || (state.session.map === 'shanghai' && useCombatStore.getState().dead))
                 return;
             if (e.code === 'Escape') {
-                if (state.panel === 'eden')
+                if (state.session.phase === 'aboard')
+                    state.send('exit');
+                else if (state.panel === 'eden')
                     state.closePanel();
                 else if (state.session.phase === 'walking')
                     useGameStore.getState().togglePaused();
@@ -114,30 +117,26 @@ function Runtime() {
         window.addEventListener(OPEN_CARGO_EVENT, toggleCargo);
         return () => { window.removeEventListener('keydown', key); window.removeEventListener(OPEN_CARGO_EVENT, toggleCargo); };
     }, []);
+    const inCockpit = s.panel === 'ship' && s.session.phase !== 'walking';
     return <main className={`runtime ${s.session.map === 'shanghai' ? 'in-combat' : 'in-hub'}`}>
     <WeaponControls/>
     {world && <GameCanvas key={world.map} world={world.data} map={world.map}/>}
     {world?.map === 'mars' && s.session.map === 'mars' && sandwindPanelEnabled(window.location.search) && <Suspense fallback={null}><SandwindPanel/></Suspense>}
-    <header className="beta-header"><div className="beta-location"><b>EXODEN<span> / BETA</span></b><small>{MAPS[s.session.map].title} · {s.profile?.displayName}</small></div>
+    {!inCockpit && <><header className="beta-header"><div className="beta-location"><b>EXODEN<span> / BETA</span></b><small>{MAPS[s.session.map].title} · {s.profile?.displayName}</small></div>
       <nav><button onClick={() => { setPauseView('menu'); useGameStore.setState({ isPaused: true }); }} disabled={!s.ready || s.session.phase !== 'walking' || !!s.panel || (s.session.map === 'shanghai' && dead)}>Controles <span>☰</span></button><button aria-label={paused ? 'Retomar jogo' : 'Pausar jogo'} disabled={!s.ready || s.session.phase !== 'walking' || !!s.panel || (s.session.map === 'shanghai' && dead)} onClick={() => { setPauseView('menu'); useGameStore.getState().togglePaused(); }}>{paused ? 'RETOMAR' : 'Ⅱ'}</button></nav>
     </header>
     <aside className="beta-objective"><span>OBJETIVO</span>{s.session.map === 'mars' ? 'Prepare sua expedição · Encontre EDEN' : 'Sobreviva às hordas · Recupere materiais'}</aside>
     <GameplayHud combat={s.session.map === 'shanghai'} map={s.session.map} openBackpack={() => { if (s.ready && s.session.phase === 'walking' && !s.panel && !dead) { setPauseView('backpack'); useGameStore.setState({ isPaused: true }); } }}
       openCargo={() => { if (s.ready && s.session.phase === 'walking' && !s.panel && !dead) { setPauseView('cargo'); useGameStore.setState({ isPaused: true }); } }}/>
-    {s.session.map === 'shanghai' && <CombatHud/>}
+    {s.session.map === 'shanghai' && <CombatHud/>}</>}
     {s.saveError && <p className="save-warning" role="alert">{s.saveError}</p>}
     {s.panel === 'eden' && <section className="overlay" role="dialog" aria-label="Conversa com EDEN"><article>
       <p className="eyebrow">EDEN · GUIA DA COLÔNIA</p><h2>Uma nova expedição.</h2>{EDEN_BRIEFING.map(line => <p key={line}>{line}</p>)}
       <button onClick={() => { s.setRadio('Siga ao sul até o deck de lançamento. Entre na aeronave e escolha Shanghai.'); s.closePanel(); }}>Entendido · Voltar à exploração</button>
     </article></section>}
-    {s.panel === 'ship' && s.session.phase === 'aboard' && s.ready && <section className="overlay" role="dialog" aria-label="Cabine da aeronave"><article>
-      <p className="eyebrow">AERONAVE · ESTACIONADA</p><h2>{s.session.map === 'mars' ? 'Deck de lançamento · Marte' : 'Área de pouso · Shanghai'}</h2>
-      <p>Você está a bordo. Pode desembarcar antes de iniciar a viagem.</p>
-      <label>Destino<select value={s.session.map === 'mars' ? 'shanghai' : 'mars'} onChange={() => { }}><option value={s.session.map === 'mars' ? 'shanghai' : 'mars'}>{s.session.map === 'mars' ? 'Terra · Shanghai' : 'Marte · Colônia humana'}</option></select></label>
-      {s.session.map === 'mars' && <EncounterSelect/>}
-      {s.session.map === 'shanghai' && <p>Retorno livre à colônia. As peças desta tentativa são temporárias.</p>}
-      <div className="actions"><button onClick={() => s.send('depart')}>{s.session.map === 'mars' ? 'Decolar para Shanghai' : 'Retornar a Marte'}</button><button className="secondary" onClick={() => s.send('exit')}>Desembarcar · E</button></div>
-    </article></section>}
+    {inCockpit && <ShipCockpit map={s.session.map} phase={s.session.phase} ready={s.ready} error={s.error} name={s.profile?.displayName ?? 'Explorador'}
+      onDepart={() => s.send('depart')} onExit={() => s.send('exit')} onRetry={() => { s.setError(null); s.send('depart'); }}
+      encounter={s.session.map === 'mars' ? <EncounterSelect/> : undefined}/>}
     {paused && !(s.session.map === 'shanghai' && dead) && <PauseMenuFrame label={pauseView === 'backpack' ? 'Mochila' : pauseView === 'cargo' ? 'Carga da aeronave' : 'Pausa e controles'} wide={pauseView === 'cargo'}>
       <div className="beta-menu-heading"><p className="eyebrow">EXODEN · EXPLORAÇÃO PAUSADA</p><button className="secondary" onClick={() => useGameStore.setState({ isPaused: false })} aria-label="Fechar menu">✕</button></div>
       <div className="beta-menu-tabs"><button className={pauseView === 'menu' ? 'is-active' : 'secondary'} onClick={() => setPauseView('menu')}>Controles</button><button className={pauseView === 'backpack' ? 'is-active' : 'secondary'} onClick={() => setPauseView('backpack')}>Mochila</button><button className={pauseView === 'cargo' ? 'is-active' : 'secondary'} onClick={() => setPauseView('cargo')}>Aeronave</button></div>
@@ -150,7 +149,7 @@ function Runtime() {
       </>}
       <button className="beta-resume" onClick={() => useGameStore.setState({ isPaused: false })}>Voltar à exploração <span>ESC</span></button>
     </PauseMenuFrame>}
-    {(!s.ready || s.error) && <section className="overlay" role="status"><article><h2>{s.error ? 'Viagem interrompida' : s.session.phase === 'travelling' ? 'Viajando…' : 'Preparando o mapa…'}</h2><p>{s.error ?? 'Aguarde o carregamento da região.'}</p>{s.error && <button onClick={() => { s.setError(null); if (world && s.session.phase === 'aboard')
+    {!inCockpit && (!s.ready || s.error) && <section className="overlay" role="status"><article><h2>{s.error ? 'Viagem interrompida' : s.session.phase === 'travelling' ? 'Viajando…' : 'Preparando o mapa…'}</h2><p>{s.error ?? 'Aguarde o carregamento da região.'}</p>{s.error && <button onClick={() => { s.setError(null); if (world && s.session.phase === 'aboard')
         s.send('depart');
     else
         setRetry(x => x + 1); }}>Tentar novamente</button>}</article></section>}
