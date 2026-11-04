@@ -29,6 +29,7 @@ export class LaboratorioRuntime {
         const copies = new Map<Material, Material>();
         for (const part of [this.roof, this.cutWalls]) part.traverse(node => {
             const mesh = node as Mesh; if (!mesh.isMesh) return;
+            if (part === this.roof) mesh.receiveShadow = false; // sol rasante: evita filetes claros de sombra
             const copy = (material: Material) => {
                 const previous = copies.get(material); if (previous) return previous;
                 const own = material.clone(); copies.set(material, own);

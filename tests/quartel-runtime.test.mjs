@@ -17,10 +17,10 @@ const {PLAYER_COLLIDER_CENTER_Y:Y,PLAYER_COLLIDER_HALF_HEIGHT:half,PLAYER_MOVEME
 const gltf=await loadGlb('src/assets/quartel/barracks-v006.glb');
 const base=JSON.parse(fs.readFileSync('src/assets/colony-v007.manifest.json'));
 const step=(r,x,z,n=120)=>{for(let i=0;i<n;i++)r.update({x,z},1/60);};
-function scene(){const placement=new Group(),s=gltf.scene.clone(true);placement.position.x=12;placement.rotation.y=-Math.PI/2;placement.add(s);placement.updateMatrixWorld(true);return {placement,s};}
+function scene(){const placement=new Group(),s=gltf.scene.clone(true);placement.position.x=Q.placement.x;placement.rotation.y=-Math.PI/2;placement.add(s);placement.updateMatrixWorld(true);return {placement,s};}
 test('Quartel v006: escala única, COL orientados batem com GLB e telescópicas liberam os três vãos',()=>{
  assert.deepEqual(fs.readFileSync('src/assets/quartel/barracks-v006.glb'),fs.readFileSync('art-source/quartel/export/barracks-v006.glb'));
- assert.deepEqual(Q.placement,{x:12,y:0,z:0,rotationY:-Math.PI/2,scale:1});
+ assert.deepEqual(Q.placement,{x:13.25,y:0,z:0,rotationY:-Math.PI/2,scale:1});
  const {placement,s}=scene(),w=createWorld(),r=new QuartelRuntime(s,gltf.animations,w.movingCuboids);
  assert.deepEqual(s.getObjectByName('Barracks').scale.toArray(),[1,1,1]);
  for(const c of [...Q.staticCuboids,...Q.dynamicCuboids]){const o=s.getObjectByName(c.id),p=o.getWorldPosition(new Vector3()),q=o.getWorldQuaternion(new Quaternion()),scale=o.getWorldScale(new Vector3());assert.ok(p.distanceTo(new Vector3(c.position.x,c.position.y,c.position.z))<1e-6,c.id);assert.ok(q.angleTo(new Quaternion(c.rotation.x,c.rotation.y,c.rotation.z,c.rotation.w))<1e-6);assert.ok(scale.distanceTo(new Vector3(...c.halfExtents))<1e-6);}
@@ -55,12 +55,12 @@ async function physicsFixture(start,auditWalkable=false,automaticDoors=true){awa
  return {world,source,body,runtime,moveTo,dispose(){runtime.dispose();labRuntime.dispose();world.free();}};
 }
 test('Quartel: Rapier percorre praça → rampa oeste → interior → rampa norte → Lab, nos dois sentidos',async()=>{
- const route=[[0,6],[5.5,6],[5.5,0],[6.8,0],[10.5,0],[10.5,-4.6],[10.5,-6.4],[15.5,-6.4],[15.5,-9]];
+ const route=[[0,6],[6.75,6],[6.75,0],[8.05,0],[11.75,0],[11.75,-4.6],[11.75,-6.4],[16.75,-6.4],[16.75,-9]];
  for(const reverse of [false,true]){const path=reverse?[...route].reverse():route,f=await physicsFixture(path[0],true);try{for(const [x,z]of path.slice(1)){const end=f.moveTo(x,z);assert.ok(Math.hypot(x-end.x,z-end.z)<.03,JSON.stringify({reverse,x,z,end}));assert.ok(Math.abs(end.y-Y-f.source.supportHeight(end.x,end.z))<1e-6);assert.ok(f.source.walkableAreas.some(a=>end.x>=a.minX&&end.x<=a.maxX&&end.z>=a.minZ&&end.z<=a.maxZ));}}finally{f.dispose();}}
 });
 test('Quartel: borda do pedestal bloqueia autostep inclusive com apoio elevado desejado, parâmetros intactos',async()=>{
  assert.equal(P.autostepMaxHeight,.26);assert.equal(M.colliderRadius,.32);
- for(const [start,target]of [[[18.3,1],[16.5,1]],[[10.5,5.6],[10.5,4]],[[5.6,2],[7.1,2]],[[12,-5.5],[12,-4]]]){
+ for(const [start,target]of [[[19.55,1],[17.75,1]],[[11.75,5.6],[11.75,4]],[[6.85,2],[8.35,2]],[[13.25,-5.5],[13.25,-4]]]){
   const f=await physicsFixture(start);try{const end=f.moveTo(...target,180);assert.ok(Math.hypot(end.x-target[0],end.z-target[1])>.5,JSON.stringify({start,target,end}));assert.equal(f.source.supportHeight(end.x,end.z),0,'não sobe pela lateral');}finally{f.dispose();}
  }
 });
@@ -78,18 +78,18 @@ test('Quartel: pausa congela teto/portas; descarte libera somente o material pri
 
 test('Quartel: Rapier bloqueia camas, armários, mesa, bancos, pia, privada e três faces do banheiro',async()=>{
  const cases=[
-  ['COL_Interior_Bed_1',[14.4,-3.26],[16,-3.26]],
-  ['COL_Interior_Bed_2',[14.4,-1.54],[16,-1.54]],
-  ['COL_Interior_Bed_3',[14.4,.18],[16,.18]],
-  ['COL_Interior_Locker_2',[15.4,-2.36],[16.9,-2.36]],
-  ['COL_Interior_Table_1',[8.02,.8],[8.02,2.5]],
-  ['COL_Interior_Bench_1',[6.6,2.5],[7.38,2.5]],
-  ['COL_Interior_Cabinet_1',[10.5,3],[10.5,4.15]],
-  ['COL_Interior_Sink_1',[15.8,2.25],[17,2.25]],
-  ['COL_Interior_Toilet_1',[15.5,3.15],[16.9,3.15]],
-  ['COL_Bathroom_Wall_0',[14.5,.9],[14.5,2.15]],
-  ['COL_Bathroom_Wall_2',[12.15,1.98],[13.55,1.98]],
-  ['COL_Bathroom_Wall_5',[12.15,3.95],[13.55,3.95]],
+  ['COL_Interior_Bed_1',[15.65,-3.26],[17.25,-3.26]],
+  ['COL_Interior_Bed_2',[15.65,-1.54],[17.25,-1.54]],
+  ['COL_Interior_Bed_3',[15.65,.18],[17.25,.18]],
+  ['COL_Interior_Locker_2',[16.65,-2.36],[18.15,-2.36]],
+  ['COL_Interior_Table_1',[9.27,.8],[9.27,2.5]],
+  ['COL_Interior_Bench_1',[7.85,2.5],[8.63,2.5]],
+  ['COL_Interior_Cabinet_1',[11.75,3],[11.75,4.15]],
+  ['COL_Interior_Sink_1',[17.05,2.25],[18.25,2.25]],
+  ['COL_Interior_Toilet_1',[16.75,3.15],[18.15,3.15]],
+  ['COL_Bathroom_Wall_0',[15.75,.9],[15.75,2.15]],
+  ['COL_Bathroom_Wall_2',[13.4,1.98],[14.8,1.98]],
+  ['COL_Bathroom_Wall_5',[13.4,3.95],[14.8,3.95]],
  ];
  for(const[id,start,target]of cases){
   assert.ok(Q.staticCuboids.some(c=>c.id===id),id);const f=await physicsFixture(start);
@@ -101,28 +101,28 @@ test('Quartel: Rapier bloqueia camas, armários, mesa, bancos, pia, privada e tr
 });
 
 test('Banheiro: folha fechada bloqueia; proximidade libera 1,20 m, entrada/saída e aproximação da privada',async()=>{
- const door=Q.doors.find(d=>d.side==='bathroom'),f=await physicsFixture([12.2,2.9],true,false);
+ const door=Q.doors.find(d=>d.side==='bathroom'),f=await physicsFixture([13.45,2.9],true,false);
  try{
-  const blocked=f.moveTo(13.8,2.9,120);assert.ok(blocked.x<12.9,'porta fechada sólida');
+  const blocked=f.moveTo(15.05,2.9,120);assert.ok(blocked.x<14.15,'porta fechada sólida');
   step(f.runtime,door.x,door.z);assert.ok(f.runtime.status.bathroom>.999);
-  const inside=f.moveTo(14.8,2.9);assert.ok(Math.hypot(inside.x-14.8,inside.z-2.9)<.03);
-  const behind=f.moveTo(15.5,2.9);assert.ok(Math.hypot(behind.x-15.5,behind.z-2.9)<.03);
-  const outside=f.moveTo(12.1,2.9);assert.ok(Math.hypot(outside.x-12.1,outside.z-2.9)<.03);
+  const inside=f.moveTo(16.05,2.9);assert.ok(Math.hypot(inside.x-16.05,inside.z-2.9)<.03);
+  const behind=f.moveTo(16.75,2.9);assert.ok(Math.hypot(behind.x-16.75,behind.z-2.9)<.03);
+  const outside=f.moveTo(13.35,2.9);assert.ok(Math.hypot(outside.x-13.35,outside.z-2.9)<.03);
   step(f.runtime,10,0);assert.ok(f.runtime.status.bathroom<1e-5,'fecha ao afastar');
  }finally{f.dispose();}
  // Controle automático real nas duas direções; a privada é alcançável pela frente sem cruzar a parede.
  for(const reverse of [false,true]){
-  const path=[[12,0],[12,2.9],[13.8,2.9],[15.5,2.9],[15.5,3.15],[16.1,3.15]],route=reverse?[...path].reverse():path,g=await physicsFixture(route[0],true);
+  const path=[[13.25,0],[13.25,2.9],[15.05,2.9],[16.75,2.9],[16.75,3.15],[17.35,3.15]],route=reverse?[...path].reverse():path,g=await physicsFixture(route[0],true);
   try{for(const[x,z]of route.slice(1)){const end=g.moveTo(x,z);assert.ok(Math.hypot(end.x-x,end.z-z)<.03,JSON.stringify({reverse,x,z,end}));}}finally{g.dispose();}
  }
 });
 
 test('Banheiro: base do chuveiro tem apoio de 6,6 cm e o vidro permanece sólido',async()=>{
- const f=await physicsFixture([15.2,3.86],true);
+ const f=await physicsFixture([16.45,3.86],true);
  try{
-  const onTray=f.moveTo(14.15,3.86);assert.ok(Math.hypot(onTray.x-14.15,onTray.z-3.86)<.03);assert.ok(Math.abs(onTray.y-Y-.3285)<1e-6);
-  const againstGlass=f.moveTo(14.15,2.9,180);assert.ok(againstGlass.z>3.69,'vidro bloqueia saída lateral');
-  const leave=f.moveTo(15.2,3.86);assert.ok(Math.hypot(leave.x-15.2,leave.z-3.86)<.03);assert.ok(Math.abs(leave.y-Y-.2625)<1e-6);
+  const onTray=f.moveTo(15.4,3.86);assert.ok(Math.hypot(onTray.x-15.4,onTray.z-3.86)<.03);assert.ok(Math.abs(onTray.y-Y-.3285)<1e-6);
+  const againstGlass=f.moveTo(15.4,2.9,180);assert.ok(againstGlass.z>3.69,'vidro bloqueia saída lateral');
+  const leave=f.moveTo(16.45,3.86);assert.ok(Math.hypot(leave.x-16.45,leave.z-3.86)<.03);assert.ok(Math.abs(leave.y-Y-.2625)<1e-6);
  }finally{f.dispose();}
 });
 

@@ -6,7 +6,7 @@ import { loadGlb } from '../../../tests/load-glb.mjs';
 const placements = [
  ['meeting-room',0,0,-Math.PI/2,['central-hub']],
  ['data-center',-12.5,0,Math.PI/2,['editorial']],
- ['cafeteria',11.5,11.7,-Math.PI/2,['output-review','coffee-nook']],
+ ['cafeteria',12.75,11.7,-Math.PI/2,['output-review','coffee-nook']],
  ['workshop',-12,11.2,Math.PI/2,['narration']]
 ];
 const output=[];

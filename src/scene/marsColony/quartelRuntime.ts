@@ -30,6 +30,7 @@ export class QuartelRuntime {
         this.roof.traverse(node => {
             const mesh = node as Mesh;
             if (!mesh.isMesh) return;
+            mesh.receiveShadow = false; // sol rasante: evita filetes claros de sombra nas águas do telhado
             const copy = (material: Material) => {
                 const own = material.clone();
                 this.roofMaterials.push({ own, opacity: material.opacity, transparent: material.transparent, depthWrite: material.depthWrite });

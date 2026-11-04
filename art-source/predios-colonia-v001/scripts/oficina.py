@@ -242,6 +242,7 @@ def wall_e(box, n):
 
 
 def furniture(box, n):
+    if inside(box, (0, -1.2, -.01), (.4, -.8, .65)): return None  # banquinho no meio da sala, retirado a pedido do autor
     return (-.12, -.12, 0) if box[0] > 2.8 and box[1] > 2.6 else (0, 0, 0)  # fabricadora, afastada do chanfro
 
 

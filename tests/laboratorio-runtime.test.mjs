@@ -45,8 +45,8 @@ test('Laboratório: fonte preservada por SHA-256, escala 1×, rig/atlas/clipes e
  const json=JSON.parse(bytes.subarray(20,20+bytes.readUInt32LE(12)));assert.equal(json.materials.length,2);assert.equal(json.meshes.length,4);
  assert.equal(gltf.scene.getObjectByName('LaboratorySynthesizerMesh').geometry.index.count/3,7384);
  assert.deepEqual(new Set(gltf.animations.map(c=>c.name)),new Set(LABORATORIO_MODES));
- assert.deepEqual(L.placement,{x:13.5,y:0,z:-12.5,rotationY:0,scale:1});
- const f=fixture(),b=new Box3().setFromObject(f.s);assert.ok(Math.abs(b.min.x-5.3)<1e-5&&Math.abs(b.max.x-20.885)<1e-5&&Math.abs(b.min.z+18.01)<1e-5&&Math.abs(b.max.z+6)<1e-5);
+ assert.deepEqual(L.placement,{x:14.75,y:0,z:-12.5,rotationY:0,scale:1});
+ const f=fixture(),b=new Box3().setFromObject(f.s);assert.ok(Math.abs(b.min.x-6.55)<1e-5&&Math.abs(b.max.x-22.135)<1e-5&&Math.abs(b.min.z+18.01)<1e-5&&Math.abs(b.max.z+6)<1e-5);
  assert.ok(f.world.bounds.minZ<b.min.z-.5);assert.equal(L.materials,2);f.runtime.dispose();
 });
 test('Laboratório: sala antiga sai só da cópia; vizinhos, física simples e save v1 permanecem',async()=>{
@@ -57,7 +57,7 @@ test('Laboratório: sala antiga sai só da cópia; vizinhos, física simples e s
  const world=createWorld();assert.equal(world.movingCuboids.length,Q.dynamicCuboids.length+2+COLONY_BUILDINGS.reduce((n,b)=>n+b.dynamicCuboids.length,0));assert.equal(world.simpleCuboids.length,Q.staticCuboids.length+25+COLONY_BUILDINGS.reduce((n,b)=>n+b.staticCuboids.length,0));
  for(const box of L.staticCuboids){assert.ok(box.halfExtents.every(n=>n>0));assert.ok(world.simpleCuboids.some(c=>c.id===box.id));}
  for(const c of base.colliders.filter(c=>L.removedColliders.includes(c.id)))assert.ok(!world.obstacles.some(b=>b.minX===c.minX&&b.maxX===c.maxX&&b.minZ===c.minZ&&b.maxZ===c.maxZ),c.id);
- const {MAP_ROOMS,getLocationLabelByPosition}=loadSource('src/world/mapConfig.ts');assert.equal(MAP_ROOMS.find(r=>r.id==='smart-lab').position.x,13.5);assert.equal(getLocationLabelByPosition(18,-16),'Laboratório');
+ const {MAP_ROOMS,getLocationLabelByPosition}=loadSource('src/world/mapConfig.ts');assert.equal(MAP_ROOMS.find(r=>r.id==='smart-lab').position.x,14.75);assert.equal(getLocationLabelByPosition(19.25,-16),'Laboratório');
  const {parseSave}=loadSource('src/game/session.ts');assert.equal(parseSave(JSON.stringify({version:1,profile:{displayName:'Autor',color:'#66e6ff'},briefingSeen:true,room:'smart-lab'})).profile.displayName,'Autor');
  geometry.forEach(g=>g.dispose());
 });
@@ -107,12 +107,12 @@ async function physics(start,automaticDoors=true){await R.init();const source=cr
  return {...f,move,dispose(){f.runtime.dispose();qr.dispose();world.free();}};
 }
 test('Laboratório: Rapier percorre EDEN → porta oeste → laboratório → porta sul → quartel → praça, ida e volta',async()=>{
- const path=[[3,-10.5],[5.5,-10.5],[5.5,-12.7],[9.5,-12.7],[9.5,-9.5],[15.5,-9.5],[15.5,-6.4],[10.5,-6.4],[10.5,-3.5],[10.5,0],[6.8,0],[5.5,0],[5.5,6],[0,6]];
+ const path=[[3,-10.5],[6.75,-10.5],[6.75,-12.7],[10.75,-12.7],[10.75,-9.5],[16.75,-9.5],[16.75,-6.4],[11.75,-6.4],[11.75,-3.5],[11.75,0],[8.05,0],[6.75,0],[6.75,6],[0,6]];
  for(const reverse of [false,true]){const route=reverse?[...path].reverse():path,f=await physics(route[0]);try{for(const[x,z]of route.slice(1)){const p=f.move(x,z);assert.ok(Math.hypot(p.x-x,p.z-z)<.03,JSON.stringify({reverse,x,z,p}));}}finally{f.dispose();}}
 });
 test('Laboratório: portas fechadas, paredes, bancadas, armários e máquina são sólidos; proximidade libera entrada',async()=>{
- for(const[start,target]of [[[5.5,-12.7],[8,-12.7]],[[15.5,-6.4],[15.5,-9]]]){const f=await physics(start,false);try{const p=f.move(...target,120);assert.ok(Math.hypot(p.x-target[0],p.z-target[1])>.5);const d=L.doors[start[0]===5.5?1:0];step(f.runtime,d.x,d.z);const end=f.move(...target);assert.ok(Math.hypot(end.x-target[0],end.z-target[1])<.03);}finally{f.dispose();}}
- for(const[start,target]of [[[10,-12.5],[13.5,-12.5]],[[9.5,-9.9],[8,-9.9]],[[11.1,-15.4],[11.1,-16.8]],[[18.8,-15.4],[19.75,-15.4]],[[18.4,-12.7],[19.4,-12.7]],[[17,-16],[17,-18.2]],[[19.7,-11],[21,-11]],[[10,-8.3],[10,-6.7]]]){
+ for(const[start,target]of [[[6.75,-12.7],[9.25,-12.7]],[[16.75,-6.4],[16.75,-9]]]){const f=await physics(start,false);try{const p=f.move(...target,120);assert.ok(Math.hypot(p.x-target[0],p.z-target[1])>.5);const d=L.doors[start[0]===6.75?1:0];step(f.runtime,d.x,d.z);const end=f.move(...target);assert.ok(Math.hypot(end.x-target[0],end.z-target[1])<.03);}finally{f.dispose();}}
+ for(const[start,target]of [[[11.25,-12.5],[14.75,-12.5]],[[10.75,-9.9],[9.25,-9.9]],[[12.35,-15.4],[12.35,-16.8]],[[20.05,-15.4],[21,-15.4]],[[19.65,-12.7],[20.65,-12.7]],[[18.25,-16],[18.25,-18.2]],[[20.95,-11],[22.25,-11]],[[11.25,-8.3],[11.25,-6.7]]]){
   const f=await physics(start);try{const p=f.move(...target,180);assert.ok(Math.hypot(p.x-target[0],p.z-target[1])>.35,JSON.stringify({start,target,p}));}finally{f.dispose();}
  }
 });
@@ -198,7 +198,7 @@ test('Laboratório/EDEN: corredor pavimentado inteiro permite circulação norte
 });
 
 test('Quartel: contorno externo completo é contínuo nos dois sentidos, inclusive ligações leste',async()=>{
- const path=[[5.25,-5.5],[8.5,-5.5],[12.5,-5.5],[15,-5.5],[18.25,-5.5],[18.25,5.25],[15,5.25],[13.8,5.25],[7.9,5.25],[5.25,5.25],[5.25,-5.5]];
+ const path=[[6.5,-5.5],[9.75,-5.5],[13.75,-5.5],[16.25,-5.5],[19.5,-5.5],[19.5,5.25],[16.25,5.25],[15.05,5.25],[9.15,5.25],[6.5,5.25],[6.5,-5.5]];
  for(const reverse of [false,true]){const route=reverse?[...path].reverse():path,f=await physics(route[0]);
   try{for(const[x,z]of route.slice(1)){const p=f.move(x,z);assert.ok(Math.hypot(p.x-x,p.z-z)<.03,JSON.stringify({reverse,x,z,p}));}}finally{f.dispose();}
  }

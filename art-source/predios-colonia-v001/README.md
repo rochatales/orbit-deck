@@ -122,3 +122,9 @@ de fixação e direção usa o GLB real em `tests/colony-buildings.test.mjs`.
 `notas/oficina-v002.json`, renders em `renders/oficina-v002/`.
 Reprodução: `oficina.py`, depois `manifesto.mjs`, `piso-compartilhado.py`, `planta.mjs` e `gerar-balizas-marte.mjs`.
 `padronizar.py` não gera a oficina. [Handoff](../../docs/handoffs/s6.12-oficina-colonia.md).
+
+## Cascas de Quartel e Laboratório · 04/11/2026
+
+`casca_ala_leste.py` gera `quartel-casca-v001.glb` e `laboratorio-casca-v001.glb` a partir dos GLBs ativos, que não
+são reexportados. Hashes em `notas/casca-ala-leste-v001.json`, renders em `renders/*-casca-v001/`.
+Depois de mudar a ala leste, rode `manifesto.mjs`, `piso-compartilhado.py`, `planta.mjs` e `gerar-balizas-marte.mjs`.

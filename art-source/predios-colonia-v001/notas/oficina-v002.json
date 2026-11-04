@@ -1,8 +1,8 @@
 {
   "id": "workshop",
   "source_sha256": "ee97217ca576bc21fb3036b794d78a008757be77d1f602f9e64fbe855dbbba80",
-  "sha256": "79a100165144834f52d927116667afd4745dd1c223d9707821a89daaca6601c2",
-  "bytes": 1875580,
+  "sha256": "f61b460380303d1c1fed76463f14e8aa1e254efdec7c7d698176528a097d2be0",
+  "bytes": 1872820,
   "reference_sha256": "a7ece29112a46c5d4784c8a51f61fbfc87893467088f12f8e2810196dc910653",
   "palette_source_sha256": "94778eb18597ca05cab902ba81ea2206e3879c54d84e155d1d276e0bdfef921d",
   "label": "WORKSHOP",
@@ -11,7 +11,7 @@
     "Wall_N": 14,
     "Wall_W": 27,
     "Wall_E": 33,
-    "Furniture": 42,
+    "Furniture": 40,
     "Exterior": 15,
     "Building_Roof": 36
   },

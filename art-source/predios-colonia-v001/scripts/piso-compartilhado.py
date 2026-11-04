@@ -13,9 +13,10 @@ replaced={r for b in buildings for r in b['replaces']}
 # União do pavimento original substituído + extensões efetivamente caminháveis.
 areas=[{k:a[k] for k in ['minX','maxX','minZ','maxZ']} for a in original['walkableAreas'] if a['id'] in replaced]
 areas += [b['floor'] for b in buildings]
-areas += [dict(minX=4.79,maxX=8.5,minZ=10.5,maxZ=21.5),dict(minX=5.3,maxX=15.8,minZ=14.9,maxZ=17.8)]
+areas += [dict(minX=4.79,maxX=8.5,minZ=10.5,maxZ=21.5),dict(minX=5.3,maxX=17.05,minZ=14.9,maxZ=17.8)]
 # Fechamento dos vazios do corredor Cafeteria–Quartel e pátio da estufa.
-areas += [dict(minX=6.4125,maxX=17.5875,minZ=4.8375,maxZ=8.5),
+areas += [dict(minX=6.4125,maxX=18.8375,minZ=4.8375,maxZ=8.5),
+          dict(minX=6.2,maxX=7.45,minZ=-17.8,maxZ=-7.2),dict(minX=7.5,maxX=7.7,minZ=-4.8375,maxZ=4.8375),
           dict(minX=5.7,maxX=21.5,minZ=16.6,maxZ=29)]
 # Anteparo de ligação ao deck: o pavimento respeita o contorno da base real.
 areas += [dict(minX=0,maxX=8.5,minZ=25,maxZ=30)]

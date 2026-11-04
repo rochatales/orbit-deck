@@ -22,7 +22,8 @@ test('Prédios aprovados: snapshot íntegro; 9320/8732 triângulos e UVs válido
   if(f.arquivo==='src/scene/marsColony/controlRoomRuntime.ts'){
    // A rodada de áudio só acrescenta estes quatro hooks. O restante continua
    // byte a byte igual ao runtime visual aprovado; os hooks são testados em mars-audio.
-   let code=fs.readFileSync(f.arquivo,'utf8');
+   // Pedido do autor (04/11): telhado sem a sombra rasante; também fora do hash do visual aprovado.
+   let code=fs.readFileSync(f.arquivo,'utf8').replace("                mesh.receiveShadow = false; // sol rasante: evita filetes claros de sombra\n",'');
    for(const line of [
     "import { DoorSoundClock } from '../../audio/events';\n",
     '    sound: DoorSoundClock;\n',

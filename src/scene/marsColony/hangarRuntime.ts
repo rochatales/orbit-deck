@@ -68,6 +68,8 @@ export class HangarRuntime {
                 if (!seen.has(material) && (material.emissiveMap || material.name === 'MAT_Hangar_Atlas_2K')) { seen.add(material); this.emissive.push({ material, base: material.emissiveIntensity }); }
             }
         });
+        const shell = scene.getObjectByName('HangarMesh') as Mesh | undefined;
+        if (shell) shell.receiveShadow = false; // sol rasante: evita filetes claros de sombra (malha única do casco)
         this.mixer = new AnimationMixer(scene);
         for (const name of Object.keys(CHANNELS)) {
             const source = clips.find(clip => clip.name === name);

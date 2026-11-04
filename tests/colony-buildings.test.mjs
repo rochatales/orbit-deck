@@ -80,6 +80,26 @@ test('S6.12: Oficina entre Data Center e Hangar, na linguagem aprovada, sem inva
  for(const name of ['COL_Neon_Emitter','COL_Pump_Box','COL_Kiosk','COL_Welding_Bench','COL_Fabricator','COL_Crates','COL_Shelf_0','COL_Shelf_1','COL_Workbench_0','COL_Workbench_1'])assert.ok(b.staticCuboids.some(c=>c.node===name),name);
 });
 
+test('S6.12: cascas de Quartel e Laboratório montam na cópia, trocam o telhado e deixam o GLB intacto',async()=>{
+ const {applyColonyShell}=loadSource('src/scene/marsColony/colonyShell.ts');
+ const cases=[['src/assets/quartel/barracks-v006.glb','src/assets/quartel/quartel-casca-v001.glb',['Building_Roof','Wall_Corners'],'Texto_BARRACKS'],['src/assets/laboratorio/laboratorio-v002.glb','src/assets/laboratorio/laboratorio-casca-v001.glb',['Building_Roof'],'Texto_LABORATORY']];
+ for(const [source,shell,replaced,label]of cases){
+  const building=await loadGlb(source),casca=await loadGlb(shell),scene=building.scene.clone(true),old=scene.getObjectByName('Building_Roof');
+  applyColonyShell(scene,casca.scene,replaced);
+  const roof=scene.getObjectByName('Building_Roof');assert.ok(roof,'telhado novo');assert.notEqual(roof,old);assert.equal(roof.parent,scene);
+  assert.ok(scene.getObjectByName('Casca_Fixa'));assert.ok(scene.getObjectByName(label));assert.ok(building.scene.getObjectByName('Building_Roof'),'GLB em cache intacto');
+  assert.ok(casca.scene.getObjectByName('Building_Roof'),'casca em cache intacta');
+  scene.updateMatrixWorld(true);const box=new Box3().setFromObject(roof);assert.ok(box.max.y>4&&box.min.y>2.8,source);
+ }
+ const lab=(await loadGlb(cases[1][0])).scene.clone(true);applyColonyShell(lab,(await loadGlb(cases[1][1])).scene,['Building_Roof']);assert.equal(lab.getObjectByName('Casca_Parede').parent.name,'Building_Walls');
+});
+
+test('S6.12: faixas tracejadas das zonas de obra saem da montagem',async()=>{
+ const gltf=await loadGlb('src/assets/colony-v007.glb'),manifest=JSON.parse(fs.readFileSync('src/assets/colony-v007.manifest.json')),owned=[];
+ const filtered=removeRoomsForBuildings(gltf.scene,manifest,owned);let left=0;gltf.scene.traverse(n=>{if(n.name.startsWith('Demarcacao_'))left++;});
+ assert.equal(left,0);assert.equal(filtered.parts.some(p=>p.id.startsWith('Demarcacao_')),false);for(const g of owned)g.dispose();
+});
+
 test('S6.12: substituição remove todos os nós/portas dos quatro ambientes sem afetar vizinhos',async()=>{
  const gltf=await loadGlb('src/assets/colony-v007.glb'),manifest=JSON.parse(fs.readFileSync('src/assets/colony-v007.manifest.json')),owned=[];
  const filtered=removeRoomsForBuildings(gltf.scene,manifest,owned);
@@ -117,7 +137,7 @@ test('S6.12: rotas com cápsula 0,32 m, entrada inicial livre e apoio plano dos 
  const start=[0,6];
  for(const target of [[-2.8,0],[-9.5,0],[8.2,11.7],[0,10],[0,23],[0,29.5],[12,5.3],[0,-6],[-7,6]])assert.ok(reachable(world,start,target),`rota ${target}`);
  for(const b of buildings){assert.equal(world.supportHeight(b.placement.x,b.placement.z),0);for(const d of b.doors)assert.ok(reachable(world,start,[d.x,d.z]),`porta ${b.id}/${d.side}`)}
- assert.ok(world.simpleCuboids.some(c=>c.id===JSON.parse(fs.readFileSync('src/assets/quartel/barracks-v006.manifest.json')).staticCuboids[0].id));
+ assert.ok(world.simpleCuboids.some(c=>c.id===JSON.parse(fs.readFileSync('src/assets/quartel/barracks-v006-ala-leste.manifest.json')).staticCuboids[0].id));
  const probe=new MarsInteriorProbe();for(const b of buildings)assert.equal(probe.update(b.placement.x,b.placement.z),true);
  assert.equal(probe.update(0,6),false);
 });

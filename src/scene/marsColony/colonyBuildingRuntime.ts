@@ -41,6 +41,7 @@ export class ColonyBuildingRuntime {
         this.roof.traverse(node => {
             const mesh = node as Mesh;
             if (!mesh.isMesh) return;
+            mesh.receiveShadow = false; // sol rasante: evita filetes claros de sombra nas águas do telhado
             const copy = (source: Material) => {
                 const own = source.clone(); this.materials.push(own);
                 this.roofMaterials.push({ own, opacity: own.opacity, transparent: own.transparent, depthWrite: own.depthWrite }); return own;

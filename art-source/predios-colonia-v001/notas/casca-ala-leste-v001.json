@@ -1,0 +1,16 @@
+[
+  {
+    "arquivo": "src/assets/quartel/quartel-casca-v001.glb",
+    "sha256": "cd649d0e152083bd4b2f3de6c1f687d46fd4ffbd4cb442f9738c747270f57842",
+    "bytes": 500684,
+    "referencia": "src/assets/quartel/barracks-v006.glb",
+    "referencia_sha256": "af8fa852cba391dc0cc1087646dd9164776bda42deb1a10cf6af63bf50e5a313"
+  },
+  {
+    "arquivo": "src/assets/laboratorio/laboratorio-casca-v001.glb",
+    "sha256": "b7ca4c0f0eeaa7397a3f1d33932eaf6f571ba550d780fa0eb990779426370c79",
+    "bytes": 382960,
+    "referencia": "src/assets/laboratorio/laboratorio-v002.glb",
+    "referencia_sha256": "4dfd07a28d6a6d017233a0a085a80a60e8a4275345070b90f9fdb2d0a32502c8"
+  }
+]

@@ -1,6 +1,8 @@
 import { SandClouds } from './SandClouds';
 import { SandwindWind } from './sandwindWind';
 import sharedFloorUrl from '../../assets/buildings/colony-shared-floor-v001.glb';
+import quartelShellUrl from '../../assets/quartel/quartel-casca-v001.glb';
+import laboratorioShellUrl from '../../assets/laboratorio/laboratorio-casca-v001.glb';
 import { COLONY_BUILDING_URLS } from './ColonyBuildings';
 import controlRoomUrl from '../../assets/control-room/control-room-v002.glb';
 import circulationUrl from '../../assets/quartel/quartel-circulation-v001.glb';
@@ -41,15 +43,16 @@ export function ColonySandwind({ scope, masterplan }: { scope: RefObject<Group>;
     const sharedFloor = useGLTF(sharedFloorUrl);
     const [ship, deck] = useGLTF([shipUrl, deckUrl]);
     const meetingRoom = useGLTF(COLONY_BUILDING_URLS[0]), dataCenter = useGLTF(COLONY_BUILDING_URLS[1]), cafeteria = useGLTF(COLONY_BUILDING_URLS[2]), workshop = useGLTF(COLONY_BUILDING_URLS[3]);
+    const quartelShell = useGLTF(quartelShellUrl), laboratorioShell = useGLTF(laboratorioShellUrl);
     const controller = useRef<SandwindController | null>(null), wind = useMemo(() => new SandwindWind(), []);
     const enabled = usePreview(s => s.enabled);
     useEffect(() => {
         const root = scope.current!, architecture = masterplan.current!.children[0];
-        const next = new SandwindController(root, [colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene, laboratorio.scene, circulation.scene, controlRoom.scene, meetingRoom.scene, dataCenter.scene, cafeteria.scene, workshop.scene, sharedFloor.scene],
+        const next = new SandwindController(root, [colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene, laboratorio.scene, circulation.scene, controlRoom.scene, meetingRoom.scene, dataCenter.scene, cafeteria.scene, workshop.scene, quartelShell.scene, laboratorioShell.scene, sharedFloor.scene],
             sandwindTargets(root, architecture, manifest), gl.outputColorSpace, wind);
         controller.current = next; activeController = next;
         return () => { if (activeController === next) activeController = null; controller.current = null; next.dispose(); };
-    }, [scope, masterplan, colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene, laboratorio.scene, circulation.scene, controlRoom.scene, meetingRoom.scene, dataCenter.scene, cafeteria.scene, workshop.scene, sharedFloor.scene, gl, wind]);
+    }, [scope, masterplan, colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene, laboratorio.scene, circulation.scene, controlRoom.scene, meetingRoom.scene, dataCenter.scene, cafeteria.scene, workshop.scene, quartelShell.scene, laboratorioShell.scene, sharedFloor.scene, gl, wind]);
     useEffect(() => {
         if (!enabled) return;
         const original = scene.fog;

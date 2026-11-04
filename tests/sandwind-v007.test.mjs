@@ -206,11 +206,11 @@ test('Sandwind v007: poses de QA exigem três flags e não alteram sessão fora 
         assert.equal(useGameStore.getState().nearShip, true);
         assert.equal(sandwindQAPose('?perf&sandwindQA','quartel'),false);
         assert.equal(sandwindQAPose(query,'quartel'),true);
-        assert.deepEqual(useExpeditionStore.getState().spawn,{x:12,y:.2625,z:0});
+        assert.deepEqual(useExpeditionStore.getState().spawn,{x:13.25,y:.2625,z:0});
         assert.equal(useGameStore.getState().nearShip, false);
         assert.equal(sandwindQAPose('?perf&sandwindQA','bathroom-inside'),false);
         assert.equal(sandwindQAPose(query,'bathroom-inside'),true);
-        assert.deepEqual(useExpeditionStore.getState().spawn,{x:15.225,y:.2625,z:2.9});
+        assert.deepEqual(useExpeditionStore.getState().spawn,{x:16.475,y:.2625,z:2.9});
         useExpeditionStore.setState({ session: { map: 'shanghai', phase: 'walking', destination: null, revision: 12 } });
         assert.equal(sandwindQAPose(query, 'plaza'), false);
         assert.equal(useExpeditionStore.getState().session.revision, 12);

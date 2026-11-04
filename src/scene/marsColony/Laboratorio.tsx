@@ -9,20 +9,24 @@ import { simulationBlocked, useSimulationBlocked } from '../../game/simulationGa
 import { LABORATORIO } from '../../game/laboratorioLayout';
 import type { OfficeWorld } from '../../world/createOfficeMap';
 import url from '../../assets/laboratorio/laboratorio-v002.glb';
+import shellUrl from '../../assets/laboratorio/laboratorio-casca-v001.glb';
+import { applyColonyShell } from './colonyShell';
 import { createLaboratorioWalkways } from './laboratorioWalkways';
+export const LABORATORIO_SHELL_URL = shellUrl;
 import { LaboratorioRuntime, type LaboratorioMode } from './laboratorioRuntime';
 const modes: { mode: LaboratorioMode; label: string }[] = [
     { mode: 'Idle_Ready', label: 'Pronta' }, { mode: 'Synthesizing', label: 'Sintetizar' },
     { mode: 'Drawer_Dispense', label: 'Abrir gaveta' }, { mode: 'Standby_PowerDown', label: 'Espera' }
 ];
 export function Laboratorio({ world }: { world: OfficeWorld }) {
-    const gltf = useGLTF(url), visual = useRef<Group>(null), runtime = useRef<LaboratorioRuntime>();
+    const gltf = useGLTF(url), shell = useGLTF(shellUrl), visual = useRef<Group>(null), runtime = useRef<LaboratorioRuntime>();
     const walkways = useRef<Group>(null), blocked = useSimulationBlocked();
     const [open, setOpen] = useState(false);
     const toggle = useCallback(() => setOpen(value => !value), []), close = useCallback(() => setOpen(false), []);
     const [mode, setMode] = useState<LaboratorioMode>('Idle_Ready');
     useLayoutEffect(() => {
         const scene = clone(gltf.scene); scene.name = 'LaboratorioVisual';
+        applyColonyShell(scene, shell.scene, ['Building_Roof']);
         const next = new LaboratorioRuntime(scene, gltf.animations, world.movingCuboids);
         runtime.current = next; visual.current!.add(scene);
         const paving = createLaboratorioWalkways(scene); walkways.current!.add(paving);
@@ -31,7 +35,7 @@ export function Laboratorio({ world }: { world: OfficeWorld }) {
             scene.removeFromParent(); next.dispose(); runtime.current = undefined;
             scene.traverse(node => { const mesh = node as SkinnedMesh; if (mesh.isSkinnedMesh) mesh.skeleton.dispose(); });
         };
-    }, [gltf.scene, gltf.animations, world]);
+    }, [gltf.scene, shell.scene, gltf.animations, world]);
     useEffect(() => {
         const key = (event: KeyboardEvent) => {
             if (event.code === 'Escape') setOpen(false);

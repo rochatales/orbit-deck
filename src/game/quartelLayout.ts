@@ -1,5 +1,5 @@
 import circulation from '../assets/quartel/quartel-circulation-v001.manifest.json';
-import manifest from '../assets/quartel/barracks-v006.manifest.json';
+import manifest from '../assets/quartel/barracks-v006-ala-leste.manifest.json';
 import type { OfficeWorld, SimpleCuboid } from '../world/createOfficeMap';
 import type { RectBounds } from '../utils/math';
 export const QUARTEL = manifest;

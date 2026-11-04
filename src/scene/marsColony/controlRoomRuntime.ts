@@ -57,6 +57,7 @@ export class ControlRoomRuntime {
             roofPart.traverse(node => {
                 const mesh = node as Mesh;
                 if (!mesh.isMesh) return;
+                mesh.receiveShadow = false; // sol rasante: evita filetes claros de sombra
                 const copy = (material: Material) => {
                     const own = material.clone();
                     this.roofMaterials.push({

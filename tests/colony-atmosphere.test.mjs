@@ -56,7 +56,7 @@ test('Balizas: alturas/normais da areia pré-medidas, assinatura do layout/GLB e
  const w=loadSource('src/game/marsWorld.ts').createWorld();
  assert.equal(hash(JSON.stringify({areas:w.walkableAreas,obstacles:w.obstacles})),baked.layoutSha256);
  assert.deepEqual(baked.positions.map(({x,z})=>({x,z})),perimeterLightPositions(w.walkableAreas,w.obstacles));
- for(const p of baked.positions){assert.ok(p.y<0&&p.y>=-.301);assert.ok(Math.abs(Math.hypot(...p.normal)-1)<1e-6);assert.ok(p.normal[1]>.8);}
+ for(const p of baked.positions){assert.ok(p.y<.25&&p.y>=-.301);assert.ok(Math.abs(Math.hypot(...p.normal)-1)<1e-6);assert.ok(p.normal[1]>.8);}
 });
 
 

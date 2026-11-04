@@ -35,8 +35,8 @@ test('Quartel: piso preservado nos quatro cantos arredondados e recorte exato so
  const s=colony.scene.clone(true),owned=[],source=colony.scene.getObjectByName('PISO_v007_Externo'),count=source.geometry.index.count;
  removeRoomForQuartel(s,manifest,owned);s.updateMatrixWorld(true);const floor=s.getObjectByName('PISO_v007_Externo'),ray=new Raycaster(new Vector3(),new Vector3(0,-1,0));
  function hit(x,z){ray.ray.origin.set(x,1,z);return ray.intersectObject(floor,true).some(h=>Math.abs(h.point.y)<1e-6);}
- for(const x of [6.7,17.3])for(const z of [-4.55,4.55]){assert.equal(quartelSupportHeight(x,z),null);assert.ok(hit(x,z),`canto ${x},${z}`);}
- for(const[x,z]of [[5.8,0],[10.5,-5.5]])assert.equal(hit(x,z),false,'sem duplicar piso sob a rampa');
+ for(const x of [7.95,18.55])for(const z of [-4.55,4.55]){assert.equal(quartelSupportHeight(x,z),null);assert.ok(hit(x,z),`canto ${x},${z}`);}
+ for(const[x,z]of [[7.05,0],[11.75,-5.5]])assert.equal(hit(x,z),false,'sem duplicar piso sob a rampa');
  assert.ok(hit(5.1,0));assert.equal(source.geometry.index.count,count,'cache original intacto');owned.forEach(g=>g.dispose());
 });
 test('Quartel: complemento de corredor recebe areia sem ser descartado com o prédio e restaura cache',()=>{
