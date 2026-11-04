@@ -128,3 +128,38 @@ Reprodução: `oficina.py`, depois `manifesto.mjs`, `piso-compartilhado.py`, `pl
 `casca_ala_leste.py` gera `quartel-casca-v001.glb` e `laboratorio-casca-v001.glb` a partir dos GLBs ativos, que não
 são reexportados. Hashes em `notas/casca-ala-leste-v001.json`, renders em `renders/*-casca-v001/`.
 Depois de mudar a ala leste, rode `manifesto.mjs`, `piso-compartilhado.py`, `planta.mjs` e `gerar-balizas-marte.mjs`.
+
+## Correções estruturais · 04/11/2026
+
+Sobre `59b3614`, somente visual. `componentes_estruturais.py` separa componentes
+conexos soldando virtualmente costuras glTF para análise, sem soldar nem mover
+vértices da saída. A Meeting Room envia as quatro claraboias/molduras/vidros
+para `Building_Roof`. O Data Center perde só a placa legada lateral e os dois
+tubos antigos de `Interior` (até 3,13 m). A Oficina move os dutos acima da
+parede para o teto. `casca_ala_leste.py` mantém o friso do Laboratório em
+`Casca_Parede`, que acompanha o corte da parede. Fontes do autor intactas.
+
+O Laboratório preserva `laboratorio-v002.glb`; a variante
+`laboratorio-visual-v003.glb` vem de `laboratorio_visual.mjs`, chamado ao final
+de `padronizar.py`. O recorte poligonal retira áreas concorrentes no mesmo
+plano/grupo rígido (faixa do piso, anel/tampas e cantos de parede). Interpola
+os atributos dos vértices novos; nós, ossos, clipes, imagens e materiais glTF
+permanecem exatamente os da fonte. Sem offsets de profundidade ou de malha.
+O atlas do Laboratório passa pela mesma política sem mipmaps dos demais.
+Notas completas, áreas removidas e hashes: `notas/laboratorio-visual-v003.json`.
+
+Regerar só os prédios afetados, sem tocar a Cafeteria aprovada:
+
+```bash
+/Applications/Blender.app/Contents/MacOS/Blender -b --python art-source/predios-colonia-v001/scripts/padronizar.py -- --only meeting-room data-center
+/Applications/Blender.app/Contents/MacOS/Blender -b --python art-source/predios-colonia-v001/scripts/casca_ala_leste.py
+/Applications/Blender.app/Contents/MacOS/Blender -b --python art-source/predios-colonia-v001/scripts/oficina.py
+/Applications/Blender.app/Contents/MacOS/Blender -b --python art-source/predios-colonia-v001/scripts/render_ajustes_estruturais.py -- --base-ref 59b3614
+node --test tests/colony-structural.test.mjs
+```
+
+**Não rodar `manifesto.mjs` para estas correções**: os COL e suas transformações
+continuam iguais e os manifestos aprovados não mudaram. Não é preciso gerar
+piso, planta ou balizas. Os renders técnicos antes/depois estão em
+`docs/handoffs/s6.12-ajustes-estruturais-colonia/renders/`; o handoff traz a
+prévia e o roteiro do autor.

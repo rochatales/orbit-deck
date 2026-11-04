@@ -15,6 +15,9 @@ export class LaboratorioRuntime {
     private roof: Object3D;
     private cutWalls: Object3D;
     private inside = false;
+    private machine: Mesh;
+    private machineSourceMaterial: Material | Material[];
+    private machineMaterials: Material[] = [];
     private roofMaterials: { own: Material; opacity: number; transparent: boolean; depthWrite: boolean }[] = [];
     private mixer: AnimationMixer;
     private actions: AnimationAction[];
@@ -59,6 +62,12 @@ export class LaboratorioRuntime {
             this.bones[i].scale.setScalar(1e-4);
             return { left, right, rest: Math.abs(right.position.x) };
         });
+        // A máquina usa o mesmo atlas da parede, mas não participa do fade.
+        // Texturas privadas de amostragem nunca ficam anexadas ao material do cache GLTF.
+        const machine = this.machine = scene.getObjectByName('LaboratorySynthesizerMesh') as Mesh;
+        this.machineSourceMaterial = machine.material;
+        const cloneMachine = (material: Material) => { const own = material.clone(); this.machineMaterials.push(own); return own; };
+        machine.material = Array.isArray(machine.material) ? machine.material.map(cloneMachine) : cloneMachine(machine.material);
         this.atlasSampling = new BuildingAtlasSampling(scene);
         scene.traverse(node => { const mesh = node as Mesh; if (mesh.isMesh) { mesh.castShadow = true; mesh.receiveShadow = true; if (mesh.type === 'SkinnedMesh') mesh.frustumCulled = false; } });
         this.mixer = new AnimationMixer(scene);
@@ -122,6 +131,8 @@ export class LaboratorioRuntime {
         this.disposed = true;
         this.mixer.stopAllAction(); this.mixer.uncacheRoot(this.scene);
         for (const material of this.roofMaterials) material.own.dispose();
+        this.machine.material = this.machineSourceMaterial;
+        for (const material of this.machineMaterials) material.dispose();
         // Geometria, texturas e material pertencem ao cache useGLTF, sem clones por quadro.
     }
 }

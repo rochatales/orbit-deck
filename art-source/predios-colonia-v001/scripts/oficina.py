@@ -392,6 +392,13 @@ text('WORKSHOP', (0, -mid, mid_z), (slope, 0, 0), .42, 3.6, 1, roof)
 for sign, body in [(1, 'FABRICATION'), (-1, 'FABRICATION')]:
     t = text(body, (sign * mid, 0, mid_z), (slope, 0, sign * math.pi / 2), .34, 3.8, 1, roof)
 
+# Mesmo problema de teto: dutos altos da fachada pertencem ao conjunto que desaparece.
+import sys
+sys.dont_write_bytecode = True
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from componentes_estruturais import fix_building
+structural_fixes = fix_building('workshop')
+
 # Só a hierarquia do prédio entra no arquivo.
 bpy.context.scene.render.fps = 24; bpy.context.scene.frame_start = 0; bpy.context.scene.frame_end = 24; bpy.context.scene.frame_set(0)
 hierarchy = {root, *root.children_recursive}
@@ -401,7 +408,7 @@ bpy.ops.export_scene.gltf(filepath=str(target), export_format='GLB', use_selecti
 (ROOT / 'src/assets/buildings/workshop.glb').write_bytes(target.read_bytes())
 (ART / 'notas/oficina-v002.json').write_text(json.dumps({
     'id': 'workshop', 'source_sha256': digest(SOURCE), 'sha256': digest(target), 'bytes': target.stat().st_size, 'reference_sha256': digest(REF),
-    'palette_source_sha256': digest(CAFETERIA), 'label': LABEL[0], 'kept_components': kept,
+    'structural_fixes_04_11': structural_fixes, 'palette_source_sha256': digest(CAFETERIA), 'label': LABEL[0], 'kept_components': kept,
     'doors': [{'side': 'South', 'plane': [0, -4.35, 0], 'motion': 'sliding', 'width': 1.7}],
     'label_mount': {'source_door': 'South', 'center_height_m': height, 'plate_bottom_m': height - .18, 'plate_front_from_door_m': .34, 'back_from_door_m': .12, 'parent': 'Wall_S'},
 }, indent=2, ensure_ascii=False) + '\n')

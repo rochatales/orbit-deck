@@ -1,0 +1,36 @@
+{
+  "source": "src/assets/laboratorio/laboratorio-v002.glb",
+  "source_sha256": "4dfd07a28d6a6d017233a0a085a80a60e8a4275345070b90f9fdb2d0a32502c8",
+  "target": "src/assets/laboratorio/laboratorio-visual-v003.glb",
+  "sha256": "1414b395659e3fd74b5105fa334c80c1909ba9c58c9bde52654054a32f579a9b",
+  "method": "Diferença poligonal no mesmo plano e grupo rígido; prioridade da última face da fonte. Sem offset, sem mover vértices existentes.",
+  "stats": {
+    "tampas_laterais": {
+      "triangles_changed": 4,
+      "overlap_removed_m2": 1.3824000169372823
+    },
+    "anel_porta": {
+      "triangles_changed": 24,
+      "overlap_removed_m2": 0.014050370347445256
+    },
+    "faixa_piso": {
+      "triangles_changed": 10,
+      "overlap_removed_m2": 0.09883090635561764
+    },
+    "cantos_parede": {
+      "triangles_changed": 2,
+      "overlap_removed_m2": 0.22229656777494533
+    }
+  },
+  "triangles_before": 7384,
+  "triangles_after": 7899,
+  "vertices_appended": 1237,
+  "preserved": [
+    "nós",
+    "skins",
+    "animações",
+    "texturas",
+    "volumes",
+    "vértices e atributos originais"
+  ]
+}

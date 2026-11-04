@@ -1,7 +1,10 @@
 """Variantes v002: fontes intactas, kit de porta copiado da Control Room ativa."""
-import bpy, bmesh, math, json, hashlib
+import bpy, bmesh, math, json, hashlib, sys
 from pathlib import Path
 from mathutils import Matrix, Vector
+sys.dont_write_bytecode = True
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from componentes_estruturais import fix_building
 ROOT = Path(__file__).resolve().parents[3]
 ART = ROOT / 'art-source/predios-colonia-v001'
 OUT = ART / 'export'
@@ -92,8 +95,13 @@ def floor_standard(o, placement):
             if max(v[2] for v in points)-min(v[2] for v in points)<1e-5:top.append(points)
     joints(top,placement,o)
 
+selected = set(sys.argv[sys.argv.index('--only') + 1:]) if '--only' in sys.argv else set(placements)
+previous_report = json.loads((ART/'notas/padronizacao-v002.json').read_text())
 report=[]
 for id,placement in placements.items():
+    if id not in selected:
+        report.append(next(v for v in previous_report if v['id'] == id))
+        continue
     clear()
     source=ART/'originais'/f'{id}.glb'
     bpy.ops.import_scene.gltf(filepath=str(source));bpy.context.view_layer.update()
@@ -177,6 +185,7 @@ for id,placement in placements.items():
         tile_uv(o.data,1);o.parent=board
     # Prendem o fundo ao cabeçalho do portal (topo medido: 2,460278 m).
     for x in [-.7,.7]:box('Suporte_Letreiro',(x,-.18,2.45),(.10,.12,.16),1,board)
+    structural_fixes = fix_building(id)
     label_mount={'source_door':label_side,'center_height_m':height,'plate_bottom_m':height-.18,'plate_front_from_door_m':.34,'back_from_door_m':.12,'parent':board.parent.name}
     bpy.context.scene.render.fps=24;bpy.context.scene.frame_start=0;bpy.context.scene.frame_end=24;bpy.context.scene.frame_set(0)
     # Ações antigas referem-se aos pivôs retirados e não entram no arquivo selecionado.
@@ -184,5 +193,9 @@ for id,placement in placements.items():
     target=OUT/f'{id}-v002.glb'
     bpy.ops.export_scene.gltf(filepath=str(target),export_format='GLB',use_selection=True,export_animations=True,export_animation_mode='NLA_TRACKS',export_yup=True,export_extras=True)
     (ROOT/'src/assets/buildings'/f'{id}.glb').write_bytes(target.read_bytes())
-    report.append({'id':id,'source_sha256':digest(source),'sha256':digest(target),'bytes':target.stat().st_size,'reference_sha256':ref_hash,'doors':doors,'floor':{'tile_m':[1.25,1.5],'joint_m':.03,'world_aligned':True},'label':labels[id][0],'label_mount':label_mount})
+    report.append({'id':id,'source_sha256':digest(source),'sha256':digest(target),'bytes':target.stat().st_size,'reference_sha256':ref_hash,'doors':doors,'floor':{'tile_m':[1.25,1.5],'joint_m':.03,'world_aligned':True},'label':labels[id][0],'label_mount':label_mount,'structural_fixes_04_11':structural_fixes})
 (ART/'notas/padronizacao-v002.json').write_text(json.dumps(report,indent=2)+'\n')
+
+# Laboratório: fonte v002 preservada; variante visual sem faces coplanares concorrentes.
+import subprocess
+subprocess.run(['node', str(ART / 'scripts/laboratorio_visual.mjs')], cwd=ROOT, check=True)

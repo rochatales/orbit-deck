@@ -1,0 +1,29 @@
+{
+  "base": "59b3614",
+  "antes": {
+    "expected_failure": true,
+    "cases": [
+      "✖ S6.12 estrutural A: atlas Lab sem mipmap privado e sem recobrir a faixa, anel, tampas/cantos no mesmo plano (114.903208ms)",
+      "✖ S6.12 estrutural B: Laboratório montado abre paredes/teto sem o friso suspenso nos quatro lados (174.74575ms)",
+      "✖ S6.12 estrutural C: quatro claraboias da Meeting somem com o teto; nenhuma peça permanece acima da parede (54.111292ms)",
+      "✖ S6.12 estrutural D: remove somente a placa DATA CENTER legada, conserva placa padrão e etiqueta DC (38.795208ms)",
+      "✖ S6.12 estrutural E: tubos altos legados saem do Interior do Data Center; editorial não sobra na montagem v007 (42.602792ms)",
+      "✖ S6.12 estrutural: varredura dos quatro novos prédios e cascas, contratos físicos/portas/cabine preservados (115.400541ms)"
+    ],
+    "passed": 0,
+    "failed": 6
+  },
+  "depois": {
+    "cases": [
+      "✔ S6.12 estrutural A: atlas Lab sem mipmap privado e sem recobrir a faixa, anel, tampas/cantos no mesmo plano (164.109708ms)",
+      "✔ S6.12 estrutural B: Laboratório montado abre paredes/teto sem o friso suspenso nos quatro lados (111.473708ms)",
+      "✔ S6.12 estrutural C: quatro claraboias da Meeting somem com o teto; nenhuma peça permanece acima da parede (53.2115ms)",
+      "✔ S6.12 estrutural D: remove somente a placa DATA CENTER legada, conserva placa padrão e etiqueta DC (43.340459ms)",
+      "✔ S6.12 estrutural E: tubos altos legados saem do Interior do Data Center; editorial não sobra na montagem v007 (527.905791ms)",
+      "✔ S6.12 estrutural: varredura dos quatro novos prédios e cascas, contratos físicos/portas/cabine preservados (396.45125ms)"
+    ],
+    "passed": 6,
+    "failed": 0
+  },
+  "notas": "Antes usa os GLBs extraídos da base explícita; B/C/D/E falham nos componentes reais, não em leitura do código do gerador."
+}

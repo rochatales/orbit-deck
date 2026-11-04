@@ -10,7 +10,7 @@ export class BuildingAtlasSampling {
             const mesh = node as Mesh;
             if (!mesh.isMesh) return;
             for (const material of Array.isArray(mesh.material) ? mesh.material : [mesh.material]) {
-                if (!['MAT_Control_Atlas_2K', 'MAT_Control_Vidro', 'MAT_Hangar_Atlas_2K'].includes(material.name)) continue;
+                if (!['MAT_Control_Atlas_2K', 'MAT_Control_Vidro', 'MAT_Hangar_Atlas_2K', 'MAT_Laboratorio_Atlas_2K'].includes(material.name)) continue;
                 const atlas = material as MeshStandardMaterial;
                 for (const key of ['map', 'emissiveMap', 'normalMap', 'roughnessMap', 'metalnessMap', 'aoMap'] as const) {
                     const source = atlas[key];

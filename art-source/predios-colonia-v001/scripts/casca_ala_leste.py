@@ -3,7 +3,7 @@
 Os GLBs ativos (barracks-v006, laboratorio-v002) não são reexportados: animações, portas, interior e colisores
 ficam intactos. Cada casca é um GLB à parte, no espaço local do prédio, montado no runtime (colonyShell.ts):
 - Building_Roof: telhado de quatro águas; substitui o telhado antigo e abre ao entrar, como antes.
-- Casca_Fixa: embasamento terracota, faixa grafite, friso, quinas e placa.
+- Casca_Fixa: embasamento terracota, faixa grafite, quinas e placa. Friso alto acompanha a parede.
 - Casca_Parede (só Laboratório): revestimento creme, filho de Building_Walls, que se abre junto com o teto.
 Cores: material CF_Palette da Cafeteria, sem paleta nova.
 
@@ -256,7 +256,7 @@ GAPS = {'S': [(SERVICE - 1.22, SERVICE + 1.22)], 'W': [(AIRLOCK - 1.12, AIRLOCK 
 for side in 'SNEW':
     plan.segments(fixed, side, 0, .15, 0, 1.1, TERRA, GAPS[side])
     plan.segments(fixed, side, 0, .08, 1.1, 1.35, GRAPHITE, GAPS[side])
-    plan.layer(fixed, side, 0, .02, 3.5, 3.54, TRIM)
+    plan.layer(cover, side, .012, .02, 3.5, 3.54, TRIM)  # friso acompanha Building_Walls, sem face coplanar com o revestimento
     plan.segments(cover, side, 0, .012, 1.35, 3.6, CREAM, GAPS[side])
     for g0, g1 in GAPS[side]: plan.layer(cover, side, 0, .012, PORTAL_TOP, 3.6, CREAM, g0, g1)
 for side, t in [('S', -3.2), ('S', -5.6), ('S', 5.6), ('N', -4.2), ('N', 0), ('N', 4.2), ('E', -2.4), ('E', 2.4), ('W', -3.3), ('W', 3.4)]: buttress(fixed, plan, side, t)

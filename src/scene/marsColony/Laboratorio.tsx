@@ -8,7 +8,7 @@ import { playerPosition } from '../../state/playerTransient';
 import { simulationBlocked, useSimulationBlocked } from '../../game/simulationGate';
 import { LABORATORIO } from '../../game/laboratorioLayout';
 import type { OfficeWorld } from '../../world/createOfficeMap';
-import url from '../../assets/laboratorio/laboratorio-v002.glb';
+import url from '../../assets/laboratorio/laboratorio-visual-v003.glb';
 import shellUrl from '../../assets/laboratorio/laboratorio-casca-v001.glb';
 import { applyColonyShell } from './colonyShell';
 import { createLaboratorioWalkways } from './laboratorioWalkways';
