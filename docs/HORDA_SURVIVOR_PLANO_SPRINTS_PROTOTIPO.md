@@ -1,5 +1,10 @@
 # EXODEN — Sprints do protótipo Shanghai
 
+> **Atualização S6.3 · 04/11/2026:** kits de vida coletados ao passar por
+> cima, publicados em `755c268` por fast-forward sobre `195cfb5`, a pedido do autor.
+> [Verificações e pendências](handoffs/s6.3-shanghai-atualizacao.md#publicação-do-kit-de-vida-por-contato--04112026).
+> Não encerra extração, objetivos obrigatórios nem os demais itens futuros.
+
 > **Atualização S6.3 · 03/11/2026:** autor escolheu `8822521` em produção
 > (4174) e autorizou consolidar Shanghai, radar, menus e carga da nave.
 > Publicação por fast-forward sobre `5d4ea01`; código preservado.
