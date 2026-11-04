@@ -1,0 +1,50 @@
+{
+  "base_publicada": "d232de0037b7a7fd7609121f552e1d3dfe9dfb15",
+  "espada_aprovada": "02df590a5cb1498df44abc650130f72125e11640",
+  "eden_origem": "23b17ff101a51ee57c85ce3c053ec3ec7c9c75e3",
+  "codigo_consolidado": "957d57897313d8ed4d64d5459080de956efbabeb",
+  "arquivos_eden_identicos": 11,
+  "arquivos_home_identicos": 12,
+  "runtime_fora_destes_escopos": "idêntico à espada aprovada",
+  "sala_preservada": [
+    "src/scene/marsColony/ControlRoom.tsx",
+    "src/scene/marsColony/controlRoomRuntime.ts",
+    "src/game/controlRoomLayout.ts",
+    "src/assets/control-room/control-room-v002.glb"
+  ],
+  "arquivos_do_porte": [
+    "art-source/eden-control-room/blend/eden_v001.blend",
+    "art-source/eden-control-room/notas/export_runtime.json",
+    "art-source/eden-control-room/scripts/exportar_runtime.py",
+    "art-source/home-exoden/scripts/render_colonia.py",
+    "art-source/home-exoden/scripts/render_perfil.py",
+    "docs/handoffs/consolidacao-eden-2026-11-04/eden-sha256.json",
+    "docs/handoffs/consolidacao-eden-2026-11-04/home-sha256.json",
+    "docs/handoffs/s6.15-tela-inicial.md",
+    "src/app/App.tsx",
+    "src/assets/characters/npcs/eden-v002.glb",
+    "src/assets/home/colonia.webp",
+    "src/assets/home/explorador-perfil.webp",
+    "src/game/session.ts",
+    "src/interactions/InteractionBubble.tsx",
+    "src/interactions/WorldInteractionBubbles.tsx",
+    "src/scene/marsColony/ControlRoomEden.tsx",
+    "src/scene/marsColony/MarsColony.tsx",
+    "src/scene/marsColony/edenRuntime.ts",
+    "src/scene/marsColony/sandwindTargets.ts",
+    "src/styles/global.css",
+    "src/ui/ControlList.tsx",
+    "src/ui/ExodenLogo.tsx",
+    "src/ui/HomeScreen.tsx",
+    "tests/control-room-runtime.test.mjs",
+    "tests/eden-control-room.test.mjs",
+    "tests/home-screen.test.mjs"
+  ],
+  "adaptacoes_somente_testes": {
+    "tests/eden-control-room.test.mjs": {
+      "motivo": "Preservar o runtime/asset aprovado; limite de 8 mm só para Holo_Halo, cujo pico medido é 7,6 mm sobre o plano do teto. Corpo permanece sob o teto.",
+      "origem_sha256": "c6a86fa0225d53fbb2f5a73afa0cc09bf8000a759899ab1bcf8c6d78c88c88a6",
+      "consolidado_sha256": "239ab7e915b693c67a93ec09f42801e0844fa95bc9f3b74c037bd26b5e50b09d"
+    }
+  }
+}

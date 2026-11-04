@@ -1,0 +1,27 @@
+{
+  "data": "2026-11-04",
+  "runtime": "957d57897313d8ed4d64d5459080de956efbabeb",
+  "teste_envelope": "3618de2",
+  "npm_test": {
+    "exit_code": 0,
+    "total": 551,
+    "passou": 551,
+    "falhou": 0
+  },
+  "npm_run_build": {
+    "exit_code": 0,
+    "aviso_preexistente": "chunk maior que 500 kB"
+  },
+  "git_diff_check": {
+    "exit_code": 0
+  },
+  "runtime_eden": "idêntico a 23b17ff",
+  "aprovacao_visual": "autor nesta conversa; sem nova certificação de GPU",
+  "preview": "http://localhost:5193/",
+  "origens_preservadas": [
+    "5191",
+    "5192",
+    "worktree da espada",
+    "checkout principal"
+  ]
+}

@@ -1,6 +1,6 @@
 # Quadro de execução — EXODEN
 
-> **Versão publicada em 04/11/2026:** `e8cd32f`, por pedido de consolidação do autor. Reúne luta com espada (combo de três cortes, giro, morte, rastro, neon com luz, alcance de 2,6 m e atordoamento), cabine da aeronave S6.16, coleta de kits de vida aprovada pelo autor, interpolação como padrão e correção do descarte no reinício. Publicação por fast-forward sobre `f0e062a`; registro posterior só de documentação. [Publicação atual](./handoffs/s6.2-luta-espada.md#publicação-e-consolidação--04112026). Os escopos futuros dos sprints continuam pendentes.
+> **Consolidação aprovada em 04/11/2026:** código `957d578`, reunindo os ajustes finais da espada (`02df590`), somente a EDEN da prévia 5191 (`23b17ff`, porte `5d7e015`) e a tela inicial aprovada da 5192. O autor aprovou esta rodada e pediu consolidar. Verificações/publicação registradas no [handoff](./handoffs/consolidacao-eden-2026-11-04.md). Escopos futuros dos sprints continuam pendentes.
 
 > Quem está fazendo o quê, em qual base e branch. O status oficial de cada
 > item (checkbox) continua em
@@ -24,10 +24,10 @@
 | 3 · Ondas, categorias e dispositivos | ◐ Entregas antecipadas aprovadas | Versão atual: hordas 13/26/32/44 (115), quatro tipos de inimigo, investida, recursos, áudio, efeitos e vida/acerto individuais. Demais dispositivos/critério completo S3 seguem pendentes |
 | 4 · Loot, orientação e retorno | ◐ Parte antecipada aprovada | Inventário temporário, peso, quatro espaços, kits coletados por contato e seleção de arma presentes; dispositivos, objetivos obrigatórios, extração e persistência continuam pendentes |
 | 5 · Construção da máquina | 🔲 Não iniciado | — |
-| 6 · Estética dos elementos | ◐ Versão atual aprovada pelo autor em 03/11 | Inclui os três prédios novos, pavimento/corredores contínuos, letreiros, Sandwind avermelhado com vento, HUD beta, facão e acessórios por mapa. Dash também na colônia, arma principal no inventário e facão girando com o corpo no Dash. Itens completos/fases futuras seguem pendentes |
+| 6 · Estética dos elementos | ◐ Versão atual aprovada pelo autor em 04/11 | Inclui os três prédios novos, pavimento/corredores contínuos, letreiros, Sandwind avermelhado com vento, HUD beta, facão e acessórios por mapa. Dash também na colônia, arma principal no inventário e facão girando com o corpo no Dash. Itens completos/fases futuras seguem pendentes |
 | 7 · Texturas, materiais e entrega | 🔲 Não iniciado | Acabamento de UI planejado em S7.11 |
 
-Versão publicada atual: **`e8cd32f`**, **527/527** testes, build e diff-check verdes. Publicada por fast-forward a pedido do autor. [Publicação atual](./handoffs/s6.2-luta-espada.md#publicação-e-consolidação--04112026); [publicação anterior](./handoffs/s6.3-shanghai-atualizacao.md#publicação-do-kit-de-vida-por-contato--04112026).
+Última publicação anterior: **`d232de0`** (código `e8cd32f`, 527 testes). Consolidação aprovada atual: **`957d578`**, **551/551** testes, build e diff-check verdes; publicação por fast-forward, sem merge. [Publicação atual](./handoffs/s6.2-luta-espada.md#publicação-e-consolidação--04112026); [publicação anterior](./handoffs/s6.3-shanghai-atualizacao.md#publicação-do-kit-de-vida-por-contato--04112026).
 
 Legenda: 🔲 não iniciado · ◐ em andamento/parcial · ✅ implementado ·
 ⛔ bloqueado · ⏸ estacionado. "Implementado" não significa aprovado pelo autor.
@@ -41,12 +41,12 @@ Legenda: 🔲 não iniciado · ◐ em andamento/parcial · ✅ implementado ·
 | Campo | Valor |
 |---|---|
 | Branch de integração remota | `origin/rochatales/horda-survivor` |
-| Branch local desta consolidação | `rochatales/s6.2-luta-facao` |
-| Base remota anterior desta rodada | `f0e062a286add2cd438e682b09258bd9883ec662` |
+| Branch local desta consolidação | `rochatales/consolidacao-eden-2026-11-04` |
+| Base remota anterior desta rodada | `d232de0037b7a7fd7609121f552e1d3dfe9dfb15` |
 | Checkout principal preservado | `b54162c359ad539db34e25f6bc61c6184a87e58a` |
-| Código publicado a pedido do autor | `e8cd32fbd19a15512b989decdc29810028cc7e3e` |
-| Integração atual | Fast-forward `f0e062a` → `e8cd32f`, com S6.16 `0678f42` integrada por merge; registro posterior só de docs |
-| Worktree da consolidação | `/Users/rochatales/Automations/wt-s6.2-luta-facao` |
+| Código consolidado aprovado pelo autor | `957d57897313d8ed4d64d5459080de956efbabeb` |
+| Integração atual | Linha direta sobre `d232de0`; commits `02df590` (espada), `5d7e015` (EDEN) e `957d578` (home). Sem merge nesta rodada |
+| Worktree da consolidação | `/Users/rochatales/.codex/worktrees/consolidacao-eden-2026-11-04/game-workplace` |
 | Referência para nova tarefa após a publicação | `git fetch origin` e `git rev-parse origin/rochatales/horda-survivor`; fixar o SHA resultante |
 
 O checkout principal permanece em `b54162c`, com alterações locais e artes sem
@@ -54,6 +54,14 @@ rastreio do autor preservadas. A ref local `rochatales/horda-survivor` **não é
 base atual para novas tarefas** enquanto esse checkout não for reconciliado.
 A consolidação conserva ambos os históricos, sem rebase/cherry-pick e sem editar
 código em relação ao preview aprovado. [Escopo e publicação atuais](./handoffs/consolidacao-validada-2026-11-03.md).
+
+## Consolidação EDEN, entrada e ajustes da espada · 04/11/2026
+
+Pedido e aceite do autor nesta conversa: incorporar **somente EDEN** da frente antiga 5191,
+preservar os ajustes atuais e consolidar. Codex em branch/worktree própria, base `02df590`
+com a espada já commitada, derivada da publicação `d232de0`. EDEN e tela inicial copiadas
+com conferência SHA-256; sala/colônia/combate restantes preservados. Revisor/aceite visual:
+autor. Não encerra S6.12/S6.15 completas nem cria aceite de GPU. [Handoff](./handoffs/consolidacao-eden-2026-11-04.md).
 
 ## Poeira de passos · S3.11 parcial · 02/11/2026
 
@@ -149,7 +157,7 @@ qual a worktree parte e contra o qual a revisão compara.
 | Tarefa | Base | Branch | Arquivos principais | Implementa | Revisa | Estado |
 |---|---|---|---|---|---|---|
 | Consolidação das entregas aprovadas · S6.8/S6.2, colônia e feedback de combate | `b54162c` + `f8655f1` | `rochatales/consolidacao-validada-2026-11-02` → `origin/rochatales/horda-survivor` | Linha integral aprovada, handoffs e quadro; código preservado | Codex | Autor: aceite da versão `f8655f1` | ✅ Aprovada pelo autor em 02/11/2026; merge/publicação pedidos. Preserva checkout principal e worktrees. Escopos completos de sprints e S2.9 não encerrados automaticamente. [Handoff](./handoffs/consolidacao-validada-2026-11-02.md) |
-| S6.12 Control Room — candidato EDEN | `f1756c4` (colônia com Quartel v006 consolidada em commit; sem merge) | `rochatales/s6.12-control-room` | `art-source/control-room/**`, testes do asset e `docs/handoffs/s6.12-control-room.md` | Codex | Claude / Autor | ✅ Composição runtime final com projeção do pedestal aprovada em `f8655f1` (02/11); asset/implantação/acabamento na linha consolidada. O candidato histórico `a57d7ea` foi corrigido em `cf8916a` e integrado por `9ed6817`; não encerra o plano completo da EDEN. |
+| S6.12 Control Room — candidato EDEN | `f1756c4` (colônia com Quartel v006 consolidada em commit; sem merge) | `rochatales/s6.12-control-room` | `art-source/control-room/**`, testes do asset e `docs/handoffs/s6.12-control-room.md` | Codex | Claude / Autor | ✅ EDEN v002 da frente `23b17ff`, no pedestal com escala/animações idênticas, aprovada em 04/11 e incorporada em `5d7e015`; mantém a sala e a composição aprovadas em `f8655f1` (02/11); asset/implantação/acabamento na linha consolidada. O candidato histórico `a57d7ea` foi corrigido em `cf8916a` e integrado por `9ed6817`; não encerra o plano completo da EDEN. |
 | S6.12 Hangar — asset modular animado | `4f821fe` (Greenhouse consolidada, sem merge) | `rochatales/s6.12-hangar-mars` | `art-source/hangar/**`, testes do asset e `docs/handoffs/s6.12-hangar-mars.md` | Codex | Claude / Autor | ✅ Hangar v002 implantado, portas/contorno e acabamento aprovados na composição `f8655f1` (02/11). Estudo original preservado; runtime da linha consolidada, sem substituir Refeitório. |
 | S6.12 Greenhouse — módulos OFFLINE/ONLINE | `a865046` (masterplan v007 aberto, prévia sem merge) | `rochatales/s6.12-greenhouse-estados` | `art-source/greenhouse-v001/`, `src/assets/greenhouse/`, `src/scene/marsColony/Greenhouse*`, composição Marte, colisores/áreas da estufa, testes e handoff | Codex | Claude / Autor | ✅ Estados OFFLINE/ONLINE e implantação aprovados pelo autor, preservados na versão `f8655f1` e nesta consolidação. Progressão/construção futura permanece fora desta entrega. |
 | S6.12 Masterplan v007 — layout da colônia | `a12294fa73e0f710807c612cf535adeeef14d9a8` (prévia ARES-I aprovada; sem merge) | `rochatales/s6.12-mars-masterplan-v007` | `src/world/mapConfig.ts`, `src/game/marsWorld.ts`, configuração EDEN, novos dados/GLB/manifesto v007 e leitor em `src/scene/marsColony/`, fonte Blender em `art-source/mars-masterplan-v007/`, testes e handoff | Codex | Claude / Autor | ✅ Colônia aberta v007 com deck completo e prédios finais aprovada pelo autor e presente em `f8655f1`; fontes e versões históricas preservadas. Não encerra S6.12 inteira. |
