@@ -1,0 +1,17 @@
+[
+  {
+    "copy": "fontes/Great_Sword_Slash.fbx",
+    "original": "/Users/rochatales/Game Development/Horda Survivor/Armamentos/Great_Sword_Slash.fbx",
+    "sha256": "00130c5d140f124bdce9a75d92295105db7536910f514c7ee8ac9836dca40034"
+  },
+  {
+    "copy": "fontes/Great_Sword_180_Turn.fbx",
+    "original": "/Users/rochatales/Game Development/Horda Survivor/Armamentos/Great_Sword_180_Turn.fbx",
+    "sha256": "1cc6eb5cda239e8d2fea7de8e5d9da88b0ab2778b317e023adb5859aa76e1dd2"
+  },
+  {
+    "copy": "fontes/Two_Handed_Sword_Death.fbx",
+    "original": "/Users/rochatales/Game Development/Horda Survivor/Armamentos/Two_Handed_Sword_Death.fbx",
+    "sha256": "f5f8413a45dd59b5e41accd274f274b256c8209f856a34ddbb28da421121c8dd"
+  }
+]

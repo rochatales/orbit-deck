@@ -70,10 +70,10 @@ test('Facão: 50 de dano por golpe no quadro de impacto; não consome munição 
 
 test('Facão: arco frontal 120°, alcance até a superfície e parede/quina impedem golpe e captura',()=>{
  const player={x:0,z:0};
- assert.equal(meleeCanHit(player,0,{x:Math.sin(Math.PI/3)*2,z:Math.cos(Math.PI/3)*2},.5,world),true);
- assert.equal(meleeCanHit(player,0,{x:Math.sin(Math.PI/3+.01)*2,z:Math.cos(Math.PI/3+.01)*2},.5,world),false);
- assert.equal(meleeCanHit(player,0,{x:0,z:2.49},.5,world),true);
- assert.equal(meleeCanHit(player,0,{x:0,z:2.51},.5,world),false);
+ assert.equal(meleeCanHit(player,0,{x:Math.sin(Math.PI/3)*2.6,z:Math.cos(Math.PI/3)*2.6},.5,world),true);
+ assert.equal(meleeCanHit(player,0,{x:Math.sin(Math.PI/3+.01)*2.6,z:Math.cos(Math.PI/3+.01)*2.6},.5,world),false);
+ assert.equal(meleeCanHit(player,0,{x:0,z:3.09},.5,world),true);
+ assert.equal(meleeCanHit(player,0,{x:0,z:3.11},.5,world),false);
  for(const obstacle of [{minX:-1,maxX:1,minZ:.4,maxZ:.5},{minX:-.1,maxX:.1,minZ:.4,maxZ:.5}]) {
   const terrain={...world,obstacles:[obstacle]},s=new CombatSimulation(terrain,1),r=s.robots[0];Object.assign(r,{x:0,z:1.5,pace:0,alerted:true});s.invulnerable=999;
   const hp=r.hp;swing(s);assert.equal(r.hp,hp);assert.equal(meleeReticleTarget(player,r,0,terrain,s.robots),null);
@@ -99,17 +99,19 @@ test('Facão: pausa congela o golpe, Dash/troca cancelam a janela; arma anterior
  const fresh=setup();assert.equal(fresh.swingId,0);assert.equal(fresh.meleeLeft,0);
 });
 
-test('Facão: camada do corte preserva pernas, sincroniza em 0,65 s e pausa/conclusão não vazam para rifle',()=>{
+test('Facão: camada do corte preserva pernas, sincroniza com a simulação e pausa/conclusão não vazam para rifle',async()=>{
+ const combo=await loadGlb('src/assets/characters/player/explorador-espada-v002.glb');
+ const { comboClipTime }=loadSource('src/characters/player/swordClips.ts');
  const character=clone(player.scene),mixer=new AnimationMixer(character);
- const all=[...player.animations,...supplement.animations],actions=Object.fromEntries(all.map(c=>[c.name,mixer.clipAction(c)]));
+ const all=[...player.animations,...supplement.animations,...combo.animations],actions=Object.fromEntries(all.map(c=>[c.name,mixer.clipAction(c)]));
  const layers=new MacheteAnimationLayers(actions),base=layers.legs.Run;base.play();
- layers.update('walking',MACHETE.interval,1,base,false);mixer.update(.01);const upper=layers.upperAction;
+ layers.update('walking',MACHETE.interval,0,base,false);mixer.update(.01);const upper=layers.upperAction;
  assert.ok(upper.getClip().tracks.every(t=>!/Hips|Foot|Leg|Toe/.test(t.name)));
  assert.ok(layers.legs.Run.getClip().tracks.some(t=>/Foot/.test(t.name)));
- layers.update('walking',MACHETE.interval/2,1,base,false);assert.ok(Math.abs(upper.time-upper.getClip().duration/2)<1e-8);
- const time=upper.time;layers.update('walking',0,1,base,true);assert.equal(upper.time,time);
- layers.update('dashing',.1,1,base,false);assert.equal(layers.upperAction,null);
- layers.update('backward',0,1,layers.legs.Backward,false);assert.match(layers.upperAction.getClip().name,/Backward/);
+ layers.update('walking',MACHETE.interval/2,0,base,false);assert.ok(Math.abs(upper.time-comboClipTime(0,MACHETE.interval/2))<1e-8);
+ const time=upper.time;layers.update('walking',0,0,base,true);assert.equal(upper.time,time);
+ layers.update('dashing',.1,0,base,false);assert.equal(layers.upperAction,null);
+ layers.update('backward',0,0,layers.legs.Backward,false);assert.match(layers.upperAction.getClip().name,/Backward/);
  layers.dispose();assert.equal(mixer.existingAction(upper.getClip(),character),null);
 });
 

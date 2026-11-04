@@ -26,7 +26,7 @@ function createImpactVisual(crates: SupplyCrate[], height: (x: number, z: number
     dummy.updateMatrix(); pieces.setMatrixAt(i, dummy.matrix);
     pieces.setColorAt(i, tint.copy(c.sidewalk ? SIDEWALK : ASPHALT).multiplyScalar(.88 + ((i * 37) % 10) / 40));
   });
-  return { scar, pieces, dispose() { scar.geometry.dispose(); scarMaterial.dispose(); texture.dispose(); pieces.geometry.dispose(); chunkMaterial.dispose(); pieces.dispose(); } };
+  return { scar, pieces, dispose() { scar.geometry.dispose(); scarMaterial.dispose(); texture.dispose(); pieces.geometry.dispose(); chunkMaterial.dispose(); InstancedMesh.prototype.dispose.call(pieces); } };
 }
 
 /** Geometria/texturas compartilhadas; porta por instância, um único foco de revelação. */
@@ -42,7 +42,7 @@ export function SupplyCrates({ crates, surfaceHeight }: { crates: SupplyCrate[];
   const impact = useMemo(() => createImpactVisual(crates, surfaceHeight ?? (() => 0)), [crates, surfaceHeight]);
   useEffect(() => () => impact.dispose(), [impact]);
   const light = useMemo(() => { const value = new PointLight(SUPPLY_CRATE.neon, 0, 5, 2); value.castShadow = false; return value; }, []);
-  useEffect(() => () => { rigs.forEach(rig => rig.dispose()); light.dispose(); }, [rigs, light]);
+  useEffect(() => () => { rigs.forEach(rig => rig.dispose()); }, [rigs, light]);
   useFrame(() => {
     let brightest = 0;
     for (let i = 0; i < rigs.length; i++) {

@@ -1,5 +1,5 @@
 import { MEDICAL_KIT } from '../game/props/medicalKit';
-import { MACHETE, meleeCanHit, type PlayerWeapon } from './melee';
+import { MACHETE, MACHETE_COMBO, meleeCanHit, type PlayerWeapon } from './melee';
 import { canCarryDrop } from '../game/backpackConfig';
 import type { WeaponMuzzleOffset } from '../state/playerWeaponPose';
 import { ENEMY_MOTION } from './enemyMotion';
@@ -150,6 +150,9 @@ export class CombatSimulation {
     meleeCooldown = 0;
     meleeLeft = 0;
     swingId = 0;
+    /** Corte atual do combo (0, 1 ou 2). */
+    comboStage = 0;
+    private comboWindow = 0;
     private meleeHit = false;
     private dryCooldown = 0;
     private wasFiring = false;
@@ -372,8 +375,9 @@ export class CombatSimulation {
         this.cooldown = Math.max(0, this.cooldown - dt);
         this.meleeCooldown = Math.max(0, this.meleeCooldown - dt);
         this.meleeLeft = Math.max(0, this.meleeLeft - dt);
+        this.comboWindow = Math.max(0, this.comboWindow - dt);
         const machete = input.weapon === 'machete';
-        if (!machete || input.dashing) this.meleeLeft = 0;
+        if (!machete || input.dashing) this.meleeLeft = this.comboWindow = 0;
         if (machete) this.reloadLeft = 0;
         this.dryCooldown = Math.max(0, this.dryCooldown - dt);
         this.invulnerable = Math.max(0, this.invulnerable - dt);
@@ -443,11 +447,13 @@ export class CombatSimulation {
             }
         }
         if (machete && !input.dashing && input.firing && this.meleeCooldown <= 1e-8 && Number.isFinite(input.facingAngle)) {
-            this.meleeCooldown = this.meleeLeft = MACHETE.interval;
+            this.comboStage = this.comboWindow > 0 ? (this.comboStage + 1) % MACHETE_COMBO.length : 0;
+            this.meleeCooldown = this.meleeLeft = MACHETE_COMBO[this.comboStage].interval;
+            this.comboWindow = this.meleeLeft + MACHETE.chainWindow;
             this.meleeHit = false;
             this.swingId++;
         }
-        if (machete && this.meleeLeft > 0 && !this.meleeHit && this.meleeLeft <= MACHETE.interval - MACHETE.impactDelay + 1e-8) {
+        if (machete && this.meleeLeft > 0 && !this.meleeHit && this.meleeLeft <= MACHETE_COMBO[this.comboStage].interval - MACHETE_COMBO[this.comboStage].impact + 1e-8) {
             this.meleeHit = true;
             for (const robot of this.robots) {
                 if (robot.hp <= 0 || !meleeCanHit(input.player, input.facingAngle, robot, robotConfig(robot).radius, this.terrain)) continue;

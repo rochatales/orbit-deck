@@ -61,6 +61,10 @@ export interface PlayerMotionState {
   speedAlpha: number;
   planarSpeed: number;
   facingAngle: number;
+  /** Para onde a mira pede o corpo, antes do amortecimento da orientação. */
+  aimAngle: number;
+  /** Correção visual do corpo no giro de 180° com a espada; não afeta a física. */
+  bodyYaw: number;
   moveAngle: number;
   visualBob: number;
   bodyLean: number;
@@ -75,6 +79,8 @@ export function createInitialPlayerMotionState(): PlayerMotionState {
     speedAlpha: 0,
     planarSpeed: 0,
     facingAngle: 0,
+    aimAngle: 0,
+    bodyYaw: 0,
     moveAngle: 0,
     visualBob: 0,
     bodyLean: 0,

@@ -1,0 +1,56 @@
+{
+  "blender": "5.1.1",
+  "fps": 30,
+  "escala": 1.6416854052987617,
+  "base_glb_sha256": "166e2f982dbb2d67e328ea7d246552a8753aa198d8d896cae72dc5494428aee5",
+  "base_bind_sha256": "87d7fdbce58a9ccbf3617a7fc25fe1c22974a6e648ba5321dfadb099eb1e1b12",
+  "clipes": [
+    {
+      "name": "Sword_Combo",
+      "file": "Great_Sword_Slash.fbx",
+      "source_frames": [
+        1,
+        68
+      ],
+      "source_fps": 30.0,
+      "duration": 2.2333333333333334,
+      "root": "neutral",
+      "root_forward_m": 1.9748949806868887,
+      "yaw_total_graus": -359.99995009675723,
+      "bind_delta": 0.0
+    },
+    {
+      "name": "Sword_Turn",
+      "file": "Great_Sword_180_Turn.fbx",
+      "source_frames": [
+        1,
+        18
+      ],
+      "source_fps": 30.0,
+      "duration": 0.5666666666666667,
+      "root": "neutral",
+      "root_forward_m": 0.13569722866871115,
+      "yaw_total_graus": -181.95289399401182,
+      "bind_delta": 0.0
+    },
+    {
+      "name": "Sword_Death",
+      "file": "Two_Handed_Sword_Death.fbx",
+      "source_frames": [
+        1,
+        79
+      ],
+      "source_fps": 30.0,
+      "duration": 2.6,
+      "root": "keep",
+      "root_forward_m": 0.753174170152676,
+      "yaw_total_graus": -102.09956255043117,
+      "bind_delta": 0.0
+    }
+  ],
+  "glb": {
+    "file": "export/explorador-espada-v002.glb",
+    "sha256": "2be3b5fa172b0a6f7004e8c640fe63e30a1eaedb8de8509880294c6e4ea29b08",
+    "bytes": 939532
+  }
+}

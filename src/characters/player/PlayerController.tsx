@@ -1,6 +1,8 @@
 import { recoverBackpackEnergy } from '../../game/backpackConfig';
 import { backpackEnergy, resetBackpackEnergy } from '../../state/useBackpackEnergy';
 import { advanceDash, dashEnabled } from './playerDash';
+import { comboLungeSpeed } from './swordClips';
+import { meleeLungeBlocked } from '../../combat/melee';
 import { constrainToWalkableAreas } from './playerMovement';
 import { playerActions } from '../../state/playerActions';
 import { recordPhysicsStep } from '../../physics/interpolationTelemetry';
@@ -168,8 +170,13 @@ export function PlayerController({
     wasDashingRef.current = isDashing;
     const movementDt = isDashing ? Math.min(dt, dashUntilRef.current - dashNow) : dt;
     const forward = aimMotion(facingAngleRef.current, 1, motionDirRef.current);
-    velocityRef.current.x = forward.x * speedRef.current;
-    velocityRef.current.z = forward.z * speedRef.current;
+    // Parado, o passo do golpe vem do próprio clipe da espada e mantém o pé de apoio no chão.
+    const simulation = useExpeditionStore.getState().session.map === 'shanghai' ? combatRuntime.simulation : null;
+    const lunge = simulation && !isDashing && input === 0 && Math.abs(speedRef.current) < PLAYER_LOCOMOTION.startSpeed && simulation.meleeLeft > 0
+      && !meleeLungeBlocked(translation, facingAngleRef.current, simulation.robots)
+      ? comboLungeSpeed(simulation.comboStage, simulation.meleeLeft) : 0;
+    velocityRef.current.x = forward.x * (speedRef.current + lunge);
+    velocityRef.current.z = forward.z * (speedRef.current + lunge);
 
     const desiredTranslation = constrainToWalkableAreas(
       translation.x,
@@ -198,8 +205,9 @@ export function PlayerController({
     // Locomoção pela velocidade real depois da colisão (parede → Idle) e pelo sentido em
     // relação ao corpo (para trás → Backward).
     const vx = correctedMovement.x / dt, vz = correctedMovement.z / dt;
-    const planarSpeed = Math.hypot(vx, vz);
-    const along = vx * Math.sin(facingAngleRef.current) + vz * Math.cos(facingAngleRef.current);
+    // O passo do golpe não conta como locomoção: quem está parado continua no corpo todo do corte.
+    const planarSpeed = lunge > 0 ? 0 : Math.hypot(vx, vz);
+    const along = lunge > 0 ? 0 : vx * Math.sin(facingAngleRef.current) + vz * Math.cos(facingAngleRef.current);
     kindRef.current = locomotionKind(kindRef.current, along, planarSpeed, PLAYER_LOCOMOTION.startSpeed, PLAYER_LOCOMOTION.stopSpeed);
     const speedAlpha = MathUtils.clamp(planarSpeed / PLAYER_MOVEMENT.runSpeed, 0, 1);
     const moveAngle = planarSpeed > 0.001 ? Math.atan2(vx, vz) : facingAngleRef.current;
@@ -219,6 +227,7 @@ export function PlayerController({
     motionRef.current.planarSpeed = planarSpeed;
     motionRef.current.moveAngle = moveAngle;
     motionRef.current.facingAngle = facingAngleRef.current;
+    motionRef.current.aimAngle = targetAngle;
     motionRef.current.isGrounded = controller.computedGrounded();
   });
 

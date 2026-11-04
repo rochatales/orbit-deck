@@ -36,7 +36,7 @@ interface LocomotionControllerProps {
 export function LocomotionController({ motionRef, actions, asset, combat }: LocomotionControllerProps) {
   const weapon = useWeaponStore(s => s.weapon);
   const machete = combat && weapon === 'machete';
-  const swordLayers = useMemo(() => machete && asset.id === 'player-astronauta' && actions.Machete_Idle && actions.Machete_Run && actions.Machete_Slash
+  const swordLayers = useMemo(() => machete && asset.id === 'player-astronauta' && actions.Machete_Idle && actions.Machete_Run && actions.Sword_Combo
     ? new MacheteAnimationLayers(actions) : null, [machete, asset.id, actions]);
   useEffect(() => () => swordLayers?.dispose(), [swordLayers]);
   const layers = useMemo(() => !machete && combat && asset.id === 'player-astronauta' && actions.Backward_Rifle && actions.Run
@@ -82,27 +82,32 @@ export function LocomotionController({ motionRef, actions, asset, combat }: Loco
 
   useFrame((_, delta) => {
     const motion = motionRef.current;
-    const target = pickTargetAction(motion.animationState, baseActions, combat);
+    const simulation = combatRuntime.simulation;
+    const blocked = simulationBlocked();
+    const swingLeft = simulation?.meleeLeft ?? 0;
+    swordLayers?.prepare(motion.animationState, motion.facingAngle, motion.aimAngle, swingLeft, !!simulation?.dead, delta, blocked);
+    motion.bodyYaw = swordLayers?.bodyYaw ?? 0;
+    const swordLegs = swordLayers?.legsAction(motion.animationState, swingLeft) ?? null;
+    const target = swordLegs ?? pickTargetAction(motion.animationState, baseActions, combat);
     const current = currentRef.current;
 
     const onceChanged = motion.animationState !== stateRef.current &&
       (motion.animationState === 'dashing' || stateRef.current === 'dashing' || motion.animationState === 'falling' || stateRef.current === 'falling');
     if (target && (target !== current || onceChanged)) {
-      const fade = crossfadeFor(stateRef.current, motion.animationState);
+      const fade = swordLegs ? swordLayers!.legsFade() : crossfadeFor(stateRef.current, motion.animationState);
       configureLocomotionAction(target, motion.animationState);
       transition.to(target, fade, onceChanged);
       currentRef.current = target;
     }
-    transition.update(simulationBlocked() ? 0 : delta);
+    transition.update(blocked && !swordLayers?.dying ? 0 : delta);
     stateRef.current = motion.animationState;
 
     // Taxa dos ciclos in-place pela velocidade real.
     const active = currentRef.current;
     updateLocomotionRates(baseActions, active, motion.animationState, motion.planarSpeed, calibration);
-    const simulation = combatRuntime.simulation;
-    swordLayers?.update(motion.animationState, simulation?.meleeLeft ?? 0, simulation?.swingId ?? 0, active, simulationBlocked());
-    layers?.update(motion.animationState, simulation?.reloadLeft ?? 0, (simulation?.cooldown ?? 0) > 0, active, simulationBlocked());
-    if (!simulationBlocked() && active && motion.planarSpeed >= PLAYER_LOCOMOTION.stopSpeed && (motion.animationState === "walking" || motion.animationState === "backward")) {
+    swordLayers?.update(motion.animationState, swingLeft, simulation?.comboStage ?? 0, active, blocked);
+    layers?.update(motion.animationState, simulation?.reloadLeft ?? 0, (simulation?.cooldown ?? 0) > 0, active, blocked);
+    if (!blocked && active && motion.planarSpeed >= PLAYER_LOCOMOTION.stopSpeed && (motion.animationState === "walking" || motion.animationState === "backward")) {
       if (stepClock.current.advance(motion.animationState, active.time, active.getClip().duration)) {
         playerSounds.emit('playerStep', playerPosition.x, playerPosition.z);
         playerStepDust.request(Math.floor(active.time / active.getClip().duration * 2) % 2, motion.moveAngle, motion.isGrounded);

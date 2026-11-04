@@ -89,7 +89,12 @@ export class MacheteGripRig {
     this.leftIndex = bone('LeftHandIndex1'); this.leftThumb = bone('LeftHandThumb2');
     this.leftArm = bone('LeftArm'); this.leftForearm = bone('LeftForeArm'); this.leftHand = bone('LeftHand');
   }
-  update(twoHands = true) {
+  /**
+   * `wristLed` (0 a 1) leva a lâmina do eixo entre as palmas para o pulso direito. No corte
+   * o eixo entre as palmas salta e enterra a ponta no chão; o pulso conduz liso, com a
+   * mão esquerda acompanhando no cabo pela IK.
+   */
+  update(twoHands = true, wristLed = 0) {
     if (!twoHands) {
       this.weapon.position.fromArray(MACHETE_HAND_TRANSFORM.position);
       this.weapon.quaternion.fromArray(MACHETE_HAND_TRANSFORM.quaternion).normalize();
@@ -113,6 +118,11 @@ export class MacheteGripRig {
     this.weapon.quaternion.copy(this.parentRotation);
     this.offset.set(0, .21 * MACHETE_HAND_TRANSFORM.scale[0], 0).applyQuaternion(this.parentRotation);
     this.hand.worldToLocal(this.right); this.weapon.position.copy(this.right).sub(this.offset);
+    if (wristLed > 0) {
+      this.weapon.position.lerp(this.temp.fromArray(MACHETE_HAND_TRANSFORM.position), wristLed);
+      this.weapon.quaternion.slerp(this.rotation.fromArray(MACHETE_HAND_TRANSFORM.quaternion).normalize(), wristLed);
+      // A palma esquerda segue como referência; só o destino dela no cabo muda com a lâmina.
+    }
     this.fitLeftHand();
   }
   /** IK analítica de dois segmentos só no braço esquerdo: o cabo curto não exige

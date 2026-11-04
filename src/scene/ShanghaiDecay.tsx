@@ -93,8 +93,8 @@ function createDecay(world: OfficeWorld) {
     decalMesh, debrisMesh, weedMesh, sway,
     dispose() {
       decalMesh.geometry.dispose(); decalMaterial.dispose(); atlas.dispose();
-      debrisMesh.geometry.dispose(); debrisMaterial.dispose(); debrisMesh.dispose();
-      weedMesh.geometry.dispose(); weedMaterial.dispose(); weedTexture.dispose(); weedMesh.dispose();
+      debrisMesh.geometry.dispose(); debrisMaterial.dispose(); InstancedMesh.prototype.dispose.call(debrisMesh);
+      weedMesh.geometry.dispose(); weedMaterial.dispose(); weedTexture.dispose(); InstancedMesh.prototype.dispose.call(weedMesh);
     }
   };
 }

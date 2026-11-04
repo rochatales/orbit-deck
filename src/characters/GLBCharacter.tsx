@@ -35,6 +35,8 @@ interface GLBCharacterProps {
   /** Ver `CharacterAssetConfig.materialProfile`; padrão 'estilizado' (comportamento anterior). */
   materialProfile?: "estilizado" | "preservar";
   animationPriority?: number;
+  /** Mantém o animador rodando com a simulação bloqueada (queda do explorador). */
+  keepAnimating?: boolean;
   onSceneReady?: (scene: Object3D) => void;
   onAnimationsReady?: (actions: GLBActionMap, mixer: AnimationMixer) => void;
 }
@@ -93,6 +95,7 @@ function GLBCharacterContent({
   animationState = "idle",
   materialProfile = "estilizado",
   animationPriority = 0,
+  keepAnimating = false,
   onSceneReady,
   onAnimationsReady
 }: Omit<GLBCharacterProps, "fallbackType" | "fallbackLabel">) {
@@ -108,7 +111,7 @@ function GLBCharacterContent({
   useFrame((_, delta) => { mixer.update(delta); }, animationPriority);
   useEffect(() => () => { mixer.stopAllAction(); mixer.uncacheRoot(prepared.scene); }, [mixer, prepared.scene]);
   const paused = useSimulationBlocked();
-  useEffect(() => { mixer.timeScale = paused ? 0 : 1; }, [mixer, paused]);
+  useEffect(() => { mixer.timeScale = paused && !keepAnimating ? 0 : 1; }, [mixer, paused, keepAnimating]);
 
   useEffect(() => {
     if (!inspectedAssets.has(assetPath)) {

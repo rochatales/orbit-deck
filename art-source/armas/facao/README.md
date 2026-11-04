@@ -22,6 +22,10 @@ reexporta nem modifica o GLB aprovado do jogador. O complemento carrega só as
 animações no mixer do avatar existente; sua malha sem texturas não é montada.
 Todos os arquivos de origem são somente leitura para os scripts.
 
+Clipes v002 (combo, giro e morte com espada) e tabelas do runtime:
+`scripts/preparar_espada.py` e `scripts/medir_arcos.mjs`. Estudo e comandos em
+`docs/handoffs/s6.2-luta-espada.md`. `Machete_Slash` ficou só como histórico.
+
 `Machete_Block` é exportado para rastreabilidade, mas excluído do carregamento
 das ações em runtime: bloqueio foi explicitamente adiado pelo autor.
 

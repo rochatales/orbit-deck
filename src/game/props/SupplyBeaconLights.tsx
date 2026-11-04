@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { PointLight } from 'three';
 import type { Pickup, SupplyCrate } from '../../combat/simulation';
@@ -10,7 +10,6 @@ export function SupplyBeaconLights({ kits, crates, height = zero }: { kits: Pick
   const lights = useMemo(() => Array.from({ length: SUPPLY_LIGHTING.maxLights }, () => {
     const light = new PointLight('#ffffff', 0, SUPPLY_LIGHTING.reach, 2); light.castShadow = false; return light;
   }), []);
-  useEffect(() => () => lights.forEach(light => light.dispose()), [lights]);
   useFrame(() => {
     pool.update(playerPosition);
     for (let i = 0; i < lights.length; i++) {
