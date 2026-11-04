@@ -333,7 +333,7 @@ export class CombatSimulation {
         let nearest: Pickup | undefined, distance = Infinity;
         for (const kit of this.hearts) {
             const d = Math.hypot(player.x - kit.x, player.z - kit.z);
-            if (kit.active && d <= MEDICAL_KIT.interactionRadius && d < distance && clearSegment(player, kit, this.terrain, 0)) { nearest = kit; distance = d; }
+            if (kit.active && d <= COMBAT.pickupRadius && d < distance && clearSegment(player, kit, this.terrain, 0)) { nearest = kit; distance = d; }
         }
         return nearest;
     }
@@ -490,6 +490,8 @@ export class CombatSimulation {
                 else { this.iron++; this.copper++; }
             }
         }
+        // Kit de vida: basta passar por cima, como os recursos; fica guardado para usar com 3.
+        this.collectMedicalKit(input.player);
         if (this.waves.length) {
             if (this.waveLeft > 0) {
                 this.waveLeft = Math.max(0, this.waveLeft - dt);

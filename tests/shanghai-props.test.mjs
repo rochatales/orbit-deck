@@ -69,11 +69,10 @@ test('Shanghai kits: modelo de 0,6 m, no solo sem anel/flutuação/giro e coleta
  const code=fs.readFileSync('src/combat/CombatScene.tsx','utf8');assert.match(code,/<HealthPickups/);assert.doesNotMatch(code,/heartShape|shapeGeometry/);
 });
 
-test('Shanghai kits: coleta por E guarda sem curar; uso separado e retry restaura',()=>{
+test('Shanghai kits: passar por cima guarda sem curar; uso separado e retry restaura',()=>{
  const world=createPhase01Terrain(),s=new CombatSimulation(world,1,encounterLayout(true));s.robots.forEach(r=>r.hp=0);const h=s.hearts[0];
- const input={player:h,aim:{x:0,z:0},firing:false,reload:false};s.step(1/60,input);assert.equal(h.active,true);
- s.hp=40;s.step(1/60,input,true);assert.equal(s.hp,40);assert.equal(h.active,true);
- s.step(1/60,input);assert.equal(s.hp,40);assert.equal(h.active,true);assert.equal(s.collectMedicalKit(h),true);assert.equal(s.medkits,1);assert.equal(s.hp,40);assert.equal(s.useMedicalKit(),true);assert.equal(s.hp,90);assert.equal(h.active,false);s.step(1/60,input);assert.equal(s.hp,90);
+ const input={player:h,aim:{x:0,z:0},firing:false,reload:false};s.hp=40;s.step(1/60,input,true);assert.equal(s.hp,40);assert.equal(h.active,true);
+ s.step(1/60,input);assert.equal(s.hp,40);assert.equal(h.active,false);assert.equal(s.medkits,1);assert.equal(s.hp,40);assert.equal(s.useMedicalKit(),true);assert.equal(s.hp,90);assert.equal(h.active,false);s.step(1/60,input);assert.equal(s.hp,90);
  assert.equal(s.sounds.slots.slice(0,s.sounds.count).filter(e=>e.type==='collect').length,1);
  const fresh=new CombatSimulation(world,1,encounterLayout(true));assert.ok(fresh.hearts.every(h=>h.active));
 });
