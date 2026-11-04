@@ -1,0 +1,14 @@
+{
+  "src/app/App.tsx": "c53246dfbe51a374be8b8de26fdb68a9d0759b1d88035356da7e88b7e1ed523c",
+  "src/game/session.ts": "63d8acc6471ac70e4c500e1ab1fc09db7f56930f5ac5307db89c629dddb0d0e2",
+  "src/styles/global.css": "ab103b3120c75953b417cdcdcc0e8865392e8559e5183f55635e16dca38c5c48",
+  "src/ui/ControlList.tsx": "7429029eecdd35b0a175066a0711a36c3875a77c4149ca32bcff0a04053f11ac",
+  "src/ui/ExodenLogo.tsx": "9cb4294468e4dfc7c0d527392c269f6baabd5722989707296ce8197ce4fb7add",
+  "src/ui/HomeScreen.tsx": "11c29bc7fbf5d9df3e84ab2b4c4668306458efb5626844d8fdba2b67e73e3087",
+  "src/assets/home/explorador-perfil.webp": "bd4b58f6393a7fd78a9a16c27f6e28a7352c57d275fcb508a212f8d25cbebc43",
+  "src/assets/home/colonia.webp": "68a26ff8cf7fd4a3fb5b1d0ecc9470dbc85691494d0edd0e18053936dd6b3b58",
+  "art-source/home-exoden/scripts/render_perfil.py": "fe111d915e3e86706561b6327bc83d4c418ab458f90eaef6e131e4c361d64f91",
+  "art-source/home-exoden/scripts/render_colonia.py": "d9d8d2895ad0d914c5ec920b16764f3330eb293f062448c6538f97364491397d",
+  "docs/handoffs/s6.15-tela-inicial.md": "3e10beef57c9b6fb53d96a92f4e861a19760d8d7f017335688cc380b4452d64e",
+  "tests/home-screen.test.mjs": "ee709b8c6ab989110dab470db8ba5a9d75828d1f2393d55b8983ce2beb5c0eb3"
+}

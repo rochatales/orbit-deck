@@ -1,4 +1,6 @@
 import { WeaponControls } from '../characters/player/WeaponControls';
+import { ControlList } from '../ui/ControlList';
+import { HomeScreen } from '../ui/HomeScreen';
 import { PauseMenuFrame } from '../ui/PauseMenuFrame';
 import { GameplayHud, BackpackContents } from '../ui/GameplayHud';
 import { ShipCargoPanel } from '../ui/ShipCargoPanel';
@@ -7,7 +9,6 @@ import { OPEN_CARGO_EVENT, isNearCargo } from '../game/shipCargo';
 import { playerPosition } from '../state/playerTransient';
 import { activateWorldInteraction } from '../interactions/runtime';
 import { AudioControls, AudioLifecycle } from '../audio/AudioRuntime';
-import { audio } from '../audio/runtime';
 import { CombatHud, EncounterSelect } from '../combat/CombatHud';
 import { useCombatStore } from '../state/useCombatStore';
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
@@ -23,17 +24,6 @@ import type { OfficeWorld } from '../world/createOfficeMap';
 import type { MapId } from '../game/session';
 import { sandwindPanelEnabled } from '../scene/marsColony/sandwindPolicy';
 const SandwindPanel = lazy(() => import('../scene/marsColony/ColonySandwind').then(m => ({ default: m.SandwindPanel })));
-function Welcome() {
-    const [name, setName] = useState(''), [color, setColor] = useState('#66e6ff');
-    const start = useExpeditionStore(s => s.start);
-    return <main className="welcome"><form onSubmit={e => { e.preventDefault(); void audio.unlock(); start(name, color); }}>
-    <p className="eyebrow">EXODEN · PROTÓTIPO</p><h1>O mundo acabou. A humanidade, não.</h1>
-    <p>Marte é nosso lar. A Terra guarda os materiais do próximo passo.</p>
-    <label>Nome do explorador<input value={name} onChange={e => setName(e.target.value)} minLength={2} maxLength={32} required autoFocus/></label>
-    <label>Cor do traje<input type="color" value={color} onChange={e => setColor(e.target.value)}/></label>
-    <button disabled={name.trim().length < 2}>Entrar na colônia</button>
-  </form></main>;
-}
 function Runtime() {
     const s = useExpeditionStore();
     const paused = useGameStore(g => g.isPaused);
@@ -141,7 +131,7 @@ function Runtime() {
       <div className="beta-menu-heading"><p className="eyebrow">EXODEN · EXPLORAÇÃO PAUSADA</p><button className="secondary" onClick={() => useGameStore.setState({ isPaused: false })} aria-label="Fechar menu">✕</button></div>
       <div className="beta-menu-tabs"><button className={pauseView === 'menu' ? 'is-active' : 'secondary'} onClick={() => setPauseView('menu')}>Controles</button><button className={pauseView === 'backpack' ? 'is-active' : 'secondary'} onClick={() => setPauseView('backpack')}>Mochila</button><button className={pauseView === 'cargo' ? 'is-active' : 'secondary'} onClick={() => setPauseView('cargo')}>Aeronave</button></div>
       {pauseView === 'cargo' ? <ShipCargoPanel map={s.session.map}/> : pauseView === 'backpack' ? <BackpackContents combat={s.session.map === 'shanghai'}/> : <>
-        <h2>À sua maneira.</h2><dl className="beta-control-list"><div><dt>W / S</dt><dd>Correr pela mira / recuar</dd></div><div><dt>MOUSE</dt><dd>Mirar · botão esquerdo para atirar</dd></div><div><dt>ESPAÇO</dt><dd>Dash na colônia e em Shanghai · 2 cargas · recarga total em 5 s</dd></div><div><dt>1 / 2</dt><dd>Arma principal: rifle / facão · golpes só em Shanghai</dd></div><div><dt>3</dt><dd>Usar kit médico guardado · +50 de vida</dd></div><div><dt>R / E</dt><dd>Recarregar / interagir</dd></div><div><dt>Q / C</dt><dd>Girar câmera · roda para zoom</dd></div><div><dt>B / F</dt><dd>Mochila / carga da aeronave (perto dela)</dd></div><div><dt>ESC / M</dt><dd>Pausa / som</dd></div></dl>
+        <h2>À sua maneira.</h2><ControlList/>
         <AudioControls/>
         <details className="beta-radio-log"><summary>Última transmissão · EDEN</summary><p>{s.radio}</p></details>
         {s.session.map === 'shanghai' && <details className="beta-test-tools"><summary>Encontro de teste</summary><EncounterSelect/><button onClick={() => { s.restartMission(); }}>Reiniciar encontro</button></details>}
@@ -155,4 +145,7 @@ function Runtime() {
         setRetry(x => x + 1); }}>Tentar novamente</button>}</article></section>}
   </main>;
 }
-export function App() { const profile = useExpeditionStore(s => s.profile); return <><AudioLifecycle/>{profile ? <Runtime /> : <Welcome />}</>; }
+export function App() {
+    const profile = useExpeditionStore(s => s.profile), [entered, setEntered] = useState(false);
+    return <><AudioLifecycle/>{entered && profile ? <Runtime /> : <HomeScreen onEnter={() => setEntered(true)}/>}</>;
+}

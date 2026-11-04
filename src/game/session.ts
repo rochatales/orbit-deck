@@ -26,6 +26,7 @@ export interface Profile {
     displayName: string;
     color: string;
 }
+export const DEFAULT_SUIT_COLOR = '#66e6ff';
 export interface HubSave {
     version: 1;
     profile: Profile | null;
@@ -40,7 +41,7 @@ export function parseSave(raw: string | null): HubSave {
         const p = value.profile;
         if (typeof p?.displayName !== 'string' || p.displayName.trim().length < 2)
             return empty;
-        return { version: 1, profile: { displayName: p.displayName.trim().slice(0, 32), color: /^#[0-9a-f]{6}$/i.test(p.color) ? p.color : '#66e6ff' }, briefingSeen: value.briefingSeen === true };
+        return { version: 1, profile: { displayName: p.displayName.trim().slice(0, 32), color: /^#[0-9a-f]{6}$/i.test(p.color) ? p.color : DEFAULT_SUIT_COLOR }, briefingSeen: value.briefingSeen === true };
     }
     catch {
         return empty;
