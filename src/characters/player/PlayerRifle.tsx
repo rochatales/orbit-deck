@@ -3,7 +3,7 @@ import { useGLTF } from '@react-three/drei';
 import { Component, Suspense, useEffect, useMemo, type MutableRefObject, type ReactNode } from 'react';
 import { Mesh, type Object3D } from 'three';
 import rifleAsset from '../../assets/weapons/rifle-laser-v001.glb';
-import { attachRifle, attachHolsteredRifle, detachRifle, RifleAimRig } from './rifleAttachment';
+import { attachRifle, attachBackRifle, attachHolsteredRifle, detachRifle, RifleAimRig } from './rifleAttachment';
 
 import { playerPosition, playerFacing } from '../../state/playerTransient';
 import { playerWeaponPose, playerHeadPose, resetPlayerWeaponPose } from '../../state/playerWeaponPose';
@@ -36,7 +36,7 @@ function HandRifle({ scene, onAttached, motionRef, combat, equipped = true }: Pl
   }, -20);
   useEffect(() => {
     resetPlayerWeaponPose();
-    onAttached(combat && equipped ? attachRifle(scene, rifle) : attachHolsteredRifle(scene, rifle));
+    onAttached(combat ? equipped ? attachRifle(scene, rifle) : attachBackRifle(scene, rifle) : attachHolsteredRifle(scene, rifle));
     return () => { detachRifle(rifle); resetPlayerWeaponPose(); onAttached(false); };
   }, [scene, rifle, onAttached, combat, equipped]);
   return null;

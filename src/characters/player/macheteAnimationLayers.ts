@@ -1,31 +1,9 @@
-import { AnimationClip, PropertyBinding, Quaternion, QuaternionKeyframeTrack, LoopRepeat, type AnimationAction } from 'three';
+import { AnimationClip, PropertyBinding, Quaternion, LoopRepeat, type AnimationAction } from 'three';
 import type { GLBActionMap } from '../GLBCharacter';
 import type { PlayerAnimationState } from './playerConfig';
 import { SWORD_CLIPS, SWORD_TURN_MIN_ANGLE, comboClipTime, turnBodyOffset, turnSweep, wrapAngle } from './swordClips';
 
 const trackBone = (name: string) => PropertyBinding.sanitizeNodeName(PropertyBinding.parseTrackName(name).nodeName ?? '');
-const isBone = (name: string, bone: string) => /mixamorig:?/.test(name) && name.replace(/mixamorig:?/, '') === bone;
-
-/**
- * Tronco do combo para quem corre: as pernas seguem a corrida e o quadril não gira com o clipe,
- * então a torção dele passa para a coluna e o corte mantém a direção no mundo.
- */
-export function comboTorsoWhileMoving(clip: AnimationClip, hipsRest: Quaternion, name: string, names: Set<string>) {
-  const hips = clip.tracks.find(t => t.name.endsWith('.quaternion') && isBone(trackBone(t.name), 'Hips'));
-  const spine = clip.tracks.find(t => t.name.endsWith('.quaternion') && isBone(trackBone(t.name), 'Spine'));
-  const tracks = clip.tracks.filter(t => names.has(trackBone(t.name)) && t !== spine);
-  if (hips && spine) {
-    const readHips = hips.createInterpolant(), readSpine = spine.createInterpolant(), inverse = hipsRest.clone().invert();
-    const values = new Float32Array(spine.times.length * 4), a = new Quaternion(), b = new Quaternion();
-    spine.times.forEach((time, i) => {
-      a.fromArray(readHips.evaluate(time) as ArrayLike<number> as number[]);
-      b.fromArray(readSpine.evaluate(time) as ArrayLike<number> as number[]);
-      a.premultiply(inverse).multiply(b).normalize().toArray(values, i * 4);
-    });
-    tracks.push(new QuaternionKeyframeTrack(spine.name, Array.from(spine.times), Array.from(values)));
-  }
-  return new AnimationClip(name, clip.duration, tracks);
-}
 
 /**
  * Fecha o ciclo: a última pose do `Machete_Backward` não bate com a primeira e dava um tranco de
@@ -47,7 +25,7 @@ export function weldLoop(clip: AnimationClip, keys = 5) {
   return out;
 }
 
-/** Tronco executa o corte; pernas conservam marcha/recuo sem parar a física. Parado, usa o corpo todo. */
+/** Golpes usam o corpo todo, inclusive em movimento; a física continua conduzida pela mira. */
 export class MacheteAnimationLayers {
   readonly legs: GLBActionMap;
   private upper: GLBActionMap = {};
@@ -81,11 +59,6 @@ export class MacheteAnimationLayers {
     for (const [name, source] of [['Slash', actions.Sword_Combo], ['Turn', actions.Sword_Turn], ['Death', actions.Sword_Death]] as const) {
       if (source) { this.legs[name] = masked(source, false, name + '_Espada_Pernas'); this.upper[name] = masked(source, true, name + '_Espada_Tronco'); }
     }
-    const idleHips = actions.Machete_Idle?.getClip().tracks.find(t => t.name.endsWith('.quaternion') && isBone(trackBone(t.name), 'Hips'));
-    if (actions.Sword_Combo) {
-      const rest = idleHips ? new Quaternion().fromArray(Array.from(idleHips.values).slice(0, 4)) : new Quaternion();
-      this.upper.SlashMoving = action(comboTorsoWhileMoving(actions.Sword_Combo.getClip(), rest, 'Slash_Espada_Tronco_Correndo', names));
-    }
   }
   /** Decide morte e giro antes da escolha das pernas; pausa não avança o relógio. */
   prepare(state: PlayerAnimationState, facing: number, aim: number, left: number, dead: boolean, delta: number, blocked: boolean) {
@@ -107,7 +80,7 @@ export class MacheteAnimationLayers {
   legsAction(state: PlayerAnimationState, left: number): AnimationAction | null {
     if (this.special === 'death') return this.legs.Death ?? null;
     if (this.special === 'turn') return this.legs.Turn ?? null;
-    return left > 0 && state === 'idle' ? this.legs.Slash ?? null : null;
+    return left > 0 && (state === 'idle' || state === 'walking' || state === 'backward') ? this.legs.Slash ?? null : null;
   }
   /** O giro começa sem mistura: o quadril do clipe já está compensado pelo corpo. */
   legsFade() { return this.special === 'turn' ? 0 : this.special === 'death' ? .12 : .07; }
@@ -116,10 +89,9 @@ export class MacheteAnimationLayers {
     if (blocked && !this.dying) return;
     const unusual = state === 'dashing' || state === 'falling' || state === 'interacting' || state === 'actionTriggered';
     const slash = left > 0 && !unusual && !this.dying;
-    const standing = state === 'idle';
     const target = this.dying ? this.upper.Death
       : unusual ? null
-        : slash ? (standing ? this.upper.Slash : this.upper.SlashMoving)
+        : slash ? this.upper.Slash
           : this.special === 'turn' ? this.upper.Turn
             : state === 'walking' ? this.upper.Run : state === 'backward' ? this.upper.Backward : this.upper.Idle;
     if (target !== this.current) {

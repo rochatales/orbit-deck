@@ -25,16 +25,23 @@ export function comboTrailProgress(stage: number, left: number) {
   return time < from || time > to ? -1 : (time - from) / (to - from);
 }
 
-function rootForwardAt(time: number) {
-  const table = SWORD_CLIPS.rootForward, at = Math.min(table.length - 1, Math.max(0, time * SWORD_CLIPS.fps)), i = Math.min(table.length - 2, Math.floor(at));
+function rootAt(table: readonly number[], time: number) {
+  const at = Math.min(table.length - 1, Math.max(0, time * SWORD_CLIPS.fps)), i = Math.min(table.length - 2, Math.floor(at));
   return table[i] + (table[i + 1] - table[i]) * (at - i);
+}
+
+/** Trajetória horizontal da fonte, antes de ser removida do Hips para o GLB in-place. */
+export function comboRootPosition(stage: number, left: number, out: { x: number; z: number }) {
+  const time = comboClipTime(stage, left);
+  out.x = rootAt(SWORD_CLIPS.rootSide, time);
+  out.z = rootAt(SWORD_CLIPS.rootForward, time);
 }
 
 /** Velocidade do passo do clipe (m/s): mantém o pé de apoio parado quando o jogador não anda. */
 export function comboLungeSpeed(stage: number, left: number) {
   if (left <= 0) return 0;
   const step = 1 / 120, later = Math.max(0, left - step);
-  return Math.max(0, (rootForwardAt(comboClipTime(stage, later)) - rootForwardAt(comboClipTime(stage, left))) / (left - later || step));
+  return Math.max(0, (rootAt(SWORD_CLIPS.rootForward, comboClipTime(stage, later)) - rootAt(SWORD_CLIPS.rootForward, comboClipTime(stage, left))) / (left - later || step));
 }
 
 export const wrapAngle = (angle: number) => angle - Math.PI * 2 * Math.round(angle / (Math.PI * 2));

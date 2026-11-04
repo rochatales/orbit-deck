@@ -101,20 +101,35 @@ test('Espada: o passo do golpe soma o avanço do clipe e para diante do inimigo'
   assert.equal(meleeLungeBlocked(me, 0, [{ x: 0, z: 4.5, hp: 50 }]), false, 'longe não segura');
 });
 
-test('Espada: parado usa o corpo todo do clipe; correndo, pernas da marcha com a torção do quadril na coluna', () => {
-  const { layers } = layersRig(), { interval } = MACHETE_COMBO[0], idle = layers.legs.Idle;
-  assert.equal(layers.legsAction('idle', interval), layers.legs.Slash);
-  assert.equal(layers.legsAction('walking', interval), null);
-  assert.ok(layers.legs.Slash.getClip().tracks.some(t => /Hips/.test(t.name)));
-  layers.update('idle', interval * .5, 0, idle, false);
-  const standing = layers.upperAction;
-  assert.ok(Math.abs(standing.time - comboClipTime(0, interval * .5)) < 1e-9); assert.equal(layers.legs.Slash.time, standing.time);
-  layers.update('walking', interval * .4, 0, layers.legs.Run, false);
-  const running = layers.upperAction; assert.notEqual(running, standing);
-  assert.ok(running.getClip().tracks.every(t => !/Hips|Foot|Leg|Toe/.test(t.name)));
-  const spine = c => c.tracks.find(t => /Spine\.quaternion$/.test(t.name)), a = spine(standing.getClip()), b = spine(running.getClip());
-  const at = 3 * SWORD_CLIPS.fps * 0 + Math.round(.9 * 30) * 4;
-  assert.ok(Math.abs(a.values[at] - b.values[at]) + Math.abs(a.values[at + 1] - b.values[at + 1]) > .01, 'coluna recebe a torção');
+test('Espada: parado, correndo e recuando o golpe mantém quadril, pernas e coluna do clipe original', () => {
+  const { character, mixer, layers } = layersRig();
+  const reference = clone(player.scene), expectedMixer = new AnimationMixer(reference);
+  expectedMixer.clipAction(swordClips.animations.find(c => c.name === 'Sword_Combo')).play();
+  for (const state of ['idle', 'walking', 'backward']) {
+    for (let stage = 0; stage < 3; stage++) for (const fraction of [.15, .5, .85]) {
+      const left = MACHETE_COMBO[stage].interval * fraction;
+      const legs = layers.legsAction(state, left);
+      assert.equal(legs, layers.legs.Slash, `${state}: pernas também executam o golpe`);
+      legs.play().setEffectiveWeight(1);
+      layers.update(state, left, stage, legs, false);
+      const upper = layers.upperAction;
+      upper.stopFading().setEffectiveWeight(1);
+      assert.equal(legs.time, upper.time);
+      assert.equal(upper.time, comboClipTime(stage, left));
+      mixer.update(0); expectedMixer.setTime(upper.time);
+      character.traverse(bone => {
+        if (!bone.isBone) return;
+        const expected = reference.getObjectByName(bone.name);
+        assert.ok(bone.quaternion.clone().normalize().angleTo(expected.quaternion.clone().normalize()) < 1e-6, `${state}/${stage}/${fraction}: ${bone.name} gira com o corpo`);
+        assert.ok(bone.position.distanceTo(expected.position) < 1e-6, `${state}/${stage}/${fraction}: ${bone.name}`);
+      });
+    }
+  }
+  for (const state of ['dashing', 'falling', 'interacting', 'actionTriggered']) {
+    assert.equal(layers.legsAction(state, .3), null, `${state} continua prioritário`);
+    layers.update(state, .3, 0, null, false); assert.equal(layers.upperAction, null);
+  }
+  for (const state of ['idle', 'walking', 'backward']) assert.equal(layers.legsAction(state, 0), null, 'sem golpe volta à locomoção');
   layers.dispose();
 });
 

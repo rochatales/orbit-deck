@@ -1,7 +1,8 @@
 import { recoverBackpackEnergy } from '../../game/backpackConfig';
 import { backpackEnergy, resetBackpackEnergy } from '../../state/useBackpackEnergy';
 import { advanceDash, dashEnabled } from './playerDash';
-import { comboLungeSpeed } from './swordClips';
+import { SwordRootMotion } from './swordRootMotion';
+import { useWeaponStore } from '../../state/useWeaponStore';
 import { meleeLungeBlocked } from '../../combat/melee';
 import { constrainToWalkableAreas } from './playerMovement';
 import { playerActions } from '../../state/playerActions';
@@ -74,6 +75,7 @@ export function PlayerController({
   const allowedMovement = useRef({ x:0, z:0 });
   const moveCommand = useRef({ x:0, y:0, z:0 }), nextTranslation = useRef({ x:0, y:0, z:0 });
   const speedRef = useRef(0);   // velocidade escalar ao longo da orientação (+ avança, − recua)
+  const swordRoot = useMemo(() => new SwordRootMotion(), []);
   const motionDirRef = useRef({ x: 0, z: 0 });
   const aimAngleRef = useRef(0);
   const kindRef = useRef<LocomotionKind>("idle");
@@ -129,6 +131,7 @@ export function PlayerController({
     const dt = stepWorld.integrationParameters.dt;
     recordPhysicsStep(dt);
     if (simulationBlocked()) {
+      swordRoot.reset();
       advanceDash(dashClockRef.current, false, true, dashUntilRef, dashCooldownUntilRef, dashHeldRef);
       wasDashingRef.current = false; playerActions.dashing = false;
       // menus, diálogos, pausa, morte e transições: sem deslocamento e sem locomoção no lugar
@@ -152,9 +155,14 @@ export function PlayerController({
       combatRuntime.aim.x, combatRuntime.aim.z, combatRuntime.aimValid, PLAYER_LOCOMOTION.aimMinDistance);
     const interactionAngle = isDialogOpen ? getInteractionFacingAngle(translation.x, translation.z, activeNpcId) : null;
     const targetAngle = interactionAngle ?? aimAngleRef.current;
+    const simulation = useExpeditionStore.getState().session.map === 'shanghai' ? combatRuntime.simulation : null;
+    let swordStepping = false;
+    if (simulation && !isDashing && useWeaponStore.getState().weapon === 'machete') {
+      swordStepping = swordRoot.update(simulation.swingId, simulation.comboStage, simulation.meleeLeft, targetAngle);
+    } else swordRoot.reset();
     const rotationAlpha = 1 - Math.pow(1 - PLAYER_MOVEMENT.rotationLerp, dt * 60);
     facingAngleRef.current =
-      input !== 0 || interactionAngle !== null
+      swordStepping ? swordRoot.angle : input !== 0 || interactionAngle !== null
         ? lerpAngle(facingAngleRef.current, targetAngle, rotationAlpha)
         : dampFacing(facingAngleRef.current, targetAngle, 10, dt);
 
@@ -170,13 +178,18 @@ export function PlayerController({
     wasDashingRef.current = isDashing;
     const movementDt = isDashing ? Math.min(dt, dashUntilRef.current - dashNow) : dt;
     const forward = aimMotion(facingAngleRef.current, 1, motionDirRef.current);
-    // Parado, o passo do golpe vem do próprio clipe da espada e mantém o pé de apoio no chão.
-    const simulation = useExpeditionStore.getState().session.map === 'shanghai' ? combatRuntime.simulation : null;
-    const lunge = simulation && !isDashing && input === 0 && Math.abs(speedRef.current) < PLAYER_LOCOMOTION.startSpeed && simulation.meleeLeft > 0
-      && !meleeLungeBlocked(translation, facingAngleRef.current, simulation.robots)
-      ? comboLungeSpeed(simulation.comboStage, simulation.meleeLeft) : 0;
-    velocityRef.current.x = forward.x * (speedRef.current + lunge);
-    velocityRef.current.z = forward.z * (speedRef.current + lunge);
+    // O corte de corpo inteiro substitui a corrida pelo passo autorado, inclusive sua deriva lateral.
+    // Não soma a inércia de W/S: era ela que arrastava os pés durante o giro.
+    if (swordStepping) {
+      speedRef.current = 0;
+      const stopped = (!!keys[GameControl.Forward] && !!keys[GameControl.Backward])
+        || meleeLungeBlocked(translation, facingAngleRef.current, simulation!.robots);
+      velocityRef.current.x = stopped ? 0 : swordRoot.x / dt;
+      velocityRef.current.z = stopped ? 0 : swordRoot.z / dt;
+    } else {
+      velocityRef.current.x = forward.x * speedRef.current;
+      velocityRef.current.z = forward.z * speedRef.current;
+    }
 
     const desiredTranslation = constrainToWalkableAreas(
       translation.x,
@@ -206,8 +219,8 @@ export function PlayerController({
     // relação ao corpo (para trás → Backward).
     const vx = correctedMovement.x / dt, vz = correctedMovement.z / dt;
     // O passo do golpe não conta como locomoção: quem está parado continua no corpo todo do corte.
-    const planarSpeed = lunge > 0 ? 0 : Math.hypot(vx, vz);
-    const along = lunge > 0 ? 0 : vx * Math.sin(facingAngleRef.current) + vz * Math.cos(facingAngleRef.current);
+    const planarSpeed = swordStepping ? 0 : Math.hypot(vx, vz);
+    const along = swordStepping ? 0 : vx * Math.sin(facingAngleRef.current) + vz * Math.cos(facingAngleRef.current);
     kindRef.current = locomotionKind(kindRef.current, along, planarSpeed, PLAYER_LOCOMOTION.startSpeed, PLAYER_LOCOMOTION.stopSpeed);
     const speedAlpha = MathUtils.clamp(planarSpeed / PLAYER_MOVEMENT.runSpeed, 0, 1);
     const moveAngle = planarSpeed > 0.001 ? Math.atan2(vx, vz) : facingAngleRef.current;

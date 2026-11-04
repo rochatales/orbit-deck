@@ -1,4 +1,5 @@
 import { weaponShotHeight } from '../src/state/playerWeaponPose';
+import { equipPlayerWeapon } from '../src/characters/player/WeaponControls';
 /** Development-only fixture. Not imported by the application or the production build. */
 import { OrthographicCamera, Vector3 } from 'three';
 import { RIFLE_POSE } from '../src/combat/config';
@@ -158,6 +159,32 @@ function QA() {
         window.dispatchEvent(new KeyboardEvent('keyup',{code:'Space',key:' ',bubbles:true}));
         setResult(`Dash Space: ${Math.hypot(playerPosition.x-before.x,playerPosition.z-before.z).toFixed(3)} m | pico ${speed.toFixed(2)} m/s | clipe ${clip?'Dash':'não visto'} | ${frames} quadros ativos`);
     }
+    async function swordMovement() {
+        if (s.session.map !== 'shanghai' || s.session.phase !== 'walking' || game.getState().isPaused || combat.getState().dead) {
+            setResult('Espada + W: desembarque em Shanghai e retome a sessão'); return;
+        }
+        equipPlayerWeapon('machete');
+        const release = () => window.dispatchEvent(new PointerEvent('pointerup', {button:0,bubbles:true}));
+        release(); await new Promise(r => setTimeout(r, 1200));
+        const sim = combatRuntime.simulation; if (!sim || simulationUnavailable()) return;
+        const first = sim.swingId, start = performance.now();
+        let x = playerPosition.x, z = playerPosition.z, distance = 0, held = true;
+        pointerAt(x, z - 10, true);
+        window.dispatchEvent(new KeyboardEvent('keydown', {code:'KeyW',key:'w',bubbles:true}));
+        setResult('Espada + W: medindo três cortes e deslocamento físico…');
+        await new Promise<void>(resolve => { function frame() {
+            distance += Math.hypot(playerPosition.x - x, playerPosition.z - z);
+            x = playerPosition.x; z = playerPosition.z;
+            const cuts = sim!.swingId - first;
+            if (cuts >= 3 && held) { release(); held = false; }
+            if ((cuts >= 3 && sim!.meleeLeft <= 0) || performance.now() - start >= 5000 || simulationUnavailable()) resolve();
+            else requestAnimationFrame(frame);
+        } requestAnimationFrame(frame); });
+        release(); window.dispatchEvent(new KeyboardEvent('keyup', {code:'KeyW',key:'w',bubbles:true}));
+        setResult(`Espada + W: ${sim.swingId - first} cortes | trajeto ${distance.toFixed(3)} m | ${((performance.now()-start)/1000).toFixed(2)} s · colisões podem reduzir o passo`);
+        game.setState({isPaused:true});
+    }
+    function simulationUnavailable() { return game.getState().isPaused || combat.getState().dead || expedition.getState().session.phase !== 'walking'; }
     async function rifleAim() {
         pointerAt(playerPosition.x,playerPosition.z-10);
         await new Promise(r=>setTimeout(r,900));
@@ -272,7 +299,7 @@ function QA() {
   {!hidden && <><p>Fixture DEV · posições preparadas para teste, sem alterar o mapa do produto</p>
   <button onClick={() => place('eden')}>Preparar perto de EDEN</button><button onClick={() => place('deck')}>Preparar no deck</button>
   <button onClick={()=>{const g=game.getState();g.setZoomBounds(g.minZoom,g.minZoom*12);g.setZoom(g.minZoom*10);}}>Zoom diagnóstico</button><button onClick={measureVibration}>Medir vibração 4s</button><button onClick={compareShadowBias}>Comparar bias de sombra</button><button onClick={compareCharacterShadows}>{receivingShadows?"Desligar sombras no personagem":"Ligar sombras no personagem"}</button><button onClick={()=>{const a=(window as unknown as {__hordaPlayerActions?:Record<string,import('three').AnimationAction>}).__hordaPlayerActions;const mixer=a?.Idle?.getMixer();if(mixer)mixer.timeScale=mixer.timeScale?0:1;}}>Congelar/descongelar pose</button><button onClick={transitions}>Testar transições rápidas</button><button onClick={()=>movement()}>Testar movimento 1s</button><button onClick={()=>movement(true)}>Testar corrida armada</button><button onClick={rifleAim}>Testar mira/cano</button><button onClick={dash}>Testar Dash Space</button><button onClick={()=>armedAnimation()}>Testar corrida com tiro</button><button onClick={()=>armedAnimation(true)}>Testar Reloading</button><button onClick={reticleTargetQA}>Testar mira em alvo</button><button onClick={sample}>Medir frames 5s</button>
-  <button onClick={()=>encounter(1)}>Combate assistido 1</button><button onClick={()=>encounter(3)}>Combate assistido 3</button><button onClick={()=>encounter(5)}>Combate assistido 5</button>
+  <button onClick={swordMovement}>Testar combo com W</button><button onClick={()=>encounter(1)}>Combate assistido 1</button><button onClick={()=>encounter(3)}>Combate assistido 3</button><button onClick={()=>encounter(5)}>Combate assistido 5</button>
   <button onClick={pauseCombat}>Testar pausa e recarga</button><button onClick={focusTest}>Testar movimento e foco</button><button onClick={death}>Testar morte natural</button>
   <p role="status">{result}</p>{vibrationReport&&<textarea aria-label="Diagnóstico de vibração" readOnly value={vibrationReport} style={{width:"100%",height:80}}/>}<p>{s.session.map} / {s.session.phase} / pronto: {String(s.ready)}</p></>}
  </aside>;

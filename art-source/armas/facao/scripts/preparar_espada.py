@@ -111,6 +111,7 @@ for name, (file, root) in MAP.items():
     if name == 'Sword_Combo':
         runtime['comboDuration'] = (end - start) / fps
         runtime['rootForward'] = [round(v, 4) for v in forward]
+        runtime['rootSide'] = [round((m.translation.x - poses[0].translation.x) * K, 6) for m in poses]
         runtime['cuts'] = [{key: ((value - 1) / fps if key != 'trail' else [(v - 1) / fps for v in value]) for key, value in cut.items()} for cut in CUTS]
     if name == 'Sword_Turn':
         runtime['turnDuration'] = (end - start) / fps

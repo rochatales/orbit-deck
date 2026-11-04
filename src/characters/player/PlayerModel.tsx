@@ -90,7 +90,7 @@ function PlayerVariant({ motionRef, combat, variant }: PlayerModelProps & { vari
         {variant === 'astronauta' && scene && macheteCarry !== 'hidden' && <PlayerMachete scene={scene} motionRef={motionRef} combat={combat} light={combat ? swordLight : null}/>}
         {variant === 'astronauta' && combat && <primitive object={swordLight} dispose={null}/>}
         {variant === 'astronauta' && scene && <PlayerBackpack scene={scene} illuminated={combat} />}
-        {variant === 'astronauta' && scene && !combat && <ColonyPlayerVisor scene={scene} />}
+        {variant === 'astronauta' && scene && <ColonyPlayerVisor scene={scene} illuminated={!combat} />}
         {variant === 'astronauta' && scene && rifleCarry !== 'hidden' && <PlayerRifle equipped={weapon === 'rifle'} combat={combat} scene={scene} motionRef={motionRef} onAttached={setRifleAttached} />}
       </group>
       {combat && weapon === 'rifle' && !rifleAttached && <group name="PlayerRifle" position={[RIFLE_POSE.side, RIFLE_POSE.height - PLAYER_COLLIDER_CENTER_Y, RIFLE_POSE.gripForward]}>

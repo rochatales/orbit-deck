@@ -13,7 +13,8 @@ export const VISOR_LIGHT = {
     // Compensa Head no Idle medido no GLB (pescoço a 1,041627 m), mais offset visual 0,02 m.
     headOffset: { side:.0107749622, forward:.1904827685, height:.2583726651 },
     muzzleLift: .18,
-    height: 1.32, forward: .26, reach: 26, aimDistance: 12, aimHeight: .15,
+    // Sem boca de rifle: origem fora do capacete e do envelope do Dash, evitando auto-oclusão.
+    height: 1.5, forward: .9, reach: 26, aimDistance: 12, aimHeight: .15,
     color: '#cce8ff', intensity: 80, angle: Math.PI / 5, penumbra: .65, shadowMap: 1024, shadowNormalBias: .03
 } as const;
 

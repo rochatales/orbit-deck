@@ -74,10 +74,29 @@ test('Colônia: faixa azul abaixo do capacete e foco suave frontal presos à cab
   const legacy = createColonyVisor(colon); assert.equal(legacy.head, head); legacy.dispose();
 });
 
-test('Iluminação por mapa: visor novo somente em Marte; Shanghai mantém farol e mochila atuais', () => {
+test('Iluminação por mapa: filete nos dois mapas; foco local só em Marte, Shanghai mantém farol e mochila', () => {
   const model = fs.readFileSync('src/characters/player/PlayerModel.tsx', 'utf8');
   assert.match(model, /<PlayerBackpack scene=\{scene\} illuminated=\{combat\}/);
-  assert.match(model, /!combat && <ColonyPlayerVisor/);
+  assert.match(model, /<ColonyPlayerVisor scene=\{scene\} illuminated=\{!combat\}/);
   const office = fs.readFileSync('src/scene/OfficeScene.tsx', 'utf8');
   assert.match(office, /map === 'shanghai'[^\n]*<PlayerVisorLight/);
+});
+
+test('Shanghai: filete azul visível no Head também com espada, sem acrescentar uma luz local', async () => {
+  const sword = await loadGlb('src/assets/characters/player/explorador-espada-v002.glb');
+  const character = clone(player.scene), visor = createColonyVisor(character, false);
+  visor.head.add(visor.group);
+  assert.equal(visor.light, null);
+  let lights = 0; visor.group.traverse(n => { if (n.isLight) lights++; }); assert.equal(lights, 0);
+  assert.equal(visor.stripe.material.color.getHexString(), '4bd4ff');
+  const local = visor.stripe.matrix.clone(), mixer = new AnimationMixer(character);
+  for (const clip of [...sword.animations, player.animations.find(c => c.name === 'Dash')]) {
+    mixer.stopAllAction(); mixer.clipAction(clip).play();
+    for (let frame = 0; frame < 30; frame++) {
+      mixer.setTime(clip.duration * frame / 30); character.updateMatrixWorld(true);
+      const relative = new Matrix4().copy(visor.head.matrixWorld).invert().multiply(visor.stripe.matrixWorld);
+      assert.ok(relative.elements.every((v, i) => Math.abs(v - local.elements[i]) < 1e-6));
+    }
+  }
+  visor.dispose(); assert.equal(visor.group.parent, null);
 });

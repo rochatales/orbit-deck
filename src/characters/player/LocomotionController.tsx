@@ -107,7 +107,7 @@ export function LocomotionController({ motionRef, actions, asset, combat }: Loco
     updateLocomotionRates(baseActions, active, motion.animationState, motion.planarSpeed, calibration);
     swordLayers?.update(motion.animationState, swingLeft, simulation?.comboStage ?? 0, active, blocked);
     layers?.update(motion.animationState, simulation?.reloadLeft ?? 0, (simulation?.cooldown ?? 0) > 0, active, blocked);
-    if (!blocked && active && motion.planarSpeed >= PLAYER_LOCOMOTION.stopSpeed && (motion.animationState === "walking" || motion.animationState === "backward")) {
+    if (!blocked && !swordLegs && active && motion.planarSpeed >= PLAYER_LOCOMOTION.stopSpeed && (motion.animationState === "walking" || motion.animationState === "backward")) {
       if (stepClock.current.advance(motion.animationState, active.time, active.getClip().duration)) {
         playerSounds.emit('playerStep', playerPosition.x, playerPosition.z);
         playerStepDust.request(Math.floor(active.time / active.getClip().duration * 2) % 2, motion.moveAngle, motion.isGrounded);

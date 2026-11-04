@@ -39,6 +39,25 @@ export function attachHolsteredRifle(character: Object3D, rifle: Object3D): bool
   return true;
 }
 
+/** Reserva em combate com espada: vertical à esquerda da mochila, solidária ao tronco.
+ * Calibrada em Machete_Idle, punho (-0,38; 0,90; -0,20) m; mantém a escala mundial da arma. */
+export const RIFLE_BACK_TRANSFORM = {
+  position: [-0.2444948335443684, -0.04616675659892405, -0.13450355237138498],
+  quaternion: [-0.862456799430755, 0.06699819033402882, 0.03290097836397334, 0.5005966842552269],
+  scale: [0.609130191523337, 0.6091301392514964, 0.6091301245065219]
+} as const;
+
+export function attachBackRifle(character: Object3D, rifle: Object3D): boolean {
+  const spine = character.getObjectByName('mixamorig:Spine2') ?? character.getObjectByName('mixamorigSpine2');
+  if (!spine) return false;
+  rifle.name = 'RifleLaserBack';
+  rifle.position.fromArray(RIFLE_BACK_TRANSFORM.position);
+  rifle.quaternion.fromArray(RIFLE_BACK_TRANSFORM.quaternion).normalize();
+  rifle.scale.fromArray(RIFLE_BACK_TRANSFORM.scale);
+  spine.add(rifle);
+  return true;
+}
+
 export function detachRifle(rifle: Object3D) {
   rifle.removeFromParent();
 }

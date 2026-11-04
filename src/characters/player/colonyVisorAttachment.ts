@@ -12,7 +12,7 @@ const STRIPE_POINTS = [
 ];
 
 /** Só na montagem; o osso transporta faixa e foco durante todos os clipes. */
-export function createColonyVisor(character: Object3D) {
+export function createColonyVisor(character: Object3D, illuminated = true) {
   const head = character.getObjectByName('mixamorig:Head') ?? character.getObjectByName('mixamorigHead');
   if (!head) return null;
   const group = new Group();
@@ -29,18 +29,22 @@ export function createColonyVisor(character: Object3D) {
   const stripe = new Mesh(geometry, material), halo = new Mesh(haloGeometry, haloMaterial);
   stripe.name = 'ColonyVisorStripe';
   halo.name = 'ColonyVisorHalo';
-  const light = new SpotLight(config.color, config.intensity, config.reach, config.angle, config.penumbra, config.decay);
-  light.name = 'ColonyVisorLight';
-  light.position.fromArray(config.position);
-  light.castShadow = false;
-  const target = new Object3D();
-  target.position.fromArray(config.target);
-  light.target = target;
-  group.add(stripe, halo, light, target);
+  group.add(stripe, halo);
+  // Shanghai conserva seu farol distante; só o filete e halo são comuns aos dois mapas.
+  const light = illuminated ? new SpotLight(config.color, config.intensity, config.reach, config.angle, config.penumbra, config.decay) : null;
+  if (light) {
+    light.name = 'ColonyVisorLight';
+    light.position.fromArray(config.position);
+    light.castShadow = false;
+    const target = new Object3D();
+    target.position.fromArray(config.target);
+    light.target = target;
+    group.add(light, target);
+  }
   // Recursos privados, sem tocar no atlas nem nos materiais compartilhados do GLB.
   const dispose = () => {
     group.removeFromParent();
-    geometry.dispose(); haloGeometry.dispose(); material.dispose(); haloMaterial.dispose(); light.dispose();
+    geometry.dispose(); haloGeometry.dispose(); material.dispose(); haloMaterial.dispose(); light?.dispose();
   };
   return { group, head, light, stripe, dispose };
 }
