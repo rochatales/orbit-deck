@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "source": "referencias/cabine-janelas-brancas.jpg (cópia intacta do autor)",
+  "exterior": "Renders dos mapas do projeto; loops provisórios de 6 s / 24 fps. Não são captura ao vivo nem cinematográfica final.",
+  "videos": [
+    {
+      "map": "mars",
+      "file": "src/assets/ui/cockpit/mars.mp4",
+      "provisional": true,
+      "atmosphere": "poeira avermelhada",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "r_frame_rate": "24/1"
+        }
+      ],
+      "format": {
+        "duration": "6.000000",
+        "size": "169287"
+      }
+    },
+    {
+      "map": "shanghai",
+      "file": "src/assets/ui/cockpit/shanghai.mp4",
+      "provisional": true,
+      "atmosphere": "névoa cinza",
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "r_frame_rate": "24/1"
+        }
+      ],
+      "format": {
+        "duration": "6.000000",
+        "size": "217104"
+      }
+    }
+  ],
+  "assets": [
+    {
+      "file": "src/assets/ui/cockpit/cabine.jpg",
+      "bytes": 533224,
+      "sha256": "10d026c5974a448c616d78fb4ef203153c0aa965c8361272334472d5c507de3c"
+    },
+    {
+      "file": "src/assets/ui/cockpit/mars.png",
+      "bytes": 1025141,
+      "sha256": "64672ff4a1eec6a998a48b41e724fae0dec375c3f95b3a02e78538fac3a91190"
+    },
+    {
+      "file": "src/assets/ui/cockpit/shanghai.png",
+      "bytes": 1047558,
+      "sha256": "ea068373d2dd59166df3fec61caef6ef56db8f68e335cf3fc0ebf030327bf276"
+    },
+    {
+      "file": "src/assets/ui/cockpit/mars.mp4",
+      "bytes": 169287,
+      "sha256": "6143ffde985a061779ed2e058f1dac7ce5cf276e170bd6333d3552aee665f641"
+    },
+    {
+      "file": "src/assets/ui/cockpit/shanghai.mp4",
+      "bytes": 217104,
+      "sha256": "c37cf209cb5e57d3a49d7a483b75159d6861d94ef2421a98e333ee24f8e10062"
+    }
+  ]
+}
