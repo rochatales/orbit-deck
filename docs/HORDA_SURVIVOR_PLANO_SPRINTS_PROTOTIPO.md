@@ -1,5 +1,10 @@
 # EXODEN — Sprints do protótipo Shanghai
 
+> **Atualização S6.2/S6.16 · 04/11/2026:** luta com espada e cabine da aeronave
+> publicadas juntas em `e8cd32f` por fast-forward sobre `f0e062a`, a pedido do autor.
+> [Verificações e pendências](handoffs/s6.2-luta-espada.md#publicação-e-consolidação--04112026).
+> Não encerra extração, objetivos obrigatórios, S6.16 completa nem os demais itens futuros.
+
 > **Atualização S6.3 · 04/11/2026:** kits de vida coletados ao passar por
 > cima, publicados em `755c268` por fast-forward sobre `195cfb5`, a pedido do autor.
 > [Verificações e pendências](handoffs/s6.3-shanghai-atualizacao.md#publicação-do-kit-de-vida-por-contato--04112026).

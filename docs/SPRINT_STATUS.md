@@ -1,6 +1,6 @@
 # Quadro de execução — EXODEN
 
-> **Versão publicada em 04/11/2026:** Shanghai `755c268`, a pedido do autor, sobre a versão `8822521` aprovada em 03/11. Acrescenta a coleta dos kits de vida ao passar por cima, além de radar, menus, porão de 150 kg e ajustes de limites/destruição/atmosfera/prédios de Shanghai já aprovados. Publicação por fast-forward sobre `195cfb5`; registro posterior só de documentação. Falhas de descarte da fixture DEV permanecem documentadas. [Publicação atual](./handoffs/s6.3-shanghai-atualizacao.md#publicação-do-kit-de-vida-por-contato--04112026). Os escopos futuros dos sprints continuam pendentes.
+> **Versão publicada em 04/11/2026:** `e8cd32f`, por pedido de consolidação do autor. Reúne luta com espada (combo de três cortes, giro, morte, rastro, neon com luz, alcance de 2,6 m e atordoamento), cabine da aeronave S6.16, coleta de kits de vida aprovada pelo autor, interpolação como padrão e correção do descarte no reinício. Publicação por fast-forward sobre `f0e062a`; registro posterior só de documentação. [Publicação atual](./handoffs/s6.2-luta-espada.md#publicação-e-consolidação--04112026). Os escopos futuros dos sprints continuam pendentes.
 
 > Quem está fazendo o quê, em qual base e branch. O status oficial de cada
 > item (checkbox) continua em
@@ -20,14 +20,14 @@
 |---|---|---|
 | 0 · Preservação e baseline | ✅ Encerrado em 25/10/2026 | — (S0.4 aprovada pelo autor; medições no equipamento do autor seguem na S2.9) |
 | 1 · Base local e viagem Marte–Shanghai | ✅ Implementado (S1.1–S1.10) | — |
-| 2 · Movimento, tiro e sobrevivência | ◐ Núcleo e S2.12 concluídos/aprovados | A1–A13 (25/10), B em três etapas e apoio no piso (26/10). S2.11 concluída: comparada em 144 Hz pelo autor, não adotada (`?interp=1` só comparação); S2.9 e aceite geral da etapa 6.5 permanecem |
+| 2 · Movimento, tiro e sobrevivência | ◐ Núcleo e S2.12 concluídos/aprovados | A1–A13 (25/10), B em três etapas e apoio no piso (26/10). S2.11 concluída; interpolação adotada como padrão em 04/11 a partir de medição a 144 Hz (`?interp=0` compara); S2.9 e aceite geral da etapa 6.5 permanecem |
 | 3 · Ondas, categorias e dispositivos | ◐ Entregas antecipadas aprovadas | Versão atual: hordas 13/26/32/44 (115), quatro tipos de inimigo, investida, recursos, áudio, efeitos e vida/acerto individuais. Demais dispositivos/critério completo S3 seguem pendentes |
 | 4 · Loot, orientação e retorno | ◐ Parte antecipada aprovada | Inventário temporário, peso, quatro espaços, kits coletados por contato e seleção de arma presentes; dispositivos, objetivos obrigatórios, extração e persistência continuam pendentes |
 | 5 · Construção da máquina | 🔲 Não iniciado | — |
 | 6 · Estética dos elementos | ◐ Versão atual aprovada pelo autor em 03/11 | Inclui os três prédios novos, pavimento/corredores contínuos, letreiros, Sandwind avermelhado com vento, HUD beta, facão e acessórios por mapa. Dash também na colônia, arma principal no inventário e facão girando com o corpo no Dash. Itens completos/fases futuras seguem pendentes |
 | 7 · Texturas, materiais e entrega | 🔲 Não iniciado | Acabamento de UI planejado em S7.11 |
 
-Versão publicada atual: **`755c268`**, **504/504** testes, build e diff-check verdes. Publicada por fast-forward a pedido do autor, sem mudar a árvore fora de `docs/`. Última versão aprovada em prévia: `8822521`, com teste técnico de localhost parcial por falhas de descarte. [Publicação atual](./handoffs/s6.3-shanghai-atualizacao.md#publicação-do-kit-de-vida-por-contato--04112026); [publicação anterior](./handoffs/s6.3-shanghai-atualizacao.md#publicação-e-aceite-do-autor--03112026).
+Versão publicada atual: **`e8cd32f`**, **527/527** testes, build e diff-check verdes. Publicada por fast-forward a pedido do autor. [Publicação atual](./handoffs/s6.2-luta-espada.md#publicação-e-consolidação--04112026); [publicação anterior](./handoffs/s6.3-shanghai-atualizacao.md#publicação-do-kit-de-vida-por-contato--04112026).
 
 Legenda: 🔲 não iniciado · ◐ em andamento/parcial · ✅ implementado ·
 ⛔ bloqueado · ⏸ estacionado. "Implementado" não significa aprovado pelo autor.
@@ -41,12 +41,12 @@ Legenda: 🔲 não iniciado · ◐ em andamento/parcial · ✅ implementado ·
 | Campo | Valor |
 |---|---|
 | Branch de integração remota | `origin/rochatales/horda-survivor` |
-| Branch local desta consolidação | `rochatales/s6.3-shanghai-atualizacao` |
-| Base remota anterior desta rodada | `195cfb57dbb048a50eff19c5cb52d7561dc39063` |
+| Branch local desta consolidação | `rochatales/s6.2-luta-facao` |
+| Base remota anterior desta rodada | `f0e062a286add2cd438e682b09258bd9883ec662` |
 | Checkout principal preservado | `b54162c359ad539db34e25f6bc61c6184a87e58a` |
-| Código publicado a pedido do autor | `755c2681527a3c9e1208f6d1ca8dcbc152c898ec` |
-| Integração atual | Fast-forward `195cfb5` → `755c268`; registro posterior só de docs |
-| Worktree da consolidação | `/Users/rochatales/Automations/wt-s6.3-shanghai-atualizacao` |
+| Código publicado a pedido do autor | `e8cd32fbd19a15512b989decdc29810028cc7e3e` |
+| Integração atual | Fast-forward `f0e062a` → `e8cd32f`, com S6.16 `0678f42` integrada por merge; registro posterior só de docs |
+| Worktree da consolidação | `/Users/rochatales/Automations/wt-s6.2-luta-facao` |
 | Referência para nova tarefa após a publicação | `git fetch origin` e `git rev-parse origin/rochatales/horda-survivor`; fixar o SHA resultante |
 
 O checkout principal permanece em `b54162c`, com alterações locais e artes sem
@@ -422,3 +422,5 @@ JSON `complemento-26-10/perf-final.json`; sem testes/build concorrentes na medi�
 03/11/2026 — S6.3 Shanghai: autor escolheu explicitamente a versão **`8822521`** na porta 4174 e reiterou a consolidação/publicação após conhecer o relatório da fixture DEV. Código publicado em `origin/rochatales/horda-survivor` por fast-forward desde `5d4ea01`, sem force ou merge novo. Limites v004, destruição urbana, névoa, fade de prédios, radar/perfil, menus e porão de 150 kg preservados exatamente. 503/503, build/diff-check verdes; mesmas verificações da árvore aprovada inalterada. Localhost técnico parcial: radar alinhado/centro, proximidade/F/duas colunas verificados; reinício da fixture derruba canvas com pieces.dispose/debrisMesh.dispose e light.dispose, sem correção nesta tarefa. Pendências e backups versionados preservados no handoff. Este commit acrescenta apenas docs e avança a publicação; não altera main/principal nem remove worktrees.
 
 04/11/2026 — S6.3 Shanghai: a pedido do autor, `755c268` (kits de vida coletados ao passar por cima, sem balão nem tecla E; cabines inalteradas) publicado em `origin/rochatales/horda-survivor` por fast-forward desde `195cfb5`, sem force ou merge. 504/504, build/diff-check verdes; SHAs de `emergency-locker.glb` e `rusted-car.glb` preservados. Navegador: coleta conferida com teleporte de teste até o kit; caminhar até ele fica coberto pelos testes automatizados. Avaliação do autor em localhost pendente. Falhas de descarte da fixture DEV seguem abertas. Branch `rochatales/s6.2-luta-facao` aberta localmente em `755c268`, sem mudanças de combate. Este commit acrescenta apenas docs; não altera main/principal nem remove worktrees.
+
+04/11/2026 — Consolidação pedida pelo autor: `e8cd32f` publicado em `origin/rochatales/horda-survivor` por fast-forward desde `f0e062a`, sem force. Reúne S6.2 luta com espada, S6.16 cabine (`0678f42`), kit de vida por contato (aprovado pelo autor), interpolação como padrão (revê a decisão de 26/10 da S2.11, após medição de 63/110 quadros sem avanço a 144 Hz) e correção do descarte que deixava o canvas em branco no reinício. 527/527, build/diff-check verdes; caminho Marte–cabine–Shanghai–luta–volta conferido no navegador com quadros por temporizador. Pendências no [registro](./handoffs/s6.2-luta-espada.md#publicação-e-consolidação--04112026). Este commit acrescenta apenas docs; não altera main/principal nem remove worktrees.
