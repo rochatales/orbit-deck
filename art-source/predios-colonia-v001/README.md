@@ -1,4 +1,4 @@
-# Três prédios da colônia · S6.12
+# Prédios da colônia · S6.12
 
 Fontes copiadas sem alterar de `orbit_deck_buildings2` do autor. Os seis hashes
 completos estão em `notas/fontes.json`. Na implantação inicial (`783eb44`), os GLBs runtime eram cópias byte a byte.
@@ -114,3 +114,11 @@ Para esse ajuste, basta executar `padronizar.py` e `manifesto.mjs`; o piso
 compartilhado, a planta de circulação e as balizas não mudam. Medidas e
 hashes completos em `notas/padronizacao-v002.json` (`label_mount`); teste
 de fixação e direção usa o GLB real em `tests/colony-buildings.test.mjs`.
+
+## Oficina · 04/11/2026
+
+`originais/workshop.blend` é a fonte do autor, sem alteração (hash em `notas/fontes.json`). `oficina.py` gera
+`export/workshop-v002.glb`, com casca nova na linguagem da Cafeteria e os equipamentos do modelo. Medidas em
+`notas/oficina-v002.json`, renders em `renders/oficina-v002/`.
+Reprodução: `oficina.py`, depois `manifesto.mjs`, `piso-compartilhado.py`, `planta.mjs` e `gerar-balizas-marte.mjs`.
+`padronizar.py` não gera a oficina. [Handoff](../../docs/handoffs/s6.12-oficina-colonia.md).

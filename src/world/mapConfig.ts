@@ -64,7 +64,7 @@ export const MAP_ROOMS: MapRoomConfig[] = masterplan.rooms.filter(room => room.i
   const size = room.id === 'design' ? QUARTEL.dimensions : room.id === 'smart-lab' ? LABORATORIO.dimensions : currentSize;
   const position = room.id === 'design' ? QUARTEL.placement : room.id === 'smart-lab' ? LABORATORIO.placement : current?.placement ?? room.position;
   return {
-    id: room.id, name: room.id === 'design' ? 'Quartel' : current?.id === 'cafeteria' ? 'Cafeteria' : room.name, position, size,
+    id: room.id, name: room.id === 'design' ? 'Quartel' : current?.id === 'cafeteria' ? 'Cafeteria' : current?.id === 'workshop' ? 'Oficina' : room.name, position, size,
     type: room.id === 'central-hub' ? 'hub' : room.id === 'smart-lab' ? 'lab' : 'station',
     accentColor: room.id === 'brand-brain' ? '#F2C94C' : '#00E6FF',
     npcId: room.id === 'brand-brain' ? 'eden' : undefined,

@@ -1,5 +1,13 @@
 # EXODEN — Sprints do protótipo Shanghai
 
+> **Atualização S6.12 · 04/11/2026:** Oficina implantada na colônia em
+> `claude/s6.12-oficina-colonia`, sobre `90e7734`, no lugar da Sala de operações.
+> [Decisões e roteiro](handoffs/s6.12-oficina-colonia.md). Aceite do autor pendente; não encerra a S6.12.
+
+> **Consolidação 04/11/2026:** `90e7734` publicada em `origin/rochatales/horda-survivor`, com EDEN da
+> porta 5191, tela inicial e ajustes da espada, 551/551 testes.
+> [Handoff](handoffs/consolidacao-eden-2026-11-04.md).
+
 > **Atualização S6.2/S6.16 · 04/11/2026:** luta com espada e cabine da aeronave
 > publicadas juntas em `e8cd32f` por fast-forward sobre `f0e062a`, a pedido do autor.
 > [Verificações e pendências](handoffs/s6.2-luta-espada.md#publicação-e-consolidação--04112026).

@@ -10,7 +10,8 @@ import { ColonyBuildingRuntime } from './colonyBuildingRuntime';
 import dataCenterUrl from '../../assets/buildings/data-center.glb';
 import meetingRoomUrl from '../../assets/buildings/meeting-room.glb';
 import cafeteriaUrl from '../../assets/buildings/cafeteria.glb';
-export const COLONY_BUILDING_URLS = [meetingRoomUrl, dataCenterUrl, cafeteriaUrl];
+import workshopUrl from '../../assets/buildings/workshop.glb';
+export const COLONY_BUILDING_URLS = [meetingRoomUrl, dataCenterUrl, cafeteriaUrl, workshopUrl];
 export function ColonyBuildings({ world }: { world: OfficeWorld }) {
     return <>{COLONY_BUILDINGS.map((b, index) => <Building key={b.id} index={index} world={world}/>)}</>;
 }

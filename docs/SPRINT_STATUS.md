@@ -12,6 +12,7 @@
 > Exceções explícitas do autor em 25–26/10: registros de recursos e encerramento
 > da S2.12/investigação S2.11 nesta worktree `rochatales/s2.12-b`.
 >
+> Atualizado em 04/11/2026 na `claude/s6.12-oficina-colonia`, a pedido do autor: revisão de `90e7734` sem defeitos e tarefa da Oficina abaixo. Registro anterior:
 > Atualizado em 26/10/2026 na `rochatales/s2.12-b`, por pedido explícito do autor: S2.12 A/B concluída e aprovada; S2.11 investigada, comparada em 144 Hz pelo autor e concluída sem adoção; `?interp=1` permanece só para comparação. Revisão Claude sem defeitos, 208/208, build verde. Autor dispõe de tela de 144 Hz.
 
 ## Situação dos sprints
@@ -24,7 +25,7 @@
 | 3 · Ondas, categorias e dispositivos | ◐ Entregas antecipadas aprovadas | Versão atual: hordas 13/26/32/44 (115), quatro tipos de inimigo, investida, recursos, áudio, efeitos e vida/acerto individuais. Demais dispositivos/critério completo S3 seguem pendentes |
 | 4 · Loot, orientação e retorno | ◐ Parte antecipada aprovada | Inventário temporário, peso, quatro espaços, kits coletados por contato e seleção de arma presentes; dispositivos, objetivos obrigatórios, extração e persistência continuam pendentes |
 | 5 · Construção da máquina | 🔲 Não iniciado | — |
-| 6 · Estética dos elementos | ◐ Versão atual aprovada pelo autor em 04/11 | Inclui os três prédios novos, pavimento/corredores contínuos, letreiros, Sandwind avermelhado com vento, HUD beta, facão e acessórios por mapa. Dash também na colônia, arma principal no inventário e facão girando com o corpo no Dash. Itens completos/fases futuras seguem pendentes |
+| 6 · Estética dos elementos | ◐ Versão atual aprovada pelo autor em 04/11 | Oficina implantada em 04/11 na `claude/s6.12-oficina-colonia`, com aceite pendente. A versão aprovada inclui os três prédios novos, pavimento/corredores contínuos, letreiros, Sandwind avermelhado com vento, HUD beta, facão e acessórios por mapa. Dash também na colônia, arma principal no inventário e facão girando com o corpo no Dash. Itens completos/fases futuras seguem pendentes |
 | 7 · Texturas, materiais e entrega | 🔲 Não iniciado | Acabamento de UI planejado em S7.11 |
 
 Última publicação anterior: **`d232de0`** (código `e8cd32f`, 527 testes). Consolidação aprovada atual: **`957d578`**, **551/551** testes, build e diff-check verdes; publicação por fast-forward, sem merge. [Publicação atual](./handoffs/s6.2-luta-espada.md#publicação-e-consolidação--04112026); [publicação anterior](./handoffs/s6.3-shanghai-atualizacao.md#publicação-do-kit-de-vida-por-contato--04112026).
@@ -54,6 +55,12 @@ rastreio do autor preservadas. A ref local `rochatales/horda-survivor` **não é
 base atual para novas tarefas** enquanto esse checkout não for reconciliado.
 A consolidação conserva ambos os históricos, sem rebase/cherry-pick e sem editar
 código em relação ao preview aprovado. [Escopo e publicação atuais](./handoffs/consolidacao-validada-2026-11-03.md).
+
+## Oficina na colônia · S6.12 · 04/11/2026
+
+- **Base:** `90e7734` (ponta publicada, revisada: 551/551, build e diff-check verdes, sem defeitos).
+- **Branch e worktree:** `claude/s6.12-oficina-colonia`, em `.claude/worktrees/s6.12-oficina-colonia`. Sem push e sem merge.
+- **Entrega:** Oficina (−12; 11,2), porta leste, no lugar da Sala de operações (`narration`), com casca nova na linguagem de Data Center e Cafeteria e os equipamentos do `workshop.blend` do autor. Aceite visual e de jogabilidade pendente, do autor. [Handoff](./handoffs/s6.12-oficina-colonia.md)
 
 ## Consolidação EDEN, entrada e ajustes da espada · 04/11/2026
 
@@ -432,3 +439,5 @@ JSON `complemento-26-10/perf-final.json`; sem testes/build concorrentes na medi�
 04/11/2026 — S6.3 Shanghai: a pedido do autor, `755c268` (kits de vida coletados ao passar por cima, sem balão nem tecla E; cabines inalteradas) publicado em `origin/rochatales/horda-survivor` por fast-forward desde `195cfb5`, sem force ou merge. 504/504, build/diff-check verdes; SHAs de `emergency-locker.glb` e `rusted-car.glb` preservados. Navegador: coleta conferida com teleporte de teste até o kit; caminhar até ele fica coberto pelos testes automatizados. Avaliação do autor em localhost pendente. Falhas de descarte da fixture DEV seguem abertas. Branch `rochatales/s6.2-luta-facao` aberta localmente em `755c268`, sem mudanças de combate. Este commit acrescenta apenas docs; não altera main/principal nem remove worktrees.
 
 04/11/2026 — Consolidação pedida pelo autor: `e8cd32f` publicado em `origin/rochatales/horda-survivor` por fast-forward desde `f0e062a`, sem force. Reúne S6.2 luta com espada, S6.16 cabine (`0678f42`), kit de vida por contato (aprovado pelo autor), interpolação como padrão (revê a decisão de 26/10 da S2.11, após medição de 63/110 quadros sem avanço a 144 Hz) e correção do descarte que deixava o canvas em branco no reinício. 527/527, build/diff-check verdes; caminho Marte–cabine–Shanghai–luta–volta conferido no navegador com quadros por temporizador. Pendências no [registro](./handoffs/s6.2-luta-espada.md#publicação-e-consolidação--04112026). Este commit acrescenta apenas docs; não altera main/principal nem remove worktrees.
+
+04/11/2026 — Revisão de `90e7734` pedida pelo autor: 551/551, build e diff-check verdes, ponta remota confere, sem defeitos. S6.12 Oficina implementada pelo Claude na `claude/s6.12-oficina-colonia`, base `90e7734`: fonte `workshop.blend` preservada por hash; casca, telhado e porta no padrão de Data Center/Cafeteria; substitui `narration`; pavimento, balizas e planta regerados; três prédios aprovados idênticos no manifesto. Prévia local 5194; aceite do autor pendente; sem push ou merge. [Handoff](./handoffs/s6.12-oficina-colonia.md)

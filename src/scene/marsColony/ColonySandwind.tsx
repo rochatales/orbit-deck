@@ -40,16 +40,16 @@ export function ColonySandwind({ scope, masterplan }: { scope: RefObject<Group>;
     const circulation = useGLTF(circulationUrl), quartel = useGLTF(quartelUrl), laboratorio = useGLTF(laboratorioUrl), controlRoom = useGLTF(controlRoomUrl);
     const sharedFloor = useGLTF(sharedFloorUrl);
     const [ship, deck] = useGLTF([shipUrl, deckUrl]);
-    const meetingRoom = useGLTF(COLONY_BUILDING_URLS[0]), dataCenter = useGLTF(COLONY_BUILDING_URLS[1]), cafeteria = useGLTF(COLONY_BUILDING_URLS[2]);
+    const meetingRoom = useGLTF(COLONY_BUILDING_URLS[0]), dataCenter = useGLTF(COLONY_BUILDING_URLS[1]), cafeteria = useGLTF(COLONY_BUILDING_URLS[2]), workshop = useGLTF(COLONY_BUILDING_URLS[3]);
     const controller = useRef<SandwindController | null>(null), wind = useMemo(() => new SandwindWind(), []);
     const enabled = usePreview(s => s.enabled);
     useEffect(() => {
         const root = scope.current!, architecture = masterplan.current!.children[0];
-        const next = new SandwindController(root, [colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene, laboratorio.scene, circulation.scene, controlRoom.scene, meetingRoom.scene, dataCenter.scene, cafeteria.scene, sharedFloor.scene],
+        const next = new SandwindController(root, [colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene, laboratorio.scene, circulation.scene, controlRoom.scene, meetingRoom.scene, dataCenter.scene, cafeteria.scene, workshop.scene, sharedFloor.scene],
             sandwindTargets(root, architecture, manifest), gl.outputColorSpace, wind);
         controller.current = next; activeController = next;
         return () => { if (activeController === next) activeController = null; controller.current = null; next.dispose(); };
-    }, [scope, masterplan, colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene, laboratorio.scene, circulation.scene, controlRoom.scene, meetingRoom.scene, dataCenter.scene, cafeteria.scene, sharedFloor.scene, gl, wind]);
+    }, [scope, masterplan, colony.scene, hangar.scene, greenhouse.scene, legacy.scene, ship.scene, deck.scene, quartel.scene, laboratorio.scene, circulation.scene, controlRoom.scene, meetingRoom.scene, dataCenter.scene, cafeteria.scene, workshop.scene, sharedFloor.scene, gl, wind]);
     useEffect(() => {
         if (!enabled) return;
         const original = scene.fog;

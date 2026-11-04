@@ -19,6 +19,8 @@ areas += [dict(minX=6.4125,maxX=17.5875,minZ=4.8375,maxZ=8.5),
           dict(minX=5.7,maxX=21.5,minZ=16.6,maxZ=29)]
 # Anteparo de ligação ao deck: o pavimento respeita o contorno da base real.
 areas += [dict(minX=0,maxX=8.5,minZ=25,maxZ=30)]
+# Oficina: frente até a lateral do Hangar e faixa norte, ligada à circulação sul.
+areas += [dict(minX=-7.5,maxX=-4.79,minZ=10.5,maxZ=16.5),dict(minX=-16.8,maxX=-7.5,minZ=5.75,maxZ=7)]
 deck_source=ROOT/'src/assets/ares-mars/deck-mars.glb'
 for o in list(bpy.data.objects):bpy.data.objects.remove(o,do_unlink=True)
 bpy.ops.import_scene.gltf(filepath=str(deck_source));bpy.context.view_layer.update()

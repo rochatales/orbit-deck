@@ -43,7 +43,7 @@ function reachable(world,from,to){
 test('S6.12: fontes GLB/Blend preservadas por hash, variantes derivadas rastreáveis e portas previstas',async()=>{
  for(const f of sources){assert.equal(sha(fs.readFileSync(base+'originais/'+f.arquivo)),f.sha256)}
  for(const v of variants){assert.equal(sha(fs.readFileSync(base+'export/'+v.id+'-v002.glb')),v.sha256);assert.equal(sha(fs.readFileSync('src/assets/buildings/'+v.id+'.glb')),v.sha256);assert.equal(v.source_sha256,sources.find(f=>f.arquivo===v.id+'.glb').sha256);assert.equal(sha(fs.readFileSync('src/assets/control-room/control-room-v002.glb')),v.reference_sha256);}
- assert.equal(replaced.size,4);assert.ok(replaced.has('output-review'));assert.ok(replaced.has('coffee-nook'));
+ assert.equal(replaced.size,5);assert.ok(replaced.has('narration'));assert.ok(replaced.has('output-review'));assert.ok(replaced.has('coffee-nook'));
  for(const b of buildings){
   const gltf=await loadGlb('src/assets/buildings/'+b.id+'.glb');
   assert.ok(gltf.scene.getObjectByName('Building_Roof'));assert.ok(gltf.scene.getObjectByName('Building_Floor'));
@@ -55,6 +55,29 @@ test('S6.12: fontes GLB/Blend preservadas por hash, variantes derivadas rastreá
  assert.ok(meeting.doors.some(d=>d.z>3.8&&Math.abs(d.x)<.01));assert.ok(meeting.doors.some(d=>d.x < -3.8&&Math.abs(d.z)<.01));
  assert.ok(buildings[2].doors[0].x < buildings[2].placement.x);
  assert.ok(dc.doors[0].x > dc.placement.x);assert.equal(dc.placement.z,0);
+});
+
+test('S6.12: Oficina entre Data Center e Hangar, na linguagem aprovada, sem invadir vizinhos nem a circulação',async()=>{
+ const notes=JSON.parse(fs.readFileSync(base+'notas/oficina-v002.json')),b=buildings.find(x=>x.id==='workshop'),dc=buildings.find(x=>x.id==='data-center');
+ assert.equal(sha(fs.readFileSync(base+'export/workshop-v002.glb')),notes.sha256);assert.equal(sha(fs.readFileSync('src/assets/buildings/workshop.glb')),notes.sha256);
+ assert.equal(sha(fs.readFileSync(base+'originais/workshop.blend')),notes.source_sha256);assert.ok(sources.some(f=>f.arquivo==='workshop.blend'&&f.sha256===notes.source_sha256));
+ assert.deepEqual(b.replaces,['narration']);assert.equal(b.placement.x,-12);assert.equal(b.placement.z,11.2);
+ // Porta centrada para o leste, voltada ao pátio e ao Hangar, como nos prédios aprovados.
+ assert.equal(b.doors.length,1);assert.ok(b.doors[0].x>b.placement.x);assert.ok(Math.abs(b.doors[0].z-b.placement.z)<1e-5);
+ const world=createWorld(),solids=b.staticCuboids.map(c=>c.bounds);
+ const overlap=(a,c)=>a.minX<c.maxX&&a.maxX>c.minX&&a.minZ<c.maxZ&&a.maxZ>c.minZ;
+ for(const c of dc.staticCuboids)for(const own of solids)assert.ok(!overlap(c.bounds,own),`Data Center ${c.node}`);
+ assert.ok(Math.max(...solids.map(a=>a.maxX))<-4.79,'lateral do Hangar livre');
+ assert.ok(Math.min(...solids.map(a=>a.minZ))>dc.floor.maxZ+1,'passagem ao norte, entre a Oficina e o Data Center');
+ for(const target of [[-5.5,14],[-6,5],[-12,5.3],[-7,11.2],[-12,11.2]])assert.ok(reachable(world,[0,6],target),`rota ${target}`);
+ assert.equal(world.obstacles.some(c=>c.id?.startsWith('wall-narration-')),false);
+ const gltf=await loadGlb('src/assets/buildings/workshop.glb'),scene=gltf.scene;
+ for(const name of ['Building_Roof','Wall_N','Wall_E','Wall_S','Wall_W','Interior','Furniture','Exterior','Door_South','Letreiro_Padrao'])assert.ok(scene.getObjectByName(name),name);
+ assert.ok(scene.getObjectByName('Texto_WORKSHOP'));assert.ok(b.triangles<16000);assert.ok(fs.statSync('src/assets/buildings/workshop.glb').size<2.5e6);
+ // Equipamento do autor preservado: neon e bomba de um lado, bancada e quiosque do outro; casca sem a laje plana antiga.
+ const roof=new Box3().setFromObject(scene.getObjectByName('Building_Roof'));assert.ok(roof.max.y<5.2&&roof.max.y>4);
+ scene.updateMatrixWorld(true);const wall=new Box3().setFromObject(scene.getObjectByName('Wall_W'));assert.ok(wall.max.y<=2.76);
+ for(const name of ['COL_Neon_Emitter','COL_Pump_Box','COL_Kiosk','COL_Welding_Bench','COL_Fabricator','COL_Crates','COL_Shelf_0','COL_Shelf_1','COL_Workbench_0','COL_Workbench_1'])assert.ok(b.staticCuboids.some(c=>c.node===name),name);
 });
 
 test('S6.12: substituição remove todos os nós/portas dos quatro ambientes sem afetar vizinhos',async()=>{
@@ -140,7 +163,7 @@ test('S6.12: letreiros centralizados acima da porta e presos à fachada; Meeting
   const gltf=await loadGlb('src/assets/buildings/'+b.id+'.glb'),scene=gltf.scene;
   scene.position.set(b.placement.x,0,b.placement.z);scene.rotation.y=b.placement.rotationY;scene.updateMatrixWorld(true);
   const side=b.id==='meeting-room'?'East':'South',door=b.doors.find(d=>d.side===side),sign=scene.getObjectByName('Letreiro_Padrao');
-  const expected=new Vector3(...(b.id==='meeting-room'?[0,0,1]:b.id==='data-center'?[1,0,0]:[-1,0,0]));
+  const expected=new Vector3(...(b.id==='meeting-room'?[0,0,1]:['data-center','workshop'].includes(b.id)?[1,0,0]:[-1,0,0]));
   const normal=new Vector3(0,0,1).applyQuaternion(sign.getWorldQuaternion(new Quaternion())),tangent=new Vector3(normal.z,0,-normal.x);
   assert.ok(normal.distanceTo(expected)<1e-5,`${b.id}: face correta`);
   const origin=new Vector3(door.x,0,door.z),plates=new Box3();
