@@ -10,7 +10,7 @@ const { MACHETE, MACHETE_COMBO, meleeLungeBlocked } = loadSource('src/combat/mel
 const { CombatSimulation } = loadSource('src/combat/simulation.ts');
 const { patrolChoice, robotConfig } = loadSource('src/combat/config.ts');
 const { SWORD_CLIPS, SWORD_TURN_MIN_ANGLE, comboClipTime, comboTrailProgress, comboLungeSpeed, turnBodyOffset, turnClipYaw, turnSweep, wrapAngle } = loadSource('src/characters/player/swordClips.ts');
-const { MacheteAnimationLayers } = loadSource('src/characters/player/macheteAnimationLayers.ts');
+const { MacheteAnimationLayers, weldLoop } = loadSource('src/characters/player/macheteAnimationLayers.ts');
 const { attachMachete, MacheteGripRig } = loadSource('src/characters/player/macheteAttachment.ts');
 const { SWORD_LIGHT, SWORD_NEON, bladeTriangles, createSwordLight, createSwordNeon } = loadSource('src/characters/player/swordNeon.ts');
 const { SWORD_TRAIL, SwordTrail, arcGeometry } = loadSource('src/characters/player/swordTrail.ts');
@@ -242,4 +242,38 @@ test('Alcance: efeito à frente, na mira, até perto do limite do dano; a luz da
   assert.equal(light.isPointLight, true); assert.equal(light.intensity, 0); assert.equal(light.castShadow, false); assert.ok(SWORD_LIGHT.intensity > 0 && SWORD_LIGHT.reach > 3);
   const model = fs.readFileSync('src/characters/player/PlayerModel.tsx', 'utf8');
   assert.match(model, /combat && <primitive object=\{swordLight\}/, 'montada em combate qualquer que seja a arma');
+});
+
+test('Atordoamento: inimigo atingido pela espada não golpeia nem anda; volta depois e o tiro não atordoa', () => {
+  const s = setup(), r = s.robots[0], { impact } = MACHETE_COMBO[0];
+  s.invulnerable = 0; r.hp = 1e6; r.alerted = true;
+  s.step(1 / 60, { ...input, firing: true }); s.invulnerable = 999; frames(s, Math.ceil(impact * 60) + 1);
+  assert.ok(r.staggerLeft > 0, 'atordoado no impacto');
+  s.invulnerable = 0; const hp = s.hp, x = r.x, z = r.z;
+  frames(s, Math.floor((MACHETE.stagger - .05) * 60));
+  assert.equal(s.hp, hp, 'sem golpe durante o atordoamento'); assert.equal(r.x, x); assert.equal(r.z, z);
+  frames(s, 20); assert.ok(r.staggerLeft === 0); assert.ok(s.hp < hp, 'volta a golpear');
+  assert.ok(MACHETE.stagger > (MACHETE_COMBO[2].interval - MACHETE_COMBO[2].impact) + MACHETE_COMBO[0].impact, 'combo contínuo segura o inimigo');
+  const rifle = setup(); rifle.step(1 / 60, { ...input, weapon: 'rifle', firing: true, muzzle: { x: 0, z: 0, y: 1 } }); frames(rifle, 3, { ...input, weapon: 'rifle', muzzle: { x: 0, z: 0, y: 1 } });
+  assert.equal(rifle.robots[0].staggerLeft, 0);
+});
+
+test('Atordoamento: cancela a investida do mutante grande e a pose de ataque', () => {
+  const s = setup('largeMutant'), r = s.robots[0];
+  r.chargePhase = 'windup'; r.chargeLeft = 5; r.staggerLeft = .5; frames(s, 1);
+  assert.notEqual(r.chargePhase, 'windup');
+  assert.match(fs.readFileSync('src/combat/patrolUnit.ts', 'utf8'), /staggerLeft \?\? 0\) > 0/);
+});
+
+test('Recuo: a emenda do ciclo não dá mais tranco na cabeça e o clipe aprovado fica intacto', () => {
+  const source = base.animations.find(c => c.name === 'Machete_Backward'), before = source.tracks[0].values.slice();
+  const seam = clip => {
+    const character = clone(player.scene), mixer = new AnimationMixer(character); mixer.clipAction(clip).play();
+    const head = character.getObjectByName('mixamorigHead'), a = new Vector3(), b = new Vector3(); let worst = 0;
+    for (let i = 0; i <= 288; i++) { mixer.setTime(clip.duration * (1 + i / 144)); character.updateMatrixWorld(true); head.getWorldPosition(a); if (i) worst = Math.max(worst, a.distanceTo(b)); b.copy(a); }
+    return worst;
+  };
+  const antes = seam(source), depois = seam(weldLoop(source));
+  assert.ok(antes > .02, `antes ${antes}`); assert.ok(depois < .012, `depois ${depois}`);
+  assert.deepEqual(Array.from(source.tracks[0].values), Array.from(before));
 });

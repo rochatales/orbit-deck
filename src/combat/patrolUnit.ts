@@ -62,7 +62,7 @@ export function walkTimeScale(speed: number, reference = PATROL_UNIT.walkReferen
     return Math.min(max, Math.max(min, speed / reference));
 }
 
-export interface PatrolUnitRobot { x: number; z: number; hp: number; flash: number; alerted: boolean; angle?: number; chargePhase?: string; chargeLeft?: number }
+export interface PatrolUnitRobot { staggerLeft?: number; x: number; z: number; hp: number; flash: number; alerted: boolean; angle?: number; chargePhase?: string; chargeLeft?: number }
 
 /**
  * Uma instância por robô: esqueleto e material próprios; malha e texturas
@@ -128,7 +128,7 @@ export class PatrolUnitRig {
         const speed = this.speed;
         const winding = this.variant === 'largeMutant' && robot.chargePhase === 'windup';
         const dashing = this.variant === 'largeMutant' && robot.chargePhase === 'dash';
-        const attacking = winding || alive && robot.alerted && Math.hypot(robot.x - playerX, robot.z - playerZ) <= contactRange;
+        const attacking = !((robot.staggerLeft ?? 0) > 0) && (winding || alive && robot.alerted && Math.hypot(robot.x - playerX, robot.z - playerZ) <= contactRange);
         this.stateInput.alive = alive; this.stateInput.speed = speed; this.stateInput.attacking = attacking && !dashing; this.stateInput.chasing = !!this.variant && robot.alerted;
         let next = nextPatrolUnitClip(this.clip, this.stateInput);
         const wasLocomotion=this.clip==='Idle'||this.clip==='PatrolWalk'||this.clip==='ChaseRun';

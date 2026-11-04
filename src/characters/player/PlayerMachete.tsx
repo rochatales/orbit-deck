@@ -6,7 +6,7 @@ import { Vector3, type Object3D, type Mesh, type PointLight } from 'three';
 import { useThree } from '@react-three/fiber';
 import { combatRuntime } from '../../state/useCombatStore';
 import { comboTrailProgress } from './swordClips';
-import { playerPosition } from '../../state/playerTransient';
+import { playerVisualPosition } from '../../state/playerTransient';
 import { SWORD_LIGHT, createSwordNeon } from './swordNeon';
 import { SwordTrail } from './swordTrail';
 import type { PlayerMotionState } from './playerConfig';
@@ -57,7 +57,7 @@ function Sword({ scene, motionRef, combat, light }: { scene: Object3D; motionRef
     }
     const state = motionRef.current.animationState;
     if (!combat || simulation?.dead || state === 'dashing') { trail.clear(); return; }
-    trail.update(step, simulation?.comboStage ?? 0, comboTrailProgress(simulation?.comboStage ?? 0, left), playerPosition.x, playerPosition.y, playerPosition.z, motionRef.current.facingAngle);
+    trail.update(step, simulation?.comboStage ?? 0, comboTrailProgress(simulation?.comboStage ?? 0, left), playerVisualPosition.x, playerVisualPosition.y, playerVisualPosition.z, motionRef.current.facingAngle);
   }, -20);
   useEffect(() => {
     if (combat) attachMachete(scene, sword); else { attachHolsteredMachete(scene, sword); holster.update(); }

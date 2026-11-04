@@ -27,6 +27,26 @@ export function comboTorsoWhileMoving(clip: AnimationClip, hipsRest: Quaternion,
   return new AnimationClip(name, clip.duration, tracks);
 }
 
+/**
+ * Fecha o ciclo: a última pose do `Machete_Backward` não bate com a primeira e dava um tranco de
+ * 3 cm na cabeça a cada passada. Dilui a diferença nos últimos quadros; o resto do clipe não muda.
+ */
+export function weldLoop(clip: AnimationClip, keys = 5) {
+  const out = clip.clone(), a = new Quaternion(), b = new Quaternion();
+  for (const track of out.tracks) {
+    const size = track.getValueSize(), count = track.times.length, values = track.values;
+    if (count <= keys) continue;
+    for (let k = 1; k <= keys; k++) {
+      const at = (count - 1 - keys + k) * size, weight = k / keys;
+      if (size === 4) {
+        a.fromArray(values, at); b.fromArray(values, 0);
+        a.slerp(b, weight).toArray(values, at);
+      } else for (let c = 0; c < size; c++) values[at + c] += (values[c] - values[at + c]) * weight;
+    }
+  }
+  return out;
+}
+
 /** Tronco executa o corte; pernas conservam marcha/recuo sem parar a física. Parado, usa o corpo todo. */
 export class MacheteAnimationLayers {
   readonly legs: GLBActionMap;
@@ -46,11 +66,16 @@ export class MacheteAnimationLayers {
     const spine = this.root.getObjectByName('mixamorigSpine') ?? this.root.getObjectByName('mixamorig:Spine');
     const names = new Set<string>(); spine?.traverse(n => names.add(PropertyBinding.sanitizeNodeName(n.name)));
     const action = (clip: AnimationClip) => { this.clips.push(clip); return this.mixer.clipAction(clip, this.root); };
-    const masked = (source: AnimationAction, upper: boolean, name: string) =>
-      action(new AnimationClip(name, source.getClip().duration, source.getClip().tracks.filter(t => names.has(trackBone(t.name)) === upper)));
+    const maskedClip = (source: AnimationClip, upper: boolean, name: string) =>
+      action(new AnimationClip(name, source.duration, source.tracks.filter(t => names.has(trackBone(t.name)) === upper)));
+    const masked = (source: AnimationAction, upper: boolean, name: string) => maskedClip(source.getClip(), upper, name);
     this.legs = { ...actions };
-    for (const [name, source] of [['Idle', actions.Machete_Idle], ['Run', actions.Machete_Run], ['Backward', actions.Machete_Backward]] as const) {
+    for (const [name, source] of [['Idle', actions.Machete_Idle], ['Run', actions.Machete_Run]] as const) {
       if (source) { this.legs[name] = masked(source, false, name + '_Facao_Pernas'); this.upper[name] = masked(source, true, name + '_Facao_Tronco'); }
+    }
+    if (actions.Machete_Backward) {
+      const welded = weldLoop(actions.Machete_Backward.getClip());
+      this.legs.Backward = maskedClip(welded, false, 'Backward_Facao_Pernas'); this.upper.Backward = maskedClip(welded, true, 'Backward_Facao_Tronco');
     }
     this.legs.Aim_Rifle = this.legs.Idle;
     for (const [name, source] of [['Slash', actions.Sword_Combo], ['Turn', actions.Sword_Turn], ['Death', actions.Sword_Death]] as const) {

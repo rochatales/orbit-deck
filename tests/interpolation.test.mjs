@@ -7,11 +7,11 @@ const transient=loadSource('src/state/playerTransient.ts');
 const {COMBAT,RIFLE_POSE}=loadSource('src/combat/config.ts');
 const {CombatSimulation}=loadSource('src/combat/simulation.ts');
 
-test('S2.11: apenas ?interp=1 habilita; passo permanece 1/60 e padrão conserva prioridades',()=>{
- for(const value of ['', '?interp', '?interp=0','?interp=true'])assert.equal(isInterpolationEnabled(value),false);
- assert.equal(isInterpolationEnabled('?perf&interp=1'),true);assert.equal(PHYSICS_STEP,1/60);assert.equal(COMBAT.fixedStep,PHYSICS_STEP);
+test('Interpolação é o padrão; só ?interp=0 desliga para comparar; passo permanece 1/60',()=>{
+ for(const value of ['', '?interp', '?interp=1','?interp=true','?perf&interp=1'])assert.equal(isInterpolationEnabled(value),true);
+ assert.equal(isInterpolationEnabled('?interp=0'),false);assert.equal(isInterpolationEnabled('?perf&interp=0'),false);assert.equal(PHYSICS_STEP,1/60);assert.equal(COMBAT.fixedStep,PHYSICS_STEP);
  for(const enabled of [false,true]){
-  globalThis.window={location:{search:enabled?'?interp=1':''}};
+  globalThis.window={location:{search:enabled?'':'?interp=0'}};
   try{const c=createSourceLoader()('src/physics/interpolation.ts');assert.equal(c.INTERPOLATE,enabled);assert.deepEqual([c.PHYSICS_PRIORITY,c.PLAYER_POSE_PRIORITY,c.CAMERA_PRIORITY],enabled?[-100,-90,-80]:[0,0,0]);}
   finally{delete globalThis.window;}
  }

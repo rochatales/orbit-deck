@@ -17,6 +17,8 @@ import { advanceCrate, openCrate, SUPPLY_CRATE, crateMarker, type CratePlacement
 export interface SupplyCrate extends CrateState, CratePlacement { marker: Position; rewarded: boolean }
 export interface Robot extends Position, ChargeState, MovementRecovery {
     recoil: number; recoilX: number; recoilZ: number;
+    /** Atordoado pela espada: não anda nem golpeia. */
+    staggerLeft: number;
     kind: RobotKind;
     packAngle: number;
     packReady: boolean;
@@ -43,7 +45,7 @@ export interface Robot extends Position, ChargeState, MovementRecovery {
     stuck: number;
 }
 function createRobot(id: number, x: number, z: number, routeIndex: number, waypoint: number, angle: number, spawned: boolean): Robot {
-    return { ...newMovementRecovery(), chargePhase: 'ready', chargeLeft:0, chargeDirX:0, chargeDirZ:1, chargeOriginX:0, chargeOriginZ:0, chargeDistance:0, chargeTraveled:0, chargeHit:false, recoil:0, recoilX:0, recoilZ:0, kind: 'patrol', packAngle: 0, packReady: false, x, z, routeIndex, waypoint, id, hp: spawned ? COMBAT.robot.hp : 0, angle, path: [], repath: 0, flash: 0, alerted: false, alertLeft: 0, spawned, generation: spawned ? 1 : 0, pace: COMBAT.robot.speed, drop: id, stuck: 0 };
+    return { ...newMovementRecovery(), chargePhase: 'ready', chargeLeft:0, chargeDirX:0, chargeDirZ:1, chargeOriginX:0, chargeOriginZ:0, chargeDistance:0, chargeTraveled:0, chargeHit:false, staggerLeft:0, recoil:0, recoilX:0, recoilZ:0, kind: 'patrol', packAngle: 0, packReady: false, x, z, routeIndex, waypoint, id, hp: spawned ? COMBAT.robot.hp : 0, angle, path: [], repath: 0, flash: 0, alerted: false, alertLeft: 0, spawned, generation: spawned ? 1 : 0, pace: COMBAT.robot.speed, drop: id, stuck: 0 };
 }
 /** Spawn só vale com caminho inteiro livre e término dentro do contato do tipo. */
 export function validContactSpawn(terrain: Terrain, navigation: Navigation, start: Position, arrival: Position, radius: number, contactRange: number) {
@@ -309,7 +311,7 @@ export class CombatSimulation {
             r.packAngle = kind === 'smallMutant' ? mutantSlot++ * Math.PI * 2 / COMBAT.hordes.smallMutants[waveIndex] + this.wave * 2.399963 : 0;
             r.kind = kind; r.x = p.x; r.z = p.z; r.hp = R.hp;
             requiredHits += Math.ceil(R.hp / COMBAT.rifle.damage); r.spawned = true; r.generation++;
-            r.alerted = false; r.alertLeft = 0; r.flash = 0; r.recoil=0; r.stuck = 0; r.pace = R.speed;
+            r.alerted = false; r.alertLeft = 0; r.flash = 0; r.recoil=0; r.staggerLeft=0; r.stuck = 0; r.pace = R.speed;
             r.routeIndex = -1; r.waypoint = 0; r.path.length = 0; r.drop = this.dropCursor; this.dropCursor += kind === 'largeMutant' ? 3 : 1;
             r.chargePhase='ready';r.chargeLeft=0;r.chargeHit=false;resetMovementRecovery(r);r.avoidSide=1;
             // Caminhos em quadros alternados: 40 robôs não calculam rota no mesmo passo.
@@ -392,6 +394,7 @@ export class CombatSimulation {
         this.shots.length = visibleShots;
         for (const r of this.robots) {
             r.recoil = Math.max(0,r.recoil-dt);
+            r.staggerLeft = Math.max(0,r.staggerLeft-dt);
             r.flash = Math.max(0, r.flash - dt);
             r.alertLeft = Math.max(0, r.alertLeft - dt);
         }
@@ -461,6 +464,7 @@ export class CombatSimulation {
                 const nx = distance > 1e-8 ? dx / distance : Math.sin(input.facingAngle), nz = distance > 1e-8 ? dz / distance : Math.cos(input.facingAngle);
                 this.effects.impact(robot.x - nx * robotConfig(robot).radius * .7, robot.z - nz * robotConfig(robot).radius * .7, impactKind(robot.kind), -nx, -nz, (input.player.y ?? 0) + .85);
                 this.damageRobot(robot, MACHETE.damage, nx, nz);
+                if (robot.hp > 0) robot.staggerLeft = MACHETE.stagger;
             }
         }
         for (const robot of this.robots) {
@@ -470,6 +474,12 @@ export class CombatSimulation {
             const player = input.player, distance = Math.hypot(robot.x - player.x, robot.z - player.z);
             if (!robot.alerted && canSeePlayer(robot, player, this.terrain))
                 alertRobot(robot);
+            if (robot.staggerLeft > 0) {
+                if (robot.chargePhase === 'windup' || robot.chargePhase === 'dash') finishCharge(robot);
+                robot.stuck = 0;resetMovementRecovery(robot);
+                turnToward(robot, player.x - robot.x, player.z - robot.z, dt);
+                continue;
+            }
             if (robot.kind === 'largeMutant' && this.stepCharge(robot, input.player, dt)) {resetMovementRecovery(robot);continue;}
             if(robot.yieldLeft>0){this.moveYield(robot,player,dt);continue;}
             if (robot.alerted && distance <= R.contactRange && clearSegment(robot, player, this.terrain, 0)) {

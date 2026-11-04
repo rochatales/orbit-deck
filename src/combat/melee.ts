@@ -6,7 +6,9 @@ export const MACHETE = {
   /** Depois do corte, tempo para o próximo golpe ainda continuar o combo. */
   chainWindow: .3,
   /** O avanço do clipe para antes de atravessar quem já está ao alcance do corte. */
-  lungeStopDistance: 1.7
+  lungeStopDistance: 1.7,
+  /** Atingido pela espada, o inimigo fica sem golpear. Passa do maior vão entre cortes do combo (0,885 s). */
+  stagger: .9
 } as const;
 /**
  * Combo de três cortes do clipe do autor: rápido, mais rápido e pesado. A média segue em 0,65 s
