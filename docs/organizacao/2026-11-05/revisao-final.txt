@@ -1,0 +1,8 @@
+**Resolvido.** O problema de autorreferência está corrigido e não encontrei nada restante no escopo.
+
+- **Causa:** `scripts/audit-project-assets.mjs:81` agora pula `analysisFiles` (linha 10) antes de ler o arquivo, então o literal `'src/assets/**/*.glb'` do teste não vira mais `testes:glob`. O risco de um GLB novo sair como `referencia_de_teste` também acaba, e o mesmo vale para o gerador e `docs/ASSETS.md`.
+- **Teste:** a fixture (`tests/asset-inventory.test.mjs:34-35`) inclui os dois arquivos com literais que dariam match, e a linha 44 os passa em `trackedFiles`. Por leitura, a asserção da linha 56 falharia sem a exclusão, então ela protege contra regressão.
+- **Observação menor:** a linha 30 do script classifica `Legacy.tsx` como `codigo_na_raiz`, e o teste confirma isso. A classificação fica abaixo de `codigo` e acima de `ferramentas` (linhas 112-114).
+- **Texto do guia:** o `docs/ASSETS.md` no `HEAD` não tem mais "fracas/documentais", e a frase sobre prova circular continua lá (linha 116).
+
+**Não verifiquei, conforme pedido:** não rodei a suíte nem o build e não abri o JSON. Os números 566/566, os 1033 hashes e as classificações iguais vêm do seu relato; a conclusão acima vem só da leitura do código.

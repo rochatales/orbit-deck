@@ -95,4 +95,23 @@ Código solto na raiz é identificado como `codigo_na_raiz`, não documentação
 Após essa correção, os dois testes focados, a suíte **566/566**, o build com
 manifesto e os 1033 hashes passaram novamente. As classificações atuais não
 mudaram; foram removidas apenas referências falsas do próprio auditor.
-Confirmação pontual solicitada ao revisor. Runtime e binários permanecem iguais.
+Confirmação pontual concluída pelo Claude em `revisao-final.txt`: resolvido, sem
+problemas restantes no escopo. Runtime e binários permanecem iguais.
+
+
+## Resultado final
+
+Organização e inventário concluídos: 28 documentos históricos preservados byte
+a byte, README/índices atuais, 170 assets + 863 fontes/pipeline inventariados,
+441 arquivos fora do índice no principal levantados só por metadados. 743 links
+locais sem quebrados; 1033 hashes conferidos; public/dist e áudio inline verificados.
+Todos os binários/fontes/backups permaneceram no lugar; nenhum arquivo preexistente
+de archive ou do checkout principal foi modificado. Plano/quadro preservados.
+
+Validação final: **566/566**, build com manifesto verde (aviso preexistente de
+chunk grande), `git diff --check` verde. Revisão independente e confirmações
+preservadas nos três arquivos `revisao-*.txt` da pasta de organização; os achados
+foram corrigidos e o último parecer confirmou sem problemas restantes no escopo.
+Sem novas verificações visuais: aplicação, arte, física e controles não mudaram.
+Entrega commitada nesta branch, sem merge/push. Vídeos de loading da navegação
+da aeronave seguem como pendência do autor na S6.16.

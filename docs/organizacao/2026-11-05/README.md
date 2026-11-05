@@ -54,3 +54,12 @@ arquivos de fonte/pipeline (art-source e blender). Cinco cópias public/dist por
 hash e 15 áudios base64 nos chunks complementam o manifesto. Templates dinâmicos
 não são prova de uso; mídia embutida também participa da distribuição. Parecer
 inicial em `revisao-claude.txt`; correções e confirmação no handoff desta tarefa.
+
+
+## Revisão concluída
+
+Revisão inicial, confirmação dos seis ajustes e confirmação final preservadas
+em `revisao-claude.txt`, `revisao-confirmacao.txt` e `revisao-final.txt`.
+Claude confirmou sem problemas restantes no escopo. Testes 566/566, build,
+diff-check, links e preservação verdes. Só este registro documental foi
+acrescentado após a confirmação; runtime e binários permanecem inalterados.
