@@ -1,0 +1,114 @@
+{
+  "id": "M2",
+  "status": "válida — integridade e duração conferidas",
+  "arquivo": "M2-marte-movimento-30s.json",
+  "origem": "/Users/rochatales/Game Development/Horda Survivor/M2-marte-movimento-30s.json",
+  "sha256": "e41331f14ce7b5aaeb939682ec0117603d81e307cf64697670b018ed08a09a31",
+  "sampleIndex": 2,
+  "condicao": "Marte em movimento contínuo, condição declarada pelo autor",
+  "requestedMs": 30000,
+  "elapsedMs": 30000.699999928474,
+  "warnings": [],
+  "raf": {
+    "count": 4320,
+    "p50": 6.900000000023283,
+    "p95": 7.699999999953434,
+    "max": 7.900000000023283,
+    "mean": 6.944398148148159,
+    "rafOver33": 0,
+    "rafOver50": 0
+  },
+  "coverage": {
+    "intervalsCollected": 4320,
+    "intervalsCapacity": 15016,
+    "intervalsSaturated": false,
+    "countersCollected": 288,
+    "countersCapacity": 316,
+    "countersSaturated": false
+  },
+  "renderer": {
+    "samples": 288,
+    "firstSampledAtMs": 788866.2000000477,
+    "lastSampledAtMs": 818761.4000000954,
+    "drawCalls": {
+      "min": 135,
+      "max": 359,
+      "mean": 271.3854166666667
+    },
+    "triangles": {
+      "min": 234295,
+      "max": 396525,
+      "mean": 323389.34375
+    }
+  },
+  "longAnimationFrames": {
+    "supported": true,
+    "count": 0,
+    "maxDurationMs": null
+  },
+  "context": {
+    "interpolation": {
+      "enabled": true,
+      "timeStep": 0.016666666666666666,
+      "frames": 54680,
+      "steps": 22448,
+      "minStep": 0.01666666753590107,
+      "maxStep": 0.01666666753590107,
+      "maxOffset": 0.07000064581717468,
+      "maxHorizontal": 0.07000064581717468,
+      "physical": {
+        "x": 5.4756646156311035,
+        "y": 0,
+        "z": -5.818012714385986
+      },
+      "visual": {
+        "x": 5.4756646156311035,
+        "y": 0,
+        "z": -5.818012714385986
+      },
+      "cameraSource": {
+        "x": 5.4756646156311035,
+        "y": 0,
+        "z": -5.818012714385986
+      },
+      "cameraTarget": {
+        "x": 5.476058543329054,
+        "y": 0.55,
+        "z": -5.817922904357907
+      },
+      "cameraAngle": 8.756823163230528,
+      "cameraZoom": 43.1812255541069
+    },
+    "capturedAt": "2026-11-05T16:24:21.982Z",
+    "build": "production",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+    "browserBrands": "Not:A-Brand 8, Chromium 156, Google Chrome 156",
+    "gpuRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Pro, Unspecified Version)",
+    "hardwareConcurrency": 12,
+    "deviceMemoryGb": 16,
+    "screen": {
+      "width": 2560,
+      "height": 1440
+    },
+    "viewport": {
+      "width": 1363,
+      "height": 1035
+    },
+    "canvasCss": {
+      "width": 1363,
+      "height": 1035
+    },
+    "canvasBuffer": {
+      "width": 1363,
+      "height": 1035
+    },
+    "devicePixelRatio": 1,
+    "rendererPixelRatio": 1
+  },
+  "observacao": "M1 preservada como índice 0; índice 1 é amostra adicional de 30 s sem condição identificada, não contado como caso obrigatório. M2 é o último índice.",
+  "limites": [
+    "rAF não é tempo de GPU.",
+    "Contexto/heap da exportação, não medição contínua do ambiente.",
+    "Movimento é relato do autor. Variação de cena/câmera altera contagens; resultados não isolam uma otimização."
+  ]
+}

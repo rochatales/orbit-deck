@@ -105,3 +105,20 @@ o contexto é da exportação posterior e não constitui telemetria contínua de
 
 M1 registrada tecnicamente; próximos casos M2/B/S2/S1/S44 e aceites expressos
 S2.9/6.5 permanecem pendentes. Não constitui encerramento da sprint.
+
+
+## M2 — JSON completo validado
+
+Autor confirmou movimento e exportação. Última amostra (índice 2) do relatório:
+30.000,7 ms de 30.000 solicitados; válida, invalidReason null e warnings vazio.
+4.320 intervalos, 288 leituras, sem saturação. rAF p50 6,9 ms / p95 7,7 ms /
+máximo 7,9 ms; >33/>50 ms e LoAF zero. M1 preservada integralmente no índice 0;
+índice 1 é uma amostra extra de condição não identificada, não contada como
+medição obrigatória. Fonte e cópia `M2-marte-movimento-30s.json` iguais por SHA-256;
+ver `M2-validacao.json`.
+
+Tela/viewport/buffer/DPR/GPU/navegador e zoom da exportação iguais aos da M1.
+Posição e ângulo de câmera mudam com o percurso; contagens não são comparação
+isolada de otimização. Draw calls mín./máx./média 135/359/271,39; triângulos
+234.295/396.525/323.389,34. Contexto/heap são da exportação posterior.
+M2 registrada; seguem B/S2/S1/S44 e decisões expressas do autor.

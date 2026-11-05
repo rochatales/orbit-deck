@@ -76,7 +76,7 @@ Não interpretar o painel ao vivo como substituto das estatísticas da amostra.
 | P1/P2/C1-API | Com `?perf`, painel sem bloquear HUD; clique/rolagem não causam tiro/giro/zoom; API funciona e context.build = production | pendente |
 | A | Entrada em Marte até cena pronta; tempos/cache | `A-entrada-marte.json` — pendente |
 | M1 | Marte parado a pé, 30 s | `M1-marte-parado-30s.json` — válida, 30,008 s; p50 13,1 / p95 14,5 / máx. 14,8 ms; >33/>50 ms 0, sem avisos/saturação |
-| M2 | Marte em movimento contínuo por rota livre, 30 s | `M2-marte-movimento-30s.json` — pendente |
+| M2 | Marte em movimento contínuo por rota livre, 30 s | `M2-marte-movimento-30s.json` — válida, 30,001 s; p50 6,9 / p95 7,7 / máx. 7,9 ms; sem avisos/saturação |
 | B | Viagem com patrulha de cinco comuns; eventos até Shanghai pronta | `B-viagem-shanghai.json` — pendente |
 | S2 | Shanghai com cinco comuns no início, andar/atirar por 10 s; registrar ativos início/fim | `S2-shanghai-5-robos-10s.json` — pendente |
 | S1 | Após eliminar os cinco, andar em Shanghai sem inimigos por 10 s | `S1-shanghai-sem-inimigos-10s.json` — pendente |
