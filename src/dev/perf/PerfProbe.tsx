@@ -10,8 +10,10 @@ import { interpolationSnapshot, resetInterpolationTelemetry } from '../../physic
  */
 import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useRef, useState } from 'react';
-import type { Object3D, WebGLRenderer } from 'three';
-import { EDEN_CHARACTER_ASSET, PLAYER_CHARACTER_ASSET } from '../../characters/characterAssetConfig';
+import type { WebGLRenderer } from 'three';
+import { PLAYER_ASSET_VARIANTS } from '../../characters/characterAssetConfig';
+import { usePlayerAsset } from '../../characters/player/playerAssetChoice';
+import { perfCharactersReady } from './sceneReadiness';
 import { useExpeditionStore } from '../../state/useExpeditionStore';
 import { useGameStore } from '../../state/useGameStore';
 import {
@@ -25,15 +27,6 @@ const PANEL_REFRESH_MS = 500;
 /** Estado limitado, compartilhado entre sonda e painel e mantido entre trocas de mapa. */
 const shared = createPerfShared();
 let activeGl: WebGLRenderer | null = null;
-
-/** Personagens GLB cujo conteúdo carregado (grupo nomeado) indica cena completa, por mapa. */
-function expectedCharacterNames(map: string): string[] {
-  return map === 'mars' ? [PLAYER_CHARACTER_ASSET.name, EDEN_CHARACTER_ASSET.name] : [PLAYER_CHARACTER_ASSET.name];
-}
-
-function allPresent(scene: Object3D, names: string[]) {
-  return names.every(name => scene.getObjectByName(name) !== undefined);
-}
 
 function readCounters(gl: WebGLRenderer, now: number): RendererCounters {
   // Somente leitura: autoReset e demais opções do renderer não são tocados.
@@ -77,7 +70,7 @@ export function PerfProbe({ map }: { map: string }) {
     if (!tracker || tracker.done) return;
     if (!assetsPresentRef.current && now - lastAssetCheckRef.current >= COUNTER_SAMPLE_EVERY_MS) {
       lastAssetCheckRef.current = now;
-      assetsPresentRef.current = allPresent(scene, expectedCharacterNames(map));
+      assetsPresentRef.current = perfCharactersReady(scene, map, PLAYER_ASSET_VARIANTS[usePlayerAsset.getState().variant].name);
     }
     tracker.onFrame(now, counters.drawCalls, assetsPresentRef.current);
   });
@@ -242,12 +235,12 @@ export function PerfPanel({ map }: { map: string }) {
     };
   }, [map]);
 
-  const runSample = async (event: React.MouseEvent<HTMLButtonElement>) => {
+  const runSample = async (event: React.MouseEvent<HTMLButtonElement>, ms: number) => {
     event.currentTarget.blur();
     const session = sessionRef.current;
     if (!session) return;
-    setMessage('Amostrando 10 s… mantenha a aba visível.');
-    const result = await session.sample();
+    setMessage(`Amostrando ${ms / 1000} s… mantenha a aba visível e o jogo em foco.`);
+    const result = await session.sample(ms);
     setMessage(result.status === 'valid' ? 'Amostra concluída.' : `Amostra inválida: ${result.invalidReason}`);
   };
 
@@ -261,6 +254,21 @@ export function PerfPanel({ map }: { map: string }) {
       console.info('[perf] relatório S2.9', json);
       setMessage('Área de transferência indisponível; relatório impresso no console.');
     }
+  };
+
+  const downloadReport = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.currentTarget.blur();
+    const report = buildFullReport();
+    const url = URL.createObjectURL(new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' }));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `exoden-perf-${map}-${report.context.capturedAt.replace(/[:.]/g, '-')}.json`;
+    link.hidden = true;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    setMessage('Download do relatório JSON solicitado.');
   };
 
   const last = view?.lastSample ?? null;
@@ -296,8 +304,12 @@ export function PerfPanel({ map }: { map: string }) {
             </div>
           )}
           <div style={{ display: 'flex', gap: 6, marginTop: 6 }}>
-            <button type="button" disabled={view.sampling} onClick={runSample} style={buttonStyle}>Amostra 10 s</button>
-            <button type="button" onClick={copyReport} style={buttonStyle}>Copiar JSON</button>
+            <button type="button" disabled={view.sampling} onClick={event => runSample(event, 10000)} style={buttonStyle}>Amostra 10 s</button>
+            <button type="button" disabled={view.sampling} onClick={event => runSample(event, 30000)} style={buttonStyle}>Amostra 30 s</button>
+          </div>
+          <div style={{ display: 'flex', gap: 6, marginTop: 6 }}>
+            <button type="button" disabled={view.sampling} onClick={copyReport} style={buttonStyle}>Copiar JSON</button>
+            <button type="button" disabled={view.sampling} onClick={downloadReport} style={buttonStyle}>Baixar JSON</button>
           </div>
           {message && <div style={{ marginTop: 4, opacity: 0.85 }}>{message}</div>}
           <div style={{ marginTop: 4, opacity: 0.6 }}>Intervalos de rAF, não tempo de GPU.</div>

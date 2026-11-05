@@ -1,0 +1,82 @@
+{
+  "data": "2026-11-05",
+  "fuso": "America/Sao_Paulo",
+  "runtimeBase": "00ab557a545b7ac1af6630cca118c03efed9ba42",
+  "branch": "rochatales/s2-fechamento-2026-11-05",
+  "checkout": "/Users/rochatales/.codex/worktrees/s2-fechamento-2026-11-05/game-workplace",
+  "url": "http://127.0.0.1:5194/?perf",
+  "build": "production",
+  "hardware": {
+    "modelo": "Mac14,9",
+    "cpu": "Apple M2 Pro",
+    "ramBytes": 17179869184,
+    "sistema": "macOS 26.5.1 (25F80)",
+    "energia": "AC Power; bateria 100%",
+    "telasDisponiveis": [
+      {
+        "nome": "Color LCD",
+        "resolucao": "1512 × 982 lógica / 3024 × 1964 física",
+        "hzReportado": 120
+      },
+      {
+        "nome": "Odyssey G5",
+        "resolucao": "2560 × 1440",
+        "hzReportado": 144
+      }
+    ]
+  },
+  "telaUsada": {
+    "nome": "Odyssey G5",
+    "hz": 144,
+    "confirmadoPeloAutor": true
+  },
+  "metodo": "Chrome nativo no equipamento do autor, build de produção sem alteração de runtime. API pública ?perf. Movimento e playtest pelo autor.",
+  "checks": {
+    "npmTest": {
+      "pass": 562,
+      "fail": 0,
+      "log": "npm-test.txt"
+    },
+    "build": {
+      "passou": true,
+      "aviso": "chunk grande preexistente",
+      "log": "build.txt"
+    },
+    "diffCheck": {
+      "passou": true,
+      "log": "diff-check.txt"
+    }
+  },
+  "aceites": {
+    "S2.9": "pendente",
+    "etapa6.5": "pendente"
+  },
+  "limites": [
+    "rAF mede intervalo de frames do navegador; não tempo de GPU.",
+    "Informações de tela do sistema não comprovam em qual tela está a janela.",
+    "Os checks técnicos não equivalem a aceite visual/jogabilidade."
+  ],
+  "baseSelecionada": "00ab557, solicitada pelo autor por conter novos prédios do Quartel/Laboratório e correções dos telhados; ainda não publicada",
+  "mapaConfirmadoPeloAutor": true,
+  "medicoes": {
+    "M1": {
+      "status": "não coletada",
+      "motivo": "Agendamento remoto pelo console não apareceu no relatório. Nenhuma amostra de 30 s aceita. Será repetida pelo botão Amostra 30 s."
+    }
+  },
+  "instrumentacao": "Botão Amostra 30 s, Baixar JSON e prontidão dos personagens atuais implementados; regras de jogo e assets preservados.",
+  "checksPainel": {
+    "npmTest": {
+      "pass": 564,
+      "fail": 0,
+      "log": "npm-test-painel.txt"
+    },
+    "build": {
+      "passou": true,
+      "log": "build-painel.txt"
+    },
+    "diffCheck": {
+      "passou": true
+    }
+  }
+}
