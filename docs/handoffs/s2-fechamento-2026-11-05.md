@@ -49,4 +49,15 @@ Nenhuma lista/objeto novo é criado no passo dessa conferência.
 Dois testes de regressão adicionados em `tests/perf-readiness.test.mjs`:
 prontidão real em Marte e seleção de variante em Shanghai. Os 13 testes
 relevantes de perf passaram. Suíte completa após o ajuste: **564/564**, build e diff-check verdes;
-logs separados `npm-test-painel.txt`/`build-painel.txt` preservam a rodada anterior.
+logs da rodada atual em `npm-test-painel.txt`/`build-painel.txt`; a rodada anterior permanece nos arquivos sem o sufixo `-painel`.
+
+
+## Revisão independente · 05/11
+
+Claude revisou `00ab557...18fe0d6`: nenhum defeito de código e nenhuma mudança
+de gameplay. Apontou a contagem antiga de testes no roteiro e uma frase ambígua
+sobre os logs; ambas corrigidas. Parecer completo em `revisao-claude.txt`.
+Código medido: `18fe0d6`, com mapas/regras de `00ab557`; commits documentais
+posteriores não mudam o build. A primeira tentativa remota não produziu amostra.
+Autor orientado a iniciar M1 pelo botão de 30 s e baixar o relatório na tela
+Odyssey G5. Aceites S2.9 e 6.5 continuam pendentes.

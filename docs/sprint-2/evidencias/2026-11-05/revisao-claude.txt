@@ -1,0 +1,25 @@
+Não encontrei nenhum defeito no código e nenhuma mudança de gameplay. O único problema real é um número de testes desatualizado no roteiro.
+
+**Achado**
+
+- `docs/sprint-2/SESSAO_FECHAMENTO_S0_S2.md:21`: a linha "Verificação técnica de 05/11" ainda diz **562/562**. Esse número é da rodada anterior ao ajuste do `?perf`, guardada em `evidencias/2026-11-05/npm-test.txt`. A rodada válida para o código atual é **564/564**, em `npm-test-painel.txt`, e o handoff já registra isso (`docs/handoffs/s2-fechamento-2026-11-05.md:51`). Do jeito que está, o roteiro sugere que a versão medida passou com 562 testes.
+  - Ponto menor no mesmo handoff, linhas 51–52: a frase "logs separados `npm-test-painel.txt`/`build-painel.txt` preservam a rodada anterior" pode ser lida ao contrário, porque os arquivos `-painel` são justamente a rodada nova.
+
+**O que foi conferido, sem achados**
+
+- **Prontidão do astronauta e da EDEN:**
+  - O nome do jogador só aparece na cena depois que o GLB carrega (`GLBCharacter.tsx:147`, dentro do Suspense). O substituto provisório não usa esse nome, então não dá falso positivo.
+  - `PLAYER_ASSET_VARIANTS[variant].name` vale `'Explorador astronauta'` na variante padrão.
+  - `EdenFigura` só recebe o nome depois que o GLB da EDEN carrega e é anexado (`ControlRoomEden.tsx:20`). O wrapper `ControlRoomEden`, vazio, não conta como pronto.
+  - O `EDEN_CHARACTER_ASSET` antigo (`'EDEN'`) não é mais renderizado em `src`, o que confirma a regressão que foi corrigida.
+  - A checagem não cria objetos novos e continua limitada pelo intervalo `COUNTER_SAMPLE_EVERY_MS`.
+  - Shanghai não depende da EDEN.
+- **Botões de 10 s e 30 s:** `sample(ms)` aceita até `MAX_SAMPLE_MS = 60_000`, então 30 s não é cortado. Os dois botões ficam desativados durante uma amostra.
+- **Exportação sem clipboard:**
+  - `downloadReport` usa o mesmo `buildFullReport()` do Copiar JSON: contexto, carregamento da página, recursos, eventos da cena, contadores, heap e todas as amostras guardadas.
+  - O histórico guarda no máximo 10 amostras (`MAX_SAMPLES`). As 7 medições do roteiro cabem nisso, e o roteiro manda exportar depois de cada caso.
+  - O link é removido depois do clique, a URL é liberada em seguida, e os dois botões de exportação ficam bloqueados durante a amostra.
+- **Gameplay:** o diff no código só mexe em `src/dev/perf/` e acrescenta `tests/perf-readiness.test.mjs`. Regras, configuração, controles e assets ficaram intactos.
+- **Testes:** os dois casos novos cobrem o wrapper vazio, a espera até o frame desenhado seguinte e a escolha da variante em Shanghai.
+
+Não editei nenhum arquivo nem rodei a suíte.

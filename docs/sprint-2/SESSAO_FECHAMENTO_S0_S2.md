@@ -12,13 +12,14 @@ por esta sessão. Registros históricos permanecem no Git e nos handoffs.
 
 | Campo | Valor |
 |---|---|
-| Base imutável do runtime | `00ab557a545b7ac1af6630cca118c03efed9ba42` |
+| Base imutável dos mapas/regras | `00ab557a545b7ac1af6630cca118c03efed9ba42` |
+| Código da instrumentação medida | `18fe0d6` (mapas/regras de `00ab557`) |
 | Branch da sessão | `rochatales/s2-fechamento-2026-11-05` |
 | Worktree | `/Users/rochatales/.codex/worktrees/s2-fechamento-2026-11-05/game-workplace` |
 | Build de produção | `http://127.0.0.1:5194/` |
 | Medição | `http://127.0.0.1:5194/?perf` |
 | Evidências desta rodada | `docs/sprint-2/evidencias/2026-11-05/` |
-| Verificação técnica de 05/11 | 562/562 testes; build verde (aviso preexistente de chunk grande); diff-check limpo |
+| Verificação técnica de 05/11 | 564/564 testes; build verde (aviso preexistente de chunk grande); diff-check limpo |
 
 Assets, dependências e regras/configuração de jogo preservados. Instrumentação
 `?perf` ajustada para botão de 30 s, download direto do JSON e prontidão dos

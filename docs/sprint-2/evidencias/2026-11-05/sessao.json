@@ -61,7 +61,8 @@
   "medicoes": {
     "M1": {
       "status": "não coletada",
-      "motivo": "Agendamento remoto pelo console não apareceu no relatório. Nenhuma amostra de 30 s aceita. Será repetida pelo botão Amostra 30 s."
+      "motivo": "Agendamento remoto pelo console não apareceu no relatório. Nenhuma amostra de 30 s aceita. Será repetida pelo botão Amostra 30 s.",
+      "proximoPasso": "Autor clica Amostra 30 s e Baixar JSON; aguardando resultado."
     }
   },
   "instrumentacao": "Botão Amostra 30 s, Baixar JSON e prontidão dos personagens atuais implementados; regras de jogo e assets preservados.",
@@ -78,5 +79,11 @@
     "diffCheck": {
       "passou": true
     }
+  },
+  "instrumentacaoCommit": "18fe0d6",
+  "revisaoClaude": {
+    "arquivo": "revisao-claude.txt",
+    "codigo": "sem defeitos",
+    "documentacao": "contagem no roteiro e frase sobre logs corrigidas"
   }
 }
