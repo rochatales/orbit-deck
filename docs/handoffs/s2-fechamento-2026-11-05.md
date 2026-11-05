@@ -158,3 +158,24 @@ Draw calls mín./máx./média 83/131/111,89; triângulos 103.549/198.150/118.258
 Fonte intacta (grafia `S1-shangai...`), cópia normalizada e SHA-256 conferido;
 `S1-shanghai-sem-inimigos-10s.json` e `S1-validacao.json`. Movimento e população
 são condição manual declarada. Próximo pico S44 e aceites do autor pendentes.
+
+
+## S44 — pico da quarta horda
+
+Autor confirmou expressamente: **44 vivos durante os 10 s completos**, em
+resposta ao roteiro sem abates, morte, pausa ou troca de janela. JSON original
+com grafia `S44-shangai...` preservado; cópia `S44-shanghai-pico-44-10s.json`,
+SHA-256 conferido e verificações em `S44-validacao.json`.
+
+Última amostra (índice 3) em production: 10.001,2 ms de 10.000 pedidos, válida,
+invalidReason null, warnings vazio; 1.174 intervalos e 96 leituras, sem saturação.
+p50 7,0 / p95 13,9 / máximo 14,8 ms; >33/>50 ms e LoAF zero. Contagens
+mín./máx./média: draw calls 122/178/144,83; triângulos
+179.429/382.401/236.485,85. Contexto igual ao S1, inclusive zoom. Índice 2 é
+outra amostra válida de 10 s, mas sem condição identificada; preservada, não
+contada como caso separado. S2 e S1 intactas nos índices 0 e 1.
+
+As cinco medições M1/M2/S2/S1/S44 estão registradas; S2 tem coleta de 30 s,
+explicitamente maior que os 10 s solicitados. Resultados completos no README
+local de evidências. Falta o resultado final 115/115/retorno e as decisões
+expressas S2.9 e 6.5 do autor. Nenhum encerramento presumido.

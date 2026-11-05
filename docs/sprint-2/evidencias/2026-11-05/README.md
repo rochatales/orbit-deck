@@ -24,14 +24,13 @@ rAF em ms; duração em s. Contagens médias da própria amostra; sombras não i
 | M2 | 30.0007 | 6.9 | 7.7 | 7.9 | 0 / 0 | 271.39 | 323389.34 |
 | S2 | 30.0045 | 6.9 | 7.7 | 55.6 | 2 / 1 | 115.66 | 139296.23 |
 | S1 | 10.0030 | 6.9 | 7.7 | 7.9 | 0 / 0 | 111.89 | 118258.54 |
-| S44 | pendente | — | — | — | — | — | — |
+| S44 | 10.0012 | 7.0 | 13.9 | 14.8 | 0 / 0 | 144.83 | 236485.85 |
 
 M1 parada; M2 em movimento; S2 com cinco comuns vivos (sem abates, autor);
 S1 sem inimigos. S2 foi coletada por 30 s, maior que os 10 s pedidos; duração
-real preservada, não apresentada como amostra de 10 s. Todos os casos acima:
-status válido, warnings vazio, coverage sem saturação. M1/M2/S1 sem LoAF;
-S2 com um LoAF de 66 ms. Há uma amostra adicional em M2, de condição não
-identificada; foi preservada, mas não substitui um caso obrigatório.
+real preservada, não apresentada como amostra de 10 s. S44: quarta horda, 44 vivos nos 10 s inteiros (autor). Todos os casos acima:
+status válido, warnings vazio, coverage sem saturação. M1/M2/S1/S44 sem LoAF;
+S2 com um LoAF de 66 ms. Há amostras adicionais em M2 e S44, de condição não identificada; foram preservadas, mas não substituem os casos obrigatórios. S44 usa o último índice (3), com 44 vivos pelos 10 s completos conforme confirmação do autor.
 
 As cenas e ângulos diferem ao longo do percurso. A diferença entre as contagens
 ou percentis não isola uma otimização. rAF mede a cadência do navegador e não
@@ -49,14 +48,13 @@ para Shanghai. Eventos da viagem: primeiro draw +4.893,8 ms; personagens prontos
 nem equivalem a tempo de GPU. `map-data-ready` é o evento da store, não um
 cronômetro de renderização; pode ser emitido após os primeiros draws no fluxo atual.
 
-Relatórios completos preservados nos arquivos M1/M2/S2/S1. Proveniência, índice
+Relatórios completos preservados nos arquivos M1/M2/S2/S1/S44. Proveniência, índice
 da amostra selecionada, SHA-256 e verificações nos respectivos `*-validacao.json`;
 eventos da viagem em `B-viagem-validacao.json`. Fontes do autor intactas.
 `npm-test-painel.txt` / `build-painel.txt`: rodada de checks do código medido.
 
 ## Fechamento pendente
 
-- S44: 44 vivos durante 10 s completos, sem pausa, morte ou alteração da população.
 - Conferência final do painel e decisão expressa de S2.9 pelo autor.
 - Conclusão/aceite do ciclo completo de combate e retorno, etapa 6.5.
 - Registros finais somente após os resultados e decisões; sem merge/push/limpeza.
