@@ -1,0 +1,38 @@
+**Encontrei 3 problemas, nenhum deles bloqueia o encerramento da Sprint 2.** O único que descumpre um critério do `AGENTS.md` é o primeiro. Os aceites registrados conferem com `aceites-autor.json`.
+
+## Achados
+
+1. **`git diff --check` falha neste diff (exit 2)** — `docs/handoffs/s2-fechamento-2026-11-05-quadro.patch:12` e `:14`
+   - São as linhas de contexto com um único espaço, marcadas como `trailing whitespace`. O `AGENTS.md` exige `git diff --check` verde.
+   - O "diff-check verde" citado nos documentos é a rodada do código medido e continua válido, mas não vale para este commit.
+   - **Correção:** deixar essas duas linhas vazias, que o `git apply` costuma aceitar como contexto (não testei), ou adicionar `*.patch -whitespace` ao `.gitattributes`. Depois, repetir o `--check` nos dois comandos.
+
+2. **O patch deixa o quadro se contradizendo sobre a S2.9** — contexto em `quadro.patch:17`; `docs/SPRINT_STATUS.md:22`, `:172` e `:181`
+   - Com o patch aplicado, a linha do Sprint 2 fica ✅, mas continuam estes textos:
+     - `:22`, na mesma tabela: "medições no equipamento do autor seguem na S2.9".
+     - `:181`: linha da S2.9 com ◐ e "medições e JSON A/B do autor pendentes".
+     - `:172`: "Resultados e medições do autor pendentes".
+   - As linhas 9 e 20 do patch também gravam "sem merge/push" num texto destinado à integração. Isso fica falso se o patch for aplicado depois do merge.
+   - **Correção:** incluir `:22` e `:181` no patch e redigir a situação de merge/push de forma que continue verdadeira depois da integração.
+
+3. **A sessão não registra que a S2 de 30 s divergiu do roteiro** — `docs/sprint-2/SESSAO_FECHAMENTO_S0_S2.md:61` e `:81`
+   - A linha 61 manda usar **Amostra 10 s** para a S2, e a condição na linha 81 diz "por 10 s", enquanto o resultado mostra 30,0045 s.
+   - Plano, relatório, README e `sessao.json` explicam a diferença ("maior que os 10 s pedidos"); só este documento não explica.
+   - **Correção:** acrescentar essa observação à linha 81.
+
+## Conferido sem achados
+- **Quadro:** `docs/SPRINT_STATUS.md` não está no diff; só há o patch preparado.
+- **Aplicabilidade do patch:** a contagem dos hunks está correta, e todas as linhas de contexto e a removida existem no quadro de `HEAD`, nas posições esperadas (1–4 e 21–27). Em `origin/rochatales/horda-survivor` (`90e7734`) as linhas iniciais das mesmas entradas aparecem com deslocamento de −1 na tabela.
+- **Aceites:** as três declarações aparecem iguais em handoff, sessão e README. Plano, relatório e `sessao.json` têm o mesmo sentido, e nenhum aceite foi inferido por automação.
+- **S2.9:** p95, máximo, >33/>50 ms e duração de M1, M2, S2, S1 e S44 batem com os `*-validacao.json`. Na S2 também batem as médias de draw calls e triângulos e o LoAF de 66 ms. O relatório e o README estão coerentes com esses valores.
+- **Código:** depois de `18fe0d6` só há mudanças em `docs/`. Contra `00ab557`, o código muda só em `PerfProbe.tsx`, `sceneReadiness.ts` e `perf-readiness.test.mjs`, com os "dois testes novos" citados no README.
+- **Histórico:** o roteiro de 19/10, o registro de 29/09 e as seções antigas do handoff foram preservados e estão identificados como históricos. A âncora para `s6.2-luta-espada.md` está correta.
+- **S6.16:** o item segue `[ ]`, com a pendência atribuída ao autor e sem bloquear a Sprint 2. Nenhum sprint futuro foi encerrado.
+
+## Limites da revisão
+- **`git apply --check`:** não consegui rodar, porque o comando pede uma aprovação indisponível nesta sessão. A aplicabilidade acima vem da comparação de texto; a execução registrada é a do próprio handoff.
+- **Integração:** em `90e7734`, conferi só a posição e o início de cada linha de contexto, sem comparação byte a byte. Rode o `--check` nessa branch antes de aplicar.
+- **Suíte e build:** não executei, como você pediu, e nenhum arquivo foi modificado.
+
+## Para sua decisão
+O checkbox da S2.9 e o plano foram alterados nesta branch de tarefa. O `AGENTS.md` não proíbe, mas o `docs/AI_WORKFLOW.md:110-111` prevê essa marcação na integração. Não contei como defeito, porque o handoff registra o pedido do autor para registrar o fechamento e a marcação tem aceite expresso.

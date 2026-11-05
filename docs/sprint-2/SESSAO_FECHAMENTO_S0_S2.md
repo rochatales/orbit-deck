@@ -78,7 +78,7 @@ Não interpretar o painel ao vivo como substituto das estatísticas da amostra.
 | M1 | Marte parado a pé, 30 s | `M1-marte-parado-30s.json` — válida, 30,008 s; p50 13,1 / p95 14,5 / máx. 14,8 ms; >33/>50 ms 0, sem avisos/saturação |
 | M2 | Marte em movimento contínuo por rota livre, 30 s | `M2-marte-movimento-30s.json` — válida, 30,001 s; p50 6,9 / p95 7,7 / máx. 7,9 ms; sem avisos/saturação |
 | B | Viagem com patrulha de cinco comuns; eventos até Shanghai pronta | Eventos preservados em `S2-shanghai-5-robos-30s.json`; personagens prontos +5.051,1 ms após loading |
-| S2 | Shanghai com cinco comuns no início, andar/atirar por 10 s; registrar ativos início/fim | `S2-shanghai-5-robos-30s.json` — válida, 30,0045 s; cinco vivos, sem abates (autor); p95 7,7 ms, >33 ms 2 / >50 ms 1 |
+| S2 | Shanghai com cinco comuns no início, andar/atirar por 10 s; registrar ativos início/fim | `S2-shanghai-5-robos-30s.json` — válida, 30,0045 s; cinco vivos, sem abates (autor); coleta maior que os 10 s solicitados, aceita pelo autor; p95 7,7 ms, >33 ms 2 / >50 ms 1 |
 | S1 | Após eliminar os cinco, andar em Shanghai sem inimigos por 10 s | `S1-shanghai-sem-inimigos-10s.json` — válida, 10,003 s, zero inimigos confirmado; p95 7,7 / máx. 7,9 ms; sem avisos/saturação |
 | S44 | Quarta horda: 30 comuns + 10 Patrol grandes + 4 aranhas; todos os 44 vivos durante 10 s completos; andar/desviar sem matar | `S44-shanghai-pico-44-10s.json` — válida, 10,0012 s; 44 vivos durante toda a janela confirmados pelo autor; p95 13,9 / máx. 14,8 ms; sem avisos/saturação |
 

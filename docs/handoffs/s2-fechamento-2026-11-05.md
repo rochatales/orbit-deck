@@ -216,3 +216,24 @@ Registrada como complemento da **S6.16**, responsável autor, posterior e sem
 bloqueio do encerramento S2. Não foi criada nova numeração nem mudado o runtime.
 A limpeza documental e de assets é outra etapa; nenhuma fonte, backup, arquivo
 não rastreado ou worktree foi removido.
+
+
+## Revisão documental final e correções
+
+Claude conferiu `49faa84...b98a3bd`: aceites, números, limites e preservação do
+histórico corretos. Três achados documentais, sem bloqueio de jogabilidade:
+contextos com espaço no arquivo patch (lint do próprio diff), referências antigas
+de pendência S2.9 no quadro proposto e falta da observação de coleta S2 maior
+que os 10 s na sessão. Os três foram corrigidos:
+
+- Contextos vazios do patch sem espaço final; `git apply --check` e
+  `git diff --check 00ab557` passaram. Não se alterou `.gitattributes`.
+- Patch atualiza a tabela, S0.4/fechamento e linhas S2.9/S2.11/S2.12 com seus
+  resultados vigentes; não presume publicação/ponta futura da integração.
+- Sessão explicita S2 de 30 s como coleta maior que os 10 s pedidos e aceita
+  pelo autor. Dados originais intactos.
+
+`docs/SPRINT_STATUS.md` continua inalterado na branch de tarefa. Parecer inicial
+preservado em `revisao-fechamento-claude.txt`; conferência final registrada na
+continuação. Nenhum teste/build foi repetido: só documentos mudaram após
+`18fe0d6`, cujo código já tem 564/564 e build verdes.
