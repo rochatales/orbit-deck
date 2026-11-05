@@ -17,7 +17,7 @@ A revisão técnica do antigo MCP Office foi filtrada para o novo jogo em [Melho
 ## 1. Direção confirmada pelo autor
 
 - O mundo acabou e o que restou da humanidade vive em Marte.
-- O mapa atual representa o hub da sociedade humana em Marte. Ele receberá um deck de lançamento físico, conectado por uma rota caminhável, com aeronave na qual o explorador pode entrar e sair. A partida para a Terra ocorre a bordo; ao retornar, a nave pousa nesse deck e o jogador desembarca para seguir ao laboratório.
+- O mapa atual representa o hub da sociedade humana em Marte. Ele receberá um deck de lançamento físico, conectado por uma rota caminhável, com aeronave na qual o explorador pode entrar e sair. A partida para a Terra ocorre a bordo; ao retornar, a nave pousa nesse deck e o jogador desembarca e segue ao destino da etapa: EDEN no primeiro retorno, sintetizador no segundo.
 - O personagem do jogador é um explorador.
 - EDEN é uma superinteligência criada pelos humanos para ajudar na sobrevivência da humanidade e atua como guia.
 - Cada missão acontece em um novo mapa, separado do hub.
@@ -286,14 +286,14 @@ Detalhar tarefas para: Engenheiro/Marte desativado → quatro Patrol/quatro cobr
 
 - [ ] Tutorial sempre fornece recursos suficientes sem depender de RNG.
 - [ ] Placas e depósitos são alcançáveis; loot não desaparece antes da extração.
-- [ ] Coletar placas antecipadamente atualiza corretamente objetivos e falas.
+- [ ] Coletar recursos da quota antes do fim do encontro atualiza corretamente objetivos e falas; placas ficam para a etapa posterior que vier a exigi-las.
 - [ ] Nave e rádio orientam o retorno pelo objetivo da etapa atual; o primeiro retorno exige quatro cobres e o segundo dez matérias orgânicas, sem bloqueio pela receita posterior da máquina.
 - [ ] Derrota não deposita loot; retry restaura a missão sem entidades residuais.
 - [ ] Munição e dispositivos não disputam espaço com os materiais.
 - [ ] Minas e barreiras funcionam sem bloquear permanentemente navegação ou conclusão de ondas.
 - [ ] Extração, entrega da espada e ativações são aplicadas uma única vez e persistem após reload.
 - [ ] EDEN/sintetizador e salas ativadas alteram o hub visualmente e preservam circulação/câmera.
-- [ ] Revisita usa faixa de ameaça calculada na partida e não repete a obrigação da introdução.
+- [ ] Após o circuito, revisita usa as quatro hordas fixas sem repetir a introdução. Faixa adaptativa calculada na partida é critério futuro, quando houver regra de evolução definida.
 - [ ] Tempo por frame e navegação permanecem aceitáveis no teto de inimigos escolhido; registrar dispositivo-alvo e medições antes de aumentar escala.
 
 ## Registro de implementação — 29/09/2026

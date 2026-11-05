@@ -99,11 +99,11 @@ Sprints são pacotes de entrega, sem duração de calendário presumida. Cada um
 - Single-player em navegador desktop, teclado e mouse; manter a câmera de base e a mira projetada no plano de altura do rifle. A referência Metal Slug orienta ritmo/tiro, sem presumir mudança para câmera lateral.
 - Movimento pela mira (contrato atualizado pelo autor em 07/10/2026, implementação na S2.12; antes: W avança, S recua, A/D laterais): W/↑ corre na direção do cursor, S/↓ recua mantendo o personagem voltado ao cursor, A/D não deslocam e W + S neutralizam; mouse orienta em Marte e Shanghai, Q/C gira somente a câmera; botão esquerdo para atirar, R para recarregar, E para interagir, 1/2 para rifle/facão e 3 para kit médico (contrato atual); atalhos de dispositivos a definir sem substituir esses comandos, clique para posicionar e Escape para cancelar posicionamento/pausar conforme o contexto. Disparo e implantação são modos mutuamente exclusivos.
 - Rifle simples com dano instantâneo por raycast, bloqueado por paredes; traçador visual. Dano, cadência, carregador e reserva em configuração, calibrados no sprint 2.
-- Materiais de inimigos coletados por proximidade; depósitos, placas, nave e laboratório por interação. Pilhas de material até 30, quatro espaços iniciais.
-- Decisão do autor em 02/11/2026: quatro kits médicos por tentativa em Shanghai, coletados por E e guardados nos itens; usar 3 recupera 50 HP até 100, sem gastar com vida cheia. Sem reposição entre as quatro hordas. Decisão do autor em 02/11/2026: energia da mochila limita o Dash a duas cargas, com regeneração total em 5 s; barra azul no HUD beta. Poderes futuros permanecem fora do escopo.
+- Materiais de inimigos coletados por proximidade; depósitos, placas, nave e laboratório por interação. Carga de materiais com limite atual de 30 kg; quatro espaços de equipamento, munição e dispositivos separados dessa carga (S4.1).
+- Decisão do autor em 02/11/2026: quatro kits médicos por tentativa em Shanghai; revisão de 04/11: coletados por contato e guardados nos itens; usar 3 recupera 50 HP até 100, sem gastar com vida cheia. Sem reposição entre as quatro hordas. Decisão do autor em 02/11/2026: energia da mochila limita o Dash a duas cargas, com regeneração total em 5 s; barra azul no HUD beta. Poderes futuros permanecem fora do escopo.
 - Ao perder, reiniciar com kit inicial e HP restaurado. Equipamentos e progresso já consolidados no hub não são perdidos.
 - Fechar/abandonar uma missão descarta seu loot temporário; ao reabrir, retornar ao hub. Sem retomada de onda.
-- Máquina em posição predefinida. Sem construção livre ou catálogo genérico de receitas.
+- Sintetizador orgânico em posição predefinida. Sem construção livre ou catálogo genérico de receitas.
 
 Esses defaults são decisões de implementação propostas, não novos fatos da narrativa. Ajustá-los conforme o teste sem mudar o objetivo da entrega.
 
@@ -262,15 +262,15 @@ Objetivo: ligar combate e exploração à recuperação de recursos.
 - [ ] S4.3 Implementar dois depósitos com 2 ferro + 2 cobre cada e seis placas escondidas em pontos alcançáveis. Persistir loot no mapa até coleta/fim da tentativa.
 - [ ] S4.4 Mostrar o objetivo de cada etapa: **4 cobres** na primeira expedição e **10 matérias orgânicas** na segunda, com as ativações de EDEN/sintetizador nos retornos. A proposta anterior de 20 ferro, 20 cobre, 4 placas e 10 matérias orgânicas é referência de carga para a máquina/produção posterior, não requisito da primeira visita com quatro Patrol. Garantir capacidade para a carga exigida em cada etapa e evitar descarte irreversível de itens obrigatórios.
 - [ ] S4.5 Implementar rádio por eventos: Engenheiro na chegada/objetivo de quatro cobres da primeira expedição; EDEN após ser ligada, com orientação da Oficina/espada, mutantes, dez matérias orgânicas e retorno ao sintetizador; falas não repetem a cada frame nem anunciam objetivo ainda incompleto como concluído.
-- [ ] S4.6 Reconhecer placas coletadas antecipadamente; indicar materiais restantes e oferecer orientação caso a busca se prolongue.
+- [ ] S4.6 Reconhecer recursos do objetivo atual coletados antecipadamente; indicar faltantes e oferecer orientação caso a busca se prolongue. Reconhecimento específico de placas pertence à etapa posterior que vier a exigi-las, sem bloquear as duas visitas iniciais.
 - [ ] S4.7 Sinalizar a nave conforme o encontro/objetivo da etapa e permitir embarcar/desembarcar para continuar explorando. Liberar o retorno separado a Marte pelo objetivo atual: no primeiro combate, quatro cobres anunciados pelo Engenheiro; na segunda visita, dez matérias orgânicas anunciadas por EDEN. Não exigir a receita antiga, placas ou hordas futuras; extração efetiva é distinta de embarcar.
 - [ ] S4.8 Transferir loot ao depósito do hub uma única vez, usando identificador de expedição e atualização persistente coerente. Tela de resultado informa carga recuperada. Pousar no deck de Marte e permitir desembarque e caminhada ao destino da etapa (EDEN no primeiro retorno, sintetizador/Laboratório no segundo); entrar na cabine por si só não confirma loot.
 - [ ] S4.9 Derrota/abandono descarta inventário temporário e recomeça sem loot anterior. Reload durante missão retorna ao hub sem conceder recompensa.
 
 - [ ] S4.10 Tornar objetivos legíveis: destaque de interação, ícone/rótulo de recurso e marcador direcional da aeronave quando liberada. Diferenciar recursos do objetivo atual de decoração, sem exigir placas nos retornos de cobre/orgânica; usar forma/texto além de cor. Sem minimapa completo nesta entrega.
-- [ ] S4.11 Usar rádio de EDEN por prioridade e fila curta, sem sobrepor instruções nem bloquear movimento com coreografias. Interação responde ao comando imediatamente; falas e efeitos não duplicam coleta ou extração.
+- [ ] S4.11 Usar rádio do Engenheiro/EDEN conforme a etapa, por prioridade e fila curta, sem sobrepor instruções nem bloquear movimento com coreografias. Interação responde ao comando imediatamente; falas e efeitos não duplicam coleta ou extração.
 
-Saída: cada expedição informa e aceita o objetivo da etapa, incluindo quatro cobres no primeiro retorno e dez matérias orgânicas no segundo. Os antigos totais 24 ferro, 24 cobre, 12 matérias orgânicas e 6 placas são referência da proposta anterior de 30 inimigos; rebalancear disponibilidade e receitas para o novo circuito antes de exigir a carga da máquina. Extração deposita uma vez; morrer ou fechar antes dela não deposita nada. Validar placas coletadas antes e depois da última onda.
+Saída: cada expedição informa e aceita o objetivo da etapa, incluindo quatro cobres no primeiro retorno e dez matérias orgânicas no segundo. Os antigos totais 24 ferro, 24 cobre, 12 matérias orgânicas e 6 placas são referência da proposta anterior de 30 inimigos; rebalancear disponibilidade e receitas para o novo circuito antes de exigir a carga da máquina. Extração deposita uma vez; morrer ou fechar antes dela não deposita nada. Validar as quotas atuais antes/depois do encontro; os testes de placas ficam para a etapa posterior que vier a exigi-las.
 
 ## 9. Sprint 5 — Ativações do hub e validação funcional
 
@@ -298,10 +298,10 @@ Saída de design: o jogador entende o que fazer sem intervenção constante e co
 Objetivo: transformar volumes provisórios em elementos reconhecíveis sem alterar as regras validadas.
 
 - [ ] S6.1 Definir silhuetas e espécies das criaturas; modelar robô e dois portes com linguagem visual coerente.
-- [ ] S6.2 Trabalhar arma, mina, barreira, nave, deck de lançamento, cabine/entrada, itens e máquina com escala, pivôs e orientação padronizados. Tornar o acesso à aeronave visualmente evidente.
+- [ ] S6.2 Trabalhar arma, mina, barreira, nave, deck de lançamento, cabine/entrada, itens e sintetizador orgânico com escala, pivôs e orientação padronizados. Tornar o acesso à aeronave visualmente evidente.
 - [ ] S6.3 Compor Shanghai em ruínas com elementos urbanos reconhecíveis e rotas claras; evitar coberturas que ocultem inimigos/coletáveis da câmera.
 - [ ] S6.4 Ajustar animações de movimento, disparo, dano, morte e investida. Manter antecipação de ataques e diferenciação de categorias.
-- [ ] S6.5 Adaptar a apresentação do laboratório marciano e tornar a instalação da máquina um momento visual destacado.
+- [ ] S6.5 Adaptar a apresentação do laboratório marciano e tornar a ativação do sintetizador orgânico e salas um momento visual destacado; máquina de diamantes permanece posterior.
 - [ ] S6.6 Refinar HUD e mensagens de rádio no estilo EDEN Holographic, após S6.14 e as interfaces funcionais dos Sprints 3–4: vida, pente/reserva explícitos, ondas, defesas, objetivo e interação. Manter centro de combate livre, rádio único por prioridade, sinais além de cor e alerta abaixo de 30% de vida. Valores reais, contraste e efeitos reduzidos conforme o [plano de UI](sprint-6/PLANO_UI.md). *Antecipação solicitada pelo autor em 02/11/2026: HUD beta enxuto, vida vermelha, energia azul, quatro slots, ícones ilustrados, carga visível e painéis de teste/radio no menu. HUD beta aprovado pelo autor em 03/11/2026 nesta composição; não encerra S6.14–S6.18. [Handoff](handoffs/s6.6-hud-beta.md).*
 - [ ] S6.7 Organizar fontes/exportações e otimizar geometria antes da texturização. Colisores continuam simples e separados da arte.
 
@@ -341,7 +341,7 @@ Objetivo: finalizar a apresentação do protótipo sem prejudicar resposta e car
 
 - [ ] S7.1 Definir paleta e materiais de Marte/Shanghai, inimigos, equipamento e loot; manter neon azul como assinatura das defesas.
 - [ ] S7.2 Preparar UVs/texturas e estabelecer orçamento por asset conforme o dispositivo-alvo. Evitar texturas grandes sem benefício visível na câmera real.
-- [ ] S7.3 Aplicar desgaste/ruínas e materiais da máquina; não esconder objetos interativos na textura do cenário.
+- [ ] S7.3 Aplicar desgaste/ruínas e materiais do sintetizador orgânico; não esconder objetos interativos na textura do cenário.
 - [ ] S7.4 Refinar iluminação e efeitos com contenção; efeitos não podem encobrir mira, inimigos ou drops.
 - [ ] S7.5 Medir tamanho de assets, carregamento e tempo por frame; corrigir regressões e garantir que assets arquivados não acompanhem a distribuição.
 - [ ] S7.6 Reexecutar o percurso completo em build de produção, com save novo e existente; registrar bugs restantes, versão e instruções para testar.

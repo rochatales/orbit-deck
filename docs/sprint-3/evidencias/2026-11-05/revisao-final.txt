@@ -1,0 +1,33 @@
+**Os sete itens estão resolvidos, mas sobraram quatro contradições normativas menores e uma imprecisão de redação, sem bloqueio para S3.1/S3.2/S3.9.** Não executei testes nem build e não alterei nada.
+
+**Limite da conferência:** `git diff -U4` e `git show` pediram aprovação e não rodaram. Por isso, conferi o estado final em `HEAD` e usei o `--stat`, sem ver hunk por hunk. Também não posso afirmar quais resíduos abaixo estão nas linhas alteradas por esse diff. Entre `a012239` e `HEAD`, nenhum commit toca `src`, `tests` ou `package.json`.
+
+## Os sete itens
+
+Referências: "plano" é `docs/HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md`, "design" é `docs/HORDA_SURVIVOR_AUDITORIA_E_PLANO.md` e "contrato" é `docs/sprint-3/CIRCUITO_INICIAL.md`.
+
+| # | Item | Situação | Onde |
+|---|---|---|---|
+| 1 | Matriz sem placas e com dois retornos; S4.10 | Resolvido | plano `:376-377`, `:385-386`, `:270` |
+| 2 | Engenheiro e entrega da espada funcionais, antecipáveis | Resolvido | plano `:279`, `:281`; contrato `:72` |
+| 3 | Quota anunciada versus cumprida | Resolvido | contrato `:37`; plano `:264` |
+| 4 | Kit restrito ao teste até o autor definir a concessão | Resolvido | plano `:91`; design `:227-234`; contrato `:77-79` |
+| 5 | Máquina trocada por ativações | Resolvido | design `:133`, `:285`, `:290-295`; plano `:67`, `:331`, `:362-367`, `:388-391` |
+| 6 | Sequência EDEN/sintetizador nos retornos | Resolvido | contrato `:14`, `:17`; plano `:94`, `:365` |
+| 7 | Destino por retorno | Resolvido | plano `:129`, `:267`, `:377` |
+
+A numeração segue o seu resumo, não a do parecer. Os itens 5 e 6 do parecer estão juntos na linha 5, e o item 7 dele nas linhas 6 e 7.
+
+## Resíduos reais
+
+1. **Adaptação cobrada cedo demais (`docs/HORDA_SURVIVOR_AUDITORIA_E_PLANO.md:296`):** o critério de "faixa de ameaça calculada na partida" está no checklist do próximo marco. Isso contradiz o próprio design (`:266`, `:285`) e o plano (`:116`), que mantêm as quatro hordas fixas e deixam a adaptação para depois.
+2. **Objetivo de placas sem etapa vigente:** S4.6 (`docs/HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md:265`), a saída da S4 (`:273`) e o design `:289` validam placas em objetivos e falas. O design `:242` joga essas falas para a futura fabricação, e nenhum retorno do circuito pede placas. Falta marcar esses critérios como posteriores.
+3. **Máquina ainda sem marca de futuro no plano:**
+   - **Principal:** S6.5 (`docs/HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md:304`) manda destacar a instalação da máquina, mas os Sprints 6 e 7 só refinam o que já existe (`:148`) e a entrega termina no sintetizador (`:112-115`, `:356`).
+   - **Menos graves:** o default `:106`, S6.2 (`:301`) e S7.3 (`:344`) citam a máquina do mesmo jeito.
+4. **Remetente do rádio (`docs/HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md:271`):** S4.11 ainda diz "rádio de EDEN", mas a primeira expedição fala pelo Engenheiro (`:264`; contrato `:37`, `:70`). Basta trocar para "rádio".
+5. **Destino antigo no design (`docs/HORDA_SURVIVOR_AUDITORIA_E_PLANO.md:20`):** a §1 ainda diz que o jogador "desembarca para seguir ao laboratório". É o mesmo problema do item 7, em texto de visão geral, e os itens `:36-37` já trazem a regra certa.
+
+**Só redação:** o plano `:129` e `:267` dizem "sintetizador/Laboratório", enquanto `:377` diz só "sintetizador". Não é contradição, porque o ponto exato de interação segue em aberto (contrato `:51`), mas o Laboratório só acende depois de ligar o sintetizador.
+
+Os resíduos 1, 2 e 4 são correções de uma linha e cabem antes do próximo recorte. O resíduo 3 pode ser resolvido no mesmo ajuste ou ficar para antes da Sprint 6.
