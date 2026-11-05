@@ -18,8 +18,10 @@ andamento local da tarefa, sem marcar checkboxes oficiais.
   quarteirão do jogador. Confirmação expressa: “4 no total, um por esquina”.
 - EDEN avisa no rádio que já há cobre suficiente; o jogador retorna a Marte.
 - Em Marte, cumpre um circuito de gameplay que o orienta a retornar com a espada.
-  Ações do circuito e quantidade de cobre foram solicitadas ao autor e ainda
-  não estão definidas nesta entrega; quatro Patrol atualmente entregam quatro cobres.
+  Ações do circuito, concessão/disponibilidade da espada e quantidade de cobre ainda
+  não estão definidas nesta entrega; a quota e as ações foram solicitadas ao autor.
+  Quatro Patrol atualmente entregam quatro cobres. A arma referida como espada
+  corresponde ao facão já existente; nenhuma nova arma/arte foi criada.
 - Nova visita: pequenos mutantes em ondas de **4 e 6**. Só depois entram as
   quatro hordas atuais. A adaptação à evolução futura ainda não tem regra implementada.
 - As quatro hordas permanecem no save/modo de desenvolvimento, em encontros de
@@ -53,7 +55,7 @@ acima, sem aplicar o antigo teto de oito ou sobrescrever o save de desenvolvimen
 ## Ordem de execução
 
 1. S3.4 e parte de S3.1: spawn seguro e fila, revisão e validação do autor.
-2. S3.1/S3.2/S3.9 e ligação com S4.5: introdução separada do modo de teste,
+2. S3.1/S3.2/S3.9 e ligação com S4.4/S4.5/S4.7: introdução separada do modo de teste,
    quatro Patrol por esquinas, orientação por cobre, retorno e nova visita com a espada.
    Fechar primeiro as ações do circuito no hub e sua quota; não inventar progressão.
 3. S3.5–S3.7: minas, barreiras e implantação com navegação segura.

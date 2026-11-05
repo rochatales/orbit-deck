@@ -1,0 +1,53 @@
+**Parecer: a correção do teste está certa e o relato sobre o restart é preciso, mas a documentação da decisão ainda tem contradições.** Há três problemas na documentação, uma afirmação sem registro no handoff e uma lacuna menor. Nenhum afeta o runtime: `a012239` só altera docs, log e teste. Não executei testes nem build, e não editei nada.
+
+## Problemas encontrados
+
+### 1. Regras antigas seguem ativas no design
+A nova §7.1 diz que as três ondas e o teto de oito foram substituídos, mas a §8 de `docs/HORDA_SURVIVOR_AUDITORIA_E_PLANO.md` continua prescrevendo o contrário:
+- **Linha 262:** "A primeira conclusão usa as três ondas fixas da seção 7", que já não existem nessa seção.
+- **Linha 265:** faixas de volume 30/36/45, enquanto o circuito agora termina em 115.
+- **Linha 266:** "Manter o limite simultâneo inicial de oito", contra o pico de 44 e o `RELATORIO.md:51`.
+
+**Ajuste:** marcar esses pontos como proposta anterior, porque a regra adaptativa ainda será definida.
+
+### 2. O plano oficial se contradiz
+`docs/HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md:225` declara a substituição, mas estes trechos seguem sem ressalva:
+- **Linha 59:** o marco funcional ainda diz "três ondas".
+- **Linha 82:** o escopo ainda traz "Três ondas de 8, 10 e 12 [...] até 8 inimigos simultâneos".
+- **Linha 131:** a Sprint 3 ainda entrega "Três ondas completas".
+
+O mesmo ocorre em `AUDITORIA_E_PLANO.md:133`, na Fase 3. A abertura da §7 (linha 175) também chama todos os números de proposta não testada, embora a §7.1 agora seja regra do autor e 13/26/32/44 já tenha sido aprovado.
+
+### 3. O primeiro retorno colide com a Sprint 4
+Este é o conflito mais relevante para o próximo recorte. O circuito novo manda voltar a Marte quando há cobre suficiente, e quatro Patrol rendem no máximo 4 cobres (`RELATORIO.md:22`, confirmado em `simulation.ts:532` e `:564`). O plano continua exigindo outra coisa:
+- **S4.4 (linha 252):** objetivo da introdução de 20 ferro, 20 cobre, 4 placas e 10 matérias orgânicas.
+- **S4.7 (linha 255):** retorno liberado "somente com carga obrigatória".
+- **Saída da S4 (linha 262):** coleta completa de 24/24/12/6, que depende da receita antiga.
+
+A ressalva da §7.2 existe só no design e não cobre o resto do documento: a frase de EDEN sobre as quatro placas na §7.4, o passo 1 da §7.5 e o item "carga obrigatória da introdução" na §9. Quem implementar S4.7 como está escrito bloqueará o retorno da primeira visita. O `RELATORIO.md:56` cita só a ligação com S4.5.
+
+**Ajuste:** repetir a ressalva em S4.4, S4.7 e na Saída, e citar esses itens no relatório.
+
+### 4. O handoff cita uma confirmação sem registro
+`docs/handoffs/s3.4-spawn-seguro.md:60` diz "Confirmação do revisor registrada após esse ajuste". Em `a012239`, a única evidência é `revisao-claude.txt`, que avalia `dba8940...50eb578` e é anterior ao ajuste. Na data do commit, essa confirmação ainda não existia.
+
+**Ajuste:** registrar este parecer de fato, inclusive com as ressalvas acima. A linha 61 também precisa de precisão: a falta de testes por restrição de aprovação vale para a revisão inicial; nesta, foi por sua instrução.
+
+### 5. Lacuna menor: arma da primeira visita
+O plano diz que o jogador volta "com a espada", mas nenhum documento define se ela fica indisponível na primeira visita. Hoje rifle e arma corpo a corpo já podem ser escolhidos desde o início (`GameplayHud.tsx:51`), e as pendências listadas são só a quota de cobre e as ações do hub.
+
+A interface e `RELATORIO.md:62` chamam a arma de "facão", e o restante da decisão a chama de "espada". Vale confirmar que é a mesma arma e incluir o bloqueio ou não entre as pendências.
+
+## O que conferi sem achar problema
+
+| Área | Resultado |
+|---|---|
+| **Teste** | Publica o snapshot real com `queued` 44, chama `restart` do store e confere fila, horda, baixas, total 115 e `run + 1`. Agora falha se o restart deixar de limpar o HUD ou de incrementar `run`. |
+| **Caminho real** | `restartMission` e a chegada a Shanghai chamam esse mesmo `restart` (`useExpeditionStore.ts:88` e `:100`). `CombatScene.tsx:38-39` recria a simulação quando `run` muda, como o handoff relata por leitura. |
+| **Limite do relato** | Handoff e relatório deixam o descarte na cena para leitura e roteiro manual, sem afirmar cobertura automatizada. |
+| **Log** | Registra 573/573, sem falhas, com o novo título do teste na linha 195. "Sete novos" confere (5 + 1 + 1). O resultado é do implementador; não o reproduzi. |
+| **Decisão do autor** | Plano, design, relatório e handoff coincidem em quatro Patrol, um por esquina, aviso de EDEN, retorno, ondas 4/6 e depois 13/26/32/44. As hordas seguem no modo dev, com adaptação futura e quota e hub em aberto. |
+| **Estado das tarefas** | Nenhum checkbox foi marcado e `SPRINT_STATUS.md` não foi tocado. O relatório diz claramente que a introdução não está implementada. |
+| **Edição do plano na branch** | Não é violação: a proibição do `CLAUDE.md` é específica do Claude, e `AI_WORKFLOW.md` restringe só o quadro. |
+
+O S3.4 pode seguir para a validação do autor. Recomendo corrigir os itens 1 a 4 antes do recorte S3.1/S3.2/S3.9, principalmente o item 3, que afeta o que será implementado.

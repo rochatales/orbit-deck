@@ -130,7 +130,7 @@ Medir carregamento, tempo por frame, draw calls e comportamento com quantidades 
 | 0 — Preservação | Snapshot recuperável da base e cópia dos assets não rastreados; branch de implementação | Código e arte recuperáveis, inventário registrado; sugestão de branch: `rochatales/horda-survivor` |
 | 1 — Base local | Entrada no hub, player, EDEN com diálogo local; retirada progressiva de MCPs e legado | Build passa; entrar, caminhar e conversar funciona sem backend e sem chamadas à antiga API |
 | 2 — Preparação de conteúdo | Assets organizados, tipos locais de NPC/mapa/missão, save definido e primeiro mapa simples | Imports íntegros; hub e missão carregam separadamente; estado antigo não bloqueia entrada |
-| 3 — Primeiro ciclo completo | Briefing, Shanghai, robôs e dois portes de criatura, uma arma, HP, três ondas, minas, barreiras, loot, retorno e máquina do laboratório | Jogador conclui a missão, recebe recompensa uma única vez e vê uma mudança no hub; derrota/reinício seguem regra definida |
+| 3 — Primeiro ciclo completo | Briefing, Shanghai, robôs e dois portes de criatura, armas, HP, introdução por expedições (Patrol → retorno/circuito no hub → pequenos mutantes 4/6), quatro hordas posteriores, minas, barreiras, loot e máquina do laboratório | Jogador conclui a missão, recebe recompensa uma única vez e vê uma mudança no hub; derrota/reinício seguem regra definida |
 | 4 — Validação | Navegação, pausa, colisão, dano, spawn, carregamento e save verificados | Inimigos chegam a alvos válidos; pausa congela combate/ondas; reiniciar não duplica entidades; progresso sobrevive ao reload |
 | 5 — Expansão | Novas missões/mapas, inimigos, armas, narrativa e melhorias da sociedade | Expansão guiada pelo ciclo validado e pelo orçamento de desempenho |
 
@@ -172,7 +172,7 @@ Essas pendências não exigem reabrir as decisões já tomadas. As regras abaixo
 
 ## 7. Contrato de Shanghai — balanceamento inicial proposto
 
-Os números desta seção foram definidos como proposta de design a pedido do autor. Ainda não foram testados e devem permanecer em configuração editável.
+A §7.1 registra a regra do autor de 05/11/2026 e as quatro hordas já testadas. As receitas e totais da proposta anterior na §7.2 permanecem como referência histórica a rebalancear; não definem a quota do primeiro retorno. Manter o tuning em configuração editável.
 
 ### 7.1 Progressão por expedições — regra do autor em 05/11/2026
 
@@ -233,23 +233,23 @@ Estados propostos: briefing → combate → área limpa/coleta → extração �
 
 Após concluir o encontro configurado da etapa atual, exibir **SHANGHAI CLEAR — Hordas eliminadas.** Sinalizar a aeronave no mapa. Vitória de combate não confirma o loot: só a extração bem-sucedida o transfere ao hub, uma única vez por expedição.
 
-Se faltarem placas, EDEN diz: “Parece que todos os inimigos da região foram eliminados. Não esqueça de buscar as placas de alumínio. Precisamos de quatro para terminar o equipamento do laboratório.”
+As falas sobre placas abaixo pertencem à futura etapa de fabricação; não bloqueiam o primeiro retorno por cobre. Nessa etapa posterior, se faltarem placas, EDEN diz: “Parece que todos os inimigos da região foram eliminados. Não esqueça de buscar as placas de alumínio. Precisamos de quatro para terminar o equipamento do laboratório.”
 
 Ao atingir quatro placas: “Essas mesmo. Temos o alumínio necessário.” Se a carga inteira estiver completa, acrescenta: “Leve os materiais até a nave.” Se faltarem outros recursos, informar exatamente quais, sem anunciar conclusão prematura.
 
-Se as placas já tiverem sido coletadas antes do fim das hordas, usar fala que reconhece isso. Acompanhar quantidades na HUD. Na introdução, exigir a carga objetivo para decolar; a nave pode ser localizada/interagida antes, mas mostra os materiais faltantes. Não gerar novas hordas durante essa busca final. Em revisitas, não repetir a exigência/tutorial da máquina.
+Se as placas já tiverem sido coletadas antes do fim das hordas, usar fala que reconhece isso. Acompanhar quantidades na HUD. Em cada etapa, exigir apenas seu objetivo para o retorno: na primeira visita, cobre suficiente (quota em definição), sem exigir placas ou a receita da máquina; a nave pode ser localizada/interagida antes, mas mostra os materiais faltantes. Não gerar novas hordas durante essa busca final. Em revisitas, não repetir a exigência/tutorial da máquina.
 
 Derrota: eliminar loot temporário, drops, inimigos, dispositivos colocados e progresso das ondas; reiniciar a expedição do começo. Preservar progresso já consolidado no hub. Sem save no meio das hordas nesta versão. Resgate intermediário fica no roadmap de missões maiores.
 
 ### 7.5 Retorno e transformação de Marte
 
-1. Depositar a carga e concluir o objetivo da primeira expedição.
+1. Consolidar a carga da expedição e seu objetivo uma única vez. O primeiro retorno por cobre leva ao circuito no hub e à nova visita com espada; as ações desse circuito ainda serão definidas. Os passos de fabricação abaixo são posteriores, sem presumir que ocorrem nessa primeira volta.
 2. No laboratório, consumir a receita uma única vez e instalar a grande máquina de síntese de diamante. Proposta visual: novo volume central, iluminação própria, conexões de energia e animação de funcionamento, mantendo corredores navegáveis.
 3. Demonstrar a primeira produção de diamante, conforme a regra de carbono escolhida.
 4. Mais adiante, diamante e componentes ainda a definir permitem fabricar a máquina de construção espacial.
 5. Essa máquina e recursos, incluindo matéria orgânica, permitem construir a **estufa**, primeira unidade produtiva da sociedade.
 
-A máquina do laboratório é a primeira grande mudança visual ao retornar. A estufa é a primeira construção produtiva subsequente; não assumir que ambas devem ser concluídas com o loot da mesma missão. Custos e número de expedições até a estufa ainda serão definidos. O benefício sugerido para ela é produzir insumos biológicos para a colônia, sujeito à escolha do autor.
+A máquina do laboratório é uma grande mudança visual na futura etapa de fabricação; não é requisito automático da primeira volta por cobre. A estufa é a primeira construção produtiva subsequente; não assumir que ambas devem ser concluídas com o loot da mesma missão. Custos e número de expedições até a estufa ainda serão definidos. O benefício sugerido para ela é produzir insumos biológicos para a colônia, sujeito à escolha do autor.
 
 Persistir máquina instalada, receitas consumidas e construções concluídas. Recarregar a página ou repetir a missão não pode duplicar máquinas, recompensas ou cobrar novamente a instalação já feita.
 
@@ -257,15 +257,20 @@ Persistir máquina instalada, receitas consumidas e construções concluídas. R
 
 Requisito do autor: o volume da horda acompanha a percepção do nível do personagem, mantendo desafio também em mapas iniciais. Cada mapa preserva suas categorias e sequência própria de inimigos.
 
-Proposta técnica para o primeiro algoritmo:
+A adaptação é posterior ao primeiro circuito e às quatro hordas atuais; não está
+implementada nem tem limiares aprovados. Requisitos e ideias que continuam úteis:
 
-- A primeira conclusão usa as três ondas fixas da seção 7, para ensinar e calibrar.
-- Nas revisitas, estimar força por nível/progressão de combate e melhorias permanentes de arma/armadura. Bolsa maior ou expansão decorativa não elevam sozinhas a dificuldade.
-- Fixar a avaliação na partida; não aumentar inimigos silenciosamente no meio da missão porque o jogador está indo bem.
-- Para o protótipo, três faixas de volume: base (30), intermediária (36) e avançada (45 inimigos). Limiar de cada faixa depende dos atributos que ainda serão definidos. Distribuir acréscimos por onda/categoria em configuração do mapa, sem alterar o papel de cada inimigo.
-- Manter o limite simultâneo inicial de oito; volume extra entra em lotes. Elevar esse teto somente após medição de desempenho e playtest.
-- Evitar compensar toda melhoria com inimigos equivalentes: manter HP/dano base inicialmente para o jogador sentir suas armas mais fortes. O aumento proposto incide no volume, dentro de limites.
-- Informar a faixa de ameaça no briefing; preservar recompensa coerente com inimigos adicionais. Rebalancear economia quando existirem custos posteriores.
+- Estimar força por nível/progressão de combate e melhorias permanentes de arma/armadura.
+  Bolsa maior ou expansão decorativa não elevam sozinhas a dificuldade.
+- Fixar a avaliação na partida; não aumentar inimigos silenciosamente no meio da missão
+  porque o jogador está indo bem.
+- Definir categorias, contagens e teto somente quando existirem os atributos de progressão,
+  com medição de desempenho e playtest. Os antigos exemplos 30/36/45 e teto oito pertenciam
+  à proposta de três ondas; não são regras ativas para o circuito de 05/11.
+- Evitar compensar toda melhoria com inimigos equivalentes: manter HP/dano base inicialmente
+  é uma proposta para o jogador sentir suas armas mais fortes.
+- Informar a ameaça no briefing e rebalancear recompensas/economia quando os custos futuros
+  e a regra adaptativa forem definidos.
 
 “Competitiva” aqui expressa o desafio solicitado. Não implica multiplayer, ranking ou competição online já autorizados para o protótipo.
 
@@ -276,7 +281,7 @@ Detalhar tarefas para: base local → estados de expedição → combate e ondas
 - [ ] Tutorial sempre fornece recursos suficientes sem depender de RNG.
 - [ ] Placas e depósitos são alcançáveis; loot não desaparece antes da extração.
 - [ ] Coletar placas antecipadamente atualiza corretamente objetivos e falas.
-- [ ] Hordas eliminadas sinalizam nave, mas não permitem ignorar a carga obrigatória da introdução.
+- [ ] Nave e rádio orientam o retorno pelo objetivo da etapa atual; o primeiro retorno exige apenas o cobre definido para essa visita, sem bloqueio pela receita posterior da máquina.
 - [ ] Derrota não deposita loot; retry restaura a missão sem entidades residuais.
 - [ ] Munição e dispositivos não disputam espaço com os materiais.
 - [ ] Minas e barreiras funcionam sem bloquear permanentemente navegação ou conclusão de ondas.

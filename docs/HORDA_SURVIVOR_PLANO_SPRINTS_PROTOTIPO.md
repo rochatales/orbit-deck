@@ -56,7 +56,7 @@ Consolidação de 19/10/2026: [plano por fases](consolidacao/PLANO_SPRINTS_0_2.m
 
 ## 1. Resultado esperado e ordem de prioridade
 
-**Marco funcional:** o jogador completa o percurso hub → briefing de EDEN → deck de lançamento → embarque/decolagem → desembarque em Shanghai → três ondas → coleta → embarque/extração → pouso e desembarque no deck de Marte → laboratório → máquina instalada e persistida. Também consegue perder e recomeçar sem conservar o loot da tentativa.
+**Marco funcional:** o jogador completa o percurso hub → briefing de EDEN → deck de lançamento → embarque/decolagem → desembarque em Shanghai → quatro Patrol e coleta de cobre → retorno/circuito em Marte → nova visita com espada e pequenos mutantes (4/6) → quatro hordas nas expedições posteriores → coleta/extração → laboratório → máquina instalada e persistida. A quantidade de cobre e o circuito do hub seguem em definição; a receita da máquina é um objetivo posterior, não requisito do primeiro retorno. Também consegue perder e recomeçar sem conservar o loot da tentativa.
 
 Prioridade definida pelo autor:
 
@@ -79,7 +79,7 @@ Sprints são pacotes de entrega, sem duração de calendário presumida. Cada um
 - Um distrito compacto de Shanghai feito à mão, com área de chegada, obstáculos, pontos de spawn, dois depósitos e seis esconderijos de alumínio.
 - Uma arma de tiro manual, HP, munição, morte, reinício e pausa.
 - Três categorias: robô humanoide, criatura pequena e criatura grande.
-- Três ondas de 8, 10 e 12 inimigos; total de 20 robôs, 8 criaturas pequenas e 2 grandes; até 8 inimigos simultâneos inicialmente.
+- Introdução por expedições: quatro Patrol (um por esquina), retorno/circuito no hub e nova visita com espada contra pequenos mutantes 4/6. Depois, quatro hordas 13/26/32/44, também preservadas no modo de desenvolvimento; ver regra de 05/11 na S3.
 - Três minas e duas barreiras neon azul por tentativa introdutória, com regras ajustáveis.
 - Materiais, munição e dispositivos em compartimentos separados.
 - Coleta do mapa e inimigos, objetivo obrigatório, extração e depósito persistente no hub.
@@ -89,7 +89,7 @@ Sprints são pacotes de entrega, sem duração de calendário presumida. Cada um
 ### Defaults propostos para começar, sem bloquear o protótipo
 
 - Single-player em navegador desktop, teclado e mouse; manter a câmera de base e a mira projetada no plano de altura do rifle. A referência Metal Slug orienta ritmo/tiro, sem presumir mudança para câmera lateral.
-- Movimento pela mira (contrato atualizado pelo autor em 07/10/2026, implementação na S2.12; antes: W avança, S recua, A/D laterais): W/↑ corre na direção do cursor, S/↓ recua mantendo o personagem voltado ao cursor, A/D não deslocam e W + S neutralizam; mouse orienta em Marte e Shanghai, Q/C gira somente a câmera; botão esquerdo para atirar, R para recarregar, E para interagir, 1/2 para selecionar defesa, clique para posicionar e Escape para cancelar posicionamento/pausar conforme o contexto. Disparo e implantação são modos mutuamente exclusivos.
+- Movimento pela mira (contrato atualizado pelo autor em 07/10/2026, implementação na S2.12; antes: W avança, S recua, A/D laterais): W/↑ corre na direção do cursor, S/↓ recua mantendo o personagem voltado ao cursor, A/D não deslocam e W + S neutralizam; mouse orienta em Marte e Shanghai, Q/C gira somente a câmera; botão esquerdo para atirar, R para recarregar, E para interagir, 1/2 para rifle/facão e 3 para kit médico (contrato atual); atalhos de dispositivos a definir sem substituir esses comandos, clique para posicionar e Escape para cancelar posicionamento/pausar conforme o contexto. Disparo e implantação são modos mutuamente exclusivos.
 - Rifle simples com dano instantâneo por raycast, bloqueado por paredes; traçador visual. Dano, cadência, carregador e reserva em configuração, calibrados no sprint 2.
 - Materiais de inimigos coletados por proximidade; depósitos, placas, nave e laboratório por interação. Pilhas de material até 30, quatro espaços iniciais.
 - Decisão do autor em 02/11/2026: quatro kits médicos por tentativa em Shanghai, coletados por E e guardados nos itens; usar 3 recupera 50 HP até 100, sem gastar com vida cheia. Sem reposição entre as quatro hordas. Decisão do autor em 02/11/2026: energia da mochila limita o Dash a duas cargas, com regeneração total em 5 s; barra azul no HUD beta. Poderes futuros permanecem fora do escopo.
@@ -114,7 +114,7 @@ O deck de lançamento integra o mapa de Marte, conectado por uma rota caminháve
 3. A bordo, seleciona Shanghai e aciona **Decolar**. Embarcar e partir são ações distintas; a interação de saída continua disponível até iniciar a viagem.
 4. Uma transição curta representa a viagem e o pouso na Terra. O jogador desembarca em uma área segura; o briefing inicial antecede o começo da primeira onda.
 5. Proposta para manter a regra de extração: após o desembarque, a aeronave deixa o local de combate e retorna ao ponto de extração quando todas as hordas terminarem. Nesse momento seu marcador aparece no mapa.
-6. O jogador pode embarcar na aeronave retornada e desembarcar para continuar procurando loot. **Retornar a Marte** só fica disponível após as hordas e a carga obrigatória da introdução estarem completas. Embarcar não deposita recursos nem encerra a missão.
+6. O jogador pode embarcar na aeronave retornada e desembarcar para continuar procurando loot. **Retornar a Marte** usa o objetivo da etapa atual. No primeiro retorno, o requisito é o cobre solicitado por EDEN (quota em definição), sem exigir a receita completa da máquina ou todas as hordas futuras. Embarcar não deposita recursos nem encerra a missão.
 7. Ao confirmar retorno, executar a extração uma única vez, carregar Marte e representar o pouso no deck. O jogador desembarca num ponto seguro e segue a pé para o laboratório.
 
 Proposta de implementação inicial: cabine compacta com ponto de embarque, posição a bordo e ponto de saída, usando geometria simples. Não requer interior detalhado, controle de voo ou simulação espacial. A troca de cena acontece somente ao confirmar partida/retorno; usar estados explícitos para estacionada, embarcado, viajando e pousada. Bloquear comandos repetidos e restaurar câmera/controles ao desembarcar. Falha ao carregar o destino deve permitir tentar novamente sem perder recursos ou duplicar a extração.
@@ -128,7 +128,7 @@ A localização exata do deck será definida no blockout do sprint 1, preservand
 | 0 | Preservação e referência | Base recuperável e roteiro de teste | Nenhuma |
 | 1 | Desacoplamento e missão local | Deck de Marte, embarque e viagem de ida/volta, sem backend | 0 |
 | 2 | Fundamentos de combate e qualidade | Combate, controles relativos ao olhar e verificação de fluidez | 1 |
-| 3 | Hordas e defesas | Três ondas completas, minas e barreiras | 2 |
+| 3 | Hordas e defesas | Primeiro circuito por expedições, quatro hordas posteriores/no dev, minas e barreiras | 2 |
 | 4 | Loot, EDEN e extração | Completar carga e retornar com recursos | 3 |
 | 5 | Máquina e validação do ciclo | Construir, salvar, recarregar e continuar | 4 |
 | 6 | Estética dos elementos | Formas e animações legíveis em cenário coerente | 5 + playtest |
@@ -249,17 +249,17 @@ Objetivo: ligar combate e exploração à recuperação de recursos.
 - [ ] S4.1 Implementar inventário temporário com materiais, munição e dispositivos separados; quantidade empilhada e capacidade visíveis. *Parte antecipada por pedido do autor em 02/11/2026: capacidade inicial de 30 kg para recursos (ferro 0,5 kg; cobre 0,3; titânio 0,4; orgânica 0,2), peso real no HUD, quatro espaços de equipamento e mochila acessível por B. Escolha de arma principal pelo inventário e kits médicos guardados também aprovados pelo autor em 03/11/2026; carga permanece temporária. Não encerra dispositivos, extração nem persistência. [Handoff](handoffs/s6.6-hud-beta.md).*
 - [ ] S4.2 Garantir drops: cada robô entrega 1 ferro + 1 cobre; pequenos entregam 1 matéria orgânica; grandes entregam 2. Evitar drop duplicado por morte/dano simultâneo.
 - [ ] S4.3 Implementar dois depósitos com 2 ferro + 2 cobre cada e seis placas escondidas em pontos alcançáveis. Persistir loot no mapa até coleta/fim da tentativa.
-- [ ] S4.4 Mostrar objetivo da introdução: 20 ferro, 20 cobre, 4 placas, 10 matérias orgânicas. Garantir capacidade para a carga completa; evitar descarte irreversível de itens obrigatórios no tutorial.
+- [ ] S4.4 Mostrar o objetivo de cada etapa: primeiro retorno por cobre (quota em definição), depois os objetivos posteriores de fabricação. A proposta anterior de 20 ferro, 20 cobre, 4 placas e 10 matérias orgânicas é referência de carga para a máquina/produção posterior, não requisito da primeira visita com quatro Patrol. Garantir capacidade para a carga exigida em cada etapa e evitar descarte irreversível de itens obrigatórios.
 - [ ] S4.5 Implementar EDEN por eventos: chegada, primeiros controles, ondas concluídas, placas encontradas e carga pronta; falas não repetem a cada frame nem anunciam objetivo ainda incompleto.
 - [ ] S4.6 Reconhecer placas coletadas antecipadamente; indicar materiais restantes e oferecer orientação caso a busca se prolongue.
-- [ ] S4.7 Fazer a nave retornar e sinalizá-la após a última onda. Permitir embarcar/desembarcar para continuar explorando após SHANGHAI CLEAR; liberar a ação separada de retornar a Marte somente com carga obrigatória.
+- [ ] S4.7 Sinalizar a nave conforme o encontro/objetivo da etapa e permitir embarcar/desembarcar para continuar explorando. Liberar o retorno separado a Marte pelo objetivo atual: no primeiro combate, cobre suficiente anunciado por EDEN, sem exigir 20 cobres, placas, orgânica ou hordas futuras. A quota e o circuito do hub seguem em definição; extração efetiva é distinta de embarcar.
 - [ ] S4.8 Transferir loot ao depósito do hub uma única vez, usando identificador de expedição e atualização persistente coerente. Tela de resultado informa carga recuperada. Pousar no deck de Marte e permitir desembarque e caminhada ao laboratório; entrar na cabine por si só não confirma loot.
 - [ ] S4.9 Derrota/abandono descarta inventário temporário e recomeça sem loot anterior. Reload durante missão retorna ao hub sem conceder recompensa.
 
 - [ ] S4.10 Tornar objetivos legíveis: destaque de interação, ícone/rótulo de recurso e marcador direcional da aeronave quando liberada. Diferenciar alumínio obrigatório de decoração; usar forma/texto além de cor. Sem minimapa completo nesta entrega.
 - [ ] S4.11 Usar rádio de EDEN por prioridade e fila curta, sem sobrepor instruções nem bloquear movimento com coreografias. Interação responde ao comando imediatamente; falas e efeitos não duplicam coleta ou extração.
 
-Saída: uma coleta completa oferece 24 ferro, 24 cobre, 12 matérias orgânicas e 6 placas; a missão aceita o mínimo configurado. Extração deposita uma vez; morrer ou fechar antes dela não deposita nada. Validar placas coletadas antes e depois da última onda.
+Saída: cada expedição informa e aceita o objetivo da etapa, incluindo o primeiro retorno por cobre. Os antigos totais 24 ferro, 24 cobre, 12 matérias orgânicas e 6 placas são referência da proposta anterior de 30 inimigos; rebalancear disponibilidade e receitas para o novo circuito antes de exigir a carga da máquina. Extração deposita uma vez; morrer ou fechar antes dela não deposita nada. Validar placas coletadas antes e depois da última onda.
 
 ## 9. Sprint 5 — Construção da máquina e validação funcional
 
