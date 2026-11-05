@@ -61,3 +61,25 @@ Código medido: `18fe0d6`, com mapas/regras de `00ab557`; commits documentais
 posteriores não mudam o build. A primeira tentativa remota não produziu amostra.
 Autor orientado a iniciar M1 pelo botão de 30 s e baixar o relatório na tela
 Odyssey G5. Aceites S2.9 e 6.5 continuam pendentes.
+
+
+## M1 — relato do autor e painel
+
+Autor informou M1 concluída e JSON baixado. Painel nativo do Chrome observado:
+amostra válida, p50 13,1 ms, p95 14,5 ms, >33 ms 0, >50 ms 0, LoAF 0,
+DPR janela/renderer 1/1. O arquivo ainda não foi localizado em Downloads/Desktop
+nem pelo nome na indexação; solicitado caminho/nome ao autor. Valores são
+provisórios até conferir o relatório completo, duração, coverage e contexto.
+Nenhum aceite S2.9 ou 6.5 inferido.
+
+
+## Arquivo recebido — entrada preliminar
+
+Autor indicou `/Users/rochatales/Game Development/Horda Survivor/` como destino
+dos relatórios. Arquivo de 16:11:25 UTC preservado por cópia com SHA-256 conferido
+em `A-entrada-marte-preliminar.json`, fonte intacta. É production, contém o
+Laboratório visual v003, Quartel/cascas e o evento `scene-assets-ready` (8.188,9 ms),
+confirmando a correção da prontidão. Porém `samples` está vazio e contexto reporta
+DPR 2/renderer 1,5 e screen 1512×982, diferente do painel da M1 (DPR 1/1).
+Não usado como medição M1. Solicitado Baixar JSON novamente na aba existente,
+sem recarregar/repetir a amostra já concluída.

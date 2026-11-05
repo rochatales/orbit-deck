@@ -60,9 +60,23 @@
   "mapaConfirmadoPeloAutor": true,
   "medicoes": {
     "M1": {
-      "status": "não coletada",
-      "motivo": "Agendamento remoto pelo console não apareceu no relatório. Nenhuma amostra de 30 s aceita. Será repetida pelo botão Amostra 30 s.",
-      "proximoPasso": "Autor clica Amostra 30 s e Baixar JSON; aguardando resultado."
+      "status": "aguardando JSON para validação completa",
+      "relatoAutor": "M1 concluída e JSON baixado",
+      "painelObservado": {
+        "status": "válida",
+        "p50Ms": 13.1,
+        "p95Ms": 14.5,
+        "framesAcima33Ms": 0,
+        "framesAcima50Ms": 0,
+        "loaf": 0
+      },
+      "ambienteObservado": {
+        "DPR": 1,
+        "rendererDPR": 1,
+        "telaDeclarada": "Odyssey G5 144 Hz"
+      },
+      "limite": "Resumo do painel não substitui o JSON completo; duração, cobertura e contexto ainda não conferidos.",
+      "arquivoRecebido": "A-entrada-marte-preliminar.json: samples vazio; solicitada nova exportação sem repetir a amostra existente."
     }
   },
   "instrumentacao": "Botão Amostra 30 s, Baixar JSON e prontidão dos personagens atuais implementados; regras de jogo e assets preservados.",
@@ -85,5 +99,26 @@
     "arquivo": "revisao-claude.txt",
     "codigo": "sem defeitos",
     "documentacao": "contagem no roteiro e frase sobre logs corrigidas"
+  },
+  "pastaExportacoesDoAutor": "/Users/rochatales/Game Development/Horda Survivor",
+  "entradaPreliminar": {
+    "arquivo": "A-entrada-marte-preliminar.json",
+    "origem": "/Users/rochatales/Game Development/Horda Survivor/exoden-perf-mars-2026-11-05T16-11-25-032Z.json",
+    "sha256": "2b9e5e94ee6fe08d65e20ea81c872c6faed887f34fda91d0aee6507331b9a5d1",
+    "capturedAt": "2026-11-05T16:11:25.032Z",
+    "build": "production",
+    "samples": 0,
+    "DPR": 2,
+    "rendererDPR": 1.5,
+    "screen": {
+      "width": 1512,
+      "height": 982
+    },
+    "viewport": {
+      "width": 1363,
+      "height": 979
+    },
+    "carregamentoPersonagensProntosMs": 8188.900000095367,
+    "limite": "Exportação anterior à M1, com contexto de tela diferente do painel da M1. Preservada como entrada preliminar; não usada para fechar M1."
   }
 }
