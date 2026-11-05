@@ -1,0 +1,11 @@
+**Os cinco resíduos estão resolvidos, sem erro nas correções.** Conferi o estado final em `HEAD` (`fe2dd7d`) por `Read` e `grep`, sem ler os hunks; não rodei testes nem build e não alterei nada.
+
+1. **Adaptação:** resolvido em `docs/HORDA_SURVIVOR_AUDITORIA_E_PLANO.md:296`. O critério vigente são as quatro hordas fixas, e a faixa adaptativa virou critério futuro, coerente com design `:285` e plano `:116-117`.
+2. **Placas:** resolvido no design `:242` e `:289` e no plano `:265` (S4.6) e `:273` (saída da S4), todos adiando as placas para a etapa posterior que as exigir.
+3. **Sintetizador:** resolvido no plano `:106` (default), `:301` (S6.2), `:304` (S6.5) e `:344` (S7.3). Os quatro nomeiam o sintetizador orgânico, e S6.5 ainda deixa a máquina de diamantes para depois.
+4. **S4.11:** resolvido no plano `:271`, que agora diz "rádio do Engenheiro/EDEN conforme a etapa", alinhado com S4.5 (`:264`).
+5. **Destino:** resolvido no design `:20`, que manda ao destino da etapa: EDEN no primeiro retorno, sintetizador no segundo.
+
+**Sem contradição:** o design `:288` ainda cobra placas alcançáveis no próximo marco, sem condicionar à etapa futura. Isso bate com S4.3 (`:262`), que as mantém no mapa, e não é exigência de quota.
+
+**Defaults:** o `--stat` confirma que o commit só toca `docs/`, ou seja, sem código novo. Os textos de 30 kg e kits por contato estão no plano `:102-103`, mas não comparei com o runtime da S2, pois ficou fora deste recorte.
