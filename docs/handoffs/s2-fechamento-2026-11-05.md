@@ -145,3 +145,16 @@ Eventos e JSON completos no mesmo arquivo S2; não é necessário duplicá-lo pa
 O JSON contém nova entrada de Marte e histórico de amostras reiniciado; M1/M2
 anteriores já estão preservados. Proveniência/checagens em `S2-validacao.json`
 e `B-viagem-validacao.json`. Próximos: S1, S44 e aceites do autor.
+
+
+## S1 — Shanghai sem inimigos
+
+Autor confirmou zero inimigos, conclusão e exportação. Última amostra (índice 1):
+10.003 ms de 10.000 solicitados, production, válida, invalidReason null,
+sem warnings/saturação. 1.440 intervalos / 96 leituras. p50 6,9 / p95 7,7 /
+máximo 7,9 ms; >33/>50 ms e LoAF zero. S2 anterior preservada integralmente
+no índice 0. Tela/viewport/buffer/DPR/GPU/navegador/zoom iguais à exportação S2.
+Draw calls mín./máx./média 83/131/111,89; triângulos 103.549/198.150/118.258,54.
+Fonte intacta (grafia `S1-shangai...`), cópia normalizada e SHA-256 conferido;
+`S1-shanghai-sem-inimigos-10s.json` e `S1-validacao.json`. Movimento e população
+são condição manual declarada. Próximo pico S44 e aceites do autor pendentes.

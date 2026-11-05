@@ -412,6 +412,119 @@
       "primeiroDrawDesdeLoadingMs": 4893.800000071526,
       "personagensProntosDesdeLoadingMs": 5051.100000023842,
       "limite": "Prontidão dos personagens não equivale a uma medição de GPU ou aceite visual."
+    },
+    "S1": {
+      "id": "S1",
+      "status": "válida — integridade e duração conferidas",
+      "arquivo": "S1-shanghai-sem-inimigos-10s.json",
+      "origem": "/Users/rochatales/Game Development/Horda Survivor/S1-shangai-sem-inimigos-10s.json",
+      "sha256": "77a26099a7695076095ec83fa209873b2d4bfe15ef21c57aedad9104a2b6e482",
+      "sampleIndex": 1,
+      "condicaoAutor": "S1 concluída, zero inimigos e JSON salvo; movimento solicitado, sem pausa/reinício",
+      "requestedMs": 10000,
+      "elapsedMs": 10003,
+      "warnings": [],
+      "raf": {
+        "count": 1440,
+        "p50": 6.900000000023283,
+        "p95": 7.7000000000116415,
+        "max": 7.900000000023283,
+        "mean": 6.944444444444445,
+        "rafOver33": 0,
+        "rafOver50": 0
+      },
+      "coverage": {
+        "intervalsCollected": 1440,
+        "intervalsCapacity": 5016,
+        "intervalsSaturated": false,
+        "countersCollected": 96,
+        "countersCapacity": 116,
+        "countersSaturated": false
+      },
+      "renderer": {
+        "samples": 96,
+        "firstSampledAtMs": 315363.7000000477,
+        "lastSampledAtMs": 325259.60000002384,
+        "drawCalls": {
+          "min": 83,
+          "max": 131,
+          "mean": 111.88541666666667
+        },
+        "triangles": {
+          "min": 103549,
+          "max": 198150,
+          "mean": 118258.54166666667
+        }
+      },
+      "longAnimationFrames": {
+        "supported": true,
+        "count": 0,
+        "maxDurationMs": null
+      },
+      "context": {
+        "interpolation": {
+          "enabled": true,
+          "timeStep": 0.016666666666666666,
+          "frames": 39041,
+          "steps": 9536,
+          "minStep": 0.01666666753590107,
+          "maxStep": 0.01666666753590107,
+          "maxOffset": 0.12534262623064263,
+          "maxHorizontal": 0.11976036868294054,
+          "physical": {
+            "x": 47.49763107299805,
+            "y": 0,
+            "z": -2.8604202270507812
+          },
+          "visual": {
+            "x": 47.49763796234142,
+            "y": 0,
+            "z": -2.860435174465428
+          },
+          "cameraSource": {
+            "x": 47.49763796234142,
+            "y": 0,
+            "z": -2.860435174465428
+          },
+          "cameraTarget": {
+            "x": 47.52370286333207,
+            "y": 0.55,
+            "z": -2.8507203456110557
+          },
+          "cameraAngle": 3.972148163606064,
+          "cameraZoom": 62.30857142857144
+        },
+        "capturedAt": "2026-11-05T16:32:02.314Z",
+        "build": "production",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+        "browserBrands": "Not:A-Brand 8, Chromium 156, Google Chrome 156",
+        "gpuRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Pro, Unspecified Version)",
+        "hardwareConcurrency": 12,
+        "deviceMemoryGb": 16,
+        "screen": {
+          "width": 2560,
+          "height": 1440
+        },
+        "viewport": {
+          "width": 1363,
+          "height": 1035
+        },
+        "canvasCss": {
+          "width": 1363,
+          "height": 1035
+        },
+        "canvasBuffer": {
+          "width": 1363,
+          "height": 1035
+        },
+        "devicePixelRatio": 1,
+        "rendererPixelRatio": 1
+      },
+      "limites": [
+        "rAF não é tempo de GPU.",
+        "Quantidade de inimigos e percurso são declaração do autor.",
+        "Contexto e heap são da exportação; cenas/ângulos distintos mudam as contagens."
+      ]
     }
   },
   "instrumentacao": "Botão Amostra 30 s, Baixar JSON e prontidão dos personagens atuais implementados; regras de jogo e assets preservados.",
