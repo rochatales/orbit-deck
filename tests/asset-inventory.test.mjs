@@ -30,6 +30,9 @@ test('Inventário: variantes emitidas, fontes de ferramenta e backups não são 
       'src/assets/inline.mp3': 'audio curto incorporado',
       'src/assets/empty-original.mp3': 'original de ferramenta',
       'src/audio.ts': "const takes=import.meta.glob('./assets/rifle-empty-v*.wav'); const take=takes[`./assets/${v.file}`];",
+      'Legacy.tsx': "const file='src/assets/comparacao.glb';",
+      'tests/asset-inventory.test.mjs': "const pattern='src/assets/**/*.glb';",
+      'scripts/audit-project-assets.mjs': "const example='src/assets/solto.glb';",
       'dist/assets/app.js': 'const sound="data:audio/mpeg;base64,' + Buffer.from('audio curto incorporado').toString('base64') + '";',
       'art-source/exports/comparacao.glb': 'modelo',
       'scripts/export.mjs': "const source = 'src/assets/input.glb';"
@@ -49,6 +52,8 @@ test('Inventário: variantes emitidas, fontes de ferramenta e backups não são 
     assert.equal(byName['legacy.png'].classification, 'copiado_de_public_para_dist');
     assert.equal(byName['inline.mp3'].classification, 'incorporado_no_javascript_verificado');
     assert.equal(byName['root-legacy.glb'].classification, 'sem_referencia_detectada');
+    assert.ok(byName['comparacao.glb'].references.some(ref => ref.file === 'Legacy.tsx' && ref.category === 'codigo_na_raiz'));
+    assert.ok(result.assets.every(file => file.references.every(ref => !['tests/asset-inventory.test.mjs', 'scripts/audit-project-assets.mjs'].includes(ref.file))), 'exemplos do auditor e seu teste não contam como consumidores de assets');
     assert.ok(result.sources.some(file => file.file === 'blender/source.fbx'));
     assert.notEqual(byName['empty-original.mp3'].classification, 'referencia_no_codigo_sem_asset_emitido', 'consulta por template a um glob não prova que o original é carregado');
     assert.ok(result.assets.every(file => file.action === 'preservar'));

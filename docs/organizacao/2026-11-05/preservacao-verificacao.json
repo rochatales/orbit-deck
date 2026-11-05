@@ -14,5 +14,6 @@
   ],
   "publicCopiesVerified": 5,
   "inlineMediaContentVerified": 15,
-  "inventoryGeneratorSha256": "b7a23484b0e3a4e5017b655053b79c6aa41b5cc473d35a7763005a6c920d8f9a"
+  "inventoryGeneratorSha256": "6d8f5aad3909c105fa5a61c56273ecd510fe8eb04e00d32f3ec4269a0c7d6494",
+  "auditSelfReferencesExcluded": true
 }

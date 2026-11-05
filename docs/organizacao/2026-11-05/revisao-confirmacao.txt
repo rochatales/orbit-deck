@@ -1,0 +1,25 @@
+**Os seis achados estão resolvidos, mas a correção do achado 6 criou um problema novo de baixa severidade.** Ele não muda nenhuma classificação hoje e não bloqueia a entrega.
+
+| # | Situação | Evidência |
+|---|---|---|
+| 1 | Resolvido | 163 + 5 + 2 assets e 835 + 28 fontes batem com `git ls-files`; `limits` e `docs/ASSETS.md:9-16` declaram o escopo. |
+| 2 | Resolvido | `empty-original.mp3` agora é `referencia_documental`, e o template fica como evidência fraca (`tests/asset-inventory.test.mjs:53`). |
+| 3 | Resolvido | 15 SFX com `inlineChunks` preenchido e explicados em `docs/ASSETS.md:55-59`. |
+| 4 | Resolvido | `docs/ASSETS.md:91` bate com o inventário: 7.025.672 bytes (6,70 MiB), `emitido_no_build`. |
+| 5 | Resolvido | Handoff linhas 23-24 e 69-70 batem com `links-verificacao.json`: 7 links corrigidos pela realocação e `MCP_GAME_VISION.md` pelo redirect. |
+| 6 | Resolvido, com o problema abaixo | `tests/asset-inventory.test.mjs:13-15` cobre `**/` e `{a,b}`, e os dois testes aparecem verdes em `npm-test.txt`. |
+
+## Problema restante
+**O teste novo conta como referência falsa a 46 GLBs** (`tests/asset-inventory.test.mjs:13-14`, `scripts/audit-project-assets.mjs:79`).
+- **Causa:** o auditor lê o literal `'src/assets/**/*.glb'` do próprio teste como `testes:glob`, que é evidência forte. `colony-v006.glb`, por exemplo, traz `tests/asset-inventory.test.mjs:glob`.
+- **Efeito hoje:** nenhum. Dos 46, só 4 não são emitidos e todos têm outra referência forte que mantém a classe: `laboratorio-v001`, `caixa-suprimentos-v001`, `barracks-v004` e `barracks-v005`.
+- **Risco futuro:** um GLB novo sem nenhuma referência sairia como `referencia_de_teste` em vez de `sem_referencia_detectada`. Isso também contradiz `docs/ASSETS.md:114-115`, que diz evitar prova circular, embora a frase cite só archive e relatórios.
+- **Correção mínima:** excluir o teste da varredura na linha 79 do script, ou montar o literal por concatenação, e regenerar o JSON.
+
+## Observação menor
+`Player-main.tsx` e `Social-media.tsx`, na raiz, são código, mas `scripts/audit-project-assets.mjs:32` os classifica como `documentacao`. Por isso `docs/ASSETS.md:63-64` fala em referências "fracas/documentais". Eles usam `useGLTF('/…-transformed.glb')` e nenhum arquivo de `src`, `index.html`, `tsconfig.json` ou `vite.config.ts` os cita. A classificação não muda, porque a referência é só por nome.
+
+## O que não verifiquei
+- **Hashes e base64:** não recalculei public/dist nem o base64; usei o que o inventário registra.
+- **Suíte e `globRegex`:** não rodei nada. Confirmei o total de 566/566 só pelo log e conferi o `globRegex` lendo o código.
+- **Comandos e arquivos:** dois comandos compostos foram barrados antes de rodar, e refiz a consulta com comandos simples de leitura. Não editei nada, e `revisao-confirmacao.txt` continua vazio.

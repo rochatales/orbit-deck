@@ -20,7 +20,7 @@ Escopo: navegação documental, separação do MCP Office e inventário de asset
 
 O escopo rastreado agora inclui src/assets, public, GLBs da raiz, art-source e
 blender. Cópias public/dist por hash e áudio base64 nos chunks complementam o
-manifesto. Os próprios relatórios de organização ficam fora da busca de referências para
+manifesto. Os relatórios, o guia de assets, o gerador e seu próprio teste ficam fora da busca de referências para
 não gerar prova circular. Arquivos emitidos no build podem ser de comparação;
 JSON pode estar incorporado ao JS. Limites da detecção dinâmica no inventário.
 Nenhum asset, fonte ou backup foi movido/removido; nenhum arquivo preexistente

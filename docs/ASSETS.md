@@ -60,8 +60,8 @@ pertencer a um módulo fora da entrada de produção.
 
 ## Legado e fontes fora de src/assets
 
-- [player-main-transformed.glb](../player-main-transformed.glb): 1.79 MiB, não emitido pelo manifesto e sem cópia public; referências fracas/documentais são preservadas no inventário.
-- [social-media-transformed.glb](../social-media-transformed.glb): 1.64 MiB, não emitido pelo manifesto e sem cópia public; referências fracas/documentais são preservadas no inventário.
+- [player-main-transformed.glb](../player-main-transformed.glb): 1.79 MiB, não emitido pelo manifesto e sem cópia public; referências fracas, inclusive nos módulos legados de código da raiz, são preservadas no inventário.
+- [social-media-transformed.glb](../social-media-transformed.glb): 1.64 MiB, não emitido pelo manifesto e sem cópia public; referências fracas, inclusive nos módulos legados de código da raiz, são preservadas no inventário.
 - `blender/`: 28 arquivos, **417.12 MiB**,
   incluindo FBX, prévias e scripts antigos. São fontes de pipeline preservadas;
   não são parte automática do build e não foram movidas ou removidas.
@@ -111,8 +111,9 @@ node scripts/audit-project-assets.mjs dist/manifest.json docs/organizacao/2026-1
 ```
 
 O script lê arquivos rastreados da worktree e escreve o relatório indicado fora
-de `src/`, `public/`, `art-source/`, `blender/` e `archive/`. Archive e os próprios
-relatórios não viram prova circular de referência. `revision` informa o HEAD
+de `src/`, `public/`, `art-source/`, `blender/` e `archive/`. Archive, os próprios
+relatórios, este guia, o gerador do inventário e seu teste são excluídos da busca
+de referências, para evitar prova circular. `revision` informa o HEAD
 consultado; os textos vêm da worktree/índice, inclusive alterações ainda locais.
 
 Globs suportam `*`, `**`, `?` e alternativas simples `{a,b}`; outras construções

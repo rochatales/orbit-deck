@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 
 const textExtensions = new Set(['.ts', '.tsx', '.js', '.jsx', '.mjs', '.py', '.json', '.md', '.html', '.css', '.txt', '.sh', '.yaml', '.yml']);
 const mediaExtensions = new Set(['.glb', '.gltf', '.fbx', '.obj', '.mtl', '.blend', '.png', '.jpg', '.jpeg', '.webp', '.svg', '.mp3', '.wav', '.ogg', '.mp4', '.webm', '.woff', '.woff2', '.ttf', '.otf']);
+const analysisFiles = new Set(['docs/ASSETS.md', 'scripts/audit-project-assets.mjs', 'tests/asset-inventory.test.mjs']);
 const escape = value => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const hash = file => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 
@@ -26,6 +27,7 @@ export function globRegex(pattern) {
 }
 
 function category(file) {
+  if (!file.includes('/') && /\.(tsx?|jsx?|mjs)$/.test(file)) return 'codigo_na_raiz';
   return file.startsWith('src/') ? 'codigo'
     : file.startsWith('tests/') ? 'testes'
     : file.startsWith('scripts/') ? 'ferramentas'
@@ -76,7 +78,7 @@ export function inventoryAssets({ root, trackedFiles, manifest, revision }) {
   }
   const refs = new Map(assetPaths.map(file => [file, []]));
   for (const file of trackedFiles) {
-    if (file.startsWith('archive/') || file.startsWith('docs/organizacao/') || file === 'docs/ASSETS.md'
+    if (file.startsWith('archive/') || file.startsWith('docs/organizacao/') || analysisFiles.has(file)
       || !textExtensions.has(path.extname(file))) continue;
     const text = fs.readFileSync(path.join(root, file), 'utf8');
     for (const ref of referencesInText(file, text, assetPaths)) {
@@ -108,6 +110,7 @@ export function inventoryAssets({ root, trackedFiles, manifest, revision }) {
       : publicCopy ? 'copiado_de_public_para_dist'
       : inlineChunks.length ? 'incorporado_no_javascript_verificado'
       : groups.has('codigo') ? 'referencia_no_codigo_sem_asset_emitido'
+      : groups.has('codigo_na_raiz') ? 'referencia_em_codigo_na_raiz'
       : groups.has('ferramentas') || groups.has('fonte_arte') ? 'ferramenta_ou_fonte'
       : groups.has('testes') ? 'referencia_de_teste'
       : groups.has('documentacao') ? 'referencia_documental'
@@ -136,6 +139,7 @@ export function inventoryAssets({ root, trackedFiles, manifest, revision }) {
       'O manifesto não lista public. Cópias public/dist são conferidas por SHA-256; a mídia incorporada é confirmada por base64 completo, somente até 64 KiB. JSON pode estar incorporado ao JS sem essa verificação.',
       'Referência em src pode vir de módulo fora da entrada. Templates dinâmicos e nomes isolados são evidências fracas, não prova de uso. Globs suportam *, **, ?, e alternativas simples {a,b}; outras formas podem escapar da análise.',
       'Escopo rastreado: src/assets, public, mídias da raiz, art-source e blender. Archive e evidências não são assets de produção; outros diretórios arbitrários não são varridos como mídia.',
+      'Archive, relatórios, docs/ASSETS, o gerador deste inventário e seu próprio teste são excluídos da busca de referências para evitar prova circular.',
       'Fontes art-source/blender, backups e arquivos não rastreados são protegidos. Nenhum asset é removido ou movido por este script.',
       'Não avalia outros branches/worktrees nem decide quais fontes são obsoletas.'
     ],

@@ -81,3 +81,18 @@ Hashes dos 1033 arquivos, public/dist e conteúdo inline reconferidos; runtime,
 public, blender, art-source, dependências, plano e quadro sem alterações.
 O inventário informa o HEAD consultado, mas lê conteúdo da worktree/índice;
 o hash do gerador usado também está no relatório de preservação.
+
+
+### Confirmação e prevenção de autorreferência
+
+Claude confirmou os seis achados resolvidos em `revisao-confirmacao.txt` e
+apontou que o literal de glob do teste do auditor poderia parecer um consumidor
+real de GLBs. O gerador e seu próprio teste agora são excluídos da busca de
+referências, junto dos relatórios e do guia derivado. Regressão adicionada à
+fixture: exemplos do auditor/teste não criam referências aos assets analisados.
+Código solto na raiz é identificado como `codigo_na_raiz`, não documentação.
+
+Após essa correção, os dois testes focados, a suíte **566/566**, o build com
+manifesto e os 1033 hashes passaram novamente. As classificações atuais não
+mudaram; foram removidas apenas referências falsas do próprio auditor.
+Confirmação pontual solicitada ao revisor. Runtime e binários permanecem iguais.
