@@ -1,0 +1,73 @@
+{
+  "id": "M1",
+  "status": "válida — integridade e duração conferidas",
+  "arquivo": "M1-marte-parado-30s.json",
+  "origem": "/Users/rochatales/Game Development/Horda Survivor/ElevenLabs_video_seedance-2-5_@video1 is the _2026-10-20T20_40_05.json",
+  "sha256": "2c961250b508b48f1d80d73927aedbdbcaacd3a697edbd7fbebe4c81982495d2",
+  "condicao": "Marte parado a pé, 30 s; condição declarada pelo autor, relatório exportado posteriormente",
+  "requestedMs": 30000,
+  "elapsedMs": 30008.399999976158,
+  "warnings": [],
+  "raf": {
+    "count": 2853,
+    "p50": 13.10000000000582,
+    "p95": 14.5,
+    "max": 14.800000000017462,
+    "mean": 10.517630564318257,
+    "rafOver33": 0,
+    "rafOver50": 0
+  },
+  "coverage": {
+    "intervalsCollected": 2853,
+    "intervalsCapacity": 15016,
+    "intervalsSaturated": false,
+    "countersCollected": 286,
+    "countersCapacity": 316,
+    "countersSaturated": false
+  },
+  "renderer": {
+    "samples": 286,
+    "firstSampledAtMs": 146553.10000002384,
+    "lastSampledAtMs": 176470.80000007153,
+    "drawCalls": {
+      "min": 370,
+      "max": 372,
+      "mean": 371.57342657342656
+    },
+    "triangles": {
+      "min": 404491,
+      "max": 404569,
+      "mean": 404552.36363636365
+    }
+  },
+  "longAnimationFrames": {
+    "supported": true,
+    "count": 0,
+    "maxDurationMs": null
+  },
+  "context": {
+    "build": "production",
+    "capturedAt": "2026-11-05T16:21:03.236Z",
+    "screen": {
+      "width": 2560,
+      "height": 1440
+    },
+    "viewport": {
+      "width": 1363,
+      "height": 1035
+    },
+    "canvasBuffer": {
+      "width": 1363,
+      "height": 1035
+    },
+    "devicePixelRatio": 1,
+    "rendererPixelRatio": 1,
+    "gpuRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Pro, Unspecified Version)",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36"
+  },
+  "limites": [
+    "rAF não é tempo de GPU.",
+    "Contexto e heap são do momento da exportação, posterior à amostra; imobilidade e tela efetiva durante M1 declaradas pelo autor.",
+    "Sem aceite geral S2.9/6.5 inferido."
+  ]
+}

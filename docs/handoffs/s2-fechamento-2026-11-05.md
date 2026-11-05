@@ -83,3 +83,25 @@ confirmando a correção da prontidão. Porém `samples` está vazio e contexto 
 DPR 2/renderer 1,5 e screen 1512×982, diferente do painel da M1 (DPR 1/1).
 Não usado como medição M1. Solicitado Baixar JSON novamente na aba existente,
 sem recarregar/repetir a amostra já concluída.
+
+
+## M1 — JSON completo validado
+
+Novo arquivo indicado pelo autor (nome externo não relacionado ao conteúdo)
+contém um relatório perf v2 em production com uma amostra M1 de Marte válida:
+30.008,4 ms de 30.000 solicitados, invalidReason null e warnings vazio.
+Cobertura: 2.853 intervalos e 286 leituras do renderer, nenhuma saturação.
+A cena estava pronta antes da amostra. Rota parada é declaração do autor;
+o contexto é da exportação posterior e não constitui telemetria contínua de imobilidade.
+
+- rAF p50 13,1 ms; p95 14,5 ms; máximo 14,8 ms; >33/>50 ms zero; LoAF zero.
+- Draw calls mín./máx./média: 370 / 372 / 371,57; triângulos: 404.491 /
+  404.569 / 404.552,36 (passes de sombra fora dessas contagens).
+- Exportação: tela 2560×1440, viewport/buffer 1363×1035, DPR 1/1;
+  Chrome 156 / ANGLE Metal Apple M2 Pro. Heap da exportação não é heap
+  específico da janela M1. Tela Odyssey G5 144 Hz confirmada pelo autor.
+- Preservado em `M1-marte-parado-30s.json`, hash de origem/cópia conferido;
+  checagem e proveniência em `M1-validacao.json`. Fonte intacta.
+
+M1 registrada tecnicamente; próximos casos M2/B/S2/S1/S44 e aceites expressos
+S2.9/6.5 permanecem pendentes. Não constitui encerramento da sprint.
