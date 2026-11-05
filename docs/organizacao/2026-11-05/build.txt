@@ -25,8 +25,8 @@ dist/assets/SFX_Mutant_small_attack_hit_v04-ca052e74.mp3       4.94 kB
 dist/assets/SFX_Mutant_small_attack_hit_v02-e10530bd.mp3       5.52 kB
 dist/assets/SFX_Mutant_small_attack_hit_v05-ad1413e8.mp3       5.80 kB
 dist/assets/SFX_Rifle_shot_v01-0dbc39ed.mp3                    5.99 kB
-dist/assets/SFX_Rifle_shot_v03-e8af9b97.mp3                    5.99 kB
 dist/assets/SFX_Rifle_shot_v02-90df3471.mp3                    5.99 kB
+dist/assets/SFX_Rifle_shot_v03-e8af9b97.mp3                    5.99 kB
 dist/assets/SFX_Rifle_shot_v04-defacb1b.mp3                    5.99 kB
 dist/assets/SFX_Rifle_shot_v05-6fd7a1f6.mp3                    5.99 kB
 dist/assets/SFX_Mutant_small_attack_hit_v07-e69252e6.mp3       6.09 kB
@@ -130,4 +130,4 @@ dist/assets/index-bfeeface.js                              3,959.73 kB │ gzip:
 - Using dynamic import() to code-split the application
 - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
-✓ built in 4.25s
+✓ built in 4.52s

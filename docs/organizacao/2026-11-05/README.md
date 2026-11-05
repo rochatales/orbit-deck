@@ -18,7 +18,9 @@ Escopo: navegação documental, separação do MCP Office e inventário de asset
 - [Manifesto Vite](manifesto-build.json): cópia do manifesto usado na classificação.
 - [Handoff desta tarefa](../../handoffs/organizacao-docs-assets-2026-11-05.md).
 
-Os próprios relatórios de organização ficam fora da busca de referências para
+O escopo rastreado agora inclui src/assets, public, GLBs da raiz, art-source e
+blender. Cópias public/dist por hash e áudio base64 nos chunks complementam o
+manifesto. Os próprios relatórios de organização ficam fora da busca de referências para
 não gerar prova circular. Arquivos emitidos no build podem ser de comparação;
 JSON pode estar incorporado ao JS. Limites da detecção dinâmica no inventário.
 Nenhum asset, fonte ou backup foi movido/removido; nenhum arquivo preexistente
@@ -28,7 +30,7 @@ somente consultados. As renomeações documentais são iguais às já preparadas
 ## Verificações
 
 Suíte **566/566** verde; build com manifesto passou (aviso preexistente de chunk
-grande). Links e preservação conferidos: 736 links locais, nenhum quebrado; 28 documentos históricos idênticos por hash e 998 hashes de assets/fontes preservados.
+grande). Links e preservação conferidos: 743 links locais, nenhum quebrado; 28 documentos históricos idênticos por hash e 1033 hashes de assets/fontes preservados.
 A evidência de build está em `build.txt`; logs e conferências finais acompanham
 a entrega. Os testes visuais continuam do autor; não foram necessários para
 alterações que não tocam runtime/colisores/arte.
@@ -43,3 +45,12 @@ Vídeos de transição nos intervalos de loading da navegação da aeronave:
 responsabilidade do autor na S6.16. Otimizações de distribuição de GLBs antigos
 exigem análise própria de imports/fallbacks e preservação; não são exclusões
 automáticas por nome, idade ou duplicidade. S7.5/S7.10 não foram encerradas.
+
+
+## Ampliação após revisão
+
+O inventário final cobre 170 assets (src/assets, public e GLBs da raiz) e 863
+arquivos de fonte/pipeline (art-source e blender). Cinco cópias public/dist por
+hash e 15 áudios base64 nos chunks complementam o manifesto. Templates dinâmicos
+não são prova de uso; mídia embutida também participa da distribuição. Parecer
+inicial em `revisao-claude.txt`; correções e confirmação no handoff desta tarefa.

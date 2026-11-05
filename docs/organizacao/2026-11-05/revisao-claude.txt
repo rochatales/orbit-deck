@@ -1,0 +1,45 @@
+**Não há achado bloqueante de preservação, mas o achado 1 impede tratar o inventário como completo.** Os outros cinco são de baixa severidade. Não editei arquivos nem repeti a suíte ou o build.
+
+## Achados
+
+**Média**
+
+1. **O inventário omite assets rastreados e não declara esse limite** (`scripts/audit-project-assets.mjs:54`, `scripts/audit-project-assets.mjs:69`, `docs/ASSETS.md:9-12`).
+   - **O que fica de fora:** o script só cobre `src/assets/` e `art-source/`. Ficam fora os itens abaixo, e nem `limits` nem os documentos da entrega os citam:
+     - `public/`: 5 arquivos, cerca de 2,9 MiB.
+     - `player-main-transformed.glb` e `social-media-transformed.glb`, na raiz.
+     - `blender/`: FBX e prévias, cerca de 417 MiB em disco.
+   - **Afirmação incorreta:** `docs/ASSETS.md:11` diz que o manifesto "inclui a distribuição de produção", mas o manifesto do Vite não lista `public/`. Essas cópias estão em `dist/art` e `dist/assets/fonts`.
+   - **Por que importa:** não achei referência literal a esses arquivos de `public/` em `src`, `index.html`, `tests` ou `scripts`, nem aos dois GLBs em `src`, `tests`, `scripts`, `package.json` ou `vite.config.ts`. São candidatos naturais ao levantamento de assets antigos e à S7.5, que exige não distribuir assets arquivados.
+   - **Correção mínima:** incluir essas pastas no inventário ou declarar a exclusão em `limits` e no `docs/ASSETS.md`, corrigindo a frase. Isso não é sugestão de remoção.
+
+**Baixa**
+
+2. **Áudio classificado como referência de código por engano** (`scripts/audit-project-assets.mjs:31-37`). O template de `src/audio/runtime.ts:20` só consulta chaves do glob da linha 15, que aceita apenas `rifle-empty-v*.wav`. Mesmo assim, `audio/rifle/empty-original.mp3` entra em `referencia_no_codigo_sem_asset_emitido`, embora seja um original não carregado por esse glob.
+
+3. **O limite cita só JSON, mas áudios usados também ficam sem asset próprio** (`docs/ASSETS.md:29`, `scripts/audit-project-assets.mjs:110`). Na mesma categoria há 15 SFX `.mp3` de até 4.076 bytes, carregados pelo glob de `src/audio/runtime.ts:14`. Sem `assetsInlineLimit` em `vite.config.ts`, o limite padrão de 4 KiB indica que foram embutidos no JS; isso é inferência, não inspecionei o bundle. Quem ler pode achar que não são distribuídos.
+
+4. **`colony-v006.glb` aparece sem o dado de distribuição** (`docs/ASSETS.md:61-62`). O texto só cita "referências e exports preservados", mas o inventário o marca como `emitido_no_build`, com 6,70 MiB. O Laboratório v002, logo acima, tem esse dado explícito.
+
+5. **O handoff contradiz o relatório de links** (`docs/handoffs/organizacao-docs-assets-2026-11-05.md:23`). Ele fala no "único link já quebrado", mas `links-verificacao.json` registra 8 em `brokenLinksBefore`, todos em `README-original.md`. A realocação corrige 7, e o redirecionamento corrige o último.
+
+6. **`**/` não casa com zero diretórios, sem efeito hoje** (`scripts/audit-project-assets.mjs:13-16`). Um `import.meta.glob('../assets/**/*.glb')` não pegaria `src/assets/a.glb`, e chaves como `*.{png,jpg}` viram texto literal. Isso daria um falso `sem_referencia_detectada`, e os testes não cobrem o caso. Hoje `src` só usa `*`, então o relatório atual não é afetado. Concluí isso lendo o regex, sem executá-lo.
+
+**Fora do diff:** `AGENTS.md:35` cita `docs/GAMEPLAY_REVIEW_SPRINTS.md`, que não está rastreado e não tem histórico em nenhuma branch. A linha é anterior a esta tarefa, mas fica ao lado do trecho editado.
+
+## O que conferi sem achados
+
+- **Escopo do diff:** são 28 renomeações R100 e uma única adição nova em `archive`. Nada mudou em `src`, `art-source`, dependências, plano ou quadro.
+- **Docs realocados:** nenhuma referência aos nomes principais em `src`, `tests`, `scripts`, `package.json`, `vite.config.ts` ou nos documentos ativos que consultei. Fora disso, só `AGENTS.md:36-37`, que já aponta o novo local.
+- **Números do `docs/ASSETS.md`:** contagens, MiB e a tabela dos 12 maiores batem com `summary` e o inventário.
+- **README e índices:**
+  - Controles, hordas 13/26/32/44 (115), Dash, `?perf` e `?interp=0` batem com o código ou com `src/ui/ControlList.tsx`.
+  - S0.2, S0.3, S6.16, S7.5 e S7.10 existem no plano.
+  - A âncora nova de `docs/handoffs/s2.11.md` é válida; conferi à mão porque o verificador de links não valida âncoras.
+- **Regras de classificação:** emitido no build fica separado de uso na rota padrão, o backup é classificado à parte e todo asset recebe `preservar`.
+
+## O que não verifiquei
+
+- **Reprodutibilidade:** não confirmei, porque a execução do script com saída em `/tmp` precisava de aprovação e não foi autorizada.
+- **Dados só dos relatórios:** não recalculei os 998 hashes, os 736 links nem a comparação com o índice do checkout principal.
+- **`docs/organizacao/2026-11-05/revisao-claude.txt`:** este arquivo não rastreado não foi lido nem alterado.

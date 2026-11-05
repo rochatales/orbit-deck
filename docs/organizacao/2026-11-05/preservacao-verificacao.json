@@ -5,11 +5,14 @@
   "authorMainCheckoutWritten": false,
   "officialPlanAndBoardUnchanged": true,
   "legacyDocsIdentical": 28,
-  "trackedAssetHashesVerified": 163,
-  "trackedSourceHashesVerified": 835,
-  "localLinksChecked": 736,
+  "trackedAssetHashesVerified": 170,
+  "trackedSourceHashesVerified": 863,
+  "localLinksChecked": 743,
   "brokenLinksAfter": 0,
   "newCompatibilityRedirect": [
     "archive/mcp-office/MCP_GAME_VISION.md"
-  ]
+  ],
+  "publicCopiesVerified": 5,
+  "inlineMediaContentVerified": 15,
+  "inventoryGeneratorSha256": "b7a23484b0e3a4e5017b655053b79c6aa41b5cc473d35a7763005a6c920d8f9a"
 }

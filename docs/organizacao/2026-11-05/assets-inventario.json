@@ -1,31 +1,48 @@
 {
-  "version": 1,
-  "revision": "6b67f1efaee17b5da570c7140625c51f7e0c6e4a",
-  "method": "Manifesto Vite do build; caminhos, globs/templates e nomes nos arquivos rastreados. SHA-256 de assets e art-source.",
+  "version": 2,
+  "revision": "106e61e6ec9fb0681b65197c91ab06a6460c0192",
+  "method": "Manifesto Vite, cópias public/dist por hash e mídia base64 em chunks do build. Caminhos/globs e referências conservadoras; SHA-256 dos assets/fontes rastreados.",
   "limits": [
     "Emitido no build não significa carregado na rota padrão: inclui variantes e recursos de comparação.",
-    "JSONs podem estar incorporados ao JavaScript sem entrada própria no manifesto. Referência em src também pode pertencer a um módulo fora da entrada de produção.",
-    "Nomes isolados podem ser ambíguos. Referências dinâmicas/construídas podem escapar da análise; ausência não autoriza remoção.",
-    "Fontes art-source, backups e arquivos não rastreados são protegidos. Nenhum asset é removido ou movido por este script.",
+    "O manifesto não lista public. Cópias public/dist são conferidas por SHA-256; a mídia incorporada é confirmada por base64 completo, somente até 64 KiB. JSON pode estar incorporado ao JS sem essa verificação.",
+    "Referência em src pode vir de módulo fora da entrada. Templates dinâmicos e nomes isolados são evidências fracas, não prova de uso. Globs suportam *, **, ?, e alternativas simples {a,b}; outras formas podem escapar da análise.",
+    "Escopo rastreado: src/assets, public, mídias da raiz, art-source e blender. Archive e evidências não são assets de produção; outros diretórios arbitrários não são varridos como mídia.",
+    "Fontes art-source/blender, backups e arquivos não rastreados são protegidos. Nenhum asset é removido ou movido por este script.",
     "Não avalia outros branches/worktrees nem decide quais fontes são obsoletas."
   ],
   "summary": {
-    "assets": 163,
-    "assetBytes": 276954940,
-    "sources": 835,
-    "sourceBytes": 701506370,
+    "assets": 170,
+    "assetBytes": 283581372,
+    "sources": 863,
+    "sourceBytes": 1138889051,
     "classifications": {
+      "apenas_nome_ou_template_nao_resolvido": {
+        "files": 7,
+        "bytes": 4149898
+      },
+      "copiado_de_public_para_dist": {
+        "files": 5,
+        "bytes": 3027864
+      },
       "emitido_no_build": {
         "files": 109,
         "bytes": 236983530
       },
       "referencia_de_teste": {
-        "files": 11,
-        "bytes": 2726447
+        "files": 5,
+        "bytes": 2102367
+      },
+      "referencia_documental": {
+        "files": 2,
+        "bytes": 168567
       },
       "referencia_no_codigo_sem_asset_emitido": {
-        "files": 33,
-        "bytes": 1050121
+        "files": 17,
+        "bytes": 907564
+      },
+      "incorporado_no_javascript_verificado": {
+        "files": 15,
+        "bytes": 46740
       },
       "backup_protegido": {
         "files": 1,
@@ -39,12 +56,124 @@
   },
   "assets": [
     {
+      "file": "player-main-transformed.glb",
+      "bytes": 1879260,
+      "sha256": "0d994c076e69ec00ef0139327abeb24495587b0627de6fb74b82d9ddfe53bee6",
+      "classification": "apenas_nome_ou_template_nao_resolvido",
+      "action": "preservar",
+      "buildFile": null,
+      "inlineChunks": [],
+      "exactSourceCopies": [],
+      "references": [
+        {
+          "file": "Player-main.tsx",
+          "category": "documentacao",
+          "kind": "nome_apenas"
+        },
+        {
+          "file": "docs/sprint-6/PLANO_IMPLANTACAO_PERSONAGENS.md",
+          "category": "documentacao",
+          "kind": "nome_apenas"
+        }
+      ]
+    },
+    {
+      "file": "public/art/interaction/eden/background.png",
+      "bytes": 1227758,
+      "sha256": "9806cd3ffbc4285103e9156da818f85c180c0fb335ff5f8b3734b959d05f81e5",
+      "classification": "copiado_de_public_para_dist",
+      "action": "preservar",
+      "buildFile": "art/interaction/eden/background.png",
+      "inlineChunks": [],
+      "exactSourceCopies": [],
+      "references": [
+        {
+          "file": "docs/sprint-1/archive-verification.json",
+          "category": "documentacao",
+          "kind": "nome_apenas"
+        }
+      ]
+    },
+    {
+      "file": "public/art/interaction/eden/eden.png",
+      "bytes": 772822,
+      "sha256": "f4a7756ef2e3240f412e02d5397c3cdaaa204dae86c3225bc033b4337989835d",
+      "classification": "copiado_de_public_para_dist",
+      "action": "preservar",
+      "buildFile": "art/interaction/eden/eden.png",
+      "inlineChunks": [],
+      "exactSourceCopies": [],
+      "references": []
+    },
+    {
+      "file": "public/art/interaction/eden/player.png",
+      "bytes": 625995,
+      "sha256": "b47509a38f167359d4d99b33f0c71cd448777ecea2241edc33edf19fefb44f7d",
+      "classification": "copiado_de_public_para_dist",
+      "action": "preservar",
+      "buildFile": "art/interaction/eden/player.png",
+      "inlineChunks": [],
+      "exactSourceCopies": [],
+      "references": [
+        {
+          "file": "docs/sprint-1/archive-verification.json",
+          "category": "documentacao",
+          "kind": "nome_apenas"
+        }
+      ]
+    },
+    {
+      "file": "public/assets/fonts/Roboto-msdf.json",
+      "bytes": 176882,
+      "sha256": "508b637f208932ff600b3f73fdfa43c24f30077e862d51c5e5eb23713a276e7c",
+      "classification": "copiado_de_public_para_dist",
+      "action": "preservar",
+      "buildFile": "assets/fonts/Roboto-msdf.json",
+      "inlineChunks": [],
+      "exactSourceCopies": [],
+      "references": []
+    },
+    {
+      "file": "public/assets/fonts/Roboto-msdf.png",
+      "bytes": 224407,
+      "sha256": "541bf0b90615d56a9b3a0eab065dbc4f7254ef6f7ba9dc340ba3bf70c8cf2d4e",
+      "classification": "copiado_de_public_para_dist",
+      "action": "preservar",
+      "buildFile": "assets/fonts/Roboto-msdf.png",
+      "inlineChunks": [],
+      "exactSourceCopies": [],
+      "references": []
+    },
+    {
+      "file": "social-media-transformed.glb",
+      "bytes": 1719308,
+      "sha256": "8fced7c6dc9f689fdd5274974a556ddea9e148de48e9e2c16f6ffbe03db3fc7c",
+      "classification": "apenas_nome_ou_template_nao_resolvido",
+      "action": "preservar",
+      "buildFile": null,
+      "inlineChunks": [],
+      "exactSourceCopies": [],
+      "references": [
+        {
+          "file": "Social-media.tsx",
+          "category": "documentacao",
+          "kind": "nome_apenas"
+        },
+        {
+          "file": "docs/sprint-6/PLANO_IMPLANTACAO_PERSONAGENS.md",
+          "category": "documentacao",
+          "kind": "nome_apenas"
+        }
+      ]
+    },
+    {
       "file": "src/assets/ares-lander/ares-lander.glb",
       "bytes": 4601504,
       "sha256": "2491f474d5fd25e81cf08a1eb7810ad53684f9b884a0d6726851c8335cc7e197",
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/ares-lander-2491f474.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -110,7 +239,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/mars-ares.test.mjs",
@@ -120,12 +249,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/shanghai-ares.test.mjs",
@@ -141,6 +270,7 @@
       "classification": "referencia_de_teste",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -246,12 +376,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/shanghai-ambience.test.mjs",
@@ -282,6 +412,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/deck-mars-59b4cb7d.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -352,7 +483,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/colony-buildings.test.mjs",
@@ -372,12 +503,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -388,6 +519,7 @@
       "classification": "referencia_de_teste",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -493,12 +625,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/shanghai-ambience.test.mjs",
@@ -526,9 +658,10 @@
       "file": "src/assets/audio/ambience/manifesto.json",
       "bytes": 448,
       "sha256": "85d321f82818b5608fbf6502102083f0215c2a34b032bb90caa6ff26e2e698a5",
-      "classification": "referencia_de_teste",
+      "classification": "apenas_nome_ou_template_nao_resolvido",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -634,12 +767,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/shanghai-ambience.test.mjs",
@@ -670,6 +803,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/shanghai-empty-city-54b29c59.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -690,12 +824,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -703,9 +837,10 @@
       "file": "src/assets/audio/mars/door-original.mp3",
       "bytes": 179129,
       "sha256": "58a65e70e0af23583dba68f0378056ad460e3feb06e489298653e4b1266fe45d",
-      "classification": "referencia_de_teste",
+      "classification": "apenas_nome_ou_template_nao_resolvido",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -716,12 +851,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -729,9 +864,10 @@
       "file": "src/assets/audio/mars/door-original.wav",
       "bytes": 357762,
       "sha256": "4f6757ac9867d688ee5fe44f39485b5f2783532522a1a7da6bf3139fc2a098e6",
-      "classification": "referencia_de_teste",
+      "classification": "apenas_nome_ou_template_nao_resolvido",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -752,12 +888,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -765,9 +901,10 @@
       "file": "src/assets/audio/mars/hangar-door-original.mp3",
       "bytes": 72750,
       "sha256": "68ba4677c6997b97d4a9ba10ac08289eb1f0b2024e14f470fdbea777aed16584",
-      "classification": "referencia_de_teste",
+      "classification": "referencia_documental",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -793,12 +930,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -809,6 +946,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/hangar-front-close-70028f48.wav",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -834,12 +972,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -850,6 +988,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/hangar-front-open-8d1e43f9.wav",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -880,12 +1019,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -893,9 +1032,10 @@
       "file": "src/assets/audio/mars/manifesto.json",
       "bytes": 3579,
       "sha256": "ce3a95da159961c45956be50219e51df77ce877a25358d1e36922caeba705b79",
-      "classification": "referencia_de_teste",
+      "classification": "apenas_nome_ou_template_nao_resolvido",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -1001,12 +1141,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/shanghai-ambience.test.mjs",
@@ -1037,6 +1177,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/mars-desert-1f69f6d7.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -1052,12 +1193,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -1065,20 +1206,21 @@
       "file": "src/assets/audio/mars/mars-door-open.mp3",
       "bytes": 10412,
       "sha256": "452acc75be67d5f55504fe0c7df55a3b0f2d1c848b7f645f178c64eba5210056",
-      "classification": "referencia_de_teste",
+      "classification": "apenas_nome_ou_template_nao_resolvido",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -1089,6 +1231,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/mars-door-open-251b67e3.wav",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -1119,12 +1262,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -1135,6 +1278,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/mars-interior-d42d9647.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -1150,12 +1294,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -1166,6 +1310,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/quartel-door-close-ebf92514.wav",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -1191,12 +1336,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -1207,6 +1352,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/quartel-door-open-0c08592c.wav",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -1232,12 +1378,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -1248,6 +1394,7 @@
       "classification": "referencia_de_teste",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -1353,12 +1500,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/shanghai-ambience.test.mjs",
@@ -1389,6 +1536,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/mars-strung-out-41a4cff1.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -1409,12 +1557,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -1425,6 +1573,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/shanghai-dov-7541631c.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -1445,12 +1594,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -1458,9 +1607,10 @@
       "file": "src/assets/audio/rifle/empty-original.mp3",
       "bytes": 95817,
       "sha256": "590a7e3478ad3c7a7d020e38235f0e8bc378dbd3f88763e86b982e2a0ece5208",
-      "classification": "referencia_no_codigo_sem_asset_emitido",
+      "classification": "referencia_documental",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -1476,17 +1626,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
+        },
+        {
+          "file": "tests/asset-inventory.test.mjs",
+          "category": "testes",
+          "kind": "nome_apenas"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -1497,6 +1652,7 @@
       "classification": "referencia_no_codigo_sem_asset_emitido",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -1577,7 +1733,7 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "caminho"
         },
         {
           "file": "tests/audio.test.mjs",
@@ -1602,12 +1758,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/shanghai-ambience.test.mjs",
@@ -1638,6 +1794,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/rifle-empty-v01-92566432.wav",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -1648,17 +1805,17 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -1669,6 +1826,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/rifle-empty-v02-ca7ef003.wav",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -1679,17 +1837,17 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -1700,6 +1858,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/rifle-empty-v03-5fcdc5e6.wav",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -1710,17 +1869,17 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -1731,6 +1890,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/rifle-empty-v04-cbeaf39e.wav",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -1741,17 +1901,17 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -1762,6 +1922,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/rifle-empty-v05-37742f6c.wav",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -1772,17 +1933,17 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -1793,6 +1954,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/rifle-empty-v06-edfc3887.wav",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -1803,17 +1965,17 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -1824,6 +1986,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/rifle-empty-v07-86b172d5.wav",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -1834,17 +1997,17 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -1855,6 +2018,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Item_collected_v01-d5810e14.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -1870,22 +2034,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -1896,6 +2060,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Item_collected_v02-e10f73f9.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -1911,22 +2076,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -1937,6 +2102,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Item_collected_v03-30ca86c0.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -1952,22 +2118,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -1978,6 +2144,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Item_collected_v04-d8889036.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -1993,22 +2160,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -2016,9 +2183,12 @@
       "file": "src/assets/audio/sfx/SFX_Main_character_step_v01.mp3",
       "bytes": 2060,
       "sha256": "cc1d47bc70ba3c15002fb84dec4cb46ff156c5142b45c1d4929565984912bedf",
-      "classification": "referencia_no_codigo_sem_asset_emitido",
+      "classification": "incorporado_no_javascript_verificado",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [
+        "assets/index-bfeeface.js"
+      ],
       "exactSourceCopies": [],
       "references": [
         {
@@ -2034,22 +2204,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -2057,9 +2227,12 @@
       "file": "src/assets/audio/sfx/SFX_Main_character_step_v02.mp3",
       "bytes": 1772,
       "sha256": "d11e9f65a1105ca681750143df2a562b4dcc09ee42e3ee96806eb25150b55b99",
-      "classification": "referencia_no_codigo_sem_asset_emitido",
+      "classification": "incorporado_no_javascript_verificado",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [
+        "assets/index-bfeeface.js"
+      ],
       "exactSourceCopies": [],
       "references": [
         {
@@ -2075,22 +2248,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -2101,6 +2274,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Mutant_big_attack_hit_v01-0a529b42.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -2116,22 +2290,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -2142,6 +2316,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Mutant_big_bullet_hit_v01-dc962502.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -2157,22 +2332,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -2180,9 +2355,12 @@
       "file": "src/assets/audio/sfx/SFX_Mutant_big_step_v01.mp3",
       "bytes": 3788,
       "sha256": "e5b1799ea9eb13283ec7c4c7aff5d6ae8f367d83d93c7e3546ad96772effb209",
-      "classification": "referencia_no_codigo_sem_asset_emitido",
+      "classification": "incorporado_no_javascript_verificado",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [
+        "assets/index-bfeeface.js"
+      ],
       "exactSourceCopies": [],
       "references": [
         {
@@ -2198,22 +2376,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -2221,9 +2399,12 @@
       "file": "src/assets/audio/sfx/SFX_Mutant_big_step_v02.mp3",
       "bytes": 3212,
       "sha256": "a06655113a2f1d4b878bdc5d0f98fa2a43f741b5f63613badf3d05d95cff2cd6",
-      "classification": "referencia_no_codigo_sem_asset_emitido",
+      "classification": "incorporado_no_javascript_verificado",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [
+        "assets/index-bfeeface.js"
+      ],
       "exactSourceCopies": [],
       "references": [
         {
@@ -2239,22 +2420,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -2262,9 +2443,12 @@
       "file": "src/assets/audio/sfx/SFX_Mutant_big_step_v03.mp3",
       "bytes": 3788,
       "sha256": "917696a9b08599414426b247f8bec7def37ae73908ccc7aac54223395972ef24",
-      "classification": "referencia_no_codigo_sem_asset_emitido",
+      "classification": "incorporado_no_javascript_verificado",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [
+        "assets/index-bfeeface.js"
+      ],
       "exactSourceCopies": [],
       "references": [
         {
@@ -2280,22 +2464,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -2303,9 +2487,12 @@
       "file": "src/assets/audio/sfx/SFX_Mutant_big_step_v04.mp3",
       "bytes": 2636,
       "sha256": "8afc228336f21132d64df8f540929eefcb4b7cab6a861778dc972dad886d632c",
-      "classification": "referencia_no_codigo_sem_asset_emitido",
+      "classification": "incorporado_no_javascript_verificado",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [
+        "assets/index-bfeeface.js"
+      ],
       "exactSourceCopies": [],
       "references": [
         {
@@ -2321,22 +2508,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -2344,9 +2531,12 @@
       "file": "src/assets/audio/sfx/SFX_Mutant_big_step_v05.mp3",
       "bytes": 3788,
       "sha256": "6feeedc8a152b0960020d0ce69303ebb9e4abef5f1f6bc484e506bc80ec419b8",
-      "classification": "referencia_no_codigo_sem_asset_emitido",
+      "classification": "incorporado_no_javascript_verificado",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [
+        "assets/index-bfeeface.js"
+      ],
       "exactSourceCopies": [],
       "references": [
         {
@@ -2362,22 +2552,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -2385,9 +2575,12 @@
       "file": "src/assets/audio/sfx/SFX_Mutant_big_step_v06.mp3",
       "bytes": 3500,
       "sha256": "ba3f32e7277eea93eb6c4107ff1e4cf3ddb8c67d927ddfbb63dba76c23391d83",
-      "classification": "referencia_no_codigo_sem_asset_emitido",
+      "classification": "incorporado_no_javascript_verificado",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [
+        "assets/index-bfeeface.js"
+      ],
       "exactSourceCopies": [],
       "references": [
         {
@@ -2403,22 +2596,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -2426,9 +2619,12 @@
       "file": "src/assets/audio/sfx/SFX_Mutant_big_step_v07.mp3",
       "bytes": 4076,
       "sha256": "c330daa49286d6d8b90302d709a5a5047e6330d62ca10a61c0bbb11c56e0278f",
-      "classification": "referencia_no_codigo_sem_asset_emitido",
+      "classification": "incorporado_no_javascript_verificado",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [
+        "assets/index-bfeeface.js"
+      ],
       "exactSourceCopies": [],
       "references": [
         {
@@ -2444,22 +2640,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -2467,9 +2663,12 @@
       "file": "src/assets/audio/sfx/SFX_Mutant_big_step_v08.mp3",
       "bytes": 2636,
       "sha256": "fbbc53db3fcbfd457dc00916a8aab163de333588617551d03c28923eb1751111",
-      "classification": "referencia_no_codigo_sem_asset_emitido",
+      "classification": "incorporado_no_javascript_verificado",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [
+        "assets/index-bfeeface.js"
+      ],
       "exactSourceCopies": [],
       "references": [
         {
@@ -2485,22 +2684,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -2508,9 +2707,12 @@
       "file": "src/assets/audio/sfx/SFX_Mutant_big_step_v09.mp3",
       "bytes": 2348,
       "sha256": "dbb437da0c773036f2ea114c0e0b96fdb5337bcb88547e2a39f9a40d2957edda",
-      "classification": "referencia_no_codigo_sem_asset_emitido",
+      "classification": "incorporado_no_javascript_verificado",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [
+        "assets/index-bfeeface.js"
+      ],
       "exactSourceCopies": [],
       "references": [
         {
@@ -2526,22 +2728,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -2549,9 +2751,12 @@
       "file": "src/assets/audio/sfx/SFX_Mutant_big_step_v10.mp3",
       "bytes": 2924,
       "sha256": "15d9802a7283da617f821b464f4c3cc72af5b8f55cbdf3a56523d2ed30e46c7c",
-      "classification": "referencia_no_codigo_sem_asset_emitido",
+      "classification": "incorporado_no_javascript_verificado",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [
+        "assets/index-bfeeface.js"
+      ],
       "exactSourceCopies": [],
       "references": [
         {
@@ -2567,22 +2772,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -2593,6 +2798,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Mutant_big_step_v11-ed59b860.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -2608,22 +2814,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -2631,9 +2837,12 @@
       "file": "src/assets/audio/sfx/SFX_Mutant_big_step_v12.mp3",
       "bytes": 3500,
       "sha256": "08226d27e1d25811ecea5fa9e5d4a0ef2b5133ff476777e964f7dc0d1d3271a8",
-      "classification": "referencia_no_codigo_sem_asset_emitido",
+      "classification": "incorporado_no_javascript_verificado",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [
+        "assets/index-bfeeface.js"
+      ],
       "exactSourceCopies": [],
       "references": [
         {
@@ -2649,22 +2858,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -2672,9 +2881,12 @@
       "file": "src/assets/audio/sfx/SFX_Mutant_big_step_v13.mp3",
       "bytes": 2924,
       "sha256": "8986fd1cb04b5765551b04cc83c914ef9354c688bd10225f11d4b17870c298c8",
-      "classification": "referencia_no_codigo_sem_asset_emitido",
+      "classification": "incorporado_no_javascript_verificado",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [
+        "assets/index-bfeeface.js"
+      ],
       "exactSourceCopies": [],
       "references": [
         {
@@ -2690,22 +2902,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -2713,9 +2925,12 @@
       "file": "src/assets/audio/sfx/SFX_Mutant_big_step_v14.mp3",
       "bytes": 3788,
       "sha256": "da4928c9d7192630cae89906b3c3d1fff0978020e2cb0acef8189d86269a2228",
-      "classification": "referencia_no_codigo_sem_asset_emitido",
+      "classification": "incorporado_no_javascript_verificado",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [
+        "assets/index-bfeeface.js"
+      ],
       "exactSourceCopies": [],
       "references": [
         {
@@ -2731,22 +2946,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -2757,6 +2972,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Mutant_small_attack_hit_v01-a42420ce.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -2772,22 +2988,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -2798,6 +3014,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Mutant_small_attack_hit_v02-e10530bd.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -2813,22 +3030,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -2839,6 +3056,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Mutant_small_attack_hit_v03-6ba2088e.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -2854,22 +3072,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -2880,6 +3098,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Mutant_small_attack_hit_v04-ca052e74.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -2895,22 +3114,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -2921,6 +3140,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Mutant_small_attack_hit_v05-ad1413e8.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -2936,22 +3156,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -2962,6 +3182,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Mutant_small_attack_hit_v06-071a8138.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -2977,22 +3198,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -3003,6 +3224,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Mutant_small_attack_hit_v07-e69252e6.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -3018,22 +3240,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -3044,6 +3266,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Mutant_small_attack_hit_v08-324a8a95.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -3059,22 +3282,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -3085,6 +3308,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Mutant_small_bullet_hit_v01-8658ebc9.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -3100,22 +3324,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -3126,6 +3350,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Mutant_small_bullet_hit_v02-8316da6d.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -3141,22 +3366,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -3167,6 +3392,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Mutant_small_bullet_hit_v03-b784c95d.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -3182,22 +3408,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -3208,6 +3434,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Mutant_small_death_hit_v01-ad9e3f88.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -3223,22 +3450,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -3249,6 +3476,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Patrol_big_bullet_hit_v01-0fa51e39.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -3264,22 +3492,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -3290,6 +3518,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Patrol_big_death_hit_v01-7aed0882.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -3305,22 +3534,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -3331,6 +3560,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Patrol_big_step_v01-2a3cc040.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -3346,22 +3576,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -3372,6 +3602,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Patrol_big_step_v02-0bfb2112.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -3387,22 +3618,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -3413,6 +3644,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Patrol_big_step_v03-75dc9d88.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -3428,22 +3660,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -3454,6 +3686,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Patrol_big_step_v04-15844d42.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -3469,22 +3702,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -3495,6 +3728,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Patrol_big_step_v05-f6698d9c.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -3510,22 +3744,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -3536,6 +3770,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Patrol_small_attack_hit_v01-f7dcb233.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -3551,22 +3786,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -3577,6 +3812,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Patrol_small_bullet_hit_v01-529d7e19.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -3592,22 +3828,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -3618,6 +3854,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Patrol_small_death_hit_v01-4112ea0b.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -3633,22 +3870,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -3659,6 +3896,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Patrol_small_step_v01-0f954a6c.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -3674,22 +3912,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -3700,6 +3938,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Patrol_small_step_v02-44083ef6.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -3715,22 +3954,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -3741,6 +3980,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Patrol_small_step_v03-f2e4495b.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -3756,22 +3996,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -3782,6 +4022,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Patrol_small_step_v04-242e9235.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -3797,22 +4038,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -3823,6 +4064,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Patrol_small_step_v05-e0fe8c90.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -3838,22 +4080,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -3864,6 +4106,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Rifle_Reload_v01-b277dfd2.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -3879,22 +4122,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -3905,6 +4148,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Rifle_shot_v01-0dbc39ed.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -3920,22 +4164,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -3946,6 +4190,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Rifle_shot_v02-90df3471.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -3961,22 +4206,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -3987,6 +4232,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Rifle_shot_v03-e8af9b97.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -4002,22 +4248,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -4028,6 +4274,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Rifle_shot_v04-defacb1b.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -4043,22 +4290,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -4069,6 +4316,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/SFX_Rifle_shot_v05-6fd7a1f6.mp3",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -4084,22 +4332,22 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -4110,6 +4358,7 @@
       "classification": "referencia_no_codigo_sem_asset_emitido",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -4190,12 +4439,12 @@
         {
           "file": "src/audio/runtime.ts",
           "category": "codigo",
-          "kind": "glob_ou_template"
+          "kind": "caminho"
         },
         {
           "file": "tests/audio.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "caminho"
         },
         {
           "file": "tests/mars-ares.test.mjs",
@@ -4215,12 +4464,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/shanghai-ambience.test.mjs",
@@ -4251,6 +4500,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/cafeteria-16812921.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/predios-colonia-v001/export/cafeteria-v002.glb"
       ],
@@ -4268,7 +4518,7 @@
         {
           "file": "art-source/predios-colonia-v001/scripts/manifesto.mjs",
           "category": "fonte_arte",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "art-source/predios-colonia-v001/scripts/oficina.py",
@@ -4283,22 +4533,22 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/colony-structural.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -4309,6 +4559,7 @@
       "classification": "referencia_no_codigo_sem_asset_emitido",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -4349,12 +4600,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -4365,6 +4616,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/colony-shared-floor-v001-1d6cf34f.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/predios-colonia-v001/export/colony-shared-floor-v001.glb"
       ],
@@ -4377,7 +4629,7 @@
         {
           "file": "art-source/predios-colonia-v001/scripts/manifesto.mjs",
           "category": "fonte_arte",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "art-source/predios-colonia-v001/scripts/piso-compartilhado.py",
@@ -4407,7 +4659,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/colony-buildings.test.mjs",
@@ -4417,17 +4669,17 @@
         {
           "file": "tests/colony-structural.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -4438,6 +4690,7 @@
       "classification": "referencia_no_codigo_sem_asset_emitido",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/predios-colonia-v001/notas/piso-compartilhado-v001.json"
       ],
@@ -4465,12 +4718,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -4481,6 +4734,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/data-center-b10e9edb.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/predios-colonia-v001/export/data-center-v002.glb"
       ],
@@ -4493,7 +4747,7 @@
         {
           "file": "art-source/predios-colonia-v001/scripts/manifesto.mjs",
           "category": "fonte_arte",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "art-source/predios-colonia-v001/scripts/render_ajustes_estruturais.py",
@@ -4508,22 +4762,22 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/colony-structural.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -4534,6 +4788,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/meeting-room-e704770a.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/predios-colonia-v001/export/meeting-room-v002.glb"
       ],
@@ -4546,7 +4801,7 @@
         {
           "file": "art-source/predios-colonia-v001/scripts/manifesto.mjs",
           "category": "fonte_arte",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "art-source/predios-colonia-v001/scripts/render_ajustes_estruturais.py",
@@ -4561,22 +4816,22 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/colony-structural.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -4587,6 +4842,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/workshop-7985cbe6.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/predios-colonia-v001/export/workshop-v002.glb"
       ],
@@ -4594,7 +4850,7 @@
         {
           "file": "art-source/predios-colonia-v001/scripts/manifesto.mjs",
           "category": "fonte_arte",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "art-source/predios-colonia-v001/scripts/oficina.py",
@@ -4614,7 +4870,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/colony-buildings.test.mjs",
@@ -4624,17 +4880,17 @@
         {
           "file": "tests/colony-structural.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -4645,6 +4901,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/brand-brain-f7c02996.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -4659,12 +4916,12 @@
         },
         {
           "file": "blender/scripts/bake_npc_glb.py",
-          "category": "documentacao",
+          "category": "fonte_arte",
           "kind": "caminho"
         },
         {
           "file": "blender/scripts/glb_to_fbx.py",
-          "category": "documentacao",
+          "category": "fonte_arte",
           "kind": "nome_apenas"
         },
         {
@@ -4690,17 +4947,17 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -4711,6 +4968,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/eden-v002-99a284e5.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -4741,7 +4999,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/eden-control-room.test.mjs",
@@ -4751,12 +5009,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -4767,6 +5025,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/backpack-a1e05927.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/player-backpack/export/backpack-v001.glb"
       ],
@@ -4809,7 +5068,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/colony-player-light.test.mjs",
@@ -4824,12 +5083,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sword-back-rifle.test.mjs",
@@ -4845,6 +5104,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/explorador-astronauta-166e2f98.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/personagens/explorador-astronauta/export/explorador-astronauta-rig-v009.glb"
       ],
@@ -4947,7 +5207,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/colony-atmosphere.test.mjs",
@@ -5007,7 +5267,7 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/rifle-final-run.test.mjs",
@@ -5027,7 +5287,7 @@
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sword-back-rifle.test.mjs",
@@ -5053,6 +5313,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/explorador-espada-v002-2be3b5fa.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/armas/facao/export/explorador-espada-v002.glb"
       ],
@@ -5100,7 +5361,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/colony-player-light.test.mjs",
@@ -5115,12 +5376,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sword-back-rifle.test.mjs",
@@ -5146,6 +5407,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/explorador-facao-v001-cda925f7.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/armas/facao/export/explorador-facao-v001.glb"
       ],
@@ -5198,7 +5460,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/machete.test.mjs",
@@ -5208,12 +5470,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sword-back-rifle.test.mjs",
@@ -5239,6 +5501,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/explorador-r7-143a14d0.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -5289,7 +5552,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/caixa-suprimentos.ts",
@@ -5304,12 +5567,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -5320,6 +5583,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/player-main-e44fd1a8.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -5329,12 +5593,12 @@
         },
         {
           "file": "blender/scripts/bake_player_glb.py",
-          "category": "documentacao",
+          "category": "fonte_arte",
           "kind": "caminho"
         },
         {
           "file": "blender/scripts/glb_to_fbx.py",
-          "category": "documentacao",
+          "category": "fonte_arte",
           "kind": "nome_apenas"
         },
         {
@@ -5380,7 +5644,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/movement.test.mjs",
@@ -5390,12 +5654,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -5406,11 +5670,12 @@
       "classification": "backup_protegido",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
           "file": "blender/scripts/bake_player_glb.py",
-          "category": "documentacao",
+          "category": "fonte_arte",
           "kind": "caminho"
         },
         {
@@ -5421,12 +5686,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -5437,6 +5702,7 @@
       "classification": "referencia_no_codigo_sem_asset_emitido",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -5462,12 +5728,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -5478,6 +5744,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/colony-v006-5a6e6d9c.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -5528,7 +5795,7 @@
         {
           "file": "docs/SPRINT_STATUS.md",
           "category": "documentacao",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "docs/consolidacao/fontes-arte-2026-10-19.json",
@@ -5648,7 +5915,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/colony-buildings.test.mjs",
@@ -5683,12 +5950,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/shanghai-rocket.test.mjs",
@@ -5704,6 +5971,7 @@
       "classification": "ferramenta_ou_fonte",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -5719,7 +5987,7 @@
         {
           "file": "docs/SPRINT_STATUS.md",
           "category": "documentacao",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "docs/handoffs/integracao-2026-10-19/paridade-pre-ajuste.json",
@@ -5774,12 +6042,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -5790,6 +6058,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/colony-v007-e4af2fda.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -5885,7 +6154,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/colony-buildings.test.mjs",
@@ -5920,7 +6189,7 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-runtime.test.mjs",
@@ -5930,7 +6199,7 @@
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -5941,6 +6210,7 @@
       "classification": "referencia_no_codigo_sem_asset_emitido",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -6106,7 +6376,7 @@
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "caminho"
         }
       ]
     },
@@ -6117,6 +6387,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/control-room-v002-a7ece291.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/control-room/export/control_room_v002.glb"
       ],
@@ -6179,7 +6450,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/colony-buildings.test.mjs",
@@ -6204,12 +6475,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -6220,6 +6491,7 @@
       "classification": "referencia_no_codigo_sem_asset_emitido",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/control-room/export/manifesto_control_room_v002.json"
       ],
@@ -6237,12 +6509,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -6253,6 +6525,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/large-mutant-70470d2d.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -6273,7 +6546,7 @@
         {
           "file": "docs/handoffs/s3.3-mutante-grande/complemento-26-10/motion-trial.mjs",
           "category": "documentacao",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "docs/handoffs/s3.3-mutante-grande/measure.mjs",
@@ -6293,7 +6566,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/large-mutant.test.mjs",
@@ -6303,17 +6576,17 @@
         {
           "file": "tests/measure-enemy-height.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -6324,6 +6597,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/large-patrol-unit-acb2d8e1.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -6334,7 +6608,7 @@
         {
           "file": "docs/handoffs/s3.3-mutante-grande/complemento-26-10/motion-trial.mjs",
           "category": "documentacao",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "docs/handoffs/s6.1-mutante-pequeno/medir.mjs",
@@ -6354,7 +6628,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/large-patrol-resources.test.mjs",
@@ -6364,17 +6638,17 @@
         {
           "file": "tests/measure-enemy-height.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -6385,6 +6659,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/mutant-animal-6680135e.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -6395,7 +6670,7 @@
         {
           "file": "docs/handoffs/s3.3-mutante-grande/complemento-26-10/motion-trial.mjs",
           "category": "documentacao",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "docs/handoffs/s6.1-mutante-pequeno/medir.mjs",
@@ -6415,22 +6690,22 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/measure-enemy-height.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/small-mutant.test.mjs",
@@ -6446,6 +6721,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/patrol-unit-c01d3ea6.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -6471,7 +6747,7 @@
         {
           "file": "docs/handoffs/s3.3-mutante-grande/complemento-26-10/motion-trial.mjs",
           "category": "documentacao",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "docs/handoffs/s6.1-patrol-grande-recursos/ajustes-25-10/medicoes.mjs",
@@ -6491,12 +6767,12 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/measure-enemy-height.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/patrol-unit.test.mjs",
@@ -6506,12 +6782,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -6522,6 +6798,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/greenhouse-v001-a5668881.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -6587,7 +6864,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/greenhouse-runtime.test.mjs",
@@ -6597,12 +6874,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -6613,6 +6890,7 @@
       "classification": "referencia_no_codigo_sem_asset_emitido",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -6678,12 +6956,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "caminho"
         }
       ]
     },
@@ -6694,6 +6972,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/hangar-v002-29d6d972.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/hangar/export/hangar_mars_v002.glb"
       ],
@@ -6741,7 +7020,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/control-room-runtime.test.mjs",
@@ -6761,12 +7040,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -6777,6 +7056,7 @@
       "classification": "referencia_no_codigo_sem_asset_emitido",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -6802,12 +7082,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -6818,6 +7098,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/colonia-68a26ff8.webp",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -6853,12 +7134,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -6869,6 +7150,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/explorador-perfil-bd4b58f6.webp",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -6904,12 +7186,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -6920,6 +7202,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/laboratorio-casca-v001-7feb43e0.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/predios-colonia-v001/export/laboratorio-casca-v001.glb"
       ],
@@ -6962,7 +7245,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/colony-buildings.test.mjs",
@@ -6977,12 +7260,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -6993,6 +7276,7 @@
       "classification": "referencia_de_teste",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/laboratorio-sintetizador/export/laboratorio_sintetizador_v001.glb"
       ],
@@ -7000,7 +7284,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/laboratorio-runtime.test.mjs",
@@ -7010,12 +7294,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -7026,6 +7310,7 @@
       "classification": "ferramenta_ou_fonte",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -7046,12 +7331,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -7062,6 +7347,7 @@
       "classification": "referencia_no_codigo_sem_asset_emitido",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -7077,12 +7363,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -7093,6 +7379,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/laboratorio-v002-4dfd07a2.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/laboratorio-sintetizador/export/laboratorio_sintetizador_v002.glb"
       ],
@@ -7165,7 +7452,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/colony-buildings.test.mjs",
@@ -7190,7 +7477,7 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-runtime.test.mjs",
@@ -7200,7 +7487,7 @@
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -7211,6 +7498,7 @@
       "classification": "ferramenta_ou_fonte",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -7231,12 +7519,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -7247,6 +7535,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/laboratorio-visual-v003-1414b395.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/predios-colonia-v001/export/laboratorio-visual-v003.glb"
       ],
@@ -7284,7 +7573,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/colony-structural.test.mjs",
@@ -7294,12 +7583,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -7310,6 +7599,7 @@
       "classification": "ferramenta_ou_fonte",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -7340,7 +7630,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/caixa-suprimentos.ts",
@@ -7350,17 +7640,17 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/resource-adjustments.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/supply-crate.test.mjs",
@@ -7376,6 +7666,7 @@
       "classification": "referencia_de_teste",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -7481,12 +7772,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/shanghai-ambience.test.mjs",
@@ -7517,6 +7808,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/cobre-6e8aad10.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -7537,7 +7829,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/large-patrol-resources.test.mjs",
@@ -7547,17 +7839,17 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/resource-adjustments.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -7568,6 +7860,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/ferro-bdaf53f4.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -7588,7 +7881,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/large-patrol-resources.test.mjs",
@@ -7598,17 +7891,17 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/resource-adjustments.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -7619,6 +7912,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/materia-organica-35ab8351.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -7639,22 +7933,22 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/resource-adjustments.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/small-mutant.test.mjs",
@@ -7670,6 +7964,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/emergency-locker-4a716ae6.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/armario-emergencia/export/emergency-locker.glb",
         "art-source/shanghai-props-v002/fontes/emergency-locker.glb"
@@ -7718,7 +8013,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/medical-kits.test.mjs",
@@ -7728,17 +8023,17 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/resource-adjustments.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/shanghai-props.test.mjs",
@@ -7759,6 +8054,7 @@
       "classification": "referencia_no_codigo_sem_asset_emitido",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -7774,12 +8070,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -7790,6 +8086,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/medkit-69b49064.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/shanghai-props-v002/fontes/medkit.glb"
       ],
@@ -7807,7 +8104,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/medical-kits.test.mjs",
@@ -7817,17 +8114,17 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/resource-adjustments.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/shanghai-props.test.mjs",
@@ -7843,6 +8140,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/rusted-car-71e37422.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/shanghai-props-v002/fontes/rusted-car.glb"
       ],
@@ -7880,22 +8178,22 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/resource-adjustments.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/shanghai-props.test.mjs",
@@ -7916,6 +8214,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/titanio-1bf1c024.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -7931,22 +8230,22 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/resource-adjustments.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "caminho"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -7957,6 +8256,7 @@
       "classification": "ferramenta_ou_fonte",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/quartel/export/barracks-v004.glb"
       ],
@@ -7979,12 +8279,12 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-parada-a.test.mjs",
@@ -7994,7 +8294,7 @@
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -8005,6 +8305,7 @@
       "classification": "ferramenta_ou_fonte",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/quartel/notas/runtime-v004.json"
       ],
@@ -8017,12 +8318,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -8033,6 +8334,7 @@
       "classification": "ferramenta_ou_fonte",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/quartel/export/barracks-v005.glb"
       ],
@@ -8055,12 +8357,12 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-parada-a.test.mjs",
@@ -8070,7 +8372,7 @@
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -8081,6 +8383,7 @@
       "classification": "ferramenta_ou_fonte",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/quartel/notas/runtime-v005.json"
       ],
@@ -8093,12 +8396,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -8109,6 +8412,7 @@
       "classification": "referencia_no_codigo_sem_asset_emitido",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -8124,12 +8428,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -8140,6 +8444,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/barracks-v006-af8fa852.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/quartel/export/barracks-v006.glb"
       ],
@@ -8197,7 +8502,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/colony-buildings.test.mjs",
@@ -8217,7 +8522,7 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/quartel-parada-a.test.mjs",
@@ -8232,7 +8537,7 @@
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -8243,6 +8548,7 @@
       "classification": "ferramenta_ou_fonte",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/quartel/notas/runtime-v006.json"
       ],
@@ -8270,12 +8576,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -8286,6 +8592,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/quartel-casca-v001-cd649d0e.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/predios-colonia-v001/export/quartel-casca-v001.glb"
       ],
@@ -8323,7 +8630,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/colony-buildings.test.mjs",
@@ -8338,12 +8645,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -8354,6 +8661,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/quartel-circulation-v001-71c205de.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/quartel/export/quartel-circulation-v001.glb"
       ],
@@ -8376,7 +8684,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
@@ -8386,7 +8694,7 @@
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -8397,6 +8705,7 @@
       "classification": "referencia_no_codigo_sem_asset_emitido",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/quartel/notas/circulation-v001.json"
       ],
@@ -8414,12 +8723,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -8430,6 +8739,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/rocket-b3-2093cb1c.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -8460,17 +8770,17 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/shanghai-rocket.test.mjs",
@@ -8486,6 +8796,7 @@
       "classification": "referencia_no_codigo_sem_asset_emitido",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -8511,12 +8822,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/shanghai-rocket.test.mjs",
@@ -8532,6 +8843,7 @@
       "classification": "referencia_no_codigo_sem_asset_emitido",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -8667,12 +8979,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/shanghai-phase01.test.mjs",
@@ -8693,6 +9005,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/shanghai-fase01-e1061fcc.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -8738,7 +9051,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/building-fade.test.mjs",
@@ -8748,12 +9061,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/shanghai-ares.test.mjs",
@@ -8774,6 +9087,7 @@
       "classification": "referencia_no_codigo_sem_asset_emitido",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -8794,12 +9108,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -8810,6 +9124,7 @@
       "classification": "referencia_no_codigo_sem_asset_emitido",
       "action": "preservar",
       "buildFile": null,
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -8835,12 +9150,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -8851,6 +9166,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/shanghai-limites-v001-7e8f479f.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -8876,17 +9192,17 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/shanghai-limits.test.mjs",
@@ -8902,6 +9218,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/cabine-10d026c5.jpg",
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/ui/cockpit/referencias/cabine-janelas-brancas.jpg"
       ],
@@ -8924,12 +9241,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/ship-cockpit.test.mjs",
@@ -8945,6 +9262,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/mars-6143ffde.mp4",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -8965,17 +9283,17 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/ship-cockpit.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -8986,6 +9304,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/mars-64672ff4.png",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -9006,12 +9325,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -9022,6 +9341,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/shanghai-c37cf209.mp4",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -9042,17 +9362,17 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/ship-cockpit.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -9063,6 +9383,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/shanghai-ea068373.png",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -9088,12 +9409,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -9104,6 +9425,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/facao-icon-v001-7032b121.png",
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/armas/facao/export/facao-icon-v001.png"
       ],
@@ -9136,12 +9458,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -9152,6 +9474,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/item-icons-beta-v001-e19d5567.png",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -9177,12 +9500,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -9193,6 +9516,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/perfil-explorador-v001-c276bfea.png",
+      "inlineChunks": [],
       "exactSourceCopies": [],
       "references": [
         {
@@ -9213,12 +9537,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         }
       ]
     },
@@ -9229,6 +9553,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/facao-v001-8ddd124b.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/armas/facao/export/facao-v001.glb"
       ],
@@ -9291,7 +9616,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/machete.test.mjs",
@@ -9306,12 +9631,12 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sword-combat.test.mjs",
@@ -9332,6 +9657,7 @@
       "classification": "emitido_no_build",
       "action": "preservar",
       "buildFile": "assets/rifle-laser-v001-ac583a8f.glb",
+      "inlineChunks": [],
       "exactSourceCopies": [
         "art-source/armas/rifle-laser/export/rifle-laser-v001.glb"
       ],
@@ -9364,7 +9690,7 @@
         {
           "file": "tests/asset-inventory.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "glob"
         },
         {
           "file": "tests/colony-atmosphere.test.mjs",
@@ -9389,7 +9715,7 @@
         {
           "file": "tests/quartel-circulation.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/rifle-final-run.test.mjs",
@@ -9409,7 +9735,7 @@
         {
           "file": "tests/sandwind-v007.test.mjs",
           "category": "testes",
-          "kind": "glob_ou_template"
+          "kind": "template_nao_resolvido"
         },
         {
           "file": "tests/sword-back-rifle.test.mjs",
@@ -13599,6 +13925,146 @@
       "file": "art-source/ui/cockpit/scripts/render_backdrops.py",
       "bytes": 4540,
       "sha256": "fb885f9d0c5af056b2bc86d0b9231cef50e51ba14e07a5e58f44c68ff915dde8"
+    },
+    {
+      "file": "blender/fbx_for_mixamo/_preview_player.png",
+      "bytes": 350064,
+      "sha256": "ea3db76d9ec11e8f3cb70d3dd48c2c944d9e7c11de89ac7c3cf7423469bce825"
+    },
+    {
+      "file": "blender/fbx_for_mixamo/brand-brain.fbx",
+      "bytes": 22399228,
+      "sha256": "cc5cffbfb203752ae7a3e40426a146533ec11366c792f7e7aeb401bb9813e3f1"
+    },
+    {
+      "file": "blender/fbx_for_mixamo/designer.fbx",
+      "bytes": 22907772,
+      "sha256": "ea0bcfe622a3c6f6545cf70e7e39e9259bab47e36ee3fcf419a4a83a6f566233"
+    },
+    {
+      "file": "blender/fbx_for_mixamo/editorial.fbx",
+      "bytes": 24119564,
+      "sha256": "97544062c5b281dc5adaeabbe7394c695c87220c1b801ed55c53472ac377f6d1"
+    },
+    {
+      "file": "blender/fbx_for_mixamo/narration.fbx",
+      "bytes": 23078204,
+      "sha256": "e85bfcf6f2634b5a7ab08ce3d719705cf39c296988ccb8e1b7702b504a04f021"
+    },
+    {
+      "file": "blender/fbx_for_mixamo/player.fbx",
+      "bytes": 24010140,
+      "sha256": "2248487a7aa6abd626583001fbe728e432a61d2054a16f720e10a8550b5f5989"
+    },
+    {
+      "file": "blender/fbx_for_mixamo/social-media.fbx",
+      "bytes": 24182748,
+      "sha256": "599b832281ae00f0dd159d298a790630e03d5a817ba00c5883f88454373e2324"
+    },
+    {
+      "file": "blender/rigged/_preview_fall.png",
+      "bytes": 127527,
+      "sha256": "391dc2447263ab1bb236b3017b19d8413e9c85af922d79030e798010099418f2"
+    },
+    {
+      "file": "blender/rigged/_preview_idle.png",
+      "bytes": 171253,
+      "sha256": "903e21a7711c6119c67363788cbe648622ec0b46706f85e7f1bd9d84f5b7883b"
+    },
+    {
+      "file": "blender/rigged/_preview_run.png",
+      "bytes": 136874,
+      "sha256": "7e4fea29ed2d06f21f844142640c0c4d67d92f66fccb057f797b3145bdb74127"
+    },
+    {
+      "file": "blender/rigged/_preview_talk.png",
+      "bytes": 170870,
+      "sha256": "1f764b317ef42bde5e83e071ea8d58d538b6b3e532888e78e647d51473791886"
+    },
+    {
+      "file": "blender/rigged/narration-rigged-Talking.fbx",
+      "bytes": 26704080,
+      "sha256": "2a909d404777a21dfd0ef5098f308108413434790e0ad4b3039f2245ca479965"
+    },
+    {
+      "file": "blender/rigged/narration-rigged-idle.fbx",
+      "bytes": 26666864,
+      "sha256": "bab09f386618bf8dd13dbf05f296ceb0410146de04ee7cac789c9e64e9c2a851"
+    },
+    {
+      "file": "blender/rigged/narration-rigged-sitting.fbx",
+      "bytes": 28704480,
+      "sha256": "0d4d409c782579acd62c998fe8a3220e5e12a6ebe305cddde0c79fabf2368115"
+    },
+    {
+      "file": "blender/rigged/narration-rigged-startwalking.fbx",
+      "bytes": 26469568,
+      "sha256": "03c3f175d691c3221e7469b90990811de83a31f4c5b790c3e47c08283a19ede6"
+    },
+    {
+      "file": "blender/rigged/narration-rigged-stopwalking.fbx",
+      "bytes": 26449056,
+      "sha256": "2c5423c29be4f0f2c7145497717e7404582afbf1e45a8b4149b98aa11335df51"
+    },
+    {
+      "file": "blender/rigged/narration-rigged-walking.fbx",
+      "bytes": 26441744,
+      "sha256": "bf5d95603273a7092ba4eaf7a264930909610cc25c7f64a44c15675cd03673d2"
+    },
+    {
+      "file": "blender/rigged/player-rigged-Breathing-Idle.fbx",
+      "bytes": 27185008,
+      "sha256": "96a352ab2ea9afecc283575dc93110501580f34e7a59909fdc209b9f112f9fe0"
+    },
+    {
+      "file": "blender/rigged/player-rigged-Slow-Run.fbx",
+      "bytes": 26692080,
+      "sha256": "b210477bba4d76625d0af0e366c32cecbd7f7a505d51da197c0f0e653b85c62e"
+    },
+    {
+      "file": "blender/rigged/player-rigged-fallflat.fbx",
+      "bytes": 26818768,
+      "sha256": "aa8b2cb2d91b2a30a3b4f69e96fe994984fb15b2724a10300f19eb15281b77ff"
+    },
+    {
+      "file": "blender/rigged/player-rigged-talking.fbx",
+      "bytes": 26901856,
+      "sha256": "73c1e6d6d103f0409ccaec1f12d044e8954ae9fdb1af229de085ca50bdfcb38d"
+    },
+    {
+      "file": "blender/rigged/player.fbx",
+      "bytes": 26638353,
+      "sha256": "d77307f3bbfab15c6fff7b74ff89fc86ddf94dd51732f92aa37c98cd83d32d1c"
+    },
+    {
+      "file": "blender/scripts/__pycache__/bake_npc_glb.cpython-313.pyc",
+      "bytes": 13336,
+      "sha256": "f19922ea0de5ad4e49cf7e4d5bc68dc61ce3fffef3bfddf00b95e0aba61befcd"
+    },
+    {
+      "file": "blender/scripts/__pycache__/bake_player_glb.cpython-313.pyc",
+      "bytes": 11579,
+      "sha256": "fa01c24b7915744c75cd11aa6d9accf2c1b332e1ec9622ca0b731338ef6519ae"
+    },
+    {
+      "file": "blender/scripts/__pycache__/glb_to_fbx.cpython-313.pyc",
+      "bytes": 9705,
+      "sha256": "de5782890090ae429d3692b5871c4ed32df81cd60326c6c738f24690b473d124"
+    },
+    {
+      "file": "blender/scripts/bake_npc_glb.py",
+      "bytes": 9226,
+      "sha256": "58ea2e8f5a1bc21e037a8b205960eae17ac2c6d00e48820395b31bd6cda42355"
+    },
+    {
+      "file": "blender/scripts/bake_player_glb.py",
+      "bytes": 7287,
+      "sha256": "e0d72fa5c5a8e2a240561ae02b9ea3efad0bb5dcf3e6132e0678d4a54e02916c"
+    },
+    {
+      "file": "blender/scripts/glb_to_fbx.py",
+      "bytes": 5447,
+      "sha256": "8bbb0df1db42de94716d764031adcc953c9e27b1baadaea972536cadd60e09b0"
     }
   ],
   "duplicates": [

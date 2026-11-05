@@ -2,7 +2,7 @@
   "date": "2026-11-05",
   "checkout": "/Users/rochatales/Automations/game-workplace",
   "head": "b54162c359ad539db34e25f6bc61c6184a87e58a",
-  "method": "Somente nomes e lstat dos arquivos fora do índice em art-source, assets soltos da raiz e DOCX em docs. Inclui ignorados presentes nessas áreas; não segue symlinks nem percorre outros worktrees/archive. Conteúdo não copiado, removido ou reescrito.",
+  "method": "Somente nomes/lstat fora do índice em art-source, blender, src/assets, public, mídias soltas da raiz e DOCX em docs. Não segue symlinks, não percorre archive/outros worktrees, nem copia, remove ou reescreve conteúdo.",
   "limits": [
     "Não é um snapshot/backup, nem comparação com o manifesto do backup S0.2.",
     "Sem SHA-256 neste levantamento de metadados; não autoriza nenhuma limpeza desses arquivos.",
