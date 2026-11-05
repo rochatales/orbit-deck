@@ -34,7 +34,7 @@ Após coletar dez matérias orgânicas, por EDEN:
 > Excelente, já temos o suficiente. Volte a base e vamos ligar o sintetizador.
 
 Usar eventos de chegada/coleta e disparar uma vez por etapa/tentativa; não repetir
-por frame, não anunciar quota com recurso ainda no chão e não trocar o remetente
+por frame, não anunciar quota cumprida com recurso ainda no chão e não trocar o remetente
 para EDEN antes de ela ser ativada. As demais falas são conteúdo provisório,
 com a história intermediária explicitamente pendente do autor.
 
@@ -69,7 +69,7 @@ um encontro de teste não libera EDEN, espada ou sintetizador na campanha.
   mutantes e quatro hordas posteriores/de teste; vitória e exploração livre.
 - **S4.4/S4.5/S4.7/S4.8/S4.11:** objetivos 4 cobre/10 orgânica, remetente do rádio,
   viagens, carga confirmada e orientação por eventos sem duplicação.
-- **S5.1–S5.5:** interações/ativações de EDEN e sintetizador, estado do hub e save.
+- **S5.1–S5.5:** Engenheiro funcional, briefing/entrega da espada na Oficina, interações/ativações de EDEN e sintetizador, estado do hub e save. Esses complementos podem ser antecipados para viabilizar o playtest do primeiro circuito, sem esperar arte final.
 - **S6.8/S6.12/S6.13:** Engenheiro e apresentação das salas/Oficina; manter os
   prédios, telhados e fontes atuais, com aceites visuais pelo autor.
 

@@ -130,7 +130,7 @@ Medir carregamento, tempo por frame, draw calls e comportamento com quantidades 
 | 0 — Preservação | Snapshot recuperável da base e cópia dos assets não rastreados; branch de implementação | Código e arte recuperáveis, inventário registrado; sugestão de branch: `rochatales/horda-survivor` |
 | 1 — Base local | Entrada no hub, player, EDEN com diálogo local; retirada progressiva de MCPs e legado | Build passa; entrar, caminhar e conversar funciona sem backend e sem chamadas à antiga API |
 | 2 — Preparação de conteúdo | Assets organizados, tipos locais de NPC/mapa/missão, save definido e primeiro mapa simples | Imports íntegros; hub e missão carregam separadamente; estado antigo não bloqueia entrada |
-| 3 — Primeiro ciclo completo | Briefing, Shanghai, robôs e dois portes de criatura, armas, HP, introdução por expedições (Patrol → retorno/circuito no hub → pequenos mutantes 4/6), quatro hordas posteriores, minas, barreiras, loot e máquina do laboratório | Jogador conclui a missão, recebe recompensa uma única vez e vê uma mudança no hub; derrota/reinício seguem regra definida |
+| 3 — Primeiro ciclo completo | Briefing, Shanghai, robôs e dois portes de criatura, armas, HP, introdução por expedições (Patrol → retorno/circuito no hub → pequenos mutantes 4/6), quatro hordas posteriores, minas, barreiras, loot e ativações do hub | Jogador conclui a missão, recebe recompensa uma única vez e vê uma mudança no hub; derrota/reinício seguem regra definida |
 | 4 — Validação | Navegação, pausa, colisão, dano, spawn, carregamento e save verificados | Inimigos chegam a alvos válidos; pausa congela combate/ondas; reiniciar não duplica entidades; progresso sobrevive ao reload |
 | 5 — Expansão | Novas missões/mapas, inimigos, armas, narrativa e melhorias da sociedade | Expansão guiada pelo ciclo validado e pelo orçamento de desempenho |
 
@@ -222,16 +222,20 @@ O objetivo antigo de 20 ferro, 20 cobre, 4 placas e 10 matérias orgânicas não
 
 Proposta de bolsa inicial: 4 espaços para materiais, cada um com pilha de até 30 unidades de um tipo. Isso comporta toda a carga prevista. Munição tem reserva própria e minas/barreiras ficam no compartimento de dispositivos. A expansão da bolsa fará sentido com a introdução de novos materiais e expedições maiores.
 
-### 7.3 Kit defensivo do tutorial
+### 7.3 Kit defensivo para teste de dispositivos
+
+O kit abaixo é o recorte de implementação de minas/barreiras. A etapa de concessão
+no circuito novo ainda não foi definida; não pressupor o kit na primeira visita
+com quatro Patrol. Manter testável no modo de desenvolvimento antes desse encaixe.
 
 - 3 minas: ativam por proximidade de inimigos e causam dano em área. Proposta inicial: sem dano ao jogador no tutorial.
 - 2 barreiras neon azul: bloqueiam inimigos, permitem tiros do jogador e duram até 20 segundos ou até perderem sua integridade. Vida, dano e alcance serão calibrados com a arma/inimigos.
 - Preview de posicionamento; impedir instalação sobre entidades, saída da nave ou de forma a bloquear todas as rotas de acesso. Barreiras devem poder ser atacadas pelos inimigos, evitando bloqueio permanente da onda.
-- Recomeçar a introdução repõe esse kit de teste. Não permitir converter gratuitamente o kit reabastecido em recursos persistentes.
+- Recomeçar o encontro de dispositivos repõe esse kit de teste. Não permitir converter gratuitamente o kit reabastecido em recursos persistentes.
 
 ### 7.4 Vitória, comunicação e extração
 
-Estados propostos: briefing → combate → área limpa/coleta → extração → retorno ao hub → instalação no laboratório.
+Estados do circuito: Engenheiro/briefing → Patrol/coleta de quatro cobres → retorno/ativação de EDEN → Oficina/espada → pequenos mutantes/coleta de dez orgânicas → retorno/ativação do sintetizador → quatro hordas posteriores.
 
 Após concluir o encontro configurado da etapa atual, exibir **SHANGHAI CLEAR — Hordas eliminadas.** Sinalizar a aeronave no mapa. Vitória de combate não confirma o loot: só a extração bem-sucedida o transfere ao hub, uma única vez por expedição.
 
@@ -278,7 +282,7 @@ implementada nem tem limiares aprovados. Requisitos e ideias que continuam útei
 
 ## 9. Próximo marco e critérios específicos de validação
 
-Detalhar tarefas para: base local → estados de expedição → combate e ondas → inventários separados → minas/barreiras → extração → máquina visível no laboratório → revisitas adaptativas. A estufa integra a progressão seguinte, com receita e benefício a fechar.
+Detalhar tarefas para: Engenheiro/Marte desativado → quatro Patrol/quatro cobres → retorno/ativação de EDEN → Oficina/espada → pequenos mutantes 4/6/dez orgânicas → retorno/ativação de sintetizador e salas → quatro hordas. Minas/barreiras continuam um recorte de combate com concessão em aberto; adaptação e produção completa ficam para evolução posterior. A Estufa acende no segundo retorno, sem exigir seu sistema produtivo completo.
 
 - [ ] Tutorial sempre fornece recursos suficientes sem depender de RNG.
 - [ ] Placas e depósitos são alcançáveis; loot não desaparece antes da extração.
@@ -287,8 +291,8 @@ Detalhar tarefas para: base local → estados de expedição → combate e ondas
 - [ ] Derrota não deposita loot; retry restaura a missão sem entidades residuais.
 - [ ] Munição e dispositivos não disputam espaço com os materiais.
 - [ ] Minas e barreiras funcionam sem bloquear permanentemente navegação ou conclusão de ondas.
-- [ ] Extração e fabricação são aplicadas uma única vez e persistem após reload.
-- [ ] Máquina instalada altera o hub visualmente e preserva circulação/câmera.
+- [ ] Extração, entrega da espada e ativações são aplicadas uma única vez e persistem após reload.
+- [ ] EDEN/sintetizador e salas ativadas alteram o hub visualmente e preservam circulação/câmera.
 - [ ] Revisita usa faixa de ameaça calculada na partida e não repete a obrigação da introdução.
 - [ ] Tempo por frame e navegação permanecem aceitáveis no teto de inimigos escolhido; registrar dispositivo-alvo e medições antes de aumentar escala.
 

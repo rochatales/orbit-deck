@@ -52,7 +52,7 @@ e o aceite geral 6.5. S2.10/S2.12 já aceitas. S2.11 concluída; a decisão inic
 de 26/10 foi revista em 04/11: interpolação é padrão, `?interp=0` compara.
 Escopos futuros dos demais sprints continuam pendentes.
 
-Referência: [Auditoria e decisões de design](HORDA_SURVIVOR_AUDITORIA_E_PLANO.md). Este plano recorta a primeira entrega: sair do hub em Marte, concluir Shanghai, recuperar recursos, retornar e construir a primeira grande máquina no laboratório.
+Referência: [Auditoria e decisões de design](HORDA_SURVIVOR_AUDITORIA_E_PLANO.md). Este plano recorta o primeiro circuito definido em 05/11: duas expedições, quatro cobres/dez matérias orgânicas e ativações de EDEN, espada, sintetizador e salas do hub.
 
 Revisão técnica incorporada: [Melhorias selecionadas para Horda Survivor](GAMEPLAY_REVIEW_HORDA_SURVIVOR.md). A numeração deste plano é a referência do novo projeto; a revisão do MCP Office não substitui estes sprints.
 
@@ -88,7 +88,7 @@ Sprints são pacotes de entrega, sem duração de calendário presumida. Cada um
 - Uma arma de tiro manual, HP, munição, morte, reinício e pausa.
 - Três categorias: robô humanoide, criatura pequena e criatura grande.
 - Introdução por expedições: quatro Patrol (um por esquina), retorno/circuito no hub e nova visita com espada contra pequenos mutantes 4/6. Depois, quatro hordas 13/26/32/44, também preservadas no modo de desenvolvimento; ver regra de 05/11 na S3.
-- Três minas e duas barreiras neon azul por tentativa introdutória, com regras ajustáveis.
+- Três minas e duas barreiras neon azul como kit de teste de dispositivos, com regras ajustáveis. A etapa de concessão no circuito introdutório ainda será definida; não pressupor esse kit na primeira visita de quatro Patrol.
 - Materiais, munição e dispositivos em compartimentos separados.
 - Coleta do mapa e inimigos, objetivo obrigatório, extração e depósito persistente no hub.
 - Ativação de EDEN no primeiro retorno por 4 cobres e do sintetizador orgânico no segundo, por 10 matérias orgânicas; salas acendem por etapa. A receita anterior de diamantes (20 ferro + 20 cobre + 4 placas) não bloqueia esses retornos e fica para evolução posterior.
@@ -126,7 +126,7 @@ O deck de lançamento integra o mapa de Marte, conectado por uma rota caminháve
 4. Uma transição curta representa a viagem e o pouso na Terra. O jogador desembarca em uma área segura; o briefing inicial antecede o começo da primeira onda.
 5. A nave e seu marcador precisam permitir o retorno da etapa atual: quatro cobres na primeira visita, dez matérias orgânicas na segunda. A proposta anterior de a nave esperar todas as hordas não pode bloquear esses retornos. A apresentação de chegada/espera/retorno ainda será implementada.
 6. O jogador pode embarcar na aeronave retornada e desembarcar para continuar procurando loot. **Retornar a Marte** usa o objetivo da etapa atual. No primeiro retorno, o requisito são os quatro cobres solicitados pelo Engenheiro, sem exigir a receita completa da máquina ou todas as hordas futuras. Embarcar não deposita recursos nem encerra a missão.
-7. Ao confirmar retorno, executar a extração uma única vez, carregar Marte e representar o pouso no deck. O jogador desembarca num ponto seguro e segue a pé para o laboratório.
+7. Ao confirmar retorno, executar a extração uma única vez, carregar Marte e representar o pouso no deck. O jogador desembarca num ponto seguro e segue para a interação da etapa atual: EDEN no primeiro retorno; sintetizador/Laboratório no segundo.
 
 Proposta de implementação inicial: cabine compacta com ponto de embarque, posição a bordo e ponto de saída, usando geometria simples. Não requer interior detalhado, controle de voo ou simulação espacial. A troca de cena acontece somente ao confirmar partida/retorno; usar estados explícitos para estacionada, embarcado, viajando e pousada. Bloquear comandos repetidos e restaurar câmera/controles ao desembarcar. Falha ao carregar o destino deve permitir tentar novamente sem perder recursos ou duplicar a extração.
 
@@ -261,13 +261,13 @@ Objetivo: ligar combate e exploração à recuperação de recursos.
 - [ ] S4.2 Garantir drops: cada robô entrega 1 ferro + 1 cobre; pequenos entregam 1 matéria orgânica; grandes entregam 2. Evitar drop duplicado por morte/dano simultâneo.
 - [ ] S4.3 Implementar dois depósitos com 2 ferro + 2 cobre cada e seis placas escondidas em pontos alcançáveis. Persistir loot no mapa até coleta/fim da tentativa.
 - [ ] S4.4 Mostrar o objetivo de cada etapa: **4 cobres** na primeira expedição e **10 matérias orgânicas** na segunda, com as ativações de EDEN/sintetizador nos retornos. A proposta anterior de 20 ferro, 20 cobre, 4 placas e 10 matérias orgânicas é referência de carga para a máquina/produção posterior, não requisito da primeira visita com quatro Patrol. Garantir capacidade para a carga exigida em cada etapa e evitar descarte irreversível de itens obrigatórios.
-- [ ] S4.5 Implementar rádio por eventos: Engenheiro na chegada/objetivo de quatro cobres da primeira expedição; EDEN após ser ligada, com orientação da Oficina/espada, mutantes, dez matérias orgânicas e retorno ao sintetizador; falas não repetem a cada frame nem anunciam objetivo ainda incompleto.
+- [ ] S4.5 Implementar rádio por eventos: Engenheiro na chegada/objetivo de quatro cobres da primeira expedição; EDEN após ser ligada, com orientação da Oficina/espada, mutantes, dez matérias orgânicas e retorno ao sintetizador; falas não repetem a cada frame nem anunciam objetivo ainda incompleto como concluído.
 - [ ] S4.6 Reconhecer placas coletadas antecipadamente; indicar materiais restantes e oferecer orientação caso a busca se prolongue.
 - [ ] S4.7 Sinalizar a nave conforme o encontro/objetivo da etapa e permitir embarcar/desembarcar para continuar explorando. Liberar o retorno separado a Marte pelo objetivo atual: no primeiro combate, quatro cobres anunciados pelo Engenheiro; na segunda visita, dez matérias orgânicas anunciadas por EDEN. Não exigir a receita antiga, placas ou hordas futuras; extração efetiva é distinta de embarcar.
-- [ ] S4.8 Transferir loot ao depósito do hub uma única vez, usando identificador de expedição e atualização persistente coerente. Tela de resultado informa carga recuperada. Pousar no deck de Marte e permitir desembarque e caminhada ao laboratório; entrar na cabine por si só não confirma loot.
+- [ ] S4.8 Transferir loot ao depósito do hub uma única vez, usando identificador de expedição e atualização persistente coerente. Tela de resultado informa carga recuperada. Pousar no deck de Marte e permitir desembarque e caminhada ao destino da etapa (EDEN no primeiro retorno, sintetizador/Laboratório no segundo); entrar na cabine por si só não confirma loot.
 - [ ] S4.9 Derrota/abandono descarta inventário temporário e recomeça sem loot anterior. Reload durante missão retorna ao hub sem conceder recompensa.
 
-- [ ] S4.10 Tornar objetivos legíveis: destaque de interação, ícone/rótulo de recurso e marcador direcional da aeronave quando liberada. Diferenciar alumínio obrigatório de decoração; usar forma/texto além de cor. Sem minimapa completo nesta entrega.
+- [ ] S4.10 Tornar objetivos legíveis: destaque de interação, ícone/rótulo de recurso e marcador direcional da aeronave quando liberada. Diferenciar recursos do objetivo atual de decoração, sem exigir placas nos retornos de cobre/orgânica; usar forma/texto além de cor. Sem minimapa completo nesta entrega.
 - [ ] S4.11 Usar rádio de EDEN por prioridade e fila curta, sem sobrepor instruções nem bloquear movimento com coreografias. Interação responde ao comando imediatamente; falas e efeitos não duplicam coleta ou extração.
 
 Saída: cada expedição informa e aceita o objetivo da etapa, incluindo quatro cobres no primeiro retorno e dez matérias orgânicas no segundo. Os antigos totais 24 ferro, 24 cobre, 12 matérias orgânicas e 6 placas são referência da proposta anterior de 30 inimigos; rebalancear disponibilidade e receitas para o novo circuito antes de exigir a carga da máquina. Extração deposita uma vez; morrer ou fechar antes dela não deposita nada. Validar placas coletadas antes e depois da última onda.
@@ -276,9 +276,9 @@ Saída: cada expedição informa e aceita o objetivo da etapa, incluindo quatro 
 
 Objetivo: concluir o primeiro circuito definido em 05/11, ativar EDEN/sintetizador e as salas correspondentes, salvar o progresso e validar a jogabilidade. Fabricação/diamantes da proposta anterior não bloqueiam essa introdução.
 
-- [ ] S5.1 Criar interações no hub para ligar EDEN após a primeira carga de 4 cobres e o sintetizador orgânico após a segunda carga de 10 matérias orgânicas. Mostrar o objetivo/faltantes reais; definir o consumo uma única vez sem inventar a receita antiga de diamantes nessa introdução.
+- [ ] S5.1 Incluir o Engenheiro como NPC funcional inicial e suas interações de briefing e entrega da espada na Oficina. Criar interações no hub para ligar EDEN após a primeira carga de 4 cobres e o sintetizador orgânico após a segunda carga de 10 matérias orgânicas. Mostrar o objetivo/faltantes reais; definir o consumo uma única vez sem inventar a receita antiga de diamantes nessa introdução.
 - [ ] S5.2 Executar cada ativação como uma única transição persistente: validar a carga confirmada e marcar a etapa. Quando houver consumo definido, debitar uma vez; repetir interação não cobra nem concede outra ativação/arma.
-- [ ] S5.3 Representar o estado inicial desativado e as ativações: EDEN/Sala de Controle/Data Center/Meeting Room no primeiro retorno; sintetizador orgânico/Laboratório/Estufa/Food Storage no segundo. Usar apresentação provisória funcional, preservando prédios, corredores e enquadramento.
+- [ ] S5.3 Representar o estado inicial desativado, o Engenheiro e a entrega da espada com volumes/modelos provisórios até arte final; implementar as ativações: EDEN/Sala de Controle/Data Center/Meeting Room no primeiro retorno; sintetizador orgânico/Laboratório/Estufa/Food Storage no segundo. Usar apresentação provisória funcional, preservando prédios, corredores e enquadramento.
 - [ ] S5.4 Salvar carga restante, etapa da introdução, entrega da espada e ativações de EDEN/sintetizador/salas. Reconstruir o estado visual corretamente após reload.
 - [ ] S5.5 Encerrar o primeiro circuito com EDEN explicando o sintetizador e a ativação das salas; liberar a gameplay posterior de quatro hordas. Diamantes e sistemas produtivos completos permanecem futuros; Estufa e Food Storage acendem como parte da introdução.
 - [ ] S5.6 Permitir nova expedição de teste com ondas fixas e kit definido, sem repetir a exigência introdutória de materiais ou recompensas únicas. Reset completo só em ferramenta de desenvolvimento explícita.
@@ -328,7 +328,7 @@ Objetivo: transformar volumes provisórios em elementos reconhecíveis sem alter
 - [ ] S6.14 Definir tokens, fontes locais licenciadas e componentes mínimos com variantes EDEN Holographic e Mars Colony Clean. Cobrir estados de interação, foco, carregamento, vazio, erro e sucesso; medir contraste e oferecer efeitos reduzidos. Usar os dois guias visuais preservados no [plano de UI](sprint-6/PLANO_UI.md).
 - [ ] S6.15 Atualizar entrada, perfil, continuar, pausa/controles e configurações com o estilo EDEN, após S6.14. Entrada leva ao hub; partida permanece na nave. Preservar save e acesso por teclado, restaurar foco/pausa e exibir somente configurações funcionais.
 - [ ] S6.16 Atualizar briefing, cabine, inventário temporário, carregamento/erro, resultado e derrota/retry no estilo EDEN, após S6.6, S6.15 e Sprint 4. Distinguir ondas concluídas, carga pronta e carga salva; bloquear input do canvas sob modais e preservar extração única. *Pendência posterior registrada pelo autor em 05/11/2026: preencher os intervalos de carregamento com vídeos de transição no menu de navegação da aeronave; responsável: autor. Não bloqueia o encerramento da Sprint 2.*
-- [ ] S6.17 Aplicar Mars Colony Clean ao depósito, resumo da última carga confirmada e laboratório, após S6.16 e S5.1–S5.5. Mostrar materiais, receita, faltantes e máquina instalada reais; fabricação continua na interação física do laboratório. Gestão completa de energia, população, pesquisa, produção da estufa e construção livre permanecem no backlog; a ativação visual de Estufa/Food Storage do primeiro circuito integra S5.3.
+- [ ] S6.17 Aplicar Mars Colony Clean ao depósito, resumo da última carga confirmada e laboratório, após S6.16 e S5.1–S5.5. Mostrar objetivos e materiais/faltantes reais de cada etapa, entrega da espada e ativações de EDEN/sintetizador/salas; ações continuam nas interações físicas do hub. Receitas de fabricação posterior não substituem esses objetivos. Gestão completa de energia, população, pesquisa, produção da estufa e construção livre permanecem no backlog; a ativação visual de Estufa/Food Storage do primeiro circuito integra S5.3.
 - [ ] S6.18 Validar as telas de S6.6/S6.14–S6.17 em desktop, teclado, zoom de 200% e efeitos reduzidos; testar foco, pausa, input, save e três ciclos de missão/retorno. Remover informações internas de sprint da UI final e manter QA em modo de desenvolvimento. Registrar roteiro e revisão visual do autor sem substituir playtest por screenshots.
 
 Sequência de UI: S6.14 → S6.15 → S6.6 → S6.16 → S6.17 → S6.18. A numeração existente é preservada. A implementação segue a entrada do Sprint 6 após S5.8; o detalhamento antecipado não aprova a jogabilidade nem inicia a atualização de telas.
@@ -353,18 +353,18 @@ Objetivo: finalizar a apresentação do protótipo sem prejudicar resposta e car
 
 - [ ] S7.11 Finalizar acabamento de UI após S6.18, S7.5 e S7.8–S7.9: glow, scanlines decorativas e transições opcionais, sem deslocar texto/mira ou prejudicar contraste. Comparar custo com efeitos ligados/desligados, respeitar redução de movimento e preset baixo; registrar revisão visual final do autor.
 
-Saída: protótipo visualmente revisado e funcional até a máquina construída. A entrega é local/testável; publicação externa não faz parte deste plano.
+Saída: protótipo visualmente revisado e funcional até o sintetizador e as salas do primeiro circuito ativados. A entrega é local/testável; publicação externa não faz parte deste plano.
 
 ## 12. Organização técnica mínima
 
 Adaptar à estrutura existente, evitando criar uma engine genérica antes de validar o jogo:
 
-- Configurações: Shanghai, inimigos, arma, ondas, drops, dispositivos e receita, com valores centralizados.
+- Configurações: Shanghai, inimigos, arma, ondas, drops, dispositivos, objetivos de coleta e ativações, com valores centralizados.
 - Simulação: movimento/combate/spawn/navegação; atualizações frequentes independentes da renderização React.
 - Estado de expedição: fase, fila de ondas, entidades, inventário temporário e resultado.
-- Estado persistente do hub: perfil, depósito, introdução concluída, máquina instalada e versão do save.
-- Apresentação: HUD, rádio de EDEN, modelos e efeitos consomem eventos/estado do jogo.
-- Persistência: extração e fabricação atualizam inventário e flags em conjunto. Proteger contra execução repetida e falha de escrita; não anunciar sucesso se o save falhar.
+- Estado persistente do hub: perfil, depósito, etapa da introdução, entrega da espada, EDEN/sintetizador/salas ativados e versão do save, preservando o modo dev.
+- Apresentação: HUD, rádio do Engenheiro/EDEN por etapa, modelos e efeitos consomem eventos/estado do jogo.
+- Persistência: extração e ativações atualizam inventário e flags em conjunto. Proteger contra execução repetida e falha de escrita; não anunciar sucesso se o save falhar.
 
 ## 13. Matriz de validação
 
@@ -373,23 +373,25 @@ Adaptar à estrutura existente, evitando criar uma engine genérica antes de val
 | Backend desligado e dados antigos no navegador | Entrada local funciona, sem chamadas MCP | 1 |
 | Entrar e sair da nave estacionada em Marte | Permanece no hub, sem iniciar tentativa ou consumir kit | 1 |
 | Decolar e desembarcar em Shanghai | Cena correta, posição segura e câmera/controles restaurados | 1 |
-| Embarcar na Terra com carga incompleta | Pode desembarcar; retorno bloqueado e faltantes informados | 4 |
-| Retornar a Marte e sair da nave | Pouso no deck, loot confirmado uma vez e laboratório acessível a pé | 4–5 |
+| Embarcar na Terra com objetivo da etapa incompleto | Pode desembarcar; informar faltantes de 4 cobres ou 10 matérias orgânicas, conforme a visita | 4 |
+| Retornar a Marte e sair da nave | Pouso no deck, loot confirmado uma vez e destino caminhável: EDEN no primeiro retorno, sintetizador no segundo | 4–5 |
 | Comando repetido ou falha de carregamento na viagem | Sem viagens/depósitos duplicados e com recuperação segura | 1, 4 |
 | Tiro em parede e alvo atrás dela | Parede bloqueia dano | 2 |
 | Pausa/perda de foco | Sem dano, avanço de onda ou teclas presas | 2–3 |
 | Último inimigo morto com fila de spawn pendente | Onda continua até consumir a fila | 3 |
 | Mina atinge vários inimigos | Cada morte/drop contado uma vez | 3–4 |
 | Barreira expira ou é destruída | Navegação e colisões liberadas | 3 |
-| Placas coletadas antes do CLEAR | EDEN reconhece objetivo já atendido | 4 |
-| CLEAR sem quatro placas | Nave sinalizada, decolagem bloqueada com orientação | 4 |
+| Quota coletada antes de concluir o combate | Rádio distingue carga cumprida de encontro concluído e não repete mensagem | 4 |
+| Primeiro CLEAR com 4 cobres e sem placas | Retorno por cobre permitido e orientado pelo Engenheiro; placas não bloqueiam | 4 |
+| Segundo encontro com 10 orgânicas coletadas | EDEN confirma a carga e orienta retorno para ligar o sintetizador | 4 |
 | Derrota/retry ou fechamento no combate | Loot da tentativa descartado, progresso do hub preservado | 4 |
-| Cliques repetidos na extração/construção | Transferência/custo aplicados uma única vez | 4–5 |
-| Reload após extração, antes e depois de construir | Inventário e máquina consistentes | 5 |
-| Partida repetida após construir | Máquina permanece única; tutorial não bloqueia extração | 5 |
+| Cliques repetidos na extração/ativação/entrega da espada | Transferência e efeitos de cada etapa aplicados uma única vez | 4–5 |
+| Reload antes/depois de ligar EDEN ou sintetizador | Carga e salas consistentes; sem duplicar entrega ou ativação | 5 |
+| Partida após concluir o circuito e execução de testes de desenvolvimento | Quatro hordas disponíveis; teste não conclui campanha nem apaga seu save | 5 |
+| Primeira chegada a Marte e entrega da espada | Engenheiro acessível, EDEN desligada; espada concedida na Oficina antes da visita de mutantes | 5 |
 | Substituição de modelos/texturas | Colisões e leitura de combate preservadas | 6–7 |
 
-Automatizar testes de transição de onda, drops, inventário, extração, derrota e fabricação/persistência; testar câmera, controles, navegação e leitura visual também manualmente. Build obrigatório a cada entrega. Não usar screenshots ou compilação como substituto do playtest.
+Automatizar testes de transição de onda, drops, inventário, extração, derrota, entrega da espada e ativações/persistência; testar câmera, controles, navegação e leitura visual também manualmente. Build obrigatório a cada entrega. Não usar screenshots ou compilação como substituto do playtest.
 
 Meta provisória de desempenho: 60 FPS no equipamento de referência registrado no sprint 0. Medir tempo por frame e registrar quedas sustentadas; fechar o orçamento real depois da primeira medição. Testar ao menos três ciclos consecutivos de missão/retry para detectar crescimento indevido de entidades e recursos. Falha de desempenho bloqueia aumento de volume e avanço de complexidade visual.
 
