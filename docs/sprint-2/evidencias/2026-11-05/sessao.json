@@ -245,6 +245,173 @@
         "Contexto/heap da exportação, não medição contínua do ambiente.",
         "Movimento é relato do autor. Variação de cena/câmera altera contagens; resultados não isolam uma otimização."
       ]
+    },
+    "S2": {
+      "id": "S2",
+      "status": "válida — amostra de 30 s, maior que os 10 s solicitados",
+      "arquivo": "S2-shanghai-5-robos-30s.json",
+      "origem": "/Users/rochatales/Game Development/Horda Survivor/S2-shanhai-5-robos-10s.json",
+      "sha256": "1de8bb0a82c1662229cb6fd77b5e0ca071555810c5f045f6db6669bfc372053e",
+      "sampleIndex": 0,
+      "condicaoAutor": "Feito não matei nenhum robo; cinco vivos no início/fim, conforme resposta ao caso proposto",
+      "requestedMs": 30000,
+      "elapsedMs": 30004.5,
+      "warnings": [],
+      "raf": {
+        "count": 4303,
+        "p50": 6.900000000008731,
+        "p95": 7.69999999999709,
+        "max": 55.60000000000582,
+        "mean": 6.97185684406228,
+        "rafOver33": 2,
+        "rafOver50": 1
+      },
+      "coverage": {
+        "intervalsCollected": 4303,
+        "intervalsCapacity": 15016,
+        "intervalsSaturated": false,
+        "countersCollected": 288,
+        "countersCapacity": 316,
+        "countersSaturated": false
+      },
+      "renderer": {
+        "samples": 288,
+        "firstSampledAtMs": 95177.39999997616,
+        "lastSampledAtMs": 125086.20000004768,
+        "drawCalls": {
+          "min": 86,
+          "max": 146,
+          "mean": 115.65972222222223
+        },
+        "triangles": {
+          "min": 99960,
+          "max": 217839,
+          "mean": 139296.23263888888
+        }
+      },
+      "longAnimationFrames": {
+        "supported": true,
+        "count": 1,
+        "maxDurationMs": 66
+      },
+      "context": {
+        "interpolation": {
+          "enabled": true,
+          "timeStep": 0.016666666666666666,
+          "frames": 13680,
+          "steps": 3007,
+          "minStep": 0.01666666753590107,
+          "maxStep": 0.01666666753590107,
+          "maxOffset": 0.11808016684767772,
+          "maxHorizontal": 0.11808016684767772,
+          "physical": {
+            "x": -2.911454200744629,
+            "y": 0.003298521041870117,
+            "z": 49.136077880859375
+          },
+          "visual": {
+            "x": -2.9361945778135934,
+            "y": 0.004060313481577871,
+            "z": 49.13309156792116
+          },
+          "cameraSource": {
+            "x": -2.9361945778135934,
+            "y": 0.004060313481577871,
+            "z": 49.13309156792116
+          },
+          "cameraTarget": {
+            "x": -3.563238418682748,
+            "y": 0.55,
+            "z": 49.057390306814476
+          },
+          "cameraAngle": 2.0502981635226156,
+          "cameraZoom": 62.30857142857144
+        },
+        "capturedAt": "2026-11-05T16:28:43.030Z",
+        "build": "production",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+        "browserBrands": "Not:A-Brand 8, Chromium 156, Google Chrome 156",
+        "gpuRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Pro, Unspecified Version)",
+        "hardwareConcurrency": 12,
+        "deviceMemoryGb": 16,
+        "screen": {
+          "width": 2560,
+          "height": 1440
+        },
+        "viewport": {
+          "width": 1363,
+          "height": 1035
+        },
+        "canvasCss": {
+          "width": 1363,
+          "height": 1035
+        },
+        "canvasBuffer": {
+          "width": 1363,
+          "height": 1035
+        },
+        "devicePixelRatio": 1,
+        "rendererPixelRatio": 1
+      },
+      "limites": [
+        "Fonte tem 10s no nome, mas requestedMs=30000: registrado o tempo efetivamente medido.",
+        "rAF não mede GPU; não há limite universal de FPS aprovado.",
+        "Quantidade/ação durante a coleta são declaração do autor; JSON não contém histórico contínuo de inimigos.",
+        "O contexto/heap é da exportação posterior."
+      ]
+    },
+    "B": {
+      "id": "B",
+      "status": "eventos de viagem registrados",
+      "arquivo": "S2-shanghai-5-robos-30s.json",
+      "sha256": "1de8bb0a82c1662229cb6fd77b5e0ca071555810c5f045f6db6669bfc372053e",
+      "eventosShanghai": [
+        {
+          "kind": "map-loading",
+          "map": "shanghai",
+          "atMs": 28214.299999952316,
+          "sinceMapLoadingMs": 0,
+          "inferred": false
+        },
+        {
+          "kind": "canvas-mounted",
+          "map": "shanghai",
+          "atMs": 28607.100000023842,
+          "sinceMapLoadingMs": 392.8000000715256,
+          "inferred": false
+        },
+        {
+          "kind": "canvas-first-frame",
+          "map": "shanghai",
+          "atMs": 28608,
+          "sinceMapLoadingMs": 393.7000000476837,
+          "inferred": false
+        },
+        {
+          "kind": "scene-first-draw",
+          "map": "shanghai",
+          "atMs": 33108.10000002384,
+          "sinceMapLoadingMs": 4893.800000071526,
+          "inferred": false
+        },
+        {
+          "kind": "scene-assets-ready",
+          "map": "shanghai",
+          "atMs": 33265.39999997616,
+          "sinceMapLoadingMs": 5051.100000023842,
+          "inferred": false
+        },
+        {
+          "kind": "map-data-ready",
+          "map": "shanghai",
+          "atMs": 33265.60000002384,
+          "sinceMapLoadingMs": 5051.300000071526,
+          "inferred": false
+        }
+      ],
+      "primeiroDrawDesdeLoadingMs": 4893.800000071526,
+      "personagensProntosDesdeLoadingMs": 5051.100000023842,
+      "limite": "Prontidão dos personagens não equivale a uma medição de GPU ou aceite visual."
     }
   },
   "instrumentacao": "Botão Amostra 30 s, Baixar JSON e prontidão dos personagens atuais implementados; regras de jogo e assets preservados.",
@@ -288,5 +455,105 @@
     },
     "carregamentoPersonagensProntosMs": 8188.900000095367,
     "limite": "Exportação anterior à M1, com contexto de tela diferente do painel da M1. Preservada como entrada preliminar; não usada para fechar M1."
+  },
+  "entradaMarsAtual": {
+    "arquivo": "S2-shanghai-5-robos-30s.json",
+    "eventos": [
+      {
+        "kind": "canvas-mounted",
+        "map": "mars",
+        "atMs": 3029.899999976158,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "canvas-first-frame",
+        "map": "mars",
+        "atMs": 3032.7999999523163,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "scene-first-draw",
+        "map": "mars",
+        "atMs": 4877.600000023842,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "scene-assets-ready",
+        "map": "mars",
+        "atMs": 4877.600000023842,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      },
+      {
+        "kind": "map-data-ready",
+        "map": "mars",
+        "atMs": 5069.799999952316,
+        "sinceMapLoadingMs": null,
+        "inferred": false
+      }
+    ],
+    "context": {
+      "interpolation": {
+        "enabled": true,
+        "timeStep": 0.016666666666666666,
+        "frames": 13680,
+        "steps": 3007,
+        "minStep": 0.01666666753590107,
+        "maxStep": 0.01666666753590107,
+        "maxOffset": 0.11808016684767772,
+        "maxHorizontal": 0.11808016684767772,
+        "physical": {
+          "x": -2.911454200744629,
+          "y": 0.003298521041870117,
+          "z": 49.136077880859375
+        },
+        "visual": {
+          "x": -2.9361945778135934,
+          "y": 0.004060313481577871,
+          "z": 49.13309156792116
+        },
+        "cameraSource": {
+          "x": -2.9361945778135934,
+          "y": 0.004060313481577871,
+          "z": 49.13309156792116
+        },
+        "cameraTarget": {
+          "x": -3.563238418682748,
+          "y": 0.55,
+          "z": 49.057390306814476
+        },
+        "cameraAngle": 2.0502981635226156,
+        "cameraZoom": 62.30857142857144
+      },
+      "capturedAt": "2026-11-05T16:28:43.030Z",
+      "build": "production",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+      "browserBrands": "Not:A-Brand 8, Chromium 156, Google Chrome 156",
+      "gpuRenderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Pro, Unspecified Version)",
+      "hardwareConcurrency": 12,
+      "deviceMemoryGb": 16,
+      "screen": {
+        "width": 2560,
+        "height": 1440
+      },
+      "viewport": {
+        "width": 1363,
+        "height": 1035
+      },
+      "canvasCss": {
+        "width": 1363,
+        "height": 1035
+      },
+      "canvasBuffer": {
+        "width": 1363,
+        "height": 1035
+      },
+      "devicePixelRatio": 1,
+      "rendererPixelRatio": 1
+    },
+    "limite": "Exportação contém nova entrada de Marte; contexto é da exportação posterior a Shanghai. Não presumir tela/zoom de cada evento sem relato."
   }
 }

@@ -122,3 +122,26 @@ Posição e ângulo de câmera mudam com o percurso; contagens não são compara
 isolada de otimização. Draw calls mín./máx./média 135/359/271,39; triângulos
 234.295/396.525/323.389,34. Contexto/heap são da exportação posterior.
 M2 registrada; seguem B/S2/S1/S44 e decisões expressas do autor.
+
+
+## B + S2 — viagem e cinco comuns
+
+Autor confirmou o caso feito, sem matar nenhum robô: cinco vivos no início/fim.
+Fonte com grafia `S2-shanhai-5-robos-10s.json` preservada intacta; cópia da sessão
+nomeada `S2-shanghai-5-robos-30s.json`, pois a duração real é **30.004,5 ms**
+(requestedMs 30.000), e não 10 s. A coleta maior é registrada explicitamente;
+não foi reetiquetada como janela de 10 s. Production, válida, sem warnings ou
+saturação, 4.303 intervalos / 288 leituras; cena pronta antes da coleta.
+
+rAF p50 6,9 / p95 7,7 / máximo 55,6 ms; dois >33 ms, um >50 ms; um LoAF de
+66 ms. Draw calls mín./máx./média 86/146/115,66; triângulos
+99.960/217.839/139.296,23. Contexto da exportação mantém tela, viewport, buffer,
+DPR, GPU e navegador das medições anteriores. Zoom/posição mudam ao entrar em
+Shanghai. Não há limite universal de FPS aprovado nem medição de GPU.
+
+Eventos de B completos: map-loading → canvas → primeiro draw → personagens
+prontos; primeiro draw +4.893,8 ms, personagens prontos +5.051,1 ms após loading.
+Eventos e JSON completos no mesmo arquivo S2; não é necessário duplicá-lo para B.
+O JSON contém nova entrada de Marte e histórico de amostras reiniciado; M1/M2
+anteriores já estão preservados. Proveniência/checagens em `S2-validacao.json`
+e `B-viagem-validacao.json`. Próximos: S1, S44 e aceites do autor.

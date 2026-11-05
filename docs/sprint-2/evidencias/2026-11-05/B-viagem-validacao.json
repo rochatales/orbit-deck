@@ -1,0 +1,53 @@
+{
+  "id": "B",
+  "status": "eventos de viagem registrados",
+  "arquivo": "S2-shanghai-5-robos-30s.json",
+  "sha256": "1de8bb0a82c1662229cb6fd77b5e0ca071555810c5f045f6db6669bfc372053e",
+  "eventosShanghai": [
+    {
+      "kind": "map-loading",
+      "map": "shanghai",
+      "atMs": 28214.299999952316,
+      "sinceMapLoadingMs": 0,
+      "inferred": false
+    },
+    {
+      "kind": "canvas-mounted",
+      "map": "shanghai",
+      "atMs": 28607.100000023842,
+      "sinceMapLoadingMs": 392.8000000715256,
+      "inferred": false
+    },
+    {
+      "kind": "canvas-first-frame",
+      "map": "shanghai",
+      "atMs": 28608,
+      "sinceMapLoadingMs": 393.7000000476837,
+      "inferred": false
+    },
+    {
+      "kind": "scene-first-draw",
+      "map": "shanghai",
+      "atMs": 33108.10000002384,
+      "sinceMapLoadingMs": 4893.800000071526,
+      "inferred": false
+    },
+    {
+      "kind": "scene-assets-ready",
+      "map": "shanghai",
+      "atMs": 33265.39999997616,
+      "sinceMapLoadingMs": 5051.100000023842,
+      "inferred": false
+    },
+    {
+      "kind": "map-data-ready",
+      "map": "shanghai",
+      "atMs": 33265.60000002384,
+      "sinceMapLoadingMs": 5051.300000071526,
+      "inferred": false
+    }
+  ],
+  "primeiroDrawDesdeLoadingMs": 4893.800000071526,
+  "personagensProntosDesdeLoadingMs": 5051.100000023842,
+  "limite": "Prontidão dos personagens não equivale a uma medição de GPU ou aceite visual."
+}
