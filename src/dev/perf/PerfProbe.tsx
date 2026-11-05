@@ -149,7 +149,7 @@ function readPose() {
   const expedition = useExpeditionStore.getState(), combat = useCombatStore.getState();
   return { ...interpolationSnapshot(), map: expedition.session.map, phase: expedition.session.phase,
     revision: expedition.session.revision, paused: useGameStore.getState().isPaused,
-    dead: combat.dead, wave: combat.wave, alive: combat.alive };
+    dead: combat.dead, wave: combat.wave, queued: combat.queued, alive: combat.alive };
 }
 
 function browserDeps() {

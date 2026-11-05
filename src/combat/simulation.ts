@@ -192,6 +192,9 @@ export class CombatSimulation {
     wave = 0;
     /** Segundos até a próxima horda; 0 durante uma horda. */
     waveLeft = 0;
+    /** Slots da horda aguardando um ponto seguro; não contam como mortos. */
+    queued = 0;
+    private spawnRetryLeft = 0;
     readonly total: number;
     edgeSpawns: Position[] = [];
     private dropCursor = 0;
@@ -285,41 +288,64 @@ export class CombatSimulation {
         for (const r of this.robots) if (r.hp > 0) n++;
         return n;
     }
-    get cleared() { return this.wave >= this.waves.length && this.waveLeft === 0 && this.alive === 0; }
-    get snapshot() { return { hp: this.hp, medkits: this.medkits, iron: this.iron, copper: this.copper, titanium: this.titanium, organic: this.organic, ammo: this.ammo, reserve: this.reserve, reloading: this.reloadLeft > 0, dead: this.dead, kills: this.kills, total: this.total, cleared: this.cleared, damage: this.damageFlash > 0, hit: this.hitFlash > 0, wave: this.wave, waves: this.waves.length, nextWave: Math.ceil(this.waveLeft), alive: this.alive }; }
-    /**
-     * Próxima horda: `count` pontos da borda, um por setor igual do perímetro, com o
-     * início girando a cada horda (pontos diferentes). Em cada setor, o primeiro ponto
-     * a `minPlayerDistance` do jogador; sem nenhum, o mais distante dele.
-     */
+    get cleared() { return this.wave >= this.waves.length && this.waveLeft === 0 && this.queued === 0 && this.alive === 0; }
+    get snapshot() { return { hp: this.hp, medkits: this.medkits, iron: this.iron, copper: this.copper, titanium: this.titanium, organic: this.organic, ammo: this.ammo, reserve: this.reserve, reloading: this.reloadLeft > 0, dead: this.dead, kills: this.kills, total: this.total, cleared: this.cleared, damage: this.damageFlash > 0, hit: this.hitFlash > 0, wave: this.wave, waves: this.waves.length, nextWave: Math.ceil(this.waveLeft), queued: this.queued, alive: this.alive }; }
+    /** Prepara os slots/drops uma vez; o nascimento espera um ponto seguro. */
     private startWave(player: Position) {
         const waveIndex = this.wave++, count = this.waves[waveIndex];
         let requiredHits = 0, mutantSlot = 0;
+        this.queued = count;
         for (let i = 0; i < count; i++) {
-            const kind = waveRobotKind(waveIndex, i), r = this.robots[i]; r.kind = kind; const R = robotConfig(r);
-            const spawns = kind === 'largeMutant' ? this.largeMutantEdgeSpawns : kind === 'smallMutant' ? this.mutantEdgeSpawns : kind === 'largePatrol' ? this.largeEdgeSpawns : this.edgeSpawns;
-            const m = spawns.length, sector = m / count, offset = ((this.wave * 0.618034) % 1) * m;
-            const from = Math.floor(offset + i * sector), to = Math.max(from + 1, Math.floor(offset + (i + 1) * sector));
-            let pick = from % m, best = -1;
-            for (let j = from; j < to; j++) {
-                const p = spawns[j % m], distance = Math.hypot(p.x - player.x, p.z - player.z);
-                if (distance >= COMBAT.hordes.minPlayerDistance) { pick = j % m; break; }
-                if (distance > best) { best = distance; pick = j % m; }
-            }
-            const p = spawns[pick];
+            const r = this.robots[i], kind = waveRobotKind(waveIndex, i);
+            r.kind = kind; const R = robotConfig(r);
+            r.hp = 0; r.spawned = false;
             r.packReady = false;
             r.packAngle = kind === 'smallMutant' ? mutantSlot++ * Math.PI * 2 / COMBAT.hordes.smallMutants[waveIndex] + this.wave * 2.399963 : 0;
-            r.kind = kind; r.x = p.x; r.z = p.z; r.hp = R.hp;
-            requiredHits += Math.ceil(R.hp / COMBAT.rifle.damage); r.spawned = true; r.generation++;
-            r.alerted = false; r.alertLeft = 0; r.flash = 0; r.recoil=0; r.staggerLeft=0; r.stuck = 0; r.pace = R.speed;
-            r.routeIndex = -1; r.waypoint = 0; r.path.length = 0; r.drop = this.dropCursor; this.dropCursor += kind === 'largeMutant' ? 3 : 1;
-            r.chargePhase='ready';r.chargeLeft=0;r.chargeHit=false;resetMovementRecovery(r);r.avoidSide=1;
-            // Caminhos em quadros alternados: 40 robôs não calculam rota no mesmo passo.
-            r.repath = (i % 10) * COMBAT.fixedStep;
-            r.angle = Math.atan2(player.x - p.x, player.z - p.z);
+            requiredHits += Math.ceil(R.hp / COMBAT.rifle.damage);
+            r.alerted = false; r.alertLeft = 0; r.flash = 0; r.recoil = 0; r.staggerLeft = 0; r.stuck = 0; r.pace = R.speed;
+            r.routeIndex = -1; r.waypoint = 0; r.path.length = 0;
+            r.drop = this.dropCursor; this.dropCursor += kind === 'largeMutant' ? 3 : 1;
+            r.chargePhase = 'ready'; r.chargeLeft = 0; r.chargeHit = false; resetMovementRecovery(r); r.avoidSide = 1;
         }
         const need = Math.ceil(requiredHits * COMBAT.hordes.ammoMargin);
         if (this.ammo + this.reserve < need) this.reserve = need - this.ammo;
+        this.spawnPending(player);
+    }
+    /**
+     * Mantém a distribuição por setores quando possível; busca todo o perímetro
+     * quando o jogador/aliados ocupam o setor. Nunca relaxa a distância ou o raio.
+     * Se não há ponto válido, mantém o slot na fila e tenta de novo em 250 ms.
+     * Os corpos maiores reservam espaço primeiro; nenhuma alocação por tentativa.
+     */
+    private spawnPending(player: Position) {
+        this.spawnRetryLeft = .25;
+        if (!Number.isFinite(player.x + player.z)) return;
+        const count = this.waves[this.wave - 1];
+        for (let priority = 3; priority >= 0; priority--) for (let i = 0; i < count; i++) {
+            const r = this.robots[i];
+            if (r.spawned || movementPriority(r.kind) !== priority) continue;
+            const R = robotConfig(r);
+            const spawns = r.kind === 'largeMutant' ? this.largeMutantEdgeSpawns : r.kind === 'smallMutant' ? this.mutantEdgeSpawns : r.kind === 'largePatrol' ? this.largeEdgeSpawns : this.edgeSpawns;
+            const m = spawns.length, offset = ((this.wave * .618034) % 1) * m;
+            const from = Math.floor(offset + i * m / count);
+            let point: Position | undefined;
+            for (let j = 0; j < m; j++) {
+                const p = spawns[(from + j) % m];
+                if (Math.hypot(p.x - player.x, p.z - player.z) < COMBAT.hordes.minPlayerDistance
+                    || !traversable(p, this.terrain, R.radius)) continue;
+                let occupied = false;
+                for (const other of this.robots) if (other.hp > 0
+                    && Math.hypot(p.x - other.x, p.z - other.z) <= R.radius + robotConfig(other).radius + .05) {
+                    occupied = true; break;
+                }
+                if (!occupied) { point = p; break; }
+            }
+            if (!point) continue;
+            r.x = point.x; r.z = point.z; r.hp = R.hp; r.spawned = true; r.generation++;
+            r.repath = (i % 10) * COMBAT.fixedStep;
+            r.angle = Math.atan2(player.x - point.x, player.z - point.z);
+            this.queued--;
+        }
     }
     nearbySupplyCrate(player: Position): SupplyCrate | undefined {
         if (this.dead || !Number.isFinite(player.x + player.z)) return;
@@ -513,11 +539,16 @@ export class CombatSimulation {
                 this.waveLeft = Math.max(0, this.waveLeft - dt);
                 if (this.waveLeft === 0) this.startWave(input.player);
             }
+            else if (this.queued > 0) {
+                this.spawnRetryLeft = Math.max(0, this.spawnRetryLeft - dt);
+                if (this.spawnRetryLeft === 0) this.spawnPending(input.player);
+            }
             else if (this.wave < this.waves.length && this.alive === 0) this.waveLeft = COMBAT.hordes.intermission;
         }
     }
-    /** Rifle e facão compartilham morte/drop/contadores: um único caminho de dano. */
+    /** Dano/morte idempotentes: um slot concede contador e drops só uma vez. */
     private damageRobot(robot: Robot, damage: number, dx: number, dz: number) {
+        if (robot.hp <= 0) return;
         robot.hp = Math.max(0, robot.hp - damage);
         this.sounds.emit(robot.hp > 0 ? 'bulletHit' : 'death', robot.x, robot.z, robot.kind);
         robot.recoil=COMBAT_VFX.recoil;robot.recoilX=dx;robot.recoilZ=dz;

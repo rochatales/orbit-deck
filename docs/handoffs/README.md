@@ -42,6 +42,8 @@ integração nem aprovação automática. Para checkboxes, consultar o [plano](.
 
 ## Inimigos e áudio — S3
 
+- [s3.4-spawn-seguro](s3.4-spawn-seguro.md)
+
 - [s3.10-ajuste-alcance-volume](s3.10-ajuste-alcance-volume.md)
 - [s3.10-ambiencia-marte](s3.10-ambiencia-marte.md)
 - [s3.10-ambiencia-shanghai](s3.10-ambiencia-shanghai.md)

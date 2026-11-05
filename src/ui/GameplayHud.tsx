@@ -36,7 +36,7 @@ export function GameplayHud({ combat, map, openBackpack, openCargo }: { combat: 
   return <>
     {combat && <div className="beta-wave" aria-live="polite">
       <span className="beta-signal"/><strong>{s.cleared ? 'ÁREA NEUTRALIZADA' : s.waves > 0 ? `HORDA ${Math.max(1, s.wave)} / ${s.waves}` : 'CONTATO HOSTIL'}</strong>
-      <span>{s.nextWave > 0 ? `CHEGADA EM ${s.nextWave} s` : `${s.alive} ATIVOS`}</span>
+      <span>{s.nextWave > 0 ? `CHEGADA EM ${s.nextWave} s` : `${s.alive} ATIVOS${s.queued > 0 ? ` · ${s.queued} NA FILA` : ''}`}</span>
       <small>{s.kills} / {s.total}</small>
     </div>}
     <div className="beta-bottom">
