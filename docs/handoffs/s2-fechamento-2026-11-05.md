@@ -237,3 +237,17 @@ que os 10 s na sessão. Os três foram corrigidos:
 preservado em `revisao-fechamento-claude.txt`; conferência final registrada na
 continuação. Nenhum teste/build foi repetido: só documentos mudaram após
 `18fe0d6`, cujo código já tem 564/564 e build verdes.
+
+
+### Confirmação final
+
+Claude confirmou: **os três achados foram resolvidos**, sem novos problemas
+impeditivos. Parecer em `revisao-fechamento-confirmacao.txt`. Referências antigas
+em linhas de outras tarefas do quadro ficam para a organização documental
+posterior; não são aceites novos de escopos completos futuros. Após a confirmação,
+só este registro e a metainformação da sessão foram acrescentados.
+
+Conferência final do implementador: `git apply --check` do patch preparado,
+`git diff --check 00ab557 HEAD` e estado de trabalho limpo após o commit.
+Checks de código permanecem 564/564 e build verde do runtime `18fe0d6`.
+Fechamento e revisão commitados nesta branch; sem merge/push.

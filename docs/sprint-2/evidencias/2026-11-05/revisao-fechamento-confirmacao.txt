@@ -1,0 +1,12 @@
+**Resolvido: os três achados foram corrigidos em `b98a3bd...HEAD`.**
+
+1. **`git diff --check`:** rodei em `b98a3bd...HEAD` e passou sem apontamentos. Os contextos vazios do patch (`quadro.patch:14`, `:16` e `:18`) estão sem espaço. `git apply --check` não foi repetido; vale a execução que você relatou.
+2. **Contradição da S2.9 no quadro:** o patch agora substitui as três linhas apontadas, sem pendência da S2.9 nelas:
+   - S0: `quadro.patch:21-22`
+   - Fechamento: `quadro.patch:33-34`
+   - S2.9: `quadro.patch:42-43`
+
+   As linhas de S2.11 e S2.12 também foram atualizadas (`:45-48`, `:53-54`). "Sem merge/push" saiu do texto novo e agora só aparece em contextos de outras tarefas e em linha removida. O texto novo também não fixa a situação de publicação (`:10-11`).
+3. **Sessão S2 de 30 s:** `docs/sprint-2/SESSAO_FECHAMENTO_S0_S2.md:81` agora registra "coleta maior que os 10 s solicitados, aceita pelo autor".
+
+**Fora dos três achados:** continuam no quadro, sem alteração, "Aceite do autor pendente" na linha de consoles S0.4 (`quadro.patch:32`) e "aceite segue na etapa 6.5" na S6.13 (`quadro.patch:39`). A S2.4/S2.8 também mantém "Duração e desempenho pendentes" (`quadro.patch:41`). São registros de tarefas que não bloqueiam o fechamento, mas podem parecer desatualizados agora que S0 e a etapa 6.5 estão encerradas.
