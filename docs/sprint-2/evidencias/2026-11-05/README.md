@@ -36,6 +36,18 @@ As cenas e ângulos diferem ao longo do percurso. A diferença entre as contagen
 ou percentis não isola uma otimização. rAF mede a cadência do navegador e não
 tempo de GPU; 144 Hz não é um requisito universal de desempenho aprovado.
 
+## Heap JS na exportação
+
+Valores de `performance.memory`, quantizados pelo Chromium, fora da janela específica de cada amostra. Não representam memória total da GPU nem um pico de uso.
+
+| Relatório | Heap usado (MiB) |
+|---|---:|
+| M1 | 182.33 |
+| M2 | 199.74 |
+| S2 | 352.78 |
+| S1 | 361.12 |
+| S44 | 431.82 |
+
 ## Carregamento e evidências
 
 Entrada preliminar `A-entrada-marte-preliminar.json`: contém cena pronta, mas
@@ -52,6 +64,11 @@ Relatórios completos preservados nos arquivos M1/M2/S2/S1/S44. Proveniência, �
 da amostra selecionada, SHA-256 e verificações nos respectivos `*-validacao.json`;
 eventos da viagem em `B-viagem-validacao.json`. Fontes do autor intactas.
 `npm-test-painel.txt` / `build-painel.txt`: rodada de checks do código medido.
+
+As cinco cópias e amostras selecionadas passaram também pela conferência
+uniforme de hashes, duração, percentis, cobertura e timestamps; ver
+`verificacao-consolidada.json`. O diff de código contra `00ab557` permanece
+restrito ao módulo opcional de perf e aos dois testes novos.
 
 ## Fechamento pendente
 

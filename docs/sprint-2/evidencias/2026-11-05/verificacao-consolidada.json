@@ -1,0 +1,54 @@
+{
+  "data": "2026-11-05",
+  "codigoMedido": "18fe0d6",
+  "baseMapasRegras": "00ab557a545b7ac1af6630cca118c03efed9ba42",
+  "resultado": "5/5 relatórios selecionados íntegros e tecnicamente válidos",
+  "arquivosCodigoAlterados": [
+    "src/dev/perf/PerfProbe.tsx",
+    "src/dev/perf/sceneReadiness.ts",
+    "tests/perf-readiness.test.mjs"
+  ],
+  "amostras": [
+    {
+      "caso": "M1",
+      "arquivo": "M1-marte-parado-30s.json",
+      "sha256": "2c961250b508b48f1d80d73927aedbdbcaacd3a697edbd7fbebe4c81982495d2",
+      "sampleIndex": 0,
+      "validacao": "passou",
+      "heapExportacaoBytes": 191187541
+    },
+    {
+      "caso": "M2",
+      "arquivo": "M2-marte-movimento-30s.json",
+      "sha256": "e41331f14ce7b5aaeb939682ec0117603d81e307cf64697670b018ed08a09a31",
+      "sampleIndex": 2,
+      "validacao": "passou",
+      "heapExportacaoBytes": 209447156
+    },
+    {
+      "caso": "S2",
+      "arquivo": "S2-shanghai-5-robos-30s.json",
+      "sha256": "1de8bb0a82c1662229cb6fd77b5e0ca071555810c5f045f6db6669bfc372053e",
+      "sampleIndex": 0,
+      "validacao": "passou",
+      "heapExportacaoBytes": 369915250
+    },
+    {
+      "caso": "S1",
+      "arquivo": "S1-shanghai-sem-inimigos-10s.json",
+      "sha256": "77a26099a7695076095ec83fa209873b2d4bfe15ef21c57aedad9104a2b6e482",
+      "sampleIndex": 1,
+      "validacao": "passou",
+      "heapExportacaoBytes": 378657590
+    },
+    {
+      "caso": "S44",
+      "arquivo": "S44-shanghai-pico-44-10s.json",
+      "sha256": "bf00748c4e396259c2b8fe80ae5da512eb12833ae5774a73b22fbfaf0b545f18",
+      "sampleIndex": 3,
+      "validacao": "passou",
+      "heapExportacaoBytes": 452801138
+    }
+  ],
+  "limite": "Validações de arquivo não substituem condições manuais e aceites do autor."
+}
