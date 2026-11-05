@@ -92,7 +92,7 @@ draw calls/triângulos mín./máx./média e memória. Não há limite universal 
 aprovado: o autor decide com base nos resultados e na sensação de jogo.
 rAF não mede tempo de GPU; draw calls excluem sombras. Indisponível/null não é zero.
 
-**Ambiente:** `evidencias/2026-11-05/sessao.json`; tela usada aguardando autor.
+**Ambiente:** `evidencias/2026-11-05/sessao.json`; Odyssey G5 144 Hz confirmada pelo autor; contexto dos JSONs em 2560×1440, viewport/buffer 1363×1035, DPR 1/1.
 **Aceite expresso S2.9 pelo autor:** pendente.
 
 ## Registro e fechamento
