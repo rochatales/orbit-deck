@@ -7,6 +7,8 @@ import colonyArt from '../assets/home/colonia.webp';
 import explorerArt from '../assets/home/explorador-perfil.webp';
 import { ControlList } from './ControlList';
 import { ExodenLogo } from './ExodenLogo';
+import { useCampaignStore } from '../state/useCampaignStore';
+import { bindDialogFocus } from './dialogFocus';
 
 const NAME_MIN = 2;
 
@@ -25,11 +27,32 @@ function HomeSettings({ onClose }: { onClose: () => void }) {
     </article></section>;
 }
 
-/** Entrada do jogo. Início e Continuar só levam ao hub; a partida segue na aeronave. */
+function CampaignDialog({ confirm, name, onResume, onRestart, onConfirm, onClose }: {
+    confirm: boolean; name: string; onResume: () => void; onRestart: () => void; onConfirm: () => void; onClose: () => void;
+}) {
+    const root = useRef<HTMLElement>(null);
+    useEffect(() => {
+        const release = root.current ? bindDialogFocus(root.current, document) : undefined;
+        const key = (event: KeyboardEvent) => { if (event.code === 'Escape') onClose(); };
+        window.addEventListener('keydown', key);
+        return () => { release?.(); window.removeEventListener('keydown', key); };
+    }, [confirm, onClose]);
+    return <section ref={root} className="overlay home-settings" role="dialog" aria-modal="true" aria-label={confirm ? 'Confirmar reinício da campanha' : 'Campanha em andamento'} tabIndex={-1}><article>
+        <p className="eyebrow">EXODEN · CAMPANHA</p>
+        <h2>{confirm ? 'Recomeçar a campanha?' : 'Sua campanha continua.'}</h2>
+        <p>{confirm ? `O progresso da campanha de ${name} será substituído. O desenvolvimento será preservado.` : `Há uma campanha salva de ${name}. Como deseja entrar?`}</p>
+        {confirm ? <><button type="button" className="secondary" onClick={onClose}>Cancelar</button><button type="button" onClick={onConfirm}>Confirmar · Recomeçar campanha</button></>
+            : <><button type="button" onClick={onResume}>Retomar campanha</button><button type="button" className="secondary" onClick={onRestart}>Recomeçar</button><button type="button" className="secondary" onClick={onClose}>Voltar</button></>}
+    </article></section>;
+}
+
+/** Início escolhe campanha; Continuar/Encontro de teste preservam o desenvolvimento. */
 export function HomeScreen({ onEnter }: { onEnter: () => void }) {
     const profile = useExpeditionStore(s => s.profile), start = useExpeditionStore(s => s.start);
-    const [name, setName] = useState(profile?.displayName ?? ''), [invalid, setInvalid] = useState(false), [settings, setSettings] = useState(false);
-    const layout = useRef<HTMLFormElement>(null), nameInput = useRef<HTMLInputElement>(null), settingsButton = useRef<HTMLButtonElement>(null), continueButton = useRef<HTMLButtonElement>(null), settingsWereOpen = useRef(false);
+    const savedCampaign = useCampaignStore(s => s.saved);
+    const [name, setName] = useState(profile?.displayName ?? savedCampaign?.profile.displayName ?? ''), [invalid, setInvalid] = useState(false), [settings, setSettings] = useState(false);
+    const [campaignDialog, setCampaignDialog] = useState<'resume' | 'restart' | null>(null);
+    const layout = useRef<HTMLFormElement>(null), nameInput = useRef<HTMLInputElement>(null), settingsButton = useRef<HTMLButtonElement>(null), continueButton = useRef<HTMLButtonElement>(null), beginButton = useRef<HTMLButtonElement>(null), settingsWereOpen = useRef(false), campaignWasOpen = useRef(false);
     // Com perfil salvo o caminho provável é Continuar; sem ele, falta só o nome.
     useEffect(() => { (profile ? continueButton : nameInput).current?.focus(); }, []);
     useEffect(() => {
@@ -37,15 +60,39 @@ export function HomeScreen({ onEnter }: { onEnter: () => void }) {
         if (settingsWereOpen.current && !settings) settingsButton.current?.focus();
         settingsWereOpen.current = settings;
     }, [settings]);
+    useEffect(() => {
+        layout.current?.toggleAttribute('inert', settings || campaignDialog !== null);
+        if (campaignWasOpen.current && !campaignDialog) beginButton.current?.focus();
+        campaignWasOpen.current = campaignDialog !== null;
+    }, [settings, campaignDialog]);
+    useEffect(() => { if (invalid && !campaignDialog) nameInput.current?.focus(); }, [invalid, campaignDialog]);
     const closeSettings = useCallback(() => setSettings(false), []);
-    const begin = () => {
-        if (name.trim().length < NAME_MIN) { setInvalid(true); nameInput.current?.focus(); return; }
-        void audio.unlock();
-        // A cor segue fora da tela por enquanto: mantém a salva ou a padrão do traje.
-        start(name, profile?.color ?? DEFAULT_SUIT_COLOR);
-        onEnter();
+    const closeCampaign = useCallback(() => setCampaignDialog(null), []);
+    const validName = () => {
+        if (name.trim().length >= NAME_MIN) return true;
+        setInvalid(true); setCampaignDialog(null); nameInput.current?.focus(); return false;
     };
-    const resume = () => { void audio.unlock(); onEnter(); };
+    const newCampaign = (replace = false) => {
+        if (!validName()) return;
+        void audio.unlock();
+        if (useExpeditionStore.getState().enterCampaign({ displayName: name.trim().slice(0, 32), color: profile?.color ?? savedCampaign?.profile.color ?? DEFAULT_SUIT_COLOR }, replace)) onEnter();
+    };
+    const begin = () => {
+        if (savedCampaign) setCampaignDialog('resume');
+        else newCampaign();
+    };
+    const resume = () => {
+        void audio.unlock();
+        if (useExpeditionStore.getState().enterDevelopment()) onEnter();
+    };
+    const testEncounter = () => {
+        if (!profile) { if (!validName()) return; start(name, DEFAULT_SUIT_COLOR); }
+        resume();
+    };
+    const resumeCampaign = () => {
+        void audio.unlock();
+        if (useExpeditionStore.getState().enterCampaign()) onEnter();
+    };
     return <main className="home">
         <div className="home-backdrop"><img className="home-colony" src={colonyArt} alt="" draggable={false}/></div>
         <form ref={layout} className="home-layout" noValidate onSubmit={event => { event.preventDefault(); begin(); }}>
@@ -65,12 +112,15 @@ export function HomeScreen({ onEnter }: { onEnter: () => void }) {
             <div className="home-side">
                 <ExodenLogo/>
                 <nav className="home-actions" aria-label="Menu principal">
-                    <span className="home-action is-primary"><button type="submit">Início</button></span>
+                    <span className="home-action is-primary"><button ref={beginButton} type="submit">Início</button></span>
                     <span className="home-action"><button ref={continueButton} type="button" disabled={!profile} onClick={resume}>Continuar{profile && <small>{profile.displayName}</small>}</button></span>
+                    <span className="home-action"><button type="button" onClick={testEncounter}>Encontro de teste</button></span>
                     <span className="home-action"><button ref={settingsButton} type="button" onClick={() => setSettings(true)}>Configurações</button></span>
                 </nav>
             </div>
         </form>
         {settings && <HomeSettings onClose={closeSettings}/>}
+        {campaignDialog && savedCampaign && <CampaignDialog confirm={campaignDialog === 'restart'} name={savedCampaign.profile.displayName}
+            onResume={resumeCampaign} onRestart={() => { if (validName()) setCampaignDialog('restart'); }} onConfirm={() => newCampaign(true)} onClose={closeCampaign}/>}
     </main>;
 }

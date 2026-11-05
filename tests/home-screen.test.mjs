@@ -38,9 +38,9 @@ function render(profile = null) {
     return renderToStaticMarkup(React.createElement(HomeScreen, { onEnter() {} }));
 }
 
-test('Tela inicial: Início, Continuar e Configurações, nessa ordem; sem escolha de cor', () => {
+test('Tela inicial: Início, Continuar, Encontro de teste e Configurações; sem escolha de cor', () => {
     const html = render(), buttons = [...html.matchAll(/<button[^>]*>([^<]*)/g)].map(match => match[1]);
-    assert.deepEqual(buttons, ['Início', 'Continuar', 'Configurações']);
+    assert.deepEqual(buttons, ['Início', 'Continuar', 'Encontro de teste', 'Configurações']);
     assert.doesNotMatch(html, /type="color"/); assert.doesNotMatch(html, /[Cc]or do traje|[Pp]aleta/);
     assert.match(html, /Nome do explorador/); assert.match(html, /EXODEN Recomeço/);
     assert.match(html, /explorador-perfil\.webp/); assert.match(html, /colonia\.webp/);
@@ -58,7 +58,7 @@ test('Tela inicial: textos fictícios das artes de conceito não entram na tela'
     assert.doesNotMatch(render(), /EDEN OS|v1\.04|TELEMETRY|Telemetry|Entrar na colônia/);
 });
 
-test('Início sem escolher cor: cria perfil com a cor padrão, e refazer preserva briefing e cor salva', () => {
+test('Perfil de desenvolvimento: helper preserva cor e briefing do save existente', () => {
     cache.clear(); memory.clear();
     const { useExpeditionStore } = loadUi('src/state/useExpeditionStore.ts'), { DEFAULT_SUIT_COLOR } = loadUi('src/game/session.ts');
     useExpeditionStore.getState().start('Ana', DEFAULT_SUIT_COLOR);
@@ -72,7 +72,7 @@ test('Início sem escolher cor: cria perfil com a cor padrão, e refazer preserv
 
 test('Entrada: o jogo só monta depois de escolher Início ou Continuar, mesmo com save', () => {
     const app = fs.readFileSync('src/app/App.tsx', 'utf8');
-    assert.match(app, /entered && profile \? <Runtime \/> : <HomeScreen onEnter=/);
+    assert.match(app, /entered && profile \? <Runtime onHome=/);
     assert.doesNotMatch(app, /function Welcome|className="welcome"/);
     const home = fs.readFileSync('src/ui/HomeScreen.tsx', 'utf8');
     assert.doesNotMatch(home, /removeItem|localStorage|send\(/, 'a tela não apaga save nem inicia missão');

@@ -1,6 +1,8 @@
 import { WeaponControls } from '../characters/player/WeaponControls';
 import { ControlList } from '../ui/ControlList';
 import { HomeScreen } from '../ui/HomeScreen';
+import { useCampaignStore } from '../state/useCampaignStore';
+import { CAMPAIGN_OBJECTIVES } from '../game/campaign';
 import { PauseMenuFrame } from '../ui/PauseMenuFrame';
 import { GameplayHud, BackpackContents } from '../ui/GameplayHud';
 import { ShipCargoPanel } from '../ui/ShipCargoPanel';
@@ -25,8 +27,9 @@ import type { MapId } from '../game/session';
 import { sandwindPanelEnabled } from '../scene/marsColony/sandwindPolicy';
 const SandwindPanel = lazy(() => import('../scene/marsColony/ColonySandwind').then(m => ({ default: m.SandwindPanel })));
 const SCENE_STALL_MS = 90000;
-function Runtime() {
+function Runtime({ onHome }: { onHome: () => void }) {
     const s = useExpeditionStore();
+    const campaign = useCampaignStore();
     const paused = useGameStore(g => g.isPaused);
     const [world, setWorld] = useState<{
         map: MapId;
@@ -121,11 +124,11 @@ function Runtime() {
     {!inCockpit && <><header className="beta-header"><div className="beta-location"><b>EXODEN<span> / BETA</span></b><small>{MAPS[s.session.map].title} · {s.profile?.displayName}</small></div>
       <nav><button onClick={() => { setPauseView('menu'); useGameStore.setState({ isPaused: true }); }} disabled={!s.ready || s.session.phase !== 'walking' || !!s.panel || (s.session.map === 'shanghai' && dead)}>Controles <span>☰</span></button><button aria-label={paused ? 'Retomar jogo' : 'Pausar jogo'} disabled={!s.ready || s.session.phase !== 'walking' || !!s.panel || (s.session.map === 'shanghai' && dead)} onClick={() => { setPauseView('menu'); useGameStore.getState().togglePaused(); }}>{paused ? 'RETOMAR' : 'Ⅱ'}</button></nav>
     </header>
-    <aside className="beta-objective"><span>OBJETIVO</span>{s.session.map === 'mars' ? 'Prepare sua expedição · Encontre EDEN' : 'Sobreviva às hordas · Recupere materiais'}</aside>
+    <aside className="beta-objective"><span>OBJETIVO</span>{campaign.mode === 'campaign' && campaign.saved ? CAMPAIGN_OBJECTIVES[campaign.saved.campaign.stage] : s.session.map === 'mars' ? 'Prepare sua expedição · Encontre EDEN' : 'Sobreviva às hordas · Recupere materiais'}</aside>
     <GameplayHud combat={s.session.map === 'shanghai'} map={s.session.map} openBackpack={() => { if (s.ready && s.session.phase === 'walking' && !s.panel && !dead) { setPauseView('backpack'); useGameStore.setState({ isPaused: true }); } }}
       openCargo={() => { if (s.ready && s.session.phase === 'walking' && !s.panel && !dead) { setPauseView('cargo'); useGameStore.setState({ isPaused: true }); } }}/>
     {s.session.map === 'shanghai' && <CombatHud/>}</>}
-    {s.saveError && <p className="save-warning" role="alert">{s.saveError}</p>}
+    {(campaign.mode === 'campaign' ? campaign.saveError : s.saveError) && <p className="save-warning" role="alert">{campaign.mode === 'campaign' ? campaign.saveError : s.saveError}</p>}
     {s.panel === 'eden' && <section className="overlay" role="dialog" aria-label="Conversa com EDEN"><article>
       <p className="eyebrow">EDEN · GUIA DA COLÔNIA</p><h2>Uma nova expedição.</h2>{EDEN_BRIEFING.map(line => <p key={line}>{line}</p>)}
       <button onClick={() => { s.setRadio('Siga ao sul até o deck de lançamento. Entre na aeronave e escolha Shanghai.'); s.closePanel(); }}>Entendido · Voltar à exploração</button>
@@ -144,6 +147,7 @@ function Runtime() {
         {comparacaoDisponivel() && <details className="beta-test-tools"><summary>Comparação de personagem</summary><PlayerAssetBadge/></details>}
       </>}
       <button className="beta-resume" onClick={() => useGameStore.setState({ isPaused: false })}>Voltar à exploração <span>ESC</span></button>
+      <button className="secondary" onClick={onHome}>Voltar à tela inicial</button>
     </PauseMenuFrame>}
     {!inCockpit && (!s.ready || s.error) && <section className="overlay" role="status"><article><h2>{s.error ? 'Viagem interrompida' : s.session.phase === 'travelling' ? 'Viajando…' : 'Preparando o mapa…'}</h2><p>{s.error ?? 'Aguarde o carregamento da região.'}</p>{s.error && <button onClick={() => { if (s.error === SCENE_STALLED_ERROR) { window.location.reload(); return; } s.setError(null); if (world && s.session.phase === 'aboard')
         s.send('depart');
@@ -153,5 +157,5 @@ function Runtime() {
 }
 export function App() {
     const profile = useExpeditionStore(s => s.profile), [entered, setEntered] = useState(false);
-    return <><AudioLifecycle/>{entered && profile ? <Runtime /> : <HomeScreen onEnter={() => setEntered(true)}/>}</>;
+    return <><AudioLifecycle/>{entered && profile ? <Runtime onHome={() => { setEntered(false); useExpeditionStore.getState().returnHome(); }}/> : <HomeScreen onEnter={() => setEntered(true)}/>}</>;
 }

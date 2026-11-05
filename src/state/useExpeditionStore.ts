@@ -4,7 +4,8 @@ import { INITIAL_POSITION, MAPS, type Point } from '../game/config';
 import type { MapId } from '../game/session';
 import { useGameStore } from './useGameStore';
 import { isNearEden, isNearShip, placePlayer } from './playerTransient';
-import { useCombatStore } from './useCombatStore';
+import { combatRuntime, useCombatStore } from './useCombatStore';
+import { useCampaignStore } from './useCampaignStore';
 const SAVE_KEY = 'exoden:hub:v1';
 /** Chave do nome de trabalho anterior (Horda Survivor): só lida para migrar, nunca apagada. */
 const LEGACY_SAVE_KEY = 'horda-survivor:hub:v1';
@@ -21,6 +22,7 @@ export function loadHubSave(storage: () => Pick<Storage, 'getItem'> = () => loca
     }
 }
 const saved = loadHubSave();
+let developmentIdentity: HubSave = saved;
 /** Reposiciona a fonte mutável e publica a proximidade do novo ponto no mesmo passo. */
 function respawn(spawn: Point, map: MapId) {
     placePlayer(spawn);
@@ -37,6 +39,9 @@ interface ExpeditionState {
     saveError: string | null;
     radio: string;
     start: (name: string, color: string) => void;
+    enterDevelopment: () => boolean;
+    enterCampaign: (profile?: Profile, replace?: boolean) => boolean;
+    returnHome: () => void;
     openEden: () => void;
     closePanel: () => void;
     send: (event: SessionEvent) => void;
@@ -46,6 +51,11 @@ interface ExpeditionState {
     setRadio: (radio: string) => void;
 }
 function save(profile: Profile | null, briefingSeen: boolean): string | null {
+    if (useCampaignStore.getState().mode === 'campaign') {
+        useCampaignStore.getState().setIdentity(profile, briefingSeen);
+        return useCampaignStore.getState().saveError;
+    }
+    developmentIdentity = { version: 1, profile, briefingSeen };
     try {
         localStorage.setItem(SAVE_KEY, JSON.stringify({ version: 1, profile, briefingSeen }));
         return null;
@@ -64,6 +74,36 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
         const profile = parseSave(JSON.stringify({ version: 1, profile: { displayName: name, color } })).profile;
         if (profile)
             set({ profile, saveError: save(profile, get().briefingSeen) });
+    },
+    enterDevelopment: () => {
+        if (!useCampaignStore.getState().enterDevelopment()) return false;
+        combatRuntime.simulation = null;
+        useCombatStore.getState().restart();
+        respawn(INITIAL_POSITION, 'mars');
+        set({ profile: developmentIdentity.profile, briefingSeen: developmentIdentity.briefingSeen,
+            session: { ...INITIAL_SESSION }, spawn: INITIAL_POSITION, panel: null, ready: false,
+            error: null, saveError: null });
+        return true;
+    },
+    enterCampaign: (profile, replace = false) => {
+        const campaign = useCampaignStore.getState();
+        if (!(profile ? campaign.startCampaign(profile, replace) : campaign.resumeCampaign())) return false;
+        const saved = useCampaignStore.getState().saved!;
+        combatRuntime.simulation = null;
+        useCombatStore.getState().restart();
+        respawn(INITIAL_POSITION, 'mars');
+        set({ profile: saved.profile, briefingSeen: saved.briefingSeen, session: { ...INITIAL_SESSION },
+            spawn: INITIAL_POSITION, panel: null, ready: false, error: null, saveError: null });
+        return true;
+    },
+    returnHome: () => {
+        combatRuntime.simulation = null;
+        useCampaignStore.getState().leave();
+        useCombatStore.getState().restart();
+        respawn(INITIAL_POSITION, 'mars');
+        set({ profile: developmentIdentity.profile, briefingSeen: developmentIdentity.briefingSeen,
+            session: { ...INITIAL_SESSION }, spawn: INITIAL_POSITION, panel: null, ready: false,
+            error: null, saveError: null });
     },
     openEden: () => {
         const s = get();
@@ -97,6 +137,7 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
     restartMission: () => {
         const s = get();
         if (s.session.map !== 'shanghai' || !s.ready || s.session.phase !== 'walking') return;
+        useCampaignStore.getState().discardAttempt();
         useCombatStore.getState().restart();
         const spawn = MAPS.shanghai.exit;
         respawn(spawn, 'shanghai');

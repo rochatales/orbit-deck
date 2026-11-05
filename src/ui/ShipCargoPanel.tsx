@@ -5,6 +5,7 @@ import { RESOURCE_KINDS, RESOURCE_LABEL, SHIP_CARGO, cargoStacks, isNearCargo, t
 import type { MapId } from '../game/session';
 import { useCombatStore } from '../state/useCombatStore';
 import { useShipCargoStore } from '../state/useShipCargoStore';
+import { useCampaignStore } from '../state/useCampaignStore';
 import { playerPosition } from '../state/playerTransient';
 import { ItemArtwork } from './ItemArtwork';
 
@@ -50,6 +51,7 @@ function Grid({ cargo, slots, action, onMove, label }: { cargo: ResourceCargo; s
 
 /** Menu do porão: mochila à esquerda, aeronave à direita (pegada da referência, identidade EXODEN). */
 export function ShipCargoPanel({ map }: { map: MapId }) {
+  const campaign = useCampaignStore(s => s.mode === 'campaign');
   const combat = map === 'shanghai', live = useCombatStore(), backpack: ResourceCargo = combat ? live : EMPTY_CARGO;
   const ship = useShipCargoStore(s => s.cargo), deposit = useShipCargoStore(s => s.deposit), withdraw = useShipCargoStore(s => s.withdraw);
   const [note, setNote] = useState('');
@@ -77,6 +79,6 @@ export function ShipCargoPanel({ map }: { map: MapId }) {
       </section>
     </div>
     <p className="beta-hold-note" role="status">{note || (!near ? 'Aproxime-se da aeronave para mover a carga.' : !combat ? 'O porão guarda o que veio da Terra. Desça em Shanghai para carregar mais.' : 'Clique num item para mover a pilha · Shift + clique move uma unidade.')}</p>
-    <small>Itens no porão ficam a salvo: não se perdem ao cair em combate nem ao reiniciar o encontro. Munição e kits médicos não ocupam carga.</small>
+    <small>{campaign ? 'A carga desta tentativa se perde ao cair em combate ou reiniciar. Transferir ao porão ainda não confirma a entrega da expedição.' : 'Itens no porão ficam a salvo: não se perdem ao cair em combate nem ao reiniciar o encontro. Munição e kits médicos não ocupam carga.'}</small>
   </section>;
 }

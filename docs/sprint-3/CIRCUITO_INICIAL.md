@@ -77,3 +77,39 @@ A primeira entrega técnica desta branch é [S3.4 — spawn seguro](../handoffs/
 Ela não implementa automaticamente este circuito. Minas, barreiras e implantação
 S3.5–S3.7 continuam no escopo de combate; definir sua entrega ao jogador sem
 inventar um kit obrigatório na primeira expedição.
+
+
+## S3.1 — Estado e save separados · recorte de 05/11/2026
+
+Decisões adicionais do autor, sem encerrar checkbox:
+
+1. Cada Patrol continua soltando ferro e cobre. Os quatro ferros da primeira
+   visita não são exigidos nem usados nesse trecho.
+2. Na campanha, a espada fica bloqueada até a entrega na Oficina. Neste recorte
+   existe apenas `swordReceived`; o bloqueio efetivo entra com a primeira expedição.
+   No desenvolvimento, armas e atalhos continuam como estão.
+3. Morte na expedição perde a carga da tentativa e recomeça a expedição; a quota
+   deve continuar alcançável. O estado da campanha não avança por morte/restart.
+4. **Início** abre campanha; **Continuar** e **Encontro de teste** entram no
+   desenvolvimento. A campanha usa a chave própria `exoden:campaign:v1`, sem
+   modificar `exoden:hub:v1` ou a carga `exoden-carga-aeronave-v1` do desenvolvimento.
+
+Detalhe proposto pelo coordenador, implementado para revisão e **a confirmar com
+o autor no roteiro**: se houver campanha salva, Início oferece **Retomar campanha**
+ou **Recomeçar**; recomeçar exige confirmação explícita antes de substituir o save.
+Reload retorna à entrada, sem escolher modo automaticamente. O modo fica fixo até
+**Voltar à tela inicial** no menu de pausa.
+
+A máquina de estados separa depósito e conclusão: `depositExpedition` registra
+cobre/orgânica por ID; confirmar a expedição e ativar EDEN/sintetizador são eventos
+explícitos posteriores. Retém IDs anteriores, além do último, para impedir também
+a duplicação A → B → A após reload. Não há consumo ou receita neste recorte.
+
+O save guarda perfil/briefing locais, estado da campanha e sua carga; o porão em
+campanha não consulta nem grava a carga dev. Morte/restart descartam a carga da
+tentativa de campanha, preservando entregas já consolidadas. Ainda não há ligação
+automática das viagens com `depositExpedition`: extração efetiva é outro recorte.
+
+O HUD mostra o objetivo provisório da etapa. Engenheiro, encontros 4/4+6,
+iluminação desativada, rádio e ativações em cena ainda não estão implementados;
+a campanha continua jogando com os mapas/combate atuais. [Entrega e roteiro](../handoffs/s3.1-campanha-estado.md).
