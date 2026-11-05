@@ -8,7 +8,7 @@ Atualizado em: 28/09/2026. Base auditada: `main`, commit `99ab0d7`, três commit
 
 Esta revisão substitui, para o planejamento da nova fase, o documento em texto “Orbit Deck — Auditoria do Projeto & Plano de Refatoração”. Consolida a auditoria do código e a premissa informada pelo autor. As fases abaixo são trabalho proposto, não implementação concluída. Documentos anteriores do produto MCP devem ser tratados como contexto histórico quando conflitarem com esta direção.
 
-Plano de execução do primeiro marco: [Sprints do protótipo Shanghai](HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md). O recorte atual termina na construção da primeira máquina: jogabilidade primeiro, estética dos elementos depois, texturas por último. Produção de diamante, estufa e adaptação das revisitas permanecem na visão de evolução abaixo, mas ficam após esse marco.
+Plano de execução do primeiro marco: [Sprints do protótipo Shanghai](HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md). O recorte atual segue o [primeiro circuito revisto em 05/11/2026](sprint-3/CIRCUITO_INICIAL.md): Engenheiro, quatro cobres, ativação de EDEN, Oficina/espada, dez matérias orgânicas e ativação do sintetizador orgânico/Laboratório/Estufa/Food Storage. Produção de diamantes, gestão produtiva completa e adaptação das revisitas permanecem futuras. Jogabilidade primeiro, estética dos elementos depois, texturas por último.
 
 ## Atualização de planejamento — 29/09/2026
 
@@ -33,8 +33,8 @@ A revisão técnica do antigo MCP Office foi filtrada para o novo jogo em [Melho
 - Armas, armadura, itens e capacidade da bolsa evoluem. Munição e dispositivos têm espaços separados da carga de materiais.
 - EDEN é a única IA que continua controlada pelos humanos e quer sua sobrevivência. Fala pelo rádio do traje, ensina comandos, orienta navegação e indica itens importantes da missão.
 - Derrota elimina todo o loot da expedição e exige recomeçar a missão. Resgate/save entre hordas fica para mapas maiores no futuro.
-- A introdução exige concluir as hordas e recuperar as placas de alumínio antes da extração. Depois da primeira conclusão, Shanghai pode ser revisitada com volume de inimigos adaptado ao nível do personagem.
-- A primeira volta bem-sucedida permite instalar uma grande máquina no laboratório, com impacto visual no hub. Ela transforma carbono em diamante. Diamante e outros componentes permitirão construir a máquina de construção espacial; esta e matéria orgânica permitirão erguer unidades produtivas. A primeira unidade produtiva será uma estufa.
+- A introdução vigente tem duas expedições e retornos: quatro Patrol/quatro cobres, depois espada/pequenos mutantes 4/6/dez matérias orgânicas. Após ela entram as quatro hordas atuais; adaptação ao nível é posterior.
+- A primeira volta bem-sucedida permite ligar EDEN e três salas; a segunda ativa o sintetizador orgânico, Laboratório, Estufa e Food Storage. A visão posterior de diamantes/construção espacial/produção completa permanece futura e não é requisito desses primeiros retornos.
 
 Coerência narrativa a finalizar: o autor descreveu a destruição de toda a vida terrestre e também animais sobreviventes alterados. A redação proposta é “destruição da civilização humana e da habitabilidade da Terra para humanos”, preservando a existência dos animais. Essa explicação, a origem exata do carbono e a crise imediata da colônia ainda devem ser fechadas. A hipótese anterior de simulação de treinamento não foi adotada.
 
@@ -151,10 +151,10 @@ Testes prioritários quando esses sistemas existirem: transição de missão/ond
 - [x] Recursos de robôs: ferro e cobre; de animais: matéria orgânica; placas de alumínio escondidas no cenário.
 - [x] Derrota perde todo o loot da missão e reinicia; resgate intermediário é futuro.
 - [x] Munição, dispositivos e materiais separados no inventário.
-- [x] Alumínio obrigatório na introdução e nave sinalizada após as hordas.
+- [x] Introdução revista em 05/11: objetivos de quatro cobres e dez matérias orgânicas em visitas separadas, com retorno por etapa; alumínio não bloqueia esses retornos.
 - [x] Armas, armadura, itens e bolsa como eixos de evolução.
 - [x] EDEN pelo rádio, orientando controles, navegação e coleta.
-- [x] Máquina grande e visível no laboratório após a primeira missão; primeira unidade produtiva será a estufa.
+- [x] Ativações revistas em 05/11: EDEN e Sala de Controle/Data Center/Meeting Room após a primeira expedição; sintetizador orgânico/Laboratório/Estufa/Food Storage após a segunda. Produção completa/diamantes são posteriores.
 - [x] Revisitas com adaptação do volume da horda ao nível do personagem.
 
 ### Pendências que afetam implementação ou conteúdo
@@ -176,32 +176,34 @@ A §7.1 registra a regra do autor de 05/11/2026 e as quatro hordas já testadas.
 
 ### 7.1 Progressão por expedições — regra do autor em 05/11/2026
 
-A proposta anterior de três ondas/30 inimigos/teto oito foi substituída pelo autor.
-O primeiro circuito agora tem as etapas abaixo:
+Ver o [contrato completo](sprint-3/CIRCUITO_INICIAL.md), que substitui a proposta
+de três ondas/30 inimigos/teto oito e a receita de diamantes como primeira volta.
 
-1. Primeiro combate: **4 Patrol comuns no total**, um em cada esquina próxima
-   ao quarteirão do jogador. EDEN avisa pelo rádio quando há cobre suficiente.
-2. Retorno a Marte e circuito de gameplay no hub, que orienta nova partida,
-   agora com a espada. Quantidade de cobre e ações específicas do circuito
-   ainda a definir com o autor; não inventar receita, custo ou concessão de arma.
-3. Nova visita: pequenos mutantes em uma onda de **4**, depois outra de **6**.
-4. Após esse primeiro circuito: quatro hordas **13/26/32/44**, total **115**, da
-   gameplay atual. Tempos atuais: 4 s iniciais e 6 s entre hordas.
+1. Marte começa desativado/escuro, com o Engenheiro como único NPC humano inicial;
+   EDEN desligada. O Engenheiro encaminha a expedição e, já em Shanghai, informa
+   pelo rádio a quota de **4 cobres**.
+2. Primeiro combate: **4 Patrol comuns no total**, um em cada esquina próxima ao
+   quarteirão do jogador. Coletar o cobre e retornar permite ligar EDEN e acender
+   Sala de Controle, Data Center e Meeting Room.
+3. EDEN passa a guiar o jogador pelo jogo. Após interação/história ainda a preencher,
+   explica a matéria orgânica dos mutantes e encaminha à Oficina para receber do
+   Engenheiro a espada/facão destinada à segunda expedição.
+4. Nova visita: pequenos mutantes em ondas de **4** e **6**. Coletar **10 matérias
+   orgânicas**; EDEN confirma a quota no rádio e orienta voltar à base.
+5. Segundo retorno: ligar o **sintetizador orgânico** acende Laboratório, Estufa
+   e Food Storage. Depois entram as quatro hordas **13/26/32/44**, total **115**, com
+   4 s iniciais e 6 s entre hordas, preservadas também no modo/save de desenvolvimento.
 
-O save/modo de desenvolvimento conserva as quatro hordas no seletor “Encontro de
-teste”, além das outras frentes. Progresso de introdução não deve ser concluído
-por executar um encontro de teste. Depois, a gameplay se tornará adaptativa à
-evolução do personagem; a regra adaptativa não integra esta primeira entrega.
-
-Concluir uma onda requer fila de spawn vazia e nenhum inimigo vivo. Spawn seguro,
-retorno com carga e cumprimento do circuito no hub são eventos distintos.
-Espécies e comportamentos já implantados permanecem; o primeiro circuito limita
-quais aparecem em cada expedição. [Plano vigente da S3](HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md#7-sprint-3--ondas-categorias-e-dispositivos).
+A adaptação à evolução do personagem é posterior; algoritmo/limiares não estão
+implementados. Completar encontros de teste não conclui a campanha. Concluir onda
+exige fila vazia e nenhum inimigo vivo; coleta, retorno e ativação do hub são
+etapas distintas. Consumo dos recursos e apresentação das interações precisam de
+implementação/validação; quotas não autorizam inventar outra receita.
 
 ### 7.2 Drops garantidos e margem de segurança
 
 > Os números abaixo pertencem à proposta inicial de 30 inimigos. Não definem a
-> quota do novo primeiro retorno por cobre, em definição desde 05/11/2026.
+> regra vigente de 4 cobres/10 matérias orgânicas nas duas primeiras expedições.
 > Não aplicar automaticamente essa receita ao circuito introdutório revisado.
 
 | Fonte | Drop inicial | Total disponível |
@@ -212,11 +214,11 @@ quais aparecem em cada expedição. [Plano vigente da S3](HORDA_SURVIVOR_PLANO_S
 | Dois depósitos exploráveis | 2 ferro + 2 cobre por depósito | 4 ferro + 4 cobre extras |
 | Seis esconderijos válidos no mapa | 1 placa de alumínio por esconderijo | 6 placas; 4 obrigatórias |
 
-Disponibilidade total: 24 ferro, 24 cobre, 12 matérias orgânicas e 6 placas. A receita não depende de sorte: os drops do tutorial são determinísticos, persistem no chão até coleta/encerramento e aparecem em posições alcançáveis. Coletar tudo não é obrigatório, mas atingir o objetivo é. As placas podem ser encontradas antes da última onda.
+Na proposta anterior, a disponibilidade total era 24 ferro, 24 cobre, 12 matérias orgânicas e 6 placas. A receita não depende de sorte: os drops do tutorial são determinísticos, persistem no chão até coleta/encerramento e aparecem em posições alcançáveis. Coletar tudo não é obrigatório, mas atingir o objetivo é. As placas podem ser encontradas antes da última onda.
 
 Receita proposta para concluir a máquina de síntese de diamante: **20 ferro + 20 cobre + 4 placas de alumínio**. Para demonstrar a primeira produção, reservar **10 matérias orgânicas**, propostas como insumo processado em carbono para gerar **1 diamante sintético**. Essa conversão é uma regra fictícia de jogo, ainda dependente de aprovação narrativa da origem do carbono.
 
-Objetivo de carga da introdução: 20 ferro, 20 cobre, 4 placas e 10 matérias orgânicas. Após craft e primeira produção, uma coleta completa deixaria 4 ferro, 4 cobre, 2 matérias orgânicas e 2 placas de sobra. Não consumir o mesmo recurso novamente ao instalar o objeto visual.
+O objetivo antigo de 20 ferro, 20 cobre, 4 placas e 10 matérias orgânicas não é o objetivo vigente da introdução. As sobras antes calculadas (4 ferro, 4 cobre, 2 matérias orgânicas e 2 placas) também não se aplicam automaticamente ao circuito de 05/11. Não consumir o mesmo recurso novamente ao instalar o objeto visual.
 
 Proposta de bolsa inicial: 4 espaços para materiais, cada um com pilha de até 30 unidades de um tipo. Isso comporta toda a carga prevista. Munição tem reserva própria e minas/barreiras ficam no compartimento de dispositivos. A expansão da bolsa fará sentido com a introdução de novos materiais e expedições maiores.
 
@@ -237,19 +239,19 @@ As falas sobre placas abaixo pertencem à futura etapa de fabricação; não blo
 
 Ao atingir quatro placas: “Essas mesmo. Temos o alumínio necessário.” Se a carga inteira estiver completa, acrescenta: “Leve os materiais até a nave.” Se faltarem outros recursos, informar exatamente quais, sem anunciar conclusão prematura.
 
-Se as placas já tiverem sido coletadas antes do fim das hordas, usar fala que reconhece isso. Acompanhar quantidades na HUD. Em cada etapa, exigir apenas seu objetivo para o retorno: na primeira visita, cobre suficiente (quota em definição), sem exigir placas ou a receita da máquina; a nave pode ser localizada/interagida antes, mas mostra os materiais faltantes. Não gerar novas hordas durante essa busca final. Em revisitas, não repetir a exigência/tutorial da máquina.
+Se as placas já tiverem sido coletadas antes do fim das hordas, usar fala que reconhece isso. Acompanhar quantidades na HUD. Em cada etapa, exigir apenas seu objetivo para o retorno: na primeira visita, quatro cobres informados pelo Engenheiro; na segunda, dez matérias orgânicas informadas por EDEN, sem exigir placas ou a receita da máquina; a nave pode ser localizada/interagida antes, mas mostra os materiais faltantes. Não gerar novas hordas durante essa busca final. Em revisitas, não repetir a exigência/tutorial da máquina.
 
 Derrota: eliminar loot temporário, drops, inimigos, dispositivos colocados e progresso das ondas; reiniciar a expedição do começo. Preservar progresso já consolidado no hub. Sem save no meio das hordas nesta versão. Resgate intermediário fica no roadmap de missões maiores.
 
 ### 7.5 Retorno e transformação de Marte
 
-1. Consolidar a carga da expedição e seu objetivo uma única vez. O primeiro retorno por cobre leva ao circuito no hub e à nova visita com espada; as ações desse circuito ainda serão definidas. Os passos de fabricação abaixo são posteriores, sem presumir que ocorrem nessa primeira volta.
+1. Consolidar a carga da expedição e seu objetivo uma única vez. O primeiro retorno por quatro cobres permite ligar EDEN e três salas; depois, EDEN orienta a Oficina/espada e a nova visita por dez matérias orgânicas, que permite ligar o sintetizador e as salas restantes indicadas no contrato. Os passos de fabricação abaixo pertencem à visão posterior de diamantes, sem presumir que ocorrem nessas primeiras voltas.
 2. No laboratório, consumir a receita uma única vez e instalar a grande máquina de síntese de diamante. Proposta visual: novo volume central, iluminação própria, conexões de energia e animação de funcionamento, mantendo corredores navegáveis.
 3. Demonstrar a primeira produção de diamante, conforme a regra de carbono escolhida.
 4. Mais adiante, diamante e componentes ainda a definir permitem fabricar a máquina de construção espacial.
-5. Essa máquina e recursos, incluindo matéria orgânica, permitem construir a **estufa**, primeira unidade produtiva da sociedade.
+5. A visão anterior ligava essa máquina à construção da estufa. No circuito vigente, a Estufa já acende após ligar o sintetizador orgânico; construção produtiva/expansões futuras precisam ser reconciliadas sem exigir reconstruir a estufa para concluir a introdução.
 
-A máquina do laboratório é uma grande mudança visual na futura etapa de fabricação; não é requisito automático da primeira volta por cobre. A estufa é a primeira construção produtiva subsequente; não assumir que ambas devem ser concluídas com o loot da mesma missão. Custos e número de expedições até a estufa ainda serão definidos. O benefício sugerido para ela é produzir insumos biológicos para a colônia, sujeito à escolha do autor.
+A máquina do laboratório é uma grande mudança visual na futura etapa de fabricação; não é requisito automático da primeira volta por cobre. A ativação inicial da Estufa está definida no segundo retorno; sua produção completa e futuras expansões ainda precisam de custos e efeitos próprios. O benefício sugerido para ela é produzir insumos biológicos para a colônia, sujeito à escolha do autor.
 
 Persistir máquina instalada, receitas consumidas e construções concluídas. Recarregar a página ou repetir a missão não pode duplicar máquinas, recompensas ou cobrar novamente a instalação já feita.
 
@@ -281,7 +283,7 @@ Detalhar tarefas para: base local → estados de expedição → combate e ondas
 - [ ] Tutorial sempre fornece recursos suficientes sem depender de RNG.
 - [ ] Placas e depósitos são alcançáveis; loot não desaparece antes da extração.
 - [ ] Coletar placas antecipadamente atualiza corretamente objetivos e falas.
-- [ ] Nave e rádio orientam o retorno pelo objetivo da etapa atual; o primeiro retorno exige apenas o cobre definido para essa visita, sem bloqueio pela receita posterior da máquina.
+- [ ] Nave e rádio orientam o retorno pelo objetivo da etapa atual; o primeiro retorno exige quatro cobres e o segundo dez matérias orgânicas, sem bloqueio pela receita posterior da máquina.
 - [ ] Derrota não deposita loot; retry restaura a missão sem entidades residuais.
 - [ ] Munição e dispositivos não disputam espaço com os materiais.
 - [ ] Minas e barreiras funcionam sem bloquear permanentemente navegação ou conclusão de ondas.

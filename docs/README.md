@@ -29,7 +29,7 @@ S6.16. O encerramento de S2 não encerra os Sprints 3/4/6 completos.
 
 ## Sprint 3 em execução
 
-[Escopo e lacunas](sprint-3/RELATORIO.md) · [Primeira entrega: spawn seguro](handoffs/s3.4-spawn-seguro.md)
+[Circuito inicial definido pelo autor](sprint-3/CIRCUITO_INICIAL.md) · [Escopo e lacunas](sprint-3/RELATORIO.md) · [Primeira entrega: spawn seguro](handoffs/s3.4-spawn-seguro.md)
 · [Roteiro manual](sprint-3/VALIDACAO_MANUAL.md). Implementação não equivale a aceite.
 
 ## Consultar por assunto

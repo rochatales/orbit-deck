@@ -14,22 +14,24 @@ andamento local da tarefa, sem marcar checkboxes oficiais.
 
 ## Decisão do autor · primeiro circuito
 
-- Primeiro combate com **4 Patrol comuns no total**, um por esquina próxima ao
-  quarteirão do jogador. Confirmação expressa: “4 no total, um por esquina”.
-- EDEN avisa no rádio que já há cobre suficiente; o jogador retorna a Marte.
-- Em Marte, cumpre um circuito de gameplay que o orienta a retornar com a espada.
-  Ações do circuito, concessão/disponibilidade da espada e quantidade de cobre ainda
-  não estão definidas nesta entrega; a quota e as ações foram solicitadas ao autor.
-  Quatro Patrol atualmente entregam quatro cobres. A arma referida como espada
-  corresponde ao facão já existente; nenhuma nova arma/arte foi criada.
-- Nova visita: pequenos mutantes em ondas de **4 e 6**. Só depois entram as
-  quatro hordas atuais. A adaptação à evolução futura ainda não tem regra implementada.
-- As quatro hordas permanecem no save/modo de desenvolvimento, em encontros de
-  teste, sem representar a primeira expedição de uma introdução nova.
+[Contrato completo da introdução](CIRCUITO_INICIAL.md), informado nesta sessão:
 
-A decisão foi incorporada ao plano oficial e ao documento de design, com
-checkboxes pendentes. O runtime desta primeira entrega ainda conserva os encontros
-existentes; o circuito introdutório não está implementado nem aprovado por este relatório.
+1. Marte escuro/desativado, único NPC inicial **Engenheiro**, EDEN desligada.
+2. Primeira visita a Shanghai: **4 Patrol comuns**, um por esquina próxima ao
+   quarteirão; Engenheiro informa pelo rádio a quota de **4 cobres**, já no mapa.
+3. Retorno: ligar EDEN acende Sala de Controle, Data Center e Meeting Room.
+4. EDEN assume a orientação, explica a matéria orgânica dos mutantes e envia à
+   Oficina para receber do Engenheiro a espada/facão antes de voltar à Terra.
+5. Pequenos mutantes em ondas **4 e 6**, para coletar **10 matérias orgânicas**.
+   EDEN avisa que há o suficiente e pede retorno.
+6. Ligar o sintetizador orgânico acende Laboratório, Estufa e Food Storage.
+   Então começa a gameplay posterior de quatro hordas **13/26/32/44**.
+
+As quatro hordas e outras frentes permanecem no save de desenvolvimento. Evolução
+adaptativa é futura. História intermediária de EDEN, arte/apresentação do Engenheiro
+e detalhes de interação/consumo continuam pendentes; as quotas e ativações estão
+definidas. A decisão atualiza o plano e design sem encerrar checkboxes. O runtime
+desta entrega ainda não implementa a introdução separada nem apaga Marte no save dev.
 
 ## Escopo confrontado com o runtime
 
@@ -57,7 +59,7 @@ acima, sem aplicar o antigo teto de oito ou sobrescrever o save de desenvolvimen
 1. S3.4 e parte de S3.1: spawn seguro e fila, revisão e validação do autor.
 2. S3.1/S3.2/S3.9 e ligação com S4.4/S4.5/S4.7: introdução separada do modo de teste,
    quatro Patrol por esquinas, orientação por cobre, retorno e nova visita com a espada.
-   Fechar primeiro as ações do circuito no hub e sua quota; não inventar progressão.
+   Conectar os objetivos definidos de quatro cobres/dez matérias orgânicas às ativações do hub (S5.1–S5.5), sem inventar custos adicionais ou alterar o save dev.
 3. S3.5–S3.7: minas, barreiras e implantação com navegação segura.
 4. S3.8–S3.12: ajustar suprimentos/feedback e validar o ciclo completo.
 
@@ -65,6 +67,10 @@ Atalhos atuais de rifle/facão/kit preservados. As escolhas de interação dos
 dispositivos precisam ficar documentadas antes do playtest.
 Vídeos de transição no loading da navegação da aeronave continuam com o autor,
 S6.16, fora desta rodada.
+
+O Engenheiro/estado inicial e as ativações do hub são trabalho ligado a S4/S5/S6,
+com geometria provisória possível e arte final pendente; não declarar esses sistemas
+implementados só por fechar a parte de combate da S3.
 
 ## Verificação da primeira entrega
 

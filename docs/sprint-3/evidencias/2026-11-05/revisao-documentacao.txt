@@ -1,0 +1,26 @@
+**Os itens 1–4 foram resolvidos, mas a correção do item 3 não chegou a dois trechos que ainda o contradizem.** Li o parecer só pela cópia versionada, porque o acesso a `/tmp` foi negado, então não comparei os dois arquivos. Não executei testes ou build nem editei nada. O diff só altera documentação, sem runtime nem testes.
+
+## Itens do parecer
+
+| Item | Estado | Evidência |
+|---|---|---|
+| **1. Regras antigas no design** | Resolvido | A §8 marca 30/36/45 e o teto de oito como inativos (`docs/HORDA_SURVIVOR_AUDITORIA_E_PLANO.md:267-269`). |
+| **2. Contradições do plano** | Resolvido | Marco, escopo e tabela foram alinhados (`docs/HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md:59,82,131`), assim como a Fase 3 e a abertura da §7 (`docs/HORDA_SURVIVOR_AUDITORIA_E_PLANO.md:133,175`). |
+| **3. Primeiro retorno × S4** | Resolvido nos pontos citados | S4.4, S4.7 e a saída da S4 foram ajustadas (plano, linhas 252, 255 e 262), além de §7.4, §7.5 e §9 no design (linhas 236-240, 246 e 284) e de `docs/sprint-3/RELATORIO.md:58`. Os resíduos estão abaixo. |
+| **4. Confirmação no handoff** | Resolvido | `docs/handoffs/s3.4-spawn-seguro.md:60-66` registra os dois pareceres, explica por que nenhum rodou testes e deixa a confirmação final como pendente. |
+
+O item 5, fora do pedido, também avançou: "espada" e facão são a mesma arma no runtime (`src/characters/player/PlayerMachete.tsx:16`).
+
+## Novos problemas
+
+**Afetam o próximo recorte (S3.1/S3.2/S3.9):**
+1. **`docs/HORDA_SURVIVOR_AUDITORIA_E_PLANO.md:154`:** "Alumínio obrigatório na introdução e nave sinalizada após as hordas" segue marcado como decisão do autor (`[x]`). Isso contradiz as linhas 240 e 284, que não exigem placas no primeiro retorno.
+2. **`docs/HORDA_SURVIVOR_AUDITORIA_E_PLANO.md:157`:** "Máquina [...] após a primeira missão" também segue marcado como `[x]` e colide com a linha 252.
+3. **`docs/HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md:116`:** a aeronave só volta e ganha marcador "quando todas as hordas terminarem", e a linha 117 depende dessa aeronave já retornada. Lido ao pé da letra, isso bloqueia o retorno da primeira visita, que não tem hordas, e conflita com S4.7.
+
+**Menores:**
+
+4. **`docs/HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md:281`:** a saída da S5 ainda afirma as sobras 4/4/12/2 "com coleta total". Elas derivam dos totais 24/24/12/6, que a linha 262 agora trata como referência a rebalancear.
+5. **Disponibilidade da espada:** essa pendência só aparece em `docs/sprint-3/RELATORIO.md:21`. O handoff (linhas 16-17) e o plano (linha 224) listam apenas a quota de cobre e as ações do hub, embora S3.2 (plano, linha 230) já prescreva "com a espada".
+
+Eu corrigiria os itens 1–3 antes de iniciar o recorte, para que ele não siga uma regra antiga. Os itens 4–5 podem entrar no mesmo ajuste.
