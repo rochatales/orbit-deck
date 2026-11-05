@@ -2,66 +2,76 @@
 
 **O mundo acabou. A humanidade, não.**
 
-Nome oficial definido pelo autor em 25/10/2026 (nome de trabalho anterior: Horda Survivor).
+Protótipo local de exploração e combate. A humanidade vive em Marte e envia um
+explorador às ruínas da Terra. EDEN orienta a expedição pelo rádio. React, Vite,
+TypeScript, three/R3F, Rapier e zustand, sem backend.
 
-Protótipo local de exploração e combate: a humanidade vive em Marte e envia um explorador às ruínas da Terra. EDEN orienta a viagem pelo rádio.
+## Estado desta base · 05/11/2026
 
-## Estado atual — Sprint 2
+Sprint 2 encerrada por aceite do autor: S2.9 e etapa 6.5 aprovadas, 115/115 e
+retorno a Marte sem bloqueios. [Plano oficial](docs/HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md)
+· [Registro do fechamento](docs/sprint-2/SESSAO_FECHAMENTO_S0_S2.md).
 
-- Hub marciano com EDEN e deck físico de lançamento ao sul.
-- Embarque e desembarque independentes da partida.
-- Viagem Marte → Shanghai → Marte, com retorno ao mesmo deck.
-- Shanghai em blockout, com ruas, obstáculos e marcadores de futuros recursos.
-- Identidade e briefing salvos localmente; viagens não são persistidas. Reabrir retorna ao hub.
-- Sem backend, cadastro de clientes ou serviços MCP.
+- Colônia marciana com EDEN, Quartel/Laboratório atualizados, Oficina, Hangar e deck ARES-I.
+- Embarque/desembarque separados da viagem Marte → Shanghai → Marte.
+- Shanghai fase 01, com quatro tipos de inimigos e hordas 13 → 26 → 32 → 44 (115 no total).
+- Rifle laser, facão, Dash, kits médicos, munição, recursos, mochila e carga da aeronave.
+- Perfil/briefing e carga da aeronave têm save local. A tentativa a pé não é retomada após recarregar a página.
 
-Combate manual disponível em encontros de 1, 3 ou 5 robôs, com vida, munição finita, recarga e reinício após morte. Ondas, defesas automáticas, loot e fabricação entram nos próximos sprints. O retorno de Shanghai é livre nesta etapa de exploração e não concede recompensas.
+Os Sprints 3/4/6 têm entregas antecipadas; seus escopos completos, a extração
+obrigatória e a máquina do laboratório permanecem no plano. Os vídeos de transição
+nos intervalos de loading da navegação da aeronave são pendência do autor na S6.16.
+A aprovação desta base não publica nem integra branches automaticamente.
 
-## Executar
+## Executar e verificar
 
-Usar as dependências do lockfile do projeto (pnpm). Com dependências instaladas:
+Usar as dependências do lockfile do projeto (pnpm), preservando a stack atual.
+Com dependências instaladas:
 
 ```sh
 npm run dev -- --host 127.0.0.1 --port 5178
-```
-
-Abrir http://127.0.0.1:5178/. Para validar:
-
-```sh
 npm test
 npm run build
 npm run preview -- --host 127.0.0.1 --port 4173
+git diff --check
 ```
 
-## Controles e percurso
+Abrir [desenvolvimento](http://127.0.0.1:5178/) ou o
+[build de produção](http://127.0.0.1:4173/). Para medições opcionais, acrescentar
+`?perf` à URL de produção: painel com amostras de 10/30 s e download do JSON.
+rAF mede cadência do navegador, não tempo de GPU. O dev e as fixtures não são benchmark.
 
-- W/↑ avança na direção em que o personagem olha; S/↓ recua; A/D ou ←/→ deslocam para os lados dele. Shift: correr.
-- Mouse orienta o personagem em Marte e Shanghai. Q/C muda apenas a câmera.
-- Mouse: mirar; botão esquerdo: atirar (segure para disparos contínuos). R: recarregar.
-- Q/C: girar câmera.
-- Roda do mouse sobre o cenário ou +/−: zoom.
-- E: conversar, embarcar ou desembarcar; Escape: fechar conversa/pausar.
-- Na cabine, usar **Decolar para Shanghai** ou **Retornar a Marte**. Entrar na nave não dispara a viagem.
+## Controles
 
-Encontre EDEN ao norte do hub. Para o deck, siga ao sul através do complexo e da passagem externa. A nave fica na nova plataforma além do jardim. No retorno, desembarque no deck e caminhe de volta à colônia.
+| Entrada | Ação |
+|---|---|
+| W / ↑ | Correr na direção da mira |
+| S / ↓ | Recuar mantendo o corpo voltado à mira |
+| W + S | Parar; A/D não deslocam lateralmente |
+| Mouse / botão esquerdo | Mirar / usar a arma equipada em Shanghai |
+| 1 / 2 | Equipar rifle laser / facão |
+| R | Recarregar |
+| Espaço | Dash; duas cargas, recarga total em 5 s |
+| 3 | Usar kit médico guardado |
+| Q / C | Girar a câmera |
+| Roda do mouse / + / − | Zoom |
+| E | Conversar, interagir, embarcar/desembarcar |
+| B / F | Mochila / carga da aeronave, perto dela |
+| Escape / M | Fechar/pausar conforme contexto / som |
 
-## Testes
+Na nave, usar a ação de viagem para partir; entrar na cabine não inicia o voo.
+A volta a Marte continua livre nesta base e não conclui a extração obrigatória futura.
 
-Roteiro de validação manual: [Sprint 2](docs/sprint-2/VALIDACAO_MANUAL.md).
+## Documentação e assets
 
-`npm test` cobre combate, cadência, recarga, morte, pausa, perseguição, colisão dos tiros e as regras de viagem, migração de perfil, falhas de save, distância de interação e caminhos transitáveis dos mapas considerando obstáculos e raio do jogador.
+Começar pelo [índice de documentação](docs/README.md).
+[Assets e preservação](docs/ASSETS.md) distingue arquivos emitidos no build,
+referências de código/testes/ferramentas, fontes e backups.
 
-A página de desenvolvimento `/tests/browser-smoke.html` é uma fixture de QA fora do build de produção: prepara posições junto de EDEN/deck, mantém uma tecla pressionada por um segundo para verificar movimento e mede intervalos de requestAnimationFrame. Também oferece encontros com mira assistida por eventos de ponteiro e testes de pausa/foco. Não representa aprovação humana da jogabilidade, percurso manual completo ou benchmark de GPU. Usar outra porta/origem para isolar seu save de teste.
+O produto anterior MCP Office está em `archive/mcp-office/`. Seus documentos
+foram separados em `archive/mcp-office/docs/`; consulte o [índice histórico](docs/historico/README.md).
+Eles não definem controles, tarefas ou runtime do EXODEN.
 
-## Código e preservação
-
-- `src/combat/`: simulação, navegação, rifle, robôs e HUD.
-- `src/game/`: regras, configuração e geração de mapas.
-- `src/state/useExpeditionStore.ts`: sessão local e save versionado.
-- `src/npcs/scripts/eden.ts`: texto local de EDEN.
-- `archive/mcp-office/`: backend, fontes e assets inativos do produto anterior. Não integra o runtime.
-- `docs/sprint-0/`: baseline e instruções de preservação.
-- `docs/sprint-1/`: relatório, inventário do arquivo e evidências.
-- `docs/sprint-2/`: implementação e checklist de validação manual.
-
-O snapshot recuperável do Sprint 0 está documentado em `docs/sprint-0/RELATORIO.md`. A arte original de produção permanece preservada; somente exports inativos foram arquivados.
+`tests/browser-smoke.html` e outras fixtures são ferramentas de QA fora do build
+normal. Validação visual e jogabilidade são do autor; evidências e relatórios
+ficam nos handoffs e nas pastas de sprint. [Fluxo de trabalho](docs/AI_WORKFLOW.md).

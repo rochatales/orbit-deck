@@ -1,5 +1,10 @@
 # Handoff — fechamento das Sprints 0 e 2
 
+> **Fechamento posterior · 05/11/2026:** Sprint 0 encerrada em 25/10; Sprint 2
+> encerrada com S2.9 e etapa 6.5 aprovadas, 115/115 e retorno a Marte sem bloqueios.
+> [Sessão atual](../sprint-2/SESSAO_FECHAMENTO_S0_S2.md). Este kit de preparação e
+> suas paradas pendentes são históricos; não usar seus endereços como base atual.
+
 Preparação e kit: 24/10/2026. **Parada 1 — kit ARES-I pronto, após decisão do autor sobre alcance de contato; sessão e aceites pendentes.**
 
 | Campo | Valor |

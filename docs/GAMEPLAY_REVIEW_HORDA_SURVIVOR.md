@@ -1,5 +1,10 @@
 # Revisão de gameplay incorporada ao EXODEN
 
+> **Leitura atual · 05/11/2026:** esta revisão registra a seleção técnica de 29/09.
+> Implementação e checkboxes vêm do [plano oficial](HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md);
+> S2.9–S2.12 já foram concluídas e a Sprint 2 foi encerrada pelo autor.
+> O estado inicial e as medidas abaixo permanecem como histórico da análise.
+
 Data: 29/09/2026. Status: decisões de planejamento incorporadas; novos itens ainda não implementados.
 
 Plano de execução e status de cada tarefa: [Sprints do protótipo Shanghai](HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md). Este documento explica a seleção; não cria outra numeração de sprints.

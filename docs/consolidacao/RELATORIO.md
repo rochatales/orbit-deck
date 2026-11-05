@@ -1,5 +1,9 @@
 # Consolidação local do piloto e colaboração
 
+> **Relatório histórico.** Refere-se à consolidação na data registrada abaixo.
+> Para execução e aceites atuais, usar o [plano](../HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md)
+> e a [sessão final da Sprint 2](../sprint-2/SESSAO_FECHAMENTO_S0_S2.md).
+
 Data: 29/09/2026. Branch de integração: `rochatales/horda-survivor`.
 
 ## Escopo

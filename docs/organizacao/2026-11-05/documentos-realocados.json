@@ -1,0 +1,235 @@
+{
+  "date": "2026-11-05",
+  "base": "6b67f1efaee17b5da570c7140625c51f7e0c6e4a",
+  "method": "28 documentos legados (26 de docs e dois da raiz) arquivados byte a byte nos mesmos destinos já preparados pelo autor no índice do checkout principal. SHA-256 iguais ao original da base e ao índice do autor. Nenhum arquivo preexistente de archive foi alterado; fontes, backups e não rastreados preservados. Checkout principal somente consultado.",
+  "moves": [
+    {
+      "before": "docs/ART_DIRECTION.md",
+      "after": "archive/mcp-office/docs/ART_DIRECTION.md",
+      "sha256Before": "b33847d7046ed3e48e16b8fb7bf7e4eb5b0168a303426da80d52d98ecb072ab5",
+      "sha256After": "b33847d7046ed3e48e16b8fb7bf7e4eb5b0168a303426da80d52d98ecb072ab5",
+      "identical": true,
+      "mainStagedSha256": "b33847d7046ed3e48e16b8fb7bf7e4eb5b0168a303426da80d52d98ecb072ab5"
+    },
+    {
+      "before": "docs/BRAND_BRAIN_INTERACTION_SCREEN_ROADMAP.md",
+      "after": "archive/mcp-office/docs/BRAND_BRAIN_INTERACTION_SCREEN_ROADMAP.md",
+      "sha256Before": "931b3b8e6541b236edccc723a016784a55f93b6d25feea2234236f698ca742e4",
+      "sha256After": "931b3b8e6541b236edccc723a016784a55f93b6d25feea2234236f698ca742e4",
+      "identical": true,
+      "mainStagedSha256": "931b3b8e6541b236edccc723a016784a55f93b6d25feea2234236f698ca742e4"
+    },
+    {
+      "before": "docs/CHARACTERS.md",
+      "after": "archive/mcp-office/docs/CHARACTERS.md",
+      "sha256Before": "93fa2583b1e6ff6b55430fda651a2b7206f70614a5f3b4e23c65d64d835143bc",
+      "sha256After": "93fa2583b1e6ff6b55430fda651a2b7206f70614a5f3b4e23c65d64d835143bc",
+      "identical": true,
+      "mainStagedSha256": "93fa2583b1e6ff6b55430fda651a2b7206f70614a5f3b4e23c65d64d835143bc"
+    },
+    {
+      "before": "docs/CHARACTER_AND_NPC_DESIGN.md",
+      "after": "archive/mcp-office/docs/CHARACTER_AND_NPC_DESIGN.md",
+      "sha256Before": "9adad39d5a1eacde76ce2e92cc554b8d43f166ff3144d4d9bb6bfbc3bb421b62",
+      "sha256After": "9adad39d5a1eacde76ce2e92cc554b8d43f166ff3144d4d9bb6bfbc3bb421b62",
+      "identical": true,
+      "mainStagedSha256": "9adad39d5a1eacde76ce2e92cc554b8d43f166ff3144d4d9bb6bfbc3bb421b62"
+    },
+    {
+      "before": "docs/CHARACTER_ASSET_PIPELINE.md",
+      "after": "archive/mcp-office/docs/CHARACTER_ASSET_PIPELINE.md",
+      "sha256Before": "b5dc03cbf14622370babe706fb992784f6e9029e29b377ca6363cfd755513911",
+      "sha256After": "b5dc03cbf14622370babe706fb992784f6e9029e29b377ca6363cfd755513911",
+      "identical": true,
+      "mainStagedSha256": "b5dc03cbf14622370babe706fb992784f6e9029e29b377ca6363cfd755513911"
+    },
+    {
+      "before": "docs/CHARACTER_POLISH_CHECKLIST.md",
+      "after": "archive/mcp-office/docs/CHARACTER_POLISH_CHECKLIST.md",
+      "sha256Before": "153fab9db08fbec931d2d80ff2829434350c36a4e06b8e4da62a50e8a13322ad",
+      "sha256After": "153fab9db08fbec931d2d80ff2829434350c36a4e06b8e4da62a50e8a13322ad",
+      "identical": true,
+      "mainStagedSha256": "153fab9db08fbec931d2d80ff2829434350c36a4e06b8e4da62a50e8a13322ad"
+    },
+    {
+      "before": "docs/GAME_DESIGN.md",
+      "after": "archive/mcp-office/docs/GAME_DESIGN.md",
+      "sha256Before": "1a8a4dd3e2af5f033dd81782c17d86800f3b6ad1e4f61dc71989f7213290df46",
+      "sha256After": "1a8a4dd3e2af5f033dd81782c17d86800f3b6ad1e4f61dc71989f7213290df46",
+      "identical": true,
+      "mainStagedSha256": "1a8a4dd3e2af5f033dd81782c17d86800f3b6ad1e4f61dc71989f7213290df46"
+    },
+    {
+      "before": "docs/GAME_DESIGN_OVERVIEW.md",
+      "after": "archive/mcp-office/docs/GAME_DESIGN_OVERVIEW.md",
+      "sha256Before": "274687c9d5434a852888864dc9d54ce6b5c9581677615a641c8c318fb13a5565",
+      "sha256After": "274687c9d5434a852888864dc9d54ce6b5c9581677615a641c8c318fb13a5565",
+      "identical": true,
+      "mainStagedSha256": "274687c9d5434a852888864dc9d54ce6b5c9581677615a641c8c318fb13a5565"
+    },
+    {
+      "before": "docs/GLB_CHARACTER_ANIMATION_GUIDE.md",
+      "after": "archive/mcp-office/docs/GLB_CHARACTER_ANIMATION_GUIDE.md",
+      "sha256Before": "a14e68b5736833fe188f210046b291c22cbc939e898c5601bd341f2eee11b3f2",
+      "sha256After": "a14e68b5736833fe188f210046b291c22cbc939e898c5601bd341f2eee11b3f2",
+      "identical": true,
+      "mainStagedSha256": "a14e68b5736833fe188f210046b291c22cbc939e898c5601bd341f2eee11b3f2"
+    },
+    {
+      "before": "docs/ICON_SYSTEM.md",
+      "after": "archive/mcp-office/docs/ICON_SYSTEM.md",
+      "sha256Before": "ef09449c5b29b24aeb48288ffbab4832ffa7dde9b5f1bf3754649c435719865b",
+      "sha256After": "ef09449c5b29b24aeb48288ffbab4832ffa7dde9b5f1bf3754649c435719865b",
+      "identical": true,
+      "mainStagedSha256": "ef09449c5b29b24aeb48288ffbab4832ffa7dde9b5f1bf3754649c435719865b"
+    },
+    {
+      "before": "docs/IMPLEMENTATION_CHECKLIST.md",
+      "after": "archive/mcp-office/docs/IMPLEMENTATION_CHECKLIST.md",
+      "sha256Before": "4591951a0d7bd94b974b080480bb47c2b704a42c561784af8a899bf9d3323dd4",
+      "sha256After": "4591951a0d7bd94b974b080480bb47c2b704a42c561784af8a899bf9d3323dd4",
+      "identical": true,
+      "mainStagedSha256": "4591951a0d7bd94b974b080480bb47c2b704a42c561784af8a899bf9d3323dd4"
+    },
+    {
+      "before": "docs/MAP_AND_ENVIRONMENT.md",
+      "after": "archive/mcp-office/docs/MAP_AND_ENVIRONMENT.md",
+      "sha256Before": "63cc741a531d3a9a922a76ae40d702767738ace4dcd425070c7e5c82c7b71948",
+      "sha256After": "63cc741a531d3a9a922a76ae40d702767738ace4dcd425070c7e5c82c7b71948",
+      "identical": true,
+      "mainStagedSha256": "63cc741a531d3a9a922a76ae40d702767738ace4dcd425070c7e5c82c7b71948"
+    },
+    {
+      "before": "docs/MAP_AND_ENVIRONMENT_DIRECTION.md",
+      "after": "archive/mcp-office/docs/MAP_AND_ENVIRONMENT_DIRECTION.md",
+      "sha256Before": "70fb2298cd1399e26fc4540b82c9294e33ddc6a27de17187bd5b839c99ee2b0e",
+      "sha256After": "70fb2298cd1399e26fc4540b82c9294e33ddc6a27de17187bd5b839c99ee2b0e",
+      "identical": true,
+      "mainStagedSha256": "70fb2298cd1399e26fc4540b82c9294e33ddc6a27de17187bd5b839c99ee2b0e"
+    },
+    {
+      "before": "docs/MAP_OPTIMIZATION_PASS.md",
+      "after": "archive/mcp-office/docs/MAP_OPTIMIZATION_PASS.md",
+      "sha256Before": "e96223cc1d58d4dd2e994a94d99d7874802142f85b0a8688fe86107ee7f8fe94",
+      "sha256After": "e96223cc1d58d4dd2e994a94d99d7874802142f85b0a8688fe86107ee7f8fe94",
+      "identical": true,
+      "mainStagedSha256": "e96223cc1d58d4dd2e994a94d99d7874802142f85b0a8688fe86107ee7f8fe94"
+    },
+    {
+      "before": "docs/MVP_SCOPE.md",
+      "after": "archive/mcp-office/docs/MVP_SCOPE.md",
+      "sha256Before": "bbefffcf563a2f7dcca8f76a91b7760b074b6af162b7c4448e341f2a2e2c80fb",
+      "sha256After": "bbefffcf563a2f7dcca8f76a91b7760b074b6af162b7c4448e341f2a2e2c80fb",
+      "identical": true,
+      "mainStagedSha256": "bbefffcf563a2f7dcca8f76a91b7760b074b6af162b7c4448e341f2a2e2c80fb"
+    },
+    {
+      "before": "docs/ORBIT_DECK_MVP_PLAN.md",
+      "after": "archive/mcp-office/docs/ORBIT_DECK_MVP_PLAN.md",
+      "sha256Before": "92d1b04d776718361a2503dd18e81278b82a5214ad84464a1f8f2569652c0b06",
+      "sha256After": "92d1b04d776718361a2503dd18e81278b82a5214ad84464a1f8f2569652c0b06",
+      "identical": true,
+      "mainStagedSha256": "92d1b04d776718361a2503dd18e81278b82a5214ad84464a1f8f2569652c0b06"
+    },
+    {
+      "before": "docs/ORBIT_DECK_UX_PLAN.md",
+      "after": "archive/mcp-office/docs/ORBIT_DECK_UX_PLAN.md",
+      "sha256Before": "1b520dc033618f61f32e6f761ed5c7fdf26d569dbbd8f22af8887f72462c4534",
+      "sha256After": "1b520dc033618f61f32e6f761ed5c7fdf26d569dbbd8f22af8887f72462c4534",
+      "identical": true,
+      "mainStagedSha256": "1b520dc033618f61f32e6f761ed5c7fdf26d569dbbd8f22af8887f72462c4534"
+    },
+    {
+      "before": "docs/PIXEL_INTERACTION_VISUAL_ROADMAP.md",
+      "after": "archive/mcp-office/docs/PIXEL_INTERACTION_VISUAL_ROADMAP.md",
+      "sha256Before": "377b6f6e5a571412e44171736186cae614f2e3ce2a319ad2817f72a709c5bb35",
+      "sha256After": "377b6f6e5a571412e44171736186cae614f2e3ce2a319ad2817f72a709c5bb35",
+      "identical": true,
+      "mainStagedSha256": "377b6f6e5a571412e44171736186cae614f2e3ce2a319ad2817f72a709c5bb35"
+    },
+    {
+      "before": "docs/PLAYER_CHARACTER_STYLE.md",
+      "after": "archive/mcp-office/docs/PLAYER_CHARACTER_STYLE.md",
+      "sha256Before": "ae9d743f8b99961df2e680752ef1fb8424237b2180774bb971941c5d34dc1d93",
+      "sha256After": "ae9d743f8b99961df2e680752ef1fb8424237b2180774bb971941c5d34dc1d93",
+      "identical": true,
+      "mainStagedSha256": "ae9d743f8b99961df2e680752ef1fb8424237b2180774bb971941c5d34dc1d93"
+    },
+    {
+      "before": "docs/PLAYER_JOURNEY_UPDATE_PLAN.md",
+      "after": "archive/mcp-office/docs/PLAYER_JOURNEY_UPDATE_PLAN.md",
+      "sha256Before": "c4730e660a04a48a02dee2adad32c78a2cb573a6fcfa4b6772bebe1cf8cf3766",
+      "sha256After": "c4730e660a04a48a02dee2adad32c78a2cb573a6fcfa4b6772bebe1cf8cf3766",
+      "identical": true,
+      "mainStagedSha256": "c4730e660a04a48a02dee2adad32c78a2cb573a6fcfa4b6772bebe1cf8cf3766"
+    },
+    {
+      "before": "docs/PLAYER_MOVEMENT_FEEL.md",
+      "after": "archive/mcp-office/docs/PLAYER_MOVEMENT_FEEL.md",
+      "sha256Before": "c3bc3e7481cb700bce3de889d4142ad620636b4d067734df9180621e3c0b1854",
+      "sha256After": "c3bc3e7481cb700bce3de889d4142ad620636b4d067734df9180621e3c0b1854",
+      "identical": true,
+      "mainStagedSha256": "c3bc3e7481cb700bce3de889d4142ad620636b4d067734df9180621e3c0b1854"
+    },
+    {
+      "before": "docs/ROADMAP.md",
+      "after": "archive/mcp-office/docs/ROADMAP.md",
+      "sha256Before": "a46ea1c2f556ae0ffad3edba046976fb94b98e5c4a4a555cdfe1f5458ef1da93",
+      "sha256After": "a46ea1c2f556ae0ffad3edba046976fb94b98e5c4a4a555cdfe1f5458ef1da93",
+      "identical": true,
+      "mainStagedSha256": "a46ea1c2f556ae0ffad3edba046976fb94b98e5c4a4a555cdfe1f5458ef1da93"
+    },
+    {
+      "before": "docs/STORY_AND_NARRATIVE.md",
+      "after": "archive/mcp-office/docs/STORY_AND_NARRATIVE.md",
+      "sha256Before": "da8361ca11663b2f3529c529e0145d13d092247b2aeb52e99b97cc304eb50e1c",
+      "sha256After": "da8361ca11663b2f3529c529e0145d13d092247b2aeb52e99b97cc304eb50e1c",
+      "identical": true,
+      "mainStagedSha256": "da8361ca11663b2f3529c529e0145d13d092247b2aeb52e99b97cc304eb50e1c"
+    },
+    {
+      "before": "docs/STORY_AND_NARRATIVE_DIRECTION.md",
+      "after": "archive/mcp-office/docs/STORY_AND_NARRATIVE_DIRECTION.md",
+      "sha256Before": "72ce9962c5034dcd99468f2896d64dc82d7f89a7ef1557dd0127cd6da630b641",
+      "sha256After": "72ce9962c5034dcd99468f2896d64dc82d7f89a7ef1557dd0127cd6da630b641",
+      "identical": true,
+      "mainStagedSha256": "72ce9962c5034dcd99468f2896d64dc82d7f89a7ef1557dd0127cd6da630b641"
+    },
+    {
+      "before": "docs/plano-acao-console-smartlab.md",
+      "after": "archive/mcp-office/docs/plano-acao-console-smartlab.md",
+      "sha256Before": "3d60c41e29dd3086653daf9d909e3d635c85b4cd514c704e6c992dfc6a4f5e5a",
+      "sha256After": "3d60c41e29dd3086653daf9d909e3d635c85b4cd514c704e6c992dfc6a4f5e5a",
+      "identical": true,
+      "mainStagedSha256": "3d60c41e29dd3086653daf9d909e3d635c85b4cd514c704e6c992dfc6a4f5e5a"
+    },
+    {
+      "before": "docs/plano-implantacao-brand-brain-smartlab.md",
+      "after": "archive/mcp-office/docs/plano-implantacao-brand-brain-smartlab.md",
+      "sha256Before": "e740f03c1fb79b4fedc645011560cd29406f4656b970cfa469176ddd19ee30b3",
+      "sha256After": "e740f03c1fb79b4fedc645011560cd29406f4656b970cfa469176ddd19ee30b3",
+      "identical": true,
+      "mainStagedSha256": "e740f03c1fb79b4fedc645011560cd29406f4656b970cfa469176ddd19ee30b3"
+    },
+    {
+      "before": "MCP_GAME_VISION.md",
+      "after": "archive/mcp-office/raiz/MCP_GAME_VISION.md",
+      "sha256Before": "2d6a6b28537c6fc3d2bcda58e7ecc115d7d99521c6ffa36198ef20a7e0dc5cd8",
+      "sha256After": "2d6a6b28537c6fc3d2bcda58e7ecc115d7d99521c6ffa36198ef20a7e0dc5cd8",
+      "identical": true,
+      "mainStagedSha256": "2d6a6b28537c6fc3d2bcda58e7ecc115d7d99521c6ffa36198ef20a7e0dc5cd8"
+    },
+    {
+      "before": "PROMPT_REVISAO_INFRA_SEGURANCA.md",
+      "after": "archive/mcp-office/raiz/PROMPT_REVISAO_INFRA_SEGURANCA.md",
+      "sha256Before": "ee7afc02dc8a8afced95d63d3b731593a613e31bf1b3723d2f6b864373b5d6ee",
+      "sha256After": "ee7afc02dc8a8afced95d63d3b731593a613e31bf1b3723d2f6b864373b5d6ee",
+      "identical": true,
+      "mainStagedSha256": "ee7afc02dc8a8afced95d63d3b731593a613e31bf1b3723d2f6b864373b5d6ee"
+    }
+  ],
+  "linkChanges": [],
+  "addedCompatibilityFiles": [
+    "archive/mcp-office/MCP_GAME_VISION.md"
+  ]
+}

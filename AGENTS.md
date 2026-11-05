@@ -34,7 +34,8 @@ parte do piloto.
 Use apenas a numeração do plano oficial (S0.x, S1.x, S2.9 etc.). A sequência
 antiga de sprints 0–8 de `docs/GAMEPLAY_REVIEW_SPRINTS.md` descreve o MCP
 Office e **não** deve ser adotada. Os docs do MCP Office (`ROADMAP.md`,
-`CHARACTERS.md` etc.) são históricos.
+`CHARACTERS.md` etc.) são históricos. Ficam em `archive/mcp-office/docs/`;
+o ponto de entrada da documentação atual é `docs/README.md`.
 
 ## Comandos
 

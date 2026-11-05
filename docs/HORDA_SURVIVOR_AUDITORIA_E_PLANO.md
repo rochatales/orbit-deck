@@ -1,5 +1,9 @@
 # Orbit Deck — Auditoria, direção narrativa e plano de refatoração
 
+> **Navegação · 05/11/2026:** decisões de design e auditoria da base de 28/09,
+> preservadas. Para execução, controles atuais e conclusão das tarefas, consultar
+> o [plano oficial](HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md) e o [índice](README.md).
+
 Atualizado em: 28/09/2026. Base auditada: `main`, commit `99ab0d7`, três commits no histórico.
 
 Esta revisão substitui, para o planejamento da nova fase, o documento em texto “Orbit Deck — Auditoria do Projeto & Plano de Refatoração”. Consolida a auditoria do código e a premissa informada pelo autor. As fases abaixo são trabalho proposto, não implementação concluída. Documentos anteriores do produto MCP devem ser tratados como contexto histórico quando conflitarem com esta direção.

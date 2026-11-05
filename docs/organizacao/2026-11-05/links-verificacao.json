@@ -1,0 +1,56 @@
+{
+  "base": "6b67f1efaee17b5da570c7140625c51f7e0c6e4a",
+  "checkedLinks": 736,
+  "brokenLinksAfter": [],
+  "brokenLinksBefore": [
+    {
+      "file": "archive/mcp-office/README-original.md",
+      "line": 91,
+      "target": "./docs/",
+      "destination": "archive/mcp-office/docs"
+    },
+    {
+      "file": "archive/mcp-office/README-original.md",
+      "line": 93,
+      "target": "docs/ROADMAP.md",
+      "destination": "archive/mcp-office/docs/ROADMAP.md"
+    },
+    {
+      "file": "archive/mcp-office/README-original.md",
+      "line": 94,
+      "target": "docs/GAME_DESIGN.md",
+      "destination": "archive/mcp-office/docs/GAME_DESIGN.md"
+    },
+    {
+      "file": "archive/mcp-office/README-original.md",
+      "line": 95,
+      "target": "docs/STORY_AND_NARRATIVE.md",
+      "destination": "archive/mcp-office/docs/STORY_AND_NARRATIVE.md"
+    },
+    {
+      "file": "archive/mcp-office/README-original.md",
+      "line": 96,
+      "target": "docs/ART_DIRECTION.md",
+      "destination": "archive/mcp-office/docs/ART_DIRECTION.md"
+    },
+    {
+      "file": "archive/mcp-office/README-original.md",
+      "line": 97,
+      "target": "docs/MAP_AND_ENVIRONMENT.md",
+      "destination": "archive/mcp-office/docs/MAP_AND_ENVIRONMENT.md"
+    },
+    {
+      "file": "archive/mcp-office/README-original.md",
+      "line": 98,
+      "target": "docs/CHARACTERS.md",
+      "destination": "archive/mcp-office/docs/CHARACTERS.md"
+    },
+    {
+      "file": "archive/mcp-office/README-original.md",
+      "line": 100,
+      "target": "./MCP_GAME_VISION.md",
+      "destination": "archive/mcp-office/MCP_GAME_VISION.md"
+    }
+  ],
+  "method": "Links Markdown locais fora de code fences; arquivos/diretórios rastreados. Não valida âncoras nem URLs externas."
+}

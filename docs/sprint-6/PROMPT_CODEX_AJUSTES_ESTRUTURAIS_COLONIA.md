@@ -1,5 +1,10 @@
 # Prompt para o Codex — S6.12: ajustes estruturais na colônia
 
+> **Pedido já executado na base `00ab557`.** Resultado no
+> [handoff estrutural](../handoffs/s6.12-ajustes-estruturais-colonia.md).
+> Este prompt é referência da entrega, não uma nova autorização para executar.
+> O fechamento de S2 não encerra a S6.12 completa.
+
 ```text
 Tarefa: S6.12, ajustes estruturais de Laboratório, Meeting Room e Data Center, pedido do autor em 04/11/2026.
 Só correções visuais: sem mudar implantação, portas, colisores, câmera, física, controles ou cabine da aeronave.

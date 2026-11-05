@@ -1,5 +1,11 @@
 # Plano de ação — consolidação de 19/10/2026 e fechamento das Sprints 0 e 2
 
+> **Plano histórico de outubro.** A execução desta sequência foi seguida por
+> entregas e aceites posteriores. Sprint 0 encerrada em 25/10 e Sprint 2 em 05/11.
+> [Estado vigente](../HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md) ·
+> [Sessão final](../sprint-2/SESSAO_FECHAMENTO_S0_S2.md). Não reexecutar o prompt
+> ou os comandos deste plano sem uma nova tarefa e base explícitas.
+
 Pedido do autor em 19/10/2026: consolidar num único ambiente as últimas atualizações (mapa
 novo, itens, inimigos e modos de combate) e, depois, fechar as Sprints 0 e 2. O inventário do
 que estava fora da integração foi levantado pelo Claude e validado pelo autor, com um ajuste:

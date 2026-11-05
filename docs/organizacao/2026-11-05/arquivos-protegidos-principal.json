@@ -1,0 +1,3105 @@
+{
+  "date": "2026-11-05",
+  "checkout": "/Users/rochatales/Automations/game-workplace",
+  "head": "b54162c359ad539db34e25f6bc61c6184a87e58a",
+  "method": "Somente nomes e lstat dos arquivos fora do índice em art-source, assets soltos da raiz e DOCX em docs. Inclui ignorados presentes nessas áreas; não segue symlinks nem percorre outros worktrees/archive. Conteúdo não copiado, removido ou reescrito.",
+  "limits": [
+    "Não é um snapshot/backup, nem comparação com o manifesto do backup S0.2.",
+    "Sem SHA-256 neste levantamento de metadados; não autoriza nenhuma limpeza desses arquivos.",
+    "Não inclui archive, outros worktrees ou o restante do computador."
+  ],
+  "summary": {
+    "files": 441,
+    "bytes": 547934821,
+    "action": "preservar todos"
+  },
+  "files": [
+    {
+      "file": "art-source/astro-explorer/RELATORIO.md",
+      "bytes": 6727,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/blend/astro_explorer_v001.blend",
+      "bytes": 1070462,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/blend/astro_explorer_v001.blend1",
+      "bytes": 1068466,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/export/astro_explorer_v001.glb",
+      "bytes": 2138516,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/export/astro_explorer_v001_report.json",
+      "bytes": 1335,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/referencia/astro_explorer_ref.jpg",
+      "bytes": 280100,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/renders/01_front.png",
+      "bytes": 672477,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/renders/02_side.png",
+      "bytes": 611255,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/renders/03_back.png",
+      "bytes": 638112,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/renders/04_three_qtr_hero.png",
+      "bytes": 661796,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/renders/anim_01_idle.png",
+      "bytes": 560130,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/renders/anim_02_walk_run.png",
+      "bytes": 556934,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/renders/anim_03_jump.png",
+      "bytes": 557775,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/renders/anim_04_interact.png",
+      "bytes": 569490,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/renders/expr_01_neutral.png",
+      "bytes": 290482,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/renders/expr_02_happy.png",
+      "bytes": 292836,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/renders/expr_03_thinking.png",
+      "bytes": 291596,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/renders/expr_04_alert.png",
+      "bytes": 294374,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/renders/expr_05_processing.png",
+      "bytes": 292800,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/renders/expr_06_error.png",
+      "bytes": 291955,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/renders/folha_4_animacoes_3d.png",
+      "bytes": 2051226,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/renders/folha_6_expressoes_visor.png",
+      "bytes": 722900,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/renders/folha_comparacao_referencia_x_3d.png",
+      "bytes": 4320697,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/renders/folha_turnaround_4_vistas.png",
+      "bytes": 2386714,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/renders/folha_wireframe_4_vistas.png",
+      "bytes": 1874967,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/renders/wire_01_front.png",
+      "bytes": 540787,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/renders/wire_02_side.png",
+      "bytes": 478112,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/renders/wire_03_back.png",
+      "bytes": 509418,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/renders/wire_04_three_qtr_hero.png",
+      "bytes": 531160,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/scripts/build_astro_explorer.py",
+      "bytes": 70760,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/scripts/render_astro_explorer.py",
+      "bytes": 14387,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/texturas/astro_explorer_basecolor.png",
+      "bytes": 361937,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/texturas/astro_explorer_emission.png",
+      "bytes": 57154,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/texturas/astro_explorer_normal.png",
+      "bytes": 59579,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/astro-explorer/texturas/astro_explorer_orm.png",
+      "bytes": 498294,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/RELATORIO.md",
+      "bytes": 6973,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/blend/cartucho_dados_shanghai_v001.blend",
+      "bytes": 713565,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/export/cartucho_dados_shanghai_v001.glb",
+      "bytes": 962940,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/notas/build_metrics.json",
+      "bytes": 970,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/referencia/cartucho_dados_ref.jpg",
+      "bytes": 145617,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/renders/01_front.png",
+      "bytes": 694777,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/renders/02_side.png",
+      "bytes": 624217,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/renders/03_back.png",
+      "bytes": 523213,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/renders/04_3q.png",
+      "bytes": 668847,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/renders/anim_CollectPickup.png",
+      "bytes": 669325,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/renders/anim_Idle.png",
+      "bytes": 709658,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/renders/anim_PulseGlow.png",
+      "bytes": 704209,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/renders/anim_SpawnDrop.png",
+      "bytes": 665837,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/renders/folha_4_animacoes_3d.png",
+      "bytes": 2157749,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/renders/folha_comparacao_referencia_x_3d.png",
+      "bytes": 1217329,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/renders/folha_turnaround_2x2_vistas.png",
+      "bytes": 2011576,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/renders/folha_turnaround_4_vistas.png",
+      "bytes": 1623805,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/renders/folha_wireframe_4_vistas.png",
+      "bytes": 2126315,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/renders/jogo_zoom_maximo.png",
+      "bytes": 858070,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/renders/wf_01_front.png",
+      "bytes": 720491,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/renders/wf_02_side.png",
+      "bytes": 634711,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/renders/wf_03_back.png",
+      "bytes": 583269,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/renders/wf_04_3q.png",
+      "bytes": 700733,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/scripts/build_cartucho_dados.py",
+      "bytes": 48175,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/scripts/render_cartucho_dados.py",
+      "bytes": 14575,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/texturas/cartucho_dados_basecolor.png",
+      "bytes": 450420,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/texturas/cartucho_dados_emission.png",
+      "bytes": 71269,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/texturas/cartucho_dados_normal.png",
+      "bytes": 63571,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cartucho-dados/texturas/cartucho_dados_orm.png",
+      "bytes": 145774,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/RELATORIO.md",
+      "bytes": 3884,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/blend/cobre_shanghai_v001.blend",
+      "bytes": 2102329,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/blend/cobre_shanghai_v001.blend1",
+      "bytes": 2172416,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/export/cobre_shanghai_v001.glb",
+      "bytes": 2435052,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/notas/build_report.json",
+      "bytes": 930,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/referencia/cobre_ref.jpg",
+      "bytes": 155235,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/renders/01_front.png",
+      "bytes": 734895,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/renders/02_side.png",
+      "bytes": 773728,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/renders/03_back.png",
+      "bytes": 681024,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/renders/04_3q.png",
+      "bytes": 733067,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/renders/anim_CollectPickup.png",
+      "bytes": 668557,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/renders/anim_Idle.png",
+      "bytes": 734887,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/renders/anim_PulseGlow.png",
+      "bytes": 740688,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/renders/anim_SpawnDrop.png",
+      "bytes": 733691,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/renders/folha_4_animacoes_3d.png",
+      "bytes": 2293074,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/renders/folha_comparacao_referencia_x_3d.png",
+      "bytes": 1253214,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/renders/folha_turnaround_2x2_vistas.png",
+      "bytes": 2313919,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/renders/folha_turnaround_4_vistas.png",
+      "bytes": 1811746,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/renders/folha_wireframe_4_vistas.png",
+      "bytes": 2960364,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/renders/jogo_zoom_maximo.png",
+      "bytes": 964774,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/renders/wf_01_front.png",
+      "bytes": 935356,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/renders/wf_02_side.png",
+      "bytes": 986641,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/renders/wf_03_back.png",
+      "bytes": 885015,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/renders/wf_04_3q.png",
+      "bytes": 952374,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/scripts/build_cobre.py",
+      "bytes": 45053,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/scripts/render_cobre.py",
+      "bytes": 10762,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/texturas/cobre_basecolor.png",
+      "bytes": 742855,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/texturas/cobre_emission.png",
+      "bytes": 93585,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/texturas/cobre_normal.png",
+      "bytes": 621230,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/cobre/texturas/cobre_orm.png",
+      "bytes": 468652,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/.gitignore",
+      "bytes": 19,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/RELATORIO.md",
+      "bytes": 9865,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/blend/control_room_v001.blend",
+      "bytes": 2586459,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/export/control_room_v001.glb",
+      "bytes": 3045712,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/export/manifesto_control_room_v001.json",
+      "bytes": 17172,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/notas/circulacao.json",
+      "bytes": 59320,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/notas/escala_explorador.json",
+      "bytes": 255,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/notas/fontes_preservadas.json",
+      "bytes": 667,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/notas/revisao_claude.md",
+      "bytes": 4146,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/notas/roundtrip.json",
+      "bytes": 3209,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/referencia/control_room_ref.jpg",
+      "bytes": 759184,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/renders/01_front.png",
+      "bytes": 933396,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/renders/02_side.png",
+      "bytes": 907008,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/renders/03_back.png",
+      "bytes": 903010,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/renders/04_exterior.png",
+      "bytes": 1094644,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/renders/05_top.png",
+      "bytes": 924240,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/renders/06_interior_sem_teto.png",
+      "bytes": 1203032,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/renders/07_maquete_interior.png",
+      "bytes": 1125879,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/renders/08_interacao.png",
+      "bytes": 1249620,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/renders/09_planta.png",
+      "bytes": 1016800,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/renders/10_camera_jogo_estudo.png",
+      "bytes": 1081433,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/renders/11_wireframe.png",
+      "bytes": 1095110,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/renders/12_sala_anterior.png",
+      "bytes": 1004831,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/renders/13_anterior_interior.png",
+      "bytes": 1072570,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/renders/14_escala_explorador.png",
+      "bytes": 1039136,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/renders/folha_anterior_candidato.png",
+      "bytes": 1351121,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/renders/folha_exterior_interior.png",
+      "bytes": 688607,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/renders/folha_referencia_modelo.png",
+      "bytes": 1039113,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/renders/folha_turnaround.png",
+      "bytes": 888657,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/renders/planta_circulacao.png",
+      "bytes": 667460,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/scripts/build_control_room.py",
+      "bytes": 17444,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/scripts/compose_sheets.py",
+      "bytes": 2854,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/scripts/geometry.py",
+      "bytes": 3859,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/scripts/make_atlas.py",
+      "bytes": 2463,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/scripts/render_control_room.py",
+      "bytes": 4804,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/scripts/render_scale.py",
+      "bytes": 2890,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/scripts/validate_circulation.py",
+      "bytes": 1875,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/scripts/validate_control_room.py",
+      "bytes": 4432,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/texturas/control_basecolor.png",
+      "bytes": 2338856,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/texturas/control_emission.png",
+      "bytes": 13497,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/texturas/control_normal.png",
+      "bytes": 25937,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/control-room/texturas/control_orm.png",
+      "bytes": 19671,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/RELATORIO.md",
+      "bytes": 8903,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/blend/eden_v001.blend",
+      "bytes": 945819,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/export/eden_v001.glb",
+      "bytes": 1293296,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/notas/build_metrics.json",
+      "bytes": 1245,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/referencia/eden_ref.jpg",
+      "bytes": 225595,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/renders/01_front.png",
+      "bytes": 644641,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/renders/02_side.png",
+      "bytes": 628139,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/renders/03_back.png",
+      "bytes": 652621,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/renders/04_3q.png",
+      "bytes": 652403,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/renders/anim_Comm_Alert.png",
+      "bytes": 651339,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/renders/anim_Coordinate_Telemetry.png",
+      "bytes": 655163,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/renders/anim_Heart_Surge.png",
+      "bytes": 653350,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/renders/anim_Idle_Float.png",
+      "bytes": 660385,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/renders/folha_4_animacoes_3d.png",
+      "bytes": 1830477,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/renders/folha_comparacao_referencia_x_3d.png",
+      "bytes": 1481428,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/renders/folha_turnaround_2x2_vistas.png",
+      "bytes": 1886753,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/renders/folha_turnaround_4_vistas.png",
+      "bytes": 1388043,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/renders/folha_wireframe_4_vistas.png",
+      "bytes": 2134583,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/renders/jogo_zoom_maximo.png",
+      "bytes": 855580,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/renders/wf_01_front.png",
+      "bytes": 737425,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/renders/wf_02_side.png",
+      "bytes": 691948,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/renders/wf_03_back.png",
+      "bytes": 738593,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/renders/wf_04_3q.png",
+      "bytes": 741042,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/scripts/build_eden.py",
+      "bytes": 54236,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/scripts/render_eden.py",
+      "bytes": 10811,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/texturas/eden_basecolor.png",
+      "bytes": 318665,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/texturas/eden_emission.png",
+      "bytes": 153179,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/texturas/eden_normal.png",
+      "bytes": 69463,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/eden/texturas/eden_orm.png",
+      "bytes": 290277,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/RELATORIO.md",
+      "bytes": 3888,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/blend/ferro_shanghai_v001.blend",
+      "bytes": 4734730,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/blend/ferro_shanghai_v001.blend1",
+      "bytes": 4760677,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/export/ferro_shanghai_v001.glb",
+      "bytes": 5057552,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/notas/build_report.json",
+      "bytes": 949,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/referencia/ferro_ref.jpg",
+      "bytes": 99608,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/renders/01_front.png",
+      "bytes": 767901,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/renders/02_side.png",
+      "bytes": 734955,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/renders/03_back.png",
+      "bytes": 736993,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/renders/04_3q.png",
+      "bytes": 761891,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/renders/anim_CollectPickup.png",
+      "bytes": 696058,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/renders/anim_Idle.png",
+      "bytes": 766262,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/renders/anim_PulseGlow.png",
+      "bytes": 761641,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/renders/anim_SpawnDrop.png",
+      "bytes": 681503,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/renders/folha_4_animacoes_3d.png",
+      "bytes": 2236039,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/renders/folha_comparacao_referencia_x_3d.png",
+      "bytes": 1056868,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/renders/folha_turnaround_2x2_vistas.png",
+      "bytes": 2332565,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/renders/folha_turnaround_4_vistas.png",
+      "bytes": 1799372,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/renders/folha_wireframe_4_vistas.png",
+      "bytes": 2676180,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/renders/jogo_zoom_maximo.png",
+      "bytes": 977875,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/renders/wf_01_front.png",
+      "bytes": 878240,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/renders/wf_02_side.png",
+      "bytes": 844542,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/renders/wf_03_back.png",
+      "bytes": 841601,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/renders/wf_04_3q.png",
+      "bytes": 874634,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/scripts/build_ferro.py",
+      "bytes": 39092,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/scripts/render_ferro.py",
+      "bytes": 11955,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/texturas/ferro_basecolor.png",
+      "bytes": 2206455,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/texturas/ferro_emission.png",
+      "bytes": 161610,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/texturas/ferro_normal.png",
+      "bytes": 1357110,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/ferro/texturas/ferro_orm.png",
+      "bytes": 849867,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/RELATORIO.md",
+      "bytes": 5689,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/blend/hangar_mars_v001.blend",
+      "bytes": 2443152,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/export/hangar_mars_v001.glb",
+      "bytes": 3337120,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/notas/build_report.json",
+      "bytes": 29456,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/notas/revisao_claude.md",
+      "bytes": 2678,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/notas/roundtrip_report.json",
+      "bytes": 874,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/referencia/hangar_ref.jpg",
+      "bytes": 353508,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/01_front.png",
+      "bytes": 632922,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/02_side.png",
+      "bytes": 622866,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/03_back.png",
+      "bytes": 601295,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/04_3q.png",
+      "bytes": 756787,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/anim_AlertPulse_001.png",
+      "bytes": 756787,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/anim_AlertPulse_010.png",
+      "bytes": 757148,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/anim_AlertPulse_019.png",
+      "bytes": 756742,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/anim_AlertPulse_028.png",
+      "bytes": 757033,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/anim_CraneWork_001.png",
+      "bytes": 756787,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/anim_CraneWork_013.png",
+      "bytes": 757083,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/anim_CraneWork_025.png",
+      "bytes": 756887,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/anim_CraneWork_037.png",
+      "bytes": 757152,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/anim_Idle_001.png",
+      "bytes": 756787,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/anim_Idle_016.png",
+      "bytes": 756710,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/anim_Idle_031.png",
+      "bytes": 756605,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/anim_Idle_046.png",
+      "bytes": 756482,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/anim_RampOpenClose_001.png",
+      "bytes": 756787,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/anim_RampOpenClose_011.png",
+      "bytes": 740676,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/anim_RampOpenClose_020.png",
+      "bytes": 740690,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/anim_RampOpenClose_040.png",
+      "bytes": 756787,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/folha_4_animacoes_3d.png",
+      "bytes": 2333027,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/folha_comparacao_referencia_x_3d.png",
+      "bytes": 615144,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/folha_turnaround_2x2_vistas.png",
+      "bytes": 868953,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/folha_turnaround_4_vistas.png",
+      "bytes": 751582,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/folha_wireframe_4_vistas.png",
+      "bytes": 777685,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/jogo_zoom_maximo.png",
+      "bytes": 805979,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/wf_01_front.png",
+      "bytes": 650763,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/wf_02_side.png",
+      "bytes": 640537,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/wf_03_back.png",
+      "bytes": 619401,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/renders/wf_04_3q.png",
+      "bytes": 757636,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/scripts/build_hangar.py",
+      "bytes": 18329,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/scripts/compose_sheets.py",
+      "bytes": 1940,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/scripts/make_atlas.py",
+      "bytes": 2480,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/scripts/render_hangar.py",
+      "bytes": 3548,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/scripts/validate_hangar.py",
+      "bytes": 3286,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/texturas/hangar_basecolor.png",
+      "bytes": 2194151,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/texturas/hangar_emission.png",
+      "bytes": 13502,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/texturas/hangar_normal.png",
+      "bytes": 25937,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/hangar/texturas/hangar_orm.png",
+      "bytes": 19671,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/RELATORIO.md",
+      "bytes": 8659,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/blend/laboratorio_sintetizador_v001.blend",
+      "bytes": 1274972,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/blend/laboratorio_sintetizador_v001.blend1",
+      "bytes": 1224487,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/export/laboratorio_sintetizador_v001.glb",
+      "bytes": 1921476,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/notas/build_report.json",
+      "bytes": 1115,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/referencia/laboratorio_estudo.jpg",
+      "bytes": 224189,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/referencia/maquina_estudo.jpg",
+      "bytes": 224316,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/referencia/maquina_render.jpg",
+      "bytes": 202257,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/renders/01_front.png",
+      "bytes": 607043,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/renders/02_side.png",
+      "bytes": 625377,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/renders/03_back.png",
+      "bytes": 651047,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/renders/04_3q.png",
+      "bytes": 683669,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/renders/anim_Drawer_Dispense.png",
+      "bytes": 683395,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/renders/anim_Idle_Ready.png",
+      "bytes": 683595,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/renders/anim_Standby_PowerDown.png",
+      "bytes": 683984,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/renders/anim_Synthesizing.png",
+      "bytes": 683040,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/renders/folha_4_animacoes_3d.png",
+      "bytes": 1760004,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/renders/folha_comparacao_referencia_x_3d.png",
+      "bytes": 1272416,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/renders/folha_turnaround_2x2_vistas.png",
+      "bytes": 2033123,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/renders/folha_turnaround_4_vistas.png",
+      "bytes": 1620248,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/renders/folha_wireframe_4_vistas.png",
+      "bytes": 2609665,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/renders/jogo_zoom_maximo.png",
+      "bytes": 810474,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/renders/wf_01_front.png",
+      "bytes": 770691,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/renders/wf_02_side.png",
+      "bytes": 809443,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/renders/wf_03_back.png",
+      "bytes": 816188,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/renders/wf_04_3q.png",
+      "bytes": 884059,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/scripts/build_laboratorio.py",
+      "bytes": 55337,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/scripts/render_laboratorio.py",
+      "bytes": 10768,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/texturas/laboratorio_basecolor.png",
+      "bytes": 530322,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/texturas/laboratorio_emission.png",
+      "bytes": 90981,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/texturas/laboratorio_normal.png",
+      "bytes": 59579,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/laboratorio-sintetizador/texturas/laboratorio_orm.png",
+      "bytes": 475122,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/RELATORIO.md",
+      "bytes": 4750,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/blend/large_mutant_shanghai_v001.blend",
+      "bytes": 9724290,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/blend/large_mutant_shanghai_v001.blend1",
+      "bytes": 9724688,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/export/large_mutant_shanghai_v001.glb",
+      "bytes": 10534956,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/notas/build_report.json",
+      "bytes": 1450,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/referencia/large_mutant_ref.jpg",
+      "bytes": 135426,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/renders/01_front.png",
+      "bytes": 660379,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/renders/02_side.png",
+      "bytes": 636727,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/renders/03_back.png",
+      "bytes": 647116,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/renders/04_3q.png",
+      "bytes": 665016,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/renders/folha_4_animacoes_3d.png",
+      "bytes": 2017530,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/renders/folha_comparacao_referencia_x_3d.png",
+      "bytes": 3803252,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/renders/folha_turnaround_2x2_vistas.png",
+      "bytes": 2532799,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/renders/folha_turnaround_4_vistas.png",
+      "bytes": 2470730,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/renders/folha_wireframe_4_vistas.png",
+      "bytes": 2132948,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/renders/jogo_zoom_maximo.png",
+      "bytes": 525054,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/renders/state_01_idle.png",
+      "bytes": 550711,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/renders/state_02_patrol_walk.png",
+      "bytes": 547904,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/renders/state_03_aggressive_lunge.png",
+      "bytes": 577077,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/renders/state_04_damaged_death.png",
+      "bytes": 491447,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/renders/wire_01_front.png",
+      "bytes": 568200,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/renders/wire_02_side.png",
+      "bytes": 536749,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/renders/wire_03_back.png",
+      "bytes": 540092,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/renders/wire_04_3q.png",
+      "bytes": 568073,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/scripts/build_large_mutant.py",
+      "bytes": 66329,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/scripts/render_large_mutant.py",
+      "bytes": 13690,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/texturas/large_mutant_basecolor.png",
+      "bytes": 1123583,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/texturas/large_mutant_emission.png",
+      "bytes": 80531,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/texturas/large_mutant_normal.png",
+      "bytes": 6050718,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-mutant-animal/texturas/large_mutant_orm.png",
+      "bytes": 2365676,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-patrol-unit/RELATORIO.md",
+      "bytes": 6996,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-patrol-unit/blend/large_patrol_unit_shanghai_v001.blend",
+      "bytes": 4364610,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-patrol-unit/blend/large_patrol_unit_shanghai_v001.blend1",
+      "bytes": 4372279,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-patrol-unit/export/large_patrol_unit_shanghai_v001.glb",
+      "bytes": 5337172,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-patrol-unit/notas/build_report.json",
+      "bytes": 1304,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-patrol-unit/referencia/large_patrol_unit_ref.jpg",
+      "bytes": 140849,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-patrol-unit/renders/01_front.png",
+      "bytes": 624876,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-patrol-unit/renders/02_right_side.png",
+      "bytes": 503537,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-patrol-unit/renders/03_left_side.png",
+      "bytes": 505836,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-patrol-unit/renders/04_back.png",
+      "bytes": 603374,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-patrol-unit/renders/folha_4_animacoes_3d.png",
+      "bytes": 2221453,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-patrol-unit/renders/folha_comparacao_referencia_x_3d.png",
+      "bytes": 2965430,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-patrol-unit/renders/folha_turnaround_2x2_vistas.png",
+      "bytes": 2154188,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-patrol-unit/renders/folha_turnaround_4_vistas.png",
+      "bytes": 2027752,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-patrol-unit/renders/folha_wireframe_4_vistas.png",
+      "bytes": 1835451,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-patrol-unit/renders/jogo_zoom_maximo.png",
+      "bytes": 1160382,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-patrol-unit/scripts/build_large_patrol_unit.py",
+      "bytes": 67900,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-patrol-unit/scripts/render_large_patrol_unit.py",
+      "bytes": 13738,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-patrol-unit/texturas/large_patrol_unit_basecolor.png",
+      "bytes": 236677,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-patrol-unit/texturas/large_patrol_unit_emission.png",
+      "bytes": 79227,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-patrol-unit/texturas/large_patrol_unit_normal.png",
+      "bytes": 2667156,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/large-patrol-unit/texturas/large_patrol_unit_orm.png",
+      "bytes": 1240914,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/materia-organica/RELATORIO.md",
+      "bytes": 3939,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/materia-organica/blend/materia_organica_shanghai_v001.blend",
+      "bytes": 170018,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/materia-organica/blend/materia_organica_shanghai_v001.blend1",
+      "bytes": 5998833,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/materia-organica/export/materia_organica_shanghai_v001.glb",
+      "bytes": 769980,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/materia-organica/notas/build_report.json",
+      "bytes": 1096,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/materia-organica/referencia/materia_organica_ref.jpg",
+      "bytes": 64690,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/materia-organica/renders/01_front.png",
+      "bytes": 551830,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/materia-organica/renders/02_side.png",
+      "bytes": 553116,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/materia-organica/renders/03_back.png",
+      "bytes": 557140,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/materia-organica/renders/04_3q.png",
+      "bytes": 569080,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/materia-organica/renders/folha_4_animacoes_3d.png",
+      "bytes": 1415154,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/materia-organica/renders/folha_comparacao_referencia_x_3d.png",
+      "bytes": 861084,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/materia-organica/renders/folha_turnaround_2x2_vistas.png",
+      "bytes": 2184952,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/materia-organica/renders/folha_turnaround_4_vistas.png",
+      "bytes": 2148673,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/materia-organica/renders/folha_wireframe_4_vistas.png",
+      "bytes": 1423896,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/materia-organica/renders/jogo_zoom_maximo.png",
+      "bytes": 850765,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/materia-organica/scripts/build_materia_organica.py",
+      "bytes": 45445,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/materia-organica/scripts/render_materia_organica.py",
+      "bytes": 12984,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/materia-organica/texturas/materia_organica_basecolor.png",
+      "bytes": 79812,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/materia-organica/texturas/materia_organica_emission.png",
+      "bytes": 78928,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/materia-organica/texturas/materia_organica_normal.png",
+      "bytes": 78300,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/materia-organica/texturas/materia_organica_orm.png",
+      "bytes": 79332,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/RELATORIO.md",
+      "bytes": 4891,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/blend/mutant_animal_shanghai_v001.blend",
+      "bytes": 9626796,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/blend/mutant_animal_shanghai_v001.blend1",
+      "bytes": 9617816,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/export/mutant_animal_shanghai_v001.glb",
+      "bytes": 10624316,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/notas/mutant_animal_stats.json",
+      "bytes": 1316,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/referencia/mutant_animal_ref.jpg",
+      "bytes": 155300,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/renders/01_front_3q.png",
+      "bytes": 656803,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/renders/02_left_3q.png",
+      "bytes": 653125,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/renders/03_right_3q.png",
+      "bytes": 651921,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/renders/04_back_3q.png",
+      "bytes": 655963,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/renders/_plaque_shanghai.png",
+      "bytes": 3862,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/renders/folha_4_animacoes_3d.png",
+      "bytes": 2124889,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/renders/folha_comparacao_referencia_x_3d.png",
+      "bytes": 3952166,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/renders/folha_turnaround_2x2_vistas.png",
+      "bytes": 2555440,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/renders/folha_turnaround_4_vistas.png",
+      "bytes": 2510912,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/renders/folha_wireframe_4_vistas.png",
+      "bytes": 2099762,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/renders/jogo_zoom_maximo.png",
+      "bytes": 527096,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/renders/state_01_idle.png",
+      "bytes": 555712,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/renders/state_02_patrol_walk.png",
+      "bytes": 550487,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/renders/state_03_aggressive_lunge.png",
+      "bytes": 561011,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/renders/state_04_damaged_death.png",
+      "bytes": 561633,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/renders/wire_01_front_3q.png",
+      "bytes": 542102,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/renders/wire_02_left_3q.png",
+      "bytes": 537114,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/renders/wire_03_right_3q.png",
+      "bytes": 539284,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/renders/wire_04_back_3q.png",
+      "bytes": 538114,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/scripts/build_mutant_animal.py",
+      "bytes": 61801,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/scripts/render_mutant_animal.py",
+      "bytes": 22589,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/texturas/mutant_animal_basecolor.png",
+      "bytes": 1004956,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/texturas/mutant_animal_emission.png",
+      "bytes": 79707,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/texturas/mutant_animal_normal.png",
+      "bytes": 6050718,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/mutant-animal/texturas/mutant_animal_orm.png",
+      "bytes": 2367271,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/RELATORIO.md",
+      "bytes": 7365,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/blend/patrol_unit_shanghai_v001.blend",
+      "bytes": 36314040,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/blend/patrol_unit_shanghai_v001.blend1",
+      "bytes": 36314042,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/export/patrol_unit_shanghai_v001.glb",
+      "bytes": 9353244,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/notas/patrol_unit_stats.json",
+      "bytes": 1260,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/referencia/patrol_unit_ref.jpg",
+      "bytes": 164665,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/referencia/patrol_unit_states_ref.jpg",
+      "bytes": 152264,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/renders/01_front.png",
+      "bytes": 675104,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/renders/02_three_qtr.png",
+      "bytes": 698931,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/renders/03_side.png",
+      "bytes": 615304,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/renders/04_back.png",
+      "bytes": 686549,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/renders/folha_3_estados_3d.png",
+      "bytes": 1731052,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/renders/folha_4_animacoes_3d.png",
+      "bytes": 2193997,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/renders/folha_comparacao_estados_ref_x_3d.png",
+      "bytes": 3009845,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/renders/folha_comparacao_referencia_x_3d.png",
+      "bytes": 3783899,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/renders/folha_turnaround_4_vistas.png",
+      "bytes": 2367576,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/renders/folha_wireframe_4_vistas.png",
+      "bytes": 1934171,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/renders/jogo_zoom_maximo.png",
+      "bytes": 488644,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/renders/state_01_patrol_idle.png",
+      "bytes": 636655,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/renders/state_02_aggressive_lunge.png",
+      "bytes": 677714,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/renders/state_03_damaged_state.png",
+      "bytes": 679392,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/renders/state_04_patrol_walk.png",
+      "bytes": 628890,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/renders/wire_01_front.png",
+      "bytes": 556815,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/renders/wire_02_three_qtr.png",
+      "bytes": 582008,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/renders/wire_03_side.png",
+      "bytes": 501329,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/renders/wire_04_back.png",
+      "bytes": 564905,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/scripts/build_patrol_unit.py",
+      "bytes": 90188,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/scripts/render_patrol_unit.py",
+      "bytes": 13784,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/texturas/patrol_unit_basecolor.png",
+      "bytes": 2678650,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/texturas/patrol_unit_emission.png",
+      "bytes": 58497,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/texturas/patrol_unit_normal.png",
+      "bytes": 3410245,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/patrol-unit/texturas/patrol_unit_orm.png",
+      "bytes": 2176102,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/RELATORIO.md",
+      "bytes": 4198,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/blend/titanio_shanghai_v001.blend",
+      "bytes": 4715155,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/blend/titanio_shanghai_v001.blend1",
+      "bytes": 4707573,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/export/titanio_shanghai_v001.glb",
+      "bytes": 4983928,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/notas/build_report.json",
+      "bytes": 992,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/referencia/titanio_ref.jpg",
+      "bytes": 120346,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/renders/01_front.png",
+      "bytes": 747757,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/renders/02_side.png",
+      "bytes": 693158,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/renders/03_back.png",
+      "bytes": 710203,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/renders/04_3q.png",
+      "bytes": 747164,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/renders/anim_CollectPickup.png",
+      "bytes": 679487,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/renders/anim_Idle.png",
+      "bytes": 753580,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/renders/anim_PulseGlow.png",
+      "bytes": 743366,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/renders/anim_SpawnDrop.png",
+      "bytes": 690612,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/renders/folha_4_animacoes_3d.png",
+      "bytes": 2250235,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/renders/folha_comparacao_referencia_x_3d.png",
+      "bytes": 1196246,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/renders/folha_turnaround_2x2_vistas.png",
+      "bytes": 2281558,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/renders/folha_turnaround_4_vistas.png",
+      "bytes": 1779924,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/renders/folha_wireframe_4_vistas.png",
+      "bytes": 2548741,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/renders/jogo_zoom_maximo.png",
+      "bytes": 972360,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/renders/wf_01_front.png",
+      "bytes": 839988,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/renders/wf_02_side.png",
+      "bytes": 777968,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/renders/wf_03_back.png",
+      "bytes": 795946,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/renders/wf_04_3q.png",
+      "bytes": 841774,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/scripts/build_titanio.py",
+      "bytes": 46624,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/scripts/render_titanio.py",
+      "bytes": 12530,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/texturas/titanio_basecolor.png",
+      "bytes": 2246037,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/texturas/titanio_emission.png",
+      "bytes": 172844,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/texturas/titanio_normal.png",
+      "bytes": 1424911,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "art-source/titanio/texturas/titanio_orm.png",
+      "bytes": 684363,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    },
+    {
+      "file": "docs/HORDA_SURVIVOR_BIBLIOTECA_ASSETS_E_PROMPTS.docx",
+      "bytes": 610174,
+      "type": "file",
+      "status": "fora_do_indice_deste_checkout",
+      "action": "preservar"
+    }
+  ]
+}

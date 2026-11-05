@@ -1,0 +1,15 @@
+{
+  "base": "6b67f1efaee17b5da570c7140625c51f7e0c6e4a",
+  "runtimeAndAssetsUnchanged": true,
+  "existingArchiveUnchanged": true,
+  "authorMainCheckoutWritten": false,
+  "officialPlanAndBoardUnchanged": true,
+  "legacyDocsIdentical": 28,
+  "trackedAssetHashesVerified": 163,
+  "trackedSourceHashesVerified": 835,
+  "localLinksChecked": 736,
+  "brokenLinksAfter": 0,
+  "newCompatibilityRedirect": [
+    "archive/mcp-office/MCP_GAME_VISION.md"
+  ]
+}
