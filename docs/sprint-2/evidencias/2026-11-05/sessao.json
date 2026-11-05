@@ -48,8 +48,10 @@
     }
   },
   "aceites": {
-    "S2.9": "pendente",
-    "etapa6.5": "pendente"
+    "S2.9": "Aprovada expressamente pelo autor em 05/11/2026, com resultados e limites registrados",
+    "etapa6.5": "Aprovada expressamente pelo autor em 05/11/2026, sem falhas impeditivas",
+    "ciclo": "115/115 e retorno a Marte concluídos sem bloqueios, confirmado pelo autor",
+    "registro": "aceites-autor.json"
   },
   "limites": [
     "rAF mede intervalo de frames do navegador; não tempo de GPU.",
@@ -782,5 +784,12 @@
       "rendererPixelRatio": 1
     },
     "limite": "Exportação contém nova entrada de Marte; contexto é da exportação posterior a Shanghai. Não presumir tela/zoom de cada evento sem relato."
+  },
+  "statusSprint2": "Encerrada por aceite do autor em 05/11/2026; registro na branch da sessão, sem integração/push.",
+  "pendenciaPosterior": {
+    "item": "S6.16 — vídeos de transição nos intervalos de carregamento do menu de navegação da aeronave",
+    "responsavel": "Autor",
+    "declaracao": "Depois só temos que preencher os gaps de tempos de loading com os vídeos de transição no menu de navegação da aeronave, pendência minha.",
+    "bloqueiaSprint2": false
   }
 }

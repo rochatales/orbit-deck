@@ -1,5 +1,16 @@
 # Sprint 2 — Validação manual do estado consolidado
 
+> **Aceite geral encerrado pelo autor em 05/11/2026:** etapa 6.5 aprovada sem
+> falhas impeditivas, S2.9 aprovada com os resultados/limites registrados e
+> 115/115 com retorno a Marte sem bloqueios. [Sessão atual](SESSAO_FECHAMENTO_S0_S2.md)
+> · [Declarações](evidencias/2026-11-05/aceites-autor.json).
+>
+> **Roteiro histórico de 19/10/2026.** Instruções de checkout, r7, 40 inimigos,
+> duas caixas/corações e pendências da S2.12 abaixo são daquele estado. Os
+> checkboxes antigos não são reetiquetados como resultados atuais nem devem
+> ser usados para reabrir itens já encerrados; consulte a sessão de 05/11.
+
+
 Atualizado em 19/10/2026. **Aceite de jogabilidade pendente, na etapa 6.5 do [plano de consolidação](../consolidacao/PLANO_SPRINTS_0_2.md).** O autor informou que o Claude conferiu merges, ajuste das costas e 104/104 testes da Parada 1 e que ele conferiu no jogo viagem, hordas, caixas e costas. Essa conferência funcional não encerra esta validação.
 
 Após o avanço `--ff-only` da Fase 4.2, rodar o jogo a partir do checkout principal `/Users/rochatales/Automations/game-workplace`, na branch `rochatales/horda-survivor`. Nesse checkout, executar `npm run dev -- --host 127.0.0.1 --port 5178`; se ocupada, usar outra porta explícita e conferir que o servidor pertence a esse checkout. Abrir a página normal desse servidor, não `/tests/browser-smoke.html` nem outra fixture. Para medir `?perf`, usar o build do checkout principal e ambiente comparável conforme S2.9; dev/fixture não aprovam desempenho.

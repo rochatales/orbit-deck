@@ -3,7 +3,9 @@
 Base de mapas/regras `00ab557`; instrumentação `18fe0d6`. Branch da sessão
 `rochatales/s2-fechamento-2026-11-05`. Build de produção servido na porta 5194.
 564/564 testes, build e diff-check verdes; revisão Claude sem defeitos de código.
-Medições reais feitas pelo autor; S2.9 e aceite geral 6.5 ainda pendentes.
+Medições reais feitas pelo autor. **S2.9 e etapa 6.5 aprovadas expressamente em
+05/11/2026; Sprint 2 encerrada.** Autor confirmou 115/115 e retorno a Marte sem
+bloqueios. Declarações preservadas em `aceites-autor.json`.
 
 ## Ambiente declarado e exportado
 
@@ -70,8 +72,23 @@ uniforme de hashes, duração, percentis, cobertura e timestamps; ver
 `verificacao-consolidada.json`. O diff de código contra `00ab557` permanece
 restrito ao módulo opcional de perf e aos dois testes novos.
 
-## Fechamento pendente
+## Fechamento pelo autor
 
-- Conferência final do painel e decisão expressa de S2.9 pelo autor.
-- Conclusão/aceite do ciclo completo de combate e retorno, etapa 6.5.
-- Registros finais somente após os resultados e decisões; sem merge/push/limpeza.
+Em 05/11/2026, o autor declarou:
+
+- “115/115 e retorno a Marte concluídos sem bloqueios”.
+- “Aprovo a etapa 6.5, sem falhas impeditivas”.
+- “Aprovo a S2.9 com os resultados e limites registrados”.
+
+Essas decisões encerram a Sprint 2 nesta versão. O agente registrou o aceite
+humano; a aprovação não é inferida das verificações técnicas. Inspeção manual
+da API pelo console não foi executada; API/lifecycle e ativação opcional têm
+cobertura automatizada, e as amostras foram feitas pelo painel no build real.
+A duração total da missão não foi informada; todas as durações de amostra foram
+conferidas. Duração maior de S2 e limites de rAF/memória/renderer aceitos pelo autor.
+
+Registros na branch `rochatales/s2-fechamento-2026-11-05`, sem merge/push.
+Quadro da integração: patch preparado no handoff, sem edição na branch de tarefa.
+Pendência posterior do autor, S6.16: vídeos de transição durante o carregamento
+no menu de navegação da aeronave. Próxima etapa: organização documental e
+inventário de assets antigos, preservando fontes/backups/não rastreados.

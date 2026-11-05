@@ -1,0 +1,25 @@
+{
+  "data": "2026-11-05",
+  "fuso": "America/Sao_Paulo",
+  "responsavel": "Autor",
+  "origem": "Respostas expressas do autor no formulário desta conversa, após revisão dos resultados de M1/M2/S2/S1/S44. Registro pelo Codex, sem inferir aceite da automação.",
+  "ciclo": {
+    "pergunta": "Conclua a quarta horda e confira 115/115, sem novos inimigos; depois embarque, volte a Marte e desembarque. Qual foi o resultado do ciclo completo?",
+    "resposta": "115/115 e retorno a Marte concluídos sem bloqueios"
+  },
+  "etapa6.5": {
+    "pergunta": "Aceite da etapa 6.5 após conferir movimento/mira, rifle/recarga/facão/Dash, colisões e navegação, recursos/kits/caixas, HUD/áudio, pausa/perda de foco e morte/reinício.",
+    "resposta": "Aprovo a etapa 6.5, sem falhas impeditivas"
+  },
+  "S2.9": {
+    "pergunta": "Aceite S2.9 com cinco medições válidas, resultados/limites informados e painel legível sem provocar tiro/giro/zoom.",
+    "resposta": "Aprovo a S2.9 com os resultados e limites registrados"
+  },
+  "pendenciaPosterior": {
+    "item": "S6.16 — vídeos de transição nos intervalos de carregamento do menu de navegação da aeronave",
+    "responsavel": "Autor",
+    "declaracao": "Depois só temos que preencher os gaps de tempos de loading com os vídeos de transição no menu de navegação da aeronave, pendência minha.",
+    "bloqueiaSprint2": false
+  },
+  "duracaoTotalMissao": "Não cronometrada no relato; as durações das cinco amostras estão nos JSONs."
+}

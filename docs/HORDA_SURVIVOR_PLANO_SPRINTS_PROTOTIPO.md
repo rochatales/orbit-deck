@@ -1,5 +1,12 @@
 # EXODEN — Sprints do protótipo Shanghai
 
+> **Fechamento da Sprint 2 · 05/11/2026:** autor aprovou expressamente S2.9 e
+> etapa 6.5, com 115/115 e retorno a Marte sem bloqueios. Mapas/regras `00ab557`,
+> instrumentação `18fe0d6`; 564/564, build e diff-check verdes. Registros na
+> branch `rochatales/s2-fechamento-2026-11-05`, sem merge/push.
+> [Sessão e aceites](sprint-2/SESSAO_FECHAMENTO_S0_S2.md) ·
+> [Medições completas](sprint-2/evidencias/2026-11-05/README.md).
+
 > **Atualização S6.12 · 04/11/2026:** Oficina implantada na colônia em
 > `claude/s6.12-oficina-colonia`, sobre `90e7734`, no lugar da Sala de operações.
 > [Decisões e roteiro](handoffs/s6.12-oficina-colonia.md). Aceite do autor pendente; não encerra a S6.12.
@@ -31,7 +38,11 @@
 > aceitos conforme [registro](handoffs/consolidacao-validada-2026-11-03.md).
 > Não encerra itens completos ainda pendentes nem substitui S2.9.
 
-Criado em 28/09/2026; status atualizado em 03/11/2026. Sprint 0 encerrado (S0.4 aprovada em 25/10), Sprint 1 implementado; núcleo do combate, S2.12 A/B e composição atual aprovados pelo autor. S2.11 investigada e não adotada após comparação em 144 Hz; interpolação permanece opção de comparação. S2.9 (medições) e critérios completos da sessão final 6.5 continuam pendentes, assim como os escopos futuros não implementados.
+Criado em 28/09/2026; status atualizado em 05/11/2026. Sprint 0 encerrada em 25/10,
+Sprint 1 implementada e **Sprint 2 encerrada pelo autor em 05/11**, incluindo S2.9
+e o aceite geral 6.5. S2.10/S2.12 já aceitas. S2.11 concluída; a decisão inicial
+de 26/10 foi revista em 04/11: interpolação é padrão, `?interp=0` compara.
+Escopos futuros dos demais sprints continuam pendentes.
 
 Referência: [Auditoria e decisões de design](HORDA_SURVIVOR_AUDITORIA_E_PLANO.md). Este plano recorta a primeira entrega: sair do hub em Marte, concluir Shanghai, recuperar recursos, retornar e construir a primeira grande máquina no laboratório.
 
@@ -162,7 +173,11 @@ Saída: abrir o jogo, entrar no hub, falar com EDEN, caminhar ao deck, entrar/sa
 
 ## 6. Sprint 2 — Movimento, tiro e sobrevivência
 
-**Núcleo S2.1–S2.8 implementado em 29/09/2026, ampliado nas integrações de 18–19/10. S2.12 A/B concluídas e aprovadas pelo autor em 25–26/10/2026; S2.9 com medições pendentes; S2.10 já aceita. S2.11 concluída: investigada, comparada em 144 Hz pelo autor, não adotada (26/10/2026). Validação geral de jogabilidade da etapa 6.5 pendente.**
+**Encerrada pelo autor em 05/11/2026.** Núcleo S2.1–S2.8, S2.10 e S2.12
+implementados e aceitos; S2.11 concluída, com interpolação padrão desde 04/11.
+S2.9 aprovada com cinco medições válidas no equipamento do autor; etapa 6.5
+aprovada sem falhas impeditivas, 115/115 e retorno a Marte confirmados.
+[Registro do aceite](sprint-2/evidencias/2026-11-05/aceites-autor.json).
 
 [Relatório](sprint-2/RELATORIO.md) · [Checklist de teste manual](sprint-2/VALIDACAO_MANUAL.md). Os checks abaixo registram implementação e verificação técnica; o balanceamento é inicial.
 
@@ -181,9 +196,9 @@ Objetivo: validar a sensação básica de combate antes de criar a horda complet
 
 Executar mudanças pequenas após receber o teste do autor, preservando a configuração funcional atual como referência. Estes itens não significam que o piloto já recebeu otimizações.
 
-- [ ] S2.9 Instrumentar medição opcional de desenvolvimento: tempo de frame p50/p95, frames longos, draw calls, triângulos, carregamento e memória disponível. Registrar dispositivo, resolução, DPR, navegador e limite da medição; requestAnimationFrame não é tempo de GPU. Iniciar com os dados nativos do renderer e browser, sem exigir biblioteca nova.
+- [x] S2.9 Instrumentar medição opcional de desenvolvimento: tempo de frame p50/p95, frames longos, draw calls, triângulos, carregamento e memória disponível. Registrar dispositivo, resolução, DPR, navegador e limite da medição; requestAnimationFrame não é tempo de GPU. Iniciar com os dados nativos do renderer e browser, sem exigir biblioteca nova. *Aceita pelo autor em 05/11/2026: M1/M2/S2/S1/S44 válidas, pico de 44 vivos durante 10 s confirmado; S2 coletada por 30 s, com duração real e limites de rAF/memória registrados. [Resultados](sprint-2/evidencias/2026-11-05/README.md).*
 - [x] S2.10 Concluir a separação da posição frequente do player em estado mutável; migrar consumidores ativos (câmera, mapa, combate e proximidade) e publicar na UI apenas mudanças relevantes. Medir renders com profiler e verificar embarque, interação, mira, morte e retry. Não reintroduzir módulos MCP arquivados. *Integrada em `110922a` (09/10/2026) e aceita pelo autor: R1–R8 e comparação `?perf` R10.*
-- [x] S2.11 Investigar jitter com passo fixo: comparar interpolação visual do Rapier com a configuração atual, mantendo o passo da simulação. Câmera acompanha a posição visual interpolada; tiros e colisões mantêm referência coerente. Adotar só após teste do autor em telas disponíveis; não trocar para timestep variável como correção automática. *Experimento entregue em 26/10/2026, base `0f8d485`: opção `?interp=1`, padrão preservado; [handoff](handoffs/s2.11.md). Concluída em 26/10/2026: investigada, comparada em 144 Hz pelo autor, não adotada. O autor não viu serrilhado nem tremor em nenhuma opção. Padrão mantido; `?interp=1` permanece apenas para comparação (implementação `2d9b45f`).*
+- [x] S2.11 Investigar jitter com passo fixo: comparar interpolação visual do Rapier com a configuração atual, mantendo o passo da simulação. Câmera acompanha a posição visual interpolada; tiros e colisões mantêm referência coerente. Adotar só após teste do autor em telas disponíveis; não trocar para timestep variável como correção automática. *Experimento entregue em 26/10/2026, base `0f8d485`: opção `?interp=1`, padrão preservado; [handoff](handoffs/s2.11.md). Concluída em 26/10/2026: investigada, comparada em 144 Hz pelo autor, não adotada. O autor não viu serrilhado nem tremor em nenhuma opção. Decisão inicial revista em 04/11/2026: interpolação adotada como padrão após diagnóstico a 144 Hz; `?interp=0` desliga para comparação. [Registro da revisão de decisão](handoffs/s6.2-luta-espada.md#segunda-rodada-e-integração-da-cabine-04112026).*
 - [x] S2.12 Registrar e corrigir problemas de controle apontados pelo autor (escopo ampliado pelo autor em 07/10/2026; S2.12 não se restringe à arma):
   - **A · Movimento pela mira e Explorador da S6.8** (versão validada pelo autor: r7, `4c0ecfd`, com os cinco clipes). Novo contrato: W corre na direção do cursor; S recua mantendo o personagem voltado ao cursor, sem girar 180°; A/D não deslocam; W + S neutralizam; sem W/S, parado e orientado pelo cursor. A mesma direção horizontal de mira orienta corpo e deslocamento; cursor muito perto mantém a última direção válida. Velocidades de corrida e recuo separadas e ajustáveis, recuo mais lento. Q/C, R, E e Escape preservados; bloqueios de menus, diálogos e transições conferidos; instruções e HUD atualizadas. Integrar o candidato da S6.8 (Explorador r7 com Idle, Run, Talk, Fall e Backward, preservando as correções posteriores à r6) como asset separado, com opção de desenvolvimento para comparar com o personagem atual no mesmo ponto, câmera e luz, sem duplicar personagem ou colisores; prévia de teste começa com a r7. Estados Idle, Run e Backward com transições curtas; reprodução ajustada à velocidade efetiva (0,80 m/s é a referência do Backward, não a velocidade final), contato dos pés conferido contra o deslocamento real no jogo e locomoção parada contra parede. Materiais por asset em `GLBCharacter`, sem `flatShading` indiscriminado; escala, colisores e mapas inalterados. A pose de mira do candidato segue experimental. *Parte A integrada em 18/10 (`cf1bc63`, origem `82e3229`), sem aceite. A revisão específica contra `110922a`, A1–A13 e a decisão sobre corrida/deslizamento do Run permanecem na etapa 6.1; o aceite de jogabilidade segue na etapa 6.5. Fontes r7 preservadas fora do Git da integração, com manifesto da Fase 2.*
   - **B · Coerência entre arma, traçador e colisão.** Três etapas revisáveis decididas em 30/09/2026 ([handoff da S2.9](handoffs/s2.9.md)): origem, mira e traçador; colisão com altura; caixas sólidas e navegação. Depois da parte A.
@@ -289,7 +304,7 @@ Objetivo: transformar volumes provisórios em elementos reconhecíveis sem alter
 
 - [ ] S6.14 Definir tokens, fontes locais licenciadas e componentes mínimos com variantes EDEN Holographic e Mars Colony Clean. Cobrir estados de interação, foco, carregamento, vazio, erro e sucesso; medir contraste e oferecer efeitos reduzidos. Usar os dois guias visuais preservados no [plano de UI](sprint-6/PLANO_UI.md).
 - [ ] S6.15 Atualizar entrada, perfil, continuar, pausa/controles e configurações com o estilo EDEN, após S6.14. Entrada leva ao hub; partida permanece na nave. Preservar save e acesso por teclado, restaurar foco/pausa e exibir somente configurações funcionais.
-- [ ] S6.16 Atualizar briefing, cabine, inventário temporário, carregamento/erro, resultado e derrota/retry no estilo EDEN, após S6.6, S6.15 e Sprint 4. Distinguir ondas concluídas, carga pronta e carga salva; bloquear input do canvas sob modais e preservar extração única.
+- [ ] S6.16 Atualizar briefing, cabine, inventário temporário, carregamento/erro, resultado e derrota/retry no estilo EDEN, após S6.6, S6.15 e Sprint 4. Distinguir ondas concluídas, carga pronta e carga salva; bloquear input do canvas sob modais e preservar extração única. *Pendência posterior registrada pelo autor em 05/11/2026: preencher os intervalos de carregamento com vídeos de transição no menu de navegação da aeronave; responsável: autor. Não bloqueia o encerramento da Sprint 2.*
 - [ ] S6.17 Aplicar Mars Colony Clean ao depósito, resumo da última carga confirmada e laboratório, após S6.16 e S5.1–S5.5. Mostrar materiais, receita, faltantes e máquina instalada reais; fabricação continua na interação física do laboratório. Energia, população, pesquisa, estufa e construção livre permanecem no backlog.
 - [ ] S6.18 Validar as telas de S6.6/S6.14–S6.17 em desktop, teclado, zoom de 200% e efeitos reduzidos; testar foco, pausa, input, save e três ciclos de missão/retorno. Remover informações internas de sprint da UI final e manter QA em modo de desenvolvimento. Registrar roteiro e revisão visual do autor sem substituir playtest por screenshots.
 
@@ -381,4 +396,4 @@ Meta provisória de desempenho: 60 FPS no equipamento de referência registrado 
 10. Avaliar navegação por navmesh em mapas maiores, movimentação contextual e biblioteca ampliada de animações conforme uma necessidade de gameplay demonstrada.
 11. Atualizações maiores de React/R3F/Rapier/Vite em trabalho isolado com verificação de compatibilidade e benefício concreto. Não são pré-requisito do piloto.
 
-Próxima ação de execução: receber a validação do autor sobre o Sprint 2, corrigir o que for apontado e executar S2.9–S2.12 de forma incremental. Depois seguir ao Sprint 3. Não iniciar novos mapas, estufa ou texturas finais antes de validar o ciclo até a máquina do laboratório.
+Próxima ação solicitada pelo autor após encerrar a Sprint 2: organizar a documentação e inventariar assets antigos, preservando fontes, backups e arquivos não rastreados. Em seguida, retomar os itens pendentes da Sprint 3; antecipações dos Sprints 3/4/6 não encerram seus escopos completos. Vídeos de transição do carregamento na navegação da aeronave permanecem como pendência do autor na S6.16.

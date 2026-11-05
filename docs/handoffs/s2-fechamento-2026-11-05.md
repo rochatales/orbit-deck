@@ -179,3 +179,40 @@ As cinco medições M1/M2/S2/S1/S44 estão registradas; S2 tem coleta de 30 s,
 explicitamente maior que os 10 s solicitados. Resultados completos no README
 local de evidências. Falta o resultado final 115/115/retorno e as decisões
 expressas S2.9 e 6.5 do autor. Nenhum encerramento presumido.
+
+
+## Encerramento por aceite expresso do autor · 05/11/2026
+
+As três respostas finais do autor foram registradas integralmente em
+`docs/sprint-2/evidencias/2026-11-05/aceites-autor.json`:
+
+- “115/115 e retorno a Marte concluídos sem bloqueios”.
+- “Aprovo a etapa 6.5, sem falhas impeditivas”.
+- “Aprovo a S2.9 com os resultados e limites registrados”.
+
+Sprint 2 encerrada por essas decisões. Plano oficial, relatório e sessão
+atualizados nesta branch; roteiro de 19/10 marcado como histórico, sem apagar
+conteúdo nem fabricar resultados por checkbox antigo. Condições de percurso/
+população e aceite de controles/combate são do autor; percentis, duração,
+coverage, hashes e timestamps conferidos pelo agente. Duração total da missão
+não foi informada; duração das amostras preservada. API/lifecycle cobertos nos
+testes; console manual não exercitado. Nenhum aceite futuro de Sprint 3/4/6/7
+é inferido. Os registros de pendência das seções anteriores são a cronologia
+da sessão; o resultado vigente é este encerramento.
+
+### Quadro da integração
+
+`docs/SPRINT_STATUS.md` **não foi editado nesta branch de tarefa**, conforme sua
+regra. Atualização concreta da linha S2 e nota de fechamento preparada em
+`docs/handoffs/s2-fechamento-2026-11-05-quadro.patch`, para a branch de integração.
+O patch não altera ponteiros de Git, outros sprints ou arquivos de runtime.
+Aplicabilidade conferida com `git apply --check`; nenhum merge/push executado.
+
+### Pendência posterior do autor
+
+Autor acrescentou: “Depois só temos que preencher os gaps de tempos de loading
+com os vídeos de transição no menu de navegação da aeronave, pendência minha.”
+Registrada como complemento da **S6.16**, responsável autor, posterior e sem
+bloqueio do encerramento S2. Não foi criada nova numeração nem mudado o runtime.
+A limpeza documental e de assets é outra etapa; nenhuma fonte, backup, arquivo
+não rastreado ou worktree foi removido.

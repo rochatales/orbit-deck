@@ -1,5 +1,42 @@
 # Sprint 2 — Movimento, tiro e sobrevivência
 
+## Encerramento pelo autor · 05/11/2026
+
+**Sprint 2 encerrada:** autor aprovou expressamente S2.9 e etapa 6.5 e confirmou
+“115/115 e retorno a Marte concluídos sem bloqueios”. Aceite do conjunto de
+controles, combate, navegação, recursos, HUD/áudio, pausa/foco e morte/reinício
+sem falhas impeditivas. O agente registrou as decisões humanas, sem aprovar
+jogabilidade por automação. [Declarações](evidencias/2026-11-05/aceites-autor.json).
+
+Mapas/regras `00ab557` (Quartel/Laboratório e telhados atualizados), instrumentação
+`18fe0d6`; branch `rochatales/s2-fechamento-2026-11-05`. Interpolação padrão desde
+04/11, opção `?interp=0` para comparação. S0.4 encerrada em 25/10, S2.10 e
+S2.12 A/B já aceitas; S2.11 concluída. Nenhum asset, regra de jogo ou dependência
+alterado nesta sessão: mudanças de código limitadas à instrumentação opcional.
+
+S2.9: M1/M2 de 30 s, S2 de 30 s (maior que os 10 s pedidos), S1/S44 de 10 s.
+Cinco relatórios íntegros, válidos, sem warnings/saturação. p95 M1/M2/S2/S1/S44:
+14,5 / 7,7 / 7,7 / 7,7 / 13,9 ms; S2 com 2 intervalos >33 ms, 1 >50 ms e um
+LoAF de 66 ms; demais amostras sem frames longos. Pico S44: 44 vivos por toda a
+janela confirmado pelo autor. rAF não mede tempo de GPU; contexto/heap lidos na
+exportação. Odyssey G5 144 Hz, Apple M2 Pro, Chrome 156, viewport/buffer
+1363×1035, DPR 1/1. [Resultados e limites](evidencias/2026-11-05/README.md).
+
+Verificação do código medido: **564/564**, build e diff-check verdes; revisão
+Claude sem defeitos de código. Corrigida prontidão do astronauta/EDEN atuais e
+adicionados botões 30 s/download JSON. [Handoff](../handoffs/s2-fechamento-2026-11-05.md).
+
+Sem merge/push. Quadro da integração tem atualização preparada em patch no
+handoff, seguindo a regra de não editá-lo na branch de tarefa. Sprints 3–7 não
+são encerradas por este aceite. Pendência posterior do autor na S6.16: vídeos de
+transição nos intervalos de loading do menu de navegação da aeronave. Organização
+de documentação/assets é a próxima etapa, preservando fontes/backups/não rastreados.
+
+## Registro histórico da implementação · 29/09/2026
+
+Os números, controles e pendências abaixo representam as entregas de suas datas;
+o estado atual é o encerramento acima. Não repetir o roteiro antigo como sessão atual.
+
 Data: 29/09/2026. Branch: `rochatales/horda-survivor`. Sem commit/push automático.
 
 **Implementação técnica concluída. Aprovação visual, sensação dos controles e balanceamento final pendentes com o responsável pelo projeto**, conforme combinado. Roteiro: [VALIDACAO_MANUAL.md](VALIDACAO_MANUAL.md).
