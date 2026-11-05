@@ -212,23 +212,35 @@ Saída: jogador consegue mirar, atirar, recarregar e sobreviver usando movimento
 
 ## 7. Sprint 3 — Ondas, categorias e dispositivos
 
-Objetivo: validar a primeira missão de combate completa.
+Objetivo: validar o primeiro circuito de combate e sua progressão por novas expedições.
 
-- [ ] S3.1 Implementar sequenciador das três ondas e fila de spawn com teto de oito entidades ativas; concluir onda somente quando fila estiver vazia e todos os inimigos estiverem derrotados.
-- [ ] S3.2 Configurar contagens: 6/2/0, 7/2/1 e 7/4/1 para robô/pequeno/grande. Intervalo inicial de 15 segundos entre ondas.
+**Regra do autor em 05/11/2026:** primeira visita com **quatro Patrol comuns**, um
+por esquina próxima ao quarteirão do jogador. EDEN avisa por rádio quando há cobre
+suficiente; o jogador retorna a Marte e cumpre um circuito no hub antes de voltar
+com a espada. A visita seguinte introduz pequenos mutantes em duas ondas, **4 e 6**.
+Após esse circuito, a gameplay passa às quatro hordas atuais **13/26/32/44 (115)**.
+As quatro hordas também permanecem disponíveis no save/modo de desenvolvimento,
+em “Encontro de teste”. A adaptação à evolução do personagem fica para evolução
+posterior. Quantidade de cobre e ações específicas no hub ainda em definição.
+Esta decisão substitui as três ondas/teto oito/intervalo 15 s propostos anteriormente;
+controles e encontros de desenvolvimento aprovados são preservados.
+Ver [abertura e decisões da S3](sprint-3/RELATORIO.md).
+
+- [ ] S3.1 Implementar a progressão do primeiro circuito por expedições (Patrol → retorno/circuito em Marte → espada e pequenos mutantes → quatro hordas), com fila de spawn seguro. Concluir encontro somente com fila vazia e todos os inimigos derrotados; a coleta e o retorno têm critérios próprios. Preservar encontros de teste independentes da progressão.
+- [ ] S3.2 Configurar quatro Patrol comuns no primeiro combate, um por esquina próxima ao quarteirão do jogador; depois, em nova visita após o circuito do hub, pequenos mutantes em ondas de 4 e 6 com a espada. Após a introdução, usar as quatro hordas 13/26/32/44, 4 s iniciais e 6 s entre hordas como na versão aprovada. Tempos da etapa introdutória ainda a validar.
 - [ ] S3.3 Implementar criatura pequena e investida sinalizada da grande usando formas/cores diferentes. Espécie e modelo final não bloqueiam o teste.
 - [ ] S3.4 Validar spawn em áreas alcançáveis, fora da posição do jogador e de obstáculos; prever recuperação de inimigo preso sem multiplicar drops.
 - [ ] S3.5 Implementar três minas com detecção e dano em área, consumidas uma vez na implantação.
 - [ ] S3.6 Implementar duas barreiras azuis, destrutíveis e temporárias; inimigos podem atacá-las e tiros do jogador atravessam conforme regra proposta.
 - [ ] S3.7 Adicionar preview/validação de implantação e impedir bloqueio da nave ou aprisionamento. Atualizar navegação ao colocar/remover barreira.
 - [ ] S3.8 Ajustar suprimento de munição e criar reposições alcançáveis no cenário para a missão ser vencível com margem de erro. Munição permanece separada da bolsa de materiais.
-- [ ] S3.9 Exibir onda atual e SHANGHAI CLEAR; encerrar spawns após a terceira onda e manter exploração livre.
+- [ ] S3.9 Exibir etapa/onda atual e SHANGHAI CLEAR; encerrar spawns após o encontro configurado, manter exploração livre e orientar coleta/retorno por rádio. Não avançar automaticamente da etapa de Patrol para mutantes sem o retorno e o circuito em Marte.
 
 - [ ] S3.10 Adicionar feedback mínimo por evento: disparo vazio/recarga, acerto, dano, aviso de investida, explosão de mina e quebra de barreira. Sons provisórios locais/licenciados e volume/mute; sinais visuais continuam suficientes com áudio desligado. Sons só iniciam após gesto do usuário e respeitam pausa/retorno.
 - [ ] S3.11 Limitar duração e quantidade de traçadores/partículas e reutilizar recursos onde a medição justificar; reinício remove todos os efeitos. Não adicionar hit-stop ou tremor obrigatório ao combate inicial.
 - [ ] S3.12 Validar legibilidade de ameaças, distância de spawn e reação de cada categoria. Manter a grade atual com invalidação para barreiras; só avaliar navmesh se houver falha de navegação demonstrada que a solução atual não resolva.
 
-Saída: três ondas concluíveis; minas/barreiras têm utilidade percebida; pausa e reinício limpam timers/dispositivos; nenhum spawn ou bloqueio impede finalizar. Medir desempenho no pico de oito inimigos.
+Saída: primeiro circuito concluível em expedições com retorno/circuito no hub; modo de teste conserva as quatro hordas. Minas/barreiras têm utilidade percebida; pausa e reinício limpam timers/dispositivos; nenhum spawn ou bloqueio impede finalizar. Medir os encontros introdutórios e o pico atual de 44 inimigos. Adaptação à evolução do personagem fica para etapa posterior.
 
 ## 8. Sprint 4 — Loot, orientação e retorno
 

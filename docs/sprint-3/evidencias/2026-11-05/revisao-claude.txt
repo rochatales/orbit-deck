@@ -1,0 +1,36 @@
+**Parecer: nenhum problema de runtime introduzido em `dba8940...50eb578`. Não há bloqueio para seguir à validação do autor.** Encontrei só um problema, de baixa severidade, na cobertura de teste do reinício.
+
+## Problema encontrado
+
+**Teste de reinício não exercita reinício:** `tests/horde-spawn-safety.test.mjs:86-89` e `docs/handoffs/s3.4-spawn-seguro.md:45-46`
+- **Falha do teste:** ele cria um `fresh` sem relação com o `sim` que tinha a fila e só confere os valores iniciais do construtor. Passaria mesmo que o reinício real mantivesse fila ou drops.
+- **Impacto:** só na evidência, porque o handoff apresenta esse item como verificado. O comportamento está correto por leitura: `CombatScene.tsx:38-39` recria a simulação quando `run` muda, e `useCombatStore.ts:22` volta o HUD ao estado inicial, com `queued: 0`.
+- **Ajuste sugerido:** renomear o teste para o que ele cobre, ou registrar no handoff que o reinício foi conferido por leitura.
+
+## O que conferi sem achar defeito
+
+| Área | Resultado |
+|---|---|
+| **Hordas** | 13/26/32/44, total 115, intervalos de 4 s e 6 s preservados; nenhum teto de oito aplicado. |
+| **Fila** | `queued` é definido uma vez e decrementado por nascimento. A espera tem precedência sobre o intervalo (`simulation.ts:542-546`). |
+| **Nascimento** | Sem bloqueio, escolhe o mesmo ponto da base. Usa a lista do próprio tipo, e as prioridades 0–3 cobrem todos os tipos, então nenhum slot fica de fora. |
+| **Alcance e terreno** | Nenhum fallback relaxa os 14 m ou o terreno. As listas já vêm validadas por tipo até o desembarque. |
+| **Separação** | Compara com todos os vivos, inclusive os que nasceram na mesma passada. Slots na fila têm `hp = 0` e não ocupam espaço. |
+| **Conclusão** | `cleared` exige fila vazia, e o intervalo só começa com fila e vivos zerados. |
+| **Geração e drop** | `generation` só muda ao nascer. `r.drop`, `dropCursor` e o reabastecimento são definidos uma vez, em `startWave`. A guarda em `damageRobot` impede morte duplicada. |
+| **Pausa e retry** | A espera só avança dentro de `step`, depois da saída por pausa ou morte. Jogador com posição inválida apenas adia a tentativa. |
+| **Recuperação de movimento** | Chamar `resetMovementRecovery` antes de posicionar é seguro, porque ele não guarda posição. |
+| **Render e HUD** | Slot na fila fica oculto (`CombatScene.tsx:145`) e sem indicadores. O alvo do tiro e o aviso de investida filtram `hp > 0`, e `publish` compara todas as chaves, inclusive `queued`. |
+| **Desempenho** | Nenhum objeto novo por tentativa. `traversable` cria closures, mas é o padrão já usado no passo e só roda ao nascer ou a cada 250 ms com fila. |
+| **Fluxo** | Plano e `SPRINT_STATUS.md` intactos; handoff incluído no commit. `git diff --check` sem erros e árvore limpa. |
+
+## O que não foi executado
+
+- **Varredura por posições:** o ambiente bloqueou o script em `/tmp`, então a fila no mapa todo não foi medida, e não contornei o bloqueio. Pela geometria, ela não deve se formar:
+  - os testes existentes indicam 272 pontos para mutante pequeno e mais de 250 para mutante grande; o patrol grande não tem esse número medido;
+  - com passo de 1,5 m, o disco de 14 m tira cerca de 19 pontos, e a maior separação ocupa cerca de 3.
+- **Tempo do pico de 44:** não medido em ms. Por leitura, o custo é pontual e pequeno.
+- **Testes direcionados:** o comando também exigiu aprovação e não rodou. Conferi os 573/573 só pelo log do handoff (`npm-test.txt`) e li os sete testes novos.
+- **Pior caso de retry:** seria de 44 slots × cerca de 270 pontos × até 44 vivos a cada 250 ms, com tudo bloqueado. Só é alcançável com listas reduzidas artificialmente, como nos testes, e por isso não conta como problema neste mapa. Vale reavaliar quando barreiras e minas (S3.6/S3.7) passarem a bloquear pontos do perímetro.
+
+Nenhum arquivo foi editado, e não houve commit, merge, push ou worktree nova. O registro deste parecer no handoff continua com o implementador.

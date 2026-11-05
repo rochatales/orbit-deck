@@ -174,20 +174,35 @@ Essas pendências não exigem reabrir as decisões já tomadas. As regras abaixo
 
 Os números desta seção foram definidos como proposta de design a pedido do autor. Ainda não foram testados e devem permanecer em configuração editável.
 
-### 7.1 Três ondas, 30 inimigos no total
+### 7.1 Progressão por expedições — regra do autor em 05/11/2026
 
-| Onda | Robôs humanoides | Animais pequenos | Animais grandes | Total |
-| --- | ---: | ---: | ---: | ---: |
-| 1 — Contato | 6 | 2 | 0 | 8 |
-| 2 — Pressão | 7 | 2 | 1 | 10 |
-| 3 — Confronto final | 7 | 4 | 1 | 12 |
-| Total | 20 | 8 | 2 | 30 |
+A proposta anterior de três ondas/30 inimigos/teto oito foi substituída pelo autor.
+O primeiro circuito agora tem as etapas abaixo:
 
-Duração-alvo: 6–10 minutos de combate e exploração, a validar. Iniciar a próxima onda apenas após eliminar a atual, com intervalo de preparação sugerido de 15 segundos. Limite inicial de oito inimigos ativos simultaneamente, com reposição a partir da fila da onda. Volume da onda não significa todos presentes ao mesmo tempo.
+1. Primeiro combate: **4 Patrol comuns no total**, um em cada esquina próxima
+   ao quarteirão do jogador. EDEN avisa pelo rádio quando há cobre suficiente.
+2. Retorno a Marte e circuito de gameplay no hub, que orienta nova partida,
+   agora com a espada. Quantidade de cobre e ações específicas do circuito
+   ainda a definir com o autor; não inventar receita, custo ou concessão de arma.
+3. Nova visita: pequenos mutantes em uma onda de **4**, depois outra de **6**.
+4. Após esse primeiro circuito: quatro hordas **13/26/32/44**, total **115**, da
+   gameplay atual. Tempos atuais: 4 s iniciais e 6 s entre hordas.
 
-Primeiro protótipo de comportamento: humanoide persegue e ataca a curta distância; criatura pequena pressiona em grupo; criatura grande faz uma investida sinalizada. São propostas, não decisões visuais/narrativas já aprovadas.
+O save/modo de desenvolvimento conserva as quatro hordas no seletor “Encontro de
+teste”, além das outras frentes. Progresso de introdução não deve ser concluído
+por executar um encontro de teste. Depois, a gameplay se tornará adaptativa à
+evolução do personagem; a regra adaptativa não integra esta primeira entrega.
+
+Concluir uma onda requer fila de spawn vazia e nenhum inimigo vivo. Spawn seguro,
+retorno com carga e cumprimento do circuito no hub são eventos distintos.
+Espécies e comportamentos já implantados permanecem; o primeiro circuito limita
+quais aparecem em cada expedição. [Plano vigente da S3](HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md#7-sprint-3--ondas-categorias-e-dispositivos).
 
 ### 7.2 Drops garantidos e margem de segurança
+
+> Os números abaixo pertencem à proposta inicial de 30 inimigos. Não definem a
+> quota do novo primeiro retorno por cobre, em definição desde 05/11/2026.
+> Não aplicar automaticamente essa receita ao circuito introdutório revisado.
 
 | Fonte | Drop inicial | Total disponível |
 | --- | --- | --- |
@@ -216,7 +231,7 @@ Proposta de bolsa inicial: 4 espaços para materiais, cada um com pilha de até 
 
 Estados propostos: briefing → combate → área limpa/coleta → extração → retorno ao hub → instalação no laboratório.
 
-Após eliminar a terceira onda, exibir **SHANGHAI CLEAR — Hordas eliminadas.** Sinalizar a aeronave no mapa. Vitória de combate não confirma o loot: só a extração bem-sucedida o transfere ao hub, uma única vez por expedição.
+Após concluir o encontro configurado da etapa atual, exibir **SHANGHAI CLEAR — Hordas eliminadas.** Sinalizar a aeronave no mapa. Vitória de combate não confirma o loot: só a extração bem-sucedida o transfere ao hub, uma única vez por expedição.
 
 Se faltarem placas, EDEN diz: “Parece que todos os inimigos da região foram eliminados. Não esqueça de buscar as placas de alumínio. Precisamos de quatro para terminar o equipamento do laboratório.”
 

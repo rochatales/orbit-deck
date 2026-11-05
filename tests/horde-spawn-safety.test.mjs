@@ -7,6 +7,7 @@ const { CombatSimulation } = loadSource('src/combat/simulation.ts');
 const { COMBAT, HORDE_ENCOUNTER, encounterLayout, robotConfig } = loadSource('src/combat/config.ts');
 const { createPhase01Terrain, SHANGHAI_PHASE01: data } = loadSource('src/game/shanghai/layout.ts');
 const { traversable } = loadSource('src/combat/navigation.ts');
+const { useCombatStore } = loadSource('src/state/useCombatStore.ts');
 const advance = (sim, player, seconds = COMBAT.fixedStep, paused = false) => {
     const input = { player, aim: player, facingAngle: 0, firing: false, reload: false };
     for (let i = 0; i < Math.ceil(seconds / COMBAT.fixedStep); i++) sim.step(COMBAT.fixedStep, input, paused);
@@ -73,7 +74,7 @@ test('S3.1/S3.4: sem ponto seguro, fila espera, pausa congela e cada vida conced
     assert.ok(sim.waveLeft > 0, 'intervalo só começa após fila e vivos zerarem');
 });
 
-test('S3.4: última horda na fila não anuncia área limpa; reinício descarta fila e drops', () => {
+test('S3.4: última horda pendente não limpa área; restart zera HUD e solicita nova rodada', () => {
     const sim = new CombatSimulation(createPhase01Terrain(), HORDE_ENCOUNTER, encounterLayout(true));
     const point = sim.edgeSpawns[0];
     // Simula chegada à última horda, sem executar o combate das anteriores.
@@ -83,8 +84,13 @@ test('S3.4: última horda na fila não anuncia área limpa; reinício descarta f
     advance(sim, point);
     assert.equal(sim.wave, 4); assert.equal(sim.queued, 44); assert.equal(sim.alive, 0);
     assert.equal(sim.cleared, false);
-    const fresh = new CombatSimulation(createPhase01Terrain(), HORDE_ENCOUNTER, encounterLayout(true));
-    assert.equal(fresh.wave, 0); assert.equal(fresh.queued, 0);
-    assert.equal(fresh.kills, 0); assert.ok(fresh.drops.every(d => !d.spawned));
-    assert.ok(fresh.robots.every(r => !r.spawned));
+    useCombatStore.getState().selectEncounter(HORDE_ENCOUNTER);
+    useCombatStore.getState().publish(sim.snapshot);
+    const previousRun = useCombatStore.getState().run;
+    assert.equal(useCombatStore.getState().queued, 44);
+    useCombatStore.getState().restart();
+    const hud = useCombatStore.getState();
+    assert.equal(hud.queued, 0); assert.equal(hud.wave, 0);
+    assert.equal(hud.kills, 0); assert.equal(hud.total, 115);
+    assert.equal(hud.run, previousRun + 1, 'sinaliza recriação da simulação para a cena');
 });
