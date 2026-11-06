@@ -1,6 +1,6 @@
 Base: 6005d3fb06ce5982a0c0c4d37ed6f1bdc805fbb3
-Código final: 5546a88
-npm test: 625 testes, 625 passaram, 0 falharam (45,18 s).
+Código final: 043b382 (complemento pausa); circuito/visor: 5546a88
+npm test: 626 testes, 626 passaram, 0 falharam (42,41 s).
 npm run build: passou; aviso existente de chunk >500 kB.
 git diff --check 6005d3f HEAD: passou.
 Claude: R1-R6 encerrados em ff67dd9; espessura mundial/descarte confirmados em 5546a88 sem achados (13/13 testes específicos).
@@ -8,3 +8,4 @@ Navegador: nascimento 2000x888, rótulo do Engenheiro distante sem E, F/E/2 bloq
 Visor: seis renders regenerados do rig real (Idle/Walk/Sitting, frente/perfil), sem regravar GLBs/fontes. Espessura mundial comparada entre os dois modelos.
 Prévia: http://127.0.0.1:5198/
 Aceite visual e jogabilidade: autor, pendente. Sem push/merge.
+Complemento pausa: ESC simples com blur, engrenagem e saída para o menu conferidos no navegador. Claude sem achados, 6/6 testes específicos.
