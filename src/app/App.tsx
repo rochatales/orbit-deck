@@ -95,7 +95,9 @@ function Runtime({ onHome }: { onHome: () => void }) {
             if (!state.ready || state.session.phase === 'travelling' || (state.session.map === 'shanghai' && useCombatStore.getState().dead))
                 return;
             if (e.code === 'Escape') {
-                if (state.session.phase === 'aboard')
+                if (useGameStore.getState().isPaused)
+                    useGameStore.getState().togglePaused();
+                else if (state.session.phase === 'aboard')
                     state.send('exit');
                 else if (state.panel === 'eden' || state.panel === 'engineer')
                     state.closePanel();

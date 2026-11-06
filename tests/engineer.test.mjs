@@ -50,7 +50,9 @@ test('Engenheiro: Oficina/Data Center/assento com caminhos livres e loop contín
     const world = createWorld(), routine = new EngineerRoutine({ ...world, movingCuboids: [] }), phases = new Set();
     for (let i = 0; i < routine.paths.length; i++) {
         let prev = i === 0 ? ENGINEER.start : ENGINEER.stops[i === 1 ? 0 : i === 2 ? 1 : 2];
-        for (const p of routine.paths[i]) { assert.ok(clearSegment(prev, p, world, ENGINEER.radius)); prev = p; }
+        for (const p of routine.paths[i]) {
+            assert.ok(clearSegment(prev, p, { ...world, obstacles:[...world.obstacles,ENGINEER.seatObstacle] }, ENGINEER.radius)); prev = p;
+        }
     }
     for (let f = 0; f < 240 * 60; f++) {
         routine.update(1/60, far); phases.add(routine.state.phase);
@@ -66,6 +68,10 @@ test('Engenheiro: portas reais abrem para o NPC e ele não atravessa folhas fech
         const g = await loadGlb(`src/assets/buildings/${id}.glb`);
         doors.push(new ColonyBuildingRuntime(g.scene, g.animations, COLONY_BUILDINGS.find(b => b.id === id), world.movingCuboids));
     }
+    const doorBox = { minX:0,maxX:0,minZ:0,maxZ:0 };
+    assert.equal(engineerDoorClear({x:-6,z:11.2},{x:-10.3,z:11.2},world.movingCuboids,doorBox),false,'folha real fechada bloqueia a travessia');
+    for(let f=0;f<120;f++) doors[1].update(far,1/60,{x:-7,z:11.2});
+    assert.equal(engineerDoorClear({x:-6,z:11.2},{x:-10.3,z:11.2},world.movingCuboids,doorBox),true,'mesma travessia livre após abertura');
     for (let f = 0; f < 240 * 60; f++) {
         for (const door of doors) door.update(far, 1/60, routine.state);
         const x = routine.state.x, z = routine.state.z;
@@ -74,6 +80,35 @@ test('Engenheiro: portas reais abrem para o NPC e ele não atravessa folhas fech
     }
     assert.ok(routine.state.cycles >= 2, `ciclos com portas: ${routine.state.cycles}`);
     doors.forEach(d => d.dispose());
+});
+
+test('Engenheiro: para diante do banco e só recua para ele com a pose sentada', () => {
+    const r = new EngineerRoutine({ ...createWorld(), movingCuboids: [] });
+    let sawSeat=false, sawRise=false;
+    for(let f=0;f<200*60;f++) {
+        r.update(1/60,far);
+        if(!sawSeat && r.state.animation==='Sitting' && r.state.seated===1) {
+            sawSeat=true; assert.ok(Math.abs(r.position.x-ENGINEER.seat.x)<.07);
+            const anchor=r.state.x;
+            for(let n=0;n<30;n++) r.update(1/60,far,true,false);
+            assert.equal(r.state.seated,0); assert.equal(r.position.x,anchor,'conversa em pé no ponto de aproximação');
+            assert.ok(r.position.x>ENGINEER.seatObstacle.maxX+ENGINEER.radius);
+            for(let n=0;n<30;n++) r.update(1/60,far);
+            assert.equal(r.state.seated,1,'retoma a pose no banco');
+        }
+        if(sawSeat && r.state.animation==='CrouchToStand' && r.state.seated===0) { sawRise=true; break; }
+    }
+    assert.ok(sawSeat && sawRise,'sentou e voltou ao apoio livre');
+});
+
+test('Engenheiro: distância da arrancada corresponde ao deslocamento do FBX', () => {
+    const r = new EngineerRoutine({ ...createWorld(), movingCuboids: [] });
+    let distance=0;
+    for(let f=0;f<88;f++) {
+        const x=r.state.x,z=r.state.z; r.update(1/30,far);
+        distance+=Math.hypot(r.state.x-x,r.state.z-z);
+    }
+    assert.ok(Math.abs(distance-1.628464)<.04,`distância da arrancada: ${distance}`);
 });
 
 test('Engenheiro: esbarrão uma vez por aproximação, sem dano ou deslocamento da reação', () => {
@@ -116,7 +151,40 @@ test('Engenheiro: E valida mapa, distância e paredes e não grava/avança campa
     placePlayer({x:-5,y:0,z:6}); s.getState().openEngineer(); assert.equal(s.getState().panel,'engineer');
     s.getState().closePanel(); assert.equal(s.getState().panel,null); assert.equal(values.get('exoden:campaign:v1'),raw);
     world.obstacles.push({minX:-5.8,maxX:-5.6,minZ:4,maxZ:8}); s.getState().openEngineer(); assert.equal(s.getState().panel,null);
+    s.getState().returnHome(); s.getState().start('Dev QA','#abcdef');
+    const development=new Map(values);
+    world.obstacles.pop(); s.getState().setReady(true); placePlayer({x:-5,y:0,z:6});
+    s.getState().openEngineer(); assert.equal(s.getState().panel,'engineer'); s.getState().closePanel();
+    assert.deepEqual(values,development,'conversa no desenvolvimento preserva hub/carga/campanha byte a byte');
     Object.assign(p,{active:false,world:null});
+});
+
+test('Engenheiro: rig retoma o instante da transição após conversa e esbarrão', async () => {
+    const { clone } = await import('three/examples/jsm/utils/SkeletonUtils.js');
+    const { EngineerRig } = loadSource('src/npcs/engineerRig.ts');
+    const g=await loadGlb(file);
+    for(const phase of ['crouch-down','stand-up']) for(const interruption of ['conversation','bump']) {
+        const r=new EngineerRoutine({...createWorld(),movingCuboids:[]}),rig=new EngineerRig(clone(g.scene),g.animations);
+        for(let f=0;f<100*60;f++) {
+            r.update(1/60,far); rig.update(r.state,1/60);
+            if(r.state.phase===phase && r.state.clipTime>2.1 && r.state.clipTime<2.3) break;
+        }
+        assert.equal(r.state.phase,phase); const time=r.state.clipTime;
+        if(interruption==='conversation') {
+            for(let f=0;f<60;f++){r.update(1/60,far,true,false);rig.update(r.state,1/60);}
+        } else {
+            const player={x:r.position.x+.75,z:r.position.z};
+            r.update(1/60,player); rig.update(r.state,1/60);
+            assert.equal(r.state.animation,'ShovedReaction');
+            for(let f=0;f<300;f++){
+                r.update(1/60,player);rig.update(r.state,1/60);
+                if(r.state.animation!=='ShovedReaction') break;
+            }
+        }
+        r.update(1/60,far); rig.update(r.state,1/60);
+        assert.ok(Math.abs(rig.actions.get(r.state.animation).time-time)<.08,`${phase}/${interruption}: clipe retoma ${time}`);
+        rig.dispose();
+    }
 });
 
 test('Interação móvel: balão e E leem a posição atual, sem registro por passo', () => {

@@ -1,21 +1,23 @@
-import { Navigation, clearSegment, segmentBox, smoothPath, type Position, type Terrain } from '../combat/navigation';
+import { Navigation, segmentBox, smoothPath, type Position, type Terrain } from '../combat/navigation';
 import type { SimpleCuboid } from '../world/createOfficeMap';
 
 export const ENGINEER = {
     height: 2.23, radius: .38, interactionRadius: 2.5, speed: .789572,
     start: { x: -6.1, z: 6 }, bumpRadius: .84, bumpRearm: 1.4,
     crouchTransition: 77 / 30, bumpDuration: 128 / 30,
+    seat: { x: -10.3, z: 13, approach: .85 },
+    seatObstacle: { minX: -10.58, maxX: -10.02, minZ: 12.72, maxZ: 13.28 },
     stops: [
         { x: -10.3, z: 11.2, angle: -Math.PI / 2, activity: 'crouch' },
         { x: -10.3, z: 0, angle: -Math.PI / 2, activity: 'crouch' },
-        { x: -10.3, z: 13, angle: Math.PI / 2, activity: 'sit' }
+        { x: -9.45, z: 13, angle: Math.PI / 2, activity: 'sit' }
     ]
 } as const;
 export type EngineerAnimation = 'Idle' | 'StartWalking' | 'Walk' | 'CrouchDown' | 'Crouch' | 'CrouchToStand' | 'Sitting' | 'ShovedReaction' | 'Yelling' | 'Acknowledging';
 export type EngineerPhase = 'walk' | 'crouch-down' | 'crouch' | 'stand-up' | 'sit';
 export interface EngineerState extends Position {
     y: number; angle: number; animation: EngineerAnimation; phase: EngineerPhase;
-    moving: boolean; cycles: number;
+    moving: boolean; cycles: number; seated: number; clipTime: number | null;
 }
 /** Projeção conservadora dos colisores simples animados das portas, sem criar vetores. */
 export function engineerDoorClear(from: Position, to: Position, doors: readonly SimpleCuboid[], box: { minX: number; maxX: number; minZ: number; maxZ: number }, radius: number = ENGINEER.radius) {
@@ -33,7 +35,9 @@ export function engineerDoorClear(from: Position, to: Position, doors: readonly 
 
 /** Uma rotina mutável. Caminhos calculados só na criação; pausa/conversa preservam a tarefa. */
 export class EngineerRoutine {
-    readonly state: EngineerState = { ...ENGINEER.start, y: 0, angle: Math.PI, animation: 'Idle', phase: 'walk', moving: false, cycles: 0 };
+    readonly state: EngineerState = { ...ENGINEER.start, y: 0, angle: Math.PI, animation: 'Idle', phase: 'walk', moving: false, cycles: 0, seated: 0, clipTime: null };
+    /** Apoio visual/físico: aproximação livre antes de recuar para a pose sentada. */
+    readonly position: Position & { y: number } = { ...ENGINEER.start, y: 0 };
     readonly paths: Position[][];
     private route = 0;
     private waypoint = 0;
@@ -47,9 +51,10 @@ export class EngineerRoutine {
     private next = { x: 0, z: 0 };
     private doorBox = { minX: 0, maxX: 0, minZ: 0, maxZ: 0 };
     constructor(private readonly world: Terrain & { movingCuboids?: SimpleCuboid[] }) {
-        const nav = new Navigation(world, ENGINEER.radius, .5), stops = ENGINEER.stops;
+        const terrain = { ...world, obstacles: [...world.obstacles, ENGINEER.seatObstacle] };
+        const nav = new Navigation(terrain, ENGINEER.radius, .5), stops = ENGINEER.stops;
         const route = (a: Position, b: Position) => {
-            const path = smoothPath(a, nav.path(a, b), world, ENGINEER.radius);
+            const path = smoothPath(a, nav.path(a, b), terrain, ENGINEER.radius);
             if (!path.length) throw Error('Engenheiro sem trajeto livre entre Oficina e Data Center.');
             return path;
         };
@@ -62,7 +67,16 @@ export class EngineerRoutine {
     update(delta: number, player: Position, talking = false, edenActive = false, paused = false) {
         if (paused || delta <= 0) return;
         const dt = Math.min(delta, .05), s = this.state;
-        const distance = Math.hypot(player.x - s.x, player.z - s.z);
+        s.clipTime = null;
+        this.advance(dt, player, talking, edenActive);
+        const target = s.animation === 'Sitting' ? 1 : 0;
+        s.seated += Math.sign(target - s.seated) * Math.min(Math.abs(target - s.seated), dt / .35);
+        this.position.x = s.x - ENGINEER.seat.approach * s.seated;
+        this.position.z = s.z; this.position.y = s.y;
+    }
+    private advance(dt: number, player: Position, talking: boolean, edenActive: boolean) {
+        const s = this.state;
+        const distance = Math.hypot(player.x - this.position.x, player.z - this.position.z);
         const playerMoved = Number.isFinite(this.lastPlayerX) && Math.hypot(player.x - this.lastPlayerX, player.z - this.lastPlayerZ) > .002;
         this.lastPlayerX = player.x; this.lastPlayerZ = player.z;
         if (distance > ENGINEER.bumpRearm) this.bumpArmed = true;
@@ -70,7 +84,7 @@ export class EngineerRoutine {
         if (talking) {
             this.bumpLeft = 0; this.bumpArmed = false; this.speed = 0;
             s.animation = edenActive ? 'Acknowledging' : 'Yelling';
-            this.face(Math.atan2(player.x - s.x, player.z - s.z), dt);
+            this.face(Math.atan2(player.x - this.position.x, player.z - this.position.z), dt);
             return;
         }
         if (this.bumpArmed && playerMoved && distance < ENGINEER.bumpRadius) {
@@ -92,11 +106,10 @@ export class EngineerRoutine {
                 this.speed = 0;
             } else {
                 const target = path[this.waypoint], dx = target.x - s.x, dz = target.z - s.z, remaining = Math.hypot(dx, dz);
-                this.speed += (ENGINEER.speed - this.speed) * (1 - Math.exp(-3 * dt));
+                this.speed += (ENGINEER.speed - this.speed) * (1 - Math.exp(-1.1 * dt));
                 const step = Math.min(remaining, this.speed * dt);
                 this.next.x = s.x + dx / remaining * step; this.next.z = s.z + dz / remaining * step;
                 if (distance < 1.05 || Math.hypot(this.next.x - player.x, this.next.z - player.z) < .85
-                    || !clearSegment(s, this.next, this.world, ENGINEER.radius)
                     || !engineerDoorClear(s, this.next, this.world.movingCuboids ?? EMPTY_DOORS, this.doorBox)) {
                     this.speed = 0; s.animation = 'Idle'; return;
                 }
@@ -104,6 +117,7 @@ export class EngineerRoutine {
                 s.y = this.world.surfaceHeight?.(s.x, s.z) ?? 0;
                 this.walkingTime += dt;
                 s.animation = this.walkingTime < 88 / 30 ? 'StartWalking' : 'Walk'; s.moving = true;
+                s.clipTime = this.walkingTime - (s.animation === 'Walk' ? 88 / 30 : 0);
                 this.face(Math.atan2(dx, dz), dt);
                 return;
             }
@@ -111,6 +125,7 @@ export class EngineerRoutine {
         const stop = ENGINEER.stops[this.route === 1 ? 1 : this.route === 2 ? 2 : 0];
         this.face(stop.angle, dt);
         s.animation = s.phase === 'crouch-down' ? 'CrouchDown' : s.phase === 'crouch' ? 'Crouch' : s.phase === 'sit' ? 'Sitting' : 'CrouchToStand';
+        s.clipTime = (s.phase === 'sit' ? 14 : s.phase === 'crouch' ? 7 : ENGINEER.crouchTransition) - this.left;
         this.left -= dt;
         if (this.left > 0) return;
         if (s.phase === 'crouch-down') { s.phase = 'crouch'; this.left = 7; }

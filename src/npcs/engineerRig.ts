@@ -37,7 +37,9 @@ export class EngineerRig {
         const next = this.actions.get(state.animation);
         if (!next) throw Error(`Engenheiro sem ${state.animation}.`);
         if (next !== this.current) {
-            next.reset().fadeIn(.35).play(); this.current.fadeOut(.35); this.current = next;
+            next.reset();
+            if (state.clipTime != null) next.time = state.clipTime;
+            next.fadeIn(.35).play(); this.current.fadeOut(.35); this.current = next;
         }
         this.root.rotation.y = state.angle;
         this.mixer.update(Math.max(0, Math.min(.05, dt)));

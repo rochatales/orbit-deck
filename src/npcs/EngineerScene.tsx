@@ -25,7 +25,7 @@ export function EngineerScene({ world }: { world: OfficeWorld }) {
     useLayoutEffect(() => {
         const root = clone(gltf.scene), instance = new EngineerRig(root, gltf.animations);
         visual.current!.add(root); rig.current = instance;
-        engineerPresence.x = routine.state.x; engineerPresence.y = routine.state.y; engineerPresence.z = routine.state.z;
+        engineerPresence.x = routine.position.x; engineerPresence.y = routine.position.y; engineerPresence.z = routine.position.z;
         engineerPresence.world = world; engineerPresence.active = true;
         return () => {
             root.removeFromParent(); instance.dispose(); rig.current = undefined;
@@ -44,10 +44,10 @@ export function EngineerScene({ world }: { world: OfficeWorld }) {
             routine.update(1 / 60, playerPosition, talking, calm);
             clock.current -= 1 / 60;
         }
-        const s = routine.state;
-        engineerPresence.x = s.x; engineerPresence.y = s.y; engineerPresence.z = s.z;
-        body.current?.setNextKinematicTranslation(s);
-        rig.current?.update(s, dt);
+        const p = routine.position;
+        engineerPresence.x = p.x; engineerPresence.y = p.y; engineerPresence.z = p.z;
+        body.current?.setNextKinematicTranslation(p);
+        rig.current?.update(routine.state, dt);
     });
     return <>
         <RigidBody ref={body} name="Engenheiro" type="kinematicPosition" colliders={false} canSleep={false} friction={0} position={[ENGINEER.start.x, 0, ENGINEER.start.z]}>
@@ -57,7 +57,7 @@ export function EngineerScene({ world }: { world: OfficeWorld }) {
                 position={[0, ENGINEER.height + .4, 0]} available={available} onInteract={talk}/>
         </RigidBody>
         {/* Assento provisório: pés e quadril do Sitting fornecido apoiam nesta cota. */}
-        <RigidBody type="fixed" colliders={false} position={[-10.3, 0, 13]} name="BancoDoEngenheiro">
+        <RigidBody type="fixed" colliders={false} position={[ENGINEER.seat.x, 0, ENGINEER.seat.z]} name="BancoDoEngenheiro">
             <CuboidCollider args={[.27, .225, .27]} position={[0, .225, 0]}/>
             <mesh position={[0, .42, 0]} castShadow><cylinderGeometry args={[.28, .28, .07, 12]}/><meshStandardMaterial color="#879395" roughness={.85}/></mesh>
             <mesh position={[0, .2, 0]} castShadow><cylinderGeometry args={[.065, .065, .4, 8]}/><meshStandardMaterial color="#454f50" roughness={.8}/></mesh>
