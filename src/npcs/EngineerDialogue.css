@@ -1,0 +1,13 @@
+/* A conversa mantém o interlocutor e sua gesticulação visíveis no cenário. */
+.overlay.engineer-dialogue {
+    place-items: end;
+    padding: 20px 20px 130px;
+    background: linear-gradient(to top, #030e1880, transparent 55%);
+    backdrop-filter: none;
+}
+.engineer-dialogue article { width: min(400px, 100%); padding: 22px; max-height: 65dvh; }
+.engineer-dialogue h2 { font-size: 21px; }
+@media (max-width: 640px) {
+    .overlay.engineer-dialogue { padding: 12px 12px 105px; }
+    .engineer-dialogue article { padding: 16px; max-height: 45dvh; }
+}

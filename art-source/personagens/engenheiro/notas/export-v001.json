@@ -1,0 +1,195 @@
+{
+  "textures": [
+    {
+      "file": "texturas/v001/base_color.png",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        1024,
+        1024
+      ],
+      "sha256": "bd690bbb098f320b68241c04b93f20cd742e043ea86701e103ed0bcace6bc324"
+    },
+    {
+      "file": "texturas/v001/normal.png",
+      "source_size": [
+        2048,
+        2048
+      ],
+      "size": [
+        1024,
+        1024
+      ],
+      "sha256": "220104b16b58713f5b22021983523aeaf9ff91d163fae81b9300af5d5fc480f9"
+    }
+  ],
+  "weights_top4": {
+    "max_discarded": 0.03489098888459115,
+    "mean_discarded": 0.00020452555337785835
+  },
+  "version": 1,
+  "blender": "5.1.1",
+  "height_m": 2.23,
+  "scale": 2.3148136367496748,
+  "sources": [
+    {
+      "file": "Low Poly Astronaut-78acc9c1336513cf1664d8c933d81298.fbx",
+      "sha256": "8ea33a6a9452d3fbc2a1c035c8061a78026dc0f1924809bb32d01963f66a3d4c",
+      "bytes": 6929724
+    },
+    {
+      "file": "Low Poly Astronaut-c795549d8c248f11fc98ae4c72ab05a2.glb",
+      "sha256": "ff4d54a6021f5f33950e3394e887a6058d9f99af64209e74a0890905ea85708c",
+      "bytes": 6743692
+    },
+    {
+      "file": "Acknowledging.fbx",
+      "sha256": "073e95807c39867fc08f3fe98f9121cffd8283914866befecef7732712fb4ccc",
+      "bytes": 7125744
+    },
+    {
+      "file": "Crouch To Stand.fbx",
+      "sha256": "912d51e35ca0be931596a96e5c0e7dfa732339d350c157b94b1abd242e338143",
+      "bytes": 7129632
+    },
+    {
+      "file": "Shoved Reaction With Spin.fbx",
+      "sha256": "f073550c5cf35ef33e81bf8568a72f0d838dcf74819ce3f7e299d7fbfa8ac66e",
+      "bytes": 7176144
+    },
+    {
+      "file": "Start Walking.fbx",
+      "sha256": "959ad0d9dfd496fecab33745103f61a0ec2729c23e041a59944303b2d86d70a9",
+      "bytes": 7162496
+    },
+    {
+      "file": "white_astronaut_Sitting.fbx",
+      "sha256": "6424768d0ac9a6140737a92a498efb5618025c96ba96ad87d98edd211f28a1e3",
+      "bytes": 7543792
+    },
+    {
+      "file": "white_astronaut_Yelling.fbx",
+      "sha256": "95c452757781fa9cf6b7f87dba9a6f7d6ecd0bbfc16cff07658cda701360935b",
+      "bytes": 7383264
+    }
+  ],
+  "bones": 33,
+  "clips": [
+    {
+      "name": "Idle",
+      "duration": 0.03333333333333333
+    },
+    {
+      "name": "Acknowledging",
+      "duration": 2.2333333333333334
+    },
+    {
+      "name": "Yelling",
+      "duration": 8.5
+    },
+    {
+      "name": "Sitting",
+      "duration": 12.266666666666667
+    },
+    {
+      "name": "CrouchToStand",
+      "duration": 2.566666666666667
+    },
+    {
+      "name": "CrouchDown",
+      "duration": 2.566666666666667
+    },
+    {
+      "name": "Crouch",
+      "duration": 0.6
+    },
+    {
+      "name": "ShovedReaction",
+      "duration": 4.266666666666667
+    },
+    {
+      "name": "StartWalking",
+      "duration": 2.933333333333333
+    },
+    {
+      "name": "Walk",
+      "duration": 1.4
+    }
+  ],
+  "source_measurements": [
+    {
+      "file": "Acknowledging.fbx",
+      "frames": 68,
+      "duration": 2.2333333333333334,
+      "root_delta_m": [
+        0.0011199320433661342,
+        -0.0002515777014195919,
+        0.0001911624858621508
+      ]
+    },
+    {
+      "file": "Crouch To Stand.fbx",
+      "frames": 78,
+      "duration": 2.566666666666667,
+      "root_delta_m": [
+        0.15798744559288025,
+        -0.14940913021564484,
+        0.4079535901546478
+      ]
+    },
+    {
+      "file": "Shoved Reaction With Spin.fbx",
+      "frames": 129,
+      "duration": 4.266666666666667,
+      "root_delta_m": [
+        0.38968026638031006,
+        -1.603366732597351,
+        -0.02283208630979061
+      ]
+    },
+    {
+      "file": "Start Walking.fbx",
+      "frames": 89,
+      "duration": 2.933333333333333,
+      "root_delta_m": [
+        -0.023629439994692802,
+        -1.6284642219543457,
+        -0.03208080306649208
+      ]
+    },
+    {
+      "file": "white_astronaut_Sitting.fbx",
+      "frames": 369,
+      "duration": 12.266666666666667,
+      "root_delta_m": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "file": "white_astronaut_Yelling.fbx",
+      "frames": 256,
+      "duration": 8.5,
+      "root_delta_m": [
+        -3.5706069212437797e-08,
+        0.0,
+        -6.898682158862357e-08
+      ]
+    }
+  ],
+  "walk": {
+    "first_frame": 45,
+    "last_frame": 87,
+    "speed_m_s": 0.7895720188995886,
+    "feet_pose_error_m": 0.06495006735312357
+  },
+  "root_motion": "Horizontal neutralizado em todas as a\u00e7\u00f5es; giro/eleva\u00e7\u00e3o originais preservados, apoio no piso s\u00f3 nas c\u00f3pias.",
+  "output": {
+    "file": "engenheiro-v001.glb",
+    "bytes": 3381008,
+    "sha256": "31e83cce148ce61b5a52e9f23cdd4094ad42509482f1b4f42c24fbb2be99786a"
+  }
+}

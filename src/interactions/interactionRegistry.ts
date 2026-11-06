@@ -1,5 +1,6 @@
 export interface InteractionTarget {
     id: string; x: number; z: number; radius: number; priority: number;
+    point?: { x: number; z: number };
     available?: () => boolean;
     onInteract: () => void;
 }
@@ -15,7 +16,7 @@ export class InteractionRegistry {
         let best: InteractionTarget | null = null, bestDistance = Infinity;
         if (!Number.isFinite(player.x + player.z)) return null;
         for (let i = 0; i < this.targets.length; i++) {
-            const target = this.targets[i], dx = player.x - target.x, dz = player.z - target.z, distance = dx * dx + dz * dz;
+            const target = this.targets[i], point = target.point ?? target, dx = player.x - point.x, dz = player.z - point.z, distance = dx * dx + dz * dz;
             if (distance > target.radius * target.radius || (target.available && !target.available())) continue;
             if (!best || target.priority > best.priority || (target.priority === best.priority && distance < bestDistance)) {
                 best = target; bestDistance = distance;

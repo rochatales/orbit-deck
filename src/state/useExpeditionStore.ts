@@ -6,6 +6,8 @@ import { useGameStore } from './useGameStore';
 import { isNearEden, isNearShip, placePlayer } from './playerTransient';
 import { combatRuntime, useCombatStore } from './useCombatStore';
 import { useCampaignStore } from './useCampaignStore';
+import { canTalkToEngineer } from '../npcs/engineerPresence';
+import { playerPosition } from './playerTransient';
 const SAVE_KEY = 'exoden:hub:v1';
 /** Chave do nome de trabalho anterior (Horda Survivor): só lida para migrar, nunca apagada. */
 const LEGACY_SAVE_KEY = 'horda-survivor:hub:v1';
@@ -35,7 +37,7 @@ interface ExpeditionState {
     briefingSeen: boolean;
     session: Session;
     spawn: Point;
-    panel: 'eden' | 'ship' | null;
+    panel: 'eden' | 'engineer' | 'ship' | null;
     ready: boolean;
     error: string | null;
     saveError: string | null;
@@ -45,6 +47,7 @@ interface ExpeditionState {
     enterCampaign: (profile?: Profile, replace?: boolean) => boolean;
     returnHome: () => void;
     openEden: () => void;
+    openEngineer: () => void;
     closePanel: () => void;
     send: (event: SessionEvent) => void;
     restartMission: () => void;
@@ -107,6 +110,11 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
         set({ profile: developmentIdentity.profile, briefingSeen: developmentIdentity.briefingSeen,
             session: { ...INITIAL_SESSION }, spawn: INITIAL_POSITION, panel: null, ready: false,
             error: null, saveError: developmentSaveError, radio: INITIAL_RADIO });
+    },
+    openEngineer: () => {
+        const s = get();
+        if (s.ready && s.session.map === 'mars' && s.session.phase === 'walking' && !s.panel
+            && !useGameStore.getState().isPaused && canTalkToEngineer(playerPosition)) set({ panel: 'engineer' });
     },
     openEden: () => {
         const s = get();

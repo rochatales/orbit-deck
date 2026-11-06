@@ -1,0 +1,579 @@
+[
+  {
+    "file": "Low Poly Astronaut-78acc9c1336513cf1664d8c933d81298.fbx",
+    "arm": null,
+    "bones": 0,
+    "bone_names": [],
+    "objects": [
+      "texture_mapping"
+    ],
+    "fps": 30,
+    "action": null,
+    "range": null,
+    "arm_scale": [],
+    "bbox": {
+      "min": [
+        -0.3901110291481018,
+        -0.16544365882873535,
+        -0.48273900151252747
+      ],
+      "max": [
+        0.3914971649646759,
+        0.16996106505393982,
+        0.48562532663345337
+      ]
+    }
+  },
+  {
+    "file": "Acknowledging.fbx",
+    "arm": "Armature",
+    "bones": 33,
+    "bone_names": [
+      "mixamorig:Hips",
+      "mixamorig:Spine",
+      "mixamorig:Spine1",
+      "mixamorig:Spine2",
+      "mixamorig:Neck",
+      "mixamorig:Head",
+      "mixamorig:HeadTop_End",
+      "mixamorig:LeftShoulder",
+      "mixamorig:LeftArm",
+      "mixamorig:LeftForeArm",
+      "mixamorig:LeftHand",
+      "mixamorig:LeftHandIndex1",
+      "mixamorig:LeftHandIndex2",
+      "mixamorig:LeftHandIndex3",
+      "mixamorig:LeftHandIndex4",
+      "mixamorig:RightShoulder",
+      "mixamorig:RightArm",
+      "mixamorig:RightForeArm",
+      "mixamorig:RightHand",
+      "mixamorig:RightHandIndex1",
+      "mixamorig:RightHandIndex2",
+      "mixamorig:RightHandIndex3",
+      "mixamorig:RightHandIndex4",
+      "mixamorig:LeftUpLeg",
+      "mixamorig:LeftLeg",
+      "mixamorig:LeftFoot",
+      "mixamorig:LeftToeBase",
+      "mixamorig:LeftToe_End",
+      "mixamorig:RightUpLeg",
+      "mixamorig:RightLeg",
+      "mixamorig:RightFoot",
+      "mixamorig:RightToeBase",
+      "mixamorig:RightToe_End"
+    ],
+    "objects": [
+      "texture_mapping"
+    ],
+    "fps": 30,
+    "action": "Armature|mixamo.com|Layer0",
+    "range": [
+      1.0,
+      68.0
+    ],
+    "arm_scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "bbox": {
+      "min": [
+        -0.26003023982048035,
+        -0.16352282464504242,
+        -0.0063630519434809685
+      ],
+      "max": [
+        0.2711901068687439,
+        0.1697182059288025,
+        0.9569974541664124
+      ]
+    },
+    "samples": [
+      {
+        "frame": 1,
+        "hips": [
+          0.004334746859967709,
+          0.011179793626070023,
+          0.34086188673973083
+        ]
+      },
+      {
+        "frame": 34,
+        "hips": [
+          0.005096226930618286,
+          0.01341172680258751,
+          0.3412926197052002
+        ]
+      },
+      {
+        "frame": 68,
+        "hips": [
+          0.004818557761609554,
+          0.011071112006902695,
+          0.34094446897506714
+        ]
+      }
+    ]
+  },
+  {
+    "file": "Crouch To Stand.fbx",
+    "arm": "Armature",
+    "bones": 33,
+    "bone_names": [
+      "mixamorig:Hips",
+      "mixamorig:Spine",
+      "mixamorig:Spine1",
+      "mixamorig:Spine2",
+      "mixamorig:Neck",
+      "mixamorig:Head",
+      "mixamorig:HeadTop_End",
+      "mixamorig:LeftShoulder",
+      "mixamorig:LeftArm",
+      "mixamorig:LeftForeArm",
+      "mixamorig:LeftHand",
+      "mixamorig:LeftHandIndex1",
+      "mixamorig:LeftHandIndex2",
+      "mixamorig:LeftHandIndex3",
+      "mixamorig:LeftHandIndex4",
+      "mixamorig:RightShoulder",
+      "mixamorig:RightArm",
+      "mixamorig:RightForeArm",
+      "mixamorig:RightHand",
+      "mixamorig:RightHandIndex1",
+      "mixamorig:RightHandIndex2",
+      "mixamorig:RightHandIndex3",
+      "mixamorig:RightHandIndex4",
+      "mixamorig:LeftUpLeg",
+      "mixamorig:LeftLeg",
+      "mixamorig:LeftFoot",
+      "mixamorig:LeftToeBase",
+      "mixamorig:LeftToe_End",
+      "mixamorig:RightUpLeg",
+      "mixamorig:RightLeg",
+      "mixamorig:RightFoot",
+      "mixamorig:RightToeBase",
+      "mixamorig:RightToe_End"
+    ],
+    "objects": [
+      "texture_mapping"
+    ],
+    "fps": 30,
+    "action": "Armature|mixamo.com|Layer0",
+    "range": [
+      1.0,
+      78.0
+    ],
+    "arm_scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "bbox": {
+      "min": [
+        -0.2611232101917267,
+        -0.3447381258010864,
+        -0.03650984168052673
+      ],
+      "max": [
+        0.25663620233535767,
+        0.11100710183382034,
+        0.7263836860656738
+      ]
+    },
+    "samples": [
+      {
+        "frame": 1,
+        "hips": [
+          0.006047722417861223,
+          -0.00026759720640257,
+          0.16900523006916046
+        ]
+      },
+      {
+        "frame": 39,
+        "hips": [
+          0.09807654470205307,
+          -0.05342647805809975,
+          0.32410046458244324
+        ]
+      },
+      {
+        "frame": 78,
+        "hips": [
+          0.07429833710193634,
+          -0.06481236964464188,
+          0.3452412784099579
+        ]
+      }
+    ]
+  },
+  {
+    "file": "Shoved Reaction With Spin.fbx",
+    "arm": "Armature",
+    "bones": 33,
+    "bone_names": [
+      "mixamorig:Hips",
+      "mixamorig:Spine",
+      "mixamorig:Spine1",
+      "mixamorig:Spine2",
+      "mixamorig:Neck",
+      "mixamorig:Head",
+      "mixamorig:HeadTop_End",
+      "mixamorig:LeftShoulder",
+      "mixamorig:LeftArm",
+      "mixamorig:LeftForeArm",
+      "mixamorig:LeftHand",
+      "mixamorig:LeftHandIndex1",
+      "mixamorig:LeftHandIndex2",
+      "mixamorig:LeftHandIndex3",
+      "mixamorig:LeftHandIndex4",
+      "mixamorig:RightShoulder",
+      "mixamorig:RightArm",
+      "mixamorig:RightForeArm",
+      "mixamorig:RightHand",
+      "mixamorig:RightHandIndex1",
+      "mixamorig:RightHandIndex2",
+      "mixamorig:RightHandIndex3",
+      "mixamorig:RightHandIndex4",
+      "mixamorig:LeftUpLeg",
+      "mixamorig:LeftLeg",
+      "mixamorig:LeftFoot",
+      "mixamorig:LeftToeBase",
+      "mixamorig:LeftToe_End",
+      "mixamorig:RightUpLeg",
+      "mixamorig:RightLeg",
+      "mixamorig:RightFoot",
+      "mixamorig:RightToeBase",
+      "mixamorig:RightToe_End"
+    ],
+    "objects": [
+      "texture_mapping"
+    ],
+    "fps": 30,
+    "action": "Armature|mixamo.com|Layer0",
+    "range": [
+      1.0,
+      129.0
+    ],
+    "arm_scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "bbox": {
+      "min": [
+        -0.26340770721435547,
+        -0.15400029718875885,
+        -0.0031011865939944983
+      ],
+      "max": [
+        0.23688939213752747,
+        0.21404168009757996,
+        0.9536935687065125
+      ]
+    },
+    "samples": [
+      {
+        "frame": 1,
+        "hips": [
+          -0.018723787739872932,
+          0.04636934772133827,
+          0.3459053933620453
+        ]
+      },
+      {
+        "frame": 65,
+        "hips": [
+          0.13720576465129852,
+          -0.6538891792297363,
+          0.31262513995170593
+        ]
+      },
+      {
+        "frame": 129,
+        "hips": [
+          0.14961817860603333,
+          -0.6462854146957397,
+          0.3360419273376465
+        ]
+      }
+    ]
+  },
+  {
+    "file": "Start Walking.fbx",
+    "arm": "Armature",
+    "bones": 33,
+    "bone_names": [
+      "mixamorig:Hips",
+      "mixamorig:Spine",
+      "mixamorig:Spine1",
+      "mixamorig:Spine2",
+      "mixamorig:Neck",
+      "mixamorig:Head",
+      "mixamorig:HeadTop_End",
+      "mixamorig:LeftShoulder",
+      "mixamorig:LeftArm",
+      "mixamorig:LeftForeArm",
+      "mixamorig:LeftHand",
+      "mixamorig:LeftHandIndex1",
+      "mixamorig:LeftHandIndex2",
+      "mixamorig:LeftHandIndex3",
+      "mixamorig:LeftHandIndex4",
+      "mixamorig:RightShoulder",
+      "mixamorig:RightArm",
+      "mixamorig:RightForeArm",
+      "mixamorig:RightHand",
+      "mixamorig:RightHandIndex1",
+      "mixamorig:RightHandIndex2",
+      "mixamorig:RightHandIndex3",
+      "mixamorig:RightHandIndex4",
+      "mixamorig:LeftUpLeg",
+      "mixamorig:LeftLeg",
+      "mixamorig:LeftFoot",
+      "mixamorig:LeftToeBase",
+      "mixamorig:LeftToe_End",
+      "mixamorig:RightUpLeg",
+      "mixamorig:RightLeg",
+      "mixamorig:RightFoot",
+      "mixamorig:RightToeBase",
+      "mixamorig:RightToe_End"
+    ],
+    "objects": [
+      "texture_mapping"
+    ],
+    "fps": 30,
+    "action": "Armature|mixamo.com|Layer0",
+    "range": [
+      1.0,
+      89.0
+    ],
+    "arm_scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "bbox": {
+      "min": [
+        -0.25965434312820435,
+        -0.1594967097043991,
+        -0.0036979084834456444
+      ],
+      "max": [
+        0.2548227310180664,
+        0.1829763650894165,
+        0.9616447687149048
+      ]
+    },
+    "samples": [
+      {
+        "frame": 1,
+        "hips": [
+          0.0017755416920408607,
+          0.016188781708478928,
+          0.34589245915412903
+        ]
+      },
+      {
+        "frame": 45,
+        "hips": [
+          -0.010696735233068466,
+          -0.18657821416854858,
+          0.3273298144340515
+        ]
+      },
+      {
+        "frame": 89,
+        "hips": [
+          -0.00843238178640604,
+          -0.687308132648468,
+          0.33203354477882385
+        ]
+      }
+    ]
+  },
+  {
+    "file": "white_astronaut_Sitting.fbx",
+    "arm": "Armature",
+    "bones": 33,
+    "bone_names": [
+      "mixamorig:Hips",
+      "mixamorig:Spine",
+      "mixamorig:Spine1",
+      "mixamorig:Spine2",
+      "mixamorig:Neck",
+      "mixamorig:Head",
+      "mixamorig:HeadTop_End",
+      "mixamorig:LeftShoulder",
+      "mixamorig:LeftArm",
+      "mixamorig:LeftForeArm",
+      "mixamorig:LeftHand",
+      "mixamorig:LeftHandIndex1",
+      "mixamorig:LeftHandIndex2",
+      "mixamorig:LeftHandIndex3",
+      "mixamorig:LeftHandIndex4",
+      "mixamorig:RightShoulder",
+      "mixamorig:RightArm",
+      "mixamorig:RightForeArm",
+      "mixamorig:RightHand",
+      "mixamorig:RightHandIndex1",
+      "mixamorig:RightHandIndex2",
+      "mixamorig:RightHandIndex3",
+      "mixamorig:RightHandIndex4",
+      "mixamorig:LeftUpLeg",
+      "mixamorig:LeftLeg",
+      "mixamorig:LeftFoot",
+      "mixamorig:LeftToeBase",
+      "mixamorig:LeftToe_End",
+      "mixamorig:RightUpLeg",
+      "mixamorig:RightLeg",
+      "mixamorig:RightFoot",
+      "mixamorig:RightToeBase",
+      "mixamorig:RightToe_End"
+    ],
+    "objects": [
+      "texture_mapping"
+    ],
+    "fps": 30,
+    "action": "Armature|mixamo.com|Layer0",
+    "range": [
+      1.0,
+      369.0
+    ],
+    "arm_scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "bbox": {
+      "min": [
+        -0.20792806148529053,
+        -0.31729909777641296,
+        -0.004222222603857517
+      ],
+      "max": [
+        0.22361868619918823,
+        0.11407158523797989,
+        0.8032218813896179
+      ]
+    },
+    "samples": [
+      {
+        "frame": 1,
+        "hips": [
+          0.0037908984813839197,
+          -0.01308758556842804,
+          0.19457535445690155
+        ]
+      },
+      {
+        "frame": 185,
+        "hips": [
+          0.0038465450052171946,
+          -0.013221487402915955,
+          0.19478806853294373
+        ]
+      },
+      {
+        "frame": 369,
+        "hips": [
+          0.0037908984813839197,
+          -0.01308758556842804,
+          0.19457535445690155
+        ]
+      }
+    ]
+  },
+  {
+    "file": "white_astronaut_Yelling.fbx",
+    "arm": "Armature",
+    "bones": 33,
+    "bone_names": [
+      "mixamorig:Hips",
+      "mixamorig:Spine",
+      "mixamorig:Spine1",
+      "mixamorig:Spine2",
+      "mixamorig:Neck",
+      "mixamorig:Head",
+      "mixamorig:HeadTop_End",
+      "mixamorig:LeftShoulder",
+      "mixamorig:LeftArm",
+      "mixamorig:LeftForeArm",
+      "mixamorig:LeftHand",
+      "mixamorig:LeftHandIndex1",
+      "mixamorig:LeftHandIndex2",
+      "mixamorig:LeftHandIndex3",
+      "mixamorig:LeftHandIndex4",
+      "mixamorig:RightShoulder",
+      "mixamorig:RightArm",
+      "mixamorig:RightForeArm",
+      "mixamorig:RightHand",
+      "mixamorig:RightHandIndex1",
+      "mixamorig:RightHandIndex2",
+      "mixamorig:RightHandIndex3",
+      "mixamorig:RightHandIndex4",
+      "mixamorig:LeftUpLeg",
+      "mixamorig:LeftLeg",
+      "mixamorig:LeftFoot",
+      "mixamorig:LeftToeBase",
+      "mixamorig:LeftToe_End",
+      "mixamorig:RightUpLeg",
+      "mixamorig:RightLeg",
+      "mixamorig:RightFoot",
+      "mixamorig:RightToeBase",
+      "mixamorig:RightToe_End"
+    ],
+    "objects": [
+      "texture_mapping"
+    ],
+    "fps": 30,
+    "action": "Armature|mixamo.com|Layer0",
+    "range": [
+      1.0,
+      256.0
+    ],
+    "arm_scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "bbox": {
+      "min": [
+        -0.2584055960178375,
+        -0.1416696012020111,
+        -0.004167549312114716
+      ],
+      "max": [
+        0.25885024666786194,
+        0.19786226749420166,
+        0.9446786046028137
+      ]
+    },
+    "samples": [
+      {
+        "frame": 1,
+        "hips": [
+          0.00027345982380211353,
+          0.014112706296145916,
+          0.331956684589386
+        ]
+      },
+      {
+        "frame": 128,
+        "hips": [
+          -0.002098978031426668,
+          0.034642212092876434,
+          0.31663164496421814
+        ]
+      },
+      {
+        "frame": 256,
+        "hips": [
+          0.00027344439877197146,
+          0.014112706296145916,
+          0.3319566547870636
+        ]
+      }
+    ]
+  }
+]

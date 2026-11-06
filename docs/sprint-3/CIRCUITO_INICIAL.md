@@ -5,6 +5,15 @@ proposta antiga de três ondas, carga de 20 cobres/placas e máquina de diamante
 na primeira volta. É especificação: o circuito completo ainda não foi implementado.
 Numeração e checkboxes continuam no [plano oficial](../HORDA_SURVIVOR_PLANO_SPRINTS_PROTOTIPO.md).
 
+Atualização local · 06/11/2026: o autor forneceu o astronauta branco e seis
+animações para o Engenheiro. O [recorte de presença e rotina](../handoffs/s5.1-engenheiro-colonia.md)
+o inclui entre Oficina e Data Center, com caminhada, trabalho agachado, assento,
+reação ao esbarrão e conversa. Usa Yelling antes de EDEN e Acknowledging depois,
+conforme `edenActive` da campanha. A entrega da espada, os briefings funcionais,
+as ativações e os encontros continuam pendentes; as referências abaixo ao NPC
+ausente descrevem a especificação e o recorte anterior de 05/11. Sem aceite visual
+ou encerramento de checkbox nesta atualização.
+
 ## Sequência do jogador
 
 | Etapa | Objetivo e orientação | Mudança ao concluir |

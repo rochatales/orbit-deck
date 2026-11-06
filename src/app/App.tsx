@@ -3,6 +3,8 @@ import { ControlList } from '../ui/ControlList';
 import { HomeScreen } from '../ui/HomeScreen';
 import { useCampaignStore } from '../state/useCampaignStore';
 import { CAMPAIGN_OBJECTIVES } from '../game/campaign';
+import { EngineerDialogue } from '../npcs/EngineerDialogue';
+import { engineerIsCalm, engineerPreviewMood } from '../npcs/engineerRoutine';
 import { PauseMenuFrame } from '../ui/PauseMenuFrame';
 import { GameplayHud, BackpackContents } from '../ui/GameplayHud';
 import { ShipCargoPanel } from '../ui/ShipCargoPanel';
@@ -30,6 +32,7 @@ const SCENE_STALL_MS = 90000;
 function Runtime({ onHome }: { onHome: () => void }) {
     const s = useExpeditionStore();
     const campaign = useCampaignStore();
+    const [engineerPreview] = useState(() => engineerPreviewMood(window.location.search));
     const paused = useGameStore(g => g.isPaused);
     const [world, setWorld] = useState<{
         map: MapId;
@@ -94,7 +97,7 @@ function Runtime({ onHome }: { onHome: () => void }) {
             if (e.code === 'Escape') {
                 if (state.session.phase === 'aboard')
                     state.send('exit');
-                else if (state.panel === 'eden')
+                else if (state.panel === 'eden' || state.panel === 'engineer')
                     state.closePanel();
                 else if (state.session.phase === 'walking')
                     useGameStore.getState().togglePaused();
@@ -106,7 +109,7 @@ function Runtime({ onHome }: { onHome: () => void }) {
             if (e.code === 'KeyE' && !useGameStore.getState().isPaused) {
                 if (state.session.phase === 'aboard')
                     state.send('exit');
-                else if (state.panel === 'eden')
+                else if (state.panel === 'eden' || state.panel === 'engineer')
                     state.closePanel();
                 else if (activateWorldInteraction())
                     e.preventDefault();
@@ -133,6 +136,7 @@ function Runtime({ onHome }: { onHome: () => void }) {
       <p className="eyebrow">EDEN · GUIA DA COLÔNIA</p><h2>Uma nova expedição.</h2>{EDEN_BRIEFING.map(line => <p key={line}>{line}</p>)}
       <button onClick={() => { s.setRadio('Siga ao sul até o deck de lançamento. Entre na aeronave e escolha Shanghai.'); s.closePanel(); }}>Entendido · Voltar à exploração</button>
     </article></section>}
+    {s.panel === 'engineer' && !paused && <EngineerDialogue calm={engineerIsCalm(campaign.mode, campaign.saved?.campaign.edenActive ?? false, engineerPreview)}/>}
     {inCockpit && <ShipCockpit map={s.session.map} phase={s.session.phase} ready={s.ready} error={s.error} name={s.profile?.displayName ?? 'Explorador'}
       onDepart={() => s.send('depart')} onExit={() => s.send('exit')} onRetry={() => { if (s.error === SCENE_STALLED_ERROR) { window.location.reload(); return; } s.setError(null); s.send('depart'); }}
       encounter={s.session.map === 'mars' ? <EncounterSelect/> : undefined}/>}

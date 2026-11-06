@@ -12,8 +12,8 @@ interface InteractionBubbleProps {
 /** Mesmo balão da Sintetizadora para qualquer objeto/NPC: surge só na proximidade ativa. */
 export function InteractionBubble({ id, label, position, point, radius, priority = 20, available, onInteract, onHide, children }: InteractionBubbleProps) {
     const [visible, setVisible] = useState(false), wasVisible = useRef(false), blocked = useSimulationBlocked();
-    const target = useMemo(() => ({ id, x: point.x, z: point.z, radius, priority, available, onInteract }),
-        [id, point.x, point.z, radius, priority, available, onInteract]);
+    const target = useMemo(() => ({ id, x: point.x, z: point.z, point, radius, priority, available, onInteract }),
+        [id, point, radius, priority, available, onInteract]);
     useLayoutEffect(() => interactionTargets.register(target), [target]);
     useFrame(() => {
         const next = !simulationBlocked() && interactionTargets.select(playerPosition) === target;

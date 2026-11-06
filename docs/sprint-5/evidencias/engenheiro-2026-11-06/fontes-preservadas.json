@@ -1,0 +1,50 @@
+[
+  {
+    "file": "Low Poly Astronaut-78acc9c1336513cf1664d8c933d81298.fbx",
+    "original_sha256": "8ea33a6a9452d3fbc2a1c035c8061a78026dc0f1924809bb32d01963f66a3d4c",
+    "copy_sha256": "8ea33a6a9452d3fbc2a1c035c8061a78026dc0f1924809bb32d01963f66a3d4c",
+    "identical": true
+  },
+  {
+    "file": "Low Poly Astronaut-c795549d8c248f11fc98ae4c72ab05a2.glb",
+    "original_sha256": "ff4d54a6021f5f33950e3394e887a6058d9f99af64209e74a0890905ea85708c",
+    "copy_sha256": "ff4d54a6021f5f33950e3394e887a6058d9f99af64209e74a0890905ea85708c",
+    "identical": true
+  },
+  {
+    "file": "Acknowledging.fbx",
+    "original_sha256": "073e95807c39867fc08f3fe98f9121cffd8283914866befecef7732712fb4ccc",
+    "copy_sha256": "073e95807c39867fc08f3fe98f9121cffd8283914866befecef7732712fb4ccc",
+    "identical": true
+  },
+  {
+    "file": "Crouch To Stand.fbx",
+    "original_sha256": "912d51e35ca0be931596a96e5c0e7dfa732339d350c157b94b1abd242e338143",
+    "copy_sha256": "912d51e35ca0be931596a96e5c0e7dfa732339d350c157b94b1abd242e338143",
+    "identical": true
+  },
+  {
+    "file": "Shoved Reaction With Spin.fbx",
+    "original_sha256": "f073550c5cf35ef33e81bf8568a72f0d838dcf74819ce3f7e299d7fbfa8ac66e",
+    "copy_sha256": "f073550c5cf35ef33e81bf8568a72f0d838dcf74819ce3f7e299d7fbfa8ac66e",
+    "identical": true
+  },
+  {
+    "file": "Start Walking.fbx",
+    "original_sha256": "959ad0d9dfd496fecab33745103f61a0ec2729c23e041a59944303b2d86d70a9",
+    "copy_sha256": "959ad0d9dfd496fecab33745103f61a0ec2729c23e041a59944303b2d86d70a9",
+    "identical": true
+  },
+  {
+    "file": "white_astronaut_Sitting.fbx",
+    "original_sha256": "6424768d0ac9a6140737a92a498efb5618025c96ba96ad87d98edd211f28a1e3",
+    "copy_sha256": "6424768d0ac9a6140737a92a498efb5618025c96ba96ad87d98edd211f28a1e3",
+    "identical": true
+  },
+  {
+    "file": "white_astronaut_Yelling.fbx",
+    "original_sha256": "95c452757781fa9cf6b7f87dba9a6f7d6ecd0bbfc16cff07658cda701360935b",
+    "copy_sha256": "95c452757781fa9cf6b7f87dba9a6f7d6ecd0bbfc16cff07658cda701360935b",
+    "identical": true
+  }
+]

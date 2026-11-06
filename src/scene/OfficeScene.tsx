@@ -1,4 +1,5 @@
 import { SANDWIND_APPEARANCE } from './marsColony/sandwindPolicy';
+import { EngineerScene } from '../npcs/EngineerScene';
 import { WorldInteractionBubbles } from '../interactions/WorldInteractionBubbles';
 import { PlayerStepDust } from '../characters/player/PlayerStepDust';
 import { DawnBackground } from './DawnBackground';
@@ -55,6 +56,7 @@ export function OfficeScene({ world, map }: {
     <PhysicsWorld officeWorld={world}>
       <OfficeMap officeWorld={world} animate={map !== 'mars'}/>
       <Player key={revision} officeWorld={world} spawn={spawn}/>
+      {map === 'mars' && <EngineerScene world={world}/>}
     </PhysicsWorld>
     <PlayerStepDust key={`dust-${map}-${revision}`} world={world} map={map}/>
     {map === 'shanghai' && <><CombatScene world={world}/><PlayerVisorLight/></>}

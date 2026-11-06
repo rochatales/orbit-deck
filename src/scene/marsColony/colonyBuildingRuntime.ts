@@ -72,7 +72,7 @@ export class ColonyBuildingRuntime {
             q.x = this.rotation.x; q.y = this.rotation.y; q.z = this.rotation.z; q.w = this.rotation.w;
         }
     }
-    update(player: { x: number; z: number }, delta: number) {
+    update(player: { x: number; z: number }, delta: number, visitor?: { x: number; z: number }) {
         if (this.disposed || delta <= 0) return;
         const dt = Math.min(.05, delta), step = 1 - Math.exp(-12 * dt), b = this.spec.roofArea;
         const inside = player.x > b.minX && player.x < b.maxX && player.z > b.minZ && player.z < b.maxZ;
@@ -85,7 +85,9 @@ export class ColonyBuildingRuntime {
             m.own.depthWrite = m.depthWrite && this.status.roofOpacity > .995;
         }
         for (const d of this.doors) {
-            const dx = player.x - d.x, dz = player.z - d.z, open = dx * dx + dz * dz < 2.7 * 2.7;
+            const dx = player.x - d.x, dz = player.z - d.z;
+            const vx = visitor ? visitor.x - d.x : Infinity, vz = visitor ? visitor.z - d.z : Infinity;
+            const open = dx * dx + dz * dz < 2.7 * 2.7 || vx * vx + vz * vz < 2.7 * 2.7;
             d.sound.update(open, d.amount, d.x, d.z);
             d.amount += ((open ? 1 : 0) - d.amount) * step;
             d.action.time = d.amount * d.duration;

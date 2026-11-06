@@ -1,0 +1,133 @@
+
+> exoden@0.1.0 build
+> tsc && vite build
+
+vite v4.5.14 building for production...
+transforming...
+✓ 2546 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                                0.39 kB │ gzip:     0.28 kB
+dist/assets/SFX_Patrol_big_step_v02-0bfb2112.mp3               4.84 kB
+dist/assets/SFX_Patrol_big_step_v01-2a3cc040.mp3               4.84 kB
+dist/assets/SFX_Patrol_big_step_v03-75dc9d88.mp3               4.84 kB
+dist/assets/SFX_Patrol_big_step_v04-15844d42.mp3               4.84 kB
+dist/assets/SFX_Patrol_big_step_v05-f6698d9c.mp3               4.84 kB
+dist/assets/SFX_Patrol_small_step_v01-0f954a6c.mp3             4.84 kB
+dist/assets/SFX_Patrol_small_step_v02-44083ef6.mp3             4.84 kB
+dist/assets/SFX_Patrol_small_step_v03-f2e4495b.mp3             4.84 kB
+dist/assets/SFX_Patrol_small_step_v04-242e9235.mp3             4.84 kB
+dist/assets/SFX_Patrol_small_step_v05-e0fe8c90.mp3             4.84 kB
+dist/assets/SFX_Mutant_big_attack_hit_v01-0a529b42.mp3         4.94 kB
+dist/assets/SFX_Mutant_big_step_v11-ed59b860.mp3               4.94 kB
+dist/assets/SFX_Mutant_small_attack_hit_v01-a42420ce.mp3       4.94 kB
+dist/assets/SFX_Mutant_small_attack_hit_v04-ca052e74.mp3       4.94 kB
+dist/assets/SFX_Mutant_small_attack_hit_v02-e10530bd.mp3       5.52 kB
+dist/assets/SFX_Mutant_small_attack_hit_v05-ad1413e8.mp3       5.80 kB
+dist/assets/SFX_Rifle_shot_v01-0dbc39ed.mp3                    5.99 kB
+dist/assets/SFX_Rifle_shot_v02-90df3471.mp3                    5.99 kB
+dist/assets/SFX_Rifle_shot_v03-e8af9b97.mp3                    5.99 kB
+dist/assets/SFX_Rifle_shot_v04-defacb1b.mp3                    5.99 kB
+dist/assets/SFX_Rifle_shot_v05-6fd7a1f6.mp3                    5.99 kB
+dist/assets/SFX_Mutant_small_attack_hit_v07-e69252e6.mp3       6.09 kB
+dist/assets/SFX_Item_collected_v02-e10f73f9.mp3                6.24 kB
+dist/assets/SFX_Mutant_small_attack_hit_v06-071a8138.mp3       6.38 kB
+dist/assets/SFX_Mutant_small_bullet_hit_v02-8316da6d.mp3       6.50 kB
+dist/assets/SFX_Item_collected_v03-30ca86c0.mp3                6.82 kB
+dist/assets/SFX_Mutant_small_attack_hit_v03-6ba2088e.mp3       6.96 kB
+dist/assets/SFX_Patrol_small_attack_hit_v01-f7dcb233.mp3       7.24 kB
+dist/assets/SFX_Item_collected_v04-d8889036.mp3                7.40 kB
+dist/assets/SFX_Mutant_small_attack_hit_v08-324a8a95.mp3       7.53 kB
+dist/assets/SFX_Mutant_small_bullet_hit_v03-b784c95d.mp3       7.65 kB
+dist/assets/SFX_Mutant_small_bullet_hit_v01-8658ebc9.mp3       8.23 kB
+dist/assets/SFX_Item_collected_v01-d5810e14.mp3                8.84 kB
+dist/assets/SFX_Mutant_big_bullet_hit_v01-dc962502.mp3         9.84 kB
+dist/assets/SFX_Patrol_big_bullet_hit_v01-0fa51e39.mp3         9.84 kB
+dist/assets/SFX_Patrol_small_bullet_hit_v01-529d7e19.mp3       9.84 kB
+dist/assets/rifle-empty-v05-37742f6c.wav                      13.40 kB
+dist/assets/rifle-empty-v03-5fcdc5e6.wav                      13.86 kB
+dist/assets/rifle-empty-v06-edfc3887.wav                      14.52 kB
+dist/assets/rifle-empty-v02-ca7ef003.wav                      14.65 kB
+dist/assets/rifle-empty-v01-92566432.wav                      15.09 kB
+dist/assets/rifle-empty-v07-86b172d5.wav                      15.55 kB
+dist/assets/rifle-empty-v04-cbeaf39e.wav                      15.96 kB
+dist/assets/SFX_Mutant_small_death_hit_v01-ad9e3f88.mp3       16.75 kB
+dist/assets/SFX_Rifle_Reload_v01-b277dfd2.mp3                 18.31 kB
+dist/assets/SFX_Patrol_big_death_hit_v01-7aed0882.mp3         19.63 kB
+dist/assets/SFX_Patrol_small_death_hit_v01-4112ea0b.mp3       19.63 kB
+dist/assets/perfil-explorador-v001-c276bfea.png               21.30 kB
+dist/assets/quartel-circulation-v001-71c205de.glb             32.67 kB
+dist/assets/hangar-front-open-8d1e43f9.wav                    38.48 kB
+dist/assets/quartel-door-close-ebf92514.wav                   38.48 kB
+dist/assets/explorador-perfil-bd4b58f6.webp                   39.95 kB
+dist/assets/quartel-door-open-0c08592c.wav                    48.08 kB
+dist/assets/hangar-front-close-70028f48.wav                   53.84 kB
+dist/assets/mars-door-open-251b67e3.wav                       76.88 kB
+dist/assets/rocket-b3-2093cb1c.glb                           110.38 kB
+dist/assets/colonia-68a26ff8.webp                            117.22 kB
+dist/assets/backpack-a1e05927.glb                            126.40 kB
+dist/assets/facao-icon-v001-7032b121.png                     147.03 kB
+dist/assets/mars-6143ffde.mp4                                169.29 kB
+dist/assets/emergency-locker-4a716ae6.glb                    206.11 kB
+dist/assets/shanghai-c37cf209.mp4                            217.10 kB
+dist/assets/quartel-casca-v001-cd649d0e.glb                  500.68 kB
+dist/assets/cabine-10d026c5.jpg                              533.22 kB
+dist/assets/explorador-facao-v001-cda925f7.glb               713.17 kB
+dist/assets/barracks-v006-af8fa852.glb                       722.94 kB
+dist/assets/materia-organica-35ab8351.glb                    769.98 kB
+dist/assets/explorador-espada-v002-2be3b5fa.glb              939.53 kB
+dist/assets/mars-64672ff4.png                              1,025.14 kB
+dist/assets/shanghai-ea068373.png                          1,047.56 kB
+dist/assets/eden-v002-99a284e5.glb                         1,293.30 kB
+dist/assets/deck-mars-59b4cb7d.glb                         1,394.90 kB
+dist/assets/shanghai-limites-v001-7e8f479f.glb             1,500.70 kB
+dist/assets/laboratorio-casca-v001-7feb43e0.glb            1,556.73 kB
+dist/assets/mars-desert-1f69f6d7.mp3                       1,662.17 kB
+dist/assets/cafeteria-16812921.glb                         1,664.18 kB
+dist/assets/control-room-v002-a7ece291.glb                 1,785.56 kB
+dist/assets/item-icons-beta-v001-e19d5567.png              1,802.58 kB
+dist/assets/meeting-room-e704770a.glb                      1,835.98 kB
+dist/assets/workshop-7985cbe6.glb                          1,873.62 kB
+dist/assets/data-center-b10e9edb.glb                       1,899.61 kB
+dist/assets/laboratorio-v002-4dfd07a2.glb                  2,054.28 kB
+dist/assets/hangar-v002-29d6d972.glb                       2,075.32 kB
+dist/assets/cobre-6e8aad10.glb                             2,435.05 kB
+dist/assets/shanghai-empty-city-54b29c59.mp3               2,444.29 kB
+dist/assets/greenhouse-v001-a5668881.glb                   2,591.41 kB
+dist/assets/laboratorio-visual-v003-1414b395.glb           2,908.57 kB
+dist/assets/rifle-laser-v001-ac583a8f.glb                  3,031.09 kB
+dist/assets/explorador-astronauta-166e2f98.glb             3,141.35 kB
+dist/assets/engenheiro-v001-31e83cce.glb                   3,381.01 kB
+dist/assets/mars-interior-d42d9647.mp3                     3,395.17 kB
+dist/assets/colony-shared-floor-v001-1d6cf34f.glb          3,549.04 kB
+dist/assets/ares-lander-2491f474.glb                       4,601.50 kB
+dist/assets/titanio-1bf1c024.glb                           4,983.93 kB
+dist/assets/ferro-bdaf53f4.glb                             5,057.55 kB
+dist/assets/large-patrol-unit-acb2d8e1.glb                 5,337.17 kB
+dist/assets/explorador-r7-143a14d0.glb                     6,537.10 kB
+dist/assets/colony-v006-5a6e6d9c.glb                       7,025.67 kB
+dist/assets/facao-v001-8ddd124b.glb                        7,333.32 kB
+dist/assets/medkit-69b49064.glb                            7,643.08 kB
+dist/assets/shanghai-dov-7541631c.mp3                      8,735.39 kB
+dist/assets/patrol-unit-c01d3ea6.glb                       9,353.24 kB
+dist/assets/rusted-car-71e37422.glb                        9,809.16 kB
+dist/assets/large-mutant-70470d2d.glb                     10,534.96 kB
+dist/assets/mutant-animal-6680135e.glb                    10,624.32 kB
+dist/assets/shanghai-fase01-e1061fcc.glb                  11,099.28 kB
+dist/assets/mars-strung-out-41a4cff1.mp3                  11,320.96 kB
+dist/assets/colony-v007-e4af2fda.glb                      11,572.71 kB
+dist/assets/brand-brain-f7c02996.glb                      20,737.33 kB
+dist/assets/player-main-e44fd1a8.glb                      30,684.38 kB
+dist/assets/index-bce69581.css                                47.38 kB │ gzip:    11.39 kB
+dist/assets/marsWorld-f1d9b196.js                              0.62 kB │ gzip:     0.34 kB
+dist/assets/shanghaiWorld-36be6740.js                          1.92 kB │ gzip:     1.02 kB
+dist/assets/PerfProbe-cba8da94.js                             16.28 kB │ gzip:     6.58 kB
+dist/assets/ColonySandwind-64780d65.js                        18.63 kB │ gzip:     7.25 kB
+dist/assets/visual-fa15f3c2.js                                60.33 kB │ gzip:    18.44 kB
+dist/assets/index-00f2394f.js                              3,978.77 kB │ gzip: 1,296.39 kB
+
+(!) Some chunks are larger than 500 kBs after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 5.04s
