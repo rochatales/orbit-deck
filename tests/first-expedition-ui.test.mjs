@@ -159,6 +159,10 @@ test('S6.15 na S3.2: ESC mostra pausa simples, engrenagem abre opções e saída
   render();effects.find(fn=>fn.toString().includes('OPEN_CARGO_EVENT'))();
   let gear=nodes(tree,n=>n.props?.['aria-label']==='Abrir controles e opções');assert.equal(gear.length,1);
   assert.equal(gear[0].props.children.type,native('lucide-react').Settings,'controle é só ícone');
+  const pauseIcon=nodes(tree,n=>n.props?.['aria-label']==='Pausar jogo')[0];assert.ok(pauseIcon);assert.equal(pauseIcon.props.children.type,native('lucide-react').Pause);
+  pauseIcon.props.onClick();render();assert.equal(f.game.getState().isPaused,true);
+  let resumeIcon=nodes(nodes(tree,n=>n.type===Frame)[0].props.tools,n=>n.props?.['aria-label']==='Retomar jogo')[0];assert.ok(resumeIcon);assert.equal(resumeIcon.props.children.type,native('lucide-react').Play);
+  resumeIcon.props.onClick();render();assert.equal(f.game.getState().isPaused,false);
   const key=code=>handlers.get('keydown')({code,repeat:false,target:null,preventDefault(){}});
   key('Escape');render();assert.equal(f.game.getState().isPaused,true);
   let modal=nodes(tree,n=>n.type===Frame)[0];assert.equal(modal.props.minimal,true);assert.equal(modal.props.label,'Jogo pausado');assert.match(textTree(modal),/Pausado/);assert.doesNotMatch(textTree(modal),/À sua maneira|Sair e voltar/);

@@ -1,4 +1,4 @@
-import { Settings } from 'lucide-react';
+import { Pause, Play, Settings } from 'lucide-react';
 import { WeaponControls } from '../characters/player/WeaponControls';
 import { ControlList } from '../ui/ControlList';
 import { HomeScreen } from '../ui/HomeScreen';
@@ -53,6 +53,9 @@ function Runtime({ onHome }: { onHome: () => void }) {
     const openControls = () => { setPauseView('menu'); useGameStore.setState({ isPaused: true }); };
     const settingsButton = <button ref={settingsRef} className="game-settings-button" onClick={openControls} aria-label="Abrir controles e opções" title="Controles e opções"
         disabled={!s.ready || s.session.phase !== 'walking' || !!s.panel || (s.session.map === 'shanghai' && dead)}><Settings size={22} aria-hidden="true"/></button>;
+    const pauseButton = <button className="game-settings-button" aria-label={paused ? 'Retomar jogo' : 'Pausar jogo'} title={paused ? 'Retomar jogo' : 'Pausar jogo'}
+        disabled={!s.ready || s.session.phase !== 'walking' || !!s.panel || (s.session.map === 'shanghai' && dead)}
+        onClick={() => { setPauseView('pause'); useGameStore.getState().togglePaused(); }}>{paused ? <Play size={22} aria-hidden="true"/> : <Pause size={22} aria-hidden="true"/>}</button>;
     const requested = s.session.destination ?? s.session.map;
     useEffect(() => {
         let cancelled = false;
@@ -139,7 +142,7 @@ function Runtime({ onHome }: { onHome: () => void }) {
     {world && <GameCanvas key={world.map} world={world.data} map={world.map}/>}
     {world?.map === 'mars' && s.session.map === 'mars' && sandwindPanelEnabled(window.location.search) && <Suspense fallback={null}><SandwindPanel/></Suspense>}
     {!inCockpit && <><header className="beta-header"><div className="beta-location"><b>EXODEN<span> / BETA</span></b><small>{MAPS[s.session.map].title} · {s.profile?.displayName}</small></div>
-      <nav aria-label="Menu do jogo">{!paused && settingsButton}</nav>
+      <nav aria-label="Menu do jogo">{!paused && <>{settingsButton}{pauseButton}</>}</nav>
     </header>
     <aside className="beta-objective"><span>OBJETIVO</span>{campaign.mode === 'campaign' && campaign.saved ? campaignObjective(campaign.saved.campaign) : s.session.map === 'mars' ? 'Prepare sua expedição · Encontre EDEN' : 'Sobreviva às hordas · Recupere materiais'}</aside>
     <GameplayHud combat={s.session.map === 'shanghai'} map={s.session.map} openBackpack={() => { if (s.ready && s.session.phase === 'walking' && !s.panel && !dead) { setPauseView('backpack'); useGameStore.setState({ isPaused: true }); } }}
@@ -155,7 +158,7 @@ function Runtime({ onHome }: { onHome: () => void }) {
     {inCockpit && <ShipCockpit map={s.session.map} phase={s.session.phase} ready={s.ready} error={s.error} name={s.profile?.displayName ?? 'Explorador'}
       onDepart={() => s.send('depart')} onExit={() => s.send('exit')} onRetry={() => { if (s.error === SCENE_STALLED_ERROR) { window.location.reload(); return; } s.setError(null); s.send('depart'); }}
       encounter={campaign.mode !== 'campaign' && s.session.map === 'mars' ? <EncounterSelect/> : undefined}/>}
-    {paused && pauseView === 'pause' && !(s.session.map === 'shanghai' && dead) && <PauseMenuFrame label="Jogo pausado" minimal tools={<div className="pause-settings">{settingsButton}</div>}>
+    {paused && pauseView === 'pause' && !(s.session.map === 'shanghai' && dead) && <PauseMenuFrame label="Jogo pausado" minimal tools={<div className="pause-settings">{settingsButton}{pauseButton}</div>}>
       <h2>Pausado</h2><button className="secondary" onClick={() => useGameStore.setState({ isPaused: false })}>Retomar · ESC</button>
     </PauseMenuFrame>}
     {paused && pauseView !== 'pause' && !(s.session.map === 'shanghai' && dead) && <PauseMenuFrame label={pauseView === 'backpack' ? 'Mochila' : pauseView === 'cargo' ? 'Carga da aeronave' : 'Controles e opções'} wide={pauseView === 'cargo'}>

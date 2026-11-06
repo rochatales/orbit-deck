@@ -486,11 +486,13 @@ nav button:hover:not(:disabled), .secondary:hover:not(:disabled) { color: #09232
 .campaign-radio p { margin: 8px 0 0; font-size: 14px; }
 
 /* Pausa simples pelo ESC; opções acessíveis pela engrenagem. */
-.beta-header .game-settings-button, .game-settings-button { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border-color: #7b9ba66b; background: #172027cf; color: #c8d4d8; }
+.beta-header .game-settings-button, .game-settings-button { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; background: transparent; box-shadow: none; backdrop-filter: none; color: #c8d4d8; }
 .beta-pause { -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
 .beta-pause.is-minimal article { background: transparent; border: 0; box-shadow: none; text-align: center; }
 .beta-pause.is-minimal article::after { display: none; }
 .beta-pause.is-minimal h2 { font-size: clamp(40px, 7vw, 80px); letter-spacing: .12em; text-transform: uppercase; margin: 0 0 28px; text-shadow: 0 4px 24px #0008; }
-.pause-settings { position: absolute; top: 22px; right: 26px; }
+.pause-settings { display: flex; gap: 8px; position: absolute; top: 22px; right: 26px; }
 .pause-exit-note { font-size: 12px; }
 @media (max-width: 650px) { .pause-settings { top: 15px; right: 15px; } }
+
+.beta-header .game-settings-button:hover:not(:disabled), .game-settings-button:hover:not(:disabled) { background: transparent; box-shadow: none; color: #fff; }
