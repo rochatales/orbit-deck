@@ -172,6 +172,14 @@ test('S3.2: faixa do Engenheiro presa ao Head em Idle/Walk/Sitting, sem luz e co
         assert.ok(local.elements.every((v,i)=>Math.abs(v-initial.elements[i])<1e-6));
     }
     assert.equal(rig.visor.stripe.material.color.getHexString(),'4bd4ff');
+    const player=await loadGlb('src/assets/characters/player/explorador-astronauta.glb');
+    const {createColonyVisor}=loadSource('src/characters/player/colonyVisorAttachment.ts'),playerVisor=createColonyVisor(player.scene,false);
+    playerVisor.head.add(playerVisor.group);player.scene.updateMatrixWorld(true);
+    const npcScale=rig.visor.head.getWorldScale(new Vector3()).x,playerScale=playerVisor.head.getWorldScale(new Vector3()).x;
+    assert.ok(Math.abs(rig.visor.stripe.geometry.parameters.radius*npcScale-playerVisor.stripe.geometry.parameters.radius*playerScale)<1e-7,'mesma espessura mundial do filete do jogador');
+    const npcHalo=rig.visor.group.getObjectByName('ColonyVisorHalo'),playerHalo=playerVisor.group.getObjectByName('ColonyVisorHalo');
+    assert.ok(Math.abs(npcHalo.geometry.parameters.radius*npcScale-playerHalo.geometry.parameters.radius*playerScale)<1e-7,'mesma espessura mundial do halo');
+    playerVisor.dispose();
     let disposed=0;for(const node of rig.visor.group.children){node.geometry.addEventListener('dispose',()=>disposed++);node.material.addEventListener('dispose',()=>disposed++);}
     rig.dispose();rig.dispose();assert.equal(disposed,4);assert.equal(rig.visor.group.parent,null);
 });
