@@ -32,6 +32,24 @@ test('Engenheiro: GLB próprio, dez clipes, 33 ossos e fontes preservadas pelo m
     assert.ok(info.walk.speed_m_s > .7 && info.walk.speed_m_s < .9);
 });
 
+test('Engenheiro: altura e largura no runtime equivalem ao astronauta ativo do player', async () => {
+    const { EngineerRig } = loadSource('src/npcs/engineerRig.ts');
+    const npc = await loadGlb(file), player = await loadGlb('src/assets/characters/player/explorador-astronauta.glb');
+    const rig = new EngineerRig(npc.scene, npc.animations), mixer = new AnimationMixer(player.scene);
+    mixer.clipAction(player.animations.find(clip => clip.name === 'Idle')).play(); mixer.update(0);
+    const size = scene => {
+        scene.updateMatrixWorld(true); scene.traverse(o => { if(o.isSkinnedMesh)o.computeBoundingBox(); });
+        return new Box3().setFromObject(scene).getSize(new Vector3());
+    };
+    const a = size(npc.scene), b = size(player.scene);
+    assert.ok(Math.abs(a.y - b.y) < .002, `alturas: Engenheiro ${a.y}, player ${b.y}`);
+    assert.ok(Math.abs(a.x / b.x - 1) < .05, `larguras: Engenheiro ${a.x}, player ${b.x}`);
+    const {PLAYER_MOVEMENT} = loadSource('src/characters/player/playerConfig.ts');
+    assert.equal(ENGINEER.colliderHeight, PLAYER_MOVEMENT.colliderHeight);
+    assert.equal(ENGINEER.radius, PLAYER_MOVEMENT.colliderRadius);
+    rig.dispose(); mixer.stopAllAction(); mixer.uncacheRoot(player.scene);
+});
+
 test('Engenheiro: animações reais sem deriva horizontal ou pés abaixo do piso', async () => {
     const g = await loadGlb(file), mixer = new AnimationMixer(g.scene), p = new Vector3(), box = new Box3();
     const hip = g.scene.getObjectByName('mixamorigHips') ?? g.scene.getObjectByName('mixamorig:Hips');
@@ -59,7 +77,7 @@ test('Engenheiro: Oficina/Data Center/assento com caminhos livres e loop contín
             assert.ok(clearSegment(prev, p, { ...world, obstacles:[...world.obstacles,ENGINEER.seatObstacle] }, ENGINEER.radius)); prev = p;
         }
     }
-    for (let f = 0; f < 240 * 60; f++) {
+    for (let f = 0; f < 240 / ENGINEER.visualScale * 60; f++) {
         routine.update(1/60, far); phases.add(routine.state.phase);
         assert.ok(traversable(routine.state, world, ENGINEER.radius));
     }
@@ -77,7 +95,7 @@ test('Engenheiro: portas reais abrem para o NPC e ele não atravessa folhas fech
     assert.equal(engineerDoorClear({x:-6,z:11.2},{x:-10.3,z:11.2},world.movingCuboids,doorBox),false,'folha real fechada bloqueia a travessia');
     for(let f=0;f<120;f++) doors[1].update(far,1/60,{x:-7,z:11.2});
     assert.equal(engineerDoorClear({x:-6,z:11.2},{x:-10.3,z:11.2},world.movingCuboids,doorBox),true,'mesma travessia livre após abertura');
-    for (let f = 0; f < 240 * 60; f++) {
+    for (let f = 0; f < 240 / ENGINEER.visualScale * 60; f++) {
         for (const door of doors) door.update(far, 1/60, routine.state);
         const x = routine.state.x, z = routine.state.z;
         routine.update(1/60, far);
@@ -113,7 +131,7 @@ test('Engenheiro: distância da arrancada corresponde ao deslocamento do FBX', (
         const x=r.state.x,z=r.state.z; r.update(1/30,far);
         distance+=Math.hypot(r.state.x-x,r.state.z-z);
     }
-    assert.ok(Math.abs(distance-1.628464)<.04,`distância da arrancada: ${distance}`);
+    assert.ok(Math.abs(distance-1.628464 * ENGINEER.visualScale)<.04,`distância da arrancada: ${distance}`);
 });
 
 test('Engenheiro: jogador diante do banco adia levantar/esbarrão/conversa sem sobrepor cápsulas', () => {
@@ -237,6 +255,9 @@ test('Engenheiro: cena real mantém visual fora do corpo e atualiza conversa sem
     const view=children.find(node=>node.type==='group'&&node.props.name==='EngenheiroVisual');
     const body=children.find(node=>node.type==='rigid-body'&&node.props.name==='Engenheiro');
     assert.ok(view&&body,'visual e corpo são irmãos no JSX real, sem herdar o step do corpo');
+    const capsule=React.Children.toArray(body.props.children).find(node=>node.type==='capsule');
+    const {PLAYER_COLLIDER_HALF_HEIGHT,PLAYER_MOVEMENT}=load('src/characters/player/playerConfig.ts');
+    assert.deepEqual(capsule.props.args,[PLAYER_COLLIDER_HALF_HEIGHT,PLAYER_MOVEMENT.colliderRadius],'mesma cápsula do player');
     assert.ok(React.Children.toArray(view.props.children).some(node=>node.type===Bubble),'bolha acompanha o grupo visual');
     const placement=new Group();view.ref.current=placement;
     let commands=0;body.ref.current={setNextKinematicTranslation:()=>{commands++;}};

@@ -1,12 +1,20 @@
 import { Navigation, segmentBox, smoothPath, type Position, type Terrain } from '../combat/navigation';
 import type { SimpleCuboid } from '../world/createOfficeMap';
+import { PLAYER_MOVEMENT, PLAYER_PHYSICS } from '../characters/player/playerConfig';
+
+// O GLB v001 mede 2,23 m na origem; o astronauta ativo do player mede 1,50 m.
+const VISUAL_SCALE = PLAYER_MOVEMENT.visualHeight / 2.23;
+const SEAT_RADIUS = .28 * VISUAL_SCALE;
 
 export const ENGINEER = {
-    height: 2.23, radius: .38, interactionRadius: 2.5, speed: .789572,
-    start: { x: -6.1, z: 6 }, bumpRadius: .84, bumpRearm: 1.4,
+    height: PLAYER_MOVEMENT.visualHeight, visualScale: VISUAL_SCALE,
+    colliderHeight: PLAYER_MOVEMENT.colliderHeight, radius: PLAYER_MOVEMENT.colliderRadius,
+    navigationRadius: PLAYER_MOVEMENT.colliderRadius + PLAYER_PHYSICS.controllerOffset,
+    interactionRadius: 2.5, speed: .789572 * VISUAL_SCALE,
+    start: { x: -6.1, z: 6 }, bumpRadius: 2 * PLAYER_MOVEMENT.colliderRadius + .14, bumpRearm: 1.4,
     crouchTransition: 77 / 30, bumpDuration: 128 / 30,
-    seat: { x: -10.3, z: 13, approach: .85 },
-    seatObstacle: { minX: -10.58, maxX: -10.02, minZ: 12.72, maxZ: 13.28 },
+    seat: { x: -10.3, z: 13, approach: .85, scale: VISUAL_SCALE },
+    seatObstacle: { minX: -10.3 - SEAT_RADIUS, maxX: -10.3 + SEAT_RADIUS, minZ: 13 - SEAT_RADIUS, maxZ: 13 + SEAT_RADIUS },
     stops: [
         { x: -10.3, z: 11.2, angle: -Math.PI / 2, activity: 'crouch' },
         { x: -10.3, z: 0, angle: -Math.PI / 2, activity: 'crouch' },
@@ -57,9 +65,9 @@ export class EngineerRoutine {
     private doorBox = { minX: 0, maxX: 0, minZ: 0, maxZ: 0 };
     constructor(private readonly world: Terrain & { movingCuboids?: SimpleCuboid[] }) {
         const terrain = { ...world, obstacles: [...world.obstacles, ENGINEER.seatObstacle] };
-        const nav = new Navigation(terrain, ENGINEER.radius, .5), stops = ENGINEER.stops;
+        const nav = new Navigation(terrain, ENGINEER.navigationRadius, .5), stops = ENGINEER.stops;
         const route = (a: Position, b: Position) => {
-            const path = smoothPath(a, nav.path(a, b), terrain, ENGINEER.radius);
+            const path = smoothPath(a, nav.path(a, b), terrain, ENGINEER.navigationRadius);
             if (!path.length) throw Error('Engenheiro sem trajeto livre entre Oficina e Data Center.');
             return path;
         };

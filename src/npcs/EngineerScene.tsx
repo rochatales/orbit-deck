@@ -56,7 +56,7 @@ export function EngineerScene({ world }: { world: OfficeWorld }) {
     });
     return <>
         <RigidBody ref={body} name="Engenheiro" type="kinematicPosition" colliders={false} canSleep={false} friction={0} position={[ENGINEER.start.x, 0, ENGINEER.start.z]}>
-            <CapsuleCollider args={[ENGINEER.height / 2 - ENGINEER.radius, ENGINEER.radius]} position={[0, ENGINEER.height / 2, 0]} friction={0}/>
+            <CapsuleCollider args={[ENGINEER.colliderHeight / 2 - ENGINEER.radius, ENGINEER.radius]} position={[0, ENGINEER.colliderHeight / 2, 0]} friction={0}/>
         </RigidBody>
         <group ref={visual} name="EngenheiroVisual" dispose={null}>
             <InteractionBubble id="npc:engineer" label="Conversar com o Engenheiro" point={engineerPresence} radius={ENGINEER.interactionRadius} priority={30}
@@ -64,10 +64,12 @@ export function EngineerScene({ world }: { world: OfficeWorld }) {
         </group>
         {/* Assento provisório: pés e quadril do Sitting fornecido apoiam nesta cota. */}
         <RigidBody type="fixed" colliders={false} position={[ENGINEER.seat.x, 0, ENGINEER.seat.z]} name="BancoDoEngenheiro">
-            <CuboidCollider args={[.27, .225, .27]} position={[0, .225, 0]}/>
-            <mesh position={[0, .42, 0]} castShadow><cylinderGeometry args={[.28, .28, .07, 12]}/><meshStandardMaterial color="#879395" roughness={.85}/></mesh>
-            <mesh position={[0, .2, 0]} castShadow><cylinderGeometry args={[.065, .065, .4, 8]}/><meshStandardMaterial color="#454f50" roughness={.8}/></mesh>
-            <mesh position={[0, .025, 0]} castShadow><cylinderGeometry args={[.24, .24, .05, 12]}/><meshStandardMaterial color="#454f50" roughness={.8}/></mesh>
+            <CuboidCollider args={[.27 * ENGINEER.seat.scale, .225 * ENGINEER.seat.scale, .27 * ENGINEER.seat.scale]} position={[0, .225 * ENGINEER.seat.scale, 0]}/>
+            <group scale={ENGINEER.seat.scale}>
+                <mesh position={[0, .42, 0]} castShadow><cylinderGeometry args={[.28, .28, .07, 12]}/><meshStandardMaterial color="#879395" roughness={.85}/></mesh>
+                <mesh position={[0, .2, 0]} castShadow><cylinderGeometry args={[.065, .065, .4, 8]}/><meshStandardMaterial color="#454f50" roughness={.8}/></mesh>
+                <mesh position={[0, .025, 0]} castShadow><cylinderGeometry args={[.24, .24, .05, 12]}/><meshStandardMaterial color="#454f50" roughness={.8}/></mesh>
+            </group>
         </RigidBody>
     </>;
 }

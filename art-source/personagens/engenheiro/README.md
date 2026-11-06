@@ -26,7 +26,10 @@ e `notas/`. Use outra versão antes de fazer novas alterações artísticas.
 
 ## Derivação
 
-- Altura em pé: 2,23 m, compatível com o explorador. 3.214 triângulos, 33 ossos,
+- Altura do GLB exportado em pé: 2,23 m. Após a correção solicitada pelo autor
+  em 06/11, o runtime aplica escala uniforme de `1,5 / 2,23`, ficando com os
+  mesmos 1,50 m do astronauta ativo do player. Banco e passada acompanham essa
+  proporção; o GLB e as fontes permanecem intactos. 3.214 triângulos, 33 ossos,
   dez clipes, GLB de 3.381.008 bytes. Sem redução de topologia nesta versão.
 - Root motion horizontal removido das cópias; giro do esbarrão e movimento
   vertical preservados. Apoio no chão corrigido apenas nos derivados.

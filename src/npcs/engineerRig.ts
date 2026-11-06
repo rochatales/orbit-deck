@@ -1,5 +1,5 @@
 import { AnimationMixer, LoopOnce, type AnimationAction, type AnimationClip, type Object3D, type Mesh, type SkinnedMesh, type Skeleton, type Material } from 'three';
-import type { EngineerState, EngineerAnimation } from './engineerRoutine';
+import { ENGINEER, type EngineerState, type EngineerAnimation } from './engineerRoutine';
 const ONE_SHOT = new Set<EngineerAnimation>(['CrouchDown', 'CrouchToStand', 'ShovedReaction', 'StartWalking']);
 /** Geometria/texturas do cache preservadas; só materiais e mixer pertencem à instância. */
 export class EngineerRig {
@@ -10,6 +10,7 @@ export class EngineerRig {
     private skeletons = new Set<Skeleton>();
     private disposed = false;
     constructor(readonly root: Object3D, clips: AnimationClip[], private readonly placement: Object3D = root) {
+        root.scale.multiplyScalar(ENGINEER.visualScale);
         const copies = new Map<Material, Material>();
         const copy = (material: Material) => {
             let own = copies.get(material);
