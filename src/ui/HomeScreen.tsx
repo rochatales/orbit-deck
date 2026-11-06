@@ -27,6 +27,15 @@ function HomeSettings({ onClose }: { onClose: () => void }) {
     </article></section>;
 }
 
+/** A segunda batida de um duplo clique em Recomeçar não confirma o apagamento. */
+export function CampaignActions({ confirm, onResume, onRestart, onConfirm, onClose }: {
+    confirm: boolean; onResume: () => void; onRestart: () => void; onConfirm: () => void; onClose: () => void;
+}) {
+    return confirm ? <><button key="cancel-restart" type="button" className="secondary" onClick={onClose}>Cancelar</button>
+        <button key="confirm-restart" type="button" onClick={event => { if (event.detail <= 1) onConfirm(); }}>Confirmar · Recomeçar campanha</button></>
+        : <><button key="resume" type="button" onClick={onResume}>Retomar campanha</button><button key="request-restart" type="button" className="secondary" onClick={onRestart}>Recomeçar</button><button key="close" type="button" className="secondary" onClick={onClose}>Voltar</button></>;
+}
+
 function CampaignDialog({ confirm, name, onResume, onRestart, onConfirm, onClose }: {
     confirm: boolean; name: string; onResume: () => void; onRestart: () => void; onConfirm: () => void; onClose: () => void;
 }) {
@@ -41,8 +50,7 @@ function CampaignDialog({ confirm, name, onResume, onRestart, onConfirm, onClose
         <p className="eyebrow">EXODEN · CAMPANHA</p>
         <h2>{confirm ? 'Recomeçar a campanha?' : 'Sua campanha continua.'}</h2>
         <p>{confirm ? `O progresso da campanha de ${name} será substituído. O desenvolvimento será preservado.` : `Há uma campanha salva de ${name}. Como deseja entrar?`}</p>
-        {confirm ? <><button type="button" className="secondary" onClick={onClose}>Cancelar</button><button type="button" onClick={onConfirm}>Confirmar · Recomeçar campanha</button></>
-            : <><button type="button" onClick={onResume}>Retomar campanha</button><button type="button" className="secondary" onClick={onRestart}>Recomeçar</button><button type="button" className="secondary" onClick={onClose}>Voltar</button></>}
+        <CampaignActions confirm={confirm} onResume={onResume} onRestart={onRestart} onConfirm={onConfirm} onClose={onClose}/>
     </article></section>;
 }
 
@@ -73,9 +81,11 @@ export function HomeScreen({ onEnter }: { onEnter: () => void }) {
         setInvalid(true); setCampaignDialog(null); nameInput.current?.focus(); return false;
     };
     const newCampaign = (replace = false) => {
-        if (!validName()) return;
+        if (replace ? !savedCampaign : !validName()) return;
         void audio.unlock();
-        if (useExpeditionStore.getState().enterCampaign({ displayName: name.trim().slice(0, 32), color: profile?.color ?? savedCampaign?.profile.color ?? DEFAULT_SUIT_COLOR }, replace)) onEnter();
+        // Recomeçar mantém a identidade da campanha, sem herdar o perfil dev do formulário.
+        const campaignProfile = replace ? savedCampaign!.profile : { displayName: name.trim().slice(0, 32), color: profile?.color ?? DEFAULT_SUIT_COLOR };
+        if (useExpeditionStore.getState().enterCampaign(campaignProfile, replace)) onEnter();
     };
     const begin = () => {
         if (savedCampaign) setCampaignDialog('resume');
@@ -121,6 +131,6 @@ export function HomeScreen({ onEnter }: { onEnter: () => void }) {
         </form>
         {settings && <HomeSettings onClose={closeSettings}/>}
         {campaignDialog && savedCampaign && <CampaignDialog confirm={campaignDialog === 'restart'} name={savedCampaign.profile.displayName}
-            onResume={resumeCampaign} onRestart={() => { if (validName()) setCampaignDialog('restart'); }} onConfirm={() => newCampaign(true)} onClose={closeCampaign}/>}
+            onResume={resumeCampaign} onRestart={() => setCampaignDialog('restart')} onConfirm={() => newCampaign(true)} onClose={closeCampaign}/>}
     </main>;
 }

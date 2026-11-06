@@ -96,7 +96,9 @@ Decisões adicionais do autor, sem encerrar checkbox:
 
 Detalhe proposto pelo coordenador, implementado para revisão e **a confirmar com
 o autor no roteiro**: se houver campanha salva, Início oferece **Retomar campanha**
-ou **Recomeçar**; recomeçar exige confirmação explícita antes de substituir o save.
+ou **Recomeçar**; recomeçar exige confirmação explícita antes de substituir o save e conserva
+nome/cor da campanha, sem herdar a identidade dev do formulário. A segunda batida
+de um duplo clique em Recomeçar não conta como confirmação.
 Reload retorna à entrada, sem escolher modo automaticamente. O modo fica fixo até
 **Voltar à tela inicial** no menu de pausa.
 
@@ -106,9 +108,12 @@ explícitos posteriores. Retém IDs anteriores, além do último, para impedir t
 a duplicação A → B → A após reload. Não há consumo ou receita neste recorte.
 
 O save guarda perfil/briefing locais, estado da campanha e sua carga; o porão em
-campanha não consulta nem grava a carga dev. Morte/restart descartam a carga da
-tentativa de campanha, preservando entregas já consolidadas. Ainda não há ligação
+campanha não consulta nem grava a carga dev. Morte/restart não avançam a campanha nem depositam recursos. Ainda não há ligação
 automática das viagens com `depositExpedition`: extração efetiva é outro recorte.
+A mochila segue o retry atual; o porão da campanha permanece persistido, como
+no desenvolvimento, até existir o limite de cada expedição. O descarte do porão
+por tentativa da decisão 3 será ligado nesse recorte, sem apagar carga de visitas
+anteriores. Não há novo tratamento de viagem ou extração aqui.
 
 O HUD mostra o objetivo provisório da etapa. Engenheiro, encontros 4/4+6,
 iluminação desativada, rádio e ativações em cena ainda não estão implementados;

@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { depositExpedition, transitionCampaign, type CampaignEvent, type ExpeditionDelivery } from '../game/campaign';
 import { createCampaignSave, loadCampaignSave, parseCampaignSave, saveCampaignSave, type CampaignSave } from '../game/campaignSave';
 import type { Profile } from '../game/session';
-import { EMPTY_CARGO, type ResourceCargo } from '../game/backpackConfig';
+import type { ResourceCargo } from '../game/backpackConfig';
 
 export type PlayMode = 'development' | 'campaign';
 interface CampaignStore {
@@ -17,7 +17,6 @@ interface CampaignStore {
     dispatch: (event: CampaignEvent) => void;
     depositExpedition: (delivery: ExpeditionDelivery) => void;
     setCargo: (cargo: ResourceCargo) => void;
-    discardAttempt: () => void;
     setIdentity: (profile: Profile | null, briefingSeen: boolean) => void;
 }
 const write = (saved: CampaignSave) => saveCampaignSave(saved) ? null
@@ -55,10 +54,6 @@ export const useCampaignStore = create<CampaignStore>((set, get) => {
             if (campaign !== saved.campaign) update({ ...saved, campaign });
         },
         setCargo: cargo => { const saved = active(); if (saved) update({ ...saved, cargo: { ...cargo } }); },
-        discardAttempt: () => {
-            const saved = active();
-            if (saved && Object.values(saved.cargo).some(n => n > 0)) update({ ...saved, cargo: { ...EMPTY_CARGO } });
-        },
         setIdentity: (profile, briefingSeen) => {
             const saved = active(); if (saved && profile) update({ ...saved, profile: { ...profile }, briefingSeen });
         }

@@ -23,6 +23,8 @@ export function loadHubSave(storage: () => Pick<Storage, 'getItem'> = () => loca
 }
 const saved = loadHubSave();
 let developmentIdentity: HubSave = saved;
+let developmentSaveError: string | null = null;
+const INITIAL_RADIO = 'EDEN está ao norte. Encontre-a para receber o briefing. O deck de lançamento fica ao sul.';
 /** Reposiciona a fonte mutável e publica a proximidade do novo ponto no mesmo passo. */
 function respawn(spawn: Point, map: MapId) {
     placePlayer(spawn);
@@ -58,18 +60,19 @@ function save(profile: Profile | null, briefingSeen: boolean): string | null {
     developmentIdentity = { version: 1, profile, briefingSeen };
     try {
         localStorage.setItem(SAVE_KEY, JSON.stringify({ version: 1, profile, briefingSeen }));
-        return null;
+        developmentSaveError = null;
     }
     catch {
-        return 'Não foi possível salvar neste navegador. O progresso desta sessão não está garantido.';
+        developmentSaveError = 'Não foi possível salvar neste navegador. O progresso desta sessão não está garantido.';
     }
+    return developmentSaveError;
 }
 /** Cena não desenhou a tempo: recarregar é a saída segura, a sessão de perfil fica salva. */
 export const SCENE_STALLED_ERROR = 'O destino está demorando para abrir. Recarregue o jogo para tentar de novo.';
 export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
     profile: saved.profile, briefingSeen: saved.briefingSeen, session: { ...INITIAL_SESSION }, spawn: INITIAL_POSITION,
     panel: null, ready: false, error: null, saveError: null,
-    radio: 'EDEN está ao norte. Encontre-a para receber o briefing. O deck de lançamento fica ao sul.',
+    radio: INITIAL_RADIO,
     start: (name, color) => {
         const profile = parseSave(JSON.stringify({ version: 1, profile: { displayName: name, color } })).profile;
         if (profile)
@@ -82,7 +85,7 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
         respawn(INITIAL_POSITION, 'mars');
         set({ profile: developmentIdentity.profile, briefingSeen: developmentIdentity.briefingSeen,
             session: { ...INITIAL_SESSION }, spawn: INITIAL_POSITION, panel: null, ready: false,
-            error: null, saveError: null });
+            error: null, saveError: developmentSaveError, radio: INITIAL_RADIO });
         return true;
     },
     enterCampaign: (profile, replace = false) => {
@@ -93,7 +96,7 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
         useCombatStore.getState().restart();
         respawn(INITIAL_POSITION, 'mars');
         set({ profile: saved.profile, briefingSeen: saved.briefingSeen, session: { ...INITIAL_SESSION },
-            spawn: INITIAL_POSITION, panel: null, ready: false, error: null, saveError: null });
+            spawn: INITIAL_POSITION, panel: null, ready: false, error: null, saveError: null, radio: INITIAL_RADIO });
         return true;
     },
     returnHome: () => {
@@ -103,7 +106,7 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
         respawn(INITIAL_POSITION, 'mars');
         set({ profile: developmentIdentity.profile, briefingSeen: developmentIdentity.briefingSeen,
             session: { ...INITIAL_SESSION }, spawn: INITIAL_POSITION, panel: null, ready: false,
-            error: null, saveError: null });
+            error: null, saveError: developmentSaveError, radio: INITIAL_RADIO });
     },
     openEden: () => {
         const s = get();
@@ -137,7 +140,6 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
     restartMission: () => {
         const s = get();
         if (s.session.map !== 'shanghai' || !s.ready || s.session.phase !== 'walking') return;
-        useCampaignStore.getState().discardAttempt();
         useCombatStore.getState().restart();
         const spawn = MAPS.shanghai.exit;
         respawn(spawn, 'shanghai');

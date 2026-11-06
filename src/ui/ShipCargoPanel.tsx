@@ -79,6 +79,6 @@ export function ShipCargoPanel({ map }: { map: MapId }) {
       </section>
     </div>
     <p className="beta-hold-note" role="status">{note || (!near ? 'Aproxime-se da aeronave para mover a carga.' : !combat ? 'O porão guarda o que veio da Terra. Desça em Shanghai para carregar mais.' : 'Clique num item para mover a pilha · Shift + clique move uma unidade.')}</p>
-    <small>{campaign ? 'A carga desta tentativa se perde ao cair em combate ou reiniciar. Transferir ao porão ainda não confirma a entrega da expedição.' : 'Itens no porão ficam a salvo: não se perdem ao cair em combate nem ao reiniciar o encontro. Munição e kits médicos não ocupam carga.'}</small>
+    <small>{campaign ? 'Este porão pertence à campanha e permanece salvo. Transferir materiais para cá ainda não confirma a entrega da expedição.' : 'Itens no porão ficam a salvo: não se perdem ao cair em combate nem ao reiniciar o encontro. Munição e kits médicos não ocupam carga.'}</small>
   </section>;
 }

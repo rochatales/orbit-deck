@@ -76,7 +76,13 @@ test('Campanha: save versionado ida/volta, inválido nulo e armazenamento indisp
     assert.ok(S.saveCampaignSave(saved, () => storage));
     assert.deepEqual(S.loadCampaignSave(() => storage), saved);
     assert.deepEqual(storage.writes, [S.CAMPAIGN_SAVE_KEY]);
-    for (const raw of [null, '{inválido', 'null', '[]', '{}', JSON.stringify({ ...saved, version: 2 }), JSON.stringify({ ...saved, campaign: { ...saved.campaign, edenActive: true } }), JSON.stringify({ ...saved, cargo: { ...cargo, copper: -1 } })]) assert.equal(S.parseCampaignSave(raw), null);
+    for (const raw of [null, '{inválido', 'null', '[]', '{}', JSON.stringify({ ...saved, version: 2 }), JSON.stringify({ ...saved, campaign: { ...saved.campaign, edenActive: true } }), JSON.stringify({ ...saved, cargo: { ...cargo, copper: -1 } }),
+        ...[
+            { ...saved.campaign, stage: 'eden-activation' },
+            { ...saved.campaign, depositedExpeditionIds: ['A', 'A'], lastExpeditionId: 'A' },
+            { ...saved.campaign, depositedExpeditionIds: ['A'], lastExpeditionId: 'B' },
+            { ...saved.campaign, stage: 'expedition-copper', copperDelivered: 4 }
+        ].map(campaign => JSON.stringify({ ...saved, campaign }))]) assert.equal(S.parseCampaignSave(raw), null);
     assert.equal(S.loadCampaignSave(() => { throw new Error('sem localStorage'); }), null);
     assert.equal(S.saveCampaignSave(saved, () => { throw new Error('sem localStorage'); }), false);
     assert.equal(S.loadCampaignSave(() => ({ getItem() { throw new Error('leitura bloqueada'); } })), null);
@@ -152,18 +158,18 @@ test('Campanha: reload retoma perfil/carga próprios; recomeçar exige substitui
     assert.deepEqual(reloaded.ship.getState().cargo, { iron: 0, copper: 0, titanium: 0, organic: 0 });
 });
 
-test('Campanha: morte e restart perdem carga da tentativa sem consolidar ou avançar', () => {
+test('Campanha: morte e restart descartam mochila, sem consolidar ou avançar campanha', () => {
     const f = fixture(); f.expedition.getState().enterCampaign(profile);
     f.campaign.getState().dispatch('finish-engineer-briefing');
     const state = f.campaign.getState().saved.campaign;
     f.campaign.getState().setCargo(cargo);
     f.combat.setState({ hp: 0, dead: true });
-    assert.deepEqual(f.ship.getState().cargo, { iron: 0, copper: 0, titanium: 0, organic: 0 });
+    assert.deepEqual(f.ship.getState().cargo, cargo, 'porão persistente aguarda o recorte de extração, sem apagar visitas anteriores');
     assert.equal(f.campaign.getState().saved.campaign, state);
     f.expedition.setState({ ready: true, session: { map: 'shanghai', phase: 'walking', destination: null, revision: 1 } });
     f.campaign.getState().setCargo(cargo);
     f.expedition.getState().restartMission();
-    assert.deepEqual(f.ship.getState().cargo, { iron: 0, copper: 0, titanium: 0, organic: 0 });
+    assert.deepEqual(f.ship.getState().cargo, cargo, 'porão persistente aguarda o recorte de extração, sem apagar visitas anteriores');
     assert.equal(f.campaign.getState().saved.campaign, state);
     assert.equal(f.combat.getState().dead, false); assert.equal(f.combat.getState().copper, 0);
     assert.equal(f.campaign.getState().saved.campaign.lastExpeditionId, null);
@@ -191,4 +197,24 @@ test('Campanha: importação do porão já nesse modo não lê a carga dev', () 
     const { useShipCargoStore } = load('src/state/useShipCargoStore.ts');
     assert.deepEqual(useShipCargoStore.getState().cargo, cargo);
     assert.deepEqual(storage.reads, [], 'nenhuma leitura de localStorage da carga de desenvolvimento');
+});
+
+
+test('Desenvolvimento: erro de escrita do perfil não desaparece na entrada de teste', () => {
+    const f = fixture({ getItem: () => null, setItem() { throw new Error('quota'); } });
+    f.expedition.getState().start('Teste sem storage', '#abcdef');
+    assert.match(f.expedition.getState().saveError, /salvar/);
+    assert.ok(f.expedition.getState().enterDevelopment());
+    assert.match(f.expedition.getState().saveError, /salvar/);
+});
+
+test('Modos: rádio inicial não carrega a última transmissão da outra sessão', () => {
+    const f = fixture(), initial = f.expedition.getState().radio;
+    f.expedition.getState().start('Dev', '#abcdef');
+    f.expedition.getState().enterCampaign(profile);
+    f.expedition.getState().setRadio('Mensagem anterior de Shanghai');
+    f.expedition.getState().returnHome();
+    assert.equal(f.expedition.getState().radio, initial);
+    f.expedition.getState().enterDevelopment();
+    assert.equal(f.expedition.getState().radio, initial);
 });

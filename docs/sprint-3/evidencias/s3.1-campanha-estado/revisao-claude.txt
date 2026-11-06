@@ -1,0 +1,65 @@
+# Revisão S3.1: 5 problemas e lacunas de teste
+
+**Recomendo corrigir P1 e P2 antes do aceite.** P3 a P5 são menores. O núcleo puro e o isolamento dos saves de desenvolvimento estão corretos.
+
+Não editei nada. O único comando de teste foi `node --test tests/campaign.test.mjs`, com 10/10 verdes. Os problemas abaixo vêm da leitura do código e não foram reproduzidos em execução.
+
+## Problemas
+
+### P1 (médio): duplo clique em Recomeçar pode apagar a campanha sem confirmação real
+- **Onde:** `src/ui/HomeScreen.tsx:44-45`
+- **Causa:** os dois painéis reutilizam os mesmos botões por posição, e o diálogo tem até 620 px (`src/styles/global.css:470`). Pelo CSS e pelas medidas da captura, em tela larga os botões ficam numa só linha e **Confirmar** cobre a área de **Recomeçar**.
+- **Impacto:** o segundo clique cai em Confirmar e substitui o save, sem backup. O foco em Cancelar protege só o teclado.
+- **Evidência:** as capturas do handoff têm cerca de 433 px, largura em que os botões quebram linha e não se sobrepõem. A sobreposição em tela larga é estimativa e precisa ser conferida no navegador.
+- **Correção sugerida:** ignorar `event.detail > 1` em Confirmar, ou não colocar Confirmar sob Recomeçar.
+
+### P2 (médio): morte apaga também a carga de visitas anteriores
+- **Onde:** `src/state/useCampaignStore.ts:58-61`, acionado por `src/state/useShipCargoStore.ts:48-50` e `src/state/useExpeditionStore.ts:140`
+- **Causa:** `discardAttempt` zera o porão inteiro, porque não há registro do que já estava nele ao chegar.
+- **Cenário alcançável hoje:**
+  1. Guardar carga no porão em Shanghai.
+  2. Voltar a Marte.
+  3. Retornar a Shanghai e morrer ou reiniciar: a carga da primeira visita some.
+- **Contradição com a interface e o contrato:**
+  - `CIRCUITO_INICIAL.md` e `src/ui/ShipCargoPanel.tsx:82` falam em perder a carga "da tentativa".
+  - `src/ui/ShipCockpit.tsx:82` diz que "a carga da nave permanece salva".
+- **Teste:** `tests/campaign.test.mjs:159-161` confirma o zeramento, mas não cobre uma visita anterior.
+- **Decisão para você:** registrar o porão na chegada agora, persistindo esse registro para sobreviver a reload, ou adiar para o recorte da extração. Se adiar, ajuste os dois textos e registre a limitação no handoff.
+
+### P3 (baixo): Recomeçar herda nome e cor do perfil de desenvolvimento
+- **Onde:** `src/ui/HomeScreen.tsx:53` e `:78`
+- **Causa:** o nome inicial e a cor priorizam o perfil de desenvolvimento em relação ao da campanha salva.
+- **Impacto:** a campanha "Campanha" recomeçada vira "Autor Dev", com a cor dele, e o campo fica desfocado atrás do diálogo. Os saves de desenvolvimento não mudam, mas o perfil vaza para a campanha.
+- **Teste:** `tests/campaign.test.mjs:150` não detecta isso, porque passa o perfil diretamente ao store.
+
+### P4 (baixo): Encontro de teste apaga o aviso de falha ao salvar
+- **Onde:** `src/ui/HomeScreen.tsx:89` e `src/state/useExpeditionStore.ts:85`
+- **Causa:** `start()` registra o `saveError`, e `enterDevelopment()` o limpa logo em seguida.
+- **Impacto:** sem armazenamento e sem perfil, o perfil de teste fica só em memória e nenhum aviso aparece. O handoff promete esse aviso, e o teste só cobre a campanha.
+
+### P5 (baixo): estado da sessão anterior atravessa a troca de modo
+- **Onde:** `src/state/useExpeditionStore.ts:78-107`
+- **Causa:** entrar e sair não reiniciam `radio`, então "Última transmissão" pode mostrar em Marte uma fala de Shanghai ou de outro modo.
+- **Também atravessam:** o encontro selecionado (`src/state/useCombatStore.ts:21`) e a arma equipada. Nada disso é persistido nem altera o progresso.
+
+## Lacunas de teste
+- **`parseCampaignState`:** só o caso de `edenActive` incoerente é testado (`tests/campaign.test.mjs:79`). Faltam etapa adiantada sem quota, IDs duplicados, `lastExpeditionId` divergente e entrega sem ID. O código desses casos está correto; falta proteção contra regressão.
+- **Interface:** nenhum teste automatizado cobre `CampaignDialog`, o nome inválido em Recomeçar ou o botão Voltar à tela inicial. O handoff já avisa que a confirmação não foi acionada pela interface, então P1 passaria despercebido.
+
+## Conferido sem problema
+- **Estado puro:** há 8 etapas em ordem e quotas de 4 e 10. Evento repetido ou fora de ordem conserva a referência, `defeat` e `restart` não mudam nada, e não há consumo.
+- **Depósito:** cada ID conta uma vez, inclusive em A → B → A e após reload. Valores inválidos são recusados.
+- **Parser:** todo estado alcançável pelas transições passa, e os incoerentes são recusados. O limite de 150 kg coincide com `SHIP_CARGO`.
+- **Isolamento:** em campanha, nada grava em `exoden:hub:v1` nem em `exoden-carga-aeronave-v1`, e a chave de carga de desenvolvimento não é lida.
+- **Ciclo de vida:**
+  - O modo fica fixo até sair, e reload volta à tela inicial.
+  - `respawn` limpa a pausa, e a saída bloqueia a simulação e o áudio.
+  - A troca de porão por modo está correta.
+- **Falhas de armazenamento:** leitura e escrita bloqueadas não quebram a campanha, e o aviso aparece. Save inválido vira campanha nula.
+- **Diálogo:** Escape, o foco preso, o foco em Cancelar e a volta do foco ao fechar estão corretos no código.
+- **Escopo:** não há NPC, encontro, luz, porta, rádio novo, ativação em cena ou bloqueio de arma. A viagem não deposita nem avança a campanha.
+
+## Limites da revisão
+- Não rodei a suíte completa, o build ou o navegador. Os 583/583, o build e o QA vêm do handoff.
+- Layout, foco real e jogabilidade continuam com você no roteiro. A opção Retomar/Recomeçar também segue como proposta a confirmar.
+- **Ponto para o próximo recorte, sem bloquear este:** `depositExpedition` aceita orgânica na etapa de cobre (`src/game/campaign.ts:56-63`). Dez orgânicas entregues cedo concluiriam `finish-organic-expedition` sem uma segunda visita, algo inalcançável hoje porque o depósito não está conectado às viagens.

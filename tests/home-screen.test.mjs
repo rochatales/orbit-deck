@@ -95,3 +95,17 @@ test('Artes da tela inicial leves e com fonte reproduzível', () => {
     }
     for (const script of ['render_perfil.py', 'render_colonia.py']) assert.ok(fs.existsSync(`art-source/home-exoden/scripts/${script}`), script);
 });
+
+
+test('Campanha: confirmar reinício ignora segunda batida de duplo clique e começa por Cancelar', () => {
+    cache.clear(); memory.clear();
+    const { CampaignActions } = loadUi('src/ui/HomeScreen.tsx');
+    let confirmed = 0, cancelled = 0;
+    const tree = CampaignActions({ confirm: true, onClose: () => { cancelled++; }, onConfirm: () => { confirmed++; }, onResume() {}, onRestart() {} });
+    const buttons = React.Children.toArray(tree.props.children);
+    assert.equal(buttons[0].props.children, 'Cancelar');
+    buttons[0].props.onClick(); assert.equal(cancelled, 1); assert.equal(confirmed, 0);
+    buttons[1].props.onClick({ detail: 2 }); assert.equal(confirmed, 0);
+    buttons[1].props.onClick({ detail: 1 }); assert.equal(confirmed, 1);
+    buttons[1].props.onClick({ detail: 0 }); assert.equal(confirmed, 2, 'teclado continua podendo confirmar');
+});

@@ -44,7 +44,3 @@ useCampaignStore.subscribe((state, previous) => {
   if (state.mode !== previous.mode || (state.mode === 'campaign' && state.saved?.cargo !== previous.saved?.cargo))
     useShipCargoStore.setState({ cargo: readCargo() });
 });
-// No desenvolvimento o porão permanece protegido, como antes; campanha perde a carga da tentativa.
-useCombatStore.subscribe((state, previous) => {
-  if (state.dead && !previous.dead) useCampaignStore.getState().discardAttempt();
-});
