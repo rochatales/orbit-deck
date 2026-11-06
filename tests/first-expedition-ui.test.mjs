@@ -31,7 +31,7 @@ test('S3.2 UI: F, OPEN_CARGO_EVENT, botão e aba recusam porão no briefing, lib
   if(spec.includes('/state/')){const actual=f.load('src/state/'+spec.split('/').at(-1)+'.ts');return Object.fromEntries(Object.entries(actual).map(([k,v])=>[k,k.startsWith('use')&&v.getState?hook(v):v]));}
   if(spec.endsWith('/campaign')||spec.endsWith('/campaignPolicy')||spec.endsWith('/shipCargo')||spec.endsWith('/config'))return f.load('src/game/'+spec.split('/').at(-1)+'.ts');
   if(spec.endsWith('/engineerRoutine'))return f.load('src/npcs/engineerRoutine.ts');
-  if(spec.endsWith('/GameplayHud'))return {GameplayHud:Hud};
+  if(spec.endsWith('/GameplayHud'))return {GameplayHud:Hud,BackpackContents:()=>null};
   if(spec.startsWith('.'))return new Proxy({}, {get:(_,key)=>components.get(key)??(()=>null)});
   return native(spec);
  };
@@ -129,4 +129,49 @@ test('S3.2 revisão UI: fallback da campanha mantém título/aviso das hordas, s
  f.combat.setState({cleared:false,wave:1,ammo:0,reserve:0});
  text=textTree(renderWithStores('src/combat/CombatHud.tsx',f,'CombatHud'));
  assert.match(text,/próxima horda chega com reabastecimento/);assert.doesNotMatch(text,/Equipe o facão|repita|reinicie/);
+});
+
+test('S6.15 na S3.2: ESC mostra pausa simples, engrenagem abre opções e saída conserva regra de abandono',()=>{
+ const f=setup(),handlers=new Map(),effects=[],states=[],refs=[];let stateIndex=0,refIndex=0,tree,home=0;
+ const previousWindow=globalThis.window,previous={};
+ for(const name of ['HTMLInputElement','HTMLTextAreaElement','HTMLSelectElement','HTMLElement']){previous[name]=globalThis[name];globalThis[name]=class{};}
+ globalThis.window={location:{search:''},addEventListener:(name,fn)=>handlers.set(name,fn),removeEventListener(){}};
+ const Frame=()=>null,Hud=()=>null;
+ const require=spec=>{
+  if(spec==='react')return {
+   useEffect:fn=>effects.push(fn),useRef:value=>refs[refIndex++]??={current:value},
+   useState:value=>{const i=stateIndex++;if(!(i in states))states[i]=typeof value==='function'?value():value;return[states[i],v=>{states[i]=typeof v==='function'?v(states[i]):v;}];},lazy:()=>()=>null,Suspense:'suspense'
+  };
+  if(spec==='react/jsx-runtime')return native(spec);
+  if(spec.includes('/state/')){const actual=f.load('src/state/'+spec.split('/').at(-1)+'.ts');return Object.fromEntries(Object.entries(actual).map(([k,v])=>[k,k.startsWith('use')&&v.getState?hook(v):v]));}
+  if(spec.endsWith('/sessionEscape'))return f.load('src/game/sessionEscape.ts');
+  if(spec.endsWith('/campaign')||spec.endsWith('/campaignPolicy')||spec.endsWith('/shipCargo')||spec.endsWith('/config'))return f.load('src/game/'+spec.split('/').at(-1)+'.ts');
+  if(spec.endsWith('/engineerRoutine'))return f.load('src/npcs/engineerRoutine.ts');
+  if(spec.endsWith('/PauseMenuFrame'))return {PauseMenuFrame:Frame};
+  if(spec.endsWith('/GameplayHud'))return {GameplayHud:Hud,BackpackContents:()=>null};
+  if(spec.startsWith('.'))return new Proxy({}, {get:()=>()=>null});
+  return native(spec);
+ };
+ const nodes=(node,predicate,result=[])=>{if(Array.isArray(node)){for(const child of node)nodes(child,predicate,result);}else if(node&&typeof node==='object'){if(predicate(node))result.push(node);nodes(node.props?.children,predicate,result);}return result;};
+ try{
+  const {Runtime}=jsx('src/app/App.tsx',require);
+  const render=()=>{stateIndex=0;refIndex=0;effects.length=0;tree=Runtime({onHome:()=>{home++;f.expedition.getState().returnHome();}});return tree;};
+  render();effects.find(fn=>fn.toString().includes('OPEN_CARGO_EVENT'))();
+  let gear=nodes(tree,n=>n.props?.['aria-label']==='Abrir controles e opções');assert.equal(gear.length,1);
+  assert.equal(gear[0].props.children.type,native('lucide-react').Settings,'controle é só ícone');
+  const key=code=>handlers.get('keydown')({code,repeat:false,target:null,preventDefault(){}});
+  key('Escape');render();assert.equal(f.game.getState().isPaused,true);
+  let modal=nodes(tree,n=>n.type===Frame)[0];assert.equal(modal.props.minimal,true);assert.equal(modal.props.label,'Jogo pausado');assert.match(textTree(modal),/Pausado/);assert.doesNotMatch(textTree(modal),/À sua maneira|Sair e voltar/);
+  gear=nodes(modal.props.tools,n=>n.props?.['aria-label']==='Abrir controles e opções');assert.equal(gear.length,1);
+  gear[0].props.onClick();render();modal=nodes(tree,n=>n.type===Frame)[0];assert.equal(modal.props.label,'Controles e opções');assert.equal(f.game.getState().isPaused,true);
+  const exit=nodes(modal,n=>n.type==='button'&&textTree(n)==='Sair e voltar ao menu principal')[0];assert.ok(exit);
+  key('Escape');render();assert.equal(f.game.getState().isPaused,false);assert.equal(nodes(tree,n=>n.type===Frame).length,0);
+  // Diálogo mantém prioridade sobre pausa.
+  f.expedition.setState({panel:'engineer'});key('Escape');assert.equal(f.expedition.getState().panel,null);assert.equal(f.game.getState().isPaused,false);
+  // B continua abrindo mochila; ESC seguinte é sempre pausa simples.
+  key('KeyB');render();assert.equal(nodes(tree,n=>n.type===Frame)[0].props.label,'Mochila');key('Escape');render();key('Escape');render();assert.equal(nodes(tree,n=>n.type===Frame)[0].props.minimal,true);
+  // Sair pelo menu mantém o descarte da tentativa, sem excluir o perfil/carga anterior.
+  f.campaign.getState().dispatch('finish-engineer-briefing');f.campaign.getState().setCargo({iron:0,copper:5,titanium:0,organic:0});f.campaign.getState().transferCargo({iron:0,copper:7,titanium:0,organic:0});
+  exit.props.onClick();assert.equal(home,1);assert.equal(f.campaign.getState().saved.cargo.copper,5);assert.equal(f.campaign.getState().saved.profile.displayName,'UI QA');assert.equal(f.campaign.getState().inGame,false);
+ }finally{globalThis.window=previousWindow;for(const[name,value]of Object.entries(previous))globalThis[name]=value;}
 });
