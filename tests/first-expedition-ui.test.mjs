@@ -17,7 +17,7 @@ function setup(){
  globalThis.localStorage={getItem:()=>null,setItem(){}};const load=createSourceLoader();
  const expedition=load('src/state/useExpeditionStore.ts').useExpeditionStore,campaign=load('src/state/useCampaignStore.ts').useCampaignStore,game=load('src/state/useGameStore.ts').useGameStore;
  expedition.getState().enterCampaign({displayName:'UI QA',color:'#abcdef'});expedition.getState().setReady(true);
- return {load,expedition,campaign,game};
+ return {load,expedition,campaign,game,combat:load('src/state/useCombatStore.ts').useCombatStore};
 }
 
 test('S3.2 UI: F, OPEN_CARGO_EVENT, botão e aba recusam porão no briefing, liberam depois; desenvolvimento continua liberado',()=>{
@@ -92,4 +92,41 @@ test('S3.2 UI: CameraRig já nasce orientada no primeiro quadro e remonta em Mar
   assert.equal(f.game.getState().targetRotation,expected);assert.equal(f.load('src/state/playerTransient.ts').cameraView.angle,expected);
   frame({},1/60);assert.equal(f.load('src/state/playerTransient.ts').cameraView.angle,expected);
  }
+});
+
+function textTree(node){
+ if(typeof node==='string'||typeof node==='number')return String(node);
+ if(Array.isArray(node))return node.map(textTree).join(' ');
+ return node?.props?textTree(node.props.children):'';
+}
+function renderWithStores(file, f, name, props={}) {
+ const require=spec=>{
+  if(spec==='react')return {useEffect(){},useRef:value=>({current:value}),useState:value=>[value,()=>{}]};
+  if(spec.includes('/state/')) {const actual=f.load('src/state/'+spec.split('/').at(-1)+'.ts');return Object.fromEntries(Object.entries(actual).map(([k,v])=>[k,k.startsWith('use')&&v.getState?hook(v):v]));}
+  if(spec.endsWith('.css'))return {};
+  if(/\.(jpg|png|mp4)$/.test(spec))return spec;
+  if(spec.endsWith('/ShipCargoPanel'))return {ShipCargoPanel:()=>null};
+  if(spec.startsWith('.'))return f.load(path.resolve(path.dirname(file),spec)+'.ts');
+  return native(spec);
+ };
+ return jsx(file,require)[name](props);
+}
+
+test('S3.2 revisão UI: cabine avisa risco e usa Engenheiro antes de EDEN; textos dev permanecem iguais',()=>{
+ const f=setup(),props={map:'shanghai',phase:'aboard',ready:true,error:null,name:'QA',onDepart(){},onExit(){},onRetry(){}};
+ const campaignText=textTree(renderWithStores('src/ui/ShipCockpit.tsx',f,'ShipCockpit',props));
+ assert.match(campaignText,/só fica a salvo ao chegar a Marte/);assert.match(campaignText,/ENGENHEIRO · RÁDIO/);assert.doesNotMatch(campaignText,/EDEN · CONECTADA|permanece salva/);
+ f.expedition.getState().returnHome();f.expedition.getState().enterDevelopment();
+ const devText=textTree(renderWithStores('src/ui/ShipCockpit.tsx',f,'ShipCockpit',props));
+ assert.match(devText,/A carga da nave permanece salva/);assert.match(devText,/EDEN · CONECTADA/);
+});
+
+test('S3.2 revisão UI: fallback da campanha mantém título/aviso das hordas, sem seletor/reiniciar',()=>{
+ const f=setup();f.expedition.setState({panel:null,session:{map:'shanghai',phase:'walking',destination:null,revision:0}});
+ f.combat.setState({waves:4,wave:4,cleared:true,dead:false});
+ let text=textTree(renderWithStores('src/combat/CombatHud.tsx',f,'CombatHud'));
+ assert.match(text,/Hordas neutralizadas/);assert.doesNotMatch(text,/Patrulha neutralizada|Reiniciar encontro/);
+ f.combat.setState({cleared:false,wave:1,ammo:0,reserve:0});
+ text=textTree(renderWithStores('src/combat/CombatHud.tsx',f,'CombatHud'));
+ assert.match(text,/próxima horda chega com reabastecimento/);assert.doesNotMatch(text,/Equipe o facão/);
 });

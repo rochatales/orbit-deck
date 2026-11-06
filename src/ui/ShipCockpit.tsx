@@ -1,3 +1,4 @@
+import { useCampaignStore } from '../state/useCampaignStore';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { ArrowUpRight, ChevronRight, Package, Plane, Radio, LogOut } from 'lucide-react';
 import type { MapId, TravelPhase } from '../game/session';
@@ -51,6 +52,8 @@ export interface ShipCockpitProps {
 
 /** Cabine de navegação: sessão real, porão persistente e ações separadas de voo/desembarque. */
 export function ShipCockpit({ map, phase, ready, error, name, onDepart, onExit, onRetry, encounter }: ShipCockpitProps) {
+    const campaign = useCampaignStore(s => s.mode === 'campaign');
+    const edenActive = useCampaignStore(s => s.mode !== 'campaign' || !!s.saved?.campaign.edenActive);
     const [tab, setTab] = useState<'navigation' | 'cargo'>('navigation');
     const root = useRef<HTMLElement>(null), info = EXTERIOR[map];
     const hold = cargoWeight(useShipCargoStore(s => s.cargo));
@@ -62,7 +65,7 @@ export function ShipCockpit({ map, phase, ready, error, name, onDepart, onExit, 
         <CockpitExterior key={map} map={map}/>
         <header className="cockpit-header">
             <div className="cockpit-brand"><Plane aria-hidden="true"/><span>ARES–I<small>EXODEN / NAVEGAÇÃO</small></span></div>
-            <div className="cockpit-signal"><i/>{busy ? 'EM TRÂNSITO' : error ? 'VOO INTERROMPIDO' : 'ESTACIONADA'}<span><Radio size={13} aria-hidden="true"/> EDEN · CONECTADA</span></div>
+            <div className="cockpit-signal"><i/>{busy ? 'EM TRÂNSITO' : error ? 'VOO INTERROMPIDO' : 'ESTACIONADA'}<span><Radio size={13} aria-hidden="true"/> {edenActive ? 'EDEN · CONECTADA' : 'ENGENHEIRO · RÁDIO'}</span></div>
             <button className="cockpit-close" disabled={busy} onClick={onExit} aria-label="Desembarcar da aeronave"><LogOut size={17} aria-hidden="true"/> Desembarcar <kbd>E / ESC</kbd></button>
         </header>
         <div className="cockpit-console">
@@ -71,7 +74,7 @@ export function ShipCockpit({ map, phase, ready, error, name, onDepart, onExit, 
                 <button disabled={busy} aria-pressed={tab === 'cargo'} onClick={() => setTab('cargo')}><Package size={15} aria-hidden="true"/> Carga <small>{hold.toFixed(1).replace('.', ',')} / {SHIP_CARGO.capacityKg} kg</small></button>
             </nav>
             {busy || error ? <section className="cockpit-flight cockpit-hologram" role="status" aria-live="polite">
-                <p className="cockpit-kicker">CONTROLE DE VOO / EDEN</p><h1>{error ? 'Viagem interrompida' : 'Preparando a chegada'}</h1>
+                <p className="cockpit-kicker">CONTROLE DE VOO / {edenActive ? 'EDEN' : 'ENGENHEIRO'}</p><h1>{error ? 'Viagem interrompida' : 'Preparando a chegada'}</h1>
                 <p>{error ?? 'Carregando a região de destino. Aguarde para desembarcar.'}</p>
                 {error ? <button className="cockpit-depart" onClick={onRetry}>Tentar novamente <ArrowUpRight size={20}/></button> : <div className="cockpit-loading" aria-hidden="true"><i/></div>}
             </section> : tab === 'cargo' ? <div className="cockpit-cargo cockpit-hologram"><ShipCargoPanel map={map}/></div> : <div className="cockpit-navigation">
@@ -79,7 +82,7 @@ export function ShipCockpit({ map, phase, ready, error, name, onDepart, onExit, 
                     <p className="cockpit-kicker">01 / LOCALIZAÇÃO ATUAL</p><p className="cockpit-planet">{info.planet}</p><h1>{info.location}</h1>
                     <div className="cockpit-location-line"/>
                     <dl><div><dt>EXPLORADOR</dt><dd>{name}</dd></div><div><dt>AERONAVE</dt><dd>No solo · embarque concluído</dd></div><div><dt>PORÃO</dt><dd>{hold.toFixed(1).replace('.', ',')} / {SHIP_CARGO.capacityKg} kg</dd></div></dl>
-                    <p className="cockpit-guidance">{map === 'mars' ? 'A colônia fica para trás. O próximo passo está na Terra.' : 'Guarde os recursos no porão antes de partir. A carga da nave permanece salva.'}</p>
+                    <p className="cockpit-guidance">{map === 'mars' ? 'A colônia fica para trás. O próximo passo está na Terra.' : campaign ? 'Guarde os recursos no porão antes de partir. A carga desta tentativa só fica a salvo ao chegar a Marte.' : 'Guarde os recursos no porão antes de partir. A carga da nave permanece salva.'}</p>
                 </section>
                 <section className="cockpit-route cockpit-hologram">
                     <p className="cockpit-kicker">02 / DESTINO DISPONÍVEL</p>

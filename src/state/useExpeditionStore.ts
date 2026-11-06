@@ -105,7 +105,9 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
         useCombatStore.getState().restart();
         respawn(INITIAL_POSITION, 'mars');
         set({ profile: saved.profile, briefingSeen: saved.briefingSeen, session: { ...INITIAL_SESSION },
-            spawn: INITIAL_POSITION, panel: null, ready: false, error: null, saveError: null, radio: INITIAL_RADIO, radioSender: 'EDEN', radioSerial: 0, copperQuotaAnnounced: false });
+            spawn: INITIAL_POSITION, panel: null, ready: false, error: null, saveError: null,
+            radio: saved.campaign.edenActive ? INITIAL_RADIO : 'Procure o Engenheiro na Oficina ou no Data Center.',
+            radioSender: saved.campaign.edenActive ? 'EDEN' : 'Engenheiro', radioSerial: 0, copperQuotaAnnounced: false });
         return true;
     },
     returnHome: () => {
@@ -147,7 +149,10 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
         if (session === s.session)
             return;
         if (event === 'arrive' && session.map === 'mars' && s.session.map === 'shanghai' && useCampaignStore.getState().mode === 'campaign')
+        {
             useCampaignStore.getState().consolidateExpedition(crypto.randomUUID());
+            get().setRadio('Pousamos em Marte. Desembarque para voltar à colônia.', 'Sistema');
+        }
         if (event === 'arrive' && session.map === 'shanghai') {
             useCombatStore.getState().restart();
             set({ copperQuotaAnnounced: false });
@@ -170,13 +175,16 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
         set({ copperQuotaAnnounced: false });
         const spawn = MAPS.shanghai.exit;
         respawn(spawn, 'shanghai');
-        set({ spawn, panel: null, session: { ...s.session, revision: s.session.revision + 1 }, radio: 'Nova tentativa. Mova-se, mire com o mouse e use R para recarregar.' });
+        set({ spawn, panel: null, session: { ...s.session, revision: s.session.revision + 1 } });
+        const radio = 'Nova tentativa. Mova-se, mire com o mouse e use R para recarregar.';
+        if (useCampaignStore.getState().mode === 'campaign') get().setRadio(radio, 'Sistema');
+        else set({ radio });
     },
     announceCopperQuota: () => {
         const s = get(), c = useCampaignStore.getState(), combat = useCombatStore.getState();
         if (s.copperQuotaAnnounced || s.session.map !== 'shanghai' || !s.ready || combat.dead
             || c.mode !== 'campaign' || c.saved?.campaign.stage !== 'expedition-copper') return;
-        if ((combatRuntime.simulation?.copper ?? combat.copper) + c.saved.attemptCargo.copper >= 4) {
+        if (Math.max(0, (combatRuntime.simulation?.copper ?? combat.copper) - c.withdrawnCargo.copper) + c.saved.attemptDelivery.copper >= 4) {
             set({ copperQuotaAnnounced: true });
             get().setRadio('Já temos cobre suficiente. Guarde na aeronave e volte a Marte.', 'Engenheiro');
         }

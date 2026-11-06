@@ -186,3 +186,16 @@ test('S3.2: quota não duplica a mochila durante transferência e cobre já reto
     f.travel();assert.equal(f.campaign.getState().saved.campaign.copperDelivered,2);
     f.travel();f.pack(2);f.ship.getState().deposit();f.travel();assert.equal(f.campaign.getState().saved.campaign.copperDelivered,4);
 });
+
+test('S3.2 revisão: rádio não confunde cobre antigo com quota elegível, e retorno/retry têm remetente próprio',()=>{
+    const f=fixture();f.enter();assert.equal(f.expedition.getState().radioSender,'Engenheiro');assert.doesNotMatch(f.expedition.getState().radio,/Encontre-a/);
+    f.campaign.getState().setCargo({...zero,copper:4});f.travel();f.pack(0);const serial=f.expedition.getState().radioSerial;
+    f.ship.getState().withdraw('copper',4);f.ship.getState().deposit();assert.equal(f.expedition.getState().radioSerial,serial,'cobre antigo não satisfaz quota de entrega');
+    f.expedition.getState().restartMission();assert.equal(f.expedition.getState().radioSender,'Sistema');assert.match(f.expedition.getState().radio,/Nova tentativa/);assert.ok(f.expedition.getState().radioSerial>serial);
+    f.expedition.getState().returnHome();f.expedition.getState().enterCampaign();
+    f.expedition.getState().setReady(true);f.placePlayer(f.MAPS.mars.exit);
+    f.expedition.getState().send('board');f.expedition.getState().send('depart');f.expedition.getState().send('arrive');f.expedition.getState().setReady(true);
+    // Chega na cabine, retorna sem desembarcar: a transmissão pendente não pode vazar para Marte.
+    f.expedition.getState().send('depart');f.expedition.getState().send('arrive');
+    assert.equal(f.expedition.getState().session.map,'mars');assert.equal(f.expedition.getState().radioSender,'Sistema');assert.match(f.expedition.getState().radio,/Pousamos em Marte/);
+});
