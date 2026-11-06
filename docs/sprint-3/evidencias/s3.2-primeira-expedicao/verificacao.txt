@@ -1,0 +1,8 @@
+Base: 6005d3fb06ce5982a0c0c4d37ed6f1bdc805fbb3
+Implementação: add20f2
+npm test: 620 testes, 620 passaram, 0 falharam (35,24 s).
+npm run build: passou; aviso existente de chunk >500 kB.
+git diff --check 6005d3f HEAD: passou.
+Navegador: nascimento 2000x888, rótulo do Engenheiro distante sem E, F/E/2 bloqueados, ESC funcional, porão/facão desabilitados no briefing.
+Visor: seis renders exportados do rig real (Idle/Walk/Sitting, frente/perfil), sem regravar GLBs/fontes.
+Aceite visual e jogabilidade: autor, pendente.
