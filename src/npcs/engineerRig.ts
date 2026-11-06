@@ -1,3 +1,5 @@
+import { createColonyVisor } from '../characters/player/colonyVisorAttachment';
+import { ENGINEER_VISOR_POINTS, ENGINEER_VISOR_RADIUS_SCALE } from './engineerVisor';
 import { AnimationMixer, LoopOnce, type AnimationAction, type AnimationClip, type Object3D, type Mesh, type SkinnedMesh, type Skeleton, type Material } from 'three';
 import { ENGINEER, type EngineerState, type EngineerAnimation } from './engineerRoutine';
 import { prepareEngineerWalk } from './engineerWalk';
@@ -12,6 +14,7 @@ export class EngineerRig {
     private blends: { action: AnimationAction; weight: number; from: number }[] = [];
     private blendTime = .35;
     private disposed = false;
+    readonly visor: ReturnType<typeof createColonyVisor>;
     constructor(readonly root: Object3D, clips: AnimationClip[], private readonly placement: Object3D = root) {
         root.scale.multiplyScalar(ENGINEER.visualScale);
         const copies = new Map<Material, Material>();
@@ -27,6 +30,8 @@ export class EngineerRig {
             mesh.castShadow = true; mesh.receiveShadow = true;
             mesh.material = Array.isArray(mesh.material) ? mesh.material.map(copy) : copy(mesh.material);
         });
+        this.visor = createColonyVisor(root, false, ENGINEER_VISOR_POINTS, ENGINEER_VISOR_RADIUS_SCALE);
+        this.visor?.head.add(this.visor.group);
         this.mixer = new AnimationMixer(root);
         for (const clip of clips) {
             const name = clip.name as EngineerAnimation;
@@ -75,6 +80,7 @@ export class EngineerRig {
     dispose() {
         if (this.disposed) return;
         this.disposed = true; this.mixer.stopAllAction(); this.mixer.uncacheRoot(this.root);
+        this.visor?.dispose();
         for (const material of this.materials) material.dispose();
         for (const skeleton of this.skeletons) skeleton.dispose();
     }

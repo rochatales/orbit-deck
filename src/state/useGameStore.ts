@@ -40,7 +40,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   targetZoom: 14,
   minZoom: DEFAULT_MIN_ZOOM,
   maxZoom: DEFAULT_MAX_ZOOM,
-  targetRotation: Math.PI / 4,
+  targetRotation: 3 * Math.PI / 4,
   isPaused: false,
   controlsOpen: false,
   configOpen: false,

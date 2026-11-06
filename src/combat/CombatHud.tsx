@@ -1,3 +1,4 @@
+import { useCampaignStore } from '../state/useCampaignStore';
 import { useEffect, useState } from 'react';
 import { useWeaponStore } from '../state/useWeaponStore';
 import { MACHETE_DEATH_OVERLAY_MS } from './melee';
@@ -11,6 +12,8 @@ const COUNT_LABEL: Record<number, string> = { 1: '1 · Aprender a mirar', 3: '3 
 export function EncounterSelect() {
     const choice = useCombatStore(s => s.encounter), select = useCombatStore(s => s.selectEncounter);
     const patrol = parseEncounter(choice), counts: readonly number[] = patrol?.kind === 'patrol' ? [...PATROL_COUNTS, COMBAT.encounterSize] : PATROL_COUNTS;
+    const campaign = useCampaignStore(s => s.mode === 'campaign');
+    if (campaign) return null;
     return <>
       <label>Encontro de teste<select aria-label="Tipo de encontro" value={patrol?.kind ?? HORDE_ENCOUNTER} onChange={e => select(e.target.value === HORDE_ENCOUNTER ? HORDE_ENCOUNTER
         : patrolChoice(e.target.value as RobotKind, Math.min(patrol?.count ?? 3, 5)))}>
@@ -24,6 +27,7 @@ export function EncounterSelect() {
 }
 export function CombatHud() {
     const s = useCombatStore(), phase = useExpeditionStore(s => s.session.phase), panel = useExpeditionStore(s => s.panel), paused = useGameStore(s => s.isPaused);
+    const campaign = useCampaignStore(s => s.mode === 'campaign');
     const weapon = useWeaponStore(s => s.weapon);
     const restart = useExpeditionStore(s => s.restartMission);
     // Com a espada, a queda do explorador aparece antes do painel; com o rifle, segue imediato.
@@ -43,7 +47,7 @@ export function CombatHud() {
     {s.damage && !s.dead && <div className="damage-vignette" aria-hidden="true"/>}
     {s.dead && deathPanel && <section className="overlay" role="dialog" aria-label="Explorador abatido"><article><p className="eyebrow">EXPEDIÇÃO INTERROMPIDA</p><h2>Explorador abatido</h2><p>Recomece em Shanghai com vida e munição restauradas. Nenhum progresso deste encontro é salvo. As peças coletadas nesta tentativa serão descartadas.</p><EncounterSelect /><button onClick={restart}>Tentar novamente</button></article></section>}
     {!s.dead && phase === 'walking' && !panel && !paused && (s.cleared || (weapon === 'rifle' && s.ammo === 0 && s.reserve === 0)) && <aside className="encounter-result">
-      <h2>{s.cleared ? (s.waves > 0 ? 'Hordas neutralizadas' : 'Área de teste livre') : 'Sem munição'}</h2><p>{s.cleared ? (s.waves > 0 ? `${s.waves} hordas, ${s.total} ameaças. Volte à nave ou repita.` : 'Volte à nave ou repita com mais robôs.') : s.waves > 0 && s.wave < s.waves ? 'A próxima horda chega com reabastecimento. Sobreviva ou reinicie.' : 'Equipe o facão (2) ou procure as caixas de munição e use E. Você também pode retornar à nave ou reiniciar.'}</p><button onClick={restart}>Reiniciar encontro</button>
+      <h2>{s.cleared ? (campaign ? 'Patrulha neutralizada' : s.waves > 0 ? 'Hordas neutralizadas' : 'Área de teste livre') : 'Sem munição'}</h2><p>{campaign ? 'Guarde os recursos na aeronave e volte a Marte. Procure as caixas de munição se precisar.' : s.cleared ? (s.waves > 0 ? `${s.waves} hordas, ${s.total} ameaças. Volte à nave ou repita.` : 'Volte à nave ou repita com mais robôs.') : s.waves > 0 && s.wave < s.waves ? 'A próxima horda chega com reabastecimento. Sobreviva ou reinicie.' : 'Equipe o facão (2) ou procure as caixas de munição e use E. Você também pode retornar à nave ou reiniciar.'}</p>{!campaign && <button onClick={restart}>Reiniciar encontro</button>}
     </aside>}
   </>;
 }

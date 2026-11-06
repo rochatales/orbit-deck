@@ -1,3 +1,4 @@
+import { engineerBriefingRequired } from '../game/campaignPolicy';
 import { useEffect, useState } from 'react';
 import { Plane, ArrowRight, ArrowLeft } from 'lucide-react';
 import { BACKPACK, EMPTY_CARGO, cargoWeight, type ResourceCargo } from '../game/backpackConfig';
@@ -25,8 +26,9 @@ export function useNearShipCargo(map: MapId) {
 
 /** Botão de ação ao lado da mochila: só acende perto da aeronave. */
 export function ShipCargoButton({ map, onOpen }: { map: MapId; onOpen: () => void }) {
+  const blocked = useCampaignStore(s => s.mode === 'campaign' && s.saved?.campaign.stage === 'engineer-briefing');
   const near = useNearShipCargo(map), weight = cargoWeight(useShipCargoStore(s => s.cargo));
-  return <button className={`beta-ship-cargo ${near ? 'is-near' : ''}`} disabled={!near} onClick={onOpen}
+  return <button className={`beta-ship-cargo ${near ? 'is-near' : ''}`} disabled={!near || blocked} onClick={onOpen}
     aria-label={near ? 'Abrir carga da aeronave · F' : 'Carga da aeronave · aproxime-se da aeronave'} title={near ? 'Carga da aeronave · F' : 'Aproxime-se da aeronave'}>
     <Plane aria-hidden="true"/><div><span>AERONAVE <kbd>F</kbd></span><strong>{kg(weight)} <small>/ {SHIP_CARGO.capacityKg} kg</small></strong>
       <div className="beta-weight-track" aria-hidden="true"><i style={{ width: `${Math.min(100, weight / SHIP_CARGO.capacityKg * 100)}%` }}/></div>
@@ -55,7 +57,7 @@ export function ShipCargoPanel({ map }: { map: MapId }) {
   const combat = map === 'shanghai', live = useCombatStore(), backpack: ResourceCargo = combat ? live : EMPTY_CARGO;
   const ship = useShipCargoStore(s => s.cargo), deposit = useShipCargoStore(s => s.deposit), withdraw = useShipCargoStore(s => s.withdraw);
   const [note, setNote] = useState('');
-  const near = useNearShipCargo(map), canMove = combat && near && !live.dead;
+  const near = useNearShipCargo(map), canMove = combat && near && !live.dead && !engineerBriefingRequired();
   const pack = cargoWeight(backpack), hold = cargoWeight(ship);
   const move = (kind: ResourceKind | undefined, one: boolean, to: 'ship' | 'pack') => {
     const moved = to === 'ship' ? deposit(kind, one ? 1 : undefined) : withdraw(kind, one ? 1 : undefined);
@@ -79,6 +81,6 @@ export function ShipCargoPanel({ map }: { map: MapId }) {
       </section>
     </div>
     <p className="beta-hold-note" role="status">{note || (!near ? 'Aproxime-se da aeronave para mover a carga.' : !combat ? 'O porão guarda o que veio da Terra. Desça em Shanghai para carregar mais.' : 'Clique num item para mover a pilha · Shift + clique move uma unidade.')}</p>
-    <small>{campaign ? 'Este porão pertence à campanha e permanece salvo. Transferir materiais para cá ainda não confirma a entrega da expedição.' : 'Itens no porão ficam a salvo: não se perdem ao cair em combate nem ao reiniciar o encontro. Munição e kits médicos não ocupam carga.'}</small>
+    <small>{campaign ? 'A carga desta tentativa só fica a salvo depois de voltar a Marte. Morte, reinício ou abandono descartam o que foi guardado nesta visita.' : 'Itens no porão ficam a salvo: não se perdem ao cair em combate nem ao reiniciar o encontro. Munição e kits médicos não ocupam carga.'}</small>
   </section>;
 }

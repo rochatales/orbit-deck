@@ -29,5 +29,7 @@ export const MAPS: Record<MapId, {
     mars: { title: 'Marte · Colônia humana', ship: { x: 0, y: 0, z: 33 }, exit: { x: 0, y: 0, z: 29.5 }, bounds: { minX: -22, maxX: 24, minZ: -20, maxZ: 39 } },
     shanghai: { title: 'Terra · Shanghai', ship: { x: 0, y: 0, z: 13 }, exit: { x: 0, y: 0, z: 9.5 }, bounds: isShanghaiPhase01() ? { minX: -51, maxX: 51, minZ: -54, maxZ: 54 } : { minX: -17, maxX: 17, minZ: -18, maxZ: 18 } }
 };
-export const INITIAL_POSITION: Point = { x: 0, y: 0, z: 6 };
+export const INITIAL_POSITION: Point = { x: -1, y: 0, z: 26 };
 export function near(a: Point, b: Point, distance: number) { return Math.hypot(a.x - b.x, a.z - b.z) <= distance; }
+
+export const MAP_CAMERA_ANGLE: Record<MapId, number> = { mars: 3 * Math.PI / 4, shanghai: Math.PI / 4 };

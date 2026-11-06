@@ -46,12 +46,12 @@ export function OfficeScene({ world, map }: {
     const spawn = useExpeditionStore(s => s.spawn), revision = useExpeditionStore(s => s.session.revision);
     const phase01 = map === 'shanghai' && isShanghaiPhase01();
     const sky = map === 'mars' ? SANDWIND_APPEARANCE.color : SHANGHAI_DAWN.horizon;
-    return <Suspense fallback={<Html center><p role="status">Carregando Shanghai fase 01…</p></Html>}><ShanghaiAssetGate world={world}><>
+    return <Suspense fallback={<Html center><p role="status">{map === 'mars' ? 'Carregando colônia de Marte…' : 'Carregando Shanghai fase 01…'}</p></Html>}><ShanghaiAssetGate world={world}><>
     {map === 'mars' ? <color attach="background" args={[sky]}/> : <DawnBackground/>}
     <fog attach="fog" args={map === 'mars' ? [sky, 130, 270] : [sky, SHANGHAI_DAWN.fogNear, SHANGHAI_DAWN.fogFar]}/>
     {map === 'shanghai' ? <ShanghaiLighting/> : <Lighting/>}
     {/* Recuo ×3 no mesmo eixo ortográfico: torres de Marte (S6.12) e prédios da fase 01 (S6.3). */}
-    <CameraRig key={`camera-${revision}`} bounds={world.bounds} spawn={spawn} framing={map === 'shanghai' ? SHANGHAI_FRAMING : undefined} distanceScale={map === 'mars' || phase01 ? 3 : 1}/>
+    <CameraRig key={`camera-${revision}`} bounds={world.bounds} spawn={spawn} map={map} framing={map === 'shanghai' ? SHANGHAI_FRAMING : undefined} distanceScale={map === 'mars' || phase01 ? 3 : 1}/>
     <PlayerAim key={`aim-${revision}`}/>
     <PhysicsWorld officeWorld={world}>
       <OfficeMap officeWorld={world} animate={map !== 'mars'}/>

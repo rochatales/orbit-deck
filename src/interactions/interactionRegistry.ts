@@ -7,6 +7,7 @@ export interface InteractionTarget {
 /** Registro só muda na montagem; seleção lê posição/estado atuais sem criar objetos no quadro. */
 export class InteractionRegistry {
     private targets: InteractionTarget[] = [];
+    constructor(private readonly allowed: (id: string) => boolean = () => true) {}
     register(target: InteractionTarget) {
         if (this.targets.some(t => t.id === target.id)) throw new Error(`Interação duplicada: ${target.id}`);
         this.targets.push(target);
@@ -17,6 +18,7 @@ export class InteractionRegistry {
         if (!Number.isFinite(player.x + player.z)) return null;
         for (let i = 0; i < this.targets.length; i++) {
             const target = this.targets[i], point = target.point ?? target, dx = player.x - point.x, dz = player.z - point.z, distance = dx * dx + dz * dz;
+            if (!this.allowed(target.id)) continue;
             if (distance > target.radius * target.radius || (target.available && !target.available())) continue;
             if (!best || target.priority > best.priority || (target.priority === best.priority && distance < bestDistance)) {
                 best = target; bestDistance = distance;

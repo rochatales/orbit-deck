@@ -1,3 +1,4 @@
+import { engineerBriefingRequired } from '../game/campaignPolicy';
 import { create } from 'zustand';
 import { BACKPACK, EMPTY_CARGO, type ResourceCargo } from '../game/backpackConfig';
 import { SHIP_CARGO, loadShipCargo, saveShipCargo, transfer, transferAll, type ResourceKind } from '../game/shipCargo';
@@ -23,11 +24,11 @@ interface ShipCargoState {
 /** A mochila vive na simulação de combate; mexe nela e republica o HUD na hora (jogo pausado). */
 function withBackpack(move: (backpack: ResourceCargo, ship: ResourceCargo) => number, get: () => ShipCargoState, set: (s: Partial<ShipCargoState>) => void) {
   const sim = combatRuntime.simulation;
-  if (!sim || sim.dead) return 0;
+  if (engineerBriefingRequired() || !sim || sim.dead) return 0;
   const ship = { ...get().cargo }, moved = move(sim, ship);
   if (!moved) return 0;
   set({ cargo: ship });
-  if (useCampaignStore.getState().mode === 'campaign') useCampaignStore.getState().setCargo(ship);
+  if (useCampaignStore.getState().mode === 'campaign') useCampaignStore.getState().transferCargo(ship);
   else { developmentCargo = ship; saveShipCargo(ship, developmentStorage()); }
   useCombatStore.getState().publish(sim.snapshot);
   return moved;

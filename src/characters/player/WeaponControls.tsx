@@ -1,3 +1,4 @@
+import { campaignSwordAllowed } from '../../game/campaignPolicy';
 import { useStoredMedicalKit } from '../../game/props/medicalKitInteraction';
 import { useEffect } from 'react';
 import { useWeaponStore } from '../../state/useWeaponStore';
@@ -13,7 +14,7 @@ export function canEquipPlayerWeapon(source: 'shortcut' | 'inventory' = 'shortcu
     && (source === 'inventory' || !useGameStore.getState().isPaused);
 }
 export function equipPlayerWeapon(weapon: PlayerWeapon, source: 'shortcut' | 'inventory' = 'shortcut') {
-  if (!canEquipPlayerWeapon(source)) return false;
+  if ((weapon === 'machete' && !campaignSwordAllowed()) || !canEquipPlayerWeapon(source)) return false;
   useWeaponStore.getState().equip(weapon);
   return true;
 }

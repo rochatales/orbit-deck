@@ -1,3 +1,5 @@
+import { useCampaignStore } from '../state/useCampaignStore';
+import { campaignEncounter } from './campaignEncounter';
 import { SupplyBeaconLights } from '../game/props/SupplyBeaconLights';
 import { HealthPickups } from './HealthPickups';
 import { useWeaponStore } from '../state/useWeaponStore';
@@ -35,7 +37,7 @@ export function CombatScene({ world }: {
     world: OfficeWorld;
 }) {
     const run = useCombatStore(s => s.run);
-    const simulation = useMemo(() => new CombatSimulation(world, useCombatStore.getState().encounter, undefined,
+    const simulation = useMemo(() => new CombatSimulation(world, useCampaignStore.getState().mode === 'campaign' ? campaignEncounter(useCampaignStore.getState().saved?.campaign.stage) : useCombatStore.getState().encounter, undefined,
         isShanghaiPhase01() ? SHANGHAI_SUPPLY_CRATES : []), [world, run]);
     const indicators = useMemo(() => new EnemyIndicators(simulation.robots.length), [simulation]);
     useEffect(() => () => indicators.dispose(), [indicators]);

@@ -111,6 +111,7 @@ test('Campanha: entrar, mover carga, abrir EDEN e sair preserva saves dev byte a
     const f = fixture(storage);
     assert.ok(f.expedition.getState().enterCampaign(profile));
     assert.deepEqual(f.ship.getState().cargo, { iron: 0, copper: 0, titanium: 0, organic: 0 });
+    f.campaign.getState().dispatch('finish-engineer-briefing');
     const reads = storage.reads.length;
     const sim = { ...cargo, dead: false, get snapshot() { return { ...f.combat.getState(), iron: this.iron, copper: this.copper, titanium: this.titanium, organic: this.organic }; } };
     f.combatRuntime.simulation = sim;
@@ -121,8 +122,8 @@ test('Campanha: entrar, mover carga, abrir EDEN e sair preserva saves dev byte a
     f.expedition.getState().setReady(true);
     f.load('src/state/playerTransient.ts').placePlayer(f.load('src/game/config.ts').EDEN.position);
     f.expedition.getState().openEden();
-    assert.equal(f.campaign.getState().saved.briefingSeen, true);
-    assert.equal(f.campaign.getState().saved.campaign.stage, 'engineer-briefing');
+    assert.equal(f.campaign.getState().saved.briefingSeen, false, 'EDEN desligada não abre');
+    assert.equal(f.campaign.getState().saved.campaign.stage, 'expedition-copper');
     assert.equal(f.campaign.getState().enterDevelopment(), false, 'modo fixo até sair');
     assert.equal(f.campaign.getState().resumeCampaign(), false);
     f.expedition.getState().returnHome();
@@ -164,14 +165,14 @@ test('Campanha: morte não avança; restart zera HUD da mochila, sem consolidar'
     const state = f.campaign.getState().saved.campaign;
     f.campaign.getState().setCargo(cargo);
     f.combat.setState({ hp: 0, dead: true });
-    assert.deepEqual(f.ship.getState().cargo, cargo, 'porão persistente aguarda o recorte de extração, sem apagar visitas anteriores');
+    assert.deepEqual(f.ship.getState().cargo, cargo, 'carga de visitas anteriores preservada');
     assert.equal(f.campaign.getState().saved.campaign, state);
     f.expedition.setState({ ready: true, session: { map: 'shanghai', phase: 'walking', destination: null, revision: 1 } });
     f.campaign.getState().setCargo(cargo);
     f.combat.setState({ copper: 4 });
     assert.equal(f.combat.getState().copper, 4);
     f.expedition.getState().restartMission();
-    assert.deepEqual(f.ship.getState().cargo, cargo, 'porão persistente aguarda o recorte de extração, sem apagar visitas anteriores');
+    assert.deepEqual(f.ship.getState().cargo, cargo, 'carga de visitas anteriores preservada');
     assert.equal(f.campaign.getState().saved.campaign, state);
     assert.equal(f.combat.getState().dead, false); assert.equal(f.combat.getState().copper, 0);
     assert.equal(f.campaign.getState().saved.campaign.lastExpeditionId, null);

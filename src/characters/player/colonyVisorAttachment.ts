@@ -12,15 +12,15 @@ const STRIPE_POINTS = [
 ];
 
 /** Só na montagem; o osso transporta faixa e foco durante todos os clipes. */
-export function createColonyVisor(character: Object3D, illuminated = true) {
+export function createColonyVisor(character: Object3D, illuminated = true, points: readonly (readonly number[])[] = STRIPE_POINTS, radiusScale = 1) {
   const head = character.getObjectByName('mixamorig:Head') ?? character.getObjectByName('mixamorigHead');
   if (!head) return null;
   const group = new Group();
   group.name = 'ColonyPlayerVisor';
-  const curve = new CatmullRomCurve3(STRIPE_POINTS.map(p => new Vector3(p[0], p[1], p[2])));
+  const curve = new CatmullRomCurve3(points.map(p => new Vector3(p[0], p[1], p[2])));
   const config = COLONY_VISOR_LIGHT;
-  const geometry = new TubeGeometry(curve, 48, config.stripeRadius, 6, false);
-  const haloGeometry = new TubeGeometry(curve, 48, config.haloRadius, 6, false);
+  const geometry = new TubeGeometry(curve, 48, config.stripeRadius * radiusScale, 6, false);
+  const haloGeometry = new TubeGeometry(curve, 48, config.haloRadius * radiusScale, 6, false);
   const material = new MeshBasicMaterial({ color: config.stripeColor, toneMapped: false });
   const haloMaterial = new MeshBasicMaterial({
     color: config.stripeColor, toneMapped: false, transparent: true,

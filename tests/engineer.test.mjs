@@ -299,7 +299,7 @@ test('Engenheiro: conversa interrompe tarefa, escolhe Yelling/Acknowledging e pa
     assert.equal(engineerIsCalm('development', false, engineerPreviewMood('?engineerEden=0')), false);
 });
 
-test('Engenheiro: E valida mapa, distância e paredes e não grava/avança campanha', () => {
+test('Engenheiro: E valida mapa, distância e paredes; briefing avança uma vez só em campanha', () => {
     const values = new Map(); globalThis.localStorage = { getItem:k=>values.get(k)??null,setItem:(k,v)=>values.set(k,v) };
     const load = createSourceLoader(), { useExpeditionStore:s } = load('src/state/useExpeditionStore.ts'), { engineerPresence:p } = load('src/npcs/engineerPresence.ts');
     const { placePlayer } = load('src/state/playerTransient.ts');
@@ -307,11 +307,13 @@ test('Engenheiro: E valida mapa, distância e paredes e não grava/avança campa
     const world = createWorld(); Object.assign(p,{active:true,world,x:-6.1,y:0,z:6});
     s.getState().setReady(true); placePlayer({x:0,y:0,z:6}); s.getState().openEngineer(); assert.equal(s.getState().panel,null);
     placePlayer({x:-5,y:0,z:6}); s.getState().openEngineer(); assert.equal(s.getState().panel,'engineer');
-    s.getState().closePanel(); assert.equal(s.getState().panel,null); assert.equal(values.get('exoden:campaign:v1'),raw);
+    s.getState().closePanel(); assert.equal(s.getState().panel,null); assert.notEqual(values.get('exoden:campaign:v1'),raw);
+    const afterBriefing = values.get('exoden:campaign:v1');
+    assert.equal(JSON.parse(afterBriefing).campaign.stage,'expedition-copper');
     Object.assign(p,{seated:true,approach:{x:-5,z:6}});
     s.getState().openEngineer(); assert.equal(s.getState().panel,null,'não levanta para falar sobre o jogador');
     placePlayer({x:-4,y:0,z:6}); s.getState().openEngineer(); assert.equal(s.getState().panel,'engineer','conversa com saída livre');
-    s.getState().closePanel(); p.seated=false; placePlayer({x:-5,y:0,z:6});
+    s.getState().closePanel(); assert.equal(values.get('exoden:campaign:v1'),afterBriefing); p.seated=false; placePlayer({x:-5,y:0,z:6});
     world.obstacles.push({minX:-5.8,maxX:-5.6,minZ:4,maxZ:8}); s.getState().openEngineer(); assert.equal(s.getState().panel,null);
     s.getState().returnHome(); s.getState().start('Dev QA','#abcdef');
     const development=new Map(values);
@@ -335,6 +337,7 @@ test('Engenheiro: cena real mantém visual fora do corpo e atualiza conversa sem
         if(spec==='@react-three/drei')return {useGLTF:()=>gltf};
         if(spec==='@react-three/rapier')return {RigidBody:'rigid-body',CapsuleCollider:'capsule',CuboidCollider:'cuboid'};
         if(spec==='three/examples/jsm/utils/SkeletonUtils.js')return {clone};
+        if(spec.endsWith('/useCampaignStore')) { const actual=load('src/state/useCampaignStore.ts'); return {useCampaignStore:Object.assign(selector=>selector(actual.useCampaignStore.getState()),actual.useCampaignStore)}; }
         if(spec.endsWith('/InteractionBubble'))return {InteractionBubble:Bubble};
         if(spec.endsWith('.glb'))return 'engineer.glb';
         return spec.startsWith('.')?load(path.resolve(path.dirname(filename),spec)+'.ts'):nativeRequire(spec);

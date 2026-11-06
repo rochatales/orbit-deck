@@ -127,3 +127,37 @@ anteriores. Não há novo tratamento de viagem ou extração aqui.
 O HUD mostra o objetivo provisório da etapa. Engenheiro, encontros 4/4+6,
 iluminação desativada, rádio e ativações em cena ainda não estão implementados;
 a campanha continua jogando com os mapas/combate atuais. [Entrega e roteiro](../handoffs/s3.1-campanha-estado.md).
+
+## S3.1/S3.2 — Primeira expedição · decisão do autor em 06/11/2026
+
+**Guardar na aeronave durante a tentativa não protege da morte.** Morte, reinício
+ou abandono (reload, fechar a página ou Voltar à tela inicial) perdem a mochila e
+o saldo guardado no porão nesta tentativa. Somente a carga já trazida de visitas
+anteriores permanece a salvo. Chegar a Marte consolida o saldo; embarcar/decolar
+não consolida. Esta decisão substitui expressamente a nota de persistência do
+porão durante a tentativa no handoff da S3.1 e no recorte histórico acima.
+Desenvolvimento conserva sua regra atual e seus saves/carga separados.
+
+Neste recorte, abrir a conversa existente com o Engenheiro conclui o briefing
+uma vez; antes disso, apenas ele é alvo de interação. Seu balão informa a posição
+à distância, sem ativação remota; o objetivo menciona Oficina e Data Center.
+Movimento, câmera, pausa e portas por proximidade permanecem disponíveis.
+EDEN não conversa enquanto desligada. O encontro próprio tem quatro Patrol,
+um por esquina próxima ao desembarque; quota parcial permite voltar e repetir
+uma visita com os quatro inimigos repostos. Espada bloqueada até `swordReceived`.
+
+Proposta do coordenador **a confirmar com o autor no roteiro**: no retorno a
+Marte, entregar automaticamente para a contagem apenas cobre/orgânica desta
+tentativa consolidados no porão, sem consumir os itens e sem incluir a mochila.
+Cada visita recebe um ID distinto; retirada/redepósito de carga já retornada não
+conta como nova entrega. Com quatro cobres entregues, o objetivo passa a ligar
+EDEN; a ativação em cena é o próximo recorte. A faixa do Engenheiro usa somente
+filete/halo, sem SpotLight — outra proposta a conferir no roteiro.
+
+Nascimento único em Marte para **ambos os modos**: aproximadamente (−1; 26),
+ângulo inicial 3π/4 já no primeiro quadro, zoom padrão. Retornar de Shanghai
+continua desembarcando da aeronave. A aparência apagada da colônia, entrega da
+espada, mutantes e ativações permanecem fora desta entrega.
+
+Implementação e verificações: [handoff S3.2](../handoffs/s3.2-primeira-expedicao.md).
+Nenhum checkbox de aceite encerrado.

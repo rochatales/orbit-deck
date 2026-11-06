@@ -4,25 +4,29 @@ import { simulationBlocked } from '../game/simulationGate';
 import { useExpeditionStore } from '../state/useExpeditionStore';
 import { OrthographicCamera } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { OrthographicCamera as Camera, Vector3 } from 'three';
 import { useGameStore } from '../state/useGameStore';
 import { cameraView, playerPosition, playerVisualPosition } from '../state/playerTransient';
 import { damp, dampAngle, type RectBounds } from '../utils/math';
-import type { Point } from '../game/config';
+import { MAP_CAMERA_ANGLE, type Point } from '../game/config';
 import { cameraFit } from './cameraFraming';
-export function CameraRig({ bounds, spawn, distanceScale = 1, framing }: {
+export function CameraRig({ bounds, spawn, map, distanceScale = 1, framing }: {
     bounds: RectBounds;
     spawn: Point;
+    map: import('../game/session').MapId;
     distanceScale?: number;
     framing?: { width: number; depth: number };
 }) {
     const ref = useRef<Camera>(null), keys = useRef(new Set<string>());
     const target = useRef(new Vector3(spawn.x, 0.55, spawn.z));
-    const angle = useRef(Math.PI / 4);
+    const initialAngle = MAP_CAMERA_ANGLE[map];
+    const angle = useRef(initialAngle);
     const size = useThree(s => s.size);
     const fit = cameraFit(size.width, size.height, bounds, framing);
-    useEffect(() => { useGameStore.setState({ targetRotation: Math.PI / 4 }); useGameStore.getState().setZoomBounds(fit, fit * 3.25); useGameStore.getState().setZoom(fit * 1.6); }, [fit]);
+    useLayoutEffect(() => { angle.current = initialAngle; cameraView.angle = initialAngle; useGameStore.setState({ targetRotation: initialAngle }); useGameStore.getState().setZoomBounds(fit, fit * 3.25); useGameStore.getState().setZoom(fit * 1.6);
+        if (ref.current) { ref.current.lookAt(target.current); ref.current.updateProjectionMatrix(); }
+    }, [fit, initialAngle]);
     useEffect(() => {
         const down = (e: KeyboardEvent) => { if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement)
             return; if (!simulationBlocked()) keys.current.add(e.code); };
@@ -65,5 +69,5 @@ export function CameraRig({ bounds, spawn, distanceScale = 1, framing }: {
         c.lookAt(target.current);
         recordCameraFollow(follow, target.current, angle.current, c.zoom);
     }, CAMERA_PRIORITY);
-    return <OrthographicCamera ref={ref} makeDefault position={[spawn.x + 13 * distanceScale, 0.55 + 13 * distanceScale, spawn.z + 13 * distanceScale]} zoom={fit * 1.6} near={0.1} far={160 * distanceScale}/>;
+    return <OrthographicCamera ref={ref} makeDefault position={[spawn.x + Math.cos(initialAngle) * 18.38 * distanceScale, 0.55 + 13 * distanceScale, spawn.z + Math.sin(initialAngle) * 18.38 * distanceScale]} zoom={fit * 1.6} near={0.1} far={160 * distanceScale}/>;
 }

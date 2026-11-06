@@ -1,3 +1,5 @@
+import { copperPatrolCorners } from './campaignEncounter';
+import { COPPER_ENCOUNTER } from './config';
 import { MEDICAL_KIT } from '../game/props/medicalKit';
 import { MACHETE, MACHETE_COMBO, meleeCanHit, type PlayerWeapon } from './melee';
 import { canCarryDrop } from '../game/backpackConfig';
@@ -217,6 +219,16 @@ export class CombatSimulation {
             this.robots = Array.from({ length: Math.max(...this.waves) }, (_, id) => createRobot(id, 0, 0, -1, 0, 0, false));
             this.total = this.waves.reduce((a, b) => a + b, 0);
             this.waveLeft = COMBAT.hordes.firstDelay;
+        }
+        else if (encounter === COPPER_ENCOUNTER) {
+            const points = copperPatrolCorners(terrain.bounds.maxX - terrain.bounds.minX > 50);
+            this.robots = points.map((point, id) => {
+                if (Math.hypot(point.x - layout.arrival.x, point.z - layout.arrival.z) < COMBAT.hordes.minPlayerDistance
+                    || !validContactSpawn(terrain, this.navigation, point, layout.arrival, COMBAT.robot.radius, COMBAT.robot.contactRange))
+                    throw new Error('Esquina da campanha sem distância ou caminho seguro até o desembarque.');
+                return createRobot(id, point.x, point.z, -1, 0, Math.atan2(layout.arrival.x - point.x, layout.arrival.z - point.z), true);
+            });
+            this.total = this.robots.length;
         }
         else {
             const patrol = parseEncounter(encounter)!, kind = patrol.kind;

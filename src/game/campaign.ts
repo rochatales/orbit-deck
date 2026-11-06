@@ -80,7 +80,7 @@ export function parseCampaignState(value: unknown): CampaignState | null {
         lastExpeditionId: s.lastExpeditionId, depositedExpeditionIds: [...s.depositedExpeditionIds] };
 }
 export const CAMPAIGN_OBJECTIVES: Record<CampaignStage, string> = {
-    'engineer-briefing': 'Fale com o Engenheiro',
+    'engineer-briefing': 'Procure o Engenheiro na Oficina ou no Data Center',
     'expedition-copper': 'Recupere e entregue 4 unidades de cobre',
     'eden-activation': 'Ligue EDEN na colônia',
     'eden-briefing': 'Converse com EDEN',
@@ -89,3 +89,7 @@ export const CAMPAIGN_OBJECTIVES: Record<CampaignStage, string> = {
     'synthesizer-activation': 'Ligue o sintetizador orgânico',
     'main-progression': 'Prepare sua próxima expedição'
 };
+
+export function campaignObjective(state: CampaignState) {
+    return state.stage === 'expedition-copper' ? `Cobre entregue: ${state.copperDelivered} / ${CAMPAIGN_QUOTAS.copper}` : CAMPAIGN_OBJECTIVES[state.stage];
+}

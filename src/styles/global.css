@@ -479,3 +479,8 @@ nav button:hover:not(:disabled), .secondary:hover:not(:disabled) { color: #09232
  .home-actions { padding-bottom: 24px; }
  .home-colony { right: -30vw; bottom: 0; width: 170vw; opacity: .5; }
 }
+
+.interaction-label { display: block; padding: 10px 14px; color: #d7f5ef; background: #102b35ed; border: 1px solid #83e5d77a; font-size: 12px; white-space: nowrap; }
+.campaign-radio { position: absolute; top: 120px; left: 50%; transform: translateX(-50%); width: min(420px, calc(100% - 32px)); background: #10232ff2; border-left: 2px solid #83e5d7; padding: 14px 18px; z-index: 6; pointer-events: none; }
+.campaign-radio b { font-size: 11px; letter-spacing: .12em; color: #83e5d7; }
+.campaign-radio p { margin: 8px 0 0; font-size: 14px; }

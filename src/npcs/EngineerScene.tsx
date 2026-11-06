@@ -18,6 +18,7 @@ import url from '../assets/characters/npcs/engenheiro-v001.glb';
 const talk = () => useExpeditionStore.getState().openEngineer();
 const available = () => canTalkToEngineer(playerPosition);
 export function EngineerScene({ world }: { world: OfficeWorld }) {
+    const briefing = useCampaignStore(s => s.mode === 'campaign' && s.saved?.campaign.stage === 'engineer-briefing');
     const gltf = useGLTF(url), body = useRef<RapierRigidBody>(null), visual = useRef<Group>(null);
     const routine = useMemo(() => new EngineerRoutine(world), [world]);
     const rig = useRef<EngineerRig>(), clock = useRef(0);
@@ -60,7 +61,7 @@ export function EngineerScene({ world }: { world: OfficeWorld }) {
         </RigidBody>
         <group ref={visual} name="EngenheiroVisual" dispose={null}>
             <InteractionBubble id="npc:engineer" label="Conversar com o Engenheiro" point={engineerPresence} radius={ENGINEER.interactionRadius} priority={30}
-                position={[0, ENGINEER.height + .4, 0]} available={available} onInteract={talk}/>
+                position={[0, ENGINEER.height + .4, 0]} alwaysVisible={briefing} available={available} onInteract={talk}/>
         </group>
         {/* Assento provisório: pés e quadril do Sitting fornecido apoiam nesta cota. */}
         <RigidBody type="fixed" colliders={false} position={[ENGINEER.seat.x, 0, ENGINEER.seat.z]} name="BancoDoEngenheiro">
