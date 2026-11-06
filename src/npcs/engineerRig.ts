@@ -58,7 +58,7 @@ export class EngineerRig {
                 else blend.action.paused = true; // Preserva a pose que está saindo.
             }
             next.reset();
-            next.time = state.clipTime ?? (previousWeight > 0 ? previousTime : 0);
+            next.time = state.clipTime ?? (previousWeight > 0 && !ONE_SHOT.has(state.animation) ? previousTime : 0);
             next.play(); this.current = next; this.blendTime = 0;
         }
         this.blendTime = Math.min(.35, this.blendTime + delta);

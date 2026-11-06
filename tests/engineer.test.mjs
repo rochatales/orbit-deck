@@ -141,6 +141,23 @@ test('Engenheiro: parada curta não reinicia os pesos nem provoca salto ao retom
     }
 });
 
+test('Engenheiro: nova reação de esbarrão começa do início mesmo durante a mistura anterior', async () => {
+    const {EngineerRig}=loadSource('src/npcs/engineerRig.ts');
+    for(const seconds of [2,ENGINEER.bumpDuration+.05]) {
+        const g=await loadGlb(file),rig=new EngineerRig(g.scene,g.animations);
+        const state={x:0,y:0,z:0,angle:0,phase:'walk',animation:'ShovedReaction',moving:false,cycles:0,seated:0,clipTime:null};
+        for(let i=0;i<seconds*60;i++)rig.update(state,1/60);
+        state.animation=seconds===2?'Yelling':'Idle';for(let i=0;i<6;i++)rig.update(state,1/60);
+        const reaction=rig.actions.get('ShovedReaction');
+        assert.ok(reaction.getEffectiveWeight()>.5,'reação anterior ainda visível');
+        state.animation='ShovedReaction';rig.update(state,1/60);
+        assert.ok(reaction.time<.02,'uma nova reação não herda o tempo da anterior');
+        for(let i=0;i<6;i++)rig.update(state,1/60);
+        assert.ok(reaction.time>.1&&!reaction.paused,'nova reação continua avançando, inclusive após a anterior terminar');
+        rig.dispose();
+    }
+});
+
 test('Engenheiro: Oficina/Data Center/assento com caminhos livres e loop contínuo', () => {
     const world = createWorld(), routine = new EngineerRoutine({ ...world, movingCuboids: [] }), phases = new Set();
     for (let i = 0; i < routine.paths.length; i++) {

@@ -1,28 +1,29 @@
-✔ Engenheiro: GLB próprio, dez clipes, 33 ossos e fontes preservadas pelo manifesto (146.390458ms)
-✔ Engenheiro: altura e largura no runtime equivalem ao astronauta ativo do player (266.002458ms)
-✔ Engenheiro: banco reduzido barra o autostep real do player pelos quatro lados (79.251709ms)
-✔ Engenheiro: animações reais sem deriva horizontal ou pés abaixo do piso (100.162375ms)
-✔ Engenheiro: caminhada fecha o corpo inteiro a 60/144 Hz sem alterar o clipe de origem (470.757209ms)
-✔ Engenheiro: parada curta não reinicia os pesos nem provoca salto ao retomar (319.236083ms)
-✔ Engenheiro: Oficina/Data Center/assento com caminhos livres e loop contínuo (143.821083ms)
-✔ Engenheiro: portas reais abrem para o NPC e ele não atravessa folhas fechadas (359.830875ms)
-✔ Engenheiro: para diante do banco e só recua para ele com a pose sentada (73.678833ms)
-✔ Engenheiro: distância da arrancada corresponde ao deslocamento do FBX (40.837583ms)
-✔ Engenheiro: jogador diante do banco adia levantar/esbarrão/conversa sem sobrepor cápsulas (32.893209ms)
-✔ Engenheiro: não inicia o recuo para um banco ocupado pelo jogador (61.961458ms)
-✔ Escape: pausa retoma o diálogo antes de fechá-lo, com cabine/viagem preservadas (1.632833ms)
-✔ Engenheiro: esbarrão uma vez por aproximação, sem dano ou deslocamento da reação (30.345667ms)
-✔ Engenheiro: conversa interrompe tarefa, escolhe Yelling/Acknowledging e pausa congela (29.637167ms)
-✔ Engenheiro: E valida mapa, distância e paredes e não grava/avança campanha (65.0175ms)
-✔ Engenheiro: cena real mantém visual fora do corpo e atualiza conversa sem step físico (305.07025ms)
-✔ Engenheiro: rig retoma o instante da transição após conversa e esbarrão (505.30425ms)
-✔ Interação móvel: balão e E leem a posição atual, sem registro por passo (2.202292ms)
-✔ Engenheiro: mixer e materiais próprios, descarte sem invalidar geometria compartilhada (197.103584ms)
-ℹ tests 20
+✔ Engenheiro: GLB próprio, dez clipes, 33 ossos e fontes preservadas pelo manifesto (127.261041ms)
+✔ Engenheiro: altura e largura no runtime equivalem ao astronauta ativo do player (230.251417ms)
+✔ Engenheiro: banco reduzido barra o autostep real do player pelos quatro lados (68.730333ms)
+✔ Engenheiro: animações reais sem deriva horizontal ou pés abaixo do piso (93.086125ms)
+✔ Engenheiro: caminhada fecha o corpo inteiro a 60/144 Hz sem alterar o clipe de origem (446.874042ms)
+✔ Engenheiro: parada curta não reinicia os pesos nem provoca salto ao retomar (303.924625ms)
+✔ Engenheiro: nova reação de esbarrão começa do início mesmo durante a mistura anterior (269.864666ms)
+✔ Engenheiro: Oficina/Data Center/assento com caminhos livres e loop contínuo (138.488833ms)
+✔ Engenheiro: portas reais abrem para o NPC e ele não atravessa folhas fechadas (348.473083ms)
+✔ Engenheiro: para diante do banco e só recua para ele com a pose sentada (72.317833ms)
+✔ Engenheiro: distância da arrancada corresponde ao deslocamento do FBX (36.240375ms)
+✔ Engenheiro: jogador diante do banco adia levantar/esbarrão/conversa sem sobrepor cápsulas (32.051625ms)
+✔ Engenheiro: não inicia o recuo para um banco ocupado pelo jogador (62.829875ms)
+✔ Escape: pausa retoma o diálogo antes de fechá-lo, com cabine/viagem preservadas (1.682541ms)
+✔ Engenheiro: esbarrão uma vez por aproximação, sem dano ou deslocamento da reação (27.90225ms)
+✔ Engenheiro: conversa interrompe tarefa, escolhe Yelling/Acknowledging e pausa congela (28.250834ms)
+✔ Engenheiro: E valida mapa, distância e paredes e não grava/avança campanha (57.976917ms)
+✔ Engenheiro: cena real mantém visual fora do corpo e atualiza conversa sem step físico (278.320041ms)
+✔ Engenheiro: rig retoma o instante da transição após conversa e esbarrão (487.682833ms)
+✔ Interação móvel: balão e E leem a posição atual, sem registro por passo (3.129ms)
+✔ Engenheiro: mixer e materiais próprios, descarte sem invalidar geometria compartilhada (186.679916ms)
+ℹ tests 21
 ℹ suites 0
-ℹ pass 20
+ℹ pass 21
 ℹ fail 0
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 3658.507708
+ℹ duration_ms 3628.493958
