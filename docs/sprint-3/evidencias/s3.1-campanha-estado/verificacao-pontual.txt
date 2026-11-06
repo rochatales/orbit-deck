@@ -1,0 +1,4 @@
+ID duplicado: rejeitado no código real e aceito somente ao remover a sua guarda em memória.
+último ID divergente: rejeitado no código real e aceito somente ao remover a sua guarda em memória.
+HUD: quatro cobres antes do restartMission real, zero depois; campanha não recebe depósito.
+Verificação do implementador, sem alterações nos arquivos e sem substituir confirmação do revisor.
