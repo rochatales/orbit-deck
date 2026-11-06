@@ -1,0 +1,21 @@
+{
+  "base": "bcc482f",
+  "units": "metros",
+  "samplingHz": 144,
+  "sourceGlbUnchanged": true,
+  "bodyBoneCount": 33,
+  "before": {
+    "cycleSeconds": 1.399999976158142,
+    "maxEndpointDiscontinuity": 0.13241912140013407,
+    "seamStepAt144Hz": 0.12440093393472043,
+    "minimumGroundY": -0.0007553913141799627,
+    "resumeStepAt144Hz": 0.21592018052312953
+  },
+  "after": {
+    "cycleSeconds": 1.399999976158142,
+    "maxEndpointDiscontinuity": 2.6791249134671987e-7,
+    "seamStepAt144Hz": 0.01231971744728771,
+    "minimumGroundY": -0.00020637927570596286,
+    "resumeStepAt144Hz": 0.014166979562662002
+  }
+}

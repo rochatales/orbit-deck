@@ -37,6 +37,11 @@ e `notas/`. Use outra versão antes de fazer novas alterações artísticas.
   FBX para repetição, com velocidade medida de 0,789572 m/s. Erro agregado de
   pose dos quatro pontos dos pés na emenda: 0,06495 m; sensação final e sliding
   precisam de aceite do autor.
+  Correção de 06/11: o recorte também diferia nas poses do tronco/braços.
+  `src/npcs/engineerWalk.ts` fecha uma cópia de Walk no runtime e ajusta seu
+  apoio no piso, sem regravar este GLB ou alterar duração/escala da passada.
+  O valor acima descreve o export original; medidas da cópia corrigida e
+  das transições estão no handoff/evidências.
 - `CrouchDown` inverte `Crouch To Stand`; `Crouch` repete em ida/volta seu começo.
   `Idle` segura a pose inicial de Acknowledging. Os demais clipes mantêm as poses
   fornecidas. Não há clipe próprio para sentar/levantar do banco: blend provisório.

@@ -1,5 +1,6 @@
 import { AnimationMixer, LoopOnce, type AnimationAction, type AnimationClip, type Object3D, type Mesh, type SkinnedMesh, type Skeleton, type Material } from 'three';
 import { ENGINEER, type EngineerState, type EngineerAnimation } from './engineerRoutine';
+import { prepareEngineerWalk } from './engineerWalk';
 const ONE_SHOT = new Set<EngineerAnimation>(['CrouchDown', 'CrouchToStand', 'ShovedReaction', 'StartWalking']);
 /** Geometria/texturas do cache preservadas; só materiais e mixer pertencem à instância. */
 export class EngineerRig {
@@ -8,6 +9,8 @@ export class EngineerRig {
     private current: AnimationAction;
     private materials: Material[] = [];
     private skeletons = new Set<Skeleton>();
+    private blends: { action: AnimationAction; weight: number; from: number }[] = [];
+    private blendTime = .35;
     private disposed = false;
     constructor(readonly root: Object3D, clips: AnimationClip[], private readonly placement: Object3D = root) {
         root.scale.multiplyScalar(ENGINEER.visualScale);
@@ -26,12 +29,18 @@ export class EngineerRig {
         });
         this.mixer = new AnimationMixer(root);
         for (const clip of clips) {
-            const name = clip.name as EngineerAnimation, action = this.mixer.clipAction(clip);
+            const name = clip.name as EngineerAnimation;
+            const action = this.mixer.clipAction(name === 'Walk' ? prepareEngineerWalk(clip, root) : clip);
             if (ONE_SHOT.has(name)) { action.setLoop(LoopOnce, 1); action.clampWhenFinished = true; }
+            action.setEffectiveWeight(0);
+            this.blends.push({ action, weight: 0, from: 0 });
             this.actions.set(name, action);
         }
         this.current = this.actions.get('Idle')!;
         if (!this.current) throw Error('Engenheiro sem Idle.');
+        for (const blend of this.blends) if (blend.action === this.current) {
+            blend.weight = blend.from = 1; this.current.setEffectiveWeight(1);
+        }
         this.current.play(); this.mixer.update(0);
     }
     update(state: EngineerState, dt: number, position: { x: number; y: number; z: number } = state) {
@@ -39,13 +48,29 @@ export class EngineerRig {
         this.placement.position.set(position.x, position.y, position.z);
         const next = this.actions.get(state.animation);
         if (!next) throw Error(`Engenheiro sem ${state.animation}.`);
+        const delta = Math.max(0, Math.min(.05, dt));
         if (next !== this.current) {
+            const previousTime = next.time;
+            let previousWeight = 0;
+            for (let i = 0; i < this.blends.length; i++) {
+                const blend = this.blends[i]; blend.from = blend.weight;
+                if (blend.action === next) previousWeight = blend.weight;
+                else blend.action.paused = true; // Preserva a pose que está saindo.
+            }
             next.reset();
-            if (state.clipTime != null) next.time = state.clipTime;
-            next.fadeIn(.35).play(); this.current.fadeOut(.35); this.current = next;
+            next.time = state.clipTime ?? (previousWeight > 0 ? previousTime : 0);
+            next.play(); this.current = next; this.blendTime = 0;
+        }
+        this.blendTime = Math.min(.35, this.blendTime + delta);
+        const alpha = this.blendTime / .35;
+        // Uma transição interrompida parte dos pesos reais; nunca volta a 0/1.
+        for (let i = 0; i < this.blends.length; i++) {
+            const blend = this.blends[i], target = blend.action === this.current ? 1 : 0;
+            blend.weight = blend.from + (target - blend.from) * alpha;
+            blend.action.setEffectiveWeight(blend.weight);
         }
         this.root.rotation.y = state.angle;
-        this.mixer.update(Math.max(0, Math.min(.05, dt)));
+        this.mixer.update(delta);
     }
     dispose() {
         if (this.disposed) return;

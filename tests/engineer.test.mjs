@@ -92,6 +92,55 @@ test('Engenheiro: animações reais sem deriva horizontal ou pés abaixo do piso
     }
 });
 
+test('Engenheiro: caminhada fecha o corpo inteiro a 60/144 Hz sem alterar o clipe de origem', async () => {
+    const {EngineerRig}=loadSource('src/npcs/engineerRig.ts'),g=await loadGlb(file);
+    const source=g.animations.find(c=>c.name==='Walk'),original=JSON.stringify(source.toJSON());
+    const rig=new EngineerRig(g.scene,g.animations),action=rig.actions.get('Walk'),clip=action.getClip(),bones=[];
+    assert.notEqual(clip,source); assert.equal(clip.duration,source.duration);
+    assert.equal(JSON.stringify(source.toJSON()),original,'GLB compartilhado preservado');
+    g.scene.traverse(o=>{if(o.isBone)bones.push(o);});
+    rig.mixer.stopAllAction();action.reset().setEffectiveWeight(1).play();
+    const sample=time=>{
+        rig.mixer.setTime(time);g.scene.updateMatrixWorld(true);
+        return bones.map(b=>b.getWorldPosition(new Vector3()));
+    };
+    const first=sample(0),last=sample(clip.duration-1e-7);
+    assert.ok(Math.max(...first.map((p,i)=>p.distanceTo(last[i])))<.0005,'emenda do esqueleto inteiro abaixo de 0,5 mm');
+    for(const fps of [60,144]) {
+        let previous=sample(0),lastCycle=0;
+        for(let frame=1;frame<clip.duration*fps*3;frame++) {
+            const time=frame/fps,points=sample(time),cycle=Math.floor(time/clip.duration);
+            if(cycle!==lastCycle) assert.ok(Math.max(...points.map((p,i)=>p.distanceTo(previous[i])))<(fps===60?.04:.02),`sem salto na emenda a ${fps} Hz`);
+            g.scene.traverse(o=>{if(o.isSkinnedMesh)o.computeBoundingBox();});
+            assert.ok(new Box3().setFromObject(g.scene).min.y>-.001,'apoio sem penetrar mais de 1 mm no piso');
+            previous=points;lastCycle=cycle;
+        }
+    }
+    assert.equal(JSON.stringify(source.toJSON()),original);rig.dispose();
+});
+
+test('Engenheiro: parada curta não reinicia os pesos nem provoca salto ao retomar', async () => {
+    const {EngineerRig}=loadSource('src/npcs/engineerRig.ts');
+    for(const fps of [60,144]) {
+        const g=await loadGlb(file),rig=new EngineerRig(g.scene,g.animations),bones=[];
+        g.scene.traverse(o=>{if(o.isBone)bones.push(o);});
+        const state={x:0,y:0,z:0,angle:0,phase:'walk',animation:'StartWalking',moving:true,cycles:0,seated:0,clipTime:0};
+        let clock=0,previous;
+        for(let frame=0;frame<8*fps;frame++) {
+            const time=frame/fps,waiting=time>=4&&time<4.1;
+            clock+=waiting?0:1/fps;state.animation=waiting?'Idle':clock<88/30?'StartWalking':'Walk';
+            state.clipTime=waiting?null:clock-(state.animation==='Walk'?88/30:0);
+            rig.update(state,1/fps);g.scene.updateMatrixWorld(true);
+            const pose=bones.map(b=>b.getWorldPosition(new Vector3()));
+            if(previous)assert.ok(Math.max(...pose.map((p,i)=>p.distanceTo(previous[i])))<(fps===60?.05:.025),`transição contínua a ${fps} Hz no instante ${time}`);
+            const sum=[...rig.actions.values()].reduce((n,a)=>n+a.getEffectiveWeight(),0);
+            assert.ok(Math.abs(sum-1)<1e-6,'pesos continuam normalizados durante a interrupção');
+            previous=pose;
+        }
+        rig.dispose();
+    }
+});
+
 test('Engenheiro: Oficina/Data Center/assento com caminhos livres e loop contínuo', () => {
     const world = createWorld(), routine = new EngineerRoutine({ ...world, movingCuboids: [] }), phases = new Set();
     for (let i = 0; i < routine.paths.length; i++) {
