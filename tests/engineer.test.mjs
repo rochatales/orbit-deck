@@ -50,6 +50,29 @@ test('Engenheiro: altura e largura no runtime equivalem ao astronauta ativo do p
     rig.dispose(); mixer.stopAllAction(); mixer.uncacheRoot(player.scene);
 });
 
+test('Engenheiro: banco reduzido barra o autostep real do player pelos quatro lados', async () => {
+    const require=createRequire(import.meta.url),R=createRequire(require.resolve('@react-three/rapier'))('@dimforge/rapier3d-compat');await R.init();
+    const {PLAYER_MOVEMENT:M,PLAYER_PHYSICS:P,PLAYER_COLLIDER_HALF_HEIGHT:H,PLAYER_COLLIDER_CENTER_Y:Y}=loadSource('src/characters/player/playerConfig.ts');
+    for(const [dx,dz]of [[1,0],[-1,0],[0,1],[0,-1]]) {
+        const world=new R.World({x:0,y:0,z:0});
+        try {
+            world.createCollider(R.ColliderDesc.cuboid(10,.1,10).setTranslation(0,-.1,0));
+            world.createCollider(R.ColliderDesc.cuboid(.27*ENGINEER.seat.scale,.225*ENGINEER.seat.scale,.27*ENGINEER.seat.scale).setTranslation(0,.225*ENGINEER.seat.scale,0));
+            const body=world.createRigidBody(R.RigidBodyDesc.kinematicPositionBased().setTranslation(-dx*2,Y,-dz*2));
+            const capsule=world.createCollider(R.ColliderDesc.capsule(H,M.colliderRadius),body),controller=world.createCharacterController(P.controllerOffset);
+            controller.enableAutostep(P.autostepMaxHeight,P.autostepMinWidth,false);controller.enableSnapToGround(P.snapToGroundDistance);
+            controller.setMaxSlopeClimbAngle(Math.PI*.34);controller.setMinSlopeSlideAngle(Math.PI*.45);world.step();
+            for(let f=0;f<120;f++) {
+                const p=body.translation();controller.computeColliderMovement(capsule,{x:dx*M.runSpeed/60,y:Y-p.y,z:dz*M.runSpeed/60});
+                const d=controller.computedMovement();body.setNextKinematicTranslation({x:p.x+d.x,y:Y,z:p.z+d.z});world.step();
+            }
+            const end=body.translation(),along=end.x*dx+end.z*dz;
+            assert.ok(along<-.5&&along>-.65,`banco bloqueia ${dx}/${dz}: ${JSON.stringify(end)}`);
+            controller.free();
+        } finally { world.free(); }
+    }
+});
+
 test('Engenheiro: animações reais sem deriva horizontal ou pés abaixo do piso', async () => {
     const g = await loadGlb(file), mixer = new AnimationMixer(g.scene), p = new Vector3(), box = new Box3();
     const hip = g.scene.getObjectByName('mixamorigHips') ?? g.scene.getObjectByName('mixamorig:Hips');

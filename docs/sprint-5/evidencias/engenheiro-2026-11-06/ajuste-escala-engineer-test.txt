@@ -1,0 +1,26 @@
+✔ Engenheiro: GLB próprio, dez clipes, 33 ossos e fontes preservadas pelo manifesto (168.8585ms)
+✔ Engenheiro: altura e largura no runtime equivalem ao astronauta ativo do player (222.736584ms)
+✔ Engenheiro: banco reduzido barra o autostep real do player pelos quatro lados (99.159917ms)
+✔ Engenheiro: animações reais sem deriva horizontal ou pés abaixo do piso (140.150708ms)
+✔ Engenheiro: Oficina/Data Center/assento com caminhos livres e loop contínuo (227.953667ms)
+✔ Engenheiro: portas reais abrem para o NPC e ele não atravessa folhas fechadas (726.17225ms)
+✔ Engenheiro: para diante do banco e só recua para ele com a pose sentada (190.02275ms)
+✔ Engenheiro: distância da arrancada corresponde ao deslocamento do FBX (120.453375ms)
+✔ Engenheiro: jogador diante do banco adia levantar/esbarrão/conversa sem sobrepor cápsulas (94.651917ms)
+✔ Engenheiro: não inicia o recuo para um banco ocupado pelo jogador (177.280167ms)
+✔ Escape: pausa retoma o diálogo antes de fechá-lo, com cabine/viagem preservadas (6.001625ms)
+✔ Engenheiro: esbarrão uma vez por aproximação, sem dano ou deslocamento da reação (102.183959ms)
+✔ Engenheiro: conversa interrompe tarefa, escolhe Yelling/Acknowledging e pausa congela (101.249792ms)
+✔ Engenheiro: E valida mapa, distância e paredes e não grava/avança campanha (250.340792ms)
+✔ Engenheiro: cena real mantém visual fora do corpo e atualiza conversa sem step físico (1024.420125ms)
+✔ Engenheiro: rig retoma o instante da transição após conversa e esbarrão (902.898125ms)
+✔ Interação móvel: balão e E leem a posição atual, sem registro por passo (9.796584ms)
+✔ Engenheiro: mixer e materiais próprios, descarte sem invalidar geometria compartilhada (236.931625ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5241.702458
