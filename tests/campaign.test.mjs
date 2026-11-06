@@ -79,8 +79,8 @@ test('Campanha: save versionado ida/volta, inválido nulo e armazenamento indisp
     for (const raw of [null, '{inválido', 'null', '[]', '{}', JSON.stringify({ ...saved, version: 2 }), JSON.stringify({ ...saved, campaign: { ...saved.campaign, edenActive: true } }), JSON.stringify({ ...saved, cargo: { ...cargo, copper: -1 } }),
         ...[
             { ...saved.campaign, stage: 'eden-activation' },
-            { ...saved.campaign, depositedExpeditionIds: ['A', 'A'], lastExpeditionId: 'A' },
-            { ...saved.campaign, depositedExpeditionIds: ['A'], lastExpeditionId: 'B' },
+            { ...saved.campaign, stage: 'expedition-copper', copperDelivered: 2, depositedExpeditionIds: ['A', 'A'], lastExpeditionId: 'A' },
+            { ...saved.campaign, stage: 'expedition-copper', copperDelivered: 2, depositedExpeditionIds: ['A'], lastExpeditionId: 'B' },
             { ...saved.campaign, stage: 'expedition-copper', copperDelivered: 4 }
         ].map(campaign => JSON.stringify({ ...saved, campaign }))]) assert.equal(S.parseCampaignSave(raw), null);
     assert.equal(S.loadCampaignSave(() => { throw new Error('sem localStorage'); }), null);
@@ -158,7 +158,7 @@ test('Campanha: reload retoma perfil/carga próprios; recomeçar exige substitui
     assert.deepEqual(reloaded.ship.getState().cargo, { iron: 0, copper: 0, titanium: 0, organic: 0 });
 });
 
-test('Campanha: morte e restart descartam mochila, sem consolidar ou avançar campanha', () => {
+test('Campanha: morte não avança; restart zera HUD da mochila, sem consolidar', () => {
     const f = fixture(); f.expedition.getState().enterCampaign(profile);
     f.campaign.getState().dispatch('finish-engineer-briefing');
     const state = f.campaign.getState().saved.campaign;
@@ -168,6 +168,8 @@ test('Campanha: morte e restart descartam mochila, sem consolidar ou avançar ca
     assert.equal(f.campaign.getState().saved.campaign, state);
     f.expedition.setState({ ready: true, session: { map: 'shanghai', phase: 'walking', destination: null, revision: 1 } });
     f.campaign.getState().setCargo(cargo);
+    f.combat.setState({ copper: 4 });
+    assert.equal(f.combat.getState().copper, 4);
     f.expedition.getState().restartMission();
     assert.deepEqual(f.ship.getState().cargo, cargo, 'porão persistente aguarda o recorte de extração, sem apagar visitas anteriores');
     assert.equal(f.campaign.getState().saved.campaign, state);
@@ -205,6 +207,8 @@ test('Desenvolvimento: erro de escrita do perfil não desaparece na entrada de t
     f.expedition.getState().start('Teste sem storage', '#abcdef');
     assert.match(f.expedition.getState().saveError, /salvar/);
     assert.ok(f.expedition.getState().enterDevelopment());
+    assert.match(f.expedition.getState().saveError, /salvar/);
+    f.expedition.getState().returnHome();
     assert.match(f.expedition.getState().saveError, /salvar/);
 });
 

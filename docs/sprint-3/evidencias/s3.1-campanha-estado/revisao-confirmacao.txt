@@ -1,0 +1,33 @@
+**Os problemas P1 a P5 estão resolvidos no código, sem regressão de comportamento.** Sobraram dois resíduos reais, ambos em testes introduzidos nesta correção. Recomendo corrigi-los antes de registrar a cobertura como concluída; nenhum bloqueia a jogabilidade.
+
+## Resíduos
+**1. Os casos de ID duplicado e divergente não testam essas checagens (`tests/campaign.test.mjs:82-83`)**
+- **Causa:** os dois casos herdam `stage: 'engineer-briefing'`, e nessa etapa `src/game/campaign.ts:77` já rejeita qualquer ID. Se as checagens das linhas 74 e 75 forem removidas, o teste continua verde.
+- **Impacto:** o parser está correto, mas sem proteção contra regressão nesses dois pontos. Por isso, "Casos inválidos adicionais do parser foram cobertos" (`docs/handoffs/s3.1-campanha-estado.md:104`) promete mais do que o teste garante.
+- **Correção:** acrescentar `stage: 'expedition-copper', copperDelivered: 2` aos dois casos.
+- **Casos corretos:** quota ausente e entrega sem ID (`:81` e `:84`) dependem da própria checagem.
+
+**2. O teste não prova o descarte da mochila (`tests/campaign.test.mjs:161` e `:174`)**
+- **Causa:** o título diz "descartam mochila", mas `copper` nunca fica acima de 0 no combate, porque `setCargo` só mexe no porão. A asserção da linha 174 passa mesmo sem o reset.
+- **Impacto:** "zera o HUD da mochila" (`docs/handoffs/s3.1-campanha-estado.md:88`) fica sem evidência. O código em `src/state/useCombatStore.ts:21` zera o HUD; só o teste não demonstra isso.
+- **Correção:** publicar `copper: 4` no combate antes de `restartMission()`.
+
+## Confirmação por item
+| Item | Situação | Conferido |
+|---|---|---|
+| **P1** | Resolvido | As keys são distintas, a confirmação exige `detail <= 1`, o foco inicial é Cancelar e Enter nesse foco cancela. |
+| **P2** | Resolvido | `discardAttempt` e a subscription de morte saíram sem deixar referências. Os textos da interface, o contrato e o handoff estão coerentes, e a decisão 3 segue como regra futura. |
+| **P3** | Resolvido | Recomeçar usa só `savedCampaign.profile` e não valida o campo de nome. |
+| **P4** | Resolvido | `developmentSaveError` é preservado ao entrar e ao voltar. |
+| **P5** | Resolvido | O rádio volta ao texto inicial existente nas três trocas de modo. |
+
+## Limites
+- **Execução:** rodei só `campaign` e `home-screen`, com 20/20 verdes, além de `git diff --check` a partir de `a5875ce`, verde. Os 586/586 e o build vêm dos logs, que conferem com o informado; não repeti a suíte nem o build.
+- **Mutação:** a tentativa em memória foi barrada pelo filtro de comandos do shell, então o resíduo 1 vem da leitura da ordem de checagem, não de execução.
+- **Navegador:** não abri o jogo. O teste de P1 chama `CampaignActions` diretamente com eventos simulados e não verifica as keys. O valor real de `event.detail` no duplo clique e a sobreposição em tela larga seguem sem conferência.
+- **Roteiro do autor:** sugiro incluir no passo 3 um duplo clique em Recomeçar com a janela larga. Um segundo clique lento ainda confirma, o que é aceitável porque o diálogo já está visível.
+- **Sem teste automatizado:**
+  - **P3:** o caminho de Recomeçar no `HomeScreen`.
+  - **P4:** a volta; só a entrada tem teste, e o risco é baixo porque a entrada relê o mesmo valor.
+
+**Sem alterações:** não editei, commitei, fiz merge, push nem mexi em worktree, e `git status` continua limpo. Este parecer ainda precisa ser registrado no handoff, onde a linha 104 está como "Confirmação final pendente".
