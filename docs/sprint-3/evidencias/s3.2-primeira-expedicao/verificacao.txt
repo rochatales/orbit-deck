@@ -9,3 +9,5 @@ Visor: seis renders regenerados do rig real (Idle/Walk/Sitting, frente/perfil), 
 Prévia: http://127.0.0.1:5198/
 Aceite visual e jogabilidade: autor, pendente. Sem push/merge.
 Complemento pausa: ESC simples com blur, engrenagem e saída para o menu conferidos no navegador. Claude sem achados, 6/6 testes específicos.
+
+Correção faixa reta (base f4f8e41; código 4c00502): Y constante .060m, amplitude0mm; largura .3394366m (jogador .3393456m); folga conservadora de todo halo >=1.4089mm; distância máxima centro-malha17.38mm. Dois testes novos falharam com pontos antigos e passaram com os novos. Suíte628/628 em44.93s; build e diff-check f4f8e41 HEAD verdes. Claude sem achados,2/2 novos. Seis renders regenerados em disco, sem anexos na resposta. Espessura/cor/materiais/montagem/fontes/jogador preservados. Preview5198; aceite visualautor.
