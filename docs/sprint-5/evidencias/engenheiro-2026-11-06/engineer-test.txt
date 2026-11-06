@@ -1,20 +1,23 @@
-✔ Engenheiro: GLB próprio, dez clipes, 33 ossos e fontes preservadas pelo manifesto (129.152375ms)
-✔ Engenheiro: animações reais sem deriva horizontal ou pés abaixo do piso (97.926875ms)
-✔ Engenheiro: Oficina/Data Center/assento com caminhos livres e loop contínuo (121.89825ms)
-✔ Engenheiro: portas reais abrem para o NPC e ele não atravessa folhas fechadas (281.75275ms)
-✔ Engenheiro: para diante do banco e só recua para ele com a pose sentada (73.409334ms)
-✔ Engenheiro: distância da arrancada corresponde ao deslocamento do FBX (67.393917ms)
-✔ Engenheiro: esbarrão uma vez por aproximação, sem dano ou deslocamento da reação (33.705083ms)
-✔ Engenheiro: conversa interrompe tarefa, escolhe Yelling/Acknowledging e pausa congela (33.039125ms)
-✔ Engenheiro: E valida mapa, distância e paredes e não grava/avança campanha (65.600209ms)
-✔ Engenheiro: rig retoma o instante da transição após conversa e esbarrão (259.580583ms)
-✔ Interação móvel: balão e E leem a posição atual, sem registro por passo (2.8205ms)
-✔ Engenheiro: mixer e materiais próprios, descarte sem invalidar geometria compartilhada (68.601375ms)
-ℹ tests 12
+✔ Engenheiro: GLB próprio, dez clipes, 33 ossos e fontes preservadas pelo manifesto (492.758125ms)
+✔ Engenheiro: animações reais sem deriva horizontal ou pés abaixo do piso (443.952875ms)
+✔ Engenheiro: Oficina/Data Center/assento com caminhos livres e loop contínuo (540.2155ms)
+✔ Engenheiro: portas reais abrem para o NPC e ele não atravessa folhas fechadas (1502.943292ms)
+✔ Engenheiro: para diante do banco e só recua para ele com a pose sentada (378.129833ms)
+✔ Engenheiro: distância da arrancada corresponde ao deslocamento do FBX (297.898458ms)
+✔ Engenheiro: jogador diante do banco adia levantar/esbarrão/conversa sem sobrepor cápsulas (207.949166ms)
+✔ Escape: pausa retoma o diálogo antes de fechá-lo, com cabine/viagem preservadas (11.284792ms)
+✔ Engenheiro: esbarrão uma vez por aproximação, sem dano ou deslocamento da reação (129.829875ms)
+✔ Engenheiro: conversa interrompe tarefa, escolhe Yelling/Acknowledging e pausa congela (146.143583ms)
+✔ Engenheiro: E valida mapa, distância e paredes e não grava/avança campanha (404.666042ms)
+✔ Engenheiro: visual acompanha o apoio durante conversa mesmo sem step da física (553.28775ms)
+✔ Engenheiro: rig retoma o instante da transição após conversa e esbarrão (1028.931709ms)
+✔ Interação móvel: balão e E leem a posição atual, sem registro por passo (9.090458ms)
+✔ Engenheiro: mixer e materiais próprios, descarte sem invalidar geometria compartilhada (268.941875ms)
+ℹ tests 15
 ℹ suites 0
-ℹ pass 12
+ℹ pass 15
 ℹ fail 0
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 1596.469375
+ℹ duration_ms 7694.279541

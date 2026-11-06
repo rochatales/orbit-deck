@@ -9,7 +9,7 @@ export class EngineerRig {
     private materials: Material[] = [];
     private skeletons = new Set<Skeleton>();
     private disposed = false;
-    constructor(readonly root: Object3D, clips: AnimationClip[]) {
+    constructor(readonly root: Object3D, clips: AnimationClip[], private readonly placement: Object3D = root) {
         const copies = new Map<Material, Material>();
         const copy = (material: Material) => {
             let own = copies.get(material);
@@ -33,7 +33,9 @@ export class EngineerRig {
         if (!this.current) throw Error('Engenheiro sem Idle.');
         this.current.play(); this.mixer.update(0);
     }
-    update(state: EngineerState, dt: number) {
+    update(state: EngineerState, dt: number, position: { x: number; y: number; z: number } = state) {
+        // O visual continua independente do step físico durante a conversa.
+        this.placement.position.set(position.x, position.y, position.z);
         const next = this.actions.get(state.animation);
         if (!next) throw Error(`Engenheiro sem ${state.animation}.`);
         if (next !== this.current) {

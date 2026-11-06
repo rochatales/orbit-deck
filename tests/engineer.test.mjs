@@ -4,8 +4,8 @@ import fs from 'node:fs';
 import { createHash } from 'node:crypto';
 import { loadSource, createSourceLoader } from './load-source.mjs';
 import { loadGlb } from './load-glb.mjs';
-import { AnimationMixer, Box3, Vector3 } from 'three';
-const { EngineerRoutine, ENGINEER, engineerIsCalm, engineerPreviewMood, engineerDoorClear } = loadSource('src/npcs/engineerRoutine.ts');
+import { AnimationMixer, Box3, Vector3, Group } from 'three';
+const { EngineerRoutine, ENGINEER, engineerIsCalm, engineerPreviewMood, engineerDoorClear, engineerHasStandingRoom } = loadSource('src/npcs/engineerRoutine.ts');
 const { createWorld } = loadSource('src/game/marsWorld.ts');
 const { traversable, clearSegment } = loadSource('src/combat/navigation.ts');
 const { ColonyBuildingRuntime } = loadSource('src/scene/marsColony/colonyBuildingRuntime.ts');
@@ -111,6 +111,37 @@ test('Engenheiro: distância da arrancada corresponde ao deslocamento do FBX', (
     assert.ok(Math.abs(distance-1.628464)<.04,`distância da arrancada: ${distance}`);
 });
 
+test('Engenheiro: jogador diante do banco adia levantar/esbarrão/conversa sem sobrepor cápsulas', () => {
+    const r=new EngineerRoutine({...createWorld(),movingCuboids:[]});
+    for(let f=0;f<200*60;f++) {
+        r.update(1/60,far);
+        if(r.state.animation==='Sitting' && r.state.seated===1) break;
+    }
+    assert.equal(r.state.seated,1);
+    assert.equal(engineerHasStandingRoom(r.state,{x:r.state.x-.7,z:r.state.z+.69}),false,'protege também o percurso lateral entre banco e apoio');
+    const player={x:r.state.x,z:r.state.z};
+    for(let f=0;f<20*60;f++) {
+        r.update(1/60,player);
+        assert.equal(r.state.animation,'Sitting'); assert.equal(r.state.seated,1);
+        assert.ok(Math.hypot(player.x-r.position.x,player.z-r.position.z)>.8);
+    }
+    r.update(1/60,player,true,false); assert.equal(r.state.animation,'Sitting');
+    for(let f=0;f<25*60;f++)r.update(1/60,far);
+    assert.notEqual(r.state.phase,'sit','retoma quando o jogador libera a saída');
+});
+
+test('Escape: pausa retoma o diálogo antes de fechá-lo, com cabine/viagem preservadas', () => {
+    const {sessionEscape}=loadSource('src/game/sessionEscape.ts');
+    for(const panel of ['engineer','eden']) {
+        assert.equal(sessionEscape('walking',true,panel),'resume');
+        assert.equal(sessionEscape('walking',false,panel),'close-dialogue');
+    }
+    assert.equal(sessionEscape('walking',true,null),'resume');
+    assert.equal(sessionEscape('walking',false,null),'pause');
+    assert.equal(sessionEscape('aboard',false,'ship'),'exit');
+    assert.equal(sessionEscape('travelling',true,'ship'),null);
+});
+
 test('Engenheiro: esbarrão uma vez por aproximação, sem dano ou deslocamento da reação', () => {
     const world = createWorld(), r = new EngineerRoutine({ ...world, movingCuboids: [] }), s = r.state;
     r.update(1/60, { x:s.x + 2, z:s.z });
@@ -150,6 +181,10 @@ test('Engenheiro: E valida mapa, distância e paredes e não grava/avança campa
     s.getState().setReady(true); placePlayer({x:0,y:0,z:6}); s.getState().openEngineer(); assert.equal(s.getState().panel,null);
     placePlayer({x:-5,y:0,z:6}); s.getState().openEngineer(); assert.equal(s.getState().panel,'engineer');
     s.getState().closePanel(); assert.equal(s.getState().panel,null); assert.equal(values.get('exoden:campaign:v1'),raw);
+    Object.assign(p,{seated:true,approach:{x:-5,z:6}});
+    s.getState().openEngineer(); assert.equal(s.getState().panel,null,'não levanta para falar sobre o jogador');
+    placePlayer({x:-4,y:0,z:6}); s.getState().openEngineer(); assert.equal(s.getState().panel,'engineer','conversa com saída livre');
+    s.getState().closePanel(); p.seated=false; placePlayer({x:-5,y:0,z:6});
     world.obstacles.push({minX:-5.8,maxX:-5.6,minZ:4,maxZ:8}); s.getState().openEngineer(); assert.equal(s.getState().panel,null);
     s.getState().returnHome(); s.getState().start('Dev QA','#abcdef');
     const development=new Map(values);
@@ -157,6 +192,24 @@ test('Engenheiro: E valida mapa, distância e paredes e não grava/avança campa
     s.getState().openEngineer(); assert.equal(s.getState().panel,'engineer'); s.getState().closePanel();
     assert.deepEqual(values,development,'conversa no desenvolvimento preserva hub/carga/campanha byte a byte');
     Object.assign(p,{active:false,world:null});
+});
+
+test('Engenheiro: visual acompanha o apoio durante conversa mesmo sem step da física', async () => {
+    const {clone}=await import('three/examples/jsm/utils/SkeletonUtils.js');
+    const {EngineerRig}=loadSource('src/npcs/engineerRig.ts');
+    const g=await loadGlb(file), placement=new Group(), model=clone(g.scene), physical=new Group();
+    placement.add(model);
+    const rig=new EngineerRig(model,g.animations,placement),r=new EngineerRoutine({...createWorld(),movingCuboids:[]});
+    for(let f=0;f<200*60;f++) {
+        r.update(1/60,far);
+        if(r.state.animation==='Sitting' && r.state.seated===1) break;
+    }
+    physical.position.set(r.position.x,r.position.y,r.position.z); const stopped=physical.position.clone();
+    for(let f=0;f<30;f++){r.update(1/60,far,true,false);rig.update(r.state,1/60,r.position);}
+    assert.ok(physical.position.equals(stopped),'representação física não recebeu nenhum step');
+    assert.equal(placement.position.x,r.state.x,'visual chega ao ponto livre');
+    assert.ok(Math.abs(placement.position.x-physical.position.x)>.8);
+    assert.ok(rig.actions.get('Yelling').time>.4); rig.dispose();
 });
 
 test('Engenheiro: rig retoma o instante da transição após conversa e esbarrão', async () => {

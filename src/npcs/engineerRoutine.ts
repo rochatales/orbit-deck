@@ -15,6 +15,11 @@ export const ENGINEER = {
 } as const;
 export type EngineerAnimation = 'Idle' | 'StartWalking' | 'Walk' | 'CrouchDown' | 'Crouch' | 'CrouchToStand' | 'Sitting' | 'ShovedReaction' | 'Yelling' | 'Acknowledging';
 export type EngineerPhase = 'walk' | 'crouch-down' | 'crouch' | 'stand-up' | 'sit';
+export function engineerHasStandingRoom(approach: Position, player: Position) {
+    const nearestX = Math.max(approach.x - ENGINEER.seat.approach, Math.min(approach.x, player.x));
+    return Math.hypot(player.x - approach.x, player.z - approach.z) >= .9
+        && Math.hypot(player.x - nearestX, player.z - approach.z) >= .8;
+}
 export interface EngineerState extends Position {
     y: number; angle: number; animation: EngineerAnimation; phase: EngineerPhase;
     moving: boolean; cycles: number; seated: number; clipTime: number | null;
@@ -81,6 +86,11 @@ export class EngineerRoutine {
         this.lastPlayerX = player.x; this.lastPlayerZ = player.z;
         if (distance > ENGINEER.bumpRearm) this.bumpArmed = true;
         s.moving = false;
+        if (s.seated > 0 && !engineerHasStandingRoom(s, player)) {
+            this.bumpLeft = 0; this.bumpArmed = false; this.speed = 0;
+            s.animation = 'Sitting';
+            return; // Sem levantar, reagir ou gastar a atividade sobre o jogador.
+        }
         if (talking) {
             this.bumpLeft = 0; this.bumpArmed = false; this.speed = 0;
             s.animation = edenActive ? 'Acknowledging' : 'Yelling';

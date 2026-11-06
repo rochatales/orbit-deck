@@ -23,10 +23,13 @@ export function EngineerScene({ world }: { world: OfficeWorld }) {
     const rig = useRef<EngineerRig>(), clock = useRef(0);
     const previewMood = useMemo(() => engineerPreviewMood(window.location.search), []);
     useLayoutEffect(() => {
-        const root = clone(gltf.scene), instance = new EngineerRig(root, gltf.animations);
+        const root = clone(gltf.scene), instance = new EngineerRig(root, gltf.animations, visual.current!);
         visual.current!.add(root); rig.current = instance;
         engineerPresence.x = routine.position.x; engineerPresence.y = routine.position.y; engineerPresence.z = routine.position.z;
+        engineerPresence.seated = routine.state.seated > 0;
+        engineerPresence.approach.x = routine.state.x; engineerPresence.approach.z = routine.state.z;
         engineerPresence.world = world; engineerPresence.active = true;
+        instance.update(routine.state, 0, routine.position);
         return () => {
             root.removeFromParent(); instance.dispose(); rig.current = undefined;
             if (engineerPresence.world === world) { engineerPresence.active = false; engineerPresence.world = null; }
@@ -46,16 +49,19 @@ export function EngineerScene({ world }: { world: OfficeWorld }) {
         }
         const p = routine.position;
         engineerPresence.x = p.x; engineerPresence.y = p.y; engineerPresence.z = p.z;
+        engineerPresence.seated = routine.state.seated > 0;
+        engineerPresence.approach.x = routine.state.x; engineerPresence.approach.z = routine.state.z;
         body.current?.setNextKinematicTranslation(p);
-        rig.current?.update(routine.state, dt);
+        rig.current?.update(routine.state, dt, p);
     });
     return <>
         <RigidBody ref={body} name="Engenheiro" type="kinematicPosition" colliders={false} canSleep={false} friction={0} position={[ENGINEER.start.x, 0, ENGINEER.start.z]}>
             <CapsuleCollider args={[ENGINEER.height / 2 - ENGINEER.radius, ENGINEER.radius]} position={[0, ENGINEER.height / 2, 0]} friction={0}/>
-            <group ref={visual} name="EngenheiroVisual" dispose={null}/>
+        </RigidBody>
+        <group ref={visual} name="EngenheiroVisual" dispose={null}>
             <InteractionBubble id="npc:engineer" label="Conversar com o Engenheiro" point={engineerPresence} radius={ENGINEER.interactionRadius} priority={30}
                 position={[0, ENGINEER.height + .4, 0]} available={available} onInteract={talk}/>
-        </RigidBody>
+        </group>
         {/* Assento provisório: pés e quadril do Sitting fornecido apoiam nesta cota. */}
         <RigidBody type="fixed" colliders={false} position={[ENGINEER.seat.x, 0, ENGINEER.seat.z]} name="BancoDoEngenheiro">
             <CuboidCollider args={[.27, .225, .27]} position={[0, .225, 0]}/>

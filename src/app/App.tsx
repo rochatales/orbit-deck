@@ -4,6 +4,7 @@ import { HomeScreen } from '../ui/HomeScreen';
 import { useCampaignStore } from '../state/useCampaignStore';
 import { CAMPAIGN_OBJECTIVES } from '../game/campaign';
 import { EngineerDialogue } from '../npcs/EngineerDialogue';
+import { sessionEscape } from '../game/sessionEscape';
 import { engineerIsCalm, engineerPreviewMood } from '../npcs/engineerRoutine';
 import { PauseMenuFrame } from '../ui/PauseMenuFrame';
 import { GameplayHud, BackpackContents } from '../ui/GameplayHud';
@@ -95,14 +96,13 @@ function Runtime({ onHome }: { onHome: () => void }) {
             if (!state.ready || state.session.phase === 'travelling' || (state.session.map === 'shanghai' && useCombatStore.getState().dead))
                 return;
             if (e.code === 'Escape') {
-                if (useGameStore.getState().isPaused)
+                const action = sessionEscape(state.session.phase, useGameStore.getState().isPaused, state.panel);
+                if (action === 'resume' || action === 'pause')
                     useGameStore.getState().togglePaused();
-                else if (state.session.phase === 'aboard')
+                else if (action === 'exit')
                     state.send('exit');
-                else if (state.panel === 'eden' || state.panel === 'engineer')
+                else if (action === 'close-dialogue')
                     state.closePanel();
-                else if (state.session.phase === 'walking')
-                    useGameStore.getState().togglePaused();
             }
             if (e.code === 'KeyB' && state.session.phase === 'walking' && !state.panel) {
                 e.preventDefault(); setPauseView('backpack'); useGameStore.setState({ isPaused: true });
