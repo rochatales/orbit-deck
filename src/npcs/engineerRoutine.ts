@@ -75,7 +75,10 @@ export class EngineerRoutine {
         s.clipTime = null;
         this.advance(dt, player, talking, edenActive);
         const target = s.animation === 'Sitting' ? 1 : 0;
-        s.seated += Math.sign(target - s.seated) * Math.min(Math.abs(target - s.seated), dt / .35);
+        const nextSeated = s.seated + Math.sign(target - s.seated) * Math.min(Math.abs(target - s.seated), dt / .35);
+        const nextX = s.x - ENGINEER.seat.approach * nextSeated;
+        const clearance = Math.hypot(player.x - nextX, player.z - s.z);
+        if (clearance >= .8 || clearance >= Math.hypot(player.x - this.position.x, player.z - this.position.z)) s.seated = nextSeated;
         this.position.x = s.x - ENGINEER.seat.approach * s.seated;
         this.position.z = s.z; this.position.y = s.y;
     }
@@ -133,6 +136,10 @@ export class EngineerRoutine {
             }
         }
         const stop = ENGINEER.stops[this.route === 1 ? 1 : this.route === 2 ? 2 : 0];
+        if (s.phase === 'sit' && s.seated === 0 && !engineerHasStandingRoom(s, player)) {
+            s.animation = 'Idle';
+            return; // Espera em pé antes de ocupar o banco ou iniciar o blend.
+        }
         this.face(stop.angle, dt);
         s.animation = s.phase === 'crouch-down' ? 'CrouchDown' : s.phase === 'crouch' ? 'Crouch' : s.phase === 'sit' ? 'Sitting' : 'CrouchToStand';
         s.clipTime = (s.phase === 'sit' ? 14 : s.phase === 'crouch' ? 7 : ENGINEER.crouchTransition) - this.left;

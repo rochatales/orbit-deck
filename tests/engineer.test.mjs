@@ -5,6 +5,11 @@ import { createHash } from 'node:crypto';
 import { loadSource, createSourceLoader } from './load-source.mjs';
 import { loadGlb } from './load-glb.mjs';
 import { AnimationMixer, Box3, Vector3, Group } from 'three';
+import path from 'node:path';
+import vm from 'node:vm';
+import ts from 'typescript';
+import { createRequire } from 'node:module';
+import React from 'react';
 const { EngineerRoutine, ENGINEER, engineerIsCalm, engineerPreviewMood, engineerDoorClear, engineerHasStandingRoom } = loadSource('src/npcs/engineerRoutine.ts');
 const { createWorld } = loadSource('src/game/marsWorld.ts');
 const { traversable, clearSegment } = loadSource('src/combat/navigation.ts');
@@ -130,6 +135,21 @@ test('Engenheiro: jogador diante do banco adia levantar/esbarrão/conversa sem s
     assert.notEqual(r.state.phase,'sit','retoma quando o jogador libera a saída');
 });
 
+test('Engenheiro: não inicia o recuo para um banco ocupado pelo jogador', () => {
+    for(const offset of [{x:0,z:.65},{x:-.65,z:0}]) {
+        const r=new EngineerRoutine({...createWorld(),movingCuboids:[]});
+        for(let f=0;f<200*60;f++) {r.update(1/60,far);if(r.state.phase==='sit')break;}
+        // Chegada ao apoio livre, antes do primeiro frame do blend.
+        r.state.seated=0; r.position.x=r.state.x;
+        const player={x:ENGINEER.seat.x+offset.x,z:ENGINEER.seat.z+offset.z};
+        for(let f=0;f<120;f++) {
+            r.update(1/60,player); assert.equal(r.state.seated,0); assert.equal(r.state.animation,'Idle');
+        }
+        for(let f=0;f<30;f++)r.update(1/60,far);
+        assert.equal(r.state.seated,1,'senta depois que o espaço é liberado');
+    }
+});
+
 test('Escape: pausa retoma o diálogo antes de fechá-lo, com cabine/viagem preservadas', () => {
     const {sessionEscape}=loadSource('src/game/sessionEscape.ts');
     for(const panel of ['engineer','eden']) {
@@ -194,22 +214,44 @@ test('Engenheiro: E valida mapa, distância e paredes e não grava/avança campa
     Object.assign(p,{active:false,world:null});
 });
 
-test('Engenheiro: visual acompanha o apoio durante conversa mesmo sem step da física', async () => {
+test('Engenheiro: cena real mantém visual fora do corpo e atualiza conversa sem step físico', async () => {
     const {clone}=await import('three/examples/jsm/utils/SkeletonUtils.js');
-    const {EngineerRig}=loadSource('src/npcs/engineerRig.ts');
-    const g=await loadGlb(file), placement=new Group(), model=clone(g.scene), physical=new Group();
-    placement.add(model);
-    const rig=new EngineerRig(model,g.animations,placement),r=new EngineerRoutine({...createWorld(),movingCuboids:[]});
+    const gltf=await loadGlb(file),load=createSourceLoader(),nativeRequire=createRequire(import.meta.url);
+    let frame,layout,r;
+    const Bubble=()=>null, previousWindow=globalThis.window;
+    globalThis.window={location:{search:'?engineerEden=0'}};
+    const filename=path.resolve('src/npcs/EngineerScene.tsx'),module={exports:{}};
+    const code=ts.transpileModule(fs.readFileSync(filename,'utf8'),{compilerOptions:{jsx:ts.JsxEmit.ReactJSX,esModuleInterop:true,module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020}}).outputText;
+    const require=spec=>{
+        if(spec==='react')return {useMemo:fn=>{const v=fn();if(v?.paths)r=v;return v;},useRef:()=>({current:null}),useLayoutEffect:fn=>{layout=fn;}};
+        if(spec==='@react-three/fiber')return {useFrame:fn=>{frame=fn;}};
+        if(spec==='@react-three/drei')return {useGLTF:()=>gltf};
+        if(spec==='@react-three/rapier')return {RigidBody:'rigid-body',CapsuleCollider:'capsule',CuboidCollider:'cuboid'};
+        if(spec==='three/examples/jsm/utils/SkeletonUtils.js')return {clone};
+        if(spec.endsWith('/InteractionBubble'))return {InteractionBubble:Bubble};
+        if(spec.endsWith('.glb'))return 'engineer.glb';
+        return spec.startsWith('.')?load(path.resolve(path.dirname(filename),spec)+'.ts'):nativeRequire(spec);
+    };
+    vm.runInThisContext('(function(require,module,exports){'+code+'\n})',{filename})(require,module,module.exports);
+    const tree=module.exports.EngineerScene({world:{...createWorld(),movingCuboids:[]}}),children=React.Children.toArray(tree.props.children);
+    const view=children.find(node=>node.type==='group'&&node.props.name==='EngenheiroVisual');
+    const body=children.find(node=>node.type==='rigid-body'&&node.props.name==='Engenheiro');
+    assert.ok(view&&body,'visual e corpo são irmãos no JSX real, sem herdar o step do corpo');
+    assert.ok(React.Children.toArray(view.props.children).some(node=>node.type===Bubble),'bolha acompanha o grupo visual');
+    const placement=new Group();view.ref.current=placement;
+    let commands=0;body.ref.current={setNextKinematicTranslation:()=>{commands++;}};
+    const cleanup=layout();
+    load('src/state/useExpeditionStore.ts').useExpeditionStore.setState({ready:true,panel:'engineer'});
     for(let f=0;f<200*60;f++) {
         r.update(1/60,far);
         if(r.state.animation==='Sitting' && r.state.seated===1) break;
     }
-    physical.position.set(r.position.x,r.position.y,r.position.z); const stopped=physical.position.clone();
-    for(let f=0;f<30;f++){r.update(1/60,far,true,false);rig.update(r.state,1/60,r.position);}
-    assert.ok(physical.position.equals(stopped),'representação física não recebeu nenhum step');
-    assert.equal(placement.position.x,r.state.x,'visual chega ao ponto livre');
-    assert.ok(Math.abs(placement.position.x-physical.position.x)>.8);
-    assert.ok(rig.actions.get('Yelling').time>.4); rig.dispose();
+    frame(null,0); const seatedX=placement.position.x;
+    for(let f=0;f<30;f++)frame(null,1/60);
+    assert.ok(commands>0,'corpo recebe apenas comandos para o próximo step, sem simular Rapier neste teste');
+    assert.equal(placement.position.x,r.state.x,'callback real posiciona o visual no apoio livre');
+    assert.ok(Math.abs(placement.position.x-seatedX)>.8);
+    assert.equal(r.state.animation,'Yelling');cleanup();globalThis.window=previousWindow;
 });
 
 test('Engenheiro: rig retoma o instante da transição após conversa e esbarrão', async () => {

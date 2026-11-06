@@ -1,23 +1,24 @@
-✔ Engenheiro: GLB próprio, dez clipes, 33 ossos e fontes preservadas pelo manifesto (492.758125ms)
-✔ Engenheiro: animações reais sem deriva horizontal ou pés abaixo do piso (443.952875ms)
-✔ Engenheiro: Oficina/Data Center/assento com caminhos livres e loop contínuo (540.2155ms)
-✔ Engenheiro: portas reais abrem para o NPC e ele não atravessa folhas fechadas (1502.943292ms)
-✔ Engenheiro: para diante do banco e só recua para ele com a pose sentada (378.129833ms)
-✔ Engenheiro: distância da arrancada corresponde ao deslocamento do FBX (297.898458ms)
-✔ Engenheiro: jogador diante do banco adia levantar/esbarrão/conversa sem sobrepor cápsulas (207.949166ms)
-✔ Escape: pausa retoma o diálogo antes de fechá-lo, com cabine/viagem preservadas (11.284792ms)
-✔ Engenheiro: esbarrão uma vez por aproximação, sem dano ou deslocamento da reação (129.829875ms)
-✔ Engenheiro: conversa interrompe tarefa, escolhe Yelling/Acknowledging e pausa congela (146.143583ms)
-✔ Engenheiro: E valida mapa, distância e paredes e não grava/avança campanha (404.666042ms)
-✔ Engenheiro: visual acompanha o apoio durante conversa mesmo sem step da física (553.28775ms)
-✔ Engenheiro: rig retoma o instante da transição após conversa e esbarrão (1028.931709ms)
-✔ Interação móvel: balão e E leem a posição atual, sem registro por passo (9.090458ms)
-✔ Engenheiro: mixer e materiais próprios, descarte sem invalidar geometria compartilhada (268.941875ms)
-ℹ tests 15
+✔ Engenheiro: GLB próprio, dez clipes, 33 ossos e fontes preservadas pelo manifesto (131.204042ms)
+✔ Engenheiro: animações reais sem deriva horizontal ou pés abaixo do piso (105.243584ms)
+✔ Engenheiro: Oficina/Data Center/assento com caminhos livres e loop contínuo (124.725334ms)
+✔ Engenheiro: portas reais abrem para o NPC e ele não atravessa folhas fechadas (280.075459ms)
+✔ Engenheiro: para diante do banco e só recua para ele com a pose sentada (72.67175ms)
+✔ Engenheiro: distância da arrancada corresponde ao deslocamento do FBX (67.732625ms)
+✔ Engenheiro: jogador diante do banco adia levantar/esbarrão/conversa sem sobrepor cápsulas (37.32925ms)
+✔ Engenheiro: não inicia o recuo para um banco ocupado pelo jogador (63.861667ms)
+✔ Escape: pausa retoma o diálogo antes de fechá-lo, com cabine/viagem preservadas (1.600708ms)
+✔ Engenheiro: esbarrão uma vez por aproximação, sem dano ou deslocamento da reação (32.691208ms)
+✔ Engenheiro: conversa interrompe tarefa, escolhe Yelling/Acknowledging e pausa congela (30.685042ms)
+✔ Engenheiro: E valida mapa, distância e paredes e não grava/avança campanha (67.421917ms)
+✔ Engenheiro: cena real mantém visual fora do corpo e atualiza conversa sem step físico (210.70825ms)
+✔ Engenheiro: rig retoma o instante da transição após conversa e esbarrão (246.771583ms)
+✔ Interação móvel: balão e E leem a posição atual, sem registro por passo (2.79025ms)
+✔ Engenheiro: mixer e materiais próprios, descarte sem invalidar geometria compartilhada (67.219459ms)
+ℹ tests 16
 ℹ suites 0
-ℹ pass 15
+ℹ pass 16
 ℹ fail 0
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 7694.279541
+ℹ duration_ms 1909.78
