@@ -138,7 +138,13 @@ test('Engenheiro: mixer e materiais próprios, descarte sem invalidar geometria 
     for (let i=0;i<60;i++) a.update(state,1/60);
     assert.ok(a.actions.get('Yelling').time > .9); assert.equal(b.actions.get('Yelling').time,0);
     const frozen=a.actions.get('Yelling').time; a.update(state,0); assert.equal(a.actions.get('Yelling').time,frozen);
-    let geometryDisposed=0, materialDisposed=0;
+    let geometryDisposed=0, materialDisposed=0, boneTextureDisposed=0, sourceBoneDisposed=0;
+    assert.notEqual(own.skeleton, source.skeleton);
+    own.skeleton.computeBoneTexture(); source.skeleton.computeBoneTexture();
+    own.skeleton.boneTexture.addEventListener('dispose',()=>boneTextureDisposed++);
+    source.skeleton.boneTexture.addEventListener('dispose',()=>sourceBoneDisposed++);
     source.geometry.addEventListener('dispose',()=>geometryDisposed++); own.material.addEventListener('dispose',()=>materialDisposed++);
-    a.dispose(); a.dispose(); assert.equal(materialDisposed,1); assert.equal(geometryDisposed,0); b.dispose();
+    a.dispose(); a.dispose(); assert.equal(materialDisposed,1); assert.equal(geometryDisposed,0);
+    assert.equal(boneTextureDisposed,1); assert.equal(sourceBoneDisposed,0);
+    b.dispose(); source.skeleton.dispose();
 });

@@ -1,4 +1,4 @@
-import { AnimationMixer, LoopOnce, type AnimationAction, type AnimationClip, type Object3D, type Mesh, type Material } from 'three';
+import { AnimationMixer, LoopOnce, type AnimationAction, type AnimationClip, type Object3D, type Mesh, type SkinnedMesh, type Skeleton, type Material } from 'three';
 import type { EngineerState, EngineerAnimation } from './engineerRoutine';
 const ONE_SHOT = new Set<EngineerAnimation>(['CrouchDown', 'CrouchToStand', 'ShovedReaction', 'StartWalking']);
 /** Geometria/texturas do cache preservadas; só materiais e mixer pertencem à instância. */
@@ -7,6 +7,7 @@ export class EngineerRig {
     readonly actions = new Map<EngineerAnimation, AnimationAction>();
     private current: AnimationAction;
     private materials: Material[] = [];
+    private skeletons = new Set<Skeleton>();
     private disposed = false;
     constructor(readonly root: Object3D, clips: AnimationClip[]) {
         const copies = new Map<Material, Material>();
@@ -18,6 +19,7 @@ export class EngineerRig {
         root.traverse(node => {
             const mesh = node as Mesh;
             if (!mesh.isMesh) return;
+            if ((mesh as SkinnedMesh).isSkinnedMesh) this.skeletons.add((mesh as SkinnedMesh).skeleton);
             mesh.castShadow = true; mesh.receiveShadow = true;
             mesh.material = Array.isArray(mesh.material) ? mesh.material.map(copy) : copy(mesh.material);
         });
@@ -44,5 +46,6 @@ export class EngineerRig {
         if (this.disposed) return;
         this.disposed = true; this.mixer.stopAllAction(); this.mixer.uncacheRoot(this.root);
         for (const material of this.materials) material.dispose();
+        for (const skeleton of this.skeletons) skeleton.dispose();
     }
 }

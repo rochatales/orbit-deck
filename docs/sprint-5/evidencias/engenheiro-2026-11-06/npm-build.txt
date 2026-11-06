@@ -8,8 +8,8 @@ transforming...
 rendering chunks...
 computing gzip size...
 dist/index.html                                                0.39 kB │ gzip:     0.28 kB
-dist/assets/SFX_Patrol_big_step_v02-0bfb2112.mp3               4.84 kB
 dist/assets/SFX_Patrol_big_step_v01-2a3cc040.mp3               4.84 kB
+dist/assets/SFX_Patrol_big_step_v02-0bfb2112.mp3               4.84 kB
 dist/assets/SFX_Patrol_big_step_v03-75dc9d88.mp3               4.84 kB
 dist/assets/SFX_Patrol_big_step_v04-15844d42.mp3               4.84 kB
 dist/assets/SFX_Patrol_big_step_v05-f6698d9c.mp3               4.84 kB
@@ -119,15 +119,15 @@ dist/assets/colony-v007-e4af2fda.glb                      11,572.71 kB
 dist/assets/brand-brain-f7c02996.glb                      20,737.33 kB
 dist/assets/player-main-e44fd1a8.glb                      30,684.38 kB
 dist/assets/index-bce69581.css                                47.38 kB │ gzip:    11.39 kB
-dist/assets/marsWorld-f1d9b196.js                              0.62 kB │ gzip:     0.34 kB
-dist/assets/shanghaiWorld-36be6740.js                          1.92 kB │ gzip:     1.02 kB
-dist/assets/PerfProbe-cba8da94.js                             16.28 kB │ gzip:     6.58 kB
-dist/assets/ColonySandwind-64780d65.js                        18.63 kB │ gzip:     7.25 kB
-dist/assets/visual-fa15f3c2.js                                60.33 kB │ gzip:    18.44 kB
-dist/assets/index-00f2394f.js                              3,978.77 kB │ gzip: 1,296.39 kB
+dist/assets/marsWorld-8fc6201d.js                              0.62 kB │ gzip:     0.34 kB
+dist/assets/shanghaiWorld-ba174ff8.js                          1.92 kB │ gzip:     1.02 kB
+dist/assets/PerfProbe-f867b837.js                             16.28 kB │ gzip:     6.58 kB
+dist/assets/ColonySandwind-6c97a1da.js                        18.63 kB │ gzip:     7.25 kB
+dist/assets/visual-45171274.js                                60.33 kB │ gzip:    18.44 kB
+dist/assets/index-d7c114f0.js                              3,978.89 kB │ gzip: 1,296.42 kB
 
 (!) Some chunks are larger than 500 kBs after minification. Consider:
 - Using dynamic import() to code-split the application
 - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
-✓ built in 5.04s
+✓ built in 30.73s
