@@ -28,7 +28,7 @@ const write = (saved: CampaignSave) => saveCampaignSave(saved) ? null
     : 'Não foi possível salvar a campanha neste navegador. O progresso desta sessão não está garantido.';
 /** O modo só muda na entrada/saída; nenhuma ação de combate/viagem muda a campanha. */
 export const useCampaignStore = create<CampaignStore>((set, get) => {
-    const update = (saved: CampaignSave) => set({ saved, saveError: write(saved) });
+    const update = (saved: CampaignSave, withdrawnCargo?: ResourceCargo) => set({ saved, saveError: write(saved), ...(withdrawnCargo ? { withdrawnCargo } : {}) });
     const active = () => get().mode === 'campaign' && get().inGame ? get().saved : null;
     const loaded = loadCampaignSave(), cleaned = loaded ? abandonCampaignAttempt(loaded) : null;
     const loadError = cleaned && cleaned !== loaded ? write(cleaned) : null;
@@ -72,8 +72,7 @@ export const useCampaignStore = create<CampaignStore>((set, get) => {
                 }
                 attemptCargo[kind] = Math.max(0, attemptCargo[kind] + delta);
             }
-            set({ withdrawnCargo });
-            update({ ...saved, cargo: { ...cargo }, attemptCargo, attemptDelivery });
+            update({ ...saved, cargo: { ...cargo }, attemptCargo, attemptDelivery }, withdrawnCargo);
         },
         consolidateExpedition: id => {
             const saved = active(); if (!saved) return;
@@ -81,8 +80,7 @@ export const useCampaignStore = create<CampaignStore>((set, get) => {
                 id, copper: saved.attemptDelivery.copper, organic: saved.attemptDelivery.organic
             }), 'finish-copper-expedition');
             // Uma única escrita: carga definitiva e entrega não podem divergir num reload.
-            set({ withdrawnCargo: { ...EMPTY_CARGO } });
-            update({ ...saved, campaign, attemptCargo: { ...EMPTY_CARGO }, attemptDelivery: { ...EMPTY_CARGO } });
+            update({ ...saved, campaign, attemptCargo: { ...EMPTY_CARGO }, attemptDelivery: { ...EMPTY_CARGO } }, { ...EMPTY_CARGO });
         },
         dispatch: event => {
             const saved = active(); if (!saved) return;

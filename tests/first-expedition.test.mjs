@@ -188,7 +188,7 @@ test('S3.2: quota não duplica a mochila durante transferência e cobre já reto
 });
 
 test('S3.2 revisão: rádio não confunde cobre antigo com quota elegível, e retorno/retry têm remetente próprio',()=>{
-    const f=fixture();f.enter();assert.equal(f.expedition.getState().radioSender,'Engenheiro');assert.doesNotMatch(f.expedition.getState().radio,/Encontre-a/);
+    const f=fixture();f.enter();assert.equal(f.expedition.getState().radioSender,'Sistema');assert.doesNotMatch(f.expedition.getState().radio,/Encontre-a/);
     f.campaign.getState().setCargo({...zero,copper:4});f.travel();f.pack(0);const serial=f.expedition.getState().radioSerial;
     f.ship.getState().withdraw('copper',4);f.ship.getState().deposit();assert.equal(f.expedition.getState().radioSerial,serial,'cobre antigo não satisfaz quota de entrega');
     f.expedition.getState().restartMission();assert.equal(f.expedition.getState().radioSender,'Sistema');assert.match(f.expedition.getState().radio,/Nova tentativa/);assert.ok(f.expedition.getState().radioSerial>serial);
@@ -197,5 +197,24 @@ test('S3.2 revisão: rádio não confunde cobre antigo com quota elegível, e re
     f.expedition.getState().send('board');f.expedition.getState().send('depart');f.expedition.getState().send('arrive');f.expedition.getState().setReady(true);
     // Chega na cabine, retorna sem desembarcar: a transmissão pendente não pode vazar para Marte.
     f.expedition.getState().send('depart');f.expedition.getState().send('arrive');
-    assert.equal(f.expedition.getState().session.map,'mars');assert.equal(f.expedition.getState().radioSender,'Sistema');assert.match(f.expedition.getState().radio,/Pousamos em Marte/);
+    assert.equal(f.expedition.getState().session.map,'mars');assert.equal(f.expedition.getState().radioSender,'Sistema');assert.match(f.expedition.getState().radio,/Chegamos a Marte/);
+});
+
+test('S3.2 confirmação: retirada de cobre novo não duplica quota nem publica ledger intermediário',()=>{
+    const f=fixture();f.enter();f.travel();f.pack(2);f.ship.getState().deposit();const serial=f.expedition.getState().radioSerial;
+    const observations=[];const off=f.campaign.subscribe(s=>observations.push([s.saved.attemptDelivery.copper,s.withdrawnCargo.copper]));
+    f.ship.getState().withdraw('copper',2);off();
+    assert.deepEqual(observations,[[0,0]],'uma publicação com ledger e provenance finais');
+    assert.equal(f.expedition.getState().radioSerial,serial);assert.equal(f.expedition.getState().copperQuotaAnnounced,false);
+    f.pack(4);assert.equal(f.expedition.getState().copperQuotaAnnounced,true);assert.match(f.expedition.getState().radio,/cobre suficiente/);
+});
+
+test('S3.2 confirmação: orientação segue etapa em retomar e rádio pertence ao mapa onde foi emitido',()=>{
+    const f=fixture();f.enter();f.expedition.getState().returnHome();f.expedition.getState().enterCampaign();
+    assert.match(f.expedition.getState().radio,/Cobre entregue/);assert.equal(f.expedition.getState().radioSender,'Sistema');
+    f.travel();assert.equal(f.expedition.getState().radioMap,'shanghai');
+    f.pack(4);f.ship.getState().deposit();f.travel();assert.equal(f.campaign.getState().saved.campaign.stage,'eden-activation');
+    assert.equal(f.expedition.getState().radioMap,'mars');assert.doesNotMatch(f.expedition.getState().radio,/Desembarque/);
+    f.travel();assert.equal(f.expedition.getState().session.map,'shanghai');
+    assert.notEqual(f.expedition.getState().radioMap,'shanghai','mensagem antiga de Marte não está ativa na Terra');
 });

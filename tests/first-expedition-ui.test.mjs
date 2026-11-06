@@ -125,8 +125,8 @@ test('S3.2 revisão UI: fallback da campanha mantém título/aviso das hordas, s
  const f=setup();f.expedition.setState({panel:null,session:{map:'shanghai',phase:'walking',destination:null,revision:0}});
  f.combat.setState({waves:4,wave:4,cleared:true,dead:false});
  let text=textTree(renderWithStores('src/combat/CombatHud.tsx',f,'CombatHud'));
- assert.match(text,/Hordas neutralizadas/);assert.doesNotMatch(text,/Patrulha neutralizada|Reiniciar encontro/);
+ assert.match(text,/Hordas neutralizadas/);assert.doesNotMatch(text,/Patrulha neutralizada|Reiniciar encontro|repita|reinicie/);
  f.combat.setState({cleared:false,wave:1,ammo:0,reserve:0});
  text=textTree(renderWithStores('src/combat/CombatHud.tsx',f,'CombatHud'));
- assert.match(text,/próxima horda chega com reabastecimento/);assert.doesNotMatch(text,/Equipe o facão/);
+ assert.match(text,/próxima horda chega com reabastecimento/);assert.doesNotMatch(text,/Equipe o facão|repita|reinicie/);
 });

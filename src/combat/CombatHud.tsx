@@ -38,6 +38,12 @@ export function CombatHud() {
         const timer = window.setTimeout(() => setDeathPanel(true), MACHETE_DEATH_OVERLAY_MS);
         return () => window.clearTimeout(timer);
     }, [s.dead, weapon]);
+    const resultTitle = s.cleared ? (s.waves > 0 ? 'Hordas neutralizadas' : campaign ? 'Patrulha neutralizada' : 'Área de teste livre') : 'Sem munição';
+    const resultText = s.cleared
+        ? s.waves > 0 ? `${s.waves} hordas, ${s.total} ameaças. ${campaign ? 'Guarde os recursos e volte à nave.' : 'Volte à nave ou repita.'}`
+            : campaign ? 'Guarde os recursos na aeronave e volte a Marte.' : 'Volte à nave ou repita com mais robôs.'
+        : s.waves > 0 && s.wave < s.waves ? `A próxima horda chega com reabastecimento. ${campaign ? 'Sobreviva ou volte à nave.' : 'Sobreviva ou reinicie.'}`
+            : campaign ? 'Procure as caixas de munição e use E, ou retorne à nave.' : 'Equipe o facão (2) ou procure as caixas de munição e use E. Você também pode retornar à nave ou reiniciar.';
     return <>
     {s.waves > 0 && s.nextWave > 0 && !s.dead && !paused && <div className="wave-banner" role="status">
       <small>{s.wave === 0 ? 'CONTATO IMINENTE' : `HORDA ${s.wave} NEUTRALIZADA`}</small>
@@ -47,7 +53,7 @@ export function CombatHud() {
     {s.damage && !s.dead && <div className="damage-vignette" aria-hidden="true"/>}
     {s.dead && deathPanel && <section className="overlay" role="dialog" aria-label="Explorador abatido"><article><p className="eyebrow">EXPEDIÇÃO INTERROMPIDA</p><h2>Explorador abatido</h2><p>Recomece em Shanghai com vida e munição restauradas. Nenhum progresso deste encontro é salvo. As peças coletadas nesta tentativa serão descartadas.</p><EncounterSelect /><button onClick={restart}>Tentar novamente</button></article></section>}
     {!s.dead && phase === 'walking' && !panel && !paused && (s.cleared || (weapon === 'rifle' && s.ammo === 0 && s.reserve === 0)) && <aside className="encounter-result">
-      <h2>{s.cleared ? (s.waves > 0 ? 'Hordas neutralizadas' : campaign ? 'Patrulha neutralizada' : 'Área de teste livre') : 'Sem munição'}</h2><p>{campaign && s.waves === 0 ? 'Guarde os recursos na aeronave e volte a Marte. Procure as caixas de munição se precisar.' : s.cleared ? (s.waves > 0 ? `${s.waves} hordas, ${s.total} ameaças. Volte à nave ou repita.` : 'Volte à nave ou repita com mais robôs.') : s.waves > 0 && s.wave < s.waves ? 'A próxima horda chega com reabastecimento. Sobreviva ou reinicie.' : campaign ? 'Procure as caixas de munição e use E, ou retorne à nave.' : 'Equipe o facão (2) ou procure as caixas de munição e use E. Você também pode retornar à nave ou reiniciar.'}</p>{!campaign && <button onClick={restart}>Reiniciar encontro</button>}
+      <h2>{resultTitle}</h2><p>{resultText}</p>{!campaign && <button onClick={restart}>Reiniciar encontro</button>}
     </aside>}
   </>;
 }

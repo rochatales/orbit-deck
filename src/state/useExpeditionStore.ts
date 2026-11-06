@@ -1,3 +1,4 @@
+import { campaignObjective } from '../game/campaign';
 import { create } from 'zustand';
 import { INITIAL_SESSION, migrateProfile, parseSave, transition, type HubSave, type Profile, type Session, type SessionEvent } from '../game/session';
 import { INITIAL_POSITION, MAPS, type Point } from '../game/config';
@@ -46,6 +47,7 @@ interface ExpeditionState {
     radio: string;
     radioSender: string;
     radioSerial: number;
+    radioMap: MapId | null;
     copperQuotaAnnounced: boolean;
     announceCopperQuota: () => void;
     start: (name: string, color: string) => void;
@@ -59,7 +61,7 @@ interface ExpeditionState {
     restartMission: () => void;
     setReady: (ready: boolean) => void;
     setError: (error: string | null) => void;
-    setRadio: (radio: string, sender?: string) => void;
+    setRadio: (radio: string, sender?: string, map?: MapId) => void;
 }
 function save(profile: Profile | null, briefingSeen: boolean): string | null {
     if (useCampaignStore.getState().mode === 'campaign') {
@@ -81,7 +83,7 @@ export const SCENE_STALLED_ERROR = 'O destino está demorando para abrir. Recarr
 export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
     profile: saved.profile, briefingSeen: saved.briefingSeen, session: { ...INITIAL_SESSION }, spawn: INITIAL_POSITION,
     panel: null, ready: false, error: null, saveError: null,
-    radio: INITIAL_RADIO, radioSender: 'EDEN', radioSerial: 0, copperQuotaAnnounced: false,
+    radio: INITIAL_RADIO, radioSender: 'EDEN', radioSerial: 0, radioMap: null, copperQuotaAnnounced: false,
     start: (name, color) => {
         const profile = parseSave(JSON.stringify({ version: 1, profile: { displayName: name, color } })).profile;
         if (profile)
@@ -94,7 +96,7 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
         respawn(INITIAL_POSITION, 'mars');
         set({ profile: developmentIdentity.profile, briefingSeen: developmentIdentity.briefingSeen,
             session: { ...INITIAL_SESSION }, spawn: INITIAL_POSITION, panel: null, ready: false,
-            error: null, saveError: developmentSaveError, radio: INITIAL_RADIO, radioSender: 'EDEN', radioSerial: 0, copperQuotaAnnounced: false });
+            error: null, saveError: developmentSaveError, radio: INITIAL_RADIO, radioSender: 'EDEN', radioSerial: 0, radioMap: null, copperQuotaAnnounced: false });
         return true;
     },
     enterCampaign: (profile, replace = false) => {
@@ -106,8 +108,8 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
         respawn(INITIAL_POSITION, 'mars');
         set({ profile: saved.profile, briefingSeen: saved.briefingSeen, session: { ...INITIAL_SESSION },
             spawn: INITIAL_POSITION, panel: null, ready: false, error: null, saveError: null,
-            radio: saved.campaign.edenActive ? INITIAL_RADIO : 'Procure o Engenheiro na Oficina ou no Data Center.',
-            radioSender: saved.campaign.edenActive ? 'EDEN' : 'Engenheiro', radioSerial: 0, copperQuotaAnnounced: false });
+            radio: campaignObjective(saved.campaign),
+            radioSender: 'Sistema', radioSerial: 0, radioMap: null, copperQuotaAnnounced: false });
         return true;
     },
     returnHome: () => {
@@ -117,14 +119,18 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
         respawn(INITIAL_POSITION, 'mars');
         set({ profile: developmentIdentity.profile, briefingSeen: developmentIdentity.briefingSeen,
             session: { ...INITIAL_SESSION }, spawn: INITIAL_POSITION, panel: null, ready: false,
-            error: null, saveError: developmentSaveError, radio: INITIAL_RADIO, radioSender: 'EDEN', radioSerial: 0, copperQuotaAnnounced: false });
+            error: null, saveError: developmentSaveError, radio: INITIAL_RADIO, radioSender: 'EDEN', radioSerial: 0, radioMap: null, copperQuotaAnnounced: false });
     },
     openEngineer: () => {
         const s = get();
         if (s.ready && s.session.map === 'mars' && s.session.phase === 'walking' && !s.panel
             && !useGameStore.getState().isPaused && canTalkToEngineer(playerPosition)) {
             set({ panel: 'engineer' });
-            useCampaignStore.getState().dispatch('finish-engineer-briefing');
+            const campaign = useCampaignStore.getState(), previous = campaign.saved?.campaign;
+            campaign.dispatch('finish-engineer-briefing');
+            const current = useCampaignStore.getState().saved?.campaign;
+            if (campaign.mode === 'campaign' && current && current !== previous)
+                set({ radio: campaignObjective(current), radioSender: 'Sistema', radioSerial: 0, radioMap: null });
         }
     },
     openEden: () => {
@@ -151,13 +157,13 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
         if (event === 'arrive' && session.map === 'mars' && s.session.map === 'shanghai' && useCampaignStore.getState().mode === 'campaign')
         {
             useCampaignStore.getState().consolidateExpedition(crypto.randomUUID());
-            get().setRadio('Pousamos em Marte. Desembarque para voltar à colônia.', 'Sistema');
+            get().setRadio('Chegamos a Marte. A carga da aeronave está consolidada.', 'Sistema', 'mars');
         }
         if (event === 'arrive' && session.map === 'shanghai') {
             useCombatStore.getState().restart();
             set({ copperQuotaAnnounced: false });
             if (useCampaignStore.getState().mode === 'campaign' && useCampaignStore.getState().saved?.campaign.stage === 'expedition-copper')
-                get().setRadio('Conferi aqui, você vai precisar de 04 unidades de cobre.', 'Engenheiro');
+                get().setRadio('Conferi aqui, você vai precisar de 04 unidades de cobre.', 'Engenheiro', 'shanghai');
         }
         let spawn = s.spawn;
         if (event === 'board' || event === 'arrive')
@@ -190,7 +196,7 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
         }
     },
     setReady: (ready) => set({ ready }), setError: (error) => set({ error }),
-    setRadio: (radio, radioSender = 'EDEN') => set(s => ({ radio, radioSender, radioSerial: s.radioSerial + 1 }))
+    setRadio: (radio, radioSender = 'EDEN', radioMap = get().session.map) => set(s => ({ radio, radioSender, radioMap, radioSerial: s.radioSerial + 1 }))
 }));
 
 // A morte é publicada uma vez pela simulação; nenhum polling/render de recursos adicional.
@@ -203,4 +209,4 @@ useCombatStore.subscribe((state, previous) => {
     }
     if (state.copper !== previous.copper) useExpeditionStore.getState().announceCopperQuota();
 });
-useCampaignStore.subscribe(() => useExpeditionStore.getState().announceCopperQuota());
+// A coleta/transferência publica o HUD depois dos saldos finais; não reage a estados intermediários do save.
