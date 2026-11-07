@@ -1,4 +1,4 @@
-import { campaignRifleAllowed, campaignSwordAllowed } from '../game/campaignPolicy';
+import { campaignRifleAllowed, campaignSwordAllowed, engineerBriefingRequired } from '../game/campaignPolicy';
 import { useCampaignStore } from '../state/useCampaignStore';
 import { useStoredMedicalKit } from '../game/props/medicalKitInteraction';
 import { useWeaponStore } from '../state/useWeaponStore';
@@ -34,7 +34,10 @@ export function GameplayHud({ combat, map, openBackpack, openCargo }: { combat: 
   }, []);
   const s = useCombatStore(), energy = useBackpackEnergy(s => s.percent);
   const organic = useCampaignStore(s => s.mode === 'campaign' && s.saved?.campaign.stage === 'expedition-organic');
-  const rifleAllowed = useCampaignStore(campaignRifleAllowed), swordAllowed = useCampaignStore(campaignSwordAllowed);
+  const missionKitReceived = !useCampaignStore(engineerBriefingRequired);
+  const swordAllowed = useCampaignStore(campaignSwordAllowed);
+  const campaign = useCampaignStore(s => s.mode === 'campaign');
+  const showMedicalKit = !campaign || (combat && s.medkits > 0);
   const selected = useWeaponStore(s => s.weapon), machete = selected === 'machete';
   const weight = cargoWeight(combat ? s : EMPTY_CARGO), full = weight >= BACKPACK.capacityKg - .2;
   return <>
@@ -45,7 +48,7 @@ export function GameplayHud({ combat, map, openBackpack, openCargo }: { combat: 
     </div>}
     <div className="beta-bottom">
       <aside className="beta-vitals" aria-label="Condição do explorador">
-        <RadarMap map={map}/>
+        {missionKitReceived && <RadarMap map={map}/>}
         <VitalBar label="VIDA" value={combat ? s.hp : COMBAT.playerHp} max={COMBAT.playerHp} kind="life"/>
         <VitalBar label="ENERGIA" value={energy} max={100} kind="energy"/>
         <small className="beta-vital-note">{energy < 50 ? 'RECARREGANDO · 2 DASHs / CARGA' : 'ESPAÇO · 2 DASHs / CARGA'}</small>
@@ -53,7 +56,7 @@ export function GameplayHud({ combat, map, openBackpack, openCargo }: { combat: 
       <aside className="beta-loadout" aria-label="Equipamentos · quatro espaços">
         <div className="beta-equipment-slots">
           {Array.from({ length: BACKPACK.equipmentSlots }, (_, slot) => {
-            if (slot > 2 || (slot === 0 && !rifleAllowed) || (slot === 1 && !swordAllowed))
+            if (slot > 2 || (slot === 0 && !missionKitReceived) || (slot === 1 && !swordAllowed) || (slot === 2 && !showMedicalKit))
               return <button key={slot} disabled className="beta-equipment-slot is-empty" title="Espaço de equipamento vazio">
                 <span className="beta-empty-mark" aria-hidden="true">+</span><kbd>{slot + 1}</kbd><span className="sr-only">{`Espaço ${slot + 1} vazio`}</span>
               </button>;
@@ -64,16 +67,18 @@ export function GameplayHud({ combat, map, openBackpack, openCargo }: { combat: 
             </button>;
           })}
         </div>
-        <button className={`beta-backpack ${full ? 'is-full' : ''}`} onClick={openBackpack} aria-label="Abrir mochila · B" title="Mochila · B">
-          <ItemArtwork item="backpack"/><div><span>MOCHILA <kbd>B</kbd></span><strong>{weight.toFixed(1).replace('.', ',')} <small>/ {BACKPACK.capacityKg} kg</small></strong>
-            <div className="beta-weight-track" role="progressbar" aria-label="Peso da mochila" aria-valuenow={Number(weight.toFixed(1))} aria-valuemin={0} aria-valuemax={BACKPACK.capacityKg}>
-              <i style={{ width: `${Math.min(100, weight / BACKPACK.capacityKg * 100)}%` }}/>
-            </div>
-          </div><ChevronRight size={13}/>
-        </button>
-        <ShipCargoButton map={map} onOpen={openCargo}/>
+        {missionKitReceived && <>
+          <button className={`beta-backpack ${full ? 'is-full' : ''}`} onClick={openBackpack} aria-label="Abrir mochila · B" title="Mochila · B">
+            <ItemArtwork item="backpack"/><div><span>MOCHILA <kbd>B</kbd></span><strong>{weight.toFixed(1).replace('.', ',')} <small>/ {BACKPACK.capacityKg} kg</small></strong>
+              <div className="beta-weight-track" role="progressbar" aria-label="Peso da mochila" aria-valuenow={Number(weight.toFixed(1))} aria-valuemin={0} aria-valuemax={BACKPACK.capacityKg}>
+                <i style={{ width: `${Math.min(100, weight / BACKPACK.capacityKg * 100)}%` }}/>
+              </div>
+            </div><ChevronRight size={13}/>
+          </button>
+          <ShipCargoButton map={map} onOpen={openCargo}/>
+        </>}
       </aside>
-      {(machete ? swordAllowed : rifleAllowed) && <aside className={`beta-ammo ${combat && !machete && s.ammo === 0 ? 'is-empty' : ''}`} aria-label={!combat ? 'Arma principal no coldre' : machete ? 'Facão equipado' : 'Munição do rifle'}>
+      {(machete ? swordAllowed : missionKitReceived) && <aside className={`beta-ammo ${combat && !machete && s.ammo === 0 ? 'is-empty' : ''}`} aria-label={!combat ? 'Arma principal no coldre' : machete ? 'Facão equipado' : 'Munição do rifle'}>
         <ItemArtwork item={machete ? 'machete' : 'ammo'}/><div><small>{machete ? 'FACÃO' : combat && s.reloading ? 'RECARREGANDO…' : 'RIFLE LASER'}</small>
           <strong>{combat ? machete ? MACHETE.damage : s.ammo : '—'}{!machete && <span> / {combat ? s.reserve : '—'}</span>}</strong><small>{!combat ? 'ARMA NO COLDRE' : machete ? 'DANO · BOTÃO ESQUERDO' : 'R · RECARREGAR'}</small>
         </div>

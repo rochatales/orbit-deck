@@ -37,6 +37,7 @@ const SCENE_STALL_MS = 90000;
 function Runtime({ onHome }: { onHome: () => void }) {
     const s = useExpeditionStore();
     const campaign = useCampaignStore();
+    const briefingRequired = engineerBriefingRequired(campaign);
     const progress = campaign.mode === 'campaign' ? campaign.saved?.campaign : undefined;
     const [engineerPreview] = useState(() => engineerPreviewMood(window.location.search));
     const paused = useGameStore(g => g.isPaused);
@@ -121,7 +122,7 @@ function Runtime({ onHome }: { onHome: () => void }) {
                 else if (action === 'close-dialogue')
                     state.closePanel();
             }
-            if (e.code === 'KeyB' && state.session.phase === 'walking' && !state.panel) {
+            if (e.code === 'KeyB' && !engineerBriefingRequired() && state.session.phase === 'walking' && !state.panel) {
                 e.preventDefault(); setPauseView('backpack'); useGameStore.setState({ isPaused: true });
             }
             if (e.code === 'KeyF' && toggleCargo()) e.preventDefault();
@@ -147,7 +148,7 @@ function Runtime({ onHome }: { onHome: () => void }) {
       <nav aria-label="Menu do jogo">{!paused && <>{settingsButton}{pauseButton}</>}</nav>
     </header>
     <aside className="beta-objective"><span>OBJETIVO</span>{campaign.mode === 'campaign' && campaign.saved ? campaignObjective(campaign.saved.campaign) : s.session.map === 'mars' ? 'Prepare sua expedição · Encontre EDEN' : 'Sobreviva às hordas · Recupere materiais'}</aside>
-    <GameplayHud combat={s.session.map === 'shanghai'} map={s.session.map} openBackpack={() => { if (s.ready && s.session.phase === 'walking' && !s.panel && !dead) { setPauseView('backpack'); useGameStore.setState({ isPaused: true }); } }}
+    <GameplayHud combat={s.session.map === 'shanghai'} map={s.session.map} openBackpack={() => { if (!engineerBriefingRequired() && s.ready && s.session.phase === 'walking' && !s.panel && !dead) { setPauseView('backpack'); useGameStore.setState({ isPaused: true }); } }}
       openCargo={() => { if (!engineerBriefingRequired() && isNearCargo(s.session.map, playerPosition) && s.ready && s.session.phase === 'walking' && !s.panel && !dead) { setPauseView('cargo'); useGameStore.setState({ isPaused: true }); } }}/>
     {s.session.map === 'shanghai' && <CombatHud/>}</>}
     {campaign.mode === 'campaign' && <RadioToast text={s.radio} sender={s.radioSender} serial={s.radioSerial} active={s.ready && !paused && !s.panel && s.session.phase === 'walking' && s.radioMap === s.session.map}/>}
@@ -169,7 +170,9 @@ function Runtime({ onHome }: { onHome: () => void }) {
     </PauseMenuFrame>}
     {paused && pauseView !== 'pause' && !(s.session.map === 'shanghai' && dead) && <PauseMenuFrame label={pauseView === 'backpack' ? 'Mochila' : pauseView === 'cargo' ? 'Carga da aeronave' : 'Controles e opções'} wide={pauseView === 'cargo'}>
       <div className="beta-menu-heading"><p className="eyebrow">EXODEN · EXPLORAÇÃO PAUSADA</p><button className="secondary" onClick={() => useGameStore.setState({ isPaused: false })} aria-label="Fechar menu">✕</button></div>
-      <div className="beta-menu-tabs"><button className={pauseView === 'menu' ? 'is-active' : 'secondary'} onClick={() => setPauseView('menu')}>Controles</button><button className={pauseView === 'backpack' ? 'is-active' : 'secondary'} onClick={() => setPauseView('backpack')}>Mochila</button><button className={pauseView === 'cargo' ? 'is-active' : 'secondary'} disabled={engineerBriefingRequired()} onClick={() => setPauseView('cargo')}>Aeronave</button></div>
+      <div className="beta-menu-tabs"><button className={pauseView === 'menu' ? 'is-active' : 'secondary'} onClick={() => setPauseView('menu')}>Controles</button>
+        {!briefingRequired && <><button className={pauseView === 'backpack' ? 'is-active' : 'secondary'} onClick={() => setPauseView('backpack')}>Mochila</button><button className={pauseView === 'cargo' ? 'is-active' : 'secondary'} onClick={() => setPauseView('cargo')}>Aeronave</button></>}
+      </div>
       {pauseView === 'cargo' ? <ShipCargoPanel map={s.session.map}/> : pauseView === 'backpack' ? <BackpackContents combat={s.session.map === 'shanghai'}/> : <>
         <h2>À sua maneira.</h2><ControlList/>
         <AudioControls/>

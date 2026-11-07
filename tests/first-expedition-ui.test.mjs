@@ -20,7 +20,7 @@ function setup(){
  return {load,expedition,campaign,game,combat:load('src/state/useCombatStore.ts').useCombatStore};
 }
 
-test('S3.2 UI: F, OPEN_CARGO_EVENT, botão e aba recusam porão no briefing, liberam depois; desenvolvimento continua liberado',()=>{
+test('S3.2 UI: B/F e ações de mochila/porão só abrem depois do briefing na campanha',()=>{
  const f=setup(),handlers=new Map(),effects=[],previousWindow=globalThis.window;
  const previous={};for(const name of ['HTMLInputElement','HTMLTextAreaElement','HTMLSelectElement','HTMLElement']){previous[name]=globalThis[name];globalThis[name]=class{};}
  globalThis.window={location:{search:''},addEventListener:(name,fn)=>handlers.set(name,fn),removeEventListener(){}};
@@ -41,9 +41,12 @@ test('S3.2 UI: F, OPEN_CARGO_EVENT, botão e aba recusam porão no briefing, lib
   const visit=node=>{if(!node||typeof node!=='object')return null;if(node.type===Hud)return node;const children=node.props?.children;for(const c of Array.isArray(children)?children:[children]){if(Array.isArray(c)){for(const v of c){const r=visit(v);if(r)return r;}}else{const r=visit(c);if(r)return r;}}return null;};
   const hud=visit(tree);assert.ok(hud);f.load('src/state/playerTransient.ts').placePlayer(f.load('src/game/config.ts').MAPS.mars.exit);
   const event={code:'KeyF',repeat:false,target:null,preventDefault(){}};
+  const backpackEvent={...event,code:'KeyB'};
+  handlers.get('keydown')(backpackEvent);hud.props.openBackpack();assert.equal(f.game.getState().isPaused,false);
   handlers.get('keydown')(event);handlers.get('exoden:abrir-carga')();hud.props.openCargo();assert.equal(f.game.getState().isPaused,false);
   f.campaign.getState().dispatch('finish-engineer-briefing');handlers.get('exoden:abrir-carga')();assert.equal(f.game.getState().isPaused,true);
   f.game.setState({isPaused:false});handlers.get('keydown')(event);assert.equal(f.game.getState().isPaused,true);
+  f.game.setState({isPaused:false});handlers.get('keydown')(backpackEvent);assert.equal(f.game.getState().isPaused,true);
   f.expedition.getState().returnHome();f.expedition.getState().enterDevelopment();f.expedition.getState().setReady(true);f.load('src/state/playerTransient.ts').placePlayer(f.load('src/game/config.ts').MAPS.mars.exit);
   handlers.get('exoden:abrir-carga')();assert.equal(f.game.getState().isPaused,true);
  }finally{globalThis.window=previousWindow;for(const[name,value]of Object.entries(previous))globalThis[name]=value;}
@@ -99,14 +102,23 @@ function textTree(node){
  if(Array.isArray(node))return node.map(textTree).join(' ');
  return node?.props?textTree(node.props.children):'';
 }
+function nodes(node, predicate, result = []) {
+ if (Array.isArray(node)) for (const child of node) nodes(child, predicate, result);
+ else if (node && typeof node === 'object') {
+  if (predicate(node)) result.push(node);
+  nodes(node.props?.children, predicate, result);
+ }
+ return result;
+}
 function renderWithStores(file, f, name, props={}) {
  const require=spec=>{
   if(spec==='react')return {useEffect(){},useRef:value=>({current:value}),useState:value=>[value,()=>{}]};
   if(spec.includes('/state/')) {const actual=f.load('src/state/'+spec.split('/').at(-1)+'.ts');return Object.fromEntries(Object.entries(actual).map(([k,v])=>[k,k.startsWith('use')&&v.getState?hook(v):v]));}
   if(spec.endsWith('.css'))return {};
   if(/\.(jpg|png|mp4)$/.test(spec))return spec;
-  if(spec.endsWith('/ShipCargoPanel'))return {ShipCargoPanel:()=>null,ShipCargoButton:()=>null};
-  if(spec.endsWith('/ItemArtwork') || spec.endsWith('/RadarMap'))return new Proxy({}, {get:()=>()=>null});
+  if(spec.endsWith('/ShipCargoPanel'))return {ShipCargoPanel:()=>null,ShipCargoButton:'test-ship-cargo'};
+  if(spec.endsWith('/RadarMap'))return {RadarMap:'test-sonar'};
+  if(spec.endsWith('/ItemArtwork'))return {ItemArtwork:'test-item'};
   if(spec.endsWith('/WeaponControls'))return {canEquipPlayerWeapon:()=>true,equipPlayerWeapon:()=>true};
   if(spec.startsWith('.'))return f.load(path.resolve(path.dirname(file),spec)+'.ts');
   return native(spec);
@@ -154,20 +166,34 @@ test('Circuito inicial UI: cabine orienta o pedestal e a segunda expedição mos
     }
 });
 
-test('S3.2 UI: HUD e mochila exibem apenas as armas que a campanha já entregou', () => {
+test('S3.2 UI: briefing libera rifle, sonar e menus; kit médico aparece quando coletado', () => {
     const f = setup(), file = 'src/ui/GameplayHud.tsx';
-    const hud = () => textTree(renderWithStores(file, f, 'GameplayHud', { combat: false, map: 'mars' }));
+    const hud = (combat = false) => renderWithStores(file, f, 'GameplayHud', { combat, map: combat ? 'shanghai' : 'mars' });
     const backpack = () => textTree(renderWithStores(file, f, 'BackpackContents', { combat: false }));
-    assert.match(hud(), /MOCHILA/);
-    for (const text of [hud(), backpack()]) assert.doesNotMatch(text, /rifle|facão|coldre/i);
+    const mounted = type => nodes(hud(), node => node.type === type).length;
+    const medicalArt = tree => nodes(tree, node => node.type === 'test-item' && node.props.item === 'medical').length;
+    assert.doesNotMatch(textTree(hud()), /MOCHILA|kit médico/i);
+    assert.equal(mounted('test-sonar'), 0);
+    assert.equal(mounted('test-ship-cargo'), 0);
+    assert.equal(medicalArt(hud()), 0);
+    for (const text of [textTree(hud()), backpack()]) assert.doesNotMatch(text, /rifle|facão|coldre/i);
     f.campaign.getState().dispatch('finish-engineer-briefing');
-    for (const text of [hud(), backpack()]) {
+    assert.match(textTree(hud()), /MOCHILA/);
+    assert.equal(mounted('test-sonar'), 1);
+    assert.equal(mounted('test-ship-cargo'), 1);
+    assert.equal(medicalArt(hud(true)), 0);
+    f.combat.setState({ medkits: 1 });
+    assert.equal(medicalArt(hud(true)), 1);
+    for (const text of [textTree(hud()), backpack()]) {
         assert.match(text, /rifle laser/i);
         assert.doesNotMatch(text, /facão/i);
     }
     f.expedition.getState().returnHome();
     f.expedition.getState().enterDevelopment();
-    for (const text of [hud(), backpack()]) {
+    assert.equal(mounted('test-sonar'), 1);
+    assert.equal(mounted('test-ship-cargo'), 1);
+    assert.equal(medicalArt(hud()), 1);
+    for (const text of [textTree(hud()), backpack()]) {
         assert.match(text, /rifle laser/i);
         assert.match(text, /facão/i);
     }
@@ -194,7 +220,6 @@ test('S6.15 na S3.2: ESC mostra pausa simples, engrenagem abre opções e saída
   if(spec.startsWith('.'))return new Proxy({}, {get:()=>()=>null});
   return native(spec);
  };
- const nodes=(node,predicate,result=[])=>{if(Array.isArray(node)){for(const child of node)nodes(child,predicate,result);}else if(node&&typeof node==='object'){if(predicate(node))result.push(node);nodes(node.props?.children,predicate,result);}return result;};
  try{
   const {Runtime}=jsx('src/app/App.tsx',require);
   const render=()=>{stateIndex=0;refIndex=0;effects.length=0;tree=Runtime({onHome:()=>{home++;f.expedition.getState().returnHome();}});return tree;};
@@ -210,14 +235,16 @@ test('S6.15 na S3.2: ESC mostra pausa simples, engrenagem abre opções e saída
   let modal=nodes(tree,n=>n.type===Frame)[0];assert.equal(modal.props.minimal,true);assert.equal(modal.props.label,'Jogo pausado');assert.match(textTree(modal),/Pausado/);assert.doesNotMatch(textTree(modal),/À sua maneira|Sair e voltar/);
   gear=nodes(modal.props.tools,n=>n.props?.['aria-label']==='Abrir controles e opções');assert.equal(gear.length,1);
   gear[0].props.onClick();render();modal=nodes(tree,n=>n.type===Frame)[0];assert.equal(modal.props.label,'Controles e opções');assert.equal(f.game.getState().isPaused,true);
+  assert.equal(nodes(modal,n=>n.type==='button'&&['Mochila','Aeronave'].includes(textTree(n))).length,0);
   const exit=nodes(modal,n=>n.type==='button'&&textTree(n)==='Sair e voltar ao menu principal')[0];assert.ok(exit);
   key('Escape');render();assert.equal(f.game.getState().isPaused,false);assert.equal(nodes(tree,n=>n.type===Frame).length,0);
   // Diálogo mantém prioridade sobre pausa.
   f.expedition.setState({panel:'engineer'});key('Escape');assert.equal(f.expedition.getState().panel,null);assert.equal(f.game.getState().isPaused,false);
-  // B continua abrindo mochila; ESC seguinte é sempre pausa simples.
+  f.campaign.getState().dispatch('finish-engineer-briefing');
+  // Depois do briefing, B abre a mochila. ESC seguinte é sempre pausa simples.
   key('KeyB');render();assert.equal(nodes(tree,n=>n.type===Frame)[0].props.label,'Mochila');key('Escape');render();key('Escape');render();assert.equal(nodes(tree,n=>n.type===Frame)[0].props.minimal,true);
   // Sair pelo menu mantém o descarte da tentativa, sem excluir o perfil/carga anterior.
-  f.campaign.getState().dispatch('finish-engineer-briefing');f.campaign.getState().setCargo({iron:0,copper:5,titanium:0,organic:0});f.campaign.getState().transferCargo({iron:0,copper:7,titanium:0,organic:0});
+  f.campaign.getState().setCargo({iron:0,copper:5,titanium:0,organic:0});f.campaign.getState().transferCargo({iron:0,copper:7,titanium:0,organic:0});
   exit.props.onClick();assert.equal(home,1);assert.equal(f.campaign.getState().saved.cargo.copper,5);assert.equal(f.campaign.getState().saved.profile.displayName,'UI QA');assert.equal(f.campaign.getState().inGame,false);
  }finally{globalThis.window=previousWindow;for(const[name,value]of Object.entries(previous))globalThis[name]=value;}
 });
