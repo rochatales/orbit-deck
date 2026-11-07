@@ -262,3 +262,12 @@ git apply docs/handoffs/revisao-sprints-2026-11-07-quadro.patch
 
 O registro das decisões em `HORDA_SURVIVOR_AUDITORIA_E_PLANO.md` (§7.4, §7.5 e
 uma seção nova de economia v0.3) fica para quando o autor pedir.
+
+## 7. Aplicação aprovada pelo autor · 07/11/2026
+
+O autor aprovou a aplicação. Os patches não aplicam na integração, nem em
+`b54162c` nem em `90e7734`, porque dependem da linha `s3.2-primeira-expedicao`,
+ainda não consolidada. Por decisão do autor, foram aplicados **nesta branch**,
+que parte de `d128817`, como exceção explícita à regra de não editar o plano e o
+quadro em branch de tarefa. Eles entram na integração junto com a consolidação
+dessa linha. Sem merge e sem push.

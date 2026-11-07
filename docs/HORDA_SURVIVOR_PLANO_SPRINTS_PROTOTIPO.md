@@ -1,5 +1,21 @@
 # EXODEN — Sprints do protótipo Shanghai
 
+> **Revisão de game design · 07/11/2026:** EXODEN passa a ser um ARPG isométrico
+> hack and slash roguelite com foco em sobrevivência de base: limpar hordas na Terra
+> para garantir a sobrevivência de uma colônia humana em Marte. Ciclo de risco:
+> **extração por aniquilação** (retorno só com o mapa limpo), **derrota volta para
+> antes da decolagem** e custa suprimentos, **colapso da colônia** encerra a
+> campanha e **evolução das armas** libera golpes novos. O protótipo (até a S5)
+> recebe um corte mínimo desse ciclo (S3.9, S4.7, S4.9, S5.12–S5.14); a cadeia
+> econômica v0.3 completa entra na **Sprint 8** e a progressão de combate, Data
+> Center e escolha de mapa na **Sprint 9**. O circuito de 05/11 (Engenheiro,
+> 4 Patrol, 4 cobres, 10 matérias orgânicas) continua valendo.
+> [Revisão e perguntas ao autor](handoffs/revisao-sprints-2026-11-07.md).
+> Decisões do autor em 07/11: só o mapa limpo libera o retorno; corte mínimo por
+> estoque agregado (10 inicial, −1 por decolagem, −2 por falha, +3 por retorno
+> limpo, colapso em 0); colapso definitivo; placas ao backlog; moral na Sprint 8.
+> Receitas da v0.3 e golpes do facão de plasma continuam **[A DEFINIR]**.
+
 > **Introdução revisada pelo autor · 05/11/2026:** Marte começa desativado,
 > com o Engenheiro. Primeiro objetivo: **4 cobres**; retorno liga EDEN e três
 > salas. Depois, Oficina/espada e pequenos mutantes em ondas **4/6**, para
@@ -64,7 +80,7 @@ Consolidação de 19/10/2026: [plano por fases](consolidacao/PLANO_SPRINTS_0_2.m
 
 ## 1. Resultado esperado e ordem de prioridade
 
-**Marco funcional:** Marte desativado/Engenheiro → primeira expedição com quatro Patrol → 4 cobres → retorno/ativação de EDEN e Sala de Controle/Data Center/Meeting Room → EDEN/Oficina/espada → pequenos mutantes 4/6 → 10 matérias orgânicas → retorno/ativação do sintetizador orgânico e Laboratório/Estufa/Food Storage → quatro hordas posteriores. Também perder e recomeçar sem consolidar loot ou progresso da tentativa derrotada. O modo/save de desenvolvimento conserva os encontros atuais. Diamantes e receitas antigas de fabricação ficam para evolução posterior.
+**Marco funcional:** Marte desativado/Engenheiro → primeira expedição com quatro Patrol → 4 cobres → retorno/ativação de EDEN e Sala de Controle/Data Center/Meeting Room → EDEN/Oficina/espada → pequenos mutantes 4/6 → 10 matérias orgânicas → retorno/ativação do sintetizador orgânico e Laboratório/Estufa/Food Storage → quatro hordas posteriores. Também perder e voltar a Marte antes da decolagem sem consolidar loot ou progresso da tentativa derrotada, pagando o custo de suprimentos da falha; falhas seguidas podem colapsar a colônia e encerrar a campanha. O retorno de cada expedição só libera com o mapa limpo. O modo/save de desenvolvimento conserva os encontros atuais e nunca colapsa. Diamantes e receitas antigas de fabricação ficam para evolução posterior.
 
 Prioridade definida pelo autor:
 
@@ -90,7 +106,8 @@ Sprints são pacotes de entrega, sem duração de calendário presumida. Cada um
 - Introdução por expedições: quatro Patrol (um por esquina), retorno/circuito no hub e nova visita com espada contra pequenos mutantes 4/6. Depois, quatro hordas 13/26/32/44, também preservadas no modo de desenvolvimento; ver regra de 05/11 na S3.
 - Três minas e duas barreiras neon azul como kit de teste de dispositivos, com regras ajustáveis. A etapa de concessão no circuito introdutório ainda será definida; não pressupor esse kit na primeira visita de quatro Patrol.
 - Materiais, munição e dispositivos em compartimentos separados.
-- Coleta do mapa e inimigos, objetivo obrigatório, extração e depósito persistente no hub.
+- Coleta do mapa e inimigos, objetivo obrigatório, extração por aniquilação (mapa limpo: fila de spawn vazia e nenhum inimigo vivo do encontro) e depósito persistente no hub.
+- Corte mínimo da sobrevivência da colônia: um estoque vital, custo por falha, aviso de EDEN, colapso e Game Over da campanha (S5.12–S5.14). A cadeia v0.3 completa fica na Sprint 8.
 - Ativação de EDEN no primeiro retorno por 4 cobres e do sintetizador orgânico no segundo, por 10 matérias orgânicas; salas acendem por etapa. A receita anterior de diamantes (20 ferro + 20 cobre + 4 placas) não bloqueia esses retornos e fica para evolução posterior.
 - Save do progresso consolidado no hub e tratamento dos dados antigos do produto MCP.
 
@@ -101,7 +118,7 @@ Sprints são pacotes de entrega, sem duração de calendário presumida. Cada um
 - Rifle simples com dano instantâneo por raycast, bloqueado por paredes; traçador visual. Dano, cadência, carregador e reserva em configuração, calibrados no sprint 2.
 - Materiais de inimigos coletados por proximidade; depósitos, placas, nave e laboratório por interação. Carga de materiais com limite atual de 30 kg; quatro espaços de equipamento, munição e dispositivos separados dessa carga (S4.1).
 - Decisão do autor em 02/11/2026: quatro kits médicos por tentativa em Shanghai; revisão de 04/11: coletados por contato e guardados nos itens; usar 3 recupera 50 HP até 100, sem gastar com vida cheia. Sem reposição entre as quatro hordas. Decisão do autor em 02/11/2026: energia da mochila limita o Dash a duas cargas, com regeneração total em 5 s; barra azul no HUD beta. Poderes futuros permanecem fora do escopo.
-- Ao perder, reiniciar com kit inicial e HP restaurado. Equipamentos e progresso já consolidados no hub não são perdidos.
+- Ao perder na campanha, voltar a Marte no estado anterior à decolagem (Hangar/deck), com kit inicial e HP restaurado, sem a carga da tentativa e com o custo fixo de suprimentos da falha (S5.12; morte, abandono e reload contam como falha). Equipamentos e progresso já consolidados no hub não são perdidos. O desenvolvimento mantém o **Tentar novamente** em Shanghai.
 - Fechar/abandonar uma missão descarta seu loot temporário; ao reabrir, retornar ao hub. Sem retomada de onda.
 - Sintetizador orgânico em posição predefinida. Sem construção livre ou catálogo genérico de receitas.
 
@@ -113,7 +130,9 @@ A entrega obrigatória do primeiro circuito termina no sintetizador orgânico li
 e nas ativações de salas indicadas no [contrato de 05/11](sprint-3/CIRCUITO_INICIAL.md).
 Acender Estufa e Food Storage integra esse marco; produção/gestão completas,
 diamantes, construção espacial, upgrades, novos mapas e resgate intermediário
-ficam para evolução posterior. Adaptação das hordas também é posterior, sem
+ficam para evolução posterior. Pela revisão de 07/11, a cadeia econômica v0.3
+(secundários, terciários e consumo das oito unidades) vai para a Sprint 8; Oficina
+com golpes novos, Data Center, Quarters e escolha de mapa vão para a Sprint 9. Adaptação das hordas também é posterior, sem
 cancelar a visão do autor; conservar as quatro hordas fixas e o modo de teste.
 
 ### Fluxo físico de viagem — requisito do autor
@@ -124,8 +143,8 @@ O deck de lançamento integra o mapa de Marte, conectado por uma rota caminháve
 2. Usa a interação para embarcar. Enquanto estacionada em Marte, pode desembarcar e voltar ao hub sem iniciar ou consumir uma tentativa.
 3. A bordo, seleciona Shanghai e aciona **Decolar**. Embarcar e partir são ações distintas; a interação de saída continua disponível até iniciar a viagem.
 4. Uma transição curta representa a viagem e o pouso na Terra. O jogador desembarca em uma área segura; o briefing inicial antecede o começo da primeira onda.
-5. A nave e seu marcador precisam permitir o retorno da etapa atual: quatro cobres na primeira visita, dez matérias orgânicas na segunda. A proposta anterior de a nave esperar todas as hordas não pode bloquear esses retornos. A apresentação de chegada/espera/retorno ainda será implementada.
-6. O jogador pode embarcar na aeronave retornada e desembarcar para continuar procurando loot. **Retornar a Marte** usa o objetivo da etapa atual. No primeiro retorno, o requisito são os quatro cobres solicitados pelo Engenheiro, sem exigir a receita completa da máquina ou todas as hordas futuras. Embarcar não deposita recursos nem encerra a missão.
+5. A nave e seu marcador liberam o retorno quando o **mapa estiver limpo** (extração por aniquilação, revisão de 07/11): fila de spawn vazia e nenhum inimigo vivo do encontro da etapa. Na introdução, limpar o mapa já disponibiliza a quota (4 Patrol soltam 4 cobres; 4 + 6 mutantes soltam 10 matérias orgânicas). A apresentação de chegada/espera/retorno ainda será implementada.
+6. O jogador pode embarcar na aeronave e desembarcar para continuar procurando loot. **Retornar a Marte** exige o mapa limpo; a quota da etapa decide se a campanha avança, não se a nave decola. Quota parcial com mapa limpo permite voltar e repetir a visita. Embarcar não deposita recursos nem encerra a missão.
 7. Ao confirmar retorno, executar a extração uma única vez, carregar Marte e representar o pouso no deck. O jogador desembarca num ponto seguro e segue para a interação da etapa atual: EDEN no primeiro retorno; sintetizador/Laboratório no segundo.
 
 Proposta de implementação inicial: cabine compacta com ponto de embarque, posição a bordo e ponto de saída, usando geometria simples. Não requer interior detalhado, controle de voo ou simulação espacial. A troca de cena acontece somente ao confirmar partida/retorno; usar estados explícitos para estacionada, embarcado, viajando e pousada. Bloquear comandos repetidos e restaurar câmera/controles ao desembarcar. Falha ao carregar o destino deve permitir tentar novamente sem perder recursos ou duplicar a extração.
@@ -144,8 +163,10 @@ A localização exata do deck será definida no blockout do sprint 1, preservand
 | 5 | Ativações do hub e validação do ciclo | EDEN/sintetizador/salas por etapa, salvar, recarregar e continuar | 4 |
 | 6 | Estética dos elementos | Formas e animações legíveis em cenário coerente | 5 + playtest |
 | 7 | Texturas e entrega visual | Protótipo texturizado, medido e revisado | 6 |
+| 8 | Economia e sobrevivência da colônia | Cadeia v0.3: primários → Sintetizador → Estufa → consumo das unidades, colapso por recurso | 5 + playtest |
+| 9 | Progressão de combate e expansão | Oficina com golpes novos, Data Center, Quarters, Hangar e escolha de mapa pela Control Room | 8 (ferro/titânio disputados) |
 
-**Protótipo funcional entregue ao fim do sprint 5.** Os sprints 6 e 7 refinam sua apresentação, sem acrescentar sistemas de gameplay.
+**Protótipo funcional entregue ao fim do sprint 5.** Os sprints 6 e 7 refinam sua apresentação, sem acrescentar sistemas de gameplay. Os sprints 8 e 9 (revisão de 07/11) acrescentam sistemas de gameplay depois do protótipo; a numeração vem após a 7 para preservar a existente, mas a execução depende só da S5.8 e pode correr em paralelo à arte das S6/S7.
 
 ## 4. Sprint 0 — Preservação, inventário e referência
 
@@ -237,15 +258,15 @@ posterior. A história intermediária de EDEN e a apresentação das interaçõe
 serão preenchidas. Esta decisão substitui três ondas/teto oito/intervalo 15 s e
 carga de placas como requisito da primeira visita. [Contrato completo](sprint-3/CIRCUITO_INICIAL.md).
 
-- [ ] S3.1 Implementar a progressão do primeiro circuito por expedições (Patrol → retorno/circuito em Marte → espada e pequenos mutantes → quatro hordas), com fila de spawn seguro. Concluir encontro somente com fila vazia e todos os inimigos derrotados; a coleta e o retorno têm critérios próprios. Preservar encontros de teste independentes da progressão.
-- [ ] S3.2 Configurar quatro Patrol comuns no primeiro combate, um por esquina próxima ao quarteirão do jogador; depois, em nova visita após o circuito do hub, pequenos mutantes em ondas de 4 e 6 com a espada. Após a introdução, usar as quatro hordas 13/26/32/44, 4 s iniciais e 6 s entre hordas como na versão aprovada. Tempos da etapa introdutória ainda a validar.
+- [ ] S3.1 Implementar a progressão do primeiro circuito por expedições (Patrol → retorno/circuito em Marte → facão de plasma e pequenos mutantes → quatro hordas), com fila de spawn seguro. Concluir encontro somente com fila vazia e todos os inimigos derrotados; esse "mapa limpo" é a condição de retorno (S4.7), e a quota decide o avanço da etapa. Preservar encontros de teste independentes da progressão. *Revisão 07/11: o estado/save da campanha também guarda o estoque vital e o fim de campanha da S5.12–S5.14.*
+- [ ] S3.2 Configurar quatro Patrol Shangai comuns no primeiro combate, um por esquina próxima ao quarteirão do jogador; depois, em nova visita após o circuito do hub, Mutantes Shangai em ondas de 4 e 6 com o facão de plasma. Após a introdução, usar as quatro hordas 13/26/32/44, 4 s iniciais e 6 s entre hordas como na versão aprovada. Tempos da etapa introdutória ainda a validar.
 - [ ] S3.3 Implementar criatura pequena e investida sinalizada da grande usando formas/cores diferentes. Espécie e modelo final não bloqueiam o teste.
 - [ ] S3.4 Validar spawn em áreas alcançáveis, fora da posição do jogador e de obstáculos; prever recuperação de inimigo preso sem multiplicar drops.
 - [ ] S3.5 Implementar três minas com detecção e dano em área, consumidas uma vez na implantação.
 - [ ] S3.6 Implementar duas barreiras azuis, destrutíveis e temporárias; inimigos podem atacá-las e tiros do jogador atravessam conforme regra proposta.
 - [ ] S3.7 Adicionar preview/validação de implantação e impedir bloqueio da nave ou aprisionamento. Atualizar navegação ao colocar/remover barreira.
 - [ ] S3.8 Ajustar suprimento de munição e criar reposições alcançáveis no cenário para a missão ser vencível com margem de erro. Munição permanece separada da bolsa de materiais.
-- [ ] S3.9 Exibir etapa/onda atual e SHANGHAI CLEAR; encerrar spawns após o encontro configurado, manter exploração livre e orientar coleta/retorno por rádio. Não avançar automaticamente da etapa de Patrol para mutantes sem o retorno e o circuito em Marte.
+- [ ] S3.9 Exibir etapa/onda atual e SHANGHAI CLEAR somente com o mapa limpo (fila do encontro vazia e nenhum inimigo vivo); encerrar spawns após o encontro configurado, manter exploração livre e orientar coleta/retorno por rádio. Antes do CLEAR, informar quantos inimigos restam. Não avançar automaticamente da etapa de Patrol para mutantes sem o retorno e o circuito em Marte.
 
 - [ ] S3.10 Adicionar feedback mínimo por evento: disparo vazio/recarga, acerto, dano, aviso de investida, explosão de mina e quebra de barreira. Sons provisórios locais/licenciados e volume/mute; sinais visuais continuam suficientes com áudio desligado. Sons só iniciam após gesto do usuário e respeitam pausa/retorno.
 - [ ] S3.11 Limitar duração e quantidade de traçadores/partículas e reutilizar recursos onde a medição justificar; reinício remove todos os efeitos. Não adicionar hit-stop ou tremor obrigatório ao combate inicial.
@@ -258,25 +279,25 @@ Saída: primeiro circuito concluível em expedições com retorno/circuito no hu
 Objetivo: ligar combate e exploração à recuperação de recursos.
 
 - [ ] S4.1 Implementar inventário temporário com materiais, munição e dispositivos separados; quantidade empilhada e capacidade visíveis. *Parte antecipada por pedido do autor em 02/11/2026: capacidade inicial de 30 kg para recursos (ferro 0,5 kg; cobre 0,3; titânio 0,4; orgânica 0,2), peso real no HUD, quatro espaços de equipamento e mochila acessível por B. Escolha de arma principal pelo inventário e kits médicos guardados também aprovados pelo autor em 03/11/2026; carga permanece temporária. Não encerra dispositivos, extração nem persistência. [Handoff](handoffs/s6.6-hud-beta.md).*
-- [ ] S4.2 Garantir drops: cada robô entrega 1 ferro + 1 cobre; pequenos entregam 1 matéria orgânica; grandes entregam 2. Evitar drop duplicado por morte/dano simultâneo.
-- [ ] S4.3 Implementar dois depósitos com 2 ferro + 2 cobre cada e seis placas escondidas em pontos alcançáveis. Persistir loot no mapa até coleta/fim da tentativa.
+- [ ] S4.2 Garantir drops: cada Patrol Shangai entrega 1 ferro + 1 cobre; Patrol Shangai Pesado, 1 titânio; Mutante Shangai, 1 matéria orgânica; Mutante Shangai Pesado, 3 matérias orgânicas (valor do runtime; o texto anterior dizia 2). Evitar drop duplicado por morte/dano simultâneo.
+- [ ] S4.3 Implementar dois depósitos com recursos primários (proposta: 2 ferro + 2 cobre cada) em pontos alcançáveis. Persistir loot no mapa até coleta/fim da tentativa. *Revisão 07/11: as seis placas de alumínio não existem na cadeia v0.3; saem do protótipo para o backlog (item 1).*
 - [ ] S4.4 Mostrar o objetivo de cada etapa: **4 cobres** na primeira expedição e **10 matérias orgânicas** na segunda, com as ativações de EDEN/sintetizador nos retornos. A proposta anterior de 20 ferro, 20 cobre, 4 placas e 10 matérias orgânicas é referência de carga para a máquina/produção posterior, não requisito da primeira visita com quatro Patrol. Garantir capacidade para a carga exigida em cada etapa e evitar descarte irreversível de itens obrigatórios.
 - [ ] S4.5 Implementar rádio por eventos: Engenheiro na chegada/objetivo de quatro cobres da primeira expedição; EDEN após ser ligada, com orientação da Oficina/espada, mutantes, dez matérias orgânicas e retorno ao sintetizador; falas não repetem a cada frame nem anunciam objetivo ainda incompleto como concluído.
 - [ ] S4.6 Reconhecer recursos do objetivo atual coletados antecipadamente; indicar faltantes e oferecer orientação caso a busca se prolongue. Reconhecimento específico de placas pertence à etapa posterior que vier a exigi-las, sem bloquear as duas visitas iniciais.
-- [ ] S4.7 Sinalizar a nave conforme o encontro/objetivo da etapa e permitir embarcar/desembarcar para continuar explorando. Liberar o retorno separado a Marte pelo objetivo atual: no primeiro combate, quatro cobres anunciados pelo Engenheiro; na segunda visita, dez matérias orgânicas anunciadas por EDEN. Não exigir a receita antiga, placas ou hordas futuras; extração efetiva é distinta de embarcar.
+- [ ] S4.7 Sinalizar a nave conforme o encontro/objetivo da etapa e permitir embarcar/desembarcar para continuar explorando. **Extração por aniquilação (revisão 07/11):** liberar o retorno a Marte somente com o mapa limpo da S3.9; a cabine mostra inimigos restantes e a quota da etapa (quatro cobres anunciados pelo Engenheiro; dez matérias orgânicas anunciadas por EDEN). Quota parcial com mapa limpo permite retornar e repetir a visita. Não exigir a receita antiga ou placas; extração efetiva é distinta de embarcar. Desenvolvimento mantém o retorno livre.
 - [ ] S4.8 Transferir loot ao depósito do hub uma única vez, usando identificador de expedição e atualização persistente coerente. Tela de resultado informa carga recuperada. Pousar no deck de Marte e permitir desembarque e caminhada ao destino da etapa (EDEN no primeiro retorno, sintetizador/Laboratório no segundo); entrar na cabine por si só não confirma loot.
-- [ ] S4.9 Derrota/abandono descarta inventário temporário e recomeça sem loot anterior. Reload durante missão retorna ao hub sem conceder recompensa.
+- [ ] S4.9 Derrota/abandono descarta mochila e saldo do porão da tentativa e volta a Marte no estado anterior à decolagem, sem loot da tentativa; carga de visitas anteriores e progresso do hub preservados. Na campanha, a falha registra o custo de suprimentos da S5.12 uma vez por tentativa (sem cobrança dupla em morte + reload). Reload durante missão retorna ao hub sem conceder recompensa.
 
 - [ ] S4.10 Tornar objetivos legíveis: destaque de interação, ícone/rótulo de recurso e marcador direcional da aeronave quando liberada. Diferenciar recursos do objetivo atual de decoração, sem exigir placas nos retornos de cobre/orgânica; usar forma/texto além de cor. Sem minimapa completo nesta entrega.
 - [ ] S4.11 Usar rádio do Engenheiro/EDEN conforme a etapa, por prioridade e fila curta, sem sobrepor instruções nem bloquear movimento com coreografias. Interação responde ao comando imediatamente; falas e efeitos não duplicam coleta ou extração.
 
-Saída: cada expedição informa e aceita o objetivo da etapa, incluindo quatro cobres no primeiro retorno e dez matérias orgânicas no segundo. Os antigos totais 24 ferro, 24 cobre, 12 matérias orgânicas e 6 placas são referência da proposta anterior de 30 inimigos; rebalancear disponibilidade e receitas para o novo circuito antes de exigir a carga da máquina. Extração deposita uma vez; morrer ou fechar antes dela não deposita nada. Validar as quotas atuais antes/depois do encontro; os testes de placas ficam para a etapa posterior que vier a exigi-las.
+Saída: cada expedição só retorna com o mapa limpo e informa e aceita o objetivo da etapa, incluindo quatro cobres no primeiro retorno e dez matérias orgânicas no segundo. Derrota volta a Marte antes da decolagem. Os antigos totais 24 ferro, 24 cobre, 12 matérias orgânicas e 6 placas são referência da proposta anterior de 30 inimigos; rebalancear disponibilidade e receitas para o novo circuito antes de exigir a carga da máquina. Extração deposita uma vez; morrer ou fechar antes dela não deposita nada. Validar as quotas atuais antes/depois do encontro; os testes de placas ficam para a etapa posterior que vier a exigi-las.
 
 ## 9. Sprint 5 — Ativações do hub e validação funcional
 
 Objetivo: concluir o primeiro circuito definido em 05/11, ativar EDEN/sintetizador e as salas correspondentes, salvar o progresso e validar a jogabilidade. Fabricação/diamantes da proposta anterior não bloqueiam essa introdução.
 
-- [ ] S5.1 Incluir o Engenheiro como NPC funcional inicial e suas interações de briefing e entrega da espada na Oficina. Criar interações no hub para ligar EDEN após a primeira carga de 4 cobres e o sintetizador orgânico após a segunda carga de 10 matérias orgânicas. Mostrar o objetivo/faltantes reais; definir o consumo uma única vez sem inventar a receita antiga de diamantes nessa introdução.
+- [ ] S5.1 Incluir o Engenheiro como NPC funcional inicial e suas interações de briefing e entrega do facão de plasma na Oficina. Criar interações no hub para ligar EDEN após a primeira carga de 4 cobres e o sintetizador orgânico após a segunda carga de 10 matérias orgânicas. Mostrar o objetivo/faltantes reais; definir o consumo uma única vez sem inventar a receita antiga de diamantes nessa introdução.
 - [ ] S5.2 Executar cada ativação como uma única transição persistente: validar a carga confirmada e marcar a etapa. Quando houver consumo definido, debitar uma vez; repetir interação não cobra nem concede outra ativação/arma.
 - [ ] S5.3 Representar o estado inicial desativado, o Engenheiro e a entrega da espada com volumes/modelos provisórios até arte final; implementar as ativações: EDEN/Sala de Controle/Data Center/Meeting Room no primeiro retorno; sintetizador orgânico/Laboratório/Estufa/Food Storage no segundo. Usar apresentação provisória funcional, preservando prédios, corredores e enquadramento.
 - [ ] S5.4 Salvar carga restante, etapa da introdução, entrega da espada e ativações de EDEN/sintetizador/salas. Reconstruir o estado visual corretamente após reload.
@@ -289,7 +310,19 @@ Objetivo: concluir o primeiro circuito definido em 05/11, ativar EDEN/sintetizad
 - [ ] S5.10 Medir três ciclos de missão/retry/retorno e liberar recursos exclusivos de cena/áudio/efeitos. Comparar carregamento, frames longos e memória com S2.9, sem tratar contagem de callbacks como FPS de GPU.
 - [ ] S5.11 Validar ativação de EDEN/sintetizador e salas com efeito visual e sonoro simples, preservando circulação e save. Essa apresentação usa formas provisórias até a etapa de arte.
 
-Saída técnica: duas expedições introdutórias funcionais em build de produção, com quatro cobres e dez matérias orgânicas, retornos e ativações de EDEN/sintetizador/salas persistidas sem duplicação. A entrega da espada ocorre na Oficina antes dos mutantes. O save de desenvolvimento conserva a experiência atual. Não aplicar as sobras calculadas para a antiga receita de diamantes; consumo e balanço final dependem das interações efetivamente definidas.
+### Corte mínimo da sobrevivência da colônia — revisão de 07/11/2026
+
+Objetivo: tornar real no protótipo o peso de cada falha, sem a cadeia v0.3
+completa (Sprint 8). Valores iniciais aprovados pelo autor em 07/11, em
+configuração centralizada e ajustáveis no playtest. Só na campanha; o
+desenvolvimento não consome, não colapsa e não tem seus saves alterados. A moral
+(Meeting Room) fica para a Sprint 8.
+
+- [ ] S5.12 Criar um estoque vital agregado da colônia ("suprimentos") no save da campanha: **inicial 10**; cada decolagem custa **1**; cada falha custa **+2**, valor fixo; cada retorno com mapa limpo repõe **3**. Morte, abandono e reload durante a missão contam como falha, debitada uma única vez por tentativa. Mostrar o estoque e o custo previsto na cabine antes de **Decolar**.
+- [ ] S5.13 EDEN (ou o Engenheiro, antes de EDEN ligar) avisa por rádio quando o estoque cruza os limiares de risco (proposta: 5 e 2); aviso uma vez por limiar, sem repetir por frame nem antes de EDEN existir.
+- [ ] S5.14 Colapso com o estoque em **0**: **fim definitivo**. Marcar a campanha como encerrada no save, sem apagá-la nem tocar os saves de desenvolvimento; não há checkpoint de emergência. Tela funcional de Game Over com resumo (expedições, falhas, recursos entregues) e **Nova campanha**; **Retomar campanha** não reabre campanha colapsada. Estilo EDEN fica na S6.16.
+
+Saída técnica: duas expedições introdutórias funcionais em build de produção, com quatro cobres e dez matérias orgânicas, retornos e ativações de EDEN/sintetizador/salas persistidas sem duplicação. A entrega do facão de plasma ocorre na Oficina antes dos mutantes. Retornos exigem mapa limpo; derrota volta antes da decolagem e debita suprimentos; colapso encerra a campanha com Game Over. O save de desenvolvimento conserva a experiência atual. Não aplicar as sobras calculadas para a antiga receita de diamantes; consumo e balanço final dependem das interações efetivamente definidas.
 
 Saída de design: o jogador entende o que fazer sem intervenção constante e considera o combate suficientemente satisfatório para investir em arte. Se esse critério falhar, repetir ajustes neste sprint; não mascarar problemas de gameplay com texturas.
 
@@ -307,7 +340,7 @@ Objetivo: transformar volumes provisórios em elementos reconhecíveis sem alter
 
 - [ ] S6.8 Preparar pipeline de assets apenas para o elenco ativo: explorador, Engenheiro (NPC inicial da introdução), EDEN quando sua apresentação exigir e categorias de inimigos. Otimizar topologia preservando silhueta, UV, rig e clipes; validar articulações antes de trocar os arquivos ativos. Modelos originais permanecem preservados.
 - [ ] S6.9 Separar materiais ou máscara de traje/accent/visor e confirmar visualmente a cor escolhida no perfil. Conferir o resultado na câmera real; não presumir que ler a cor do save muda uma textura baked.
-- [ ] S6.10 Criar catálogo mínimo de clipes: idle, andar/correr, recuar, deslocar lateralmente, disparar, recarregar, dano e morte do player; locomoção/ataque/dano/morte por inimigo e investida da criatura grande. Blend por velocidade e direção, sem foot sliding aparente; manter fallback quando um clipe não existir.
+- [ ] S6.10 Criar catálogo mínimo de clipes: idle, andar/correr, recuar, disparar, recarregar, dano e morte do player; locomoção/ataque/dano/morte por inimigo e investida da criatura grande. Blend por velocidade e direção, sem foot sliding aparente; manter fallback quando um clipe não existir.
 - [ ] S6.11 Compartilhar clipes somente entre rigs compatíveis; humanoides e animais podem exigir esqueletos diferentes. Separar locomoção e ação de tronco quando necessário para andar atirando; reação visual não interrompe entrada/dano sem regra de gameplay explícita. Eventos de passos/arma acionam efeitos uma vez e respeitam pausa.
 - [ ] S6.12 Provar kit modular e exportação de um trecho pequeno de Shanghai ou do deck, com convenções de colisão, spawn e interação (`COL_*`, `SPAWN_*`, `INTERACT_*`). Comparar rotas com o cenário atual antes de substituir áreas. Layout funcional é a referência; não reescrever todo o mapa nem eliminar `walkableAreas` sem colisores equivalentes.
 - [ ] S6.13 Construir narrativa ambiental do novo universo: ruínas urbanas, exploração e vestígios da guerra na Terra; sobrevivência, laboratório e infraestrutura em Marte. Props não alteram cobertura ou ocultam alvos por acidente. Usar marcos visuais para nave, laboratório e rotas. *Parte antecipada integrada na consolidação de 19/10, sem aceite: duas caixas de munição em Shanghai fase 01, abertura por E/botão e revelação azul; +48 de reserva por caixa uma vez por tentativa, restauradas no reinício. Não conclui toda a narrativa ambiental nem S4.3/persistência. [Handoff](handoffs/s6.13-caixa-suprimentos.md).*
@@ -327,7 +360,7 @@ Objetivo: transformar volumes provisórios em elementos reconhecíveis sem alter
 
 - [ ] S6.14 Definir tokens, fontes locais licenciadas e componentes mínimos com variantes EDEN Holographic e Mars Colony Clean. Cobrir estados de interação, foco, carregamento, vazio, erro e sucesso; medir contraste e oferecer efeitos reduzidos. Usar os dois guias visuais preservados no [plano de UI](sprint-6/PLANO_UI.md).
 - [ ] S6.15 Atualizar entrada, perfil, continuar, pausa/controles e configurações com o estilo EDEN, após S6.14. Entrada leva ao hub; partida permanece na nave. Preservar save e acesso por teclado, restaurar foco/pausa e exibir somente configurações funcionais.
-- [ ] S6.16 Atualizar briefing, cabine, inventário temporário, carregamento/erro, resultado e derrota/retry no estilo EDEN, após S6.6, S6.15 e Sprint 4. Distinguir ondas concluídas, carga pronta e carga salva; bloquear input do canvas sob modais e preservar extração única. *Pendência posterior registrada pelo autor em 05/11/2026: preencher os intervalos de carregamento com vídeos de transição no menu de navegação da aeronave; responsável: autor. Não bloqueia o encerramento da Sprint 2.*
+- [ ] S6.16 Atualizar briefing, cabine, inventário temporário, carregamento/erro, resultado, derrota/retorno ao hangar e Game Over da colônia (S5.14) no estilo EDEN, após S6.6, S6.15 e Sprint 4. Distinguir ondas concluídas, carga pronta e carga salva; bloquear input do canvas sob modais e preservar extração única. *Pendência posterior registrada pelo autor em 05/11/2026: preencher os intervalos de carregamento com vídeos de transição no menu de navegação da aeronave; responsável: autor. Não bloqueia o encerramento da Sprint 2.*
 - [ ] S6.17 Aplicar Mars Colony Clean ao depósito, resumo da última carga confirmada e laboratório, após S6.16 e S5.1–S5.5. Mostrar objetivos e materiais/faltantes reais de cada etapa, entrega da espada e ativações de EDEN/sintetizador/salas; ações continuam nas interações físicas do hub. Receitas de fabricação posterior não substituem esses objetivos. Gestão completa de energia, população, pesquisa, produção da estufa e construção livre permanecem no backlog; a ativação visual de Estufa/Food Storage do primeiro circuito integra S5.3.
 - [ ] S6.18 Validar as telas de S6.6/S6.14–S6.17 em desktop, teclado, zoom de 200% e efeitos reduzidos; testar foco, pausa, input, save e três ciclos de missão/retorno. Remover informações internas de sprint da UI final e manter QA em modo de desenvolvimento. Registrar roteiro e revisão visual do autor sem substituir playtest por screenshots.
 
@@ -354,6 +387,43 @@ Objetivo: finalizar a apresentação do protótipo sem prejudicar resposta e car
 - [ ] S7.11 Finalizar acabamento de UI após S6.18, S7.5 e S7.8–S7.9: glow, scanlines decorativas e transições opcionais, sem deslocar texto/mira ou prejudicar contraste. Comparar custo com efeitos ligados/desligados, respeitar redução de movimento e preset baixo; registrar revisão visual final do autor.
 
 Saída: protótipo visualmente revisado e funcional até o sintetizador e as salas do primeiro circuito ativados. A entrega é local/testável; publicação externa não faz parte deste plano.
+
+## 11a. Sprint 8 — Economia e sobrevivência da colônia (revisão de 07/11/2026)
+
+Objetivo: implementar a cadeia econômica v0.3 e fazer cada recurso primário ter
+um papel claro na sobrevivência da colônia ou no poder de combate. Substitui a
+Economia de Marte v0.2 do GDD (13 prédios, diamantes). Começa após a S5.8;
+receitas, rendimentos, tempos e limites **[A DEFINIR]** pelo autor antes da S8.2.
+Sem construção livre: unidades em posições existentes.
+
+- [ ] S8.1 Modelo de dados e save da economia: quatro primários (matéria orgânica, cobre, ferro, titânio), três secundários e dois terciários em estoques da campanha, com migração do estoque agregado da S5.12. Sem React/three no módulo de regras; transições idempotentes.
+- [ ] S8.2 Sintetizador do Laboratório com três receitas: Composto nutritivo (matéria orgânica + cobre), Células de energia/Microchips (cobre + ferro) e Ligas reforçadas (ferro + titânio). Consumo e produção uma vez por ordem, com tempo opcional.
+- [ ] S8.3 Estufa: Composto nutritivo produz Rações frescas e Estimulantes botânicos/Oxigênio puro.
+- [ ] S8.4 Consumo das unidades por ciclo de expedição: Control Room e Data Center (células), Cafeteria (rações), Meeting Room (estimulantes), Estufa (composto), Quarters (energia passiva). Unidade sem insumo fica desligada e mostra o efeito.
+- [ ] S8.5 Efeitos da falta: fome na Cafeteria e moral na Meeting Room levam ao colapso; Control Room/Data Center desligados bloqueiam suas funções da Sprint 9. Substituir o estoque agregado da S5.14 pelas condições por recurso.
+- [ ] S8.6 Ligas reforçadas no reparo de danos do Hangar e da Control Room após falhas; Hangar danificado impede decolar até o reparo, sem criar bloqueio impossível.
+- [ ] S8.7 Painel da colônia (Mars Colony Clean, S6.17): estoques, consumo previsto por expedição, unidades ligadas/desligadas e alertas. Ações continuam nas interações físicas.
+- [ ] S8.8 Rádio de EDEN para riscos por recurso e decisões críticas da Meeting Room, com fila e prioridade da S4.11.
+- [ ] S8.9 Balancear o dilema do ferro (Oficina × Células de energia) e o rendimento de cada mapa; registrar valores e versão testada.
+- [ ] S8.10 Playtest com o autor: tensão da escolha de recursos, compreensão da cadeia e peso das falhas sobre a colônia.
+
+Saída: três ciclos de campanha com produção, consumo, unidade desligada por falta, reparo e colapso reproduzível, sem duplicar receitas em reload ou clique repetido.
+
+## 11b. Sprint 9 — Progressão de combate e expansão (revisão de 07/11/2026)
+
+Objetivo: evoluir armas é necessidade para limpar mapas mais rápido e evitar o
+colapso. Depende da S8 (ferro e titânio disputados e unidades ligadas).
+
+- [ ] S9.1 Oficina: árvore curta de evolução do facão de plasma, partindo do `MACHETE_COMBO` atual de três cortes, com golpes novos pagos com ferro e titânio. Golpes e custos **[A DEFINIR]**; sem mudar atalhos 1/2/3.
+- [ ] S9.2 Melhorias do rifle laser (dano, carregador ou reserva) na Oficina, pagas com ferro/titânio e registradas no save.
+- [ ] S9.3 Data Center: habilidades e passivas do Salvager liberadas com dados das expedições e enquanto o Data Center estiver ligado (células).
+- [ ] S9.4 Control Room: alertas/clima e escolha de destino na Terra. Liberar novos mapas por etapa; hoje só existe Shanghai, então o recorte entrega a seleção e o contrato de dados para mapas futuros (backlog 5).
+- [ ] S9.5 Quarters: recuperação do Salvager entre expedições e limite de população.
+- [ ] S9.6 Hangar: loadout antes da decolagem (arma principal, kits, dispositivos), consumindo os estoques persistidos.
+- [ ] S9.7 Dificuldade das revisitas proporcional à evolução (backlog 3), sem eliminar o ganho de poder percebido.
+- [ ] S9.8 Playtest: as evoluções reduzem o tempo para limpar o mapa e mudam a decisão sobre o ferro.
+
+Saída: evoluções persistidas e mensuráveis no tempo de limpeza; Data Center e Control Room desligados bloqueiam suas funções com mensagem clara.
 
 ## 12. Organização técnica mínima
 
@@ -384,7 +454,11 @@ Adaptar à estrutura existente, evitando criar uma engine genérica antes de val
 | Quota coletada antes de concluir o combate | Rádio distingue carga cumprida de encontro concluído e não repete mensagem | 4 |
 | Primeiro CLEAR com 4 cobres e sem placas | Retorno por cobre permitido e orientado pelo Engenheiro; placas não bloqueiam | 4 |
 | Segundo encontro com 10 orgânicas coletadas | EDEN confirma a carga e orienta retorno para ligar o sintetizador | 4 |
-| Derrota/retry ou fechamento no combate | Loot da tentativa descartado, progresso do hub preservado | 4 |
+| Derrota/retry ou fechamento no combate | Loot da tentativa descartado, volta a Marte antes da decolagem, progresso do hub preservado | 4 |
+| Tentar retornar com inimigo vivo ou fila de spawn pendente | Nave não decola; cabine mostra inimigos restantes | 4 |
+| Mapa limpo com quota parcial | Retorno permitido; etapa não avança; nova visita repõe o encontro | 4 |
+| Derrota seguida de reload | Custo de suprimentos debitado uma única vez | 5 |
+| Estoque vital chega a 0 | Campanha encerrada com Game Over; saves de desenvolvimento intactos; Retomar não reabre | 5 |
 | Cliques repetidos na extração/ativação/entrega da espada | Transferência e efeitos de cada etapa aplicados uma única vez | 4–5 |
 | Reload antes/depois de ligar EDEN ou sintetizador | Carga e salas consistentes; sem duplicar entrega ou ativação | 5 |
 | Partida após concluir o circuito e execução de testes de desenvolvimento | Quatro hordas disponíveis; teste não conclui campanha nem apaga seu save | 5 |
@@ -408,12 +482,12 @@ Meta provisória de desempenho: 60 FPS no equipamento de referência registrado 
 
 ## 14. Backlog após este marco
 
-1. Confirmar carbono e implementar produção de diamante.
-2. Desenvolver upgrades de armas, armadura, dispositivos e bolsa.
-3. Implementar dificuldade adaptativa das revisitas com progressão real, preservando ganho perceptível de poder.
-4. Definir receita da máquina de construção espacial e primeiro ciclo produtivo da estufa.
-5. Expandir Shanghai e criar outras cidades; depois Lua/luas de Marte.
-6. Adicionar resgate/checkpoints para expedições maiores.
+1. Confirmar carbono e implementar produção de diamante, se ainda couber na cadeia v0.3; placas de alumínio (antiga S4.3) ficam aqui.
+2. Upgrades de armadura, dispositivos e bolsa. *Armas passam para a S9.1/S9.2.*
+3. *Dificuldade adaptativa passa para a S9.7.*
+4. Definir receita da máquina de construção espacial. *Primeiro ciclo produtivo da Estufa passa para a S8.3.*
+5. Expandir Shanghai e criar outras cidades; depois Lua/luas de Marte. Seleção pela Control Room na S9.4.
+6. Resgate/checkpoints para expedições maiores: reavaliar contra a regra de 07/11 (derrota volta antes da decolagem e colapso definitivo).
 
 7. Avaliar suporte a gamepad e remapeamento de controles após consolidar teclado/mouse; touch/mobile requer um recorte próprio de interface e desempenho.
 8. Avaliar minimapa se marcadores e marcos visuais não resolverem orientação; não introduzir click-to-move em paralelo ao controle de combate validado.
