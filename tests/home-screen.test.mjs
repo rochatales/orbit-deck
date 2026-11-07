@@ -89,11 +89,14 @@ test('Configurações: só opções que funcionam, com foco e Escape', () => {
     assert.match(app, /<ControlList\/>/, 'a pausa e a tela inicial usam a mesma lista');
 });
 
-test('Artes da tela inicial respeitam o orçamento em WebP', () => {
+test('Artes da tela inicial respeitam o orçamento em WebP e o retrato tem transparência', () => {
     for (const [file, limit] of [['src/assets/home/colonia-marte.webp', 400_000], ['src/assets/home/salvagor.webp', 120_000]]) {
         assert.ok(fs.statSync(file).size < limit, file);
         assert.equal(fs.readFileSync(file).subarray(8, 12).toString(), 'WEBP');
     }
+    const portrait = fs.readFileSync('src/assets/home/salvagor.webp');
+    assert.equal(portrait.subarray(12, 16).toString(), 'VP8X');
+    assert.ok(portrait[20] & 0x10, 'canal alfa no cabeçalho WebP');
 });
 
 
