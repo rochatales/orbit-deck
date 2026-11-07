@@ -1,5 +1,21 @@
 import { useCampaignStore } from '../state/useCampaignStore';
 import type { PlayerWeapon } from '../combat/melee';
+import { CAMPAIGN_QUOTAS, type CampaignStage } from './campaign';
+import type { MapId } from './session';
+
+export function expeditionQuotaKind(stage: CampaignStage | undefined) {
+    return stage === 'expedition-copper' ? 'copper' : stage === 'expedition-organic' ? 'organic' : null;
+}
+
+/** Saldo a colocar no porão durante o circuito. Entregas de visitas anteriores também contam. */
+export function missionDepositRemaining(map: MapId, s = useCampaignStore.getState()) {
+    if (map !== 'shanghai' || s.mode !== 'campaign' || !s.saved) return null;
+    const { campaign, attemptDelivery } = s.saved;
+    const kind = expeditionQuotaKind(campaign.stage);
+    if (!kind) return null;
+    const delivered = kind === 'copper' ? campaign.copperDelivered : campaign.organicDelivered;
+    return Math.max(0, CAMPAIGN_QUOTAS[kind] - delivered - attemptDelivery[kind]);
+}
 /** Política única consultada na seleção, tecla, clique e ações diretas. Sem alocação por quadro. */
 export function engineerBriefingRequired(s = useCampaignStore.getState()) {
     return s.mode === 'campaign' && s.saved?.campaign.stage === 'engineer-briefing';

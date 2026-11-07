@@ -1,10 +1,11 @@
 import { useCampaignStore } from '../state/useCampaignStore';
 import { campaignDepartureBlock } from '../game/campaign';
+import { missionDepositRemaining } from '../game/campaignPolicy';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { ArrowUpRight, ChevronRight, Package, Plane, Radio, LogOut } from 'lucide-react';
 import type { MapId, TravelPhase } from '../game/session';
 import { cargoWeight } from '../game/backpackConfig';
-import { SHIP_CARGO } from '../game/shipCargo';
+import { shipCapacityLabel } from '../game/shipCargo';
 import { useShipCargoStore } from '../state/useShipCargoStore';
 import { ShipCargoPanel } from './ShipCargoPanel';
 import { bindCockpitVideo } from './cockpitVideo';
@@ -55,8 +56,10 @@ export interface ShipCockpitProps {
 export function ShipCockpit({ map, phase, ready, error, name, onDepart, onExit, onRetry, encounter }: ShipCockpitProps) {
     const campaign = useCampaignStore(s => s.mode === 'campaign');
     const edenActive = useCampaignStore(s => s.mode !== 'campaign' || !!s.saved?.campaign.edenActive);
-    const departureBlock = useCampaignStore(s => map === 'mars' && s.mode === 'campaign' && s.saved
+    const colonyBlock = useCampaignStore(s => map === 'mars' && s.mode === 'campaign' && s.saved
         ? campaignDepartureBlock(s.saved.campaign) : null);
+    const depositRemaining = useCampaignStore(s => missionDepositRemaining(map, s));
+    const departureBlock = (depositRemaining ?? 0) > 0 ? 'Desembarque, recolha a cota e deposite na traseira da aeronave.' : colonyBlock;
     const [tab, setTab] = useState<'navigation' | 'cargo'>('navigation');
     const root = useRef<HTMLElement>(null), info = EXTERIOR[map];
     const hold = cargoWeight(useShipCargoStore(s => s.cargo));
@@ -74,18 +77,21 @@ export function ShipCockpit({ map, phase, ready, error, name, onDepart, onExit, 
         <div className="cockpit-console">
             <nav className="cockpit-tabs" aria-label="Painéis da cabine">
                 <button disabled={busy} aria-pressed={tab === 'navigation'} onClick={() => setTab('navigation')}><Plane size={15} aria-hidden="true"/> Navegação</button>
-                <button disabled={busy} aria-pressed={tab === 'cargo'} onClick={() => setTab('cargo')}><Package size={15} aria-hidden="true"/> Carga <small>{hold.toFixed(1).replace('.', ',')} / {SHIP_CARGO.capacityKg} kg</small></button>
+                {depositRemaining === null && <button disabled={busy} aria-pressed={tab === 'cargo'} onClick={() => setTab('cargo')}><Package size={15} aria-hidden="true"/> Carga <small>{hold.toFixed(1).replace('.', ',')} / {shipCapacityLabel(hold)}</small></button>}
             </nav>
             {busy || error ? <section className="cockpit-flight cockpit-hologram" role="status" aria-live="polite">
                 <p className="cockpit-kicker">CONTROLE DE VOO / {edenActive ? 'EDEN' : 'ENGENHEIRO'}</p><h1>{error ? 'Viagem interrompida' : 'Preparando a chegada'}</h1>
                 <p>{error ?? 'Carregando a região de destino. Aguarde para desembarcar.'}</p>
-                {error ? <button className="cockpit-depart" onClick={onRetry}>Tentar novamente <ArrowUpRight size={20}/></button> : <div className="cockpit-loading" aria-hidden="true"><i/></div>}
-            </section> : tab === 'cargo' ? <div className="cockpit-cargo cockpit-hologram"><ShipCargoPanel map={map}/></div> : <div className="cockpit-navigation">
+                {error ? <button className="cockpit-depart" disabled={!!departureBlock} onClick={onRetry}>Tentar novamente <ArrowUpRight size={20}/></button> : <div className="cockpit-loading" aria-hidden="true"><i/></div>}
+            </section> : tab === 'cargo' && depositRemaining === null ? <div className="cockpit-cargo cockpit-hologram"><ShipCargoPanel map={map}/></div> : <div className="cockpit-navigation">
                 <section className="cockpit-location cockpit-hologram">
                     <p className="cockpit-kicker">01 / LOCALIZAÇÃO ATUAL</p><p className="cockpit-planet">{info.planet}</p><h1>{info.location}</h1>
                     <div className="cockpit-location-line"/>
-                    <dl><div><dt>EXPLORADOR</dt><dd>{name}</dd></div><div><dt>AERONAVE</dt><dd>No solo · embarque concluído</dd></div><div><dt>PORÃO</dt><dd>{hold.toFixed(1).replace('.', ',')} / {SHIP_CARGO.capacityKg} kg</dd></div></dl>
-                    <p className="cockpit-guidance">{map === 'mars' ? 'A colônia fica para trás. O próximo passo está na Terra.' : campaign ? 'Guarde os recursos no porão antes de partir. A carga desta tentativa só fica a salvo ao chegar a Marte.' : 'Guarde os recursos no porão antes de partir. A carga da nave permanece salva.'}</p>
+                    <dl><div><dt>EXPLORADOR</dt><dd>{name}</dd></div><div><dt>AERONAVE</dt><dd>No solo · embarque concluído</dd></div><div><dt>PORÃO</dt><dd>{hold.toFixed(1).replace('.', ',')} / {shipCapacityLabel(hold)}</dd></div></dl>
+                    <p className="cockpit-guidance">{map === 'mars' ? 'A colônia fica para trás. O próximo passo está na Terra.'
+                        : depositRemaining === 0 ? 'Cota no porão. A carga desta tentativa só fica a salvo ao chegar a Marte.'
+                        : campaign ? 'Guarde os recursos no porão antes de partir. A carga desta tentativa só fica a salvo ao chegar a Marte.'
+                        : 'Guarde os recursos no porão antes de partir. A carga da nave permanece salva.'}</p>
                 </section>
                 <section className="cockpit-route cockpit-hologram">
                     <p className="cockpit-kicker">02 / DESTINO DISPONÍVEL</p>

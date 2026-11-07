@@ -1,6 +1,6 @@
 import { createCampaign, parseCampaignState, validCampaignAmount, type CampaignState } from './campaign';
 import type { Profile } from './session';
-import { SHIP_CARGO } from './shipCargo';
+import { CAMPAIGN_CARGO_LIMIT } from './shipCargo';
 import { EMPTY_CARGO, cargoWeight, type ResourceCargo } from './backpackConfig';
 
 export const CAMPAIGN_SAVE_KEY = 'exoden:campaign:v1';
@@ -25,7 +25,7 @@ export function parseCampaignSave(raw: string | null): CampaignSave | null {
             || typeof p.color !== 'string' || !/^#[0-9a-f]{6}$/i.test(p.color)
             || typeof s.briefingSeen !== 'boolean' || !s.cargo
             || !(['iron', 'copper', 'titanium', 'organic'] as const).every(k => validCampaignAmount(s.cargo[k]))
-            || cargoWeight(s.cargo) > SHIP_CARGO.capacityKg + 1e-6
+            || cargoWeight(s.cargo) > CAMPAIGN_CARGO_LIMIT + 1e-6
             || (s.attemptCargo !== undefined && !(['iron', 'copper', 'titanium', 'organic'] as const).every(k => validCampaignAmount(s.attemptCargo?.[k]) && s.attemptCargo[k] <= s.cargo[k]))
             || (s.attemptDelivery !== undefined && !(['iron', 'copper', 'titanium', 'organic'] as const).every(k => validCampaignAmount(s.attemptDelivery?.[k]) && s.attemptDelivery[k] <= (s.attemptCargo?.[k] ?? 0)))) return null;
         return { version: 1, campaign: state, briefingSeen: s.briefingSeen,

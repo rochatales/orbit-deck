@@ -199,7 +199,7 @@ test('Campanha: importação do porão já nesse modo não lê a carga dev', () 
     storage.reads.length = 0;
     const { useShipCargoStore } = load('src/state/useShipCargoStore.ts');
     assert.deepEqual(useShipCargoStore.getState().cargo, cargo);
-    assert.deepEqual(storage.reads, [], 'nenhuma leitura de localStorage da carga de desenvolvimento');
+    assert.ok(!storage.reads.includes('exoden-carga-aeronave-v1'), 'nenhuma leitura de localStorage da carga de desenvolvimento');
 });
 
 

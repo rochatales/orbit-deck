@@ -13,6 +13,7 @@ import { useBackpackEnergy, publishBackpackEnergy } from '../state/useBackpackEn
 import { ItemArtwork } from './ItemArtwork';
 import { ShipCargoButton } from './ShipCargoPanel';
 import { RadarMap } from './RadarMap';
+import { useExpeditionStore } from '../state/useExpeditionStore';
 import type { MapId } from '../game/session';
 
 export function VitalBar({ label, value, max, kind }: { label: string; value: number; max: number; kind: 'life' | 'energy' }) {
@@ -37,6 +38,8 @@ export function GameplayHud({ combat, map, openBackpack, openCargo }: { combat: 
   const missionKitReceived = !useCampaignStore(engineerBriefingRequired);
   const swordAllowed = useCampaignStore(campaignSwordAllowed);
   const campaign = useCampaignStore(s => s.mode === 'campaign');
+  const acquisition = useExpeditionStore(s => s.acquisition);
+  const sonarPending = acquisition === 'rifle' || acquisition === 'sonar';
   const showMedicalKit = !campaign || (combat && s.medkits > 0);
   const selected = useWeaponStore(s => s.weapon), machete = selected === 'machete';
   const weight = cargoWeight(combat ? s : EMPTY_CARGO), full = weight >= BACKPACK.capacityKg - .2;
@@ -48,7 +51,7 @@ export function GameplayHud({ combat, map, openBackpack, openCargo }: { combat: 
     </div>}
     <div className="beta-bottom">
       <aside className="beta-vitals" aria-label="Condição do explorador">
-        {missionKitReceived && <RadarMap map={map}/>}
+        {missionKitReceived && !sonarPending && <RadarMap map={map}/>}
         <VitalBar label="VIDA" value={combat ? s.hp : COMBAT.playerHp} max={COMBAT.playerHp} kind="life"/>
         <VitalBar label="ENERGIA" value={energy} max={100} kind="energy"/>
         <small className="beta-vital-note">{energy < 50 ? 'RECARREGANDO · 2 DASHs / CARGA' : 'ESPAÇO · 2 DASHs / CARGA'}</small>
@@ -56,14 +59,18 @@ export function GameplayHud({ combat, map, openBackpack, openCargo }: { combat: 
       <aside className="beta-loadout" aria-label="Equipamentos · quatro espaços">
         <div className="beta-equipment-slots">
           {Array.from({ length: BACKPACK.equipmentSlots }, (_, slot) => {
+            if (slot === 3 && campaign && missionKitReceived)
+              return <div key={slot} className="beta-equipment-slot sonar-slot" data-acquisition-target="sonar" title="Sonar" aria-label="Sonar">
+                {!sonarPending && <ItemArtwork item="sonar"/>}
+              </div>;
             if (slot > 2 || (slot === 0 && !missionKitReceived) || (slot === 1 && !swordAllowed) || (slot === 2 && !showMedicalKit))
               return <button key={slot} disabled className="beta-equipment-slot is-empty" title="Espaço de equipamento vazio">
                 <span className="beta-empty-mark" aria-hidden="true">+</span><kbd>{slot + 1}</kbd><span className="sr-only">{`Espaço ${slot + 1} vazio`}</span>
               </button>;
             const item = slot === 0 ? 'rifle' : slot === 1 ? 'machete' : 'medical';
             const equipped = slot < 2 && item === selected;
-            return <button key={slot} disabled={slot === 2 && (!combat || s.medkits === 0 || s.hp >= COMBAT.playerHp)} onClick={() => item === 'medical' ? useStoredMedicalKit() : equipPlayerWeapon(item)} className={`beta-equipment-slot ${equipped ? 'is-equipped' : ''}`} aria-pressed={slot < 2 ? equipped : undefined} title={slot === 0 ? 'Rifle laser · 1' : slot === 1 ? 'Facão · 2' : `Kit médico · +50 HP · 3 · ${s.medkits} unidades`}>
-              <ItemArtwork item={item}/>{slot === 2 && <b className="beta-kit-count">×{combat ? s.medkits : 0}</b>}<kbd>{slot + 1}</kbd><span className="sr-only">{slot === 0 ? 'Rifle laser' : slot === 1 ? 'Facão' : 'Usar kit médico · 3'}</span>
+            return <button key={slot} data-acquisition-target={slot < 2 ? item : undefined} disabled={slot === 2 && (!combat || s.medkits === 0 || s.hp >= COMBAT.playerHp)} onClick={() => item === 'medical' ? useStoredMedicalKit() : equipPlayerWeapon(item)} className={`beta-equipment-slot ${equipped ? 'is-equipped' : ''}`} aria-pressed={slot < 2 ? equipped : undefined} title={slot === 0 ? 'Rifle laser · 1' : slot === 1 ? 'Facão · 2' : `Kit médico · +50 HP · 3 · ${s.medkits} unidades`}>
+              {acquisition !== item && <ItemArtwork item={item}/>}{slot === 2 && <b className="beta-kit-count">×{combat ? s.medkits : 0}</b>}<kbd>{slot + 1}</kbd><span className="sr-only">{slot === 0 ? 'Rifle laser' : slot === 1 ? 'Facão' : 'Usar kit médico · 3'}</span>
             </button>;
           })}
         </div>

@@ -317,7 +317,9 @@ test('Engenheiro: E valida mapa, distância e paredes; briefing avança uma vez 
     const world = createWorld(); Object.assign(p,{active:true,world,x:-6.1,y:0,z:6});
     s.getState().setReady(true); placePlayer({x:0,y:0,z:6}); s.getState().openEngineer(); assert.equal(s.getState().panel,null);
     placePlayer({x:-5,y:0,z:6}); s.getState().openEngineer(); assert.equal(s.getState().panel,'engineer');
-    s.getState().closePanel(); assert.equal(s.getState().panel,null); assert.notEqual(values.get('exoden:campaign:v1'),raw);
+    s.getState().closePanel(); assert.equal(s.getState().panel,'acquisition');
+    s.getState().finishAcquisition('rifle'); s.getState().finishAcquisition('sonar');
+    assert.equal(s.getState().panel,null); assert.notEqual(values.get('exoden:campaign:v1'),raw);
     const afterBriefing = values.get('exoden:campaign:v1');
     assert.equal(JSON.parse(afterBriefing).campaign.stage,'expedition-copper');
     Object.assign(p,{seated:true,approach:{x:-5,z:6}});

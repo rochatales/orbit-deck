@@ -2,23 +2,31 @@ import { EDEN, MAPS } from '../game/config';
 import type { MapId } from '../game/session';
 import type { OfficeWorld } from '../world/createOfficeMap';
 import { SHIP_INTERACTION_RADIUS, playerPosition } from '../state/playerTransient';
-import { useExpeditionStore } from '../state/useExpeditionStore';
+import { canOpenMissionDeposit, useExpeditionStore } from '../state/useExpeditionStore';
+import { useCampaignStore } from '../state/useCampaignStore';
+import { missionDepositRemaining } from '../game/campaignPolicy';
 import { combatRuntime } from '../state/useCombatStore';
 import { SHANGHAI_SUPPLY_CRATES, SUPPLY_CRATE, crateMarker } from '../game/props/supplyCrate';
 import { interactWithSupplyCrate } from '../game/props/crateInteraction';
 import { InteractionBubble, NpcInteractionBubble } from './InteractionBubble';
-import { requestShipCargo } from '../game/shipCargo';
+import { MISSION_DEPOSIT_POINT, MISSION_DEPOSIT_RADIUS, requestShipCargo } from '../game/shipCargo';
 const board = () => useExpeditionStore.getState().send('board');
 const talkToEden = () => useExpeditionStore.getState().openEden();
 const activateEden = () => useExpeditionStore.getState().activateEden();
+const deposit = () => useExpeditionStore.getState().openDeposit();
+const canBoardInShanghai = () => (missionDepositRemaining('shanghai') ?? 0) === 0;
 export function WorldInteractionBubbles({ map, world }: { map: MapId; world: OfficeWorld }) {
+    const circuitMission = useCampaignStore(s => missionDepositRemaining(map, s) !== null);
     const exit = MAPS[map].exit;
+    const rear = MISSION_DEPOSIT_POINT;
     const height = (x: number, z: number) => world.surfaceHeight?.(x, z) ?? world.supportHeight?.(x, z) ?? 0;
     return <>
         <InteractionBubble id={`ship:${map}`} label="Entrar na aeronave" point={exit} radius={SHIP_INTERACTION_RADIUS} priority={10}
-            position={[exit.x, height(exit.x, exit.z) + 1.8, exit.z]} onInteract={board}>
-            <button type="button" className="secondary" onClick={event => { event.stopPropagation(); requestShipCargo(); }}>F · Carga da aeronave</button>
+            position={[exit.x, height(exit.x, exit.z) + 1.8, exit.z]} available={circuitMission ? canBoardInShanghai : undefined} onInteract={board}>
+            {!circuitMission && <button type="button" className="secondary" onClick={event => { event.stopPropagation(); requestShipCargo(); }}>F · Carga da aeronave</button>}
         </InteractionBubble>
+        {circuitMission && <InteractionBubble id="ship:deposit" label="Depositar no porão" point={rear} radius={MISSION_DEPOSIT_RADIUS}
+            position={[rear.x, height(rear.x, rear.z) + 1.8, rear.z]} priority={20} available={canOpenMissionDeposit} onInteract={deposit}/>}
         {/* Acima do halo: a EDEN flutua sobre o pedestal e vai até 2,51 m. */}
         {map === 'mars' && <>
             <InteractionBubble id="activate-eden" label="Ligar EDEN" point={EDEN.position} radius={EDEN.interactionRadius}

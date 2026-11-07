@@ -495,3 +495,37 @@ nav button:hover:not(:disabled), .secondary:hover:not(:disabled) { color: #09232
 @media (max-width: 650px) { .pause-settings { top: 15px; right: 15px; } }
 
 .beta-header .game-settings-button:hover:not(:disabled), .game-settings-button:hover:not(:disabled) { background: transparent; box-shadow: none; color: #fff; }
+
+.sonar-artwork { display: grid; place-items: center; color: #8debd9; }
+.sonar-artwork svg { width: 68%; height: 68%; filter: drop-shadow(0 0 6px #53fbdc80); }
+.beta-equipment-slot.sonar-slot { pointer-events: none; }
+
+.equipment-acquisition, .mission-deposit { position: absolute; inset: 0; z-index: 8; }
+.equipment-acquisition { display: grid; justify-items: center; text-align: center; overflow: hidden; }
+.equipment-acquisition::before { content: ''; position: absolute; inset: 0; background: #07131bb8; backdrop-filter: blur(10px); transition: opacity .3s ease; }
+.acquisition-light { position: absolute; inset: 0; background: radial-gradient(ellipse at center, #fff1b292, #edab4f39 27%, transparent 55%); animation: acquisition-glow .7s ease-in-out 2 alternate; }
+.acquisition-art { position: absolute; inset: 0; margin: auto; width: min(62vw, 45dvh, 360px); height: min(62vw, 45dvh, 360px); z-index: 1; }
+.acquisition-art .item-artwork { width: 100%; height: 100%; filter: drop-shadow(0 0 16px #ffc86b88); animation: acquisition-pulse .7s ease-in-out 2 alternate; }
+.equipment-acquisition header { position: absolute; top: 10%; text-shadow: 0 2px 14px #000; }
+.equipment-acquisition .eyebrow { color: #ffdd96; letter-spacing: .2em; }
+.equipment-acquisition h2 { margin: 10px 0 0; font-size: clamp(26px, 5vw, 52px); }
+.equipment-acquisition > button { position: absolute; bottom: 8%; }
+.equipment-acquisition.is-flying::before, .equipment-acquisition.is-flying .acquisition-light,
+.equipment-acquisition.is-flying header, .equipment-acquisition.is-flying > button { opacity: 0; }
+.equipment-acquisition.is-flying .item-artwork { animation: none; }
+@keyframes acquisition-glow { from { opacity: .45; } to { opacity: 1; } }
+@keyframes acquisition-pulse { from { transform: scale(.94); } to { transform: scale(1.07); } }
+@media (prefers-reduced-motion: reduce) { .acquisition-art .item-artwork, .acquisition-light { animation: none; } }
+
+.mission-deposit { padding: clamp(14px, 3vw, 40px); overflow: auto; }
+.is-deposit-open .beta-header, .is-deposit-open .beta-objective, .is-deposit-open .beta-wave { visibility: hidden; }
+.mission-deposit > header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+.mission-deposit h2 { margin: 0; font-size: clamp(18px, 2.6vw, 27px); text-shadow: 0 2px 8px #000; }
+.mission-deposit .beta-hold-columns { grid-template-columns: repeat(2, minmax(0, min(30vw, 390px))); justify-content: space-between; }
+.mission-deposit .beta-hold-card { background: #0a1724b8; backdrop-filter: blur(5px); }
+.mission-deposit .beta-slot-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.mission-deposit .beta-hold-card.is-ship { background: #0b333bc9; }
+.mission-deposit .beta-hold-note { width: fit-content; padding: 8px 12px; background: #0a1724db; border-left: 2px solid var(--cyan); }
+@media (max-width: 700px) {
+ .mission-deposit .beta-hold-columns { grid-template-columns: minmax(0, 420px); gap: 12px; }
+}

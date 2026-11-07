@@ -36,8 +36,9 @@ export function PlayerModel(props: PlayerModelProps) {
 function PlayerVariant({ motionRef, combat, variant }: PlayerModelProps & { variant: PlayerAssetVariant }) {
   const weapon = useWeaponStore(s => s.weapon);
   const rifleAllowed = useCampaignStore(campaignRifleAllowed), swordAllowed = useCampaignStore(campaignSwordAllowed);
-  const rifleCarry = weaponCarryMode('rifle', weapon, combat, rifleAllowed);
-  const macheteCarry = weaponCarryMode('machete', weapon, combat, swordAllowed);
+  const acquisition = useExpeditionStore(s => s.acquisition);
+  const rifleCarry = weaponCarryMode('rifle', weapon, combat, rifleAllowed && acquisition !== 'rifle');
+  const macheteCarry = weaponCarryMode('machete', weapon, combat, swordAllowed && acquisition !== 'machete');
   const falling = useCombatStore(s => s.dead) && combat && weapon === 'machete';
   const bodyRef = useRef<Group>(null);
   const swordLight = useMemo(() => createSwordLight(), []);

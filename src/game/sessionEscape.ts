@@ -4,6 +4,6 @@ export function sessionEscape(phase: Session['phase'], paused: boolean, panel: s
     if (phase === 'travelling') return null;
     if (paused) return 'resume';
     if (phase === 'aboard') return 'exit';
-    if (panel === 'eden' || panel === 'engineer') return 'close-dialogue';
+    if (panel === 'eden' || panel === 'engineer' || panel === 'deposit') return 'close-dialogue';
     return phase === 'walking' ? 'pause' : null;
 }

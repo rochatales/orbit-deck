@@ -3,7 +3,7 @@ import { WeaponControls } from '../characters/player/WeaponControls';
 import { ControlList } from '../ui/ControlList';
 import { HomeScreen } from '../ui/HomeScreen';
 import { useCampaignStore } from '../state/useCampaignStore';
-import { engineerBriefingRequired } from '../game/campaignPolicy';
+import { engineerBriefingRequired, missionDepositRemaining } from '../game/campaignPolicy';
 import { RadioToast } from '../ui/RadioToast';
 import { campaignObjective } from '../game/campaign';
 import { EngineerDialogue } from '../npcs/EngineerDialogue';
@@ -12,7 +12,8 @@ import { sessionEscape } from '../game/sessionEscape';
 import { engineerIsCalm, engineerPreviewMood } from '../npcs/engineerRoutine';
 import { PauseMenuFrame } from '../ui/PauseMenuFrame';
 import { GameplayHud, BackpackContents } from '../ui/GameplayHud';
-import { ShipCargoPanel } from '../ui/ShipCargoPanel';
+import { MissionDepositPanel, ShipCargoPanel } from '../ui/ShipCargoPanel';
+import { EquipmentAcquisition } from '../ui/EquipmentAcquisition';
 import { ShipCockpit } from '../ui/ShipCockpit';
 import { OPEN_CARGO_EVENT, isNearCargo } from '../game/shipCargo';
 import { playerPosition } from '../state/playerTransient';
@@ -39,6 +40,7 @@ function Runtime({ onHome }: { onHome: () => void }) {
     const campaign = useCampaignStore();
     const briefingRequired = engineerBriefingRequired(campaign);
     const progress = campaign.mode === 'campaign' ? campaign.saved?.campaign : undefined;
+    const depositRemaining = missionDepositRemaining(s.session.map, campaign);
     const [engineerPreview] = useState(() => engineerPreviewMood(window.location.search));
     const paused = useGameStore(g => g.isPaused);
     const [world, setWorld] = useState<{
@@ -100,6 +102,11 @@ function Runtime({ onHome }: { onHome: () => void }) {
         /** F, balão ou botão: abre o porão perto da aeronave; F de novo fecha. */
         const toggleCargo = () => {
             const state = useExpeditionStore.getState();
+            if (missionDepositRemaining(state.session.map) !== null) {
+                if (state.panel === 'deposit') state.closePanel();
+                else state.openDeposit();
+                return state.panel === 'deposit' || useExpeditionStore.getState().panel === 'deposit';
+            }
             if (engineerBriefingRequired() || !state.ready || state.session.phase !== 'walking' || state.panel || (state.session.map === 'shanghai' && useCombatStore.getState().dead) || !isNearCargo(state.session.map, playerPosition)) return false;
             if (useGameStore.getState().isPaused && pauseViewRef.current === 'cargo') useGameStore.setState({ isPaused: false });
             else { setPauseView('cargo'); useGameStore.setState({ isPaused: true }); }
@@ -111,6 +118,10 @@ function Runtime({ onHome }: { onHome: () => void }) {
             const state = useExpeditionStore.getState();
             if (!state.ready || state.session.phase === 'travelling' || (state.session.map === 'shanghai' && useCombatStore.getState().dead))
                 return;
+            if (state.panel === 'acquisition') {
+                if (e.code === 'Escape' && state.acquisition) { e.preventDefault(); state.finishAcquisition(state.acquisition); }
+                return;
+            }
             if (e.code === 'Escape') {
                 const action = sessionEscape(state.session.phase, useGameStore.getState().isPaused, state.panel);
                 if (action === 'resume' || action === 'pause') {
@@ -129,7 +140,7 @@ function Runtime({ onHome }: { onHome: () => void }) {
             if (e.code === 'KeyE' && !useGameStore.getState().isPaused) {
                 if (state.session.phase === 'aboard')
                     state.send('exit');
-                else if (state.panel === 'eden' || state.panel === 'engineer')
+                else if (state.panel === 'eden' || state.panel === 'engineer' || state.panel === 'deposit')
                     state.closePanel();
                 else if (activateWorldInteraction())
                     e.preventDefault();
@@ -140,16 +151,22 @@ function Runtime({ onHome }: { onHome: () => void }) {
         return () => { window.removeEventListener('keydown', key); window.removeEventListener(OPEN_CARGO_EVENT, toggleCargo); };
     }, []);
     const inCockpit = s.panel === 'ship' && s.session.phase !== 'walking';
-    return <main className={`runtime ${s.session.map === 'shanghai' ? 'in-combat' : 'in-hub'}`}>
+    const objective = depositRemaining === 0 ? 'Embarque pela escada da aeronave'
+        : depositRemaining !== null && s.quotaAnnounced ? `Deposite a carga na traseira da aeronave · faltam ${depositRemaining} no porão`
+        : progress ? campaignObjective(progress) : s.session.map === 'mars' ? 'Prepare sua expedição · Encontre EDEN' : 'Sobreviva às hordas · Recupere materiais';
+    return <main className={`runtime ${s.session.map === 'shanghai' ? 'in-combat' : 'in-hub'}${s.panel === 'deposit' ? ' is-deposit-open' : ''}`}>
     <WeaponControls/>
     {world && <GameCanvas key={world.map} world={world.data} map={world.map}/>}
     {world?.map === 'mars' && s.session.map === 'mars' && sandwindPanelEnabled(window.location.search) && <Suspense fallback={null}><SandwindPanel/></Suspense>}
     {!inCockpit && <><header className="beta-header"><div className="beta-location"><b>EXODEN<span> / BETA</span></b><small>{MAPS[s.session.map].title} · {s.profile?.displayName}</small></div>
       <nav aria-label="Menu do jogo">{!paused && <>{settingsButton}{pauseButton}</>}</nav>
     </header>
-    <aside className="beta-objective"><span>OBJETIVO</span>{campaign.mode === 'campaign' && campaign.saved ? campaignObjective(campaign.saved.campaign) : s.session.map === 'mars' ? 'Prepare sua expedição · Encontre EDEN' : 'Sobreviva às hordas · Recupere materiais'}</aside>
+    <aside className="beta-objective"><span>OBJETIVO</span>{objective}</aside>
     <GameplayHud combat={s.session.map === 'shanghai'} map={s.session.map} openBackpack={() => { if (!engineerBriefingRequired() && s.ready && s.session.phase === 'walking' && !s.panel && !dead) { setPauseView('backpack'); useGameStore.setState({ isPaused: true }); } }}
-      openCargo={() => { if (!engineerBriefingRequired() && isNearCargo(s.session.map, playerPosition) && s.ready && s.session.phase === 'walking' && !s.panel && !dead) { setPauseView('cargo'); useGameStore.setState({ isPaused: true }); } }}/>
+      openCargo={() => {
+          if (depositRemaining !== null) s.openDeposit();
+          else if (!engineerBriefingRequired() && isNearCargo(s.session.map, playerPosition) && s.ready && s.session.phase === 'walking' && !s.panel && !dead) { setPauseView('cargo'); useGameStore.setState({ isPaused: true }); }
+      }}/>
     {s.session.map === 'shanghai' && <CombatHud/>}</>}
     {campaign.mode === 'campaign' && <RadioToast text={s.radio} sender={s.radioSender} serial={s.radioSerial} active={s.ready && !paused && !s.panel && s.session.phase === 'walking' && s.radioMap === s.session.map}/>}
     {(campaign.mode === 'campaign' ? campaign.saveError : s.saveError) && <p className="save-warning" role="alert">{campaign.mode === 'campaign' ? campaign.saveError : s.saveError}</p>}
@@ -162,6 +179,8 @@ function Runtime({ onHome }: { onHome: () => void }) {
     {s.panel === 'engineer' && !paused && <EngineerDialogue calm={engineerIsCalm(campaign.mode, campaign.saved?.campaign.edenActive ?? false, engineerPreview)}
       copperMission={progress?.stage === 'expedition-copper'}
       swordPickup={progress?.stage === 'sword-pickup' && canReceiveSword(playerPosition)}/>}
+    {s.panel === 'acquisition' && s.acquisition && <EquipmentAcquisition key={s.acquisition} item={s.acquisition} onFinish={s.finishAcquisition}/>}
+    {s.panel === 'deposit' && <MissionDepositPanel onClose={s.closePanel}/>}
     {inCockpit && <ShipCockpit map={s.session.map} phase={s.session.phase} ready={s.ready} error={s.error} name={s.profile?.displayName ?? 'Explorador'}
       onDepart={() => s.send('depart')} onExit={() => s.send('exit')} onRetry={() => { if (s.error === SCENE_STALLED_ERROR) { window.location.reload(); return; } s.setError(null); s.send('depart'); }}
       encounter={campaign.mode !== 'campaign' && s.session.map === 'mars' ? <EncounterSelect/> : undefined}/>}
@@ -171,7 +190,8 @@ function Runtime({ onHome }: { onHome: () => void }) {
     {paused && pauseView !== 'pause' && !(s.session.map === 'shanghai' && dead) && <PauseMenuFrame label={pauseView === 'backpack' ? 'Mochila' : pauseView === 'cargo' ? 'Carga da aeronave' : 'Controles e opções'} wide={pauseView === 'cargo'}>
       <div className="beta-menu-heading"><p className="eyebrow">EXODEN · EXPLORAÇÃO PAUSADA</p><button className="secondary" onClick={() => useGameStore.setState({ isPaused: false })} aria-label="Fechar menu">✕</button></div>
       <div className="beta-menu-tabs"><button className={pauseView === 'menu' ? 'is-active' : 'secondary'} onClick={() => setPauseView('menu')}>Controles</button>
-        {!briefingRequired && <><button className={pauseView === 'backpack' ? 'is-active' : 'secondary'} onClick={() => setPauseView('backpack')}>Mochila</button><button className={pauseView === 'cargo' ? 'is-active' : 'secondary'} onClick={() => setPauseView('cargo')}>Aeronave</button></>}
+        {!briefingRequired && <button className={pauseView === 'backpack' ? 'is-active' : 'secondary'} onClick={() => setPauseView('backpack')}>Mochila</button>}
+        {!briefingRequired && depositRemaining === null && <button className={pauseView === 'cargo' ? 'is-active' : 'secondary'} onClick={() => setPauseView('cargo')}>Aeronave</button>}
       </div>
       {pauseView === 'cargo' ? <ShipCargoPanel map={s.session.map}/> : pauseView === 'backpack' ? <BackpackContents combat={s.session.map === 'shanghai'}/> : <>
         <h2>À sua maneira.</h2><ControlList/>
