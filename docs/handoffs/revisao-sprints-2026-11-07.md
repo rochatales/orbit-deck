@@ -216,6 +216,24 @@ reavaliado diante da morte definitiva da base.
 11. Os retornos com mapa limpo repõem suprimentos? Se não, todo estoque só desce
     até a S8.
 
+### Respostas do autor · 07/11/2026
+
+Respondidas na sessão, antes de aplicar os patches. Os patches foram regerados com elas.
+
+| # | Decisão |
+|---|---|
+| 1 | Valores iniciais do corte mínimo: estoque **10**, decolagem **−1**, falha **−2**, retorno com mapa limpo **+3**, colapso em **0**. Ficam centralizados em configuração e são ajustáveis no playtest. Limiares de aviso 5 e 2 são proposta do agente |
+| 2 | **Fim definitivo.** A campanha fica marcada como encerrada no save, sem checkpoint de emergência |
+| 3 | Custo **fixo** por tentativa. Morte, abandono e reload durante a missão contam como falha, cobrada uma vez |
+| 4 | Moral (Meeting Room) na **Sprint 8** |
+| 5 | Golpes do facão de plasma: **[A DEFINIR]**, a decidir perto da S9 |
+| 6 | Rendimento e tempo das receitas: **[A DEFINIR]**, antes da S8.2 |
+| 7 | **Só mapa limpo** libera a decolagem. A quota decide apenas o avanço da etapa |
+| 8 | Placas de alumínio vão **ao backlog** |
+| 9 | Corte mínimo por **estoque agregado** |
+| 10 | Branch `rochatales/s6.15-pausa-menu` **superada** pela pausa da linha `s3.2` |
+| 11 | **Sim**: cada retorno com mapa limpo repõe suprimentos |
+
 ## 5. Verificação
 
 - Mudanças só de documentação: este handoff e dois patches. Nenhum arquivo de
