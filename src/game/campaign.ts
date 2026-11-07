@@ -1,6 +1,6 @@
 /** Regras puras do circuito inicial; coleta, entrega e ativação são eventos distintos. */
 export const CAMPAIGN_STAGES = [
-    'engineer-briefing', 'expedition-copper', 'eden-activation', 'eden-briefing',
+    'engineer-briefing', 'expedition-copper', 'engineer-return-briefing', 'eden-activation', 'eden-briefing',
     'sword-pickup', 'expedition-organic', 'synthesizer-activation', 'main-progression'
 ] as const;
 export type CampaignStage = typeof CAMPAIGN_STAGES[number];
@@ -21,7 +21,7 @@ export function createCampaign(): CampaignState {
         edenActive: false, synthesizerActive: false, swordReceived: false,
         lastExpeditionId: null, depositedExpeditionIds: [] };
 }
-export type CampaignEvent = 'finish-engineer-briefing' | 'finish-copper-expedition' | 'activate-eden'
+export type CampaignEvent = 'finish-engineer-briefing' | 'finish-copper-expedition' | 'finish-engineer-return-briefing' | 'activate-eden'
     | 'finish-eden-briefing' | 'pick-up-sword' | 'finish-organic-expedition' | 'activate-synthesizer'
     | 'defeat' | 'restart';
 /** Evento fora de ordem, repetido ou de tentativa derrotada não altera o estado. */
@@ -31,7 +31,9 @@ export function transitionCampaign(state: CampaignState, event: CampaignEvent): 
             return state.stage === 'engineer-briefing' ? { ...state, stage: 'expedition-copper' } : state;
         case 'finish-copper-expedition':
             return state.stage === 'expedition-copper' && state.copperDelivered >= CAMPAIGN_QUOTAS.copper
-                ? { ...state, stage: 'eden-activation' } : state;
+                ? { ...state, stage: 'engineer-return-briefing' } : state;
+        case 'finish-engineer-return-briefing':
+            return state.stage === 'engineer-return-briefing' ? { ...state, stage: 'eden-activation' } : state;
         case 'activate-eden':
             return state.stage === 'eden-activation' && state.copperDelivered >= CAMPAIGN_QUOTAS.copper
                 ? { ...state, stage: 'eden-briefing', edenActive: true } : state;
@@ -66,10 +68,11 @@ export function depositExpedition(state: CampaignState, delivery: ExpeditionDeli
 export function parseCampaignState(value: unknown): CampaignState | null {
     if (!value || typeof value !== 'object') return null;
     const s = value as CampaignState, index = CAMPAIGN_STAGES.indexOf(s.stage);
+    const reached = (stage: CampaignStage) => index >= CAMPAIGN_STAGES.indexOf(stage);
     if (index < 0 || !validCampaignAmount(s.copperDelivered) || !validCampaignAmount(s.organicDelivered)
-        || s.edenActive !== (index >= 3) || s.swordReceived !== (index >= 5) || s.synthesizerActive !== (index === 7)
-        || (index >= 2 && s.copperDelivered < CAMPAIGN_QUOTAS.copper)
-        || (index >= 6 && s.organicDelivered < CAMPAIGN_QUOTAS.organic)
+        || s.edenActive !== reached('eden-briefing') || s.swordReceived !== reached('expedition-organic') || s.synthesizerActive !== (s.stage === 'main-progression')
+        || (reached('engineer-return-briefing') && s.copperDelivered < CAMPAIGN_QUOTAS.copper)
+        || (reached('synthesizer-activation') && s.organicDelivered < CAMPAIGN_QUOTAS.organic)
         || !Array.isArray(s.depositedExpeditionIds) || !s.depositedExpeditionIds.every(validId)
         || new Set(s.depositedExpeditionIds).size !== s.depositedExpeditionIds.length
         || s.lastExpeditionId !== (s.depositedExpeditionIds[s.depositedExpeditionIds.length - 1] ?? null)
@@ -82,6 +85,7 @@ export function parseCampaignState(value: unknown): CampaignState | null {
 export const CAMPAIGN_OBJECTIVES: Record<CampaignStage, string> = {
     'engineer-briefing': 'Procure o Engenheiro na Oficina ou no Data Center',
     'expedition-copper': 'Recupere e entregue 4 unidades de cobre',
+    'engineer-return-briefing': 'Converse com o Engenheiro sobre o cobre',
     'eden-activation': 'Ligue EDEN no pedestal da Sala de Controle',
     'eden-briefing': 'Converse com EDEN',
     'sword-pickup': 'Receba o facão de plasma na Oficina',

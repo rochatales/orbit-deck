@@ -2,13 +2,17 @@ import { useEffect, useRef } from 'react';
 import { bindDialogFocus } from '../ui/dialogFocus';
 import { useExpeditionStore } from '../state/useExpeditionStore';
 import './EngineerDialogue.css';
-export function EngineerDialogue({ calm, swordPickup, copperMission }: { calm: boolean; swordPickup: boolean; copperMission: boolean }) {
+export function EngineerDialogue({ calm, swordPickup, copperMission, returnBriefing }: {
+    calm: boolean; swordPickup: boolean; copperMission: boolean; returnBriefing: boolean;
+}) {
     const root = useRef<HTMLElement>(null);
     useEffect(() => root.current ? bindDialogFocus(root.current, document) : undefined, []);
     return <section ref={root} className="overlay engineer-dialogue" role="dialog" aria-modal="true" aria-label="Conversa com o Engenheiro" tabIndex={-1}><article>
         <p className="eyebrow">ENGENHEIRO · OFICINA / DATA CENTER</p>
-        <h2>{swordPickup ? 'Seu facão de plasma está pronto.' : calm ? 'EDEN está nos acompanhando.' : 'Precisamos reativar estes sistemas.'}</h2>
+        <h2>{swordPickup ? 'Seu facão de plasma está pronto.' : returnBriefing ? 'Temos o cobre de que precisávamos.'
+            : calm ? 'EDEN está nos acompanhando.' : 'Precisamos reativar estes sistemas.'}</h2>
         <p>{swordPickup ? 'Leve o facão de plasma para Shanghai. Use 2 para equipá-lo quando encontrar os mutantes.'
+            : returnBriefing ? 'Agora ligue o EDEN e vamos iniciar o funcionamento total da nossa colônia.'
             : calm ? 'Vou continuar cuidando da Oficina e do Data Center. Com EDEN por perto, podemos organizar os próximos passos.'
             : 'Precisamos buscar cobre na Terra para reativar EDEN. Estou tentando manter a Oficina e o Data Center funcionando.'}</p>
         {copperMission && <p>Leve este rifle laser e este sonar. Você vai precisar do sonar para localizar ameaças, suprimentos e a aeronave em Shanghai. Use 1 para selecionar o rifle.</p>}

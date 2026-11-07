@@ -17,20 +17,21 @@ const deposit = () => useExpeditionStore.getState().openDeposit();
 const canBoardInShanghai = () => (missionDepositRemaining('shanghai') ?? 0) === 0;
 export function WorldInteractionBubbles({ map, world }: { map: MapId; world: OfficeWorld }) {
     const circuitMission = useCampaignStore(s => missionDepositRemaining(map, s) !== null);
+    const showEdenMarker = useCampaignStore(s => s.mode === 'campaign' && s.saved?.campaign.stage === 'eden-activation');
     const exit = MAPS[map].exit;
     const rear = MISSION_DEPOSIT_POINT;
     const height = (x: number, z: number) => world.surfaceHeight?.(x, z) ?? world.supportHeight?.(x, z) ?? 0;
     return <>
         <InteractionBubble id={`ship:${map}`} label="Entrar na aeronave" point={exit} radius={SHIP_INTERACTION_RADIUS} priority={10}
             position={[exit.x, height(exit.x, exit.z) + 1.8, exit.z]} available={circuitMission ? canBoardInShanghai : undefined} onInteract={board}>
-            {!circuitMission && <button type="button" className="secondary" onClick={event => { event.stopPropagation(); requestShipCargo(); }}>F · Carga da aeronave</button>}
+            {map === 'shanghai' && !circuitMission && <button type="button" className="secondary" onClick={event => { event.stopPropagation(); requestShipCargo(); }}>F · Carga da aeronave</button>}
         </InteractionBubble>
         {circuitMission && <InteractionBubble id="ship:deposit" label="Depositar no porão" point={rear} radius={MISSION_DEPOSIT_RADIUS}
             position={[rear.x, height(rear.x, rear.z) + 1.8, rear.z]} priority={20} available={canOpenMissionDeposit} onInteract={deposit}/>}
         {/* Acima do halo: a EDEN flutua sobre o pedestal e vai até 2,51 m. */}
         {map === 'mars' && <>
             <InteractionBubble id="activate-eden" label="Ligar EDEN" point={EDEN.position} radius={EDEN.interactionRadius}
-                position={[EDEN.position.x, 1.8, EDEN.position.z]} priority={30} onInteract={activateEden}/>
+                position={[EDEN.position.x, 1.8, EDEN.position.z]} priority={30} alwaysVisible={showEdenMarker} onInteract={activateEden}/>
             <NpcInteractionBubble npc={EDEN} height={3} onInteract={talkToEden}/>
         </>}
         {map === 'shanghai' && SHANGHAI_SUPPLY_CRATES.map(crate => <InteractionBubble key={crate.id} id={`crate:${crate.id}`}

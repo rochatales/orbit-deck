@@ -6,7 +6,7 @@ const C = loadSource('src/game/campaign.ts');
 const S = loadSource('src/game/campaignSave.ts');
 const profile = { displayName: 'Campanha', color: '#abcdef' };
 const cargo = { iron: 4, copper: 4, titanium: 0, organic: 0 };
-const events = ['finish-engineer-briefing', 'finish-copper-expedition', 'activate-eden', 'finish-eden-briefing', 'pick-up-sword', 'finish-organic-expedition', 'activate-synthesizer'];
+const events = ['finish-engineer-briefing', 'finish-copper-expedition', 'finish-engineer-return-briefing', 'activate-eden', 'finish-eden-briefing', 'pick-up-sword', 'finish-organic-expedition', 'activate-synthesizer'];
 const memoryStorage = () => {
     const values = new Map(), reads = [], writes = [];
     return { values, reads, writes, getItem(key) { reads.push(key); return values.get(key) ?? null; }, setItem(key, value) { writes.push(key); values.set(key, value); } };
@@ -62,8 +62,9 @@ test('Campanha: quota parcial em duas expedições e A → B → A contam uma ve
     assert.equal(state.copperDelivered, 4); assert.equal(state.lastExpeditionId, 'B');
     assert.deepEqual(state.depositedExpeditionIds, ['A', 'B']);
     state = C.transitionCampaign(state, 'finish-copper-expedition');
-    assert.equal(state.stage, 'eden-activation');
-    for (const event of ['activate-eden', 'finish-eden-briefing', 'pick-up-sword']) state = C.transitionCampaign(state, event);
+    assert.equal(state.stage, 'engineer-return-briefing');
+    assert.equal(C.transitionCampaign(state, 'activate-eden'), state);
+    for (const event of ['finish-engineer-return-briefing', 'activate-eden', 'finish-eden-briefing', 'pick-up-sword']) state = C.transitionCampaign(state, event);
     state = C.depositExpedition(state, { id: 'C', copper: 0, organic: 4 });
     assert.equal(C.transitionCampaign(state, 'finish-organic-expedition'), state);
     state = C.depositExpedition(state, { id: 'D', copper: 0, organic: 6 });
@@ -91,6 +92,8 @@ test('Campanha: save versionado ida/volta, inválido nulo e armazenamento indisp
     copper = C.depositExpedition(copper, { id: 'B', copper: 2, organic: 0 });
     const roundTrip = S.parseCampaignSave(JSON.stringify({ ...saved, campaign: copper }));
     assert.equal(C.depositExpedition(roundTrip.campaign, { id: 'A', copper: 2, organic: 0 }), roundTrip.campaign, 'IDs persistem no reload');
+    const legacy = S.parseCampaignSave(JSON.stringify({ ...saved, campaign: { ...copper, stage: 'eden-activation' } }));
+    assert.equal(legacy.campaign.stage, 'eden-activation', 'save que já chegou ao pedestal continua válido');
 });
 
 test('Campanha: sem save próprio, store mantém perfil e carga de desenvolvimento atuais', () => {
@@ -148,7 +151,7 @@ test('Campanha: reload retoma perfil/carga próprios; recomeçar exige substitui
     assert.equal(reloaded.expedition.getState().profile, null, 'perfil de campanha não ocupa o perfil dev');
     assert.ok(reloaded.expedition.getState().enterCampaign());
     assert.equal(reloaded.expedition.getState().profile.displayName, 'Campanha');
-    assert.equal(reloaded.campaign.getState().saved.campaign.stage, 'eden-activation');
+    assert.equal(reloaded.campaign.getState().saved.campaign.stage, 'engineer-return-briefing');
     assert.deepEqual(reloaded.ship.getState().cargo, cargo);
     reloaded.expedition.getState().returnHome();
     const before = storage.values.get(S.CAMPAIGN_SAVE_KEY);

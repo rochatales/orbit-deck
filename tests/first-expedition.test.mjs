@@ -78,7 +78,7 @@ test('S3.2: só o depósito traseiro e a cota no porão liberam o embarque', () 
     assert.equal(f.campaign.getState().saved.campaign.lastExpeditionId,id);
     assert.deepEqual(saved.cargo,{...zero,copper:4},'só o porão retorna');
     assert.equal(saved.campaign.copperDelivered,4);assert.equal(saved.campaign.organicDelivered,0);
-    assert.equal(saved.campaign.stage,'eden-activation');assert.equal(saved.campaign.edenActive,false);
+    assert.equal(saved.campaign.stage,'engineer-return-briefing');assert.equal(saved.campaign.edenActive,false);
     assert.equal(saved.campaign.depositedExpeditionIds.length,1);
     assert.match(f.load('src/game/campaign.ts').campaignObjective({...saved.campaign,stage:'expedition-copper',copperDelivered:2}),/2 \/ 4/);
 });
@@ -272,7 +272,7 @@ test('S3.2: a reserva recebe só a cota quando um porão antigo já está cheio'
     f.travel();
     const reload = fixture(f.values);
     assert.equal(reload.expedition.getState().enterCampaign(),true);
-    assert.equal(reload.campaign.getState().saved.campaign.stage,'eden-activation');
+    assert.equal(reload.campaign.getState().saved.campaign.stage,'engineer-return-briefing');
     assert.equal(reload.ship.getState().cargo.copper,4);
 });
 
@@ -323,9 +323,9 @@ test('S3.2 confirmação: orientação segue etapa em retomar e rádio pertence 
     const f=fixture();f.enter();f.expedition.getState().returnHome();f.expedition.getState().enterCampaign();
     assert.match(f.expedition.getState().radio,/Cobre entregue/);assert.equal(f.expedition.getState().radioSender,'Sistema');
     f.travel();assert.equal(f.expedition.getState().radioMap,'shanghai');
-    f.pack(4);f.deposit();f.travel();assert.equal(f.campaign.getState().saved.campaign.stage,'eden-activation');
+    f.pack(4);f.deposit();f.travel();assert.equal(f.campaign.getState().saved.campaign.stage,'engineer-return-briefing');
     assert.equal(f.expedition.getState().radioMap,'mars');assert.doesNotMatch(f.expedition.getState().radio,/Desembarque/);
-    for (const event of ['activate-eden', 'finish-eden-briefing', 'pick-up-sword']) f.campaign.getState().dispatch(event);
+    for (const event of ['finish-engineer-return-briefing', 'activate-eden', 'finish-eden-briefing', 'pick-up-sword']) f.campaign.getState().dispatch(event);
     f.travel();assert.equal(f.expedition.getState().session.map,'shanghai');
     assert.equal(f.expedition.getState().radioSender,'EDEN');
     assert.match(f.expedition.getState().radio,/matéria orgânica/);
@@ -358,6 +358,23 @@ test('Circuito inicial: pedestal, briefing, Oficina e sintetizador avançam uma 
     f.deposit();
     f.travel();
     assertMarsDepartureBlocked();
+    reload();
+    f.placePlayer(atEden);
+    state().activateEden();
+    assert.equal(stage(), 'engineer-return-briefing', 'a conversa precisa acontecer antes da ativação');
+
+    const world = f.load('src/game/marsWorld.ts').createWorld();
+    const { engineerPresence: returningEngineer } = f.load('src/npcs/engineerPresence.ts');
+    Object.assign(returningEngineer, { active: true, world, x: -6.1, z: 6 });
+    f.placePlayer({ x: -5, y: 0, z: 6 });
+    state().openEngineer();
+    assert.equal(state().panel, 'engineer');
+    assert.equal(state().acquisition, null);
+    assert.equal(stage(), 'engineer-return-briefing');
+    state().closePanel();
+    state().closePanel();
+    assert.equal(stage(), 'eden-activation');
+    assert.equal(f.writes.length, 1, 'encerrar a conversa grava a etapa uma vez');
     state().activateEden();
     assert.equal(stage(), 'eden-activation', 'é preciso estar no pedestal');
 
@@ -388,10 +405,10 @@ test('Circuito inicial: pedestal, briefing, Oficina e sintetizador avançam uma 
     assert.equal(f.campaign.getState().saved.briefingSeen, true);
     assertMarsDepartureBlocked();
 
-    const world = f.load('src/game/marsWorld.ts').createWorld();
+    const laterWorld = f.load('src/game/marsWorld.ts').createWorld();
     const { engineerPresence } = f.load('src/npcs/engineerPresence.ts');
     const weapon = f.load('src/state/useWeaponStore.ts').useWeaponStore;
-    Object.assign(engineerPresence, { active: true, world, x: -10.3, z: 0 });
+    Object.assign(engineerPresence, { active: true, world: laterWorld, x: -10.3, z: 0 });
     f.placePlayer({ x: -9.1, y: 0, z: 0 });
     state().openEngineer();
     assert.equal(state().panel, 'engineer');
@@ -477,6 +494,7 @@ test('S5.3: energia segue a etapa e o save em cada montagem, e o visual dev mant
     f.pack(4);
     f.deposit();
     f.travel();
+    f.campaign.getState().dispatch('finish-engineer-return-briefing');
     f.campaign.getState().dispatch('activate-eden');
     assert.deepEqual(history, [false, true]);
     assert.equal(eden.material.emissiveIntensity, 2);

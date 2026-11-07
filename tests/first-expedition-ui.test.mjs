@@ -117,6 +117,7 @@ function renderWithStores(file, f, name, props={}) {
   if(spec.endsWith('.css'))return {};
   if(/\.(jpg|png|mp4)$/.test(spec))return spec;
   if(spec.endsWith('/ShipCargoPanel'))return {ShipCargoPanel:()=>null,ShipCargoButton:'test-ship-cargo'};
+  if(spec.endsWith('/InteractionBubble'))return {InteractionBubble:'test-world-interaction',NpcInteractionBubble:'test-npc-interaction'};
   if(spec.endsWith('/RadarMap'))return {RadarMap:'test-sonar'};
   if(spec.endsWith('/ItemArtwork'))return {ItemArtwork:'test-item'};
   if(spec.endsWith('/WeaponControls'))return {canEquipPlayerWeapon:()=>true,equipPlayerWeapon:()=>true};
@@ -145,7 +146,7 @@ test('S3.2 revisão UI: fallback da campanha mantém título/aviso das hordas, s
  assert.match(text,/próxima horda chega com reabastecimento/);assert.doesNotMatch(text,/Equipe o facão|repita|reinicie/);
 });
 
-test('Circuito inicial UI: cabine orienta o pedestal e a segunda expedição mostra ondas de 4 e 6 mutantes', () => {
+test('Circuito inicial UI: cabine orienta o retorno ao Engenheiro e a segunda expedição mostra ondas de 4 e 6 mutantes', () => {
     const f = setup();
     const c = f.campaign.getState();
     c.dispatch('finish-engineer-briefing');
@@ -154,8 +155,8 @@ test('Circuito inicial UI: cabine orienta o pedestal e a segunda expedição mos
     const cockpit = renderWithStores('src/ui/ShipCockpit.tsx', f, 'ShipCockpit', {
         map: 'mars', phase: 'aboard', ready: true, error: null, name: 'QA', onDepart() {}, onExit() {}, onRetry() {}
     });
-    assert.match(textTree(cockpit), /Ligue EDEN no pedestal da Sala de Controle/);
-    for (const event of ['activate-eden', 'finish-eden-briefing', 'pick-up-sword']) c.dispatch(event);
+    assert.match(textTree(cockpit), /Converse com o Engenheiro sobre o cobre/);
+    for (const event of ['finish-engineer-return-briefing', 'activate-eden', 'finish-eden-briefing', 'pick-up-sword']) c.dispatch(event);
     f.expedition.setState({ session: { map: 'shanghai', phase: 'walking', destination: null, revision: 0 } });
     for (const [wave, count] of [[0, 4], [1, 6]]) {
         f.combat.setState({ wave, waves: 2, nextWave: 3 });
@@ -164,6 +165,41 @@ test('Circuito inicial UI: cabine orienta o pedestal e a segunda expedição mos
         assert.match(text, /ONDA/);
         assert.doesNotMatch(text, /13 ameaças|26 ameaças|Patrol grandes/);
     }
+});
+
+test('Circuito inicial UI: balão de Marte oferece embarque e a conversa libera o marcador de EDEN', () => {
+    const f = setup();
+    const campaign = f.campaign.getState();
+    campaign.dispatch('finish-engineer-briefing');
+    campaign.depositExpedition({ id: 'cobre', copper: 4, organic: 0 });
+    campaign.dispatch('finish-copper-expedition');
+    const interactions = () => nodes(renderWithStores('src/interactions/WorldInteractionBubbles.tsx', f, 'WorldInteractionBubbles', {
+        map: 'mars', world: {}
+    }), node => node.type === 'test-world-interaction');
+    const ship = interactions().find(node => node.props.id === 'ship:mars');
+    assert.equal(ship.props.label, 'Entrar na aeronave');
+    assert.equal(textTree(ship), '');
+    assert.equal(interactions().find(node => node.props.id === 'activate-eden').props.alwaysVisible, false);
+    const dialogue = renderWithStores('src/npcs/EngineerDialogue.tsx', f, 'EngineerDialogue', { returnBriefing: true });
+    assert.match(textTree(dialogue), /Agora ligue o EDEN e vamos iniciar o funcionamento total da nossa colônia\./);
+    assert.doesNotMatch(textTree(dialogue), /Leve este rifle/);
+    campaign.dispatch('finish-engineer-return-briefing');
+    const marker = interactions().find(node => node.props.id === 'activate-eden');
+    assert.equal(marker.props.label, 'Ligar EDEN');
+    assert.equal(marker.props.alwaysVisible, true);
+    campaign.dispatch('activate-eden');
+    assert.equal(interactions().find(node => node.props.id === 'activate-eden').props.alwaysVisible, false);
+});
+
+test('Circuito inicial UI: transferência rápida começa pelo Depósito Ares-I', () => {
+    const f = setup(), file = 'src/ui/ShipCargoPanel.tsx';
+    const dialog = renderWithStores(file, f, 'MissionDepositPanel', { onClose() {} });
+    assert.match(textTree(dialog), /Transferir para a aeronave\./);
+    const panel = renderWithStores(file, f, 'ShipCargoPanel', { map: 'shanghai', depositOnly: true });
+    const headings = nodes(panel, node => node.type === 'h3').map(textTree);
+    assert.match(headings[0], /^Depósito Ares-I/);
+    assert.match(headings[1], /^Mochila/);
+    assert.doesNotMatch(textTree(panel), /Retirar tudo/);
 });
 
 test('S3.2 UI: briefing libera rifle, sonar e menus; kit médico aparece quando coletado', () => {

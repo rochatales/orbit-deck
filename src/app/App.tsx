@@ -178,6 +178,7 @@ function Runtime({ onHome }: { onHome: () => void }) {
     </article></section>}
     {s.panel === 'engineer' && !paused && <EngineerDialogue calm={engineerIsCalm(campaign.mode, campaign.saved?.campaign.edenActive ?? false, engineerPreview)}
       copperMission={progress?.stage === 'expedition-copper'}
+      returnBriefing={progress?.stage === 'engineer-return-briefing'}
       swordPickup={progress?.stage === 'sword-pickup' && canReceiveSword(playerPosition)}/>}
     {s.panel === 'acquisition' && s.acquisition && <EquipmentAcquisition key={s.acquisition} item={s.acquisition} onFinish={s.finishAcquisition}/>}
     {s.panel === 'deposit' && <MissionDepositPanel onClose={s.closePanel}/>}

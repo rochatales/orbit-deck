@@ -189,6 +189,7 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
     closePanel: () => {
         const s = get();
         if (s.session.phase !== 'walking' || s.panel === 'acquisition') return;
+        if (s.panel === 'engineer') useCampaignStore.getState().dispatch('finish-engineer-return-briefing');
         set({ panel: s.panel === 'engineer' && s.acquisition ? 'acquisition' : null });
     },
     send: (event) => {
@@ -211,7 +212,9 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
         if (event === 'arrive' && session.map === 'mars' && s.session.map === 'shanghai' && useCampaignStore.getState().mode === 'campaign')
         {
             useCampaignStore.getState().consolidateExpedition(crypto.randomUUID());
-            get().setRadio('Chegamos a Marte. A carga da aeronave está consolidada.', 'Sistema', 'mars');
+            const returning = useCampaignStore.getState().saved?.campaign.stage === 'engineer-return-briefing';
+            get().setRadio(returning ? 'Chegamos a Marte. Fale com o Engenheiro sobre o cobre.'
+                : 'Chegamos a Marte. A carga da aeronave está consolidada.', 'Sistema', 'mars');
         }
         if (event === 'arrive' && session.map === 'shanghai') {
             useCombatStore.getState().restart();

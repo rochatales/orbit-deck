@@ -18,7 +18,8 @@ import url from '../assets/characters/npcs/engenheiro-v001.glb';
 const talk = () => useExpeditionStore.getState().openEngineer();
 const available = () => canTalkToEngineer(playerPosition);
 export function EngineerScene({ world }: { world: OfficeWorld }) {
-    const briefing = useCampaignStore(s => s.mode === 'campaign' && s.saved?.campaign.stage === 'engineer-briefing');
+    const briefing = useCampaignStore(s => s.mode === 'campaign'
+        && (s.saved?.campaign.stage === 'engineer-briefing' || s.saved?.campaign.stage === 'engineer-return-briefing'));
     const gltf = useGLTF(url), body = useRef<RapierRigidBody>(null), visual = useRef<Group>(null);
     const routine = useMemo(() => new EngineerRoutine(world), [world]);
     const rig = useRef<EngineerRig>(), clock = useRef(0);
@@ -44,7 +45,7 @@ export function EngineerScene({ world }: { world: OfficeWorld }) {
         const dt = paused ? 0 : Math.min(.05, delta);
         const calm = engineerIsCalm(campaign.mode, campaign.saved?.campaign.edenActive ?? false, previewMood);
         const stage = campaign.mode === 'campaign' ? campaign.saved?.campaign.stage : undefined;
-        const waitInWorkshop = stage === 'eden-activation' || stage === 'eden-briefing' || stage === 'sword-pickup';
+        const waitInWorkshop = stage === 'engineer-return-briefing' || stage === 'eden-activation' || stage === 'eden-briefing' || stage === 'sword-pickup';
         clock.current += dt;
         while (clock.current >= 1 / 60) {
             routine.update(1 / 60, playerPosition, talking, calm, false, waitInWorkshop);

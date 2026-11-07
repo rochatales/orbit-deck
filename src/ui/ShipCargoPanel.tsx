@@ -56,7 +56,7 @@ function Grid({ cargo, slots, action, onMove, label }: { cargo: ResourceCargo; s
   </div>;
 }
 
-/** Menu do porão: mochila à esquerda, aeronave à direita (pegada da referência, identidade EXODEN). */
+/** O depósito rápido destaca a aeronave à esquerda. O menu completo mantém a ordem da mochila. */
 export function ShipCargoPanel({ map, depositOnly = false }: { map: MapId; depositOnly?: boolean }) {
   const campaign = useCampaignStore(s => s.mode === 'campaign');
   const combat = map === 'shanghai', live = useCombatStore(), backpack: ResourceCargo = combat ? live : EMPTY_CARGO;
@@ -70,22 +70,25 @@ export function ShipCargoPanel({ map, depositOnly = false }: { map: MapId; depos
     const moved = to === 'ship' ? deposit(kind, one ? 1 : undefined) : withdraw(kind, one ? 1 : undefined);
     setNote(moved ? `${moved} ${moved === 1 ? 'item movido' : 'itens movidos'} para ${to === 'ship' ? 'a aeronave' : 'a mochila'}.` : to === 'ship' ? 'Porão sem espaço ou mochila vazia.' : 'Mochila sem espaço ou porão vazio.');
   };
+  const backpackCard = <section className="beta-hold-card">
+    <header><ItemArtwork item="backpack"/><h3>Mochila <small>({cargoStacks(backpack).length}/{RESOURCE_KINDS.length})</small></h3><span>{kg(pack)} / {BACKPACK.capacityKg} kg</span></header>
+    <div className="beta-weight-track" aria-hidden="true"><i style={{ width: `${Math.min(100, pack / BACKPACK.capacityKg * 100)}%` }}/></div>
+    <Grid cargo={backpack} slots={RESOURCE_KINDS.length} action="depositar na aeronave" label="Itens da mochila" onMove={canMove ? (kind, one) => move(kind, one, 'ship') : undefined}/>
+    <button disabled={!canMove || pack === 0} onClick={() => move(undefined, false, 'ship')}>
+      Depositar tudo {depositOnly ? <ArrowLeft size={13}/> : <ArrowRight size={13}/>}
+    </button>
+  </section>;
+  const shipCard = <section className="beta-hold-card is-ship">
+    <header><Plane aria-hidden="true"/><h3>{depositOnly ? 'Depósito Ares-I' : 'Porão'} <small>({cargoStacks(ship).length}/{SHIP_CARGO.slots})</small></h3><span>{kg(hold)} / {shipCapacityLabel(hold)}</span></header>
+    <div className="beta-weight-track" aria-hidden="true"><i style={{ width: `${Math.min(100, hold / SHIP_CARGO.capacityKg * 100)}%` }}/></div>
+    <Grid cargo={ship} slots={SHIP_CARGO.slots} action={depositOnly ? 'guardado no porão' : 'retirar para a mochila'} label="Itens no porão" onMove={canMove && !depositOnly ? (kind, one) => move(kind, one, 'pack') : undefined}/>
+    {!depositOnly && <button className="secondary" disabled={!canMove || hold === 0} onClick={() => move(undefined, false, 'pack')}><ArrowLeft size={13}/> Retirar tudo</button>}
+  </section>;
   return <section className="beta-ship-hold" aria-label="Carga da aeronave">
     {!depositOnly && <div className="beta-cargo-title"><Plane aria-hidden="true" className="beta-ship-icon"/><div><p className="eyebrow">AERONAVE · PORÃO</p><h2>Carga da aeronave</h2></div>
       <strong>{kg(hold)} <small>/ {shipCapacityLabel(hold)}</small></strong></div>}
     <div className="beta-hold-columns">
-      <section className="beta-hold-card">
-        <header><ItemArtwork item="backpack"/><h3>Mochila <small>({cargoStacks(backpack).length}/{RESOURCE_KINDS.length})</small></h3><span>{kg(pack)} / {BACKPACK.capacityKg} kg</span></header>
-        <div className="beta-weight-track" aria-hidden="true"><i style={{ width: `${Math.min(100, pack / BACKPACK.capacityKg * 100)}%` }}/></div>
-        <Grid cargo={backpack} slots={RESOURCE_KINDS.length} action="depositar na aeronave" label="Itens da mochila" onMove={canMove ? (kind, one) => move(kind, one, 'ship') : undefined}/>
-        <button disabled={!canMove || pack === 0} onClick={() => move(undefined, false, 'ship')}>Depositar tudo <ArrowRight size={13}/></button>
-      </section>
-      <section className="beta-hold-card is-ship">
-        <header><Plane aria-hidden="true"/><h3>Porão <small>({cargoStacks(ship).length}/{SHIP_CARGO.slots})</small></h3><span>{kg(hold)} / {shipCapacityLabel(hold)}</span></header>
-        <div className="beta-weight-track" aria-hidden="true"><i style={{ width: `${Math.min(100, hold / SHIP_CARGO.capacityKg * 100)}%` }}/></div>
-        <Grid cargo={ship} slots={SHIP_CARGO.slots} action={depositOnly ? 'guardado no porão' : 'retirar para a mochila'} label="Itens no porão" onMove={canMove && !depositOnly ? (kind, one) => move(kind, one, 'pack') : undefined}/>
-        {!depositOnly && <button className="secondary" disabled={!canMove || hold === 0} onClick={() => move(undefined, false, 'pack')}><ArrowLeft size={13}/> Retirar tudo</button>}
-      </section>
+      {depositOnly ? <>{shipCard}{backpackCard}</> : <>{backpackCard}{shipCard}</>}
     </div>
     <p className="beta-hold-note" role="status">{depositOnly && remaining === 0 ? 'Cota no porão. Feche o depósito e embarque pela escada.' : note || (!near ? 'Aproxime-se da aeronave para mover a carga.' : !combat ? 'O porão guarda o que veio da Terra. Desça em Shanghai para carregar mais.' : 'Clique num item para mover a pilha · Shift + clique move uma unidade.')}
       {depositOnly && remaining !== null && remaining > 0 && ` Faltam ${remaining} para completar a cota no porão.`}
@@ -98,7 +101,7 @@ export function MissionDepositPanel({ onClose }: { onClose: () => void }) {
   const root = useRef<HTMLElement>(null);
   useEffect(() => root.current ? bindDialogFocus(root.current, document) : undefined, []);
   return <section className="mission-deposit" ref={root} tabIndex={-1} role="dialog" aria-modal="true" aria-labelledby="mission-deposit-title">
-    <header><h2 id="mission-deposit-title">Depósito da aeronave</h2><button type="button" className="secondary" onClick={onClose}>Fechar · ESC</button></header>
+    <header><h2 id="mission-deposit-title">Transferir para a aeronave.</h2><button type="button" className="secondary" onClick={onClose}>Fechar · ESC</button></header>
     <ShipCargoPanel map="shanghai" depositOnly/>
   </section>;
 }
