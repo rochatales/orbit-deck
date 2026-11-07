@@ -7,6 +7,7 @@ import { simulationBlocked } from '../../game/simulationGate';
 import { playerPosition } from '../../state/playerTransient';
 import type { OfficeWorld } from '../../world/createOfficeMap';
 import { ColonyBuildingRuntime } from './colonyBuildingRuntime';
+import { bindColonyPower } from './colonyPower';
 import dataCenterUrl from '../../assets/buildings/data-center.glb';
 import meetingRoomUrl from '../../assets/buildings/meeting-room.glb';
 import cafeteriaUrl from '../../assets/buildings/cafeteria.glb';
@@ -19,9 +20,13 @@ export function ColonyBuildings({ world }: { world: OfficeWorld }) {
 function Building({ index, world }: { index: number; world: OfficeWorld }) {
     const gltf = useGLTF(COLONY_BUILDING_URLS[index]), root = useRef<Group>(null), runtime = useRef<ColonyBuildingRuntime>();
     useLayoutEffect(() => {
-        const scene = gltf.scene.clone(true), next = new ColonyBuildingRuntime(scene, gltf.animations, COLONY_BUILDINGS[index], world.movingCuboids ?? []);
+        const spec = COLONY_BUILDINGS[index];
+        const scene = gltf.scene.clone(true), next = new ColonyBuildingRuntime(scene, gltf.animations, spec, world.movingCuboids ?? []);
+        // O prédio atual da Cafeteria substitui o depósito da planta original.
+        const unbind = spec.id === 'cafeteria' ? bindColonyPower(scene, 'synthesizerActive')
+            : spec.id === 'data-center' || spec.id === 'meeting-room' ? bindColonyPower(scene, 'edenActive') : undefined;
         root.current!.add(scene); runtime.current = next;
-        return () => { runtime.current = undefined; scene.removeFromParent(); next.dispose(); };
+        return () => { unbind?.(); runtime.current = undefined; scene.removeFromParent(); next.dispose(); };
     }, [gltf.scene, gltf.animations, index, world]);
     useFrame((_, dt) => runtime.current?.update(playerPosition, simulationBlocked() ? 0 : dt,
         engineerPresence.active && (COLONY_BUILDINGS[index].id === 'data-center' || COLONY_BUILDINGS[index].id === 'workshop') ? engineerPresence : undefined));

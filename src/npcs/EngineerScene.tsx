@@ -43,9 +43,11 @@ export function EngineerScene({ world }: { world: OfficeWorld }) {
             || (expedition.panel !== null && !talking);
         const dt = paused ? 0 : Math.min(.05, delta);
         const calm = engineerIsCalm(campaign.mode, campaign.saved?.campaign.edenActive ?? false, previewMood);
+        const stage = campaign.mode === 'campaign' ? campaign.saved?.campaign.stage : undefined;
+        const waitInWorkshop = stage === 'eden-activation' || stage === 'eden-briefing' || stage === 'sword-pickup';
         clock.current += dt;
         while (clock.current >= 1 / 60) {
-            routine.update(1 / 60, playerPosition, talking, calm);
+            routine.update(1 / 60, playerPosition, talking, calm, false, waitInWorkshop);
             clock.current -= 1 / 60;
         }
         const p = routine.position;

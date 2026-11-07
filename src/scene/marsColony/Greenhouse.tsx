@@ -3,6 +3,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { type Group } from 'three';
 import { playerPosition } from '../../state/playerTransient';
+import { useCampaignStore } from '../../state/useCampaignStore';
 import greenhouseUrl from '../../assets/greenhouse/greenhouse-v001.glb';
 import manifest from '../../assets/greenhouse/greenhouse-v001.manifest.json';
 import { GreenhouseRuntime, type GreenhouseState } from './greenhouseRuntime';
@@ -29,7 +30,9 @@ function GreenhousePreview({ state, onChange }: { state: GreenhouseState; onChan
 /** Somente malha visual; os CuboidCollider vêm de marsWorld e não mudam com o estado. */
 export function Greenhouse() {
     const gltf = useGLTF(greenhouseUrl);
-    const [state, setState] = useState<GreenhouseState>('OFFLINE');
+    const [previewState, setState] = useState<GreenhouseState>('OFFLINE');
+    const campaignState = useCampaignStore(s => s.mode !== 'campaign' ? null : s.saved?.campaign.synthesizerActive ? 'ONLINE' : 'OFFLINE');
+    const state = campaignState ?? previewState;
     const [preview] = useState(() => new URLSearchParams(window.location.search).has('greenhousePreview'));
     const visual = useRef<Group>(null);
     const runtime = useRef<GreenhouseRuntime>();
@@ -44,5 +47,5 @@ export function Greenhouse() {
     }, [gltf.scene]);
     useEffect(() => runtime.current?.setState(state), [gltf.scene, state]);
     useFrame((_, delta) => runtime.current?.update(playerPosition, delta));
-    return <><group ref={visual} dispose={null} />{preview && <GreenhousePreview state={state} onChange={setState} />}</>;
+    return <><group ref={visual} dispose={null} />{preview && campaignState === null && <GreenhousePreview state={state} onChange={setState} />}</>;
 }

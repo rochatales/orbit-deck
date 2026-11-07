@@ -2,7 +2,7 @@ import { useCampaignStore } from '../state/useCampaignStore';
 import { useEffect, useState } from 'react';
 import { useWeaponStore } from '../state/useWeaponStore';
 import { MACHETE_DEATH_OVERLAY_MS } from './melee';
-import { COMBAT, HORDE_TOTALS, HORDE_ENCOUNTER, PATROL_COUNTS, PATROL_KINDS, parseEncounter, patrolChoice, type RobotKind } from './config';
+import { COMBAT, HORDE_TOTALS, HORDE_ENCOUNTER, ORGANIC_WAVES, PATROL_COUNTS, PATROL_KINDS, parseEncounter, patrolChoice, type RobotKind } from './config';
 import { useCombatStore } from '../state/useCombatStore';
 import { useExpeditionStore } from '../state/useExpeditionStore';
 import { useGameStore } from '../state/useGameStore';
@@ -28,6 +28,7 @@ export function EncounterSelect() {
 export function CombatHud() {
     const s = useCombatStore(), phase = useExpeditionStore(s => s.session.phase), panel = useExpeditionStore(s => s.panel), paused = useGameStore(s => s.isPaused);
     const campaign = useCampaignStore(s => s.mode === 'campaign');
+    const organic = useCampaignStore(s => s.mode === 'campaign' && s.saved?.campaign.stage === 'expedition-organic');
     const weapon = useWeaponStore(s => s.weapon);
     const restart = useExpeditionStore(s => s.restartMission);
     // Com a espada, a queda do explorador aparece antes do painel; com o rifle, segue imediato.
@@ -38,17 +39,19 @@ export function CombatHud() {
         const timer = window.setTimeout(() => setDeathPanel(true), MACHETE_DEATH_OVERLAY_MS);
         return () => window.clearTimeout(timer);
     }, [s.dead, weapon]);
-    const resultTitle = s.cleared ? (s.waves > 0 ? 'Hordas neutralizadas' : campaign ? 'Patrulha neutralizada' : 'Área de teste livre') : 'Sem munição';
+    const resultTitle = s.cleared ? (organic ? 'Ondas de mutantes neutralizadas' : s.waves > 0 ? 'Hordas neutralizadas' : campaign ? 'Patrulha neutralizada' : 'Área de teste livre') : 'Sem munição';
     const resultText = s.cleared
-        ? s.waves > 0 ? `${s.waves} hordas, ${s.total} ameaças. ${campaign ? 'Guarde os recursos e volte à nave.' : 'Volte à nave ou repita.'}`
+        ? s.waves > 0 ? `${s.waves} ${organic ? 'ondas' : 'hordas'}, ${s.total} ameaças. ${campaign ? 'Guarde os recursos e volte à nave.' : 'Volte à nave ou repita.'}`
             : campaign ? 'Guarde os recursos na aeronave e volte a Marte.' : 'Volte à nave ou repita com mais robôs.'
-        : s.waves > 0 && s.wave < s.waves ? `A próxima horda chega com reabastecimento. ${campaign ? 'Sobreviva ou volte à nave.' : 'Sobreviva ou reinicie.'}`
+        : organic ? 'Equipe o facão de plasma (2) ou procure as caixas de munição e use E.'
+            : s.waves > 0 && s.wave < s.waves ? `A próxima horda chega com reabastecimento. ${campaign ? 'Sobreviva ou volte à nave.' : 'Sobreviva ou reinicie.'}`
             : campaign ? 'Procure as caixas de munição e use E, ou retorne à nave.' : 'Equipe o facão (2) ou procure as caixas de munição e use E. Você também pode retornar à nave ou reiniciar.';
     return <>
     {s.waves > 0 && s.nextWave > 0 && !s.dead && !paused && <div className="wave-banner" role="status">
-      <small>{s.wave === 0 ? 'CONTATO IMINENTE' : `HORDA ${s.wave} NEUTRALIZADA`}</small>
-      <strong>HORDA {s.wave + 1} / {s.waves}</strong>
-      <span>{HORDE_TOTALS[s.wave]} ameaças pela borda do mapa{COMBAT.hordes.largePatrols[s.wave] > 0 ? ` · ${COMBAT.hordes.largePatrols[s.wave]} Patrol grandes` : ''}{COMBAT.hordes.smallMutants[s.wave] > 0 ? ` · ${COMBAT.hordes.smallMutants[s.wave]} animais` : ''} · {s.nextWave} s</span>
+      <small>{s.wave === 0 ? 'CONTATO IMINENTE' : `${organic ? 'ONDA' : 'HORDA'} ${s.wave} NEUTRALIZADA`}</small>
+      <strong>{organic ? 'ONDA' : 'HORDA'} {s.wave + 1} / {s.waves}</strong>
+      <span>{organic ? `${ORGANIC_WAVES[s.wave]} Mutantes Shangai pela borda do mapa`
+          : `${HORDE_TOTALS[s.wave]} ameaças pela borda do mapa${COMBAT.hordes.largePatrols[s.wave] > 0 ? ` · ${COMBAT.hordes.largePatrols[s.wave]} Patrol grandes` : ''}${COMBAT.hordes.smallMutants[s.wave] > 0 ? ` · ${COMBAT.hordes.smallMutants[s.wave]} animais` : ''}`} · {s.nextWave} s</span>
     </div>}
     {s.damage && !s.dead && <div className="damage-vignette" aria-hidden="true"/>}
     {s.dead && deathPanel && <section className="overlay" role="dialog" aria-label="Explorador abatido"><article><p className="eyebrow">EXPEDIÇÃO INTERROMPIDA</p><h2>Explorador abatido</h2><p>Recomece em Shanghai com vida e munição restauradas. Nenhum progresso deste encontro é salvo. As peças coletadas nesta tentativa serão descartadas.</p><EncounterSelect /><button onClick={restart}>Tentar novamente</button></article></section>}

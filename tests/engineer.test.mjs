@@ -194,6 +194,16 @@ test('Engenheiro: portas reais abrem para o NPC e ele não atravessa folhas fech
     doors.forEach(d => d.dispose());
 });
 
+test('S5.1: Engenheiro aguarda a entrega na bancada da Oficina e retoma a rota depois', () => {
+    const routine = new EngineerRoutine({ ...createWorld(), movingCuboids: [] });
+    const bench = ENGINEER.stops[0];
+    for (let frame = 0; frame < 120 * 60; frame++) routine.update(1 / 60, far, false, true, false, true);
+    assert.ok(Math.hypot(routine.position.x - bench.x, routine.position.z - bench.z) < .08);
+    assert.equal(routine.state.animation, 'Idle');
+    for (let frame = 0; frame < 10 * 60; frame++) routine.update(1 / 60, far, false, true);
+    assert.ok(Math.hypot(routine.position.x - bench.x, routine.position.z - bench.z) > 1);
+});
+
 test('Engenheiro: para diante do banco e só recua para ele com a pose sentada', () => {
     const r = new EngineerRoutine({ ...createWorld(), movingCuboids: [] });
     let sawSeat=false, sawRise=false;

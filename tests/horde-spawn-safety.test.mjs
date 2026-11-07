@@ -4,7 +4,7 @@ import { loadSource } from './load-source.mjs';
 
 globalThis.document = { createElement: () => ({ width: 0, height: 0, getContext: () => ({ fillText() {} }) }) };
 const { CombatSimulation } = loadSource('src/combat/simulation.ts');
-const { COMBAT, HORDE_ENCOUNTER, encounterLayout, robotConfig } = loadSource('src/combat/config.ts');
+const { COMBAT, HORDE_ENCOUNTER, ORGANIC_ENCOUNTER, ENCOUNTER_CHOICES, encounterLayout, encounterTotal, robotConfig } = loadSource('src/combat/config.ts');
 const { createPhase01Terrain, SHANGHAI_PHASE01: data } = loadSource('src/game/shanghai/layout.ts');
 const { traversable } = loadSource('src/combat/navigation.ts');
 const { useCombatStore } = loadSource('src/state/useCombatStore.ts');
@@ -93,4 +93,50 @@ test('S3.4: última horda pendente não limpa área; restart zera HUD e solicita
     assert.equal(hud.queued, 0); assert.equal(hud.wave, 0);
     assert.equal(hud.kills, 0); assert.equal(hud.total, 115);
     assert.equal(hud.run, previousRun + 1, 'sinaliza recriação da simulação para a cena');
+});
+
+test('S3.2: a expedição orgânica reutiliza a fila em duas ondas e gera dez coletas distintas', () => {
+    const layout = encounterLayout(true), terrain = createPhase01Terrain();
+    const sim = new CombatSimulation(terrain, ORGANIC_ENCOUNTER, layout);
+    const { campaignEncounter } = loadSource('src/combat/campaignEncounter.ts');
+    assert.equal(campaignEncounter('expedition-organic'), ORGANIC_ENCOUNTER);
+    assert.equal(campaignEncounter('main-progression'), HORDE_ENCOUNTER);
+    assert.equal(ENCOUNTER_CHOICES.includes(ORGANIC_ENCOUNTER), false);
+    assert.equal(encounterTotal(ORGANIC_ENCOUNTER), 10);
+    assert.deepEqual(sim.waves, [4, 6]);
+    assert.equal(sim.drops.length, 10);
+
+    const spawns = sim.mutantEdgeSpawns, blocked = spawns[0];
+    sim.mutantEdgeSpawns = [blocked];
+    advance(sim, blocked, COMBAT.hordes.firstDelay + COMBAT.hordes.intermission + 1);
+    assert.equal(sim.wave, 1);
+    assert.equal(sim.queued, 4);
+    assert.equal(sim.alive, 0);
+    assert.equal(sim.cleared, false);
+    sim.mutantEdgeSpawns = spawns;
+
+    for (const [index, count] of sim.waves.entries()) {
+        for (let i = 0; sim.alive < count; i++) {
+            assert.ok(i < 600, 'a onda tem espaço para todos os slots');
+            advance(sim, layout.arrival);
+        }
+        assert.equal(sim.wave, index + 1);
+        assert.equal(sim.queued, 0);
+        for (const mutant of sim.robots.filter(robot => robot.hp > 0)) {
+            assert.equal(mutant.kind, 'smallMutant');
+            assert.ok(Math.hypot(mutant.x - layout.arrival.x, mutant.z - layout.arrival.z) >= COMBAT.hordes.minPlayerDistance);
+            assert.ok(traversable(mutant, terrain, robotConfig(mutant).radius));
+            sim.damageRobot(mutant, 1000, 0, 1);
+            sim.damageRobot(mutant, 1000, 0, 1);
+        }
+    }
+    assert.equal(sim.cleared, true);
+    assert.equal(sim.kills, 10);
+    assert.equal(sim.organic, 0, 'abate não concede a coleta');
+    for (const drop of sim.drops) {
+        assert.equal(drop.kind, 'organic');
+        advance(sim, drop);
+    }
+    assert.equal(sim.organic, 10);
+    assert.equal(sim.iron + sim.copper + sim.titanium, 0);
 });

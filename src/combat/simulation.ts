@@ -1,5 +1,5 @@
 import { copperPatrolCorners } from './campaignEncounter';
-import { COPPER_ENCOUNTER } from './config';
+import { COPPER_ENCOUNTER, ORGANIC_ENCOUNTER, ORGANIC_WAVES } from './config';
 import { MEDICAL_KIT } from '../game/props/medicalKit';
 import { MACHETE, MACHETE_COMBO, meleeCanHit, type PlayerWeapon } from './melee';
 import { canCarryDrop } from '../game/backpackConfig';
@@ -197,6 +197,7 @@ export class CombatSimulation {
     /** Slots da horda aguardando um ponto seguro; não contam como mortos. */
     queued = 0;
     private spawnRetryLeft = 0;
+    private readonly organicEncounter: boolean;
     readonly total: number;
     edgeSpawns: Position[] = [];
     private dropCursor = 0;
@@ -205,17 +206,21 @@ export class CombatSimulation {
         this.crates = crates.map(p => ({ ...p, marker: crateMarker(p), phase: 'closed', elapsed: 0, rewarded: false }));
         this.navigation = new Navigation(terrain, COMBAT.robot.radius, COMBAT.grid);
         this.hearts = layout.hearts.map(p => ({ x: p.x, z: p.z, active: true }));
-        if (encounter === HORDE_ENCOUNTER) {
+        this.organicEncounter = encounter === ORGANIC_ENCOUNTER;
+        if (encounter === HORDE_ENCOUNTER || this.organicEncounter) {
             // Slots reutilizados entre hordas (tamanho da maior); peças têm um slot por robô da rodada.
-            this.waves = HORDE_TOTALS;
-            this.edgeSpawns = hordeEdgeSpawns(terrain, this.navigation, layout.arrival);
-            this.largeNavigation = new Navigation(terrain, LARGE_PATROL.radius, COMBAT.grid);
-            this.largeEdgeSpawns = hordeEdgeSpawns(terrain, this.largeNavigation, layout.arrival, LARGE_PATROL.radius, LARGE_PATROL.contactRange);
+            this.waves = this.organicEncounter ? ORGANIC_WAVES : HORDE_TOTALS;
             this.mutantNavigation = new Navigation(terrain, SMALL_MUTANT.radius, COMBAT.grid);
             this.mutantEdgeSpawns = hordeEdgeSpawns(terrain, this.mutantNavigation, layout.arrival, SMALL_MUTANT.radius, SMALL_MUTANT.contactRange);
-            this.largeMutantNavigation = new Navigation(terrain, LARGE_MUTANT.radius, COMBAT.grid);
-            this.largeMutantEdgeSpawns = hordeEdgeSpawns(terrain, this.largeMutantNavigation, layout.arrival, LARGE_MUTANT.radius, LARGE_MUTANT.contactRange);
-            if (!this.edgeSpawns.length || !this.largeEdgeSpawns.length || !this.mutantEdgeSpawns.length || !this.largeMutantEdgeSpawns.length) throw new Error('Mapa sem ponto livre e alcançável para as hordas.');
+            if (!this.organicEncounter) {
+                this.edgeSpawns = hordeEdgeSpawns(terrain, this.navigation, layout.arrival);
+                this.largeNavigation = new Navigation(terrain, LARGE_PATROL.radius, COMBAT.grid);
+                this.largeEdgeSpawns = hordeEdgeSpawns(terrain, this.largeNavigation, layout.arrival, LARGE_PATROL.radius, LARGE_PATROL.contactRange);
+                this.largeMutantNavigation = new Navigation(terrain, LARGE_MUTANT.radius, COMBAT.grid);
+                this.largeMutantEdgeSpawns = hordeEdgeSpawns(terrain, this.largeMutantNavigation, layout.arrival, LARGE_MUTANT.radius, LARGE_MUTANT.contactRange);
+            }
+            if (!this.mutantEdgeSpawns.length || (!this.organicEncounter && (!this.edgeSpawns.length || !this.largeEdgeSpawns.length || !this.largeMutantEdgeSpawns.length)))
+                throw new Error('Mapa sem ponto livre e alcançável para as hordas.');
             this.robots = Array.from({ length: Math.max(...this.waves) }, (_, id) => createRobot(id, 0, 0, -1, 0, 0, false));
             this.total = this.waves.reduce((a, b) => a + b, 0);
             this.waveLeft = COMBAT.hordes.firstDelay;
@@ -249,7 +254,7 @@ export class CombatSimulation {
             const need = Math.ceil(this.robots.reduce((hits, r) => hits + Math.ceil(r.hp / COMBAT.rifle.damage), 0) * COMBAT.hordes.ammoMargin);
             if (this.ammo + this.reserve < need) this.reserve = need - this.ammo;
         }
-        const extraDrops = this.waves.length ? COMBAT.hordes.largeMutants.reduce<number>((a, b) => a + b, 0) * 2
+        const extraDrops = encounter === HORDE_ENCOUNTER ? COMBAT.hordes.largeMutants.reduce<number>((a, b) => a + b, 0) * 2
             : this.robots.filter(r => r.kind === 'largeMutant').length * 2;
         this.drops = Array.from({ length: this.total + extraDrops }, () => ({ x: 0, z: 0, active: false, kind: 'metals', spawned: false, surfaceIron: 0, surfaceCopper: 0, surfaceTitanium: 0, surfaceOrganic: 0 }));
     }
@@ -301,18 +306,20 @@ export class CombatSimulation {
         return n;
     }
     get cleared() { return this.wave >= this.waves.length && this.waveLeft === 0 && this.queued === 0 && this.alive === 0; }
+    waveKind(wave: number, slot: number): RobotKind { return this.organicEncounter ? 'smallMutant' : waveRobotKind(wave, slot); }
     get snapshot() { return { hp: this.hp, medkits: this.medkits, iron: this.iron, copper: this.copper, titanium: this.titanium, organic: this.organic, ammo: this.ammo, reserve: this.reserve, reloading: this.reloadLeft > 0, dead: this.dead, kills: this.kills, total: this.total, cleared: this.cleared, damage: this.damageFlash > 0, hit: this.hitFlash > 0, wave: this.wave, waves: this.waves.length, nextWave: Math.ceil(this.waveLeft), queued: this.queued, alive: this.alive }; }
     /** Prepara os slots/drops uma vez; o nascimento espera um ponto seguro. */
     private startWave(player: Position) {
         const waveIndex = this.wave++, count = this.waves[waveIndex];
+        const mutants = this.organicEncounter ? count : COMBAT.hordes.smallMutants[waveIndex];
         let requiredHits = 0, mutantSlot = 0;
         this.queued = count;
         for (let i = 0; i < count; i++) {
-            const r = this.robots[i], kind = waveRobotKind(waveIndex, i);
+            const r = this.robots[i], kind = this.waveKind(waveIndex, i);
             r.kind = kind; const R = robotConfig(r);
             r.hp = 0; r.spawned = false;
             r.packReady = false;
-            r.packAngle = kind === 'smallMutant' ? mutantSlot++ * Math.PI * 2 / COMBAT.hordes.smallMutants[waveIndex] + this.wave * 2.399963 : 0;
+            r.packAngle = kind === 'smallMutant' ? mutantSlot++ * Math.PI * 2 / mutants + this.wave * 2.399963 : 0;
             requiredHits += Math.ceil(R.hp / COMBAT.rifle.damage);
             r.alerted = false; r.alertLeft = 0; r.flash = 0; r.recoil = 0; r.staggerLeft = 0; r.stuck = 0; r.pace = R.speed;
             r.routeIndex = -1; r.waypoint = 0; r.path.length = 0;

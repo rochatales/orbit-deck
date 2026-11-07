@@ -1,8 +1,10 @@
-import { COPPER_ENCOUNTER, HORDE_ENCOUNTER, type EncounterChoice } from './config';
+import { COPPER_ENCOUNTER, HORDE_ENCOUNTER, ORGANIC_ENCOUNTER, type EncounterChoice } from './config';
 import type { CampaignStage } from '../game/campaign';
-/** Etapas ainda sem encontro usam o comportamento padrão atual (hordas), sem ler a escolha dev. */
+/** A campanha resolve o encontro pela etapa, sem ler a escolha dev. */
 export function campaignEncounter(stage: CampaignStage | undefined): EncounterChoice {
-    return stage === 'expedition-copper' ? COPPER_ENCOUNTER : HORDE_ENCOUNTER;
+    if (stage === 'expedition-copper') return COPPER_ENCOUNTER;
+    if (stage === 'expedition-organic') return ORGANIC_ENCOUNTER;
+    return HORDE_ENCOUNTER;
 }
 /** Quatro esquinas próximas ao quarteirão de desembarque, sem seletor de teste. */
 export function copperPatrolCorners(phase01: boolean) {

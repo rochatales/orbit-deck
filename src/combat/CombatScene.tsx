@@ -23,7 +23,7 @@ import { playerPosition, playerFacing } from '../state/playerTransient';
 import { combatRuntime, useCombatStore } from '../state/useCombatStore';
 import { simulationBlocked } from '../game/simulationGate';
 import { CombatSimulation, type CombatInput } from './simulation';
-import { COMBAT, robotConfig, waveRobotKind, type RobotKind } from './config';
+import { COMBAT, robotConfig, type RobotKind } from './config';
 import { PATROL_UNIT, PatrolUnitRig } from './patrolUnit';
 import { ResourceDrops } from './ResourceDrops';
 import largeMutantUrl from '../assets/enemies/large-mutant.glb';
@@ -49,9 +49,9 @@ export function CombatScene({ world }: {
     const rigs = useMemo(() => simulation.robots.map(() => new PatrolUnitRig(patrolUnit.scene, patrolUnit.animations)), [simulation, patrolUnit]);
     // Hordas usam o tipo nos slots das ondas; a patrulha de teste usa o tipo escolhido em cada robô.
     const usesKind = (kind: RobotKind, i: number) => simulation.waves.length
-        ? simulation.waves.some((count, wave) => i < count && waveRobotKind(wave, i) === kind)
+        ? simulation.waves.some((count, wave) => i < count && simulation.waveKind(wave, i) === kind)
         : simulation.robots[i].kind === kind;
-    const loads = (kind: RobotKind) => simulation.waves.length > 0 || simulation.robots.some(r => r.kind === kind);
+    const loads = (kind: RobotKind) => simulation.robots.some((_, i) => usesKind(kind, i));
     const largePatrol = useGLTF(loads('largePatrol') ? largePatrolUrl : patrolUnitUrl);
     const largeRigs = useMemo(() => simulation.robots.map((_, i) =>
         usesKind('largePatrol', i)

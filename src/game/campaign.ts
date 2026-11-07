@@ -82,14 +82,21 @@ export function parseCampaignState(value: unknown): CampaignState | null {
 export const CAMPAIGN_OBJECTIVES: Record<CampaignStage, string> = {
     'engineer-briefing': 'Procure o Engenheiro na Oficina ou no Data Center',
     'expedition-copper': 'Recupere e entregue 4 unidades de cobre',
-    'eden-activation': 'Ligue EDEN na colônia',
+    'eden-activation': 'Ligue EDEN no pedestal da Sala de Controle',
     'eden-briefing': 'Converse com EDEN',
-    'sword-pickup': 'Receba a espada na Oficina',
+    'sword-pickup': 'Receba o facão de plasma na Oficina',
     'expedition-organic': 'Recupere e entregue 10 matérias orgânicas',
-    'synthesizer-activation': 'Ligue o sintetizador orgânico',
+    'synthesizer-activation': 'Ligue o sintetizador orgânico no Laboratório',
     'main-progression': 'Prepare sua próxima expedição'
 };
 
 export function campaignObjective(state: CampaignState) {
-    return state.stage === 'expedition-copper' ? `Cobre entregue: ${state.copperDelivered} / ${CAMPAIGN_QUOTAS.copper}` : CAMPAIGN_OBJECTIVES[state.stage];
+    if (state.stage === 'expedition-copper') return `Cobre entregue: ${state.copperDelivered} / ${CAMPAIGN_QUOTAS.copper}`;
+    if (state.stage === 'expedition-organic') return `Matéria orgânica entregue: ${state.organicDelivered} / ${CAMPAIGN_QUOTAS.organic}`;
+    return CAMPAIGN_OBJECTIVES[state.stage];
+}
+
+export function campaignDepartureBlock(state: CampaignState) {
+    return state.stage === 'expedition-copper' || state.stage === 'expedition-organic' || state.stage === 'main-progression'
+        ? null : CAMPAIGN_OBJECTIVES[state.stage];
 }

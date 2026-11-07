@@ -7,6 +7,7 @@ import { engineerBriefingRequired } from '../game/campaignPolicy';
 import { RadioToast } from '../ui/RadioToast';
 import { campaignObjective } from '../game/campaign';
 import { EngineerDialogue } from '../npcs/EngineerDialogue';
+import { canReceiveSword } from '../npcs/engineerPresence';
 import { sessionEscape } from '../game/sessionEscape';
 import { engineerIsCalm, engineerPreviewMood } from '../npcs/engineerRoutine';
 import { PauseMenuFrame } from '../ui/PauseMenuFrame';
@@ -26,7 +27,7 @@ import { useGameStore } from '../state/useGameStore';
 import { MAPS } from '../game/config';
 import { PlayerAssetBadge } from '../characters/player/PlayerAssetBadge';
 import { comparacaoDisponivel } from '../characters/player/playerAssetChoice';
-import { EDEN_BRIEFING, SHANGHAI_BRIEFING } from '../npcs/scripts/eden';
+import { CAMPAIGN_EDEN_BRIEFING, EDEN_BRIEFING, SHANGHAI_BRIEFING } from '../npcs/scripts/eden';
 import { disposeWorld } from '../game/worldUtils';
 import type { OfficeWorld } from '../world/createOfficeMap';
 import type { MapId } from '../game/session';
@@ -36,6 +37,7 @@ const SCENE_STALL_MS = 90000;
 function Runtime({ onHome }: { onHome: () => void }) {
     const s = useExpeditionStore();
     const campaign = useCampaignStore();
+    const progress = campaign.mode === 'campaign' ? campaign.saved?.campaign : undefined;
     const [engineerPreview] = useState(() => engineerPreviewMood(window.location.search));
     const paused = useGameStore(g => g.isPaused);
     const [world, setWorld] = useState<{
@@ -151,10 +153,13 @@ function Runtime({ onHome }: { onHome: () => void }) {
     {campaign.mode === 'campaign' && <RadioToast text={s.radio} sender={s.radioSender} serial={s.radioSerial} active={s.ready && !paused && !s.panel && s.session.phase === 'walking' && s.radioMap === s.session.map}/>}
     {(campaign.mode === 'campaign' ? campaign.saveError : s.saveError) && <p className="save-warning" role="alert">{campaign.mode === 'campaign' ? campaign.saveError : s.saveError}</p>}
     {s.panel === 'eden' && <section className="overlay" role="dialog" aria-label="Conversa com EDEN"><article>
-      <p className="eyebrow">EDEN · GUIA DA COLÔNIA</p><h2>Uma nova expedição.</h2>{EDEN_BRIEFING.map(line => <p key={line}>{line}</p>)}
-      <button onClick={() => { s.setRadio('Siga ao sul até o deck de lançamento. Entre na aeronave e escolha Shanghai.'); s.closePanel(); }}>Entendido · Voltar à exploração</button>
+      <p className="eyebrow">EDEN · GUIA DA COLÔNIA</p><h2>Uma nova expedição.</h2>
+      {progress && progress.stage !== 'eden-briefing' ? <p>{campaignObjective(progress)}.</p>
+          : (progress ? CAMPAIGN_EDEN_BRIEFING : EDEN_BRIEFING).map(line => <p key={line}>{line}</p>)}
+      <button onClick={s.acknowledgeEden}>Entendido · Voltar à exploração</button>
     </article></section>}
-    {s.panel === 'engineer' && !paused && <EngineerDialogue calm={engineerIsCalm(campaign.mode, campaign.saved?.campaign.edenActive ?? false, engineerPreview)}/>}
+    {s.panel === 'engineer' && !paused && <EngineerDialogue calm={engineerIsCalm(campaign.mode, campaign.saved?.campaign.edenActive ?? false, engineerPreview)}
+      swordPickup={progress?.stage === 'sword-pickup' && canReceiveSword(playerPosition)}/>}
     {inCockpit && <ShipCockpit map={s.session.map} phase={s.session.phase} ready={s.ready} error={s.error} name={s.profile?.displayName ?? 'Explorador'}
       onDepart={() => s.send('depart')} onExit={() => s.send('exit')} onRetry={() => { if (s.error === SCENE_STALLED_ERROR) { window.location.reload(); return; } s.setError(null); s.send('depart'); }}
       encounter={campaign.mode !== 'campaign' && s.session.map === 'mars' ? <EncounterSelect/> : undefined}/>}

@@ -17,7 +17,7 @@ export class LaboratorioRuntime {
     private inside = false;
     private machine: Mesh;
     private machineSourceMaterial: Material | Material[];
-    private machineMaterials: Material[] = [];
+    private roomMaterials: Material[] = [];
     private roofMaterials: { own: Material; opacity: number; transparent: boolean; depthWrite: boolean }[] = [];
     private mixer: AnimationMixer;
     private actions: AnimationAction[];
@@ -62,12 +62,21 @@ export class LaboratorioRuntime {
             this.bones[i].scale.setScalar(1e-4);
             return { left, right, rest: Math.abs(right.position.x) };
         });
-        // A máquina usa o mesmo atlas da parede, mas não participa do fade.
-        // Texturas privadas de amostragem nunca ficam anexadas ao material do cache GLTF.
+        // A máquina e os demais objetos usam cópias que não participam do fade.
+        // A energia e a amostragem do atlas nunca alteram os materiais do cache GLTF.
         const machine = this.machine = scene.getObjectByName('LaboratorySynthesizerMesh') as Mesh;
         this.machineSourceMaterial = machine.material;
-        const cloneMachine = (material: Material) => { const own = material.clone(); this.machineMaterials.push(own); return own; };
-        machine.material = Array.isArray(machine.material) ? machine.material.map(cloneMachine) : cloneMachine(machine.material);
+        const faded = new Set(copies.values()), roomCopies = new Map<Material, Material>();
+        const copyRoom = (material: Material) => {
+            if (faded.has(material)) return material;
+            let own = roomCopies.get(material);
+            if (!own) { own = material.clone(); roomCopies.set(material, own); this.roomMaterials.push(own); }
+            return own;
+        };
+        scene.traverse(node => {
+            const mesh = node as Mesh;
+            if (mesh.isMesh) mesh.material = Array.isArray(mesh.material) ? mesh.material.map(copyRoom) : copyRoom(mesh.material);
+        });
         this.atlasSampling = new BuildingAtlasSampling(scene);
         scene.traverse(node => { const mesh = node as Mesh; if (mesh.isMesh) { mesh.castShadow = true; mesh.receiveShadow = true; if (mesh.type === 'SkinnedMesh') mesh.frustumCulled = false; } });
         this.mixer = new AnimationMixer(scene);
@@ -132,7 +141,7 @@ export class LaboratorioRuntime {
         this.mixer.stopAllAction(); this.mixer.uncacheRoot(this.scene);
         for (const material of this.roofMaterials) material.own.dispose();
         this.machine.material = this.machineSourceMaterial;
-        for (const material of this.machineMaterials) material.dispose();
+        for (const material of this.roomMaterials) material.dispose();
         // Geometria, texturas e material pertencem ao cache useGLTF, sem clones por quadro.
     }
 }

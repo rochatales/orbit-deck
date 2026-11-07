@@ -1,4 +1,5 @@
 import { useCampaignStore } from '../state/useCampaignStore';
+import { campaignDepartureBlock } from '../game/campaign';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { ArrowUpRight, ChevronRight, Package, Plane, Radio, LogOut } from 'lucide-react';
 import type { MapId, TravelPhase } from '../game/session';
@@ -54,6 +55,8 @@ export interface ShipCockpitProps {
 export function ShipCockpit({ map, phase, ready, error, name, onDepart, onExit, onRetry, encounter }: ShipCockpitProps) {
     const campaign = useCampaignStore(s => s.mode === 'campaign');
     const edenActive = useCampaignStore(s => s.mode !== 'campaign' || !!s.saved?.campaign.edenActive);
+    const departureBlock = useCampaignStore(s => map === 'mars' && s.mode === 'campaign' && s.saved
+        ? campaignDepartureBlock(s.saved.campaign) : null);
     const [tab, setTab] = useState<'navigation' | 'cargo'>('navigation');
     const root = useRef<HTMLElement>(null), info = EXTERIOR[map];
     const hold = cargoWeight(useShipCargoStore(s => s.cargo));
@@ -90,8 +93,8 @@ export function ShipCockpit({ map, phase, ready, error, name, onDepart, onExit, 
                     <p>{info.description}</p>
                     <div className="cockpit-route-strip"><span>{info.planet}</span><i/><Plane size={16} aria-hidden="true"/><i/><span>{info.destinationPlanet}</span></div>
                     {encounter && <details className="cockpit-encounter"><summary>Configurar encontro de teste <ChevronRight size={13}/></summary>{encounter}</details>}
-                    <button className="cockpit-depart" onClick={onDepart}>{info.action}<ArrowUpRight size={21} aria-hidden="true"/></button>
-                    <small className="cockpit-route-note">A viagem só começa ao confirmar a decolagem.</small>
+                    <button className="cockpit-depart" disabled={!!departureBlock} onClick={onDepart}>{info.action}<ArrowUpRight size={21} aria-hidden="true"/></button>
+                    <small className="cockpit-route-note">{departureBlock ?? 'A viagem só começa ao confirmar a decolagem.'}</small>
                 </section>
             </div>}
         </div>

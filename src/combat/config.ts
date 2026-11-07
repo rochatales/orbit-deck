@@ -45,7 +45,9 @@ export const HORDE_ENCOUNTER = 'hordas' as const;
  */
 export type PatrolChoice = `${Exclude<RobotKind, 'patrol'>}:${number}`;
 export const COPPER_ENCOUNTER = 'campaign-copper' as const;
-export type EncounterChoice = typeof COPPER_ENCOUNTER | number | typeof HORDE_ENCOUNTER | PatrolChoice;
+export const ORGANIC_ENCOUNTER = 'campaign-organic' as const;
+export const ORGANIC_WAVES = [4, 6] as const;
+export type EncounterChoice = typeof COPPER_ENCOUNTER | typeof ORGANIC_ENCOUNTER | number | typeof HORDE_ENCOUNTER | PatrolChoice;
 export const PATROL_KINDS: readonly RobotKind[] = ['patrol', 'largePatrol', 'smallMutant', 'largeMutant'];
 export const PATROL_COUNTS = [1, 3, 5] as const;
 export function patrolChoice(kind: RobotKind, count: number): EncounterChoice {
@@ -53,7 +55,7 @@ export function patrolChoice(kind: RobotKind, count: number): EncounterChoice {
 }
 /** Hordas devolvem null; patrulhas devolvem o tipo e a quantidade. */
 export function parseEncounter(choice: EncounterChoice): { kind: RobotKind; count: number } | null {
-    if (choice === HORDE_ENCOUNTER) return null;
+    if (choice === HORDE_ENCOUNTER || choice === ORGANIC_ENCOUNTER) return null;
     if (choice === COPPER_ENCOUNTER) return { kind: 'patrol', count: 4 };
     if (typeof choice === 'number') return { kind: 'patrol', count: choice };
     const [kind, count] = choice.split(':');
@@ -64,6 +66,7 @@ export const ENCOUNTER_CHOICES: readonly EncounterChoice[] = [
     ...PATROL_KINDS.filter(kind => kind !== 'patrol').flatMap(kind => PATROL_COUNTS.map(count => patrolChoice(kind, count))),
 ];
 export function encounterTotal(choice: EncounterChoice) {
+    if (choice === ORGANIC_ENCOUNTER) return ORGANIC_WAVES.reduce<number>((a, b) => a + b, 0);
     return choice === HORDE_ENCOUNTER ? HORDE_TOTALS.reduce((a, b) => a + b, 0) : parseEncounter(choice)!.count;
 }
 export const HIT_LAYER = { world: 1, enemy: 2, player: 4 } as const;

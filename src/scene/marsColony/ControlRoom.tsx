@@ -6,6 +6,7 @@ import { playerPosition } from '../../state/playerTransient';
 import { simulationBlocked } from '../../game/simulationGate';
 import url from '../../assets/control-room/control-room-v002.glb';
 import { ControlRoomRuntime } from './controlRoomRuntime';
+import { bindColonyPower } from './colonyPower';
 
 export function ControlRoom() {
     const gltf = useGLTF(url);
@@ -16,9 +17,11 @@ export function ControlRoom() {
         const scene = gltf.scene.clone(true);
         scene.name = 'ControlRoomVisual';
         const next = new ControlRoomRuntime(scene);
+        const unbind = bindColonyPower(scene, 'edenActive', active => next.setPowered(active));
         runtime.current = next;
         visual.current!.add(scene);
         return () => {
+            unbind?.();
             scene.removeFromParent();
             next.dispose();
             runtime.current = undefined;

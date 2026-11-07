@@ -5,6 +5,8 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react
 import type { Group, SkinnedMesh } from 'three';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
 import { playerPosition } from '../../state/playerTransient';
+import { useCampaignStore } from '../../state/useCampaignStore';
+import { useExpeditionStore } from '../../state/useExpeditionStore';
 import { simulationBlocked, useSimulationBlocked } from '../../game/simulationGate';
 import { LABORATORIO } from '../../game/laboratorioLayout';
 import type { OfficeWorld } from '../../world/createOfficeMap';
@@ -14,11 +16,14 @@ import { applyColonyShell } from './colonyShell';
 import { createLaboratorioWalkways } from './laboratorioWalkways';
 export const LABORATORIO_SHELL_URL = shellUrl;
 import { LaboratorioRuntime, type LaboratorioMode } from './laboratorioRuntime';
+import { bindColonyPower } from './colonyPower';
+const activateSynthesizer = () => useExpeditionStore.getState().activateSynthesizer();
 const modes: { mode: LaboratorioMode; label: string }[] = [
     { mode: 'Idle_Ready', label: 'Pronta' }, { mode: 'Synthesizing', label: 'Sintetizar' },
     { mode: 'Drawer_Dispense', label: 'Abrir gaveta' }, { mode: 'Standby_PowerDown', label: 'Espera' }
 ];
 export function Laboratorio({ world }: { world: OfficeWorld }) {
+    const campaign = useCampaignStore(s => s.mode === 'campaign');
     const gltf = useGLTF(url), shell = useGLTF(shellUrl), visual = useRef<Group>(null), runtime = useRef<LaboratorioRuntime>();
     const walkways = useRef<Group>(null), blocked = useSimulationBlocked();
     const [open, setOpen] = useState(false);
@@ -28,9 +33,11 @@ export function Laboratorio({ world }: { world: OfficeWorld }) {
         const scene = clone(gltf.scene); scene.name = 'LaboratorioVisual';
         applyColonyShell(scene, shell.scene, ['Building_Roof']);
         const next = new LaboratorioRuntime(scene, gltf.animations, world.movingCuboids);
+        const unbind = bindColonyPower(scene, 'synthesizerActive', active => next.setMode(active ? 'Idle_Ready' : 'Standby_PowerDown'));
         runtime.current = next; visual.current!.add(scene);
         const paving = createLaboratorioWalkways(scene); walkways.current!.add(paving);
         return () => {
+            unbind?.();
             paving.removeFromParent();
             scene.removeFromParent(); next.dispose(); runtime.current = undefined;
             scene.traverse(node => { const mesh = node as SkinnedMesh; if (mesh.isSkinnedMesh) mesh.skeleton.dispose(); });
@@ -48,13 +55,16 @@ export function Laboratorio({ world }: { world: OfficeWorld }) {
         runtime.current?.update(playerPosition, blocked ? 0 : delta);
     });
     return <><group name="Laboratorio"><group ref={visual} position={[LABORATORIO.placement.x, 0, LABORATORIO.placement.z]} dispose={null}/>
-        <InteractionBubble id="synthesizer" label="Sintetizadora de diamantes" point={LABORATORIO.console}
+        {campaign ? <InteractionBubble id="activate-synthesizer" label="Ligar sintetizador orgânico" point={LABORATORIO.console}
+            position={[LABORATORIO.console.x, 1.8, LABORATORIO.console.z]} radius={LABORATORIO.console.radius}
+            priority={40} onInteract={activateSynthesizer}/>
+        : <InteractionBubble id="synthesizer" label="Sintetizadora de diamantes" point={LABORATORIO.console}
             position={[LABORATORIO.console.x, 1.8, LABORATORIO.console.z]} radius={LABORATORIO.console.radius}
             priority={40} onInteract={toggle} onHide={close}>
             {open && <><p>Controle visual da máquina</p><p>Estado: {modes.find(entry => entry.mode === mode)?.label}</p>
                 {modes.map(entry => <button key={entry.mode} disabled={blocked} onClick={() => { if (simulationBlocked()) return; runtime.current?.setMode(entry.mode); setMode(entry.mode); }}>{entry.label}</button>)}
                 <p style={{ fontSize: 11 }}>Prévia de animações. Produção e recursos serão definidos no ciclo da máquina.</p>
             </>}
-        </InteractionBubble>
+        </InteractionBubble>}
     </group><group ref={walkways} name="LaboratorioPassarelas" position={[LABORATORIO.placement.x, 0, LABORATORIO.placement.z]} dispose={null}/></>;
 }

@@ -77,11 +77,11 @@ export class EngineerRoutine {
         const delta = Math.atan2(Math.sin(angle - this.state.angle), Math.cos(angle - this.state.angle));
         this.state.angle += delta * (1 - Math.exp(-8 * dt));
     }
-    update(delta: number, player: Position, talking = false, edenActive = false, paused = false) {
+    update(delta: number, player: Position, talking = false, edenActive = false, paused = false, waitInWorkshop = false) {
         if (paused || delta <= 0) return;
         const dt = Math.min(delta, .05), s = this.state;
         s.clipTime = null;
-        this.advance(dt, player, talking, edenActive);
+        this.advance(dt, player, talking, edenActive, waitInWorkshop);
         const target = s.animation === 'Sitting' ? 1 : 0;
         const nextSeated = s.seated + Math.sign(target - s.seated) * Math.min(Math.abs(target - s.seated), dt / .35);
         const nextX = s.x - ENGINEER.seat.approach * nextSeated;
@@ -90,7 +90,7 @@ export class EngineerRoutine {
         this.position.x = s.x - ENGINEER.seat.approach * s.seated;
         this.position.z = s.z; this.position.y = s.y;
     }
-    private advance(dt: number, player: Position, talking: boolean, edenActive: boolean) {
+    private advance(dt: number, player: Position, talking: boolean, edenActive: boolean, waitInWorkshop: boolean) {
         const s = this.state;
         const distance = Math.hypot(player.x - this.position.x, player.z - this.position.z);
         const playerMoved = Number.isFinite(this.lastPlayerX) && Math.hypot(player.x - this.lastPlayerX, player.z - this.lastPlayerZ) > .002;
@@ -117,6 +117,11 @@ export class EngineerRoutine {
             return;
         }
         if (s.phase === 'walk') {
+            // A rota 1 sai da bancada da Oficina. Na campanha, fica ali até entregar a arma.
+            if (waitInWorkshop && this.route === 1 && this.waypoint === 0
+                && Math.hypot(s.x - ENGINEER.stops[0].x, s.z - ENGINEER.stops[0].z) < .08) {
+                s.animation = 'Idle'; this.speed = 0; return;
+            }
             const path = this.paths[this.route];
             while (this.waypoint < path.length && Math.hypot(path[this.waypoint].x - s.x, path[this.waypoint].z - s.z) < .06) this.waypoint++;
             if (this.waypoint >= path.length) {

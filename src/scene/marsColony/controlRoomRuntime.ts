@@ -27,6 +27,7 @@ export class ControlRoomRuntime {
     private interactionNode: Object3D | null = null;
     private projectionNode: Object3D | null = null;
     private projectionBaseY = 0;
+    private powered = true;
     private elapsed = 0;
     private disposed = false;
 
@@ -101,6 +102,12 @@ export class ControlRoomRuntime {
         }
     }
 
+    setPowered(powered: boolean) {
+        this.powered = powered;
+        if (this.projectionNode) this.projectionNode.visible = powered;
+        if (this.interactionNode) this.interactionNode.visible = powered && this.status.interaction;
+    }
+
     update(player: { x: number; z: number }, delta: number) {
         const dt = Math.min(0.05, Math.max(0, delta));
         const step = 1 - Math.exp(-12 * dt);
@@ -152,7 +159,7 @@ export class ControlRoomRuntime {
         const nearEden = edx * edx + edz * edz <= EDEN.interactionRadius * EDEN.interactionRadius;
         this.status.interaction = nearEden;
         if (this.interactionNode) {
-            this.interactionNode.visible = nearEden;
+            this.interactionNode.visible = this.powered && nearEden;
         }
 
         if (this.projectionNode) {

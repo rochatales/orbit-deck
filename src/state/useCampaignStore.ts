@@ -16,7 +16,7 @@ interface CampaignStore {
     resumeCampaign: () => boolean;
     enterDevelopment: () => boolean;
     leave: () => void;
-    dispatch: (event: CampaignEvent) => void;
+    dispatch: (event: CampaignEvent) => boolean;
     depositExpedition: (delivery: ExpeditionDelivery) => void;
     setCargo: (cargo: ResourceCargo) => void;
     transferCargo: (cargo: ResourceCargo) => void;
@@ -75,17 +75,19 @@ export const useCampaignStore = create<CampaignStore>((set, get) => {
             update({ ...saved, cargo: { ...cargo }, attemptCargo, attemptDelivery }, withdrawnCargo);
         },
         consolidateExpedition: id => {
-            const saved = active(); if (!saved) return;
+            const saved = active(); if (!saved || saved.campaign.depositedExpeditionIds.includes(id)) return;
             const campaign = transitionCampaign(depositExpedition(saved.campaign, {
                 id, copper: saved.attemptDelivery.copper, organic: saved.attemptDelivery.organic
-            }), 'finish-copper-expedition');
+            }), saved.campaign.stage === 'expedition-organic' ? 'finish-organic-expedition' : 'finish-copper-expedition');
             // Uma única escrita: carga definitiva e entrega não podem divergir num reload.
             update({ ...saved, campaign, attemptCargo: { ...EMPTY_CARGO }, attemptDelivery: { ...EMPTY_CARGO } }, { ...EMPTY_CARGO });
         },
         dispatch: event => {
-            const saved = active(); if (!saved) return;
+            const saved = active(); if (!saved) return false;
             const campaign = transitionCampaign(saved.campaign, event);
-            if (campaign !== saved.campaign) update({ ...saved, campaign });
+            if (campaign === saved.campaign) return false;
+            update({ ...saved, campaign, briefingSeen: saved.briefingSeen || event === 'finish-eden-briefing' });
+            return true;
         },
         depositExpedition: delivery => {
             const saved = active(); if (!saved) return;

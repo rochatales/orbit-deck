@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createSourceLoader, loadSource } from './load-source.mjs';
 import { loadGlb } from './load-glb.mjs';
-import { Matrix4, Vector3 } from 'three';
+import { Matrix4, Mesh, MeshStandardMaterial, Vector3 } from 'three';
 const zero = { iron: 0, copper: 0, titanium: 0, organic: 0 }, profile = { displayName: 'S3.2', color: '#abcdef' };
 function fixture(values = new Map()) {
     const writes = [];
@@ -213,8 +213,8 @@ test('S3.2 confirmação: retirada de cobre novo não duplica quota nem publica 
     const observations=[];const off=f.campaign.subscribe(s=>observations.push([s.saved.attemptDelivery.copper,s.withdrawnCargo.copper]));
     f.ship.getState().withdraw('copper',2);off();
     assert.deepEqual(observations,[[0,0]],'uma publicação com ledger e provenance finais');
-    assert.equal(f.expedition.getState().radioSerial,serial);assert.equal(f.expedition.getState().copperQuotaAnnounced,false);
-    f.pack(4);assert.equal(f.expedition.getState().copperQuotaAnnounced,true);assert.match(f.expedition.getState().radio,/cobre suficiente/);
+    assert.equal(f.expedition.getState().radioSerial,serial);assert.equal(f.expedition.getState().quotaAnnounced,false);
+    f.pack(4);assert.equal(f.expedition.getState().quotaAnnounced,true);assert.match(f.expedition.getState().radio,/cobre suficiente/);
 });
 
 test('S3.2 confirmação: orientação segue etapa em retomar e rádio pertence ao mapa onde foi emitido',()=>{
@@ -223,6 +223,177 @@ test('S3.2 confirmação: orientação segue etapa em retomar e rádio pertence 
     f.travel();assert.equal(f.expedition.getState().radioMap,'shanghai');
     f.pack(4);f.ship.getState().deposit();f.travel();assert.equal(f.campaign.getState().saved.campaign.stage,'eden-activation');
     assert.equal(f.expedition.getState().radioMap,'mars');assert.doesNotMatch(f.expedition.getState().radio,/Desembarque/);
+    for (const event of ['activate-eden', 'finish-eden-briefing', 'pick-up-sword']) f.campaign.getState().dispatch(event);
     f.travel();assert.equal(f.expedition.getState().session.map,'shanghai');
-    assert.notEqual(f.expedition.getState().radioMap,'shanghai','mensagem antiga de Marte não está ativa na Terra');
+    assert.equal(f.expedition.getState().radioSender,'EDEN');
+    assert.match(f.expedition.getState().radio,/matéria orgânica/);
+});
+
+test('Circuito inicial: pedestal, briefing, Oficina e sintetizador avançam uma vez com reload e preservam os saves dev', () => {
+    const devHub = '{ "version": 1, "profile": {"displayName":"Dev","color":"#abcdef"}, "briefingSeen": true }';
+    const devCargo = '{ "iron": 5, "copper": 4, "titanium": 3, "organic": 2 }';
+    const values = new Map([['exoden:hub:v1', devHub], ['exoden-carga-aeronave-v1', devCargo]]);
+    let f = fixture(values);
+    const stage = () => f.campaign.getState().saved.campaign.stage;
+    const state = () => f.expedition.getState();
+    const reload = () => {
+        f = fixture(values);
+        assert.equal(state().enterCampaign(), true);
+        state().setReady(true);
+    };
+    const assertMarsDepartureBlocked = () => {
+        f.placePlayer(f.MAPS.mars.exit);
+        state().send('board');
+        assert.equal(state().session.phase, 'aboard');
+        state().send('depart');
+        assert.equal(state().session.phase, 'aboard');
+        state().send('exit');
+    };
+    const atEden = { x: 0, y: 0, z: -8.9 };
+    f.enter();
+    f.travel();
+    f.pack(4, 4);
+    f.ship.getState().deposit();
+    f.travel();
+    assertMarsDepartureBlocked();
+    state().activateEden();
+    assert.equal(stage(), 'eden-activation', 'é preciso estar no pedestal');
+
+    f.placePlayer(atEden);
+    f.game.setState({ isPaused: true });
+    state().activateEden();
+    assert.equal(stage(), 'eden-activation');
+    f.game.setState({ isPaused: false });
+    const writes = f.writes.length;
+    state().activateEden();
+    state().activateEden();
+    assert.equal(stage(), 'eden-briefing');
+    assert.equal(f.writes.length, writes + 1);
+    assert.equal(f.ship.getState().cargo.copper, 4);
+
+    reload();
+    assert.equal(f.campaign.getState().saved.campaign.edenActive, true);
+    f.placePlayer(atEden);
+    state().activateEden();
+    state().openEden();
+    state().closePanel();
+    assert.equal(stage(), 'eden-briefing', 'fechar permite voltar ao briefing');
+    state().openEden();
+    state().acknowledgeEden();
+    state().acknowledgeEden();
+    assert.equal(stage(), 'sword-pickup');
+    assert.equal(f.writes.length, 1);
+    assert.equal(f.campaign.getState().saved.briefingSeen, true);
+    assertMarsDepartureBlocked();
+
+    const world = f.load('src/game/marsWorld.ts').createWorld();
+    const { engineerPresence } = f.load('src/npcs/engineerPresence.ts');
+    const weapon = f.load('src/state/useWeaponStore.ts').useWeaponStore;
+    Object.assign(engineerPresence, { active: true, world, x: -10.3, z: 0 });
+    f.placePlayer({ x: -9.1, y: 0, z: 0 });
+    state().openEngineer();
+    assert.equal(state().panel, 'engineer');
+    state().receiveSword();
+    assert.equal(stage(), 'sword-pickup', 'conversa no Data Center não entrega a arma');
+    state().closePanel();
+    weapon.getState().equip('machete');
+    assert.equal(weapon.getState().weapon, 'rifle');
+
+    Object.assign(engineerPresence, { x: -10.3, z: 11.2 });
+    f.placePlayer({ x: -9.1, y: 0, z: 11.2 });
+    state().openEngineer();
+    state().receiveSword();
+    state().receiveSword();
+    assert.equal(stage(), 'expedition-organic');
+    assert.equal(f.writes.length, 2);
+    weapon.getState().equip('machete');
+    assert.equal(weapon.getState().weapon, 'machete');
+
+    reload();
+    assert.equal(f.campaign.getState().saved.campaign.swordReceived, true);
+    f.travel();
+    const quotaMessage = 'Excelente, já temos o suficiente. Volte a base e vamos ligar o sintetizador.';
+    const arrivalSerial = state().radioSerial;
+    f.combat.setState({ kills: 10 });
+    f.pack(0, 0, 9);
+    assert.equal(state().radioSerial, arrivalSerial, 'abates e drops no chão não contam');
+    f.pack(0, 0, 10);
+    assert.equal(state().radio, quotaMessage);
+    assert.equal(state().radioSender, 'EDEN');
+    f.ship.getState().deposit('organic', 4);
+    assert.equal(state().radioSerial, arrivalSerial + 1);
+    f.travel();
+    assert.equal(stage(), 'expedition-organic');
+    assert.equal(f.campaign.getState().saved.campaign.organicDelivered, 4, 'só o porão retorna');
+
+    f.travel();
+    const nextSerial = state().radioSerial;
+    f.pack(0, 0, 0);
+    f.ship.getState().withdraw('organic', 4);
+    f.ship.getState().deposit('organic', 4);
+    assert.equal(state().radioSerial, nextSerial, 'redepositar carga antiga não satisfaz a quota');
+    f.pack(0, 0, 6);
+    assert.equal(state().radio, quotaMessage, 'a nova coleta completa o restante da quota');
+    f.ship.getState().deposit();
+    f.travel();
+    const delivered = f.campaign.getState().saved;
+    assert.equal(delivered.campaign.organicDelivered, 10);
+    assert.equal(stage(), 'synthesizer-activation');
+    state().send('arrive');
+    assert.equal(f.campaign.getState().saved, delivered);
+    assertMarsDepartureBlocked();
+
+    reload();
+    assert.equal(f.campaign.getState().saved.campaign.synthesizerActive, false);
+    state().activateSynthesizer();
+    assert.equal(stage(), 'synthesizer-activation');
+    const { console: point } = f.load('src/game/laboratorioLayout.ts').LABORATORIO;
+    f.placePlayer({ ...point, y: 0 });
+    state().activateSynthesizer();
+    state().activateSynthesizer();
+    assert.equal(stage(), 'main-progression');
+    assert.equal(f.writes.length, 1);
+    assert.equal(f.ship.getState().cargo.organic, 10);
+    reload();
+    assert.equal(f.campaign.getState().saved.campaign.synthesizerActive, true);
+    f.travel();
+    assert.equal(state().session.map, 'shanghai');
+    assert.equal(values.get('exoden:hub:v1'), devHub);
+    assert.equal(values.get('exoden-carga-aeronave-v1'), devCargo);
+});
+
+test('S5.3: energia segue a etapa e o save em cada montagem, e o visual dev mantém a intensidade original', () => {
+    let f = fixture();
+    f.enter();
+    const bind = (flag, onPower) => {
+        const material = new MeshStandardMaterial({ emissive: 'cyan', emissiveIntensity: 2 });
+        const stop = f.load('src/scene/marsColony/colonyPower.ts').bindColonyPower(new Mesh(undefined, material), flag, onPower);
+        return { material, stop };
+    };
+    const history = [];
+    const eden = bind('edenActive', powered => history.push(powered));
+    const synthesizer = bind('synthesizerActive');
+    assert.equal(eden.material.emissiveIntensity, 0);
+    assert.equal(synthesizer.material.emissiveIntensity, 0);
+
+    f.travel();
+    f.pack(4);
+    f.ship.getState().deposit();
+    f.travel();
+    f.campaign.getState().dispatch('activate-eden');
+    assert.deepEqual(history, [false, true]);
+    assert.equal(eden.material.emissiveIntensity, 2);
+    assert.equal(synthesizer.material.emissiveIntensity, 0);
+    eden.stop();
+    synthesizer.stop();
+    f = fixture(f.values);
+    f.expedition.getState().enterCampaign();
+    const restored = bind('edenActive');
+    assert.equal(restored.material.emissiveIntensity, 2);
+    restored.stop();
+    f.expedition.getState().returnHome();
+    f.expedition.getState().enterDevelopment();
+    const dev = bind('synthesizerActive');
+    assert.equal(dev.stop, undefined);
+    assert.equal(dev.material.emissiveIntensity, 2);
 });

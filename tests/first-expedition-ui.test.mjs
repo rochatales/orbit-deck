@@ -131,6 +131,27 @@ test('S3.2 revisão UI: fallback da campanha mantém título/aviso das hordas, s
  assert.match(text,/próxima horda chega com reabastecimento/);assert.doesNotMatch(text,/Equipe o facão|repita|reinicie/);
 });
 
+test('Circuito inicial UI: cabine orienta o pedestal e a segunda expedição mostra ondas de 4 e 6 mutantes', () => {
+    const f = setup();
+    const c = f.campaign.getState();
+    c.dispatch('finish-engineer-briefing');
+    c.depositExpedition({ id: 'cobre', copper: 4, organic: 0 });
+    c.dispatch('finish-copper-expedition');
+    const cockpit = renderWithStores('src/ui/ShipCockpit.tsx', f, 'ShipCockpit', {
+        map: 'mars', phase: 'aboard', ready: true, error: null, name: 'QA', onDepart() {}, onExit() {}, onRetry() {}
+    });
+    assert.match(textTree(cockpit), /Ligue EDEN no pedestal da Sala de Controle/);
+    for (const event of ['activate-eden', 'finish-eden-briefing', 'pick-up-sword']) c.dispatch(event);
+    f.expedition.setState({ session: { map: 'shanghai', phase: 'walking', destination: null, revision: 0 } });
+    for (const [wave, count] of [[0, 4], [1, 6]]) {
+        f.combat.setState({ wave, waves: 2, nextWave: 3 });
+        const text = textTree(renderWithStores('src/combat/CombatHud.tsx', f, 'CombatHud'));
+        assert.match(text, new RegExp(`${count} Mutantes Shangai`));
+        assert.match(text, /ONDA/);
+        assert.doesNotMatch(text, /13 ameaças|26 ameaças|Patrol grandes/);
+    }
+});
+
 test('S6.15 na S3.2: ESC mostra pausa simples, engrenagem abre opções e saída conserva regra de abandono',()=>{
  const f=setup(),handlers=new Map(),effects=[],states=[],refs=[];let stateIndex=0,refIndex=0,tree,home=0;
  const previousWindow=globalThis.window,previous={};

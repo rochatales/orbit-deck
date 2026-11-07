@@ -19,9 +19,17 @@ const step=(r,x,z,n=180)=>{for(let i=0;i<n;i++)r.update({x,z},1/60);};
 test('Prédios aprovados: snapshot íntegro; 9320/8732 triângulos e UVs válidos nas faces visíveis',async()=>{
  const snapshot=JSON.parse(fs.readFileSync('docs/handoffs/s6.12-predios-aprovados-01-11/fontes.json'));
  for(const f of snapshot.arquivos){
-  if(f.arquivo==='src/scene/marsColony/controlRoomRuntime.ts'){
-   // A rodada de áudio só acrescenta estes quatro hooks. O restante continua
-   // byte a byte igual ao runtime visual aprovado; os hooks são testados em mars-audio.
+  if(f.arquivo==='src/scene/marsColony/ControlRoom.tsx'){
+   // A S5.3 conecta a energia da campanha sem alterar o asset aprovado.
+   let code=fs.readFileSync(f.arquivo,'utf8');
+   for(const line of [
+    "import { bindColonyPower } from './colonyPower';\n",
+    "        const unbind = bindColonyPower(scene, 'edenActive', active => next.setPowered(active));\n",
+    '            unbind?.();\n',
+   ]){assert.ok(code.includes(line));code=code.replace(line,'');}
+   assert.equal(crypto.createHash('sha256').update(code).digest('hex'),f.sha256,f.arquivo);
+  }else if(f.arquivo==='src/scene/marsColony/controlRoomRuntime.ts'){
+   // A rodada de áudio e o controle de energia da S5.3 acrescentam só estes hooks.
    // Pedido do autor (04/11): telhado sem a sombra rasante; também fora do hash do visual aprovado.
    let code=fs.readFileSync(f.arquivo,'utf8').replace("                mesh.receiveShadow = false; // sol rasante: evita filetes claros de sombra\n",'');
    for(const line of [
@@ -29,7 +37,10 @@ test('Prédios aprovados: snapshot íntegro; 9320/8732 triângulos e UVs válido
     '    sound: DoorSoundClock;\n',
     '                sound: new DoorSoundClock(),\n',
     '            door.sound.update(openTarget === 1, this.status[door.side], door.x, door.z);\n',
+    '    private powered = true;\n',
+    '\n    setPowered(powered: boolean) {\n        this.powered = powered;\n        if (this.projectionNode) this.projectionNode.visible = powered;\n        if (this.interactionNode) this.interactionNode.visible = powered && this.status.interaction;\n    }\n',
    ]){assert.ok(code.includes(line));code=code.replace(line,'');}
+   code=code.replace('this.interactionNode.visible = this.powered && nearEden;', 'this.interactionNode.visible = nearEden;');
    assert.equal(crypto.createHash('sha256').update(code).digest('hex'),f.sha256,f.arquivo);
   }else assert.equal(hash(f.arquivo),f.sha256,f.arquivo);
  }

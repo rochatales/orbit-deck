@@ -8,6 +8,7 @@ import { simulationBlocked } from '../../game/simulationGate';
 import { playerPosition } from '../../state/playerTransient';
 import { useExpeditionStore } from '../../state/useExpeditionStore';
 import { useGameStore } from '../../state/useGameStore';
+import { useCampaignStore } from '../../state/useCampaignStore';
 import url from '../../assets/characters/npcs/eden-v002.glb';
 import { EDEN_FIGURE_SCALE, EdenRuntime } from './edenRuntime';
 
@@ -15,6 +16,7 @@ const { x, y, z } = CONTROL_ROOM.hologramAnchor;
 
 /** EDEN sobre o emissor do pedestal, dentro dos anéis da projeção. */
 export function ControlRoomEden() {
+    const active = useCampaignStore(s => s.mode !== 'campaign' || !!s.saved?.campaign.edenActive);
     const gltf = useGLTF(url), visual = useRef<Group>(null), runtime = useRef<EdenRuntime>();
     useLayoutEffect(() => {
         const scene = clone(gltf.scene); scene.name = 'EdenFigura';
@@ -24,11 +26,11 @@ export function ControlRoomEden() {
     }, [gltf.scene, gltf.animations]);
     useFrame((_, delta) => {
         const instance = runtime.current;
-        if (!instance) return;
+        if (!instance || !active) return;
         // O painel da conversa bloqueia a simulação, mas ela continua gesticulando; só a pausa a congela.
         const talking = useExpeditionStore.getState().panel === 'eden';
         const running = talking ? !useGameStore.getState().isPaused : !simulationBlocked();
         instance.update(playerPosition, running ? delta : 0, talking);
     });
-    return <group ref={visual} name="ControlRoomEden" position={[x, y, z]} scale={EDEN_FIGURE_SCALE} dispose={null}/>;
+    return <group ref={visual} name="ControlRoomEden" position={[x, y, z]} scale={EDEN_FIGURE_SCALE} visible={active} dispose={null}/>;
 }

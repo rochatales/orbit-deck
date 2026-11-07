@@ -10,6 +10,7 @@ import { InteractionBubble, NpcInteractionBubble } from './InteractionBubble';
 import { requestShipCargo } from '../game/shipCargo';
 const board = () => useExpeditionStore.getState().send('board');
 const talkToEden = () => useExpeditionStore.getState().openEden();
+const activateEden = () => useExpeditionStore.getState().activateEden();
 export function WorldInteractionBubbles({ map, world }: { map: MapId; world: OfficeWorld }) {
     const exit = MAPS[map].exit;
     const height = (x: number, z: number) => world.surfaceHeight?.(x, z) ?? world.supportHeight?.(x, z) ?? 0;
@@ -19,7 +20,11 @@ export function WorldInteractionBubbles({ map, world }: { map: MapId; world: Off
             <button type="button" className="secondary" onClick={event => { event.stopPropagation(); requestShipCargo(); }}>F · Carga da aeronave</button>
         </InteractionBubble>
         {/* Acima do halo: a EDEN flutua sobre o pedestal e vai até 2,51 m. */}
-        {map === 'mars' && <NpcInteractionBubble npc={EDEN} height={3} onInteract={talkToEden}/>}
+        {map === 'mars' && <>
+            <InteractionBubble id="activate-eden" label="Ligar EDEN" point={EDEN.position} radius={EDEN.interactionRadius}
+                position={[EDEN.position.x, 1.8, EDEN.position.z]} priority={30} onInteract={activateEden}/>
+            <NpcInteractionBubble npc={EDEN} height={3} onInteract={talkToEden}/>
+        </>}
         {map === 'shanghai' && SHANGHAI_SUPPLY_CRATES.map(crate => <InteractionBubble key={crate.id} id={`crate:${crate.id}`}
             label={`Abrir cabine · +${SUPPLY_CRATE.ammo} munições`} point={crateMarker(crate)} radius={SUPPLY_CRATE.radius} priority={20}
             position={[crate.x, height(crate.x, crate.z) + SUPPLY_CRATE.maxY + .45, crate.z]}
