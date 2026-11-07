@@ -1,7 +1,7 @@
 import { useCampaignStore } from '../state/useCampaignStore';
+import type { PlayerWeapon } from '../combat/melee';
 /** Política única consultada na seleção, tecla, clique e ações diretas. Sem alocação por quadro. */
-export function engineerBriefingRequired() {
-    const s = useCampaignStore.getState();
+export function engineerBriefingRequired(s = useCampaignStore.getState()) {
     return s.mode === 'campaign' && s.saved?.campaign.stage === 'engineer-briefing';
 }
 export function campaignInteractionAllowed(id: string) {
@@ -16,4 +16,10 @@ export function campaignInteractionAllowed(id: string) {
 }
 export function campaignSwordAllowed(s = useCampaignStore.getState()) {
     return s.mode !== 'campaign' || !!s.saved?.campaign.swordReceived;
+}
+export function campaignRifleAllowed(s = useCampaignStore.getState()) {
+    return !engineerBriefingRequired(s);
+}
+export function campaignWeaponAllowed(weapon: PlayerWeapon) {
+    return weapon === 'rifle' ? campaignRifleAllowed() : campaignSwordAllowed();
 }

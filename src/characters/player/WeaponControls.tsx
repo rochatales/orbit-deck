@@ -1,4 +1,4 @@
-import { campaignSwordAllowed } from '../../game/campaignPolicy';
+import { campaignWeaponAllowed } from '../../game/campaignPolicy';
 import { useStoredMedicalKit } from '../../game/props/medicalKitInteraction';
 import { useEffect } from 'react';
 import { useWeaponStore } from '../../state/useWeaponStore';
@@ -14,7 +14,7 @@ export function canEquipPlayerWeapon(source: 'shortcut' | 'inventory' = 'shortcu
     && (source === 'inventory' || !useGameStore.getState().isPaused);
 }
 export function equipPlayerWeapon(weapon: PlayerWeapon, source: 'shortcut' | 'inventory' = 'shortcut') {
-  if ((weapon === 'machete' && !campaignSwordAllowed()) || !canEquipPlayerWeapon(source)) return false;
+  if (!campaignWeaponAllowed(weapon) || !canEquipPlayerWeapon(source)) return false;
   useWeaponStore.getState().equip(weapon);
   return true;
 }
@@ -25,8 +25,7 @@ export function WeaponControls() {
       if (event.repeat || (event.target instanceof HTMLElement && (event.target.matches('input,textarea,select') || event.target.isContentEditable))) return;
       if (event.code === 'Digit3' || event.code === 'Numpad3') { if (useStoredMedicalKit()) event.preventDefault(); return; }
       if (event.code !== 'Digit1' && event.code !== 'Digit2' && event.code !== 'Numpad1' && event.code !== 'Numpad2') return;
-      if (!canEquipPlayerWeapon()) return;
-      event.preventDefault(); equipPlayerWeapon(event.code.endsWith('1') ? 'rifle' : 'machete');
+      if (equipPlayerWeapon(event.code.endsWith('1') ? 'rifle' : 'machete')) event.preventDefault();
     };
     window.addEventListener('keydown', key);
     return () => window.removeEventListener('keydown', key);

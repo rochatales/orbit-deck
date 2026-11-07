@@ -1,5 +1,7 @@
 import { weaponCarryMode } from './weaponCarry';
 import { useWeaponStore } from '../../state/useWeaponStore';
+import { useCampaignStore } from '../../state/useCampaignStore';
+import { campaignRifleAllowed, campaignSwordAllowed } from '../../game/campaignPolicy';
 import { PlayerMachete, PlayerMacheteClips } from './PlayerMachete';
 import { createSwordLight } from './swordNeon';
 import { playerStepDust } from './stepDust';
@@ -33,8 +35,9 @@ export function PlayerModel(props: PlayerModelProps) {
 
 function PlayerVariant({ motionRef, combat, variant }: PlayerModelProps & { variant: PlayerAssetVariant }) {
   const weapon = useWeaponStore(s => s.weapon);
-  const rifleCarry = weaponCarryMode('rifle', weapon, combat);
-  const macheteCarry = weaponCarryMode('machete', weapon, combat);
+  const rifleAllowed = useCampaignStore(campaignRifleAllowed), swordAllowed = useCampaignStore(campaignSwordAllowed);
+  const rifleCarry = weaponCarryMode('rifle', weapon, combat, rifleAllowed);
+  const macheteCarry = weaponCarryMode('machete', weapon, combat, swordAllowed);
   const falling = useCombatStore(s => s.dead) && combat && weapon === 'machete';
   const bodyRef = useRef<Group>(null);
   const swordLight = useMemo(() => createSwordLight(), []);
@@ -86,14 +89,14 @@ function PlayerVariant({ motionRef, combat, variant }: PlayerModelProps & { vari
           />
         </group>
         <LocomotionController motionRef={motionRef} actions={combinedActions} asset={asset} combat={combat} />
-        {variant === 'astronauta' && <PlayerMacheteClips actions={actions} ready={setMacheteActions}/>}
+        {variant === 'astronauta' && swordAllowed && <PlayerMacheteClips actions={actions} ready={setMacheteActions}/>}
         {variant === 'astronauta' && scene && macheteCarry !== 'hidden' && <PlayerMachete scene={scene} motionRef={motionRef} combat={combat} light={combat ? swordLight : null}/>}
         {variant === 'astronauta' && combat && <primitive object={swordLight} dispose={null}/>}
         {variant === 'astronauta' && scene && <PlayerBackpack scene={scene} illuminated={combat} />}
         {variant === 'astronauta' && scene && <ColonyPlayerVisor scene={scene} illuminated={!combat} />}
         {variant === 'astronauta' && scene && rifleCarry !== 'hidden' && <PlayerRifle equipped={weapon === 'rifle'} combat={combat} scene={scene} motionRef={motionRef} onAttached={setRifleAttached} />}
       </group>
-      {combat && weapon === 'rifle' && !rifleAttached && <group name="PlayerRifle" position={[RIFLE_POSE.side, RIFLE_POSE.height - PLAYER_COLLIDER_CENTER_Y, RIFLE_POSE.gripForward]}>
+      {rifleCarry === 'hand' && !rifleAttached && <group name="PlayerRifle" position={[RIFLE_POSE.side, RIFLE_POSE.height - PLAYER_COLLIDER_CENTER_Y, RIFLE_POSE.gripForward]}>
         <mesh castShadow><boxGeometry args={[0.16, 0.18, 0.7]} /><meshStandardMaterial color="#243842" /></mesh>
         <mesh name="RifleBarrel" position={[0, 0, RIFLE_POSE.barrelForward]}><boxGeometry args={[0.08, 0.08, RIFLE_POSE.barrelLength]} /><meshStandardMaterial color="#78cddd" /></mesh>
       </group>}

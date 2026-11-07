@@ -106,6 +106,43 @@ test('S3.2: campanha força rifle e guarda arma/seleção/save/carga dev byte a 
     assert.equal(f.load('src/game/campaignPolicy.ts').engineerBriefingRequired(),false);
 });
 
+test('S3.2: campanha nova e retomada antes do briefing começam só com mochila', () => {
+    let f = fixture();
+    const weapons = () => f.load('src/characters/player/WeaponControls.tsx');
+    const carry = () => f.load('src/characters/player/weaponCarry.ts').weaponCarryMode;
+    const policy = () => f.load('src/game/campaignPolicy.ts');
+    const checkUnarmed = () => {
+        f.expedition.getState().setReady(true);
+        for (const weapon of ['rifle', 'machete']) {
+            assert.equal(weapons().equipPlayerWeapon(weapon), false);
+            assert.equal(weapons().equipPlayerWeapon(weapon, 'inventory'), false);
+            assert.equal(carry()(weapon, weapon, false, policy().campaignWeaponAllowed(weapon)), 'hidden');
+        }
+    };
+    f.expedition.getState().enterCampaign(profile);
+    checkUnarmed();
+
+    f = fixture(f.values);
+    assert.equal(f.expedition.getState().enterCampaign(), true);
+    checkUnarmed();
+    const world = f.load('src/game/marsWorld.ts').createWorld();
+    const { engineerPresence } = f.load('src/npcs/engineerPresence.ts');
+    Object.assign(engineerPresence, { active: true, world, x: -6.1, z: 6 });
+    f.placePlayer({ x: -5, y: 0, z: 6 });
+    f.expedition.getState().openEngineer();
+    f.expedition.getState().closePanel();
+    assert.equal(weapons().equipPlayerWeapon('rifle'), true);
+    assert.equal(carry()('rifle', 'rifle', false, policy().campaignRifleAllowed()), 'holster');
+    assert.equal(weapons().equipPlayerWeapon('machete'), false);
+
+    f = fixture(f.values);
+    f.expedition.getState().enterCampaign();
+    assert.equal(policy().campaignRifleAllowed(), true);
+    f.expedition.getState().returnHome();
+    assert.equal(f.expedition.getState().enterCampaign(profile, true), true);
+    checkUnarmed();
+});
+
 test('S3.2: transmissão exata por visita; quota só de coleta real, mochila + saldo da visita', () => {
     const f=fixture();f.enter();f.travel();let s=f.expedition.getState();
     assert.equal(s.radio,'Conferi aqui, você vai precisar de 04 unidades de cobre.');assert.equal(s.radioSender,'Engenheiro');

@@ -105,7 +105,9 @@ function renderWithStores(file, f, name, props={}) {
   if(spec.includes('/state/')) {const actual=f.load('src/state/'+spec.split('/').at(-1)+'.ts');return Object.fromEntries(Object.entries(actual).map(([k,v])=>[k,k.startsWith('use')&&v.getState?hook(v):v]));}
   if(spec.endsWith('.css'))return {};
   if(/\.(jpg|png|mp4)$/.test(spec))return spec;
-  if(spec.endsWith('/ShipCargoPanel'))return {ShipCargoPanel:()=>null};
+  if(spec.endsWith('/ShipCargoPanel'))return {ShipCargoPanel:()=>null,ShipCargoButton:()=>null};
+  if(spec.endsWith('/ItemArtwork') || spec.endsWith('/RadarMap'))return new Proxy({}, {get:()=>()=>null});
+  if(spec.endsWith('/WeaponControls'))return {canEquipPlayerWeapon:()=>true,equipPlayerWeapon:()=>true};
   if(spec.startsWith('.'))return f.load(path.resolve(path.dirname(file),spec)+'.ts');
   return native(spec);
  };
@@ -149,6 +151,25 @@ test('Circuito inicial UI: cabine orienta o pedestal e a segunda expedição mos
         assert.match(text, new RegExp(`${count} Mutantes Shangai`));
         assert.match(text, /ONDA/);
         assert.doesNotMatch(text, /13 ameaças|26 ameaças|Patrol grandes/);
+    }
+});
+
+test('S3.2 UI: HUD e mochila exibem apenas as armas que a campanha já entregou', () => {
+    const f = setup(), file = 'src/ui/GameplayHud.tsx';
+    const hud = () => textTree(renderWithStores(file, f, 'GameplayHud', { combat: false, map: 'mars' }));
+    const backpack = () => textTree(renderWithStores(file, f, 'BackpackContents', { combat: false }));
+    assert.match(hud(), /MOCHILA/);
+    for (const text of [hud(), backpack()]) assert.doesNotMatch(text, /rifle|facão|coldre/i);
+    f.campaign.getState().dispatch('finish-engineer-briefing');
+    for (const text of [hud(), backpack()]) {
+        assert.match(text, /rifle laser/i);
+        assert.doesNotMatch(text, /facão/i);
+    }
+    f.expedition.getState().returnHome();
+    f.expedition.getState().enterDevelopment();
+    for (const text of [hud(), backpack()]) {
+        assert.match(text, /rifle laser/i);
+        assert.match(text, /facão/i);
     }
 });
 

@@ -159,6 +159,7 @@ function Runtime({ onHome }: { onHome: () => void }) {
       <button onClick={s.acknowledgeEden}>Entendido · Voltar à exploração</button>
     </article></section>}
     {s.panel === 'engineer' && !paused && <EngineerDialogue calm={engineerIsCalm(campaign.mode, campaign.saved?.campaign.edenActive ?? false, engineerPreview)}
+      copperMission={progress?.stage === 'expedition-copper'}
       swordPickup={progress?.stage === 'sword-pickup' && canReceiveSword(playerPosition)}/>}
     {inCockpit && <ShipCockpit map={s.session.map} phase={s.session.phase} ready={s.ready} error={s.error} name={s.profile?.displayName ?? 'Explorador'}
       onDepart={() => s.send('depart')} onExit={() => s.send('exit')} onRetry={() => { if (s.error === SCENE_STALLED_ERROR) { window.location.reload(); return; } s.setError(null); s.send('depart'); }}

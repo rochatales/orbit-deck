@@ -1,10 +1,10 @@
-import { campaignSwordAllowed } from '../game/campaignPolicy';
+import { campaignSwordAllowed, campaignWeaponAllowed } from '../game/campaignPolicy';
 import { useCampaignStore } from './useCampaignStore';
 import { create } from 'zustand';
 import type { PlayerWeapon } from '../combat/melee';
 /** Arma principal da sessão, mantida entre mapas/tentativas; golpe/tempo/dano seguem na simulação. */
 export const useWeaponStore = create<{ weapon: PlayerWeapon; equip: (weapon: PlayerWeapon) => void }>((set, get) => ({
-  weapon: 'rifle', equip: weapon => { if (weapon === 'machete' && !campaignSwordAllowed()) return; if (weapon !== get().weapon) set({ weapon }); }
+  weapon: 'rifle', equip: weapon => { if (campaignWeaponAllowed(weapon) && weapon !== get().weapon) set({ weapon }); }
 }));
 
 let developmentWeapon: PlayerWeapon = 'rifle';
