@@ -9,14 +9,19 @@ const { AudioEngine } = loadSource('src/audio/AudioEngine.ts');
 const { AUDIO, soundFor } = loadSource('src/audio/config.ts');
 const { CombatSimulation } = loadSource('src/combat/simulation.ts');
 const { COMBAT } = loadSource('src/combat/config.ts');
-const musicFiles = { mars: { url: 'mars.mp3' }, shanghai: { url: 'shanghai.mp3' } };
+const musicFiles = { home: { url: 'intro.mp3' }, mars: { url: 'mars.mp3' }, shanghai: { url: 'shanghai.mp3' } };
 function context() {
     const node = () => ({ connect(target) { this.target = target; } });
-    const param = () => ({ value: 1, ramps: [], setValueAtTime(v) { this.value = v; }, setTargetAtTime(v) { this.value = v; }, cancelScheduledValues() {}, linearRampToValueAtTime(v, t) { this.ramps.push([v, t]); } });
-    return { state: 'suspended', currentTime: 0, destination: {}, decodes: 0, mediaSources: [], gains: [],
+    const param = () => ({ value: 1, ramps: [], setValueAtTime(v) { this.value = v; }, setTargetAtTime(v) { this.value = v; }, cancelScheduledValues() {}, cancelAndHoldAtTime() {}, linearRampToValueAtTime(v, t) { this.ramps.push([v, t]); } });
+    return { state: 'suspended', currentTime: 0, destination: {}, decodes: 0, mediaSources: [], gains: [], ambienceSources: [],
         async resume() { this.state = 'running'; }, async suspend() { this.state = 'suspended'; },
         createGain() { const n = { ...node(), gain: param() }; this.gains.push(n); return n; },
         createMediaElementSource(media) { const n = { ...node(), media }; this.mediaSources.push(n); return n; },
+        createBufferSource() {
+            const source = { ...node(), start() {}, stop() { this.stopped = true; } };
+            this.ambienceSources.push(source);
+            return source;
+        },
         async decodeAudioData() { this.decodes++; return { duration: .2 }; },
     };
 }
@@ -58,10 +63,38 @@ test('Músicas: play pendente não vaza na pausa; troca de mapa ignora a promess
     player.setBlocked(false); assert.equal(m.plays, 1);
     player.setBlocked(true); pending.shift()(); await tick(); assert.equal(m.paused, true);
     player.setBlocked(false); assert.equal(m.plays, 2);
-    player.setMap('shanghai'); assert.equal(m.plays, 3);
+    player.setScene('shanghai'); assert.equal(m.plays, 3);
     pending.shift()(); await tick(); assert.equal(m.src, 'shanghai.mp3');
     pending.shift()(); await tick(); assert.equal(m.paused, false);
-    player.unlock(); assert.equal(m.plays, 3, 'gestos não reiniciam a trilha');
+    player.setBlocked(false); assert.equal(m.plays, 3, 'gestos não reiniciam a trilha');
+});
+
+test('Músicas: home toca após o gesto, troca para a faixa do mapa e volta sem sobreposição', async () => {
+    const originalAudio = globalThis.Audio, originalFetch = globalThis.fetch;
+    const c = context(), m = media(), requests = [];
+    globalThis.Audio = function () { return m; };
+    globalThis.fetch = async url => {
+        requests.push(url);
+        return { ok: true, arrayBuffer: async () => new ArrayBuffer(8) };
+    };
+    try {
+        const engine = new AudioEngine(() => c, [{ name: 'efeito', url: 'efeito.mp3' }], undefined,
+            { name: 'rua', url: 'rua.mp3' }, undefined, musicFiles);
+        engine.setMap(null); engine.setBlocked(false);
+        assert.equal(c.mediaSources.length, 0);
+        await engine.unlock();
+        assert.equal(m.src, 'intro.mp3'); assert.equal(m.loop, true); assert.equal(m.paused, false);
+        assert.deepEqual(requests, []);
+        engine.setBlocked(true); engine.setMap('shanghai');
+        assert.equal(m.src, 'shanghai.mp3'); assert.equal(m.paused, true);
+        engine.setBlocked(false); await engine.unlock(); assert.equal(m.paused, false);
+        assert.equal(c.ambienceSources.length, 1);
+        engine.setBlocked(true); engine.setMap(null); engine.setBlocked(false); await tick();
+        assert.equal(m.src, 'intro.mp3'); assert.equal(m.currentTime, 0); assert.equal(m.paused, false);
+        assert.equal(c.mediaSources.length, 1);
+        assert.equal(c.ambienceSources[0].stopped, true);
+        assert.deepEqual(requests, ['efeito.mp3', 'rua.mp3']);
+    } finally { globalThis.Audio = originalAudio; globalThis.fetch = originalFetch; }
 });
 
 test('Rifle vazio: clique por pressão e cadência ao segurar, sem tiro/flash, não toca em recarga ou pausa', () => {
@@ -94,7 +127,7 @@ test('Patrol pequeno: só receber tiro tem volume 40% menor; ataque, morte e dem
 test('Músicas/fontes intactas e sete cliques de mecanismo reproduzíveis com até 0,24 s', () => {
     const hash = data => createHash('sha256').update(data).digest('hex');
     const music = JSON.parse(fs.readFileSync('src/assets/audio/music/manifesto.json'));
-    assert.equal(music.sources.length, 2);
+    assert.equal(music.sources.length, 3);
     for (const source of music.sources) assert.equal(hash(fs.readFileSync('src/assets/audio/music/' + source.file)), source.sha256);
     const root = 'src/assets/audio/rifle/', manifest = JSON.parse(fs.readFileSync(root + 'manifesto.json'));
     assert.equal(hash(fs.readFileSync(root + manifest.source.file)), manifest.source.sha256);
@@ -106,5 +139,6 @@ test('Músicas/fontes intactas e sete cliques de mecanismo reproduzíveis com at
         assert.ok(Number(p.format.duration) > .1 && Number(p.format.duration) <= .24); assert.equal(p.streams[0].channels, 1);
     }
     const runtime = fs.readFileSync('src/audio/runtime.ts', 'utf8');
+    assert.match(runtime, /music\/intro-background\.mp3/);
     assert.match(runtime, /music\/mars-strung-out\.mp3/); assert.match(runtime, /music\/shanghai-dov\.mp3/); assert.match(runtime, /emptyManifest\.variations/);
 });

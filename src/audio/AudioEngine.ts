@@ -2,6 +2,7 @@ import { MusicPlayer, type MusicFiles } from './MusicPlayer';
 import { AmbienceMixer, type MarsAmbienceFiles } from './AmbienceMixer';
 import { AUDIO, distanceGain, soundFor, variationIndex, type Category } from './config';
 import type { SoundEvent, SoundQueue } from './events';
+import type { MapId } from '../game/session';
 interface StorageLike { getItem(key: string): string | null; setItem(key: string, value: string): void }
 interface Voice { source: AudioBufferSourceNode; gain: GainNode; pan: StereoPannerNode; category: Category; retiring: boolean; emitter?: number }
 export interface SoundFile { name: string; url: string }
@@ -24,7 +25,7 @@ export class AudioEngine {
     private gateRevision = 0;
     private musicPlayer: MusicPlayer | null = null;
     private ambienceMixer: AmbienceMixer | null = null;
-    private map: 'mars' | 'shanghai' = 'mars';
+    private map: MapId | null = 'mars';
     private marsInside = false;
     constructor(private factory: () => AudioContext, private files: readonly SoundFile[], private storage?: StorageLike,
         private ambience?: SoundFile, private marsAmbience?: MarsAmbienceFiles, private music?: MusicFiles) {
@@ -40,8 +41,7 @@ export class AudioEngine {
     setMuted(muted: boolean) { this.muted = muted; if (muted) this.stopAll(); this.settingsChanged(); }
     private settingsChanged() {
         if (this.master && this.context) this.master.gain.setTargetAtTime(this.muted ? 0 : this.volume, this.context.currentTime, .01);
-        this.ambienceMixer?.setBlocked(this.blocked || this.muted);
-        this.musicPlayer?.setBlocked(this.blocked || this.muted);
+        this.syncPlayback();
         try { this.storage?.setItem(AUDIO.storageKey, JSON.stringify({ volume: this.volume, muted: this.muted })); } catch { /* Sem persistência: controle continua funcional. */ }
         this.revision++; this.listeners.forEach(f => f());
     }
@@ -50,19 +50,26 @@ export class AudioEngine {
             this.context = this.factory(); this.master = this.context.createGain();
             this.master.gain.value = this.muted ? 0 : this.volume; this.master.connect(this.context.destination);
             this.unlocked = true;
-            this.loading = this.load();
             this.ambienceMixer = new AmbienceMixer(this.context, this.master, this.ambience, this.marsAmbience, () => { this.stats.decodeErrors++; });
-            this.ambienceMixer.select(this.map, this.marsInside);
-            this.ambienceMixer.setBlocked(this.blocked || this.muted);
-            if (this.music) this.musicPlayer = new MusicPlayer(this.context, this.master, this.music, this.map);
+            this.prepareGameplay();
+            if (this.music) this.musicPlayer = new MusicPlayer(this.context, this.master, this.music, this.map ?? 'home');
         }
-        this.musicPlayer?.setBlocked(this.blocked || this.muted);
-        this.musicPlayer?.unlock();
+        this.syncPlayback();
         // resume deve ser chamado na pilha do gesto, antes de aguardar fetch/decode.
         if (!this.blocked) await this.context.resume().catch(() => {});
         await this.loading;
         await this.ambienceMixer?.ready();
         if (this.blocked) await this.context.suspend().catch(() => {});
+    }
+    private prepareGameplay() {
+        if (!this.map || !this.ambienceMixer) return;
+        this.loading ??= this.load();
+        this.ambienceMixer.select(this.map, this.marsInside);
+    }
+    private syncPlayback() {
+        const blocked = this.blocked || this.muted;
+        this.ambienceMixer?.setBlocked(blocked || this.map === null);
+        this.musicPlayer?.setBlocked(blocked);
     }
     private async load() {
         await Promise.all(this.files.map(async file => {
@@ -75,12 +82,13 @@ export class AudioEngine {
         }));
         this.ready = true;
     }
-    /** Ambiências sem atenuação espacial nem disputa com as vozes de combate. */
-    setMap(map: 'mars' | 'shanghai') {
+    /** Na home não há mapa, ambiência nem carregamento de efeitos. */
+    setMap(map: MapId | null) {
         if (this.map === map) return;
         this.map = map; this.marsInside = false;
-        this.ambienceMixer?.select(map, false);
-        this.musicPlayer?.setMap(map);
+        this.prepareGameplay();
+        this.musicPlayer?.setScene(map ?? 'home');
+        this.syncPlayback();
     }
     setMarsInterior(inside: boolean) {
         if (this.map !== 'mars' || this.marsInside === inside) return;
@@ -90,8 +98,7 @@ export class AudioEngine {
     setBlocked(blocked: boolean) {
         if (blocked === this.blocked) return;
         this.blocked = blocked;
-        this.ambienceMixer?.setBlocked(this.blocked || this.muted);
-        this.musicPlayer?.setBlocked(this.blocked || this.muted);
+        this.syncPlayback();
         const revision = ++this.gateRevision;
         if (blocked) this.stopAll();
         const c = this.context;
@@ -113,7 +120,7 @@ export class AudioEngine {
     play(event: SoundEvent, distance = 0, pan = 0) {
         const sound = soundFor(event), c = this.context;
         const far = sound?.category === 'enemySteps' ? AUDIO.enemyStepDistance : sound?.category === 'heavySteps' ? AUDIO.heavyStepDistance : AUDIO.far;
-        if (!sound || !c || !this.ready || !this.unlocked || this.blocked || this.muted || c.state !== 'running'
+        if (!sound || !c || !this.map || !this.ready || !this.unlocked || this.blocked || this.muted || c.state !== 'running'
             || distance >= far) { this.stats.discarded++; return; }
         const category = AUDIO.categories[sound.category];
         if (sound.category === 'doors' && event.emitter) {

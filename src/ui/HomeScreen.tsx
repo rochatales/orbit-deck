@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { AudioControls } from '../audio/AudioRuntime';
-import { audio } from '../audio/runtime';
 import { DEFAULT_SUIT_COLOR } from '../game/session';
 import { useExpeditionStore } from '../state/useExpeditionStore';
 import colonyArt from '../assets/home/colonia-marte.webp';
@@ -82,7 +81,6 @@ export function HomeScreen({ onEnter }: { onEnter: () => void }) {
     };
     const newCampaign = (replace = false) => {
         if (replace ? !savedCampaign : !validName()) return;
-        void audio.unlock();
         // Recomeçar mantém a identidade da campanha, sem herdar o perfil dev do formulário.
         const campaignProfile = replace ? savedCampaign!.profile : { displayName: name.trim().slice(0, 32), color: profile?.color ?? DEFAULT_SUIT_COLOR };
         if (useExpeditionStore.getState().enterCampaign(campaignProfile, replace)) onEnter();
@@ -92,7 +90,6 @@ export function HomeScreen({ onEnter }: { onEnter: () => void }) {
         else newCampaign();
     };
     const resume = () => {
-        void audio.unlock();
         if (useExpeditionStore.getState().enterDevelopment()) onEnter();
     };
     const testEncounter = () => {
@@ -100,7 +97,6 @@ export function HomeScreen({ onEnter }: { onEnter: () => void }) {
         resume();
     };
     const resumeCampaign = () => {
-        void audio.unlock();
         if (useExpeditionStore.getState().enterCampaign()) onEnter();
     };
     return <main className="home">

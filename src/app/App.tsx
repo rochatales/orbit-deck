@@ -213,5 +213,6 @@ function Runtime({ onHome }: { onHome: () => void }) {
 }
 export function App() {
     const profile = useExpeditionStore(s => s.profile), [entered, setEntered] = useState(false);
-    return <><AudioLifecycle/>{entered && profile ? <Runtime onHome={() => { setEntered(false); useExpeditionStore.getState().returnHome(); }}/> : <HomeScreen onEnter={() => setEntered(true)}/>}</>;
+    const home = !entered || !profile;
+    return <><AudioLifecycle home={home}/>{home ? <HomeScreen onEnter={() => setEntered(true)}/> : <Runtime onHome={() => { setEntered(false); useExpeditionStore.getState().returnHome(); }}/>}</>;
 }

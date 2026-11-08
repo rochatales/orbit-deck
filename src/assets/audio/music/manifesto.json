@@ -1,6 +1,15 @@
 {
   "sources": [
     {
+      "source": "/Users/rochatales/Game Development/Horda Survivor/00_Audios/intro_background.wav",
+      "file": "intro-background.mp3",
+      "sha256": "d2789fa46838c763b0f8a7fc826224bcb1c803d485518988dae260756be86ee3",
+      "bytes": 601004,
+      "durationSeconds": 30,
+      "channels": 2,
+      "sampleRate": 48000
+    },
+    {
       "source": "/Users/rochatales/Game Development/Horda Survivor/00_Audios/ES_Strung Out - Daniella Ljungsberg.mp3",
       "file": "mars-strung-out.mp3",
       "sha256": "41a4cff128c339b2bb6f868b7b32a683b41176b413e56b3b4b0675bb4b2e4a75",

@@ -73,7 +73,8 @@ test('Perfil de desenvolvimento: helper preserva cor e briefing do save existent
 
 test('Entrada: o jogo só monta depois de escolher Início ou Continuar, mesmo com save', () => {
     const app = fs.readFileSync('src/app/App.tsx', 'utf8');
-    assert.match(app, /entered && profile \? <Runtime onHome=/);
+    assert.match(app, /const home = !entered \|\| !profile/);
+    assert.match(app, /home \? <HomeScreen .* : <Runtime onHome=/);
     assert.doesNotMatch(app, /function Welcome|className="welcome"/);
     const home = fs.readFileSync('src/ui/HomeScreen.tsx', 'utf8');
     assert.doesNotMatch(home, /removeItem|localStorage|send\(/, 'a tela não apaga save nem inicia missão');

@@ -93,5 +93,5 @@ test('Shanghai: cópia MP3 estéreo intacta, dois minutos, e integração ao gat
     assert.equal(probe.streams[0].channels, 2); assert.equal(Number(probe.streams[0].sample_rate), 48000);
     assert.equal(Number(probe.format.duration), 120);
     assert.match(fs.readFileSync('src/audio/runtime.ts', 'utf8'), /assets\/audio\/ambience\/shanghai-empty-city\.mp3/);
-    assert.match(fs.readFileSync('src/audio/AudioRuntime.tsx', 'utf8'), /audio\.setMap\(useExpeditionStore\.getState\(\)\.session\.map\)/);
+    assert.match(fs.readFileSync('src/audio/AudioRuntime.tsx', 'utf8'), /audio\.setMap\(home \? null : useExpeditionStore\.getState\(\)\.session\.map\)/);
 });

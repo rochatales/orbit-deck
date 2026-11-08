@@ -1,3 +1,4 @@
+import homeMusicUrl from '../assets/audio/music/intro-background.mp3';
 import marsMusicUrl from '../assets/audio/music/mars-strung-out.mp3';
 import shanghaiMusicUrl from '../assets/audio/music/shanghai-dov.mp3';
 import emptyManifest from '../assets/audio/rifle/manifesto.json';
@@ -22,4 +23,4 @@ export const audio = new AudioEngine(() => new AudioContext(), manifesto.sources
         { name: 'SFX_Hangar_Front_Close', url: hangarCloseUrl }, { name: 'SFX_Quartel_Door_Open', url: quartelDoorUrl }, { name: 'SFX_Quartel_Door_Close', url: quartelCloseUrl }), storage,
     { name: 'Shanghai_Empty_City', url: shanghaiAmbienceUrl },
     { outside: { name: 'Mars_Desert', url: marsOutsideUrl }, inside: { name: 'Mars_Interior', url: marsInsideUrl } },
-    { mars: { url: marsMusicUrl }, shanghai: { url: shanghaiMusicUrl } });
+    { home: { url: homeMusicUrl }, mars: { url: marsMusicUrl }, shanghai: { url: shanghaiMusicUrl } });

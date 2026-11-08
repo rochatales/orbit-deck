@@ -1,6 +1,6 @@
 import { MarsInteriorProbe } from './marsInterior';
 import { Vector3 } from 'three';
-import { useEffect, useMemo, useSyncExternalStore } from 'react';
+import { useLayoutEffect, useMemo, useSyncExternalStore } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { audio } from './runtime';
 import { playerSounds } from './events';
@@ -10,18 +10,19 @@ import { useGameStore } from '../state/useGameStore';
 import { useExpeditionStore } from '../state/useExpeditionStore';
 import { simulationBlocked } from '../game/simulationGate';
 /** Gate imediato, inclusive quando o canvas não recebe quadros em aba oculta. */
-export function AudioLifecycle() {
-    useEffect(() => {
+export function AudioLifecycle({ home }: { home: boolean }) {
+    useLayoutEffect(() => {
         let focused = document.hasFocus();
         const update = () => {
-            const blocked = !focused || document.hidden || simulationBlocked();
-            audio.setMap(useExpeditionStore.getState().session.map);
-            audio.setBlocked(blocked);
+            const blocked = !focused || document.hidden || (!home && simulationBlocked());
+            if (blocked) audio.setBlocked(true);
+            audio.setMap(home ? null : useExpeditionStore.getState().session.map);
+            if (!blocked) audio.setBlocked(false);
             if (blocked) { playerSounds.clear(); combatRuntime.simulation?.sounds.clear(); }
         };
         const blur = () => { focused = false; update(); };
         const focus = () => { focused = true; update(); };
-        const gesture = () => { focused = true; update(); if (useExpeditionStore.getState().profile) void audio.unlock(); };
+        const gesture = () => { focused = true; update(); void audio.unlock(); };
         const key = (e: KeyboardEvent) => {
             if (e.code !== 'KeyM' || e.repeat || (e.target instanceof HTMLInputElement && !['range', 'checkbox', 'button'].includes(e.target.type)) || e.target instanceof HTMLTextAreaElement || e.target instanceof HTMLSelectElement || (e.target instanceof HTMLElement && e.target.isContentEditable)) return;
             audio.setMuted(!audio.muted);
@@ -30,15 +31,16 @@ export function AudioLifecycle() {
         window.addEventListener('blur', blur); window.addEventListener('focus', focus);
         document.addEventListener('visibilitychange', update);
         window.addEventListener('pointerdown', gesture); window.addEventListener('keydown', gesture);
+        window.addEventListener('click', gesture, true);
         window.addEventListener('keydown', key); update();
         return () => {
             subscriptions.forEach(f => f()); window.removeEventListener('blur', blur); window.removeEventListener('focus', focus);
             document.removeEventListener('visibilitychange', update);
             window.removeEventListener('pointerdown', gesture); window.removeEventListener('keydown', gesture); window.removeEventListener('keydown', key);
+            window.removeEventListener('click', gesture, true);
             audio.setBlocked(true); playerSounds.clear(); combatRuntime.simulation?.sounds.clear();
-            audio.setMap('mars');
         };
-    }, []);
+    }, [home]);
     return null;
 }
 export function AudioFrame() {
