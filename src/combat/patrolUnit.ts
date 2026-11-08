@@ -39,7 +39,7 @@ export const PATROL_UNIT = {
 /** Grande: 3,20 m de altura / 3,28 m de largura, cabe nas vielas de pelo menos 3,48 m. */
 export const LARGE_PATROL_VISUAL = { height: 3.2, scale: 3.2 / 2.08507967 } as const;
 
-export const SMALL_MUTANT_VISUAL = { height: .96201372, scale: 1, walkReferenceSpeed: 2.2, chaseReferenceSpeed: 4.6 } as const;
+export const SMALL_MUTANT_VISUAL = { height: .94067037, scale: 1, walkReferenceSpeed: 2.2, chaseReferenceSpeed: 4.6 } as const;
 
 export const LARGE_MUTANT_VISUAL = { height: 2.92, scale: 2.5, walkReferenceSpeed: 1.4, chaseReferenceSpeed: 2.2 } as const;
 
@@ -147,7 +147,8 @@ export class PatrolUnitRig {
         for (let i = 0; i < this.materials.length; i++) {
             const material = this.materials[i];
             material.color.copy(this.baseColors[i]).multiplyScalar(robot.flash > 0 ? PATROL_UNIT.flashColor : 1);
-            material.emissive.copy(robot.alerted && alive ? PATROL_UNIT.alertTint : PATROL_UNIT.calmTint);
+            // A máscara verde do mutante pequeno perderia o brilho ao ser multiplicada pelo vermelho.
+            if (this.variant !== 'smallMutant') material.emissive.copy(robot.alerted && alive ? PATROL_UNIT.alertTint : PATROL_UNIT.calmTint);
         }
         const lunge=this.actions.get('AggressiveLunge')!;
         lunge.paused=winding;

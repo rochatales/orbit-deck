@@ -4,7 +4,7 @@ const{COMBAT,SMALL_MUTANT:M,HORDE_TOTALS,robotConfig,waveRobotKind,RIFLE_POSE,en
 const{CombatSimulation,hordeEdgeSpawns,canSeePlayer}=loadSource('src/combat/simulation.ts');
 const{Navigation,clearSegment,traversable}=loadSource('src/combat/navigation.ts');
 const{createPhase01Terrain,SHANGHAI_PHASE01:d}=loadSource('src/game/shanghai/layout.ts');
-const{PatrolUnitRig}=loadSource('src/combat/patrolUnit.ts');const{ResourceRig}=loadSource('src/combat/resourceRig.ts');
+const{PatrolUnitRig,SMALL_MUTANT_VISUAL}=loadSource('src/combat/patrolUnit.ts');const{ResourceRig}=loadSource('src/combat/resourceRig.ts');
 const{RESOURCE_VISUAL:V,collectDuration}=loadSource('src/combat/resourceVisual.ts');
 const{phase01SurfaceHeight}=loadSource('src/game/shanghai/surfaces.ts');const{placeResourceDrop}=loadSource('src/combat/resourcePlacement.ts');
 const{useCombatStore:store}=loadSource('src/state/useCombatStore.ts');
@@ -16,10 +16,19 @@ function validRoute(nav,start){let previous=start;const path=nav.path(start,d.ex
 
 test('Mutante/organica: GLBs exatos do autor, orçamento, clipes e dimensões',async()=>{
  for(const[file,sha,tri,clips]of[
-  ['src/assets/enemies/mutant-animal.glb','6680135e3ab13a3aa55651426d1bbe8bb9152ce9368ea383a2166e49c66d8796',7988,['Idle','PatrolWalk','ChaseRun','AggressiveLunge','ShockAttack','DamagedDeath']],
+  ['src/assets/enemies/mutant-animal.glb','afea61d2f9c6bd6d1d1cb9c55277196df73812caf3598c9b4ae7c4da39d8c277',1906,['Idle','PatrolWalk','ChaseRun','AggressiveLunge','ShockAttack','DamagedDeath']],
   ['src/assets/props/materia-organica.glb','35ab83514c49d72e119420d5aebc93b68d0bc0d755fbd512621d7fbdc158d50c',3456,['SpawnDrop','Idle','PulseGlow','CollectPickup']]]){
   const bytes=fs.readFileSync(file),j=JSON.parse(bytes.subarray(20,20+bytes.readUInt32LE(12)));assert.equal(createHash('sha256').update(bytes).digest('hex'),sha);assert.equal(j.meshes.reduce((sum,m)=>sum+m.primitives.reduce((n,p)=>n+j.accessors[p.indices].count/3,0),0),tri);assert.deepEqual(j.animations.map(a=>a.name).sort(),clips.sort());
-  if(file.includes('enemies')){const p=j.accessors[j.meshes[0].primitives[0].attributes.POSITION];assert.ok(Math.abs(p.max[0]-p.min[0]-.671)<.002);assert.ok(Math.abs(p.max[1]-p.min[1]-.962)<.002);assert.ok(Math.abs(p.max[2]-p.min[2]-2.07)<.002)}
+  if(file.includes('enemies')){
+   const p=j.accessors[j.meshes[0].primitives[0].attributes.POSITION];
+   assert.ok(Math.abs(p.max[0]-p.min[0]-.6784)<.002);
+   assert.ok(Math.abs(p.max[1]-p.min[1]-SMALL_MUTANT_VISUAL.height)<.002);
+   assert.ok(Math.abs(p.max[2]-p.min[2]-2.15)<.002);
+   assert.equal(j.images.length,4);
+   assert.ok(j.images.every(image=>Number.isInteger(image.bufferView)));
+   const material=j.materials[0];
+   assert.ok(material.emissiveTexture&&material.normalTexture&&material.pbrMetallicRoughness.baseColorTexture&&material.pbrMetallicRoughness.metallicRoughnessTexture);
+  }
  }
 });
 
@@ -77,6 +86,9 @@ test('Orgânica: verde, apoio na calçada, Idle sem giro, flutuação e coleta a
 
 test('Mutante GLB real: marcha, ChaseRun, bote, morte e renascimento no mesmo rig em escala 1',async()=>{
  const g=await loadGlb('src/assets/enemies/mutant-animal.glb'),rig=new PatrolUnitRig(g.scene,g.animations,'smallMutant'),uuid=rig.root.uuid,r={x:0,z:0,hp:50,alerted:false,flash:0};assert.equal(rig.root.scale.x,1);
+ for(const name of ['PatrolWalk','ChaseRun'])assert.ok(Math.abs(g.animations.find(clip=>clip.name===name).duration-14/30)<1e-6);
+ let mesh;rig.root.traverse(node=>{if(node.isSkinnedMesh)mesh=node;});const emissive=mesh.material.emissive.clone();
  for(let i=0;i<120;i++){r.x+=2.2/60;rig.update(r,20,20,.9,1/60)}assert.equal(rig.clip,'PatrolWalk');r.alerted=true;for(let i=0;i<120;i++){r.x+=4.6/60;rig.update(r,20,20,.9,1/60)}assert.equal(rig.clip,'ChaseRun');
+ assert.ok(mesh.material.emissive.equals(emissive),'a perseguição preserva a cor da máscara emissiva');
  rig.update(r,r.x,r.z,.9,1/60);assert.equal(rig.clip,'AggressiveLunge');r.hp=0;rig.update(r,20,20,.9,1/60);assert.equal(rig.clip,'DamagedDeath');for(let i=0;i<180;i++)rig.update(r,20,20,.9,1/60);assert.equal(rig.visible,false);rig.respawn();assert.equal(rig.clip,'Idle');assert.equal(rig.root.uuid,uuid);assert.equal(rig.visible,true);rig.dispose();
 });
