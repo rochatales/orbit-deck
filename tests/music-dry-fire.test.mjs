@@ -135,7 +135,7 @@ test('Patrol pequeno: só receber tiro tem volume 40% menor; ataque, morte e dem
 test('Músicas/fontes intactas e sete cliques de mecanismo reproduzíveis com até 0,24 s', () => {
     const hash = data => createHash('sha256').update(data).digest('hex');
     const music = JSON.parse(fs.readFileSync('src/assets/audio/music/manifesto.json'));
-    assert.equal(music.sources.length, 3);
+    assert.equal(music.sources.length, 4);
     for (const source of music.sources) assert.equal(hash(fs.readFileSync('src/assets/audio/music/' + source.file)), source.sha256);
     const root = 'src/assets/audio/rifle/', manifest = JSON.parse(fs.readFileSync(root + 'manifesto.json'));
     assert.equal(hash(fs.readFileSync(root + manifest.source.file)), manifest.source.sha256);
@@ -148,5 +148,5 @@ test('Músicas/fontes intactas e sete cliques de mecanismo reproduzíveis com at
     }
     const runtime = fs.readFileSync('src/audio/runtime.ts', 'utf8');
     assert.match(runtime, /music\/intro-background\.mp3/);
-    assert.match(runtime, /music\/mars-strung-out\.mp3/); assert.match(runtime, /music\/shanghai-dov\.mp3/); assert.match(runtime, /emptyManifest\.variations/);
+    assert.match(runtime, /music\/mars-strung-out\.mp3/); assert.match(runtime, /music\/shanghai-china-16-bit\.mp3/); assert.match(runtime, /emptyManifest\.variations/);
 });

@@ -1,6 +1,6 @@
 import homeMusicUrl from '../assets/audio/music/intro-background.mp3';
 import marsMusicUrl from '../assets/audio/music/mars-strung-out.mp3';
-import shanghaiMusicUrl from '../assets/audio/music/shanghai-dov.mp3';
+import shanghaiMusicUrl from '../assets/audio/music/shanghai-china-16-bit.mp3';
 import emptyManifest from '../assets/audio/rifle/manifesto.json';
 import { AudioEngine } from './AudioEngine';
 import manifesto from '../assets/audio/sfx/manifesto.json';

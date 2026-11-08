@@ -26,6 +26,15 @@
       "durationSeconds": 285.175521,
       "channels": 2,
       "sampleRate": 48000
+    },
+    {
+      "source": "/Users/rochatales/Game Development/Horda Survivor/00_Audios/China_sound16-bit_SNES_SPC700_a_#1-1794140074932.wav",
+      "file": "shanghai-china-16-bit.mp3",
+      "sha256": "1230b00f3ff273f63d8d3b34c1328c63ea588804fd45161fdd68350397056f61",
+      "bytes": 721196,
+      "durationSeconds": 30,
+      "channels": 2,
+      "sampleRate": 48000
     }
   ]
 }
