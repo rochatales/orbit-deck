@@ -12,7 +12,7 @@ import { createRequire } from 'node:module';
 import React from 'react';
 const { EngineerRoutine, ENGINEER, engineerIsCalm, engineerPreviewMood, engineerDoorClear, engineerHasStandingRoom } = loadSource('src/npcs/engineerRoutine.ts');
 const { createWorld } = loadSource('src/game/marsWorld.ts');
-const { traversable, clearSegment } = loadSource('src/combat/navigation.ts');
+const { traversable, clearSegment, segmentBox } = loadSource('src/combat/navigation.ts');
 const { ColonyBuildingRuntime } = loadSource('src/scene/marsColony/colonyBuildingRuntime.ts');
 const { COLONY_BUILDINGS } = loadSource('src/game/colonyBuildingsLayout.ts');
 const far = { x: 20, z: -18 };
@@ -194,23 +194,47 @@ test('Engenheiro: portas reais abrem para o NPC e ele não atravessa folhas fech
     doors.forEach(d => d.dispose());
 });
 
-test('S5.1: Engenheiro aguarda a entrega na bancada da Oficina e retoma a rota depois', () => {
+test('S5.1: Engenheiro aguarda a entrega na Oficina e retoma a rota depois', () => {
     const routine = new EngineerRoutine({ ...createWorld(), movingCuboids: [] });
-    const bench = ENGINEER.stops[0];
+    const shelfStop = ENGINEER.stops[0];
     for (let frame = 0; frame < 120 * 60; frame++) routine.update(1 / 60, far, false, true, false, true);
-    assert.ok(Math.hypot(routine.position.x - bench.x, routine.position.z - bench.z) < .08);
+    assert.ok(Math.hypot(routine.position.x - shelfStop.x, routine.position.z - shelfStop.z) < .08);
     assert.equal(routine.state.animation, 'Idle');
     for (let frame = 0; frame < 10 * 60; frame++) routine.update(1 / 60, far, false, true);
-    assert.ok(Math.hypot(routine.position.x - bench.x, routine.position.z - bench.z) > 1);
+    assert.ok(Math.hypot(routine.position.x - shelfStop.x, routine.position.z - shelfStop.z) > 1);
+});
+
+test('Engenheiro: começa a agachar de frente para a estante e retoma essa direção após conversar', () => {
+    const routine = new EngineerRoutine({ ...createWorld(), movingCuboids: [] });
+    const shelf = COLONY_BUILDINGS.find(b => b.id === 'workshop').staticCuboids.find(c => c.node === 'COL_Shelf_0');
+    const facesShelf = () => {
+        const { x, z, angle } = routine.state;
+        return segmentBox({ x, z }, { x: x + 1.5 * Math.sin(angle), z: z + 1.5 * Math.cos(angle) }, shelf.bounds, 0) !== null;
+    };
+    for (let frame = 0; frame < 60 * 60 && routine.state.animation !== 'CrouchDown'; frame++) routine.update(1 / 60, far);
+    assert.equal(routine.state.animation, 'CrouchDown');
+    assert.ok(facesShelf());
+    const player = { x: routine.state.x + 1.2, z: routine.state.z };
+    for (let frame = 0; frame < 60; frame++) routine.update(1 / 60, player, true);
+    assert.equal(routine.state.animation, 'Yelling');
+    assert.equal(facesShelf(), false);
+    routine.update(1 / 60, player);
+    assert.equal(routine.state.animation, 'CrouchDown');
+    assert.ok(facesShelf());
 });
 
 test('Engenheiro: para diante do banco e só recua para ele com a pose sentada', () => {
-    const r = new EngineerRoutine({ ...createWorld(), movingCuboids: [] });
+    const world = createWorld(), r = new EngineerRoutine({ ...world, movingCuboids: [] });
+    const bench = COLONY_BUILDINGS.find(b => b.id === 'workshop').staticCuboids.find(c => c.node === 'COL_Workbench_0');
+    assert.ok(ENGINEER.seat.z > bench.bounds.minZ && ENGINEER.seat.z < bench.bounds.maxZ);
+    assert.ok(ENGINEER.seatObstacle.minX > bench.bounds.maxX && ENGINEER.seat.x - bench.bounds.maxX < .6);
     let sawSeat=false, sawRise=false;
     for(let f=0;f<200*60;f++) {
         r.update(1/60,far);
         if(!sawSeat && r.state.animation==='Sitting' && r.state.seated===1) {
             sawSeat=true; assert.ok(Math.abs(r.position.x-ENGINEER.seat.x)<.07);
+            assert.ok(Math.abs(r.position.z-ENGINEER.seat.z)<.07);
+            assert.ok(traversable(r.position, world, ENGINEER.radius), 'pose sentada livre da bancada e das paredes');
             const anchor=r.state.x;
             for(let n=0;n<30;n++) r.update(1/60,far,true,false);
             assert.equal(r.state.seated,0); assert.equal(r.position.x,anchor,'conversa em pé no ponto de aproximação');

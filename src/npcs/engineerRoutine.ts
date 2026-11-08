@@ -5,6 +5,9 @@ import { PLAYER_MOVEMENT, PLAYER_PHYSICS } from '../characters/player/playerConf
 // O GLB v001 mede 2,23 m na origem; o astronauta ativo do player mede 1,50 m.
 const VISUAL_SCALE = PLAYER_MOVEMENT.visualHeight / 2.23;
 const SEAT_RADIUS = .28 * VISUAL_SCALE;
+// COL_Shelf_0 fica na parede em +Z; COL_Workbench_0 fica ao lado do banco, em -X.
+const WORKSHOP_SHELF_STOP = { x: -10.4, z: 13.65, angle: 0, activity: 'crouch' } as const;
+const WORKSHOP_SEAT = { x: -14.9, z: 12.5, approach: .85, scale: VISUAL_SCALE } as const;
 
 export const ENGINEER = {
     height: PLAYER_MOVEMENT.visualHeight, visualScale: VISUAL_SCALE,
@@ -13,12 +16,13 @@ export const ENGINEER = {
     interactionRadius: 2.5, speed: .789572 * VISUAL_SCALE,
     start: { x: -6.1, z: 6 }, bumpRadius: 2 * PLAYER_MOVEMENT.colliderRadius + .14, bumpRearm: 1.4,
     crouchTransition: 77 / 30, bumpDuration: 128 / 30,
-    seat: { x: -10.3, z: 13, approach: .85, scale: VISUAL_SCALE },
-    seatObstacle: { minX: -10.3 - SEAT_RADIUS, maxX: -10.3 + SEAT_RADIUS, minZ: 13 - SEAT_RADIUS, maxZ: 13 + SEAT_RADIUS },
+    seat: WORKSHOP_SEAT,
+    seatObstacle: { minX: WORKSHOP_SEAT.x - SEAT_RADIUS, maxX: WORKSHOP_SEAT.x + SEAT_RADIUS,
+        minZ: WORKSHOP_SEAT.z - SEAT_RADIUS, maxZ: WORKSHOP_SEAT.z + SEAT_RADIUS },
     stops: [
-        { x: -10.3, z: 11.2, angle: -Math.PI / 2, activity: 'crouch' },
+        WORKSHOP_SHELF_STOP,
         { x: -10.3, z: 0, angle: -Math.PI / 2, activity: 'crouch' },
-        { x: -9.45, z: 13, angle: Math.PI / 2, activity: 'sit' }
+        { x: WORKSHOP_SEAT.x + WORKSHOP_SEAT.approach, z: WORKSHOP_SEAT.z, angle: Math.PI / 2, activity: 'sit' }
     ]
 } as const;
 export type EngineerAnimation = 'Idle' | 'StartWalking' | 'Walk' | 'CrouchDown' | 'Crouch' | 'CrouchToStand' | 'Sitting' | 'ShovedReaction' | 'Yelling' | 'Acknowledging';
@@ -117,7 +121,7 @@ export class EngineerRoutine {
             return;
         }
         if (s.phase === 'walk') {
-            // A rota 1 sai da bancada da Oficina. Na campanha, fica ali até entregar a arma.
+            // A rota 1 sai da estante da Oficina. Na campanha, fica ali até entregar a arma.
             if (waitInWorkshop && this.route === 1 && this.waypoint === 0
                 && Math.hypot(s.x - ENGINEER.stops[0].x, s.z - ENGINEER.stops[0].z) < .08) {
                 s.animation = 'Idle'; this.speed = 0; return;
@@ -126,10 +130,14 @@ export class EngineerRoutine {
             while (this.waypoint < path.length && Math.hypot(path[this.waypoint].x - s.x, path[this.waypoint].z - s.z) < .06) this.waypoint++;
             if (this.waypoint >= path.length) {
                 const stop = ENGINEER.stops[this.route === 1 ? 1 : this.route === 2 ? 2 : 0];
+                this.speed = 0;
+                if (stop === WORKSHOP_SHELF_STOP) {
+                    this.face(stop.angle, dt);
+                    if (Math.cos(s.angle - stop.angle) < .999) { s.animation = 'Idle'; return; }
+                }
                 s.phase = stop.activity === 'sit' ? 'sit' : 'crouch-down';
                 this.left = s.phase === 'sit' ? 14 : ENGINEER.crouchTransition;
                 if (this.route === 3) s.cycles++;
-                this.speed = 0;
             } else {
                 const target = path[this.waypoint], dx = target.x - s.x, dz = target.z - s.z, remaining = Math.hypot(dx, dz);
                 this.speed += (ENGINEER.speed - this.speed) * (1 - Math.exp(-1.1 * dt));
@@ -153,7 +161,8 @@ export class EngineerRoutine {
             s.animation = 'Idle';
             return; // Espera em pé antes de ocupar o banco ou iniciar o blend.
         }
-        this.face(stop.angle, dt);
+        if (stop === WORKSHOP_SHELF_STOP) s.angle = stop.angle;
+        else this.face(stop.angle, dt);
         s.animation = s.phase === 'crouch-down' ? 'CrouchDown' : s.phase === 'crouch' ? 'Crouch' : s.phase === 'sit' ? 'Sitting' : 'CrouchToStand';
         s.clipTime = (s.phase === 'sit' ? 14 : s.phase === 'crouch' ? 7 : ENGINEER.crouchTransition) - this.left;
         this.left -= dt;
