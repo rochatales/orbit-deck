@@ -1,7 +1,7 @@
 /** Foco permanece no diálogo, inclusive após trocar de painel; fechar restaura o foco anterior. */
 export function bindDialogFocus(menu: HTMLElement, page: Document) {
     const previous = page.activeElement;
-    const selector = 'button:not(:disabled), select:not(:disabled), summary, [tabindex="0"]';
+    const selector = 'button:not(:disabled), input:not(:disabled):not([type="hidden"]), select:not(:disabled), summary, [tabindex="0"]';
     (menu.querySelector<HTMLElement>(selector) ?? menu).focus({ preventScroll: true });
     const trap = (event: KeyboardEvent) => {
         if (event.key !== 'Tab') return;

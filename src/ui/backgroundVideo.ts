@@ -1,11 +1,14 @@
-/** Um decodificador por cabine; sem áudio próprio, e sem trabalho quando a janela fica oculta. */
-export function bindCockpitVideo(video: HTMLVideoElement, src: string, page: Document, motion: MediaQueryList) {
+/** Um decodificador por fundo. O poster cobre a pausa por movimento reduzido ou falha. */
+export function bindBackgroundVideo(video: HTMLVideoElement, src: string, page: Document, motion: MediaQueryList) {
+    let loaded = false;
     const update = () => {
         if (page.hidden || motion.matches || video.dataset.failed === 'true') video.pause();
-        else void video.play().catch(() => { /* Poster permanece disponível se autoplay/codec falhar. */ });
+        else {
+            if (!loaded) { video.src = src; loaded = true; }
+            void video.play().catch(() => { /* O poster permanece disponível se autoplay falhar. */ });
+        }
     };
     const fail = () => { video.dataset.failed = 'true'; video.pause(); };
-    video.src = src;
     video.muted = true;
     video.dataset.failed = 'false';
     page.addEventListener('visibilitychange', update);

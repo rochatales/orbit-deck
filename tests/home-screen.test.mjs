@@ -5,6 +5,7 @@ import path from 'node:path';
 import vm from 'node:vm';
 import ts from 'typescript';
 import { createRequire } from 'node:module';
+import { spawnSync } from 'node:child_process';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 
@@ -19,7 +20,8 @@ function loadUi(file) {
     const code = ts.transpileModule(fs.readFileSync(absolute, 'utf8'), { compilerOptions: { esModuleInterop: true, jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 } }).outputText;
     const require = spec => {
         if (!spec.startsWith('.')) return nativeRequire(spec);
-        if (spec.endsWith('.webp')) return path.basename(spec);
+        if (/\.(webp|mp4)$/.test(spec)) return path.basename(spec);
+        if (spec.endsWith('.css')) return {};
         if (spec.endsWith('.json')) return JSON.parse(fs.readFileSync(path.resolve(path.dirname(absolute), spec), 'utf8'));
         if (spec.includes('audio/AudioRuntime')) return { AudioControls: () => React.createElement('fieldset', { className: 'audio-controls' }) };
         if (spec.includes('audio/runtime')) return { audio: { unlock: async () => {} } };
@@ -31,32 +33,29 @@ function loadUi(file) {
 }
 const SAVE_KEY = 'exoden:hub:v1';
 /** O render de servidor lê o estado inicial do store: cada caso carrega o store com seu save. */
-function render(profile = null) {
+function render({ profile = null, campaign = null } = {}) {
     cache.clear(); memory.clear();
     if (profile) memory.set(SAVE_KEY, JSON.stringify({ version: 1, profile, briefingSeen: false }));
+    if (campaign) {
+        const { createCampaignSave, CAMPAIGN_SAVE_KEY } = loadUi('src/game/campaignSave.ts');
+        memory.set(CAMPAIGN_SAVE_KEY, JSON.stringify(createCampaignSave(campaign)));
+    }
     const { HomeScreen } = loadUi('src/ui/HomeScreen.tsx');
-    return renderToStaticMarkup(React.createElement(HomeScreen, { onEnter() {} }));
+    return renderToStaticMarkup(React.createElement(HomeScreen, { onEnter() {}, onExit() {} }));
 }
 
-test('Tela inicial: Início, Continuar, Encontro de teste e Configurações; sem escolha de cor', () => {
+test('Tela inicial: quatro ações, título e fundo em vídeo silencioso', () => {
     const html = render(), buttons = [...html.matchAll(/<button[^>]*>([^<]*)/g)].map(match => match[1]);
-    assert.deepEqual(buttons, ['Início', 'Continuar', 'Encontro de teste', 'Configurações']);
-    assert.doesNotMatch(html, /type="color"/); assert.doesNotMatch(html, /[Cc]or do traje|[Pp]aleta/);
-    assert.match(html, /Nome do explorador/); assert.match(html, /EXODEN Recomeço/);
-    assert.match(html, /home-card-title[^>]*>Perfil <span>\/ SALVAGOR<\/span>/);
-    assert.match(html, /salvagor\.webp/); assert.match(html, /colonia-marte\.webp/);
+    assert.deepEqual(buttons, ['Novo jogo', 'Carregar', 'Configurações', 'Sair']);
+    assert.match(html, /EXODEN Recomeço/);
+    assert.match(html, /<video[^>]+poster="intro-poster\.webp"[^>]+muted=""[^>]+loop=""[^>]+playsinline=""/i);
+    assert.doesNotMatch(html, /Nome do explorador|Encontro de teste|<video[^>]+controls/);
 });
 
-test('Tela inicial: Continuar só vale com perfil salvo e mostra de quem é', () => {
-    assert.match(render(), /<button[^>]*type="button"[^>]*disabled[^>]*>Continuar/);
-    const html = render({ displayName: 'Marina', color: '#123456' });
-    assert.doesNotMatch(html, /<button[^>]*disabled[^>]*>Continuar/);
-    assert.match(html, /Continuar<small>Marina<\/small>/);
-    assert.match(html, /value="Marina"/);
-});
-
-test('Tela inicial: textos fictícios das artes de conceito não entram na tela', () => {
-    assert.doesNotMatch(render(), /EDEN OS|v1\.04|TELEMETRY|Telemetry|Entrar na colônia/);
+test('Tela inicial: Carregar depende de campanha salva, mesmo com perfil de desenvolvimento', () => {
+    const profile = { displayName: 'Marina', color: '#123456' };
+    assert.match(render({ profile }), /<button[^>]*disabled[^>]*>Carregar/);
+    assert.doesNotMatch(render({ campaign: profile }), /<button[^>]*disabled[^>]*>Carregar/);
 });
 
 test('Perfil de desenvolvimento: helper preserva cor e briefing do save existente', () => {
@@ -71,45 +70,28 @@ test('Perfil de desenvolvimento: helper preserva cor e briefing do save existent
     assert.deepEqual(saved.profile, { displayName: 'Bia', color: '#abcdef' }); assert.equal(saved.briefingSeen, true);
 });
 
-test('Entrada: o jogo só monta depois de escolher Início ou Continuar, mesmo com save', () => {
+test('Entrada: a home aparece mesmo quando já existe um perfil', () => {
     const app = fs.readFileSync('src/app/App.tsx', 'utf8');
     assert.match(app, /const home = !entered \|\| !profile/);
     assert.match(app, /home \? <HomeScreen .* : <Runtime onHome=/);
-    assert.doesNotMatch(app, /function Welcome|className="welcome"/);
     const home = fs.readFileSync('src/ui/HomeScreen.tsx', 'utf8');
-    assert.doesNotMatch(home, /removeItem|localStorage|send\(/, 'a tela não apaga save nem inicia missão');
+    assert.doesNotMatch(home, /removeItem|localStorage|send\(/, 'o menu usa os fluxos da sessão para entrar e sair');
 });
 
-test('Configurações: só opções que funcionam, com foco e Escape', () => {
-    const home = fs.readFileSync('src/ui/HomeScreen.tsx', 'utf8');
-    assert.match(home, /<AudioControls\/>/); assert.match(home, /<ControlList\/>/);
-    assert.match(home, /role="dialog" aria-modal="true" aria-label="Configurações"/);
-    assert.match(home, /event\.code === 'Escape'/); assert.match(home, /close\.current\?\.focus\(\)/);
-    assert.match(home, /toggleAttribute\('inert', settings\)/); assert.match(home, /settingsButton\.current\?\.focus\(\)/);
-    const app = fs.readFileSync('src/app/App.tsx', 'utf8');
-    assert.match(app, /<ControlList\/>/, 'a pausa e a tela inicial usam a mesma lista');
-});
-
-test('Artes da tela inicial respeitam o orçamento em WebP e o retrato tem transparência', () => {
-    for (const [file, limit] of [['src/assets/home/colonia-marte.webp', 400_000], ['src/assets/home/salvagor.webp', 120_000]]) {
-        assert.ok(fs.statSync(file).size < limit, file);
-        assert.equal(fs.readFileSync(file).subarray(8, 12).toString(), 'WEBP');
+test('Fundo da home: MP4 compacto sem áudio e poster WebP', () => {
+    const file = 'src/assets/home/intro-loop.mp4';
+    const bytes = fs.readFileSync(file);
+    assert.ok(bytes.length < 8_000_000);
+    assert.equal(bytes.subarray(4, 8).toString(), 'ftyp');
+    assert.ok(bytes.indexOf('moov') < bytes.indexOf('mdat'), 'metadados prontos para streaming');
+    const poster = fs.readFileSync('src/assets/home/intro-poster.webp');
+    assert.equal(poster.subarray(8, 12).toString(), 'WEBP');
+    const probe = spawnSync('ffprobe', ['-v', 'error', '-show_streams', '-show_format', '-of', 'json', file], { encoding: 'utf8' });
+    if (!probe.error) {
+        assert.equal(probe.status, 0);
+        const { streams, format } = JSON.parse(probe.stdout);
+        assert.equal(streams.length, 1);
+        assert.equal(streams[0].codec_name, 'h264');
+        assert.equal(Number(format.duration), 25.5);
     }
-    const portrait = fs.readFileSync('src/assets/home/salvagor.webp');
-    assert.equal(portrait.subarray(12, 16).toString(), 'VP8X');
-    assert.ok(portrait[20] & 0x10, 'canal alfa no cabeçalho WebP');
-});
-
-
-test('Campanha: confirmar reinício ignora segunda batida de duplo clique e começa por Cancelar', () => {
-    cache.clear(); memory.clear();
-    const { CampaignActions } = loadUi('src/ui/HomeScreen.tsx');
-    let confirmed = 0, cancelled = 0;
-    const tree = CampaignActions({ confirm: true, onClose: () => { cancelled++; }, onConfirm: () => { confirmed++; }, onResume() {}, onRestart() {} });
-    const buttons = React.Children.toArray(tree.props.children);
-    assert.equal(buttons[0].props.children, 'Cancelar');
-    buttons[0].props.onClick(); assert.equal(cancelled, 1); assert.equal(confirmed, 0);
-    buttons[1].props.onClick({ detail: 2 }); assert.equal(confirmed, 0);
-    buttons[1].props.onClick({ detail: 1 }); assert.equal(confirmed, 1);
-    buttons[1].props.onClick({ detail: 0 }); assert.equal(confirmed, 2, 'teclado continua podendo confirmar');
 });

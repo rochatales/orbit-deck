@@ -1,132 +1,148 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
 import { AudioControls } from '../audio/AudioRuntime';
 import { DEFAULT_SUIT_COLOR } from '../game/session';
 import { useExpeditionStore } from '../state/useExpeditionStore';
-import colonyArt from '../assets/home/colonia-marte.webp';
-import salvagorArt from '../assets/home/salvagor.webp';
+import introVideo from '../assets/home/intro-loop.mp4';
+import introPoster from '../assets/home/intro-poster.webp';
 import { ControlList } from './ControlList';
 import { ExodenLogo } from './ExodenLogo';
 import { useCampaignStore } from '../state/useCampaignStore';
 import { bindDialogFocus } from './dialogFocus';
+import { bindBackgroundVideo } from './backgroundVideo';
+import './home-screen.css';
 
 const NAME_MIN = 2;
+type Panel = 'new' | 'settings' | 'development' | 'exit';
 
-function HomeSettings({ onClose }: { onClose: () => void }) {
-    const close = useRef<HTMLButtonElement>(null);
-    useEffect(() => {
-        close.current?.focus();
-        const key = (event: KeyboardEvent) => { if (event.code === 'Escape') onClose(); };
-        window.addEventListener('keydown', key);
-        return () => window.removeEventListener('keydown', key);
-    }, [onClose]);
-    return <section className="overlay home-settings" role="dialog" aria-modal="true" aria-label="Configurações"><article>
-        <div className="beta-menu-heading"><p className="eyebrow">EXODEN · CONFIGURAÇÕES</p><button ref={close} type="button" className="secondary" onClick={onClose} aria-label="Fechar configurações">✕</button></div>
-        <AudioControls/>
-        <h2>Controles</h2><ControlList/>
-    </article></section>;
+function HomeBackdrop() {
+    const video = useRef<HTMLVideoElement>(null);
+    useEffect(() => bindBackgroundVideo(video.current!, introVideo, document, window.matchMedia('(prefers-reduced-motion: reduce)')), []);
+    return <div className="home-backdrop" aria-hidden="true">
+        <img src={introPoster} alt=""/>
+        <video ref={video} poster={introPoster} muted loop playsInline preload="auto"/>
+    </div>;
 }
 
-/** A segunda batida de um duplo clique em Recomeçar não confirma o apagamento. */
-export function CampaignActions({ confirm, onResume, onRestart, onConfirm, onClose }: {
-    confirm: boolean; onResume: () => void; onRestart: () => void; onConfirm: () => void; onClose: () => void;
-}) {
-    return confirm ? <><button key="cancel-restart" type="button" className="secondary" onClick={onClose}>Cancelar</button>
-        <button key="confirm-restart" type="button" onClick={event => { if (event.detail <= 1) onConfirm(); }}>Confirmar · Recomeçar campanha</button></>
-        : <><button key="resume" type="button" onClick={onResume}>Retomar campanha</button><button key="request-restart" type="button" className="secondary" onClick={onRestart}>Recomeçar</button><button key="close" type="button" className="secondary" onClick={onClose}>Voltar</button></>;
+function HomeFrame() {
+    return <svg className="home-frame" viewBox="0 0 1327 737" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M174 10H28L13 25V139L28 155V522L13 538V708L31 726H276
+            M1144 726H1295L1312 708V593L1296 575V217L1312 200V35L1298 21H915V32
+            M1282 30H1294V41 M1144 720V731"/>
+        <path className="home-frame-accent" d="M1303 726H1312V717Z"/>
+    </svg>;
 }
 
-function CampaignDialog({ confirm, name, onResume, onRestart, onConfirm, onClose }: {
-    confirm: boolean; name: string; onResume: () => void; onRestart: () => void; onConfirm: () => void; onClose: () => void;
-}) {
+function HomeDialog({ title, onClose, children }: { title: string; onClose: () => void; children: ReactNode }) {
     const root = useRef<HTMLElement>(null);
     useEffect(() => {
-        const release = root.current ? bindDialogFocus(root.current, document) : undefined;
-        const key = (event: KeyboardEvent) => { if (event.code === 'Escape') onClose(); };
-        window.addEventListener('keydown', key);
-        return () => { release?.(); window.removeEventListener('keydown', key); };
-    }, [confirm, onClose]);
-    return <section ref={root} className="overlay home-settings" role="dialog" aria-modal="true" aria-label={confirm ? 'Confirmar reinício da campanha' : 'Campanha em andamento'} tabIndex={-1}><article>
-        <p className="eyebrow">EXODEN · CAMPANHA</p>
-        <h2>{confirm ? 'Recomeçar a campanha?' : 'Sua campanha continua.'}</h2>
-        <p>{confirm ? `O progresso da campanha de ${name} será substituído. O desenvolvimento será preservado.` : `Há uma campanha salva de ${name}. Como deseja entrar?`}</p>
-        <CampaignActions confirm={confirm} onResume={onResume} onRestart={onRestart} onConfirm={onConfirm} onClose={onClose}/>
-    </article></section>;
+        const release = bindDialogFocus(root.current!, document);
+        const key = (event: KeyboardEvent) => {
+            if (event.code === 'Escape') { event.preventDefault(); onClose(); }
+        };
+        document.addEventListener('keydown', key);
+        return () => { release(); document.removeEventListener('keydown', key); };
+    }, [onClose]);
+    return <section ref={root} className="overlay home-settings" role="dialog" aria-modal="true" aria-label={title} tabIndex={-1}>
+        <article>
+            <p className="eyebrow">EXODEN · RECOMEÇO</p>
+            <h2>{title}</h2>
+            {children}
+        </article>
+    </section>;
 }
 
-/** Início escolhe campanha; Continuar/Encontro de teste preservam o desenvolvimento. */
-export function HomeScreen({ onEnter }: { onEnter: () => void }) {
-    const profile = useExpeditionStore(s => s.profile), start = useExpeditionStore(s => s.start);
-    const savedCampaign = useCampaignStore(s => s.saved);
-    const [name, setName] = useState(profile?.displayName ?? savedCampaign?.profile.displayName ?? ''), [invalid, setInvalid] = useState(false), [settings, setSettings] = useState(false);
-    const [campaignDialog, setCampaignDialog] = useState<'resume' | 'restart' | null>(null);
-    const layout = useRef<HTMLFormElement>(null), nameInput = useRef<HTMLInputElement>(null), settingsButton = useRef<HTMLButtonElement>(null), continueButton = useRef<HTMLButtonElement>(null), beginButton = useRef<HTMLButtonElement>(null), settingsWereOpen = useRef(false), campaignWasOpen = useRef(false);
-    // Com perfil salvo o caminho provável é Continuar; sem ele, falta só o nome.
-    useEffect(() => { (profile ? continueButton : nameInput).current?.focus(); }, []);
+export function HomeScreen({ onEnter, onExit }: { onEnter: () => void; onExit: () => void }) {
+    const profile = useExpeditionStore(s => s.profile);
+    const saved = useCampaignStore(s => s.saved);
+    const [panel, setPanel] = useState<Panel | null>(null);
+    const [name, setName] = useState('');
+    const [invalid, setInvalid] = useState(false);
+    const menu = useRef<HTMLElement>(null), nameInput = useRef<HTMLInputElement>(null);
+    const opener = useRef<HTMLButtonElement | null>(null);
+    const close = useCallback(() => setPanel(null), []);
+
     useEffect(() => {
-        layout.current?.toggleAttribute('inert', settings);
-        if (settingsWereOpen.current && !settings) settingsButton.current?.focus();
-        settingsWereOpen.current = settings;
-    }, [settings]);
-    useEffect(() => {
-        layout.current?.toggleAttribute('inert', settings || campaignDialog !== null);
-        if (campaignWasOpen.current && !campaignDialog) beginButton.current?.focus();
-        campaignWasOpen.current = campaignDialog !== null;
-    }, [settings, campaignDialog]);
-    useEffect(() => { if (invalid && !campaignDialog) nameInput.current?.focus(); }, [invalid, campaignDialog]);
-    const closeSettings = useCallback(() => setSettings(false), []);
-    const closeCampaign = useCallback(() => setCampaignDialog(null), []);
-    const validName = () => {
-        if (name.trim().length >= NAME_MIN) return true;
-        setInvalid(true); setCampaignDialog(null); nameInput.current?.focus(); return false;
+        menu.current?.toggleAttribute('inert', panel !== null);
+        if (panel === null) opener.current?.focus();
+    }, [panel]);
+
+    const open = (next: Panel, button?: HTMLButtonElement) => {
+        if (button) opener.current = button;
+        if (next === 'new' || next === 'development') {
+            setName(next === 'new' ? saved?.profile.displayName ?? profile?.displayName ?? '' : '');
+            setInvalid(false);
+        }
+        setPanel(next);
     };
-    const newCampaign = (replace = false) => {
-        if (replace ? !savedCampaign : !validName()) return;
-        // Recomeçar mantém a identidade da campanha, sem herdar o perfil dev do formulário.
-        const campaignProfile = replace ? savedCampaign!.profile : { displayName: name.trim().slice(0, 32), color: profile?.color ?? DEFAULT_SUIT_COLOR };
-        if (useExpeditionStore.getState().enterCampaign(campaignProfile, replace)) onEnter();
-    };
-    const begin = () => {
-        if (savedCampaign) setCampaignDialog('resume');
-        else newCampaign();
-    };
-    const resume = () => {
-        if (useExpeditionStore.getState().enterDevelopment()) onEnter();
-    };
-    const testEncounter = () => {
-        if (!profile) { if (!validName()) return; start(name, DEFAULT_SUIT_COLOR); }
-        resume();
-    };
-    const resumeCampaign = () => {
+    const loadCampaign = () => {
         if (useExpeditionStore.getState().enterCampaign()) onEnter();
     };
+    const enterDevelopment = () => {
+        if (useExpeditionStore.getState().enterDevelopment()) onEnter();
+    };
+    const submitName = () => {
+        const displayName = name.trim();
+        if (displayName.length < NAME_MIN) { setInvalid(true); nameInput.current?.focus(); return; }
+        const expedition = useExpeditionStore.getState();
+        if (panel === 'development') {
+            expedition.start(displayName, DEFAULT_SUIT_COLOR);
+            enterDevelopment();
+        } else if (expedition.enterCampaign({ displayName, color: saved?.profile.color ?? profile?.color ?? DEFAULT_SUIT_COLOR }, Boolean(saved))) {
+            onEnter();
+        }
+    };
+    const exit = () => {
+        onExit();
+        window.close();
+    };
+
     return <main className="home">
-        <div className="home-backdrop"><img className="home-colony" src={colonyArt} alt="" draggable={false}/></div>
-        <form ref={layout} className="home-layout" noValidate onSubmit={event => { event.preventDefault(); begin(); }}>
-            <section className="home-card" aria-labelledby="home-profile-title"><div className="home-card-inner">
-                <i className="home-card-corner is-top"/><i className="home-card-corner is-bottom"/>
-                <h2 id="home-profile-title" className="home-card-title">Perfil <span>/ SALVAGOR</span></h2>
-                <div className="home-portrait"><i className="home-bracket is-a"/><i className="home-bracket is-b"/><i className="home-bracket is-c"/><i className="home-bracket is-d"/>
-                    <img src={salvagorArt} alt="Salvagor de traje laranja, capacete claro e mochila" draggable={false}/>
+        <HomeBackdrop/>
+        <HomeFrame/>
+        <ExodenLogo/>
+        <nav ref={menu} className="home-actions" aria-label="Menu principal">
+            <svg className="home-action-frame" viewBox="0 0 342 322" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M13 16H236L250 3H328 M1 27V21H7 M1 303V309H7 M13 314H239L246 320H328 M334 313H341V306"/>
+                <path className="home-frame-accent" d="M249 12L253 8H281L277 12Z"/>
+            </svg>
+            <span className="home-action is-primary"><button type="button" onClick={event => open('new', event.currentTarget)}>Novo jogo</button></span>
+            <span className="home-action is-load"><button type="button" disabled={!saved} onClick={loadCampaign}>Carregar</button></span>
+            <span className="home-action"><button type="button" onClick={event => open('settings', event.currentTarget)}>Configurações</button></span>
+            <span className="home-action"><button type="button" onClick={event => open('exit', event.currentTarget)}>Sair</button></span>
+        </nav>
+        {panel === 'settings' && <HomeDialog title="Configurações" onClose={close}>
+            <AudioControls/>
+            <h3>Controles</h3><ControlList/>
+            <details className="home-development"><summary>Modo de desenvolvimento</summary>
+                <div className="actions">
+                    <button type="button" className="secondary" disabled={!profile} onClick={enterDevelopment}>Continuar</button>
+                    <button type="button" className="secondary" onClick={() => profile ? enterDevelopment() : open('development')}>Encontro de teste</button>
                 </div>
-                <div className="home-name">
-                    <label htmlFor="home-name-input">Nome do explorador</label>
-                    <input id="home-name-input" ref={nameInput} value={name} maxLength={32} autoComplete="off" spellCheck={false} aria-invalid={invalid} aria-describedby={invalid ? 'home-name-error' : undefined}
-                        onChange={event => { setName(event.target.value); if (event.target.value.trim().length >= NAME_MIN) setInvalid(false); }}/>
-                    {invalid && <p id="home-name-error" className="home-name-error" role="alert">Digite um nome com pelo menos {NAME_MIN} letras.</p>}
+            </details>
+            <button type="button" className="secondary" onClick={close}>Voltar</button>
+        </HomeDialog>}
+        {(panel === 'new' || panel === 'development') && <HomeDialog title={panel === 'new' ? 'Novo jogo' : 'Encontro de teste'} onClose={close}>
+            {panel === 'new' && saved && <p>Iniciar um novo jogo vai substituir a campanha de {saved.profile.displayName}.</p>}
+            <form noValidate onSubmit={event => { event.preventDefault(); submitName(); }}
+                onKeyDown={event => { if (event.key === 'Enter' && event.repeat) event.preventDefault(); }}>
+                <label htmlFor="home-name-input">Nome do explorador</label>
+                <input id="home-name-input" ref={nameInput} value={name} maxLength={32} autoComplete="off" spellCheck={false}
+                    aria-invalid={invalid} aria-describedby={invalid ? 'home-name-error' : undefined}
+                    onChange={event => { setName(event.target.value); if (event.target.value.trim().length >= NAME_MIN) setInvalid(false); }}/>
+                {invalid && <p id="home-name-error" className="home-name-error" role="alert">Digite um nome com pelo menos {NAME_MIN} letras.</p>}
+                <div className="actions">
+                    <button type="button" className="secondary" onClick={close}>Cancelar</button>
+                    <button type="submit" onClick={event => { if (event.detail > 1) event.preventDefault(); }}>
+                        {panel === 'new' && saved ? 'Substituir e iniciar' : 'Iniciar'}
+                    </button>
                 </div>
-            </div></section>
-            <div className="home-side">
-                <ExodenLogo/>
-                <nav className="home-actions" aria-label="Menu principal">
-                    <span className="home-action is-primary"><button ref={beginButton} type="submit">Início</button></span>
-                    <span className="home-action"><button ref={continueButton} type="button" disabled={!profile} onClick={resume}>Continuar{profile && <small>{profile.displayName}</small>}</button></span>
-                    <span className="home-action"><button type="button" onClick={testEncounter}>Encontro de teste</button></span>
-                    <span className="home-action"><button ref={settingsButton} type="button" onClick={() => setSettings(true)}>Configurações</button></span>
-                </nav>
+            </form>
+        </HomeDialog>}
+        {panel === 'exit' && <HomeDialog title="Sair de EXODEN?" onClose={close}>
+            <div className="actions">
+                <button type="button" className="secondary" onClick={close}>Cancelar</button>
+                <button type="button" onClick={exit}>Sair</button>
             </div>
-        </form>
-        {settings && <HomeSettings onClose={closeSettings}/>}
-        {campaignDialog && savedCampaign && <CampaignDialog confirm={campaignDialog === 'restart'} name={savedCampaign.profile.displayName}
-            onResume={resumeCampaign} onRestart={() => setCampaignDialog('restart')} onConfirm={() => newCampaign(true)} onClose={closeCampaign}/>}
+        </HomeDialog>}
     </main>;
 }

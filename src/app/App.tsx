@@ -213,6 +213,11 @@ function Runtime({ onHome }: { onHome: () => void }) {
 }
 export function App() {
     const profile = useExpeditionStore(s => s.profile), [entered, setEntered] = useState(false);
+    const [exited, setExited] = useState(false);
     const home = !entered || !profile;
-    return <><AudioLifecycle home={home}/>{home ? <HomeScreen onEnter={() => setEntered(true)}/> : <Runtime onHome={() => { setEntered(false); useExpeditionStore.getState().returnHome(); }}/>}</>;
+    if (exited) return <main className="home-exited">
+        <h1>Sessão encerrada</h1>
+        <button type="button" onClick={() => setExited(false)}>Voltar ao menu</button>
+    </main>;
+    return <><AudioLifecycle home={home}/>{home ? <HomeScreen onEnter={() => setEntered(true)} onExit={() => setExited(true)}/> : <Runtime onHome={() => { setEntered(false); useExpeditionStore.getState().returnHome(); }}/>}</>;
 }

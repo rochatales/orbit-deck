@@ -8,7 +8,7 @@ import { cargoWeight } from '../game/backpackConfig';
 import { shipCapacityLabel } from '../game/shipCargo';
 import { useShipCargoStore } from '../state/useShipCargoStore';
 import { ShipCargoPanel } from './ShipCargoPanel';
-import { bindCockpitVideo } from './cockpitVideo';
+import { bindBackgroundVideo } from './backgroundVideo';
 import { bindDialogFocus } from './dialogFocus';
 import frameUrl from '../assets/ui/cockpit/cabine.jpg';
 import marsVideo from '../assets/ui/cockpit/mars.mp4';
@@ -24,7 +24,7 @@ const EXTERIOR = {
 
 function CockpitExterior({ map }: { map: MapId }) {
     const video = useRef<HTMLVideoElement>(null), exterior = EXTERIOR[map];
-    useEffect(() => bindCockpitVideo(video.current!, exterior.video, document, window.matchMedia('(prefers-reduced-motion: reduce)')), [exterior.video]);
+    useEffect(() => bindBackgroundVideo(video.current!, exterior.video, document, window.matchMedia('(prefers-reduced-motion: reduce)')), [exterior.video]);
     return <div className={`cockpit-scenery is-${map}`} aria-hidden="true">
         <img className="cockpit-poster" src={exterior.poster} alt=""/>
         <video ref={video} className="cockpit-video" poster={exterior.poster} muted loop playsInline preload="metadata"/>

@@ -1,40 +1,38 @@
-/** Traços de cada letra em uma célula de 100 × 120, sem fonte externa. */
-const LETTERS: Record<string, { d: string; width?: number }> = {
-    E: { d: 'M92 12H12V108H92M12 60H78' },
-    X: { d: 'M10 10L90 110M90 10L10 110' },
-    O: { d: 'M32 12H68L88 32V88L68 108H32L12 88V32Z' },
-    D: { d: 'M12 12H62L88 38V82L62 108H12Z' },
-    N: { d: 'M12 112V12L88 108V8' },
-    R: { d: 'M12 112V12H70L88 30V48L70 66H12M50 66L90 112' },
-    C: { d: 'M90 12H32L12 32V88L32 108H90' },
-    M: { d: 'M12 112V14L62 74L112 14V112', width: 124 },
-    Ç: { d: 'M90 12H32L12 32V88L32 108H90M50 112V132H34' }
-};
+import { useId } from 'react';
 
-function Word({ word, y, scale, stroke, gap }: { word: string; y: number; scale: number; stroke: number; gap: number }) {
-    let x = 0;
-    return <g transform={`translate(0 ${y}) scale(${scale})`}>{[...word].map((letter, index) => {
-        const glyph = LETTERS[letter], at = x;
-        x += (glyph.width ?? 100) + gap;
-        return <path key={index} transform={`translate(${at} 0)`} d={glyph.d} fill="none" strokeWidth={stroke} strokeLinejoin="miter" strokeMiterlimit={2.2}/>;
-    })}</g>;
-}
+// Contornos vetoriais da marca nas proporções da referência.
+const EXODEN = 'M0 0H74V21H23V33H62V54H23V70H74V92H0Z'
+    + 'M91 18L109 3L132 28L151 3L170 18L145 46L170 76L151 91L131 65L109 91L91 76L117 46Z'
+    + 'M202 0H239L260 21V71L239 92H202L181 71V21Z M210 22L203 29V63L210 70H231L238 63V29L231 22Z'
+    + 'M272 0H322L351 29V64L322 92H272Z M294 22V70H313L329 54V38L313 22Z'
+    + 'M362 0H435V21H384V33H424V54H384V70H435V92H362Z'
+    + 'M449 13L472 4L504 49V8H527V80L505 88L472 45V85H449Z';
+const RECOMECO = 'M0 0H43L57 14V33L45 45L59 63H43L26 42H13V63H0Z M13 12V30H38L44 24V18L38 12Z'
+    + 'M67 0H118V12H80V25H110V37H80V51H118V63H67Z'
+    + 'M145 0H178V12H150L139 22V42L150 51H178V63H145L126 45V18Z'
+    + 'M203 0H229L247 18V45L229 63H203L185 45V18Z M208 12L198 22V41L208 51H224L234 41V22L224 12Z'
+    + 'M255 0H269L290 24L310 0H325V63H312V19L290 43L268 19V63H255Z'
+    + 'M333 0H386V12H346V25H378V37H346V51H386V63H333Z'
+    + 'M411 0H443V12H415L405 22V42L415 51H443V63H424V78H413V63H411L392 45V18Z'
+    + 'M472 0H498L516 18V45L498 63H472L454 45V18Z M477 12L467 22V41L477 51H493L503 41V22L493 12Z';
 
-/** Marca da tela inicial, com rasgos de sinal como na referência. */
 export function ExodenLogo() {
+    const cut = useId();
     const words = <>
-        <Word word="EXODEN" y={0} scale={1.2} stroke={29} gap={22}/>
-        <Word word="RECOMEÇO" y={168} scale={.885} stroke={24} gap={16}/>
+        <path d={EXODEN}/>
+        <path d={RECOMECO} transform="translate(2 105)"/>
     </>;
     return <h1 className="home-logo">
         <span className="home-sr-only">EXODEN Recomeço</span>
-        <svg viewBox="-16 -8 880 322" aria-hidden="true" focusable="false">
-            <g className="home-logo-ghost">{words}</g>
-            <g className="home-logo-letters">{words}</g>
-            <g className="home-logo-tears">
-                <rect x="-16" y="40" width="240" height="2.5"/><rect x="430" y="92" width="150" height="2"/><rect x="600" y="28" width="250" height="2.5"/>
-                <rect x="80" y="218" width="190" height="2"/><rect x="520" y="256" width="320" height="2.5"/>
-            </g>
+        <svg viewBox="-4 -3 535 188" aria-hidden="true" focusable="false">
+            <defs>
+                <mask id={cut} maskUnits="userSpaceOnUse" x="-4" y="-3" width="535" height="188">
+                    <rect x="-4" y="-3" width="535" height="188" fill="white"/>
+                    <path d="M-4 27H122 M272 60H403 M425 19H524 M97 135H182 M329 159H521" stroke="black" strokeWidth="1.35"/>
+                </mask>
+            </defs>
+            <g className="home-logo-shadow" fillRule="evenodd">{words}</g>
+            <g className="home-logo-face" fillRule="evenodd" mask={`url(#${cut})`}>{words}</g>
         </svg>
     </h1>;
 }

@@ -83,12 +83,12 @@ test('Cabine: embarcar não decola, viagem mantém a simulação travada e chega
 });
 
 test('Cabine: vídeo pausa ao ocultar/reduzir movimento; troca limpa decoder e falha mantém poster', async () => {
-    const { bindCockpitVideo } = loadSource('src/ui/cockpitVideo.ts');
+    const { bindBackgroundVideo } = loadSource('src/ui/backgroundVideo.ts');
     const page = Object.assign(new EventTarget(), { hidden: false }), motion = Object.assign(new EventTarget(), { matches: false });
     const video = Object.assign(new EventTarget(), { dataset: {}, plays: 0, pauses: 0, loads: 0,
         play() { this.plays++; return Promise.resolve(); }, pause() { this.pauses++; }, load() { this.loads++; }, removeAttribute(name) { delete this[name]; }
     });
-    const close = bindCockpitVideo(video, 'mars.mp4', page, motion);
+    const close = bindBackgroundVideo(video, 'mars.mp4', page, motion);
     assert.equal(video.src, 'mars.mp4'); assert.equal(video.muted, true); assert.equal(video.plays, 1);
     page.hidden = true; page.dispatchEvent(new Event('visibilitychange')); assert.equal(video.pauses, 1);
     motion.matches = true; page.hidden = false; page.dispatchEvent(new Event('visibilitychange')); assert.equal(video.plays, 1);
@@ -97,11 +97,15 @@ test('Cabine: vídeo pausa ao ocultar/reduzir movimento; troca limpa decoder e f
     const plays = video.plays; motion.dispatchEvent(new Event('change')); assert.equal(video.plays, plays);
     close(); assert.equal(video.src, undefined); assert.equal(video.loads, 1);
     motion.dispatchEvent(new Event('change')); page.dispatchEvent(new Event('visibilitychange')); assert.equal(video.plays, plays);
-    const closeAgain = bindCockpitVideo(video, 'shanghai.mp4', page, motion);
+    const closeAgain = bindBackgroundVideo(video, 'shanghai.mp4', page, motion);
     assert.equal(video.src, 'shanghai.mp4'); assert.equal(video.dataset.failed, 'false');
     closeAgain();
     video.play = () => Promise.reject(new Error('autoplay negado'));
-    const reject = bindCockpitVideo(video, 'mars.mp4', page, motion); await Promise.resolve(); reject();
+    const reject = bindBackgroundVideo(video, 'mars.mp4', page, motion); await Promise.resolve(); reject();
+    motion.matches = true;
+    const reduced = bindBackgroundVideo(video, 'mars.mp4', page, motion);
+    assert.equal(video.src, undefined, 'movimento reduzido abre com o poster sem baixar o vídeo');
+    reduced();
 });
 
 test('Cabine: Tab/Shift-Tab ficam no diálogo, detalhes fechados não entram e o foco volta ao sair', () => {
