@@ -24,6 +24,7 @@ export class AudioEngine {
     private ready = false;
     private gateRevision = 0;
     private musicPlayer: MusicPlayer | null = null;
+    private preparedHomeMusic: HTMLAudioElement | null = null;
     private ambienceMixer: AmbienceMixer | null = null;
     private map: MapId | null = 'mars';
     private marsInside = false;
@@ -52,11 +53,15 @@ export class AudioEngine {
             this.unlocked = true;
             this.ambienceMixer = new AmbienceMixer(this.context, this.master, this.ambience, this.marsAmbience, () => { this.stats.decodeErrors++; });
             this.prepareGameplay();
-            if (this.music) this.musicPlayer = new MusicPlayer(this.context, this.master, this.music, this.map ?? 'home');
+            if (this.music) {
+                this.musicPlayer = new MusicPlayer(this.context, this.master, this.music, this.map ?? 'home', this.preparedHomeMusic ?? undefined);
+                this.preparedHomeMusic = null;
+            }
         }
-        this.syncPlayback();
         // resume deve ser chamado na pilha do gesto, antes de aguardar fetch/decode.
-        if (!this.blocked) await this.context.resume().catch(() => {});
+        const resume = !this.blocked && this.context.state !== 'running' ? this.context.resume().catch(() => {}) : undefined;
+        this.syncPlayback();
+        await resume;
         await this.loading;
         await this.ambienceMixer?.ready();
         if (this.blocked) await this.context.suspend().catch(() => {});
@@ -86,6 +91,12 @@ export class AudioEngine {
     setMap(map: MapId | null) {
         if (this.map === map) return;
         this.map = map; this.marsInside = false;
+        if (map === null && this.music && !this.musicPlayer && !this.preparedHomeMusic) {
+            // Prepara a faixa sem abrir o contexto nem tocar antes do gesto.
+            this.preparedHomeMusic = new Audio();
+            this.preparedHomeMusic.preload = 'auto';
+            this.preparedHomeMusic.src = this.music.home.url;
+        }
         this.prepareGameplay();
         this.musicPlayer?.setScene(map ?? 'home');
         this.syncPlayback();

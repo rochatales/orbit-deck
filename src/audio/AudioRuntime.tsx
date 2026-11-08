@@ -30,7 +30,8 @@ export function AudioLifecycle({ home }: { home: boolean }) {
         const subscriptions = [useGameStore.subscribe(update), useExpeditionStore.subscribe(update), useCombatStore.subscribe(update)];
         window.addEventListener('blur', blur); window.addEventListener('focus', focus);
         document.addEventListener('visibilitychange', update);
-        window.addEventListener('pointerdown', gesture); window.addEventListener('keydown', gesture);
+        if (!home) window.addEventListener('pointerdown', gesture);
+        window.addEventListener('keydown', gesture);
         window.addEventListener('click', gesture, true);
         window.addEventListener('keydown', key); update();
         return () => {

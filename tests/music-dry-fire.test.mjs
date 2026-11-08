@@ -26,9 +26,12 @@ function context() {
     };
 }
 function media() {
+    let src;
     return { paused: true, currentTime: 0, plays: 0, loads: 0,
+        get src() { return src; },
+        set src(url) { src = url; this.loads++; this.currentTime = 0; },
+        getAttribute(name) { return name === 'src' ? src ?? null : null; },
         async play() { this.plays++; this.paused = false; }, pause() { this.paused = true; },
-        load() { this.loads++; this.currentTime = 0; },
     };
 }
 const event = (type, kind = 'patrol') => ({ type, kind, x: 0, z: 0 });
@@ -59,7 +62,7 @@ test('Músicas: gesto obrigatório, streaming sem decode, mesma faixa nas salas,
 test('Músicas: play pendente não vaza na pausa; troca de mapa ignora a promessa da faixa antiga', async () => {
     const c = context(), m = media(), pending = [];
     m.play = () => { m.plays++; m.paused = false; return new Promise(resolve => pending.push(resolve)); };
-    const player = new MusicPlayer(c, c.createGain(), musicFiles, 'mars', () => m);
+    const player = new MusicPlayer(c, c.createGain(), musicFiles, 'mars', m);
     player.setBlocked(false); assert.equal(m.plays, 1);
     player.setBlocked(true); pending.shift()(); await tick(); assert.equal(m.paused, true);
     player.setBlocked(false); assert.equal(m.plays, 2);
@@ -69,7 +72,7 @@ test('Músicas: play pendente não vaza na pausa; troca de mapa ignora a promess
     player.setBlocked(false); assert.equal(m.plays, 3, 'gestos não reiniciam a trilha');
 });
 
-test('Músicas: home toca após o gesto, troca para a faixa do mapa e volta sem sobreposição', async () => {
+test('Músicas: home carrega antes do gesto, toca sem recarregar e volta do mapa sem sobreposição', async () => {
     const originalAudio = globalThis.Audio, originalFetch = globalThis.fetch;
     const c = context(), m = media(), requests = [];
     globalThis.Audio = function () { return m; };
@@ -81,9 +84,14 @@ test('Músicas: home toca após o gesto, troca para a faixa do mapa e volta sem 
         const engine = new AudioEngine(() => c, [{ name: 'efeito', url: 'efeito.mp3' }], undefined,
             { name: 'rua', url: 'rua.mp3' }, undefined, musicFiles);
         engine.setMap(null); engine.setBlocked(false);
+        assert.equal(m.src, 'intro.mp3'); assert.equal(m.preload, 'auto');
+        assert.equal(m.loads, 1); assert.equal(m.plays, 0);
         assert.equal(c.mediaSources.length, 0);
         await engine.unlock();
+        await tick();
         assert.equal(m.src, 'intro.mp3'); assert.equal(m.loop, true); assert.equal(m.paused, false);
+        assert.equal(m.loads, 1);
+        assert.deepEqual(c.gains[1].gain.ramps.at(-1), [AUDIO.music.volume, AUDIO.music.homeFadeIn]);
         assert.deepEqual(requests, []);
         engine.setBlocked(true); engine.setMap('shanghai');
         assert.equal(m.src, 'shanghai.mp3'); assert.equal(m.paused, true);
