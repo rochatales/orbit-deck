@@ -466,6 +466,7 @@ test('Circuito inicial: pedestal, briefing, Oficina e sintetizador avançam uma 
     state().activateSynthesizer();
     state().activateSynthesizer();
     assert.equal(stage(), 'main-progression');
+    assert.match(state().radio, /o Laboratório, a Estufa e a Cafeteria/i);
     assert.equal(f.writes.length, 1);
     assert.equal(f.ship.getState().cargo.organic, 10);
     reload();

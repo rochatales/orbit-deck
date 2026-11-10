@@ -88,10 +88,10 @@ export function ShipCockpit({ map, phase, ready, error, name, onDepart, onExit, 
                     <p className="cockpit-kicker">01 / LOCALIZAÇÃO ATUAL</p><p className="cockpit-planet">{info.planet}</p><h1>{info.location}</h1>
                     <div className="cockpit-location-line"/>
                     <dl><div><dt>EXPLORADOR</dt><dd>{name}</dd></div><div><dt>AERONAVE</dt><dd>No solo · embarque concluído</dd></div><div><dt>PORÃO</dt><dd>{hold.toFixed(1).replace('.', ',')} / {shipCapacityLabel(hold)}</dd></div></dl>
-                    <p className="cockpit-guidance">{map === 'mars' ? 'A colônia fica para trás. O próximo passo está na Terra.'
+                    {!colonyBlock && <p className="cockpit-guidance">{map === 'mars' ? 'A colônia fica para trás. O próximo passo está na Terra.'
                         : depositRemaining === 0 ? 'Cota no porão. A carga desta tentativa só fica a salvo ao chegar a Marte.'
                         : campaign ? 'Guarde os recursos no porão antes de partir. A carga desta tentativa só fica a salvo ao chegar a Marte.'
-                        : 'Guarde os recursos no porão antes de partir. A carga da nave permanece salva.'}</p>
+                        : 'Guarde os recursos no porão antes de partir. A carga da nave permanece salva.'}</p>}
                 </section>
                 <section className="cockpit-route cockpit-hologram">
                     <p className="cockpit-kicker">02 / DESTINO DISPONÍVEL</p>

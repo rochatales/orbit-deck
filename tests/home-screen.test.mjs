@@ -13,12 +13,16 @@ import { renderToStaticMarkup } from 'react-dom/server';
 const nativeRequire = createRequire(import.meta.url), cache = new Map();
 const memory = new Map(), storage = { getItem: key => memory.get(key) ?? null, setItem: (key, value) => { memory.set(key, value); }, removeItem: key => { memory.delete(key); } };
 globalThis.localStorage = storage;
-function loadUi(file) {
+function loadUi(file, initialPanel = null) {
     const absolute = path.resolve(file);
     if (cache.has(absolute)) return cache.get(absolute).exports;
     const module = { exports: {} }; cache.set(absolute, module);
     const code = ts.transpileModule(fs.readFileSync(absolute, 'utf8'), { compilerOptions: { esModuleInterop: true, jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 } }).outputText;
     const require = spec => {
+        if (spec === 'react' && initialPanel !== null) return {
+            ...React,
+            useState: initial => React.useState(initial === null ? initialPanel : initial)
+        };
         if (!spec.startsWith('.')) return nativeRequire(spec);
         if (/\.(webp|mp4)$/.test(spec)) return path.basename(spec);
         if (spec.endsWith('.css')) return {};
@@ -33,14 +37,14 @@ function loadUi(file) {
 }
 const SAVE_KEY = 'exoden:hub:v1';
 /** O render de servidor lê o estado inicial do store: cada caso carrega o store com seu save. */
-function render({ profile = null, campaign = null } = {}) {
+function render({ profile = null, campaign = null, panel = null } = {}) {
     cache.clear(); memory.clear();
     if (profile) memory.set(SAVE_KEY, JSON.stringify({ version: 1, profile, briefingSeen: false }));
     if (campaign) {
         const { createCampaignSave, CAMPAIGN_SAVE_KEY } = loadUi('src/game/campaignSave.ts');
         memory.set(CAMPAIGN_SAVE_KEY, JSON.stringify(createCampaignSave(campaign)));
     }
-    const { HomeScreen } = loadUi('src/ui/HomeScreen.tsx');
+    const { HomeScreen } = loadUi('src/ui/HomeScreen.tsx', panel);
     return renderToStaticMarkup(React.createElement(HomeScreen, { onEnter() {}, onExit() {} }));
 }
 
@@ -56,6 +60,39 @@ test('Tela inicial: Carregar depende de campanha salva, mesmo com perfil de dese
     const profile = { displayName: 'Marina', color: '#123456' };
     assert.match(render({ profile }), /<button[^>]*disabled[^>]*>Carregar/);
     assert.doesNotMatch(render({ campaign: profile }), /<button[^>]*disabled[^>]*>Carregar/);
+});
+
+test('Tela inicial: textos fictícios da arte de referência não aparecem no menu', () => {
+    assert.doesNotMatch(render(), /EDEN OS|v1\.04|Telemetry|Entrar na colônia/i);
+});
+
+test('Configurações: controles, áudio e acesso ao desenvolvimento ficam no diálogo', () => {
+    const html = render({ panel: 'settings' });
+    assert.match(html, /role="dialog" aria-modal="true" aria-label="Configurações"/);
+    assert.match(html, /class="audio-controls"/);
+    assert.match(html, /class="beta-control-list"/);
+    assert.match(html, /Modo de desenvolvimento/);
+    assert.match(html, /<button[^>]*disabled[^>]*>Continuar/);
+    assert.match(html, />Encontro de teste<\/button>/);
+    assert.doesNotMatch(render(), /Modo de desenvolvimento/);
+});
+
+test('Campanha: substituir save exige envio do formulário e ignora o segundo clique', () => {
+    const { HomeNameActions } = loadUi('src/ui/HomeScreen.tsx');
+    let cancelled = false;
+    const { props } = HomeNameActions({ replacesCampaign: true, onClose: () => { cancelled = true; } });
+    const [cancel, submit] = props.children;
+    assert.equal(cancel.props.children, 'Cancelar');
+    assert.equal(cancel.props.type, 'button');
+    cancel.props.onClick();
+    assert.equal(cancelled, true);
+    assert.equal(submit.props.children, 'Substituir e iniciar');
+    assert.equal(submit.props.type, 'submit');
+    for (const [detail, expected] of [[0, false], [1, false], [2, true]]) {
+        let prevented = false;
+        submit.props.onClick({ detail, preventDefault() { prevented = true; } });
+        assert.equal(prevented, expected);
+    }
 });
 
 test('Perfil de desenvolvimento: helper preserva cor e briefing do save existente', () => {

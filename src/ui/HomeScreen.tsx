@@ -51,6 +51,15 @@ function HomeDialog({ title, onClose, children }: { title: string; onClose: () =
     </section>;
 }
 
+export function HomeNameActions({ replacesCampaign, onClose }: { replacesCampaign: boolean; onClose: () => void }) {
+    return <div className="actions">
+        <button type="button" className="secondary" onClick={onClose}>Cancelar</button>
+        <button type="submit" onClick={event => { if (event.detail > 1) event.preventDefault(); }}>
+            {replacesCampaign ? 'Substituir e iniciar' : 'Iniciar'}
+        </button>
+    </div>;
+}
+
 export function HomeScreen({ onEnter, onExit }: { onEnter: () => void; onExit: () => void }) {
     const profile = useExpeditionStore(s => s.profile);
     const saved = useCampaignStore(s => s.saved);
@@ -130,12 +139,7 @@ export function HomeScreen({ onEnter, onExit }: { onEnter: () => void; onExit: (
                     aria-invalid={invalid} aria-describedby={invalid ? 'home-name-error' : undefined}
                     onChange={event => { setName(event.target.value); if (event.target.value.trim().length >= NAME_MIN) setInvalid(false); }}/>
                 {invalid && <p id="home-name-error" className="home-name-error" role="alert">Digite um nome com pelo menos {NAME_MIN} letras.</p>}
-                <div className="actions">
-                    <button type="button" className="secondary" onClick={close}>Cancelar</button>
-                    <button type="submit" onClick={event => { if (event.detail > 1) event.preventDefault(); }}>
-                        {panel === 'new' && saved ? 'Substituir e iniciar' : 'Iniciar'}
-                    </button>
-                </div>
+                <HomeNameActions replacesCampaign={panel === 'new' && !!saved} onClose={close}/>
             </form>
         </HomeDialog>}
         {panel === 'exit' && <HomeDialog title="Sair de EXODEN?" onClose={close}>

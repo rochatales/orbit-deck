@@ -58,7 +58,7 @@ export function Laboratorio({ world }: { world: OfficeWorld }) {
         {campaign ? <InteractionBubble id="activate-synthesizer" label="Ligar sintetizador orgânico" point={LABORATORIO.console}
             position={[LABORATORIO.console.x, 1.8, LABORATORIO.console.z]} radius={LABORATORIO.console.radius}
             priority={40} onInteract={activateSynthesizer}/>
-        : <InteractionBubble id="synthesizer" label="Sintetizadora de diamantes" point={LABORATORIO.console}
+        : <InteractionBubble id="synthesizer" label="Sintetizador orgânico" point={LABORATORIO.console}
             position={[LABORATORIO.console.x, 1.8, LABORATORIO.console.z]} radius={LABORATORIO.console.radius}
             priority={40} onInteract={toggle} onHide={close}>
             {open && <><p>Controle visual da máquina</p><p>Estado: {modes.find(entry => entry.mode === mode)?.label}</p>

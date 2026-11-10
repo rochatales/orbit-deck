@@ -184,7 +184,7 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
         const s = get(), { x, z, radius } = LABORATORIO.console;
         if (onFootInColony(s) && !s.panel && Math.hypot(playerPosition.x - x, playerPosition.z - z) <= radius
             && useCampaignStore.getState().dispatch('activate-synthesizer'))
-            s.setRadio('O sintetizador orgânico está ligado. O Laboratório, a Estufa e o Food Storage receberam energia. Podemos seguir para a próxima expedição.');
+            s.setRadio('O sintetizador orgânico está ligado. O Laboratório, a Estufa e a Cafeteria receberam energia. Podemos seguir para a próxima expedição.');
     },
     closePanel: () => {
         const s = get();

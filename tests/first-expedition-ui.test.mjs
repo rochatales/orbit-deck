@@ -152,11 +152,13 @@ test('Circuito inicial UI: cabine orienta o retorno ao Engenheiro e a segunda ex
     c.dispatch('finish-engineer-briefing');
     c.depositExpedition({ id: 'cobre', copper: 4, organic: 0 });
     c.dispatch('finish-copper-expedition');
-    const cockpit = renderWithStores('src/ui/ShipCockpit.tsx', f, 'ShipCockpit', {
+    const cockpit = () => renderWithStores('src/ui/ShipCockpit.tsx', f, 'ShipCockpit', {
         map: 'mars', phase: 'aboard', ready: true, error: null, name: 'QA', onDepart() {}, onExit() {}, onRetry() {}
     });
-    assert.match(textTree(cockpit), /Converse com o Engenheiro sobre o cobre/);
+    assert.equal(textTree(cockpit()).match(/Converse com o Engenheiro sobre o cobre/g)?.length, 1);
+    assert.doesNotMatch(textTree(cockpit()), /O próximo passo está na Terra/);
     for (const event of ['finish-engineer-return-briefing', 'activate-eden', 'finish-eden-briefing', 'pick-up-sword']) c.dispatch(event);
+    assert.match(textTree(cockpit()), /O próximo passo está na Terra/);
     f.expedition.setState({ session: { map: 'shanghai', phase: 'walking', destination: null, revision: 0 } });
     for (const [wave, count] of [[0, 4], [1, 6]]) {
         f.combat.setState({ wave, waves: 2, nextWave: 3 });
