@@ -168,9 +168,9 @@ nav button:hover:not(:disabled), .secondary:hover:not(:disabled) { color: #09232
 .audio-controls input { width: 130px; }
 
 /* Balão mundial compartilhado: Sintetizadora, nave, caixas e NPCs. */
-.interaction-bubble { position: relative; width: 235px; padding: 12px; background: #20282ded; color: #eee4cd; border: 1px solid #8bc9cc; border-radius: 8px; box-shadow: 0 6px 20px #0005; animation: interaction-appear .18s ease-out; }
+.interaction-bubble { position: relative; width: 235px; padding: 12px; text-align: center; background: #20282ded; color: #eee4cd; border: 1px solid #8bc9cc; border-radius: 8px; box-shadow: 0 6px 20px #0005; animation: interaction-appear .18s ease-out; }
 .interaction-bubble::after { content: ''; position: absolute; left: calc(50% - 6px); bottom: -7px; width: 12px; height: 12px; background: #20282d; border-right: 1px solid #8bc9cc; border-bottom: 1px solid #8bc9cc; transform: rotate(45deg); }
-.interaction-bubble button { width: 100%; padding: 9px 10px; border-radius: 4px; letter-spacing: .03em; font-size: 11px; }
+.interaction-bubble button { width: 100%; padding: 9px 10px; text-align: center; text-transform: none; border-radius: 4px; letter-spacing: .03em; font-size: 11px; }
 .interaction-bubble button + button { margin-top: 6px; }
 .interaction-bubble p { font-size: 12px; margin: 10px 0; }
 @keyframes interaction-appear { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
@@ -415,7 +415,7 @@ nav button:hover:not(:disabled), .secondary:hover:not(:disabled) { color: #09232
 @media (max-width: 760px) { .beta-radar { width: 96px; } .beta-radar figcaption { display: none; } }
 
 /* S6.15 · Tela inicial */
-.interaction-label { display: block; padding: 10px 14px; color: #d7f5ef; background: #102b35ed; border: 1px solid #83e5d77a; font-size: 12px; white-space: nowrap; }
+.interaction-label { display: block; padding: 10px 14px; color: #d7f5ef; background: #102b35ed; border: 1px solid #83e5d77a; font-size: 12px; }
 .campaign-radio { position: absolute; top: 120px; left: 50%; transform: translateX(-50%); width: min(420px, calc(100% - 32px)); background: #10232ff2; border-left: 2px solid #83e5d7; padding: 14px 18px; z-index: 6; pointer-events: none; }
 .campaign-radio b { font-size: 11px; letter-spacing: .12em; color: #83e5d7; }
 .campaign-radio p { margin: 8px 0 0; font-size: 14px; }

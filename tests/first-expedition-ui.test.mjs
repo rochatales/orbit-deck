@@ -64,11 +64,11 @@ test('S3.2 UI: balão distante só informa, perto aceita E/clique, pausa/painel 
   return native(spec);
  };
  const {InteractionBubble}=jsx('src/interactions/InteractionBubble.tsx',require);
- const render=(alwaysVisible=true)=>{cursor=0;return InteractionBubble({id:'npc:engineer',label:'Engenheiro',position:[0,2,0],point,radius:2.5,alwaysVisible,available:()=>callable,onInteract:()=>clicks++});};
+ const render=(alwaysVisible=true)=>{cursor=0;return InteractionBubble({id:'npc:engineer',label:'Converse com o engenheiro.',distantLabel:'Ahh, estamos sem matéria prima.',position:[0,2,0],point,radius:2.5,alwaysVisible,available:()=>callable,onInteract:()=>clicks++});};
  render();layout();const player=f.load('src/state/playerTransient.ts');player.placePlayer({x:20,y:0,z:20});frame();let tree=render();
- assert.equal(state,1);assert.equal(tree.props.children.props.children.type,'span');assert.equal(actual.activateWorldInteraction('npc:engineer'),false);
+ assert.equal(state,1);assert.equal(tree.props.children.props.children.type,'span');assert.equal(textTree(tree),'Ahh, estamos sem matéria prima.');assert.equal(actual.activateWorldInteraction('npc:engineer'),false);
  const changes=updates;for(let i=0;i<100;i++)frame();assert.equal(updates,changes,'sem atualização React por quadro estável');
- player.placePlayer({x:1,y:0,z:0});frame();render();assert.equal(state,2);assert.equal(actual.activateWorldInteraction('npc:engineer'),true);assert.equal(clicks,1);
+ player.placePlayer({x:1,y:0,z:0});frame();tree=render();assert.equal(state,2);assert.match(textTree(tree),/Converse com o engenheiro\./);assert.doesNotMatch(textTree(tree),/matéria prima/);assert.equal(actual.activateWorldInteraction('npc:engineer'),true);assert.equal(clicks,1);
  callable=false;frame();render();assert.equal(state,1);assert.equal(actual.activateWorldInteraction('npc:engineer'),false);
  f.game.setState({isPaused:true});frame();assert.equal(render(),null);
  f.game.setState({isPaused:false});f.expedition.setState({panel:'engineer'});frame();assert.equal(render(),null);

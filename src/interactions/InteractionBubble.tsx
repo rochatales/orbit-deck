@@ -7,11 +7,14 @@ import type { NpcConfig } from '../game/config';
 import { activateWorldInteraction, interactionTargets } from './runtime';
 interface InteractionBubbleProps {
     id: string; label: string; position: [number, number, number]; point: { x: number; z: number }; radius: number;
-    alwaysVisible?: boolean;
+    alwaysVisible?: boolean; distantLabel?: string;
     priority?: number; available?: () => boolean; onInteract: () => void; onHide?: () => void; children?: ReactNode;
 }
-/** Mesmo balão da Sintetizadora para qualquer objeto/NPC: surge só na proximidade ativa. */
-export function InteractionBubble({ id, label, position, point, radius, priority = 20, alwaysVisible = false, available, onInteract, onHide, children }: InteractionBubbleProps) {
+// A base do balão fica acima do ponto projetado, com folga para a ponta.
+const anchorStyle = { transform: 'translate(-50%, calc(-100% - 14px))' };
+
+/** Balão compartilhado para objetos e NPCs, com ação na proximidade ativa. */
+export function InteractionBubble({ id, label, position, point, radius, priority = 20, alwaysVisible = false, distantLabel = label, available, onInteract, onHide, children }: InteractionBubbleProps) {
     const [display, setDisplay] = useState(0), previousDisplay = useRef(0), blocked = useSimulationBlocked();
     const target = useMemo(() => ({ id, x: point.x, z: point.z, point, radius, priority, available, onInteract }),
         [id, point, radius, priority, available, onInteract]);
@@ -25,9 +28,9 @@ export function InteractionBubble({ id, label, position, point, radius, priority
         }
     });
     if (!display || blocked) return null;
-    return <Html position={position} center zIndexRange={[6, 4]}>
-        <aside className="interaction-bubble" aria-label={label} onPointerDown={event => event.stopPropagation()} onWheel={event => event.stopPropagation()}>
-            {display === 2 ? <><button type="button" onClick={event => { event.stopPropagation(); activateWorldInteraction(id); }}>E · {label}</button>{children}</> : <span className="interaction-label">{label}</span>}
+    return <Html position={position} style={anchorStyle} zIndexRange={[6, 4]}>
+        <aside className="interaction-bubble" aria-label={display === 2 ? label : distantLabel} onPointerDown={event => event.stopPropagation()} onWheel={event => event.stopPropagation()}>
+            {display === 2 ? <><button type="button" onClick={event => { event.stopPropagation(); activateWorldInteraction(id); }}>E · {label}</button>{children}</> : <span className="interaction-label">{distantLabel}</span>}
         </aside>
     </Html>;
 }

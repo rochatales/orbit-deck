@@ -63,7 +63,8 @@ export function EngineerScene({ world }: { world: OfficeWorld }) {
             <CapsuleCollider args={[ENGINEER.colliderHeight / 2 - ENGINEER.radius, ENGINEER.radius]} position={[0, ENGINEER.colliderHeight / 2, 0]} friction={0}/>
         </RigidBody>
         <group ref={visual} name="EngenheiroVisual" dispose={null}>
-            <InteractionBubble id="npc:engineer" label="Conversar com o Engenheiro" point={engineerPresence} radius={ENGINEER.interactionRadius} priority={30}
+            <InteractionBubble id="npc:engineer" label="Converse com o engenheiro." distantLabel="Ahh, estamos sem matéria prima."
+                point={engineerPresence} radius={ENGINEER.interactionRadius} priority={30}
                 position={[0, ENGINEER.height + .4, 0]} alwaysVisible={briefing} available={available} onInteract={talk}/>
         </group>
         {/* Assento provisório: pés e quadril do Sitting fornecido apoiam nesta cota. */}

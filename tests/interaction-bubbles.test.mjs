@@ -85,7 +85,7 @@ test('Balões: estilo e componente compartilhados em Sintetizadora, nave, caixas
     const bubble = fs.readFileSync('src/interactions/InteractionBubble.tsx', 'utf8');
     const app = fs.readFileSync('src/app/App.tsx', 'utf8'), lab = fs.readFileSync('src/scene/marsColony/Laboratorio.tsx', 'utf8');
     const world = fs.readFileSync('src/interactions/WorldInteractionBubbles.tsx', 'utf8');
-    assert.match(bubble, /<Html position=\{position\} center/); assert.match(bubble, /E · \{label\}/);
+    assert.match(bubble, /<Html position=\{position\}/); assert.match(bubble, /E · \{label\}/);
     assert.match(bubble, /activateWorldInteraction\(id\)/); assert.match(bubble, /previousDisplay\.current/);
     assert.match(lab, /<InteractionBubble id="synthesizer"/); assert.doesNotMatch(lab, /KeyE/);
     assert.match(app, /activateWorldInteraction\(\)/); assert.doesNotMatch(app, /className="interaction"/);
