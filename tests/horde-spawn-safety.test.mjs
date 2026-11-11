@@ -4,7 +4,7 @@ import { loadSource } from './load-source.mjs';
 
 globalThis.document = { createElement: () => ({ width: 0, height: 0, getContext: () => ({ fillText() {} }) }) };
 const { CombatSimulation } = loadSource('src/combat/simulation.ts');
-const { COMBAT, HORDE_ENCOUNTER, ORGANIC_ENCOUNTER, ENCOUNTER_CHOICES, encounterLayout, encounterTotal, robotConfig } = loadSource('src/combat/config.ts');
+const { COMBAT, COPPER_ENCOUNTER, HORDE_ENCOUNTER, ORGANIC_ENCOUNTER, ENCOUNTER_CHOICES, encounterLayout, encounterTotal, robotConfig } = loadSource('src/combat/config.ts');
 const { createPhase01Terrain, SHANGHAI_PHASE01: data } = loadSource('src/game/shanghai/layout.ts');
 const { traversable } = loadSource('src/combat/navigation.ts');
 const { useCombatStore } = loadSource('src/state/useCombatStore.ts');
@@ -139,4 +139,25 @@ test('S3.2: a expedição orgânica reutiliza a fila em duas ondas e gera dez co
     }
     assert.equal(sim.organic, 10);
     assert.equal(sim.iron + sim.copper + sim.titanium, 0);
+});
+
+test('S3.9: HUD reutiliza o snapshot, publica a limpeza uma vez e rearma a apresentação no próximo encontro', () => {
+    const sim = new CombatSimulation(createPhase01Terrain(), COPPER_ENCOUNTER, encounterLayout(true));
+    const original = sim.snapshot;
+    const store = useCombatStore.getState();
+    store.restart();store.publish(original);
+    let clears = 0;
+    const off = useCombatStore.subscribe((state, previous) => { if (state.cleared && !previous.cleared) clears++; });
+    for (const robot of sim.robots) robot.hp = 0;
+    advance(sim, data.exit);
+    assert.equal(sim.snapshot, original);
+    store.publish(sim.snapshot);store.publish(sim.snapshot);
+    assert.equal(clears, 1);
+    assert.ok(useCombatStore.getState().clearTime > 0);
+    store.markClearPresented();
+    assert.equal(useCombatStore.getState().clearPresented, true);
+    store.restart();
+    assert.equal(useCombatStore.getState().clearPresented, false);
+    assert.equal(useCombatStore.getState().cleared, false);
+    off();
 });

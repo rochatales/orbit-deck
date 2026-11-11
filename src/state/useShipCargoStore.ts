@@ -29,7 +29,7 @@ function withBackpack(depositing: boolean, move: (backpack: ResourceCargo, ship:
   if (engineerBriefingRequired() || !sim || sim.dead) return 0;
   const { session, panel, ready, quotaAnnounced } = useExpeditionStore.getState();
   if (missionDepositRemaining(session.map) !== null && (!depositing || panel !== 'deposit' || session.phase !== 'walking'
-    || !ready || !quotaAnnounced || !isNearMissionDeposit(playerPosition))) return 0;
+    || !ready || (!quotaAnnounced && !useCombatStore.getState().cleared) || !isNearMissionDeposit(playerPosition))) return 0;
   const ship = { ...get().cargo }, moved = move(sim, ship);
   if (!moved) return 0;
   set({ cargo: ship });

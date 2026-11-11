@@ -1,3 +1,4 @@
+import { useCombatStore } from '../state/useCombatStore';
 import { useCampaignStore } from '../state/useCampaignStore';
 import { campaignDepartureBlock } from '../game/campaign';
 import { missionDepositRemaining } from '../game/campaignPolicy';
@@ -59,7 +60,10 @@ export function ShipCockpit({ map, phase, ready, error, name, onDepart, onExit, 
     const colonyBlock = useCampaignStore(s => map === 'mars' && s.mode === 'campaign' && s.saved
         ? campaignDepartureBlock(s.saved.campaign) : null);
     const depositRemaining = useCampaignStore(s => missionDepositRemaining(map, s));
-    const departureBlock = (depositRemaining ?? 0) > 0 ? 'Desembarque, recolha a cota e deposite na traseira da aeronave.' : colonyBlock;
+    const remainingThreats = useCombatStore(s => Math.max(0, s.total - s.kills));
+    const cleared = useCombatStore(s => s.cleared);
+    const extracting = campaign && map === 'shanghai';
+    const departureBlock = extracting && !cleared ? 'Neutralize as ameaças para liberar a decolagem.' : colonyBlock;
     const [tab, setTab] = useState<'navigation' | 'cargo'>('navigation');
     const root = useRef<HTMLElement>(null), info = EXTERIOR[map];
     const hold = cargoWeight(useShipCargoStore(s => s.cargo));
@@ -97,6 +101,8 @@ export function ShipCockpit({ map, phase, ready, error, name, onDepart, onExit, 
                     <p className="cockpit-kicker">02 / DESTINO DISPONÍVEL</p>
                     <div className="cockpit-route-heading"><div><span>{info.destinationPlanet}</span><h2>{info.destination}</h2></div><ArrowUpRight aria-hidden="true"/></div>
                     <p>{info.description}</p>
+                    {extracting && <p role="status">{cleared ? 'Mapa limpo' : `Inimigos restantes · ${remainingThreats}`}
+                        {depositRemaining !== null && ` · ${depositRemaining === 0 ? 'Cota no porão' : `Faltam ${depositRemaining} para a cota`}`}</p>}
                     <div className="cockpit-route-strip"><span>{info.planet}</span><i/><Plane size={16} aria-hidden="true"/><i/><span>{info.destinationPlanet}</span></div>
                     {encounter && <details className="cockpit-encounter"><summary>Configurar encontro de teste <ChevronRight size={13}/></summary>{encounter}</details>}
                     <button className="cockpit-depart" disabled={!!departureBlock} onClick={onDepart}>{info.action}<ArrowUpRight size={21} aria-hidden="true"/></button>
