@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { Color, Mesh, MeshStandardMaterial, ShaderLib } from 'three';
+import { readFileSync } from 'node:fs';
 import { createSourceLoader } from './load-source.mjs';
 
 test('S5.3: nove prédios seguem a tabela de energia da campanha e ficam ligados no desenvolvimento', () => {
@@ -129,6 +130,12 @@ test('S5.3: fumaça da Oficina e corrente do Data Center usam a implantação re
     const roof = COLONY_POWER.workshop.bounds;
     assert.ok(chimney.x > roof.minX && chimney.x < roof.maxX && chimney.z > roof.minZ && chimney.z < roof.maxZ);
     assert.ok(WORKSHOP_SMOKE.local.y > COLONY_POWER.workshop.ceiling);
+    // A fumaça nasce na boca do cilindro da chaminé medido no GLB, não no alçapão central.
+    const roofMesh = loadGlbPositions('src/assets/buildings/workshop.glb', 'Building_Roof')
+        .filter(([vx, , vz]) => Math.hypot(vx - WORKSHOP_SMOKE.local.x, vz - WORKSHOP_SMOKE.local.z) < .35);
+    assert.ok(roofMesh.length >= 100);
+    const top = Math.max(...roofMesh.map(vertex => vertex[1]));
+    assert.ok(WORKSHOP_SMOKE.local.y >= top && WORKSHOP_SMOKE.local.y - top < .1);
     const original = JSON.stringify(load('src/assets/colony-v007.manifest.json'));
     const cable = JSON.parse(original.slice(original.indexOf('"bounds"', original.indexOf('"name":"Cabo_Solar_Data"')) + 9, original.indexOf('}', original.indexOf('"bounds"', original.indexOf('"name":"Cabo_Solar_Data"'))) + 1));
     assert.ok(Math.abs((cable.minX + cable.maxX) / 2 - SOLAR_CURRENT.x) < .01);
@@ -213,3 +220,14 @@ test('S6.19: Salvager recebe a luz da sala ligada, perde o sol dentro e volta ao
     assert.equal(power.characterInterior.inside.value, 0);
     assert.equal(power.characterInterior.light.value.r, 0);
 });
+
+function loadGlbPositions(path, nodeName) {
+    const file = readFileSync(path), jsonLength = file.readUInt32LE(12), json = JSON.parse(file.subarray(20, 20 + jsonLength).toString('utf8'));
+    const bin = file.subarray(20 + jsonLength + 8), node = json.nodes.find(candidate => candidate.name === nodeName), out = [];
+    for (const primitive of json.meshes[node.mesh].primitives) {
+        const accessor = json.accessors[primitive.attributes.POSITION], view = json.bufferViews[accessor.bufferView];
+        const offset = (view.byteOffset ?? 0) + (accessor.byteOffset ?? 0), stride = view.byteStride ?? 12;
+        for (let i = 0; i < accessor.count; i++) out.push([0, 4, 8].map(at => bin.readFloatLE(offset + i * stride + at)));
+    }
+    return out;
+}

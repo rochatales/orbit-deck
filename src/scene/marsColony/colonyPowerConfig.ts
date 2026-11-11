@@ -27,6 +27,7 @@ export const POWER_RAMP = 1;
  * Referência externa em Marte: hemisférica 0,35 + sol rasante ≈ 0,57 no chão. */
 export const INTERIOR_LIGHT = { color: '#f4f8ff', emergency: '#ff5836', base: 1.4, floor: 1.6, floorGamma: .45, hemisphere: .28, characters: 6, character: .9 } as const;
 /** Sinais externos de funcionamento. Pontos locais ao GLB; a cena aplica a implantação do prédio. */
-export const WORKSHOP_SMOKE = { local: { x: 0, y: 5.05, z: 1.07 }, puffs: 26, rise: 4.2, life: 6, drift: { x: 1.3, z: .5 }, size: 2.3, color: '#c4b8b0', opacity: .5 } as const;
+/** Boca da chaminé cilíndrica do telhado (Building_Roof: x 2,61–3,19; z −2,10…−1,50; topo 4,41), indicada pelo autor. */
+export const WORKSHOP_SMOKE = { local: { x: 2.9, y: 4.43, z: -1.8 }, puffs: 26, rise: 4.2, life: 6, drift: { x: 1.3, z: .5 }, size: 2.3, color: '#c4b8b0', opacity: .5 } as const;
 /** Cabo_Solar_Data do masterplan v007: da fazenda solar até a parede norte do Data Center. */
 export const SOLAR_CURRENT = { x: -14.5, y: .12, fromZ: -9.3, toZ: -5.6, width: .5, pulses: 3, speed: 1.8, color: '#63f3ff' } as const;
