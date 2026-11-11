@@ -1,5 +1,5 @@
 import { useFrame } from '@react-three/fiber';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, type RefObject } from 'react';
 import { AdditiveBlending, BufferAttribute, BufferGeometry, Color, DoubleSide, NormalBlending, ShaderMaterial } from 'three';
 import { COLONY_BUILDINGS } from '../../game/colonyBuildingsLayout';
 import { useCampaignStore } from '../../state/useCampaignStore';
@@ -8,6 +8,7 @@ import { playerVisualPosition } from '../../state/playerTransient';
 import { resetCharacterInterior, updateCharacterInterior } from './colonyPower';
 import { buildingPower } from './activationSequence';
 import { COLONY_POWER, SOLAR_CURRENT, WORKSHOP_SMOKE } from './colonyPowerConfig';
+import type { ColonyBuildingRuntime } from './colonyBuildingRuntime';
 
 const power = (id: 'workshop' | 'data-center') => {
     const { mode, saved } = useCampaignStore.getState();
@@ -22,7 +23,7 @@ export function buildingPoint(id: string, local: { x: number; y: number; z: numb
 }
 
 /** Fumaça contínua da chaminé: a Oficina está em funcionamento. Movimento todo no shader. */
-function WorkshopSmoke() {
+export function WorkshopSmoke({ runtime }: { runtime: RefObject<ColonyBuildingRuntime | undefined> }) {
     const origin = useMemo(() => buildingPoint('workshop', WORKSHOP_SMOKE.local), []);
     const geometry = useMemo(() => {
         const value = new BufferGeometry(), count = WORKSHOP_SMOKE.puffs;
@@ -60,12 +61,16 @@ function WorkshopSmoke() {
     }), []);
     useFrame(({ size, camera }, delta) => {
         const uniforms = material.uniforms;
-        uniforms.power.value = power('workshop');
         // Câmera ortográfica: metros → pixels sem divisão por profundidade.
         uniforms.scale.value = size.height * camera.projectionMatrix.elements[5] * .5;
         if (!useGameStore.getState().isPaused) uniforms.time.value += Math.min(delta, .05);
     });
-    return <points name="WorkshopSmoke" position={origin} geometry={geometry} material={material} frustumCulled={false} renderOrder={5}/>;
+    return <points name="WorkshopSmoke" position={origin} geometry={geometry} material={material} frustumCulled={false} renderOrder={5}
+        onBeforeRender={() => {
+            // Lê o estado final do teto depois das atualizações do quadro.
+            const opacity = runtime.current?.status.roofOpacity ?? 0;
+            material.uniforms.power.value = opacity > .01 ? power('workshop') * opacity : 0;
+        }}/>;
 }
 
 /** Pulsos de corrente no cabo da fazenda solar até o Data Center: o prédio recebe energia. */
@@ -106,5 +111,5 @@ function CharacterInteriorLight() {
 }
 
 export function ColonyPowerSigns() {
-    return <group name="ColonyPowerSigns"><WorkshopSmoke/><SolarCurrent/><CharacterInteriorLight/></group>;
+    return <group name="ColonyPowerSigns"><SolarCurrent/><CharacterInteriorLight/></group>;
 }

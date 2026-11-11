@@ -7,6 +7,7 @@ import { simulationBlocked } from '../../game/simulationGate';
 import { playerPosition } from '../../state/playerTransient';
 import type { OfficeWorld } from '../../world/createOfficeMap';
 import { ColonyBuildingRuntime } from './colonyBuildingRuntime';
+import { WorkshopSmoke } from './ColonyPowerSigns';
 import { bindBuildingPower } from './colonyPower';
 import type { PoweredBuilding } from './colonyPowerConfig';
 import dataCenterUrl from '../../assets/buildings/data-center.glb';
@@ -31,5 +32,6 @@ function Building({ index, world }: { index: number; world: OfficeWorld }) {
     }, [gltf.scene, gltf.animations, index, world]);
     useFrame((_, dt) => { updatePower.current(); runtime.current?.update(playerPosition, simulationBlocked() ? 0 : dt,
         engineerPresence.active && (COLONY_BUILDINGS[index].id === 'data-center' || COLONY_BUILDINGS[index].id === 'workshop') ? engineerPresence : undefined); });
-    return <group ref={root} name={`ColonyBuilding-${COLONY_BUILDINGS[index].id}`} dispose={null}/>;
+    return <><group ref={root} name={`ColonyBuilding-${COLONY_BUILDINGS[index].id}`} dispose={null}/>
+        {COLONY_BUILDINGS[index].id === 'workshop' && <WorkshopSmoke runtime={runtime}/>}</>;
 }
