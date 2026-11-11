@@ -23,7 +23,7 @@ export function advanceActivation(delta: number) {
 }
 
 export function buildingPower(id: PoweredBuilding, campaign: boolean, powered: boolean) {
-    const config = COLONY_POWER[id], initial = config.emergency ? .16 : 0;
+    const config = COLONY_POWER[id], initial = config.initial;
     if (!campaign) return 1;
     if (!powered) return initial;
     if (useActivationSequence.getState().kind !== config.flag) return 1;

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { Mesh, MeshStandardMaterial, ShaderLib } from 'three';
+import { Color, Mesh, MeshStandardMaterial, ShaderLib } from 'three';
 import { createSourceLoader } from './load-source.mjs';
 
 test('S5.3: nove prédios seguem a tabela de energia da campanha e ficam ligados no desenvolvimento', () => {
@@ -12,8 +12,8 @@ test('S5.3: nove prédios seguem a tabela de energia da campanha e ficam ligados
         buildingPower(id, true, true), buildingPower(id, false, false)
     ]]));
     assert.deepEqual(states, {
-        'control-room': [0, 1, 1, 1], 'data-center': [0, 1, 1, 1], 'meeting-room': [0, 1, 1, 1],
-        barracks: [0, 1, 1, 1], workshop: [.16, 1, 1, 1], hangar: [.16, 1, 1, 1],
+        'control-room': [0, 1, 1, 1], 'data-center': [1, 1, 1, 1], 'meeting-room': [0, 1, 1, 1],
+        barracks: [0, 1, 1, 1], workshop: [1, 1, 1, 1], hangar: [.16, 1, 1, 1],
         laboratory: [0, 0, 1, 1], greenhouse: [0, 0, 1, 1], cafeteria: [0, 0, 1, 1]
     });
 });
@@ -38,7 +38,9 @@ test('S5.3: ligação salva primeiro, monta final no reload e pula com Escape ou
     assert.equal(animation.beginActivation('edenActive', false), true);
     animation.advanceActivation(1.75);
     assert.ok(animation.buildingPower('control-room', true, true) > 0);
-    assert.equal(animation.buildingPower('data-center', true, true), 0);
+    assert.equal(animation.buildingPower('meeting-room', true, true), 0);
+    // Oficina e Data Center funcionam desde o início e não piscam na sequência de EDEN.
+    assert.equal(animation.buildingPower('data-center', true, true), 1);
     assert.equal(animation.beginActivation('edenActive', false), false);
     assert.equal(store.dispatch('activate-eden'), false);
     assert.equal(values.get('exoden:campaign:v1'), saved);
@@ -65,6 +67,75 @@ test('S6.19: material do interior corta o sol, reduz a hemisférica e mantém em
     assert.match(shader.fragmentShader, /if \(colonyInterior\) directLight.color \*= 0.0/);
     assert.match(shader.fragmentShader, /colonyInterior \? 0.28 : 1.0/);
     assert.equal(shader.uniforms.colonyCeiling.value, 2.55);
+    // Luz branca de teto pelo material: piso (normal para cima) recebe mais e clareia a cor.
+    assert.match(shader.fragmentShader, /irradiance \+= colonyLight \* \(1\.40 \+ 1\.60 \* colonyUp\)/);
+    assert.match(shader.fragmentShader, /pow\(material\.diffuseColor, vec3\(0\.45\)\), colonyUp \* colonyLift\)/);
+    assert.equal(shader.uniforms.colonyLift.value, 1);
+    assert.ok(shader.uniforms.colonyLight.value.r > .9 && shader.uniforms.colonyLight.value.b > .9);
+});
+
+test('S6.19: luz interna segue a energia, fica vermelha na emergência e apaga com o prédio desligado', () => {
+    const load = createSourceLoader();
+    const { interiorLightColor } = load('src/scene/marsColony/colonyPower.ts');
+    const { COLONY_POWER } = load('src/scene/marsColony/colonyPowerConfig.ts');
+    const off = interiorLightColor(new Color(), 0, COLONY_POWER['control-room'].initial);
+    assert.deepEqual([off.r, off.g, off.b], [0, 0, 0]);
+    const on = interiorLightColor(new Color(), 1, COLONY_POWER.hangar.initial);
+    assert.ok(Math.min(on.r, on.g, on.b) > .9);
+    const emergency = interiorLightColor(new Color(), COLONY_POWER.hangar.initial, COLONY_POWER.hangar.initial);
+    assert.ok(emergency.r > emergency.g * 2 && emergency.r < .2);
+    assert.equal(COLONY_POWER.workshop.initial, 1);
+    assert.equal(COLONY_POWER['data-center'].initial, 1);
+});
+
+test('S6.19: pavimento compartilhado acende por sala sem alterar o material do cache', () => {
+    const values = new Map();
+    globalThis.localStorage = { getItem: key => values.get(key) ?? null, setItem: (key, value) => values.set(key, value) };
+    const load = createSourceLoader();
+    const { bindSharedFloorPower } = load('src/scene/marsColony/colonyPower.ts');
+    const { COLONY_POWER } = load('src/scene/marsColony/colonyPowerConfig.ts');
+    const { useCampaignStore } = load('src/state/useCampaignStore.ts');
+    const cached = new MeshStandardMaterial({ color: '#444' }), floor = new Mesh(undefined, cached);
+    const bound = bindSharedFloorPower(floor);
+    assert.notEqual(floor.material, cached);
+    assert.equal(cached.onBeforeCompile.toString(), new MeshStandardMaterial().onBeforeCompile.toString());
+    const shader = { uniforms: {}, vertexShader: ShaderLib.standard.vertexShader, fragmentShader: ShaderLib.standard.fragmentShader };
+    floor.material.onBeforeCompile(shader);
+    const ids = Object.keys(COLONY_POWER), at = id => ids.indexOf(id);
+    assert.equal(shader.uniforms.colonyRooms.value.length, 9);
+    assert.match(shader.fragmentShader, /for \(int i = 0; i < 9; i\+\+\)/);
+    assert.match(shader.fragmentShader, /if \(colonyInterior\) directLight.color \*= 0.0/);
+    bound.update();
+    // Desenvolvimento: todas as salas ligadas.
+    assert.ok(shader.uniforms.colonyLifts.value.every(lift => lift === 1));
+    useCampaignStore.getState().startCampaign({ displayName: 'Piso QA', color: '#abcdef' });
+    bound.update();
+    const lifts = shader.uniforms.colonyLifts.value, lights = shader.uniforms.colonyLights.value;
+    assert.equal(lifts[at('workshop')], 1);
+    assert.equal(lifts[at('data-center')], 1);
+    assert.equal(lifts[at('control-room')], 0);
+    assert.equal(lights[at('laboratory')].r, 0);
+    assert.ok(lights[at('workshop')].g > .9);
+    bound.dispose();
+});
+
+test('S5.3: fumaça da Oficina e corrente do Data Center usam a implantação real e o cabo do masterplan', () => {
+    const load = createSourceLoader();
+    const { WORKSHOP_SMOKE, SOLAR_CURRENT, COLONY_POWER } = load('src/scene/marsColony/colonyPowerConfig.ts');
+    const { COLONY_BUILDINGS } = load('src/game/colonyBuildingsLayout.ts');
+    const workshop = COLONY_BUILDINGS.find(building => building.id === 'workshop');
+    const { x, z, rotationY } = workshop.placement, cos = Math.cos(rotationY), sin = Math.sin(rotationY);
+    const chimney = { x: x + WORKSHOP_SMOKE.local.x * cos + WORKSHOP_SMOKE.local.z * sin, z: z - WORKSHOP_SMOKE.local.x * sin + WORKSHOP_SMOKE.local.z * cos };
+    const roof = COLONY_POWER.workshop.bounds;
+    assert.ok(chimney.x > roof.minX && chimney.x < roof.maxX && chimney.z > roof.minZ && chimney.z < roof.maxZ);
+    assert.ok(WORKSHOP_SMOKE.local.y > COLONY_POWER.workshop.ceiling);
+    const original = JSON.stringify(load('src/assets/colony-v007.manifest.json'));
+    const cable = JSON.parse(original.slice(original.indexOf('"bounds"', original.indexOf('"name":"Cabo_Solar_Data"')) + 9, original.indexOf('}', original.indexOf('"bounds"', original.indexOf('"name":"Cabo_Solar_Data"'))) + 1));
+    assert.ok(Math.abs((cable.minX + cable.maxX) / 2 - SOLAR_CURRENT.x) < .01);
+    assert.ok(Math.abs(cable.minZ - SOLAR_CURRENT.fromZ) < .01);
+    // Termina na face norte do Data Center; a corrente corre da fazenda solar para o prédio.
+    const dataCenter = COLONY_BUILDINGS.find(building => building.id === 'data-center').visual;
+    assert.ok(Math.abs(SOLAR_CURRENT.toZ - dataCenter.minZ) < .05 && SOLAR_CURRENT.toZ > SOLAR_CURRENT.fromZ);
 });
 
 test('S6.19: piscina de luzes mantém o teto e as sombras têm malhas independentes do fade', async () => {

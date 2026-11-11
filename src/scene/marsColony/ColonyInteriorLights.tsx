@@ -1,17 +1,17 @@
 import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
-import { Color, DoubleSide, type PointLight } from 'three';
+import { DoubleSide, type PointLight } from 'three';
 import { playerPosition } from '../../state/playerTransient';
 import { useCampaignStore } from '../../state/useCampaignStore';
 import { buildingPower } from './activationSequence';
-import { COLONY_POWER, type PoweredBuilding } from './colonyPowerConfig';
+import { COLONY_POWER, INTERIOR_LIGHT, type PoweredBuilding } from './colonyPowerConfig';
+import { interiorLightColor } from './colonyPower';
 
 const rooms = (Object.keys(COLONY_POWER) as PoweredBuilding[]).map(id => {
     const config = COLONY_POWER[id], { minX, maxX, minZ, maxZ } = config.bounds;
-    return { id, config, color: new Color(config.color), x: (minX + maxX) / 2, z: (minZ + maxZ) / 2,
+    return { id, config, x: (minX + maxX) / 2, z: (minZ + maxZ) / 2,
         width: maxX - minX, depth: maxZ - minZ };
 });
-const emergency = new Color('#ff5836');
 export const INTERIOR_LIGHT_LIMIT = 4;
 
 export function ColonyInteriorLights() {
@@ -58,12 +58,9 @@ export function ColonyInteriorLights() {
                 }
             }
             const power = index >= 0 && nearest.current.includes(index) ? powers.current[index] : 0;
-            light.intensity += (power * 16 - light.intensity) * step;
-            if (index >= 0) {
-                const room = rooms[index];
-                light.color.copy(room.color);
-                if (room.config.emergency) light.color.lerp(emergency, Math.max(0, (1 - powers.current[index]) / .84));
-            }
+            // O ambiente vem do material; estas luzes só alcançam personagens e itens soltos.
+            light.intensity += ((power > 0 ? INTERIOR_LIGHT.characters : 0) - light.intensity) * step;
+            if (index >= 0) interiorLightColor(light.color, powers.current[index], rooms[index].config.initial);
         }
     });
     return <group name="ColonyInteriorLights">

@@ -1,7 +1,7 @@
-import { ShaderChunk, Vector4, type Mesh, type MeshStandardMaterial, type Object3D } from 'three';
+import { Color, ShaderChunk, Vector4, type Mesh, type MeshStandardMaterial, type Object3D } from 'three';
 import { useCampaignStore } from '../../state/useCampaignStore';
 import { buildingPower } from './activationSequence';
-import { COLONY_POWER, type PoweredBuilding } from './colonyPowerConfig';
+import { COLONY_POWER, INTERIOR_LIGHT, type PoweredBuilding } from './colonyPowerConfig';
 
 /** Chamar após o runtime criar os materiais privados. A energia muda por evento do save. */
 export function bindColonyPower(scene: Object3D, flag: 'edenActive' | 'synthesizerActive', onPower?: (powered: boolean) => void) {
@@ -32,6 +32,8 @@ export function bindColonyPower(scene: Object3D, flag: 'edenActive' | 'synthesiz
 export function bindBuildingPower(scene: Object3D, id: PoweredBuilding, greenhouse?: (power: number) => void) {
     const config = COLONY_POWER[id], { minX, maxX, minZ, maxZ } = config.bounds;
     const room = new Vector4(minX + .14, maxX - .14, minZ + .14, maxZ - .14);
+    // Um único uniforme por prédio: todos os materiais internos leem a mesma luz de teto.
+    const light = { value: new Color(0, 0, 0) }, lift = { value: 0 };
     const materials = new Set<MeshStandardMaterial>();
     const emissives: { material: MeshStandardMaterial; intensity: number }[] = [];
     scene.traverse(node => {
@@ -47,11 +49,13 @@ export function bindBuildingPower(scene: Object3D, id: PoweredBuilding, greenhou
             standard.onBeforeCompile = shader => {
                 shader.uniforms.colonyRoom = { value: room };
                 shader.uniforms.colonyCeiling = { value: config.ceiling };
+                shader.uniforms.colonyLight = light;
+                shader.uniforms.colonyLift = lift;
                 shader.vertexShader = 'varying vec3 colonyWorld;\n' + shader.vertexShader.replace(
                     '#include <worldpos_vertex>',
                     '#include <worldpos_vertex>\ncolonyWorld = (modelMatrix * vec4(transformed, 1.0)).xyz;'
                 );
-                shader.fragmentShader = 'varying vec3 colonyWorld; uniform vec4 colonyRoom; uniform float colonyCeiling;\n'
+                shader.fragmentShader = 'varying vec3 colonyWorld; uniform vec4 colonyRoom; uniform float colonyCeiling; uniform vec3 colonyLight; uniform float colonyLift;\n'
                     + shader.fragmentShader.replace('#include <lights_fragment_begin>', indoorLighting);
             };
         }
@@ -67,17 +71,89 @@ export function bindBuildingPower(scene: Object3D, id: PoweredBuilding, greenhou
                 material.emissiveIntensity = intensity * power;
             }
             greenhouse?.(power);
+            interiorLightColor(light.value, power, config.initial);
+            lift.value = Math.min(1, power);
         }
         return power;
     };
+}
+
+const white = new Color(INTERIOR_LIGHT.color), emergency = new Color(INTERIOR_LIGHT.emergency);
+/** Abaixo da energia plena, a luz de teto é fraca e avermelhada (emergência). */
+export function interiorLightColor(target: Color, power: number, initial: number) {
+    const dim = initial > 0 && initial < 1 ? Math.max(0, Math.min(1, (1 - power) / (1 - initial))) : 0;
+    return target.copy(white).lerp(emergency, dim).multiplyScalar(power);
 }
 
 const indoorLighting = `
     bool colonyInterior = colonyWorld.y < colonyCeiling
         && colonyWorld.x > colonyRoom.x && colonyWorld.x < colonyRoom.y
         && colonyWorld.z > colonyRoom.z && colonyWorld.z < colonyRoom.w;
+    float colonyUp = max(dot(normal, normalize((viewMatrix * vec4(0.0, 1.0, 0.0, 0.0)).xyz)), 0.0);
+    // Piso e tampos escuros clareiam com a energia; juntas e desenho da textura continuam visíveis.
+    if (colonyInterior) material.diffuseColor = mix(material.diffuseColor,
+        pow(material.diffuseColor, vec3(${INTERIOR_LIGHT.floorGamma.toFixed(2)})), colonyUp * colonyLift);
 ` + ShaderChunk.lights_fragment_begin
     .replace('getDirectionalLightInfo( directionalLight, directLight );',
         'getDirectionalLightInfo( directionalLight, directLight ); if (colonyInterior) directLight.color *= 0.0;')
     .replace('irradiance += getHemisphereLightIrradiance( hemisphereLights[ i ], geometryNormal );',
-        'irradiance += (colonyInterior ? 0.28 : 1.0) * getHemisphereLightIrradiance( hemisphereLights[ i ], geometryNormal );');
+        `irradiance += (colonyInterior ? ${INTERIOR_LIGHT.hemisphere.toFixed(2)} : 1.0) * getHemisphereLightIrradiance( hemisphereLights[ i ], geometryNormal );`)
+    // Luz branca uniforme do teto, sem fonte visível: mais forte nas faces viradas para cima (piso e tampos).
+    .replace('vec3 irradiance = getAmbientLightIrradiance( ambientLightColor );',
+        `vec3 irradiance = getAmbientLightIrradiance( ambientLightColor );
+        if (colonyInterior) irradiance += colonyLight * (${INTERIOR_LIGHT.base.toFixed(2)} + ${INTERIOR_LIGHT.floor.toFixed(2)} * colonyUp);`);
+
+const POWERED = Object.keys(COLONY_POWER) as PoweredBuilding[];
+const sharedLighting = `
+    bool colonyInterior = false; vec3 colonyLight = vec3(0.0); float colonyLift = 0.0;
+    for (int i = 0; i < ${POWERED.length}; i++) {
+        vec4 room = colonyRooms[i];
+        if (colonyWorld.x > room.x && colonyWorld.x < room.y && colonyWorld.z > room.z && colonyWorld.z < room.w) {
+            colonyInterior = true; colonyLight = colonyLights[i]; colonyLift = colonyLifts[i];
+        }
+    }
+    float colonyUp = 1.0;
+    if (colonyInterior) material.diffuseColor = mix(material.diffuseColor,
+        pow(material.diffuseColor, vec3(${INTERIOR_LIGHT.floorGamma.toFixed(2)})), colonyLift);
+` + indoorLighting.slice(indoorLighting.indexOf(ShaderChunk.lights_fragment_begin.slice(0, 40)));
+
+/** O pavimento é uma malha única sob todos os prédios: cada fragmento procura a sua sala. */
+export function bindSharedFloorPower(scene: Object3D) {
+    const rooms = POWERED.map(id => { const { minX, maxX, minZ, maxZ } = COLONY_POWER[id].bounds; return new Vector4(minX + .14, maxX - .14, minZ + .14, maxZ - .14); });
+    const lights = POWERED.map(() => new Color(0, 0, 0)), lifts = POWERED.map(() => 0);
+    const uniforms = { colonyRooms: { value: rooms }, colonyLights: { value: lights }, colonyLifts: { value: lifts } };
+    const copies = new Map<MeshStandardMaterial, MeshStandardMaterial>();
+    const own = (material: MeshStandardMaterial) => {
+        if (!material.isMeshStandardMaterial) return material;
+        let copy = copies.get(material);
+        if (!copy) {
+            // Cópia por instância: o cache do GLTF continua sem o shader da colônia.
+            copy = material.clone(); copies.set(material, copy);
+            copy.customProgramCacheKey = () => 'colony-shared-floor';
+            copy.onBeforeCompile = shader => {
+                Object.assign(shader.uniforms, uniforms);
+                shader.vertexShader = 'varying vec3 colonyWorld;\n' + shader.vertexShader.replace(
+                    '#include <worldpos_vertex>',
+                    '#include <worldpos_vertex>\ncolonyWorld = (modelMatrix * vec4(transformed, 1.0)).xyz;'
+                );
+                shader.fragmentShader = `varying vec3 colonyWorld; uniform vec4 colonyRooms[${POWERED.length}]; uniform vec3 colonyLights[${POWERED.length}]; uniform float colonyLifts[${POWERED.length}];\n`
+                    + shader.fragmentShader.replace('#include <lights_fragment_begin>', sharedLighting);
+            };
+        }
+        return copy;
+    };
+    scene.traverse(node => {
+        const mesh = node as Mesh;
+        if (mesh.isMesh) mesh.material = Array.isArray(mesh.material) ? (mesh.material as MeshStandardMaterial[]).map(own) : own(mesh.material as MeshStandardMaterial);
+    });
+    const update = () => {
+        const state = useCampaignStore.getState();
+        for (let i = 0; i < POWERED.length; i++) {
+            const config = COLONY_POWER[POWERED[i]];
+            const power = buildingPower(POWERED[i], state.mode === 'campaign', !!state.saved?.campaign[config.flag]);
+            interiorLightColor(lights[i], power, config.initial);
+            lifts[i] = Math.min(1, power);
+        }
+    };
+    return { update, dispose: () => { for (const copy of copies.values()) copy.dispose(); } };
+}
