@@ -179,3 +179,37 @@ test('S6.19: piscina de luzes mantém o teto e as sombras têm malhas independen
         assert.ok(roofs.every(roof => roof.props.castShadow));
     }
 });
+
+test('S6.19: Salvager recebe a luz da sala ligada, perde o sol dentro e volta ao normal fora', () => {
+    const values = new Map();
+    globalThis.localStorage = { getItem: key => values.get(key) ?? null, setItem: (key, value) => values.set(key, value) };
+    const load = createSourceLoader();
+    const power = load('src/scene/marsColony/colonyPower.ts');
+    const { useCampaignStore } = load('src/state/useCampaignStore.ts');
+    useCampaignStore.getState().startCampaign({ displayName: 'Luz QA', color: '#abcdef' });
+    // Oficina ligada, Control Room desligada, pátio fora de qualquer prédio.
+    assert.equal(power.interiorPowerAt(-12, 11.2), 1);
+    assert.equal(power.interiorPowerAt(0, -12), 0);
+    assert.equal(power.interiorPowerAt(0, 26), -1);
+    const material = new MeshStandardMaterial();
+    let chained = 0;
+    material.onBeforeCompile = () => { chained++; };
+    power.bindCharacterInteriorLight(new Mesh(undefined, material));
+    const shader = { uniforms: {}, vertexShader: ShaderLib.standard.vertexShader, fragmentShader: ShaderLib.standard.fragmentShader };
+    material.onBeforeCompile(shader);
+    assert.equal(chained, 1);
+    assert.match(shader.fragmentShader, /directLight\.color \*= 1\.0 - colonyInside/);
+    assert.match(shader.fragmentShader, /getAmbientLightIrradiance\( ambientLightColor \) \+ colonyCharacterLight/);
+    assert.equal(shader.uniforms.colonyInside, power.characterInterior.inside);
+    for (let i = 0; i < 80; i++) power.updateCharacterInterior(-12, 11.2, .2);
+    assert.ok(power.characterInterior.inside.value > .99 && power.characterInterior.light.value.g > .7);
+    for (let i = 0; i < 80; i++) power.updateCharacterInterior(0, -12, .2);
+    assert.ok(power.characterInterior.inside.value > .99);
+    assert.equal(power.characterInterior.light.value.g, 0);
+    for (let i = 0; i < 80; i++) power.updateCharacterInterior(0, 26, .2);
+    assert.ok(power.characterInterior.inside.value < .01 && power.characterInterior.light.value.g < .01);
+    power.updateCharacterInterior(-12, 11.2, 1);
+    power.resetCharacterInterior();
+    assert.equal(power.characterInterior.inside.value, 0);
+    assert.equal(power.characterInterior.light.value.r, 0);
+});

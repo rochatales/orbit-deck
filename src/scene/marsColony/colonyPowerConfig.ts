@@ -25,7 +25,7 @@ export const ACTIVATION_DURATION = { edenActive: 4.4, synthesizerActive: 5 } as 
 export const POWER_RAMP = 1;
 /** Luz branca de teto aplicada pelo material: o piso (normal para cima) recebe base + floor.
  * Referência externa em Marte: hemisférica 0,35 + sol rasante ≈ 0,57 no chão. */
-export const INTERIOR_LIGHT = { color: '#f4f8ff', emergency: '#ff5836', base: 1.4, floor: 1.6, floorGamma: .45, hemisphere: .28, characters: 6 } as const;
+export const INTERIOR_LIGHT = { color: '#f4f8ff', emergency: '#ff5836', base: 1.4, floor: 1.6, floorGamma: .45, hemisphere: .28, characters: 6, character: .9 } as const;
 /** Sinais externos de funcionamento. Pontos locais ao GLB; a cena aplica a implantação do prédio. */
 export const WORKSHOP_SMOKE = { local: { x: 0, y: 5.05, z: 1.07 }, puffs: 26, rise: 4.2, life: 6, drift: { x: 1.3, z: .5 }, size: 2.3, color: '#c4b8b0', opacity: .5 } as const;
 /** Cabo_Solar_Data do masterplan v007: da fazenda solar até a parede norte do Data Center. */

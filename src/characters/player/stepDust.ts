@@ -3,11 +3,13 @@ export const STEP_DUST = {
     capacity: 96, perStep: 8, pendingCapacity: 4,
     minLife: .45, maxLife: .75, groundOffset: .025,
     initialSize: .14, growth: .3, opacity: .48, supportTolerance: .1,
-    colors: { mars: '#bd6f4c', shanghai: '#a2a5a6' },
+    colors: { mars: '#bd6f4c', shanghai: '#a2a5a6', indoor: '#d9dde0' },
 } as const;
 interface DustParticle {
     x: number; y: number; z: number; vx: number; vy: number; vz: number;
     life: number; duration: number; size: number; stretch: number; alpha: number;
+    /** 0 usa a cor do mapa; 1 usa a poeira clara de piso interno ligado. */
+    tint: number;
 }
 interface Ground { surfaceHeight?: (x: number, z: number) => number; supportHeight?: (x: number, z: number) => number }
 /** Mesmos pisos analíticos do mundo: consulta só ao emitir, nunca à malha. */
@@ -31,7 +33,7 @@ export class StepDustPool {
     private cursor = 0;
     constructor(capacity = STEP_DUST.capacity) {
         this.particles = Array.from({ length: capacity }, () => ({ x: 0, y: 0, z: 0, vx: 0, vy: 0, vz: 0,
-            life: 0, duration: 1, size: 0, stretch: 1, alpha: 0 }));
+            life: 0, duration: 1, size: 0, stretch: 1, alpha: 0, tint: 0 }));
     }
     bind(scene: Object3D) {
         this.owner = scene;
@@ -48,7 +50,7 @@ export class StepDustPool {
         this.grounded[this.pending] = grounded ? 1 : 0;
         this.sides[this.pending] = side; this.angles[this.pending++] = moveAngle;
     }
-    emit(x: number, y: number, z: number, moveAngle: number, random = Math.random) {
+    emit(x: number, y: number, z: number, moveAngle: number, random = Math.random, tint = 0) {
         for (let i = 0; i < STEP_DUST.perStep; i++) {
             const p = this.particles[this.cursor]; this.cursor = (this.cursor + 1) % this.particles.length;
             const angle = random() * Math.PI * 2, radius = .035 * random(), drift = .08 + .14 * random();
@@ -57,7 +59,7 @@ export class StepDustPool {
             p.vz = Math.sin(angle) * drift - Math.cos(moveAngle) * .15;
             p.vy = .12 + random() * .16;
             p.life = p.duration = STEP_DUST.minLife + random() * (STEP_DUST.maxLife - STEP_DUST.minLife);
-            p.size = STEP_DUST.initialSize; p.stretch = .8 + random() * .5; p.alpha = 0;
+            p.size = STEP_DUST.initialSize; p.stretch = .8 + random() * .5; p.alpha = 0; p.tint = tint;
         }
     }
     step(dt: number) {

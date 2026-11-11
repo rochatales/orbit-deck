@@ -10,6 +10,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, type MutableRefObjec
 import { useFrame } from "@react-three/fiber";
 import type { Group, Object3D } from "three";
 import { useCombatStore } from "../../state/useCombatStore";
+import { bindCharacterInteriorLight } from "../../scene/marsColony/colonyPower";
 import { GLBCharacter, type GLBActionMap } from "../GLBCharacter";
 import { PLAYER_ASSET_VARIANTS, type PlayerAssetVariant } from "../characterAssetConfig";
 import { LocomotionController } from "./LocomotionController";
@@ -63,6 +64,8 @@ function PlayerVariant({ motionRef, combat, variant }: PlayerModelProps & { vari
   }, [motionRef]);
   const onSceneReady = useCallback((scene: Object3D) => {
     setScene(scene);
+    // Em Marte, dentro de um prédio, o Salvager troca o sol pela luz branca da sala.
+    bindCharacterInteriorLight(scene);
     // Só em desenvolvimento: medição do contato dos pés no navegador (handoff da S2.12).
     if (import.meta.env.DEV) (window as unknown as { __hordaPlayerScene?: Object3D }).__hordaPlayerScene = scene;
   }, []);

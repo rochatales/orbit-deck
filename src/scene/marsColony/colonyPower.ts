@@ -157,3 +157,55 @@ export function bindSharedFloorPower(scene: Object3D) {
     };
     return { update, dispose: () => { for (const copy of copies.values()) copy.dispose(); } };
 }
+
+/** Energia da sala que contém o ponto, ou -1 fora de qualquer prédio. Só leitura, sem alocar. */
+export function interiorPowerAt(x: number, z: number) {
+    const state = useCampaignStore.getState();
+    for (let i = 0; i < POWERED.length; i++) {
+        const config = COLONY_POWER[POWERED[i]], { minX, maxX, minZ, maxZ } = config.bounds;
+        if (x > minX + .14 && x < maxX - .14 && z > minZ + .14 && z < maxZ - .14)
+            return buildingPower(POWERED[i], state.mode === 'campaign', !!state.saved?.campaign[config.flag]);
+    }
+    return -1;
+}
+
+/** Luz do ambiente sobre o personagem: uniformes globais, atualizados por quadro só em Marte. */
+export const characterInterior = { light: { value: new Color(0, 0, 0) }, inside: { value: 0 } };
+const characterLighting = ShaderChunk.lights_fragment_begin
+    .replace('getDirectionalLightInfo( directionalLight, directLight );',
+        'getDirectionalLightInfo( directionalLight, directLight ); directLight.color *= 1.0 - colonyInside;')
+    .replace('vec3 irradiance = getAmbientLightIrradiance( ambientLightColor );',
+        'vec3 irradiance = getAmbientLightIrradiance( ambientLightColor ) + colonyCharacterLight;');
+/** Encadeia com patches existentes (areia): dentro de um prédio o sol sai e entra a luz branca da sala. */
+export function bindCharacterInteriorLight(scene: Object3D) {
+    const seen = new Set<MeshStandardMaterial>();
+    scene.traverse(node => {
+        const mesh = node as Mesh;
+        if (!mesh.isMesh) return;
+        for (const material of Array.isArray(mesh.material) ? mesh.material : [mesh.material]) {
+            const standard = material as MeshStandardMaterial;
+            if (!standard.isMeshStandardMaterial || seen.has(standard)) continue;
+            seen.add(standard);
+            const compile = standard.onBeforeCompile, key = standard.customProgramCacheKey;
+            standard.customProgramCacheKey = () => key.call(standard) + ':colony-character';
+            standard.onBeforeCompile = (shader, renderer) => {
+                compile.call(standard, shader, renderer);
+                shader.uniforms.colonyCharacterLight = characterInterior.light;
+                shader.uniforms.colonyInside = characterInterior.inside;
+                shader.fragmentShader = 'uniform vec3 colonyCharacterLight; uniform float colonyInside;\n'
+                    + shader.fragmentShader.replace('#include <lights_fragment_begin>', characterLighting);
+            };
+            standard.needsUpdate = true;
+        }
+    });
+}
+/** step = fração de aproximação do quadro; (x, z) fora de Marte nunca é chamado. */
+export function updateCharacterInterior(x: number, z: number, step: number) {
+    const power = interiorPowerAt(x, z), inside = characterInterior.inside;
+    inside.value += ((power >= 0 ? 1 : 0) - inside.value) * step;
+    const target = Math.max(0, power) * INTERIOR_LIGHT.character * inside.value;
+    characterInterior.light.value.copy(white).multiplyScalar(target);
+}
+export function resetCharacterInterior() {
+    characterInterior.inside.value = 0; characterInterior.light.value.setScalar(0);
+}

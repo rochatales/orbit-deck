@@ -113,3 +113,19 @@ test('Poeira: nuvem nasce visível e fica acima do piso em vez de metade enterra
     assert.match(renderer, /p\.y\+=\.5/, 'base do billboard no apoio, não o centro');
     assert.match(renderer, /hasDustSupport\(pool\.grounded\[i\] === 1, playerVisualPosition\.y, floor\)/);
 });
+
+test('Poeira: piso interno ligado emite cinza claro; exterior e Shanghai mantêm a cor do mapa', () => {
+    const pool = new StepDustPool(), random = () => .5;
+    pool.emit(0, 0, 0, 0, random);
+    assert.ok(pool.particles.slice(0, STEP_DUST.perStep).every(p => p.tint === 0));
+    pool.emit(0, 0, 0, 0, random, 1);
+    assert.ok(pool.particles.slice(STEP_DUST.perStep, STEP_DUST.perStep * 2).every(p => p.tint === 1));
+    // A cor interna é clara e neutra, diferente da areia vermelha de Marte.
+    const channels = hex => [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16));
+    const indoor = channels(STEP_DUST.colors.indoor), mars = channels(STEP_DUST.colors.mars);
+    assert.ok(Math.min(...indoor) > 200 && Math.max(...indoor) - Math.min(...indoor) < 12);
+    assert.ok(mars[0] - mars[2] > 80);
+    const source = fs.readFileSync('src/characters/player/PlayerStepDust.tsx', 'utf8');
+    assert.match(source, /map === 'mars' && interiorPowerAt\(pose\.point\.x, pose\.point\.z\) > \.5/);
+    assert.match(source, /mix\(dustColor,indoorColor,tint0\)/);
+});

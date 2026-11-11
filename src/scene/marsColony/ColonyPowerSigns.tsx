@@ -1,9 +1,11 @@
 import { useFrame } from '@react-three/fiber';
-import { useMemo, useRef } from 'react';
+import { useEffect, useMemo } from 'react';
 import { AdditiveBlending, BufferAttribute, BufferGeometry, Color, DoubleSide, NormalBlending, ShaderMaterial } from 'three';
 import { COLONY_BUILDINGS } from '../../game/colonyBuildingsLayout';
 import { useCampaignStore } from '../../state/useCampaignStore';
 import { useGameStore } from '../../state/useGameStore';
+import { playerVisualPosition } from '../../state/playerTransient';
+import { resetCharacterInterior, updateCharacterInterior } from './colonyPower';
 import { buildingPower } from './activationSequence';
 import { COLONY_POWER, SOLAR_CURRENT, WORKSHOP_SMOKE } from './colonyPowerConfig';
 
@@ -96,6 +98,13 @@ function SolarCurrent() {
     </mesh>;
 }
 
+/** O Salvager recebe a luz da sala em que está; ao sair de Marte volta à luz do mapa. */
+function CharacterInteriorLight() {
+    useEffect(() => resetCharacterInterior, []);
+    useFrame((_, delta) => updateCharacterInterior(playerVisualPosition.x, playerVisualPosition.z, 1 - Math.exp(-8 * Math.min(.05, delta))));
+    return null;
+}
+
 export function ColonyPowerSigns() {
-    return <group name="ColonyPowerSigns"><WorkshopSmoke/><SolarCurrent/></group>;
+    return <group name="ColonyPowerSigns"><WorkshopSmoke/><SolarCurrent/><CharacterInteriorLight/></group>;
 }
