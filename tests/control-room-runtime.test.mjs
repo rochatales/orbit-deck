@@ -23,10 +23,12 @@ test('Prédios aprovados: snapshot íntegro; 9320/8732 triângulos e UVs válido
    // A S5.3 conecta a energia da campanha sem alterar o asset aprovado.
    let code=fs.readFileSync(f.arquivo,'utf8');
    for(const line of [
-    "import { bindColonyPower } from './colonyPower';\n",
-    "        const unbind = bindColonyPower(scene, 'edenActive', active => next.setPowered(active));\n",
-    '            unbind?.();\n',
+    "import { bindBuildingPower } from './colonyPower';\n",
+    "    const updatePower = useRef<() => number>(() => 0);\n",
+    "        updatePower.current = bindBuildingPower(scene, 'control-room', power => next.setPowered(power > .08));\n",
+    "        updatePower.current();\n",
    ]){assert.ok(code.includes(line));code=code.replace(line,'');}
+   code=code.replace('=> { updatePower.current(); runtime.current?.update(playerPosition, simulationBlocked() ? 0 : delta); });','=> runtime.current?.update(playerPosition, simulationBlocked() ? 0 : delta));');
    assert.equal(crypto.createHash('sha256').update(code).digest('hex'),f.sha256,f.arquivo);
   }else if(f.arquivo==='src/scene/marsColony/controlRoomRuntime.ts'){
    // A rodada de áudio e o controle de energia da S5.3 acrescentam só estes hooks.

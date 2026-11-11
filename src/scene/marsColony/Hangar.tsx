@@ -1,3 +1,4 @@
+import { bindBuildingPower } from './colonyPower';
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useLayoutEffect, useRef } from 'react';
@@ -12,6 +13,7 @@ import { HangarRuntime } from './hangarRuntime';
 
 export function Hangar() {
     const gltf = useGLTF(url), visual = useRef<Group>(null), runtime = useRef<HangarRuntime>();
+    const updatePower = useRef<() => number>(() => 0);
     useLayoutEffect(() => {
         const scene = clone(gltf.scene); scene.name = 'Hangar';
         const instance = new HangarRuntime(scene, gltf.animations);
@@ -22,12 +24,15 @@ export function Hangar() {
             instance.setDeparture(state.session.map === 'mars' && state.session.phase === 'travelling');
             instance.update(playerPosition, 0); // evento de partida não depende de haver outro RAF antes da viagem
         });
+        updatePower.current = bindBuildingPower(scene, 'hangar');
+        updatePower.current();
         runtime.current = instance; visual.current!.add(scene);
         return () => { off(); scene.removeFromParent(); instance.dispose(); runtime.current = undefined; };
     }, [gltf.scene, gltf.animations]);
     useFrame((_, dt) => {
         const instance = runtime.current;
         if (!instance) return;
+        updatePower.current();
         const session = useExpeditionStore.getState().session;
         instance.setDeparture(session.map === 'mars' && session.phase === 'travelling');
         instance.update(playerPosition, useGameStore.getState().isPaused || document.hidden ? 0 : dt);

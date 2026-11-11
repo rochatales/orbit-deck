@@ -13,6 +13,7 @@ export class QuartelRuntime {
     private colliderPoint = new Vector3();
     private roof: Object3D;
     private roofMaterials: { own: Material; opacity: number; transparent: boolean; depthWrite: boolean }[] = [];
+    private readonly roomMaterials = new Map<Material, Material>();
     private disposed = false;
 
     constructor(private scene: Object3D, clips: AnimationClip[], private motions: SimpleCuboid[] = createQuartelDoorColliders()) {
@@ -37,6 +38,17 @@ export class QuartelRuntime {
                 return own;
             };
             mesh.material = Array.isArray(mesh.material) ? mesh.material.map(copy) : copy(mesh.material);
+        });
+        const roofMaterials = new Set(this.roofMaterials.map(entry => entry.own));
+        const copyRoom = (material: Material) => {
+            if (roofMaterials.has(material)) return material;
+            let own = this.roomMaterials.get(material);
+            if (!own) { own = material.clone(); this.roomMaterials.set(material, own); }
+            return own;
+        };
+        scene.traverse(node => {
+            const mesh = node as Mesh;
+            if (mesh.isMesh) mesh.material = Array.isArray(mesh.material) ? mesh.material.map(copyRoom) : copyRoom(mesh.material);
         });
         this.doorColliders = QUARTEL.dynamicCuboids.map(collider => {
             const node = scene.getObjectByName(collider.id);
@@ -89,5 +101,6 @@ export class QuartelRuntime {
         this.disposed = true;
         this.mixer.stopAllAction(); this.mixer.uncacheRoot(this.scene);
         for (const material of this.roofMaterials) material.own.dispose();
+        for (const material of this.roomMaterials.values()) material.dispose();
     }
 }

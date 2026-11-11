@@ -1,6 +1,7 @@
+import { bindBuildingPower } from './colonyPower';
 import { Html, useGLTF } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { type Group } from 'three';
 import { playerPosition } from '../../state/playerTransient';
 import { useCampaignStore } from '../../state/useCampaignStore';
@@ -37,15 +38,21 @@ export function Greenhouse() {
     const visual = useRef<Group>(null);
     const runtime = useRef<GreenhouseRuntime>();
     // Criação no efeito: o ciclo montar/desmontar do StrictMode não perde as luzes nem vaza clones.
+    const updatePower = useRef<() => number>(() => 0);
     useLayoutEffect(() => {
         const scene = gltf.scene.clone(true);
         scene.name = 'Greenhouse';
-        const instance = new GreenhouseRuntime(scene, manifest);
+        const instance = new GreenhouseRuntime(scene, manifest, true);
+        updatePower.current = bindBuildingPower(scene, 'greenhouse');
+        instance.setPower(updatePower.current());
         runtime.current = instance;
         visual.current!.add(scene);
         return () => { scene.removeFromParent(); instance.dispose(); runtime.current = undefined; };
     }, [gltf.scene]);
-    useEffect(() => runtime.current?.setState(state), [gltf.scene, state]);
-    useFrame((_, delta) => runtime.current?.update(playerPosition, delta));
+    useFrame((_, delta) => {
+        const power = updatePower.current();
+        runtime.current?.setPower(preview && campaignState === null ? Number(state === 'ONLINE') : power);
+        runtime.current?.update(playerPosition, delta);
+    });
     return <><group ref={visual} dispose={null} />{preview && campaignState === null && <GreenhousePreview state={state} onChange={setState} />}</>;
 }

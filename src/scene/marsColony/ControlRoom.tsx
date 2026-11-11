@@ -1,3 +1,4 @@
+import { bindBuildingPower } from './colonyPower';
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useLayoutEffect, useRef } from 'react';
@@ -6,29 +7,29 @@ import { playerPosition } from '../../state/playerTransient';
 import { simulationBlocked } from '../../game/simulationGate';
 import url from '../../assets/control-room/control-room-v002.glb';
 import { ControlRoomRuntime } from './controlRoomRuntime';
-import { bindColonyPower } from './colonyPower';
 
 export function ControlRoom() {
     const gltf = useGLTF(url);
     const visual = useRef<Group>(null);
     const runtime = useRef<ControlRoomRuntime>();
 
+    const updatePower = useRef<() => number>(() => 0);
     useLayoutEffect(() => {
         const scene = gltf.scene.clone(true);
         scene.name = 'ControlRoomVisual';
         const next = new ControlRoomRuntime(scene);
-        const unbind = bindColonyPower(scene, 'edenActive', active => next.setPowered(active));
+        updatePower.current = bindBuildingPower(scene, 'control-room', power => next.setPowered(power > .08));
+        updatePower.current();
         runtime.current = next;
         visual.current!.add(scene);
         return () => {
-            unbind?.();
             scene.removeFromParent();
             next.dispose();
             runtime.current = undefined;
         };
     }, [gltf.scene]);
 
-    useFrame((_, delta) => runtime.current?.update(playerPosition, simulationBlocked() ? 0 : delta));
+    useFrame((_, delta) => { updatePower.current(); runtime.current?.update(playerPosition, simulationBlocked() ? 0 : delta); });
 
     return (
         <group name="ControlRoom">

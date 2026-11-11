@@ -14,7 +14,7 @@ export function AudioLifecycle({ home }: { home: boolean }) {
     useLayoutEffect(() => {
         let focused = document.hasFocus();
         const update = () => {
-            const blocked = !focused || document.hidden || (!home && simulationBlocked());
+            const blocked = !focused || document.hidden || (!home && simulationBlocked(true));
             if (blocked) audio.setBlocked(true);
             audio.setMap(home ? null : useExpeditionStore.getState().session.map);
             if (!blocked) audio.setBlocked(false);

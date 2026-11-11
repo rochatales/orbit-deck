@@ -18,9 +18,10 @@ export class GreenhouseRuntime {
     private readonly dynamicMaterials: DynamicMaterial[] = [];
     private readonly onlineParts: string[] = [];
     private readonly lights: { node: PointLight; intensity: number }[] = [];
+    private power = -1;
     private state: GreenhouseState = 'OFFLINE';
     private disposed = false;
-    constructor(private readonly scene: Object3D, manifest: GreenhouseManifest) {
+    constructor(private readonly scene: Object3D, manifest: GreenhouseManifest, managedLighting = false) {
         const { nodes, parts } = validateMasterplan(scene, manifest);
         if (parts.get('TET_Estufa')?.papel !== 'roof') throw new Error('Telhado TET_Estufa ausente ou inválido');
         if (!parts.get('TET_Estufa_GrowLights')?.apoiado_em.includes('TET_Estufa')) throw new Error('Grow lights sem apoio no teto da estufa');
@@ -63,7 +64,7 @@ export class GreenhouseRuntime {
             if (!(node as Mesh).isMesh) return;
             const mesh = node as Mesh;
             const privateMaterial = (material: Material) => {
-                if (!definitions.has(material.name)) return material;
+                if (!managedLighting && !definitions.has(material.name)) return material;
                 let own = copies.get(material);
                 if (!own) { own = material.clone(); copies.set(material, own); this.ownedMaterials.add(own); }
                 return own;
@@ -84,7 +85,7 @@ export class GreenhouseRuntime {
                 this.dynamicMaterials.push({ material: material as MeshStandardMaterial, definition });
             }
         });
-        for (let i = 0; i < manifest.growLights.length; i++) {
+        for (let i = 0; i < (managedLighting ? 0 : manifest.growLights.length); i++) {
             const light = manifest.growLights[i];
             const node = new PointLight(light.color, 0, light.distance, 2);
             node.name = `GreenhouseGrowLight_${i}`;
@@ -107,6 +108,17 @@ export class GreenhouseRuntime {
             material.emissiveIntensity = values.emissiveIntensity;
         }
         this.updateLightIntensity();
+    }
+    setPower(power: number) {
+        if (this.power === power) return;
+        this.power = power;
+        const state = power >= .15 || (power > 0 && this.state === 'ONLINE') ? 'ONLINE' : 'OFFLINE';
+        if (state !== this.state) this.setState(state);
+        for (let i = 0; i < this.dynamicMaterials.length; i++) {
+            const { material, definition } = this.dynamicMaterials[i];
+            const values = state === 'ONLINE' ? definition.online : definition.offline;
+            material.emissiveIntensity = values.emissiveIntensity * power;
+        }
     }
     private updateLightIntensity() {
         const opacity = this.architecture.getRoofOpacity('TET_Estufa');

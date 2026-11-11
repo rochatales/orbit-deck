@@ -17,6 +17,7 @@ export class AudioEngine {
     readonly voices: Voice[] = [];
     readonly buffers = new Map<string, AudioBuffer[]>();
     private previous = new Map<string, number>();
+    private powerTone: OscillatorNode | null = null;
     private master: GainNode | null = null;
     private loading: Promise<void> | null = null;
     private listeners = new Set<() => void>();
@@ -71,6 +72,30 @@ export class AudioEngine {
         this.loading ??= this.load();
         this.ambienceMixer.select(this.map, this.marsInside);
     }
+    playPowerUp() {
+        const context = this.context;
+        if (!context || !this.master || this.blocked || this.muted || context.state !== 'running') return;
+        this.stopPowerUp();
+        const tone = context.createOscillator(), gain = context.createGain();
+        const now = context.currentTime;
+        tone.type = 'triangle';
+        tone.frequency.setValueAtTime(68, now);
+        tone.frequency.exponentialRampToValueAtTime(392, now + 1.55);
+        gain.gain.setValueAtTime(.001, now);
+        gain.gain.exponentialRampToValueAtTime(.14, now + .36);
+        gain.gain.exponentialRampToValueAtTime(.001, now + 1.7);
+        tone.connect(gain); gain.connect(this.master);
+        tone.onended = () => {
+            tone.disconnect(); gain.disconnect();
+            if (this.powerTone === tone) this.powerTone = null;
+        };
+        this.powerTone = tone;
+        tone.start(now); tone.stop(now + 1.72);
+    }
+    stopPowerUp() {
+        this.powerTone?.stop();
+        this.powerTone = null;
+    }
     private syncPlayback() {
         const blocked = this.blocked || this.muted;
         this.ambienceMixer?.setBlocked(blocked || this.map === null);
@@ -111,7 +136,7 @@ export class AudioEngine {
         this.blocked = blocked;
         this.syncPlayback();
         const revision = ++this.gateRevision;
-        if (blocked) this.stopAll();
+        if (blocked) { this.stopAll(); this.stopPowerUp(); }
         const c = this.context;
         if (c) void (blocked ? c.suspend() : c.resume()).then(() => {
             // Mudança de foco/diálogo durante uma transição assíncrona: converge ao gate atual.

@@ -24,6 +24,8 @@ import manifest from '../../assets/colony-v007.manifest.json';
 import { MasterplanRuntime } from './masterplanRuntime';
 import { DeckProps } from './DeckProps';
 import { AresLanding } from './AresLanding';
+import { ColonyActivation } from './ColonyActivation';
+import { ColonyInteriorLights } from './ColonyInteriorLights';
 import { Greenhouse } from './Greenhouse';
 import { removeProvisionalGreenhouse } from './greenhouseRuntime';
 import { sandwindPreviewEnabled } from './sandwindPolicy';
@@ -46,7 +48,7 @@ export function MarsColony({ world }: { world: OfficeWorld }) {
         return () => { scene.removeFromParent(); instance.dispose(); geometry.forEach(g => g.dispose()); runtime.current = undefined; };
     }, [gltf.scene]);
     useFrame((_, delta) => runtime.current?.update(playerPosition, delta));
-    const visuals = <><group ref={visual} dispose={null}/><AresLanding/><DeckProps/><Greenhouse/><Hangar/><Quartel world={world}/><QuartelCirculation/><Laboratorio world={world}/><ControlRoom/><ControlRoomEden/><ColonySharedFloor/><ColonyBuildings world={world}/><PerimeterSoftLights/></>;
+    const visuals = <><group ref={visual} dispose={null}/><AresLanding/><DeckProps/><Greenhouse/><Hangar/><Quartel world={world}/><QuartelCirculation/><Laboratorio world={world}/><ControlRoom/><ControlRoomEden/><ColonySharedFloor/><ColonyBuildings world={world}/><PerimeterSoftLights/><ColonyInteriorLights/><ColonyActivation/></>;
     // Atmosfera fixa por padrão; ?sandwindPreview=0 conserva a comparação sem descarte.
     return preview ? <group ref={scope} name="SandwindColonyV007">{visuals}
         <Suspense fallback={null}><ColonySandwind scope={scope} masterplan={visual}/></Suspense>

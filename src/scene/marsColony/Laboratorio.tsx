@@ -1,3 +1,5 @@
+import { useActivationSequence } from './activationSequence';
+import { bindBuildingPower } from './colonyPower';
 import { InteractionBubble } from '../../interactions/InteractionBubble';
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
@@ -16,7 +18,6 @@ import { applyColonyShell } from './colonyShell';
 import { createLaboratorioWalkways } from './laboratorioWalkways';
 export const LABORATORIO_SHELL_URL = shellUrl;
 import { LaboratorioRuntime, type LaboratorioMode } from './laboratorioRuntime';
-import { bindColonyPower } from './colonyPower';
 const activateSynthesizer = () => useExpeditionStore.getState().activateSynthesizer();
 const modes: { mode: LaboratorioMode; label: string }[] = [
     { mode: 'Idle_Ready', label: 'Pronta' }, { mode: 'Synthesizing', label: 'Sintetizar' },
@@ -29,15 +30,16 @@ export function Laboratorio({ world }: { world: OfficeWorld }) {
     const [open, setOpen] = useState(false);
     const toggle = useCallback(() => setOpen(value => !value), []), close = useCallback(() => setOpen(false), []);
     const [mode, setMode] = useState<LaboratorioMode>('Idle_Ready');
+    const updatePower = useRef<() => number>(() => 0);
     useLayoutEffect(() => {
         const scene = clone(gltf.scene); scene.name = 'LaboratorioVisual';
         applyColonyShell(scene, shell.scene, ['Building_Roof']);
         const next = new LaboratorioRuntime(scene, gltf.animations, world.movingCuboids);
-        const unbind = bindColonyPower(scene, 'synthesizerActive', active => next.setMode(active ? 'Idle_Ready' : 'Standby_PowerDown'));
+        updatePower.current = bindBuildingPower(scene, 'laboratory');
+        next.setMode(updatePower.current() > 0 ? 'Idle_Ready' : 'Standby_PowerDown');
         runtime.current = next; visual.current!.add(scene);
         const paving = createLaboratorioWalkways(scene); walkways.current!.add(paving);
         return () => {
-            unbind?.();
             paving.removeFromParent();
             scene.removeFromParent(); next.dispose(); runtime.current = undefined;
             scene.traverse(node => { const mesh = node as SkinnedMesh; if (mesh.isSkinnedMesh) mesh.skeleton.dispose(); });
@@ -51,8 +53,10 @@ export function Laboratorio({ world }: { world: OfficeWorld }) {
         return () => window.removeEventListener('keydown', key);
     }, []);
     useFrame((_, delta) => {
-        const blocked = simulationBlocked();
-        runtime.current?.update(playerPosition, blocked ? 0 : delta);
+        const power = updatePower.current();
+        const starting = useActivationSequence.getState().kind === 'synthesizerActive';
+        if (campaign) runtime.current?.setCampaignPower(starting || power > 0, starting);
+        runtime.current?.update(playerPosition, simulationBlocked(starting) ? 0 : delta);
     });
     return <><group name="Laboratorio"><group ref={visual} position={[LABORATORIO.placement.x, 0, LABORATORIO.placement.z]} dispose={null}/>
         {campaign ? <InteractionBubble id="activate-synthesizer" label="Ligar sintetizador orgânico" point={LABORATORIO.console}

@@ -26,6 +26,7 @@ export class LaboratorioRuntime {
     private leaves: ({ left: Object3D; right: Object3D; rest: number } | null)[];
     private readonly atlasSampling: BuildingAtlasSampling;
     private motions: SimpleCuboid[];
+    private campaignStarting = false;
     private disposed = false;
 
     constructor(private scene: Object3D, clips: AnimationClip[], motions = createLaboratorioDoorColliders()) {
@@ -97,6 +98,20 @@ export class LaboratorioRuntime {
         this.mixer.stopAllAction();
         this.mode = mode;
         this.actions[LABORATORIO_MODES.indexOf(mode)].reset().play();
+    }
+
+    setCampaignPower(powered: boolean, starting: boolean) {
+        const synthesis = this.actions[1];
+        if (starting && !this.campaignStarting) {
+            this.campaignStarting = true;
+            synthesis.setLoop(LoopOnce, 1);
+            this.setMode('Synthesizing');
+            return;
+        }
+        if (starting && this.mode === 'Synthesizing' && synthesis.isRunning()) return;
+        this.campaignStarting = starting;
+        const mode = powered ? 'Idle_Ready' : 'Standby_PowerDown';
+        if (this.mode !== mode) this.setMode(mode);
     }
 
     update(player: { x: number; z: number }, delta: number) {
