@@ -7,16 +7,17 @@ import greenhouse from '../../assets/greenhouse/greenhouse-v001.manifest.json';
 
 const roof = (id: string) => COLONY_BUILDINGS.find(building => building.id === id)!.roofArea;
 
+/** `glow: false` remove toda face emissiva do prédio; nos demais só o interior brilha (ver colonyPower.ts). */
 export const COLONY_POWER = {
-    'control-room': { flag: 'edenActive', delay: 1.5, bounds: CONTROL_ROOM.roofArea, ceiling: 2.55, initial: 0 },
-    'data-center': { flag: 'edenActive', delay: 2.1, bounds: roof('data-center'), ceiling: 2.55, initial: 1 },
-    'meeting-room': { flag: 'edenActive', delay: 2.7, bounds: roof('meeting-room'), ceiling: 2.55, initial: 0 },
-    barracks: { flag: 'edenActive', delay: 3.3, bounds: QUARTEL.roofArea, ceiling: 2.6, initial: 0 },
-    workshop: { flag: 'edenActive', delay: 3.3, bounds: roof('workshop'), ceiling: 2.55, initial: 1 },
-    hangar: { flag: 'edenActive', delay: 3.3, bounds: HANGAR.walkableAreas[0], ceiling: 3.45, initial: 0.16 },
-    laboratory: { flag: 'synthesizerActive', delay: 2.2, bounds: LABORATORIO.roofArea, ceiling: 2.65, initial: 0 },
-    greenhouse: { flag: 'synthesizerActive', delay: 3, bounds: greenhouse.walkableAreas[0], ceiling: 2.5, initial: 0 },
-    cafeteria: { flag: 'synthesizerActive', delay: 3.8, bounds: roof('cafeteria'), ceiling: 2.55, initial: 0 }
+    'control-room': { flag: 'edenActive', delay: 1.5, bounds: CONTROL_ROOM.roofArea, ceiling: 2.55, initial: 0, glow: true },
+    'data-center': { flag: 'edenActive', delay: 2.1, bounds: roof('data-center'), ceiling: 2.55, initial: 1, glow: true },
+    'meeting-room': { flag: 'edenActive', delay: 2.7, bounds: roof('meeting-room'), ceiling: 2.55, initial: 0, glow: true },
+    barracks: { flag: 'edenActive', delay: 3.3, bounds: QUARTEL.roofArea, ceiling: 2.6, initial: 0, glow: true },
+    workshop: { flag: 'edenActive', delay: 3.3, bounds: roof('workshop'), ceiling: 2.55, initial: 1, glow: true },
+    hangar: { flag: 'edenActive', delay: 3.3, bounds: HANGAR.walkableAreas[0], ceiling: 3.45, initial: 0.16, glow: false },
+    laboratory: { flag: 'synthesizerActive', delay: 2.2, bounds: LABORATORIO.roofArea, ceiling: 2.65, initial: 0, glow: true },
+    greenhouse: { flag: 'synthesizerActive', delay: 3, bounds: greenhouse.walkableAreas[0], ceiling: 2.5, initial: 0, glow: true },
+    cafeteria: { flag: 'synthesizerActive', delay: 3.8, bounds: roof('cafeteria'), ceiling: 2.55, initial: 0, glow: true }
 } as const;
 
 export type PoweredBuilding = keyof typeof COLONY_POWER;

@@ -231,3 +231,29 @@ function loadGlbPositions(path, nodeName) {
     }
     return out;
 }
+
+test('S6.19: fachadas não brilham e o Hangar perde todas as faces emissivas legadas', () => {
+    const load = createSourceLoader();
+    const { bindBuildingPower } = load('src/scene/marsColony/colonyPower.ts');
+    const { COLONY_POWER } = load('src/scene/marsColony/colonyPowerConfig.ts');
+    assert.deepEqual(Object.entries(COLONY_POWER).filter(([, config]) => !config.glow).map(([id]) => id), ['hangar']);
+    const compile = material => {
+        const shader = { uniforms: {}, vertexShader: ShaderLib.standard.vertexShader, fragmentShader: ShaderLib.standard.fragmentShader };
+        material.onBeforeCompile(shader);
+        return shader.fragmentShader;
+    };
+    // Sala de EDEN: equipamento interno continua emissivo; fora da sala o shader zera a emissão.
+    const control = new MeshStandardMaterial({ emissive: 'white', emissiveIntensity: 1.1 });
+    control.emissiveMap = {};
+    bindBuildingPower(new Mesh(undefined, control), 'control-room');
+    assert.ok(control.emissiveMap && control.emissive.getHex() !== 0);
+    const source = compile(control);
+    assert.match(source, /if \(!colonyInterior\) totalEmissiveRadiance = vec3\(0\.0\);/);
+    // A regra entra depois de a emissão ser somada e antes da iluminação.
+    assert.ok(source.indexOf('#include <emissivemap_fragment>') < source.indexOf('if (!colonyInterior) totalEmissiveRadiance'));
+    const hangar = new MeshStandardMaterial({ emissive: 'white', emissiveIntensity: 1.2 });
+    hangar.emissiveMap = {};
+    bindBuildingPower(new Mesh(undefined, hangar), 'hangar');
+    assert.equal(hangar.emissiveMap, null);
+    assert.equal(hangar.emissive.getHex(), 0);
+});

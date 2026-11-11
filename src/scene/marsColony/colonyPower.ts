@@ -43,6 +43,8 @@ export function bindBuildingPower(scene: Object3D, id: PoweredBuilding, greenhou
             const standard = material as MeshStandardMaterial;
             if (!standard.isMeshStandardMaterial || materials.has(standard)) continue;
             materials.add(standard);
+            // Prédio sem equipamento luminoso próprio (Hangar): nenhuma face emissiva, nem por dentro.
+            if (!config.glow) { standard.emissive.setScalar(0); standard.emissiveMap = null; }
             if (standard.emissiveIntensity > 0 && standard.emissive.getHex() !== 0)
                 emissives.push({ material: standard, intensity: standard.emissiveIntensity });
             standard.customProgramCacheKey = () => 'colony-interior';
@@ -93,6 +95,9 @@ const indoorLighting = `
     // Piso e tampos escuros clareiam com a energia; juntas e desenho da textura continuam visíveis.
     if (colonyInterior) material.diffuseColor = mix(material.diffuseColor,
         pow(material.diffuseColor, vec3(${INTERIOR_LIGHT.floorGamma.toFixed(2)})), colonyUp * colonyLift);
+    // Fachadas, telhados e portas não brilham: contornos e pontilhados emissivos dos modelos antigos
+    // saem do exterior. Quem mostra um prédio ligado é o interior (e a fumaça ou a corrente).
+    if (!colonyInterior) totalEmissiveRadiance = vec3(0.0);
 ` + ShaderChunk.lights_fragment_begin
     .replace('getDirectionalLightInfo( directionalLight, directLight );',
         'getDirectionalLightInfo( directionalLight, directLight ); if (colonyInterior) directLight.color *= 0.0;')
