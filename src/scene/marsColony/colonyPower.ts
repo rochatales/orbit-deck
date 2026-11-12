@@ -1,4 +1,4 @@
-import { Color, ShaderChunk, Vector4, type Mesh, type MeshStandardMaterial, type Object3D } from 'three';
+import { Color, ShaderChunk, Vector4, type Material, type Mesh, type MeshStandardMaterial, type Object3D } from 'three';
 import { useCampaignStore } from '../../state/useCampaignStore';
 import { buildingPower } from './activationSequence';
 import { COLONY_POWER, INTERIOR_LIGHT, type PoweredBuilding } from './colonyPowerConfig';
@@ -174,43 +174,70 @@ export function interiorPowerAt(x: number, z: number) {
     return -1;
 }
 
-/** Luz do ambiente sobre o personagem: uniformes globais, atualizados por quadro só em Marte. */
-export const characterInterior = { light: { value: new Color(0, 0, 0) }, inside: { value: 0 } };
 const characterLighting = ShaderChunk.lights_fragment_begin
     .replace('getDirectionalLightInfo( directionalLight, directLight );',
         'getDirectionalLightInfo( directionalLight, directLight ); directLight.color *= 1.0 - colonyInside;')
     .replace('vec3 irradiance = getAmbientLightIrradiance( ambientLightColor );',
         'vec3 irradiance = getAmbientLightIrradiance( ambientLightColor ) + colonyCharacterLight;');
-/** Encadeia com patches existentes (areia): dentro de um prédio o sol sai e entra a luz branca da sala. */
-export function bindCharacterInteriorLight(scene: Object3D) {
-    const seen = new Set<MeshStandardMaterial>();
-    scene.traverse(node => {
-        const mesh = node as Mesh;
-        if (!mesh.isMesh) return;
-        for (const material of Array.isArray(mesh.material) ? mesh.material : [mesh.material]) {
-            const standard = material as MeshStandardMaterial;
-            if (!standard.isMeshStandardMaterial || seen.has(standard)) continue;
-            seen.add(standard);
-            const compile = standard.onBeforeCompile, key = standard.customProgramCacheKey;
-            standard.customProgramCacheKey = () => key.call(standard) + ':colony-character';
-            standard.onBeforeCompile = (shader, renderer) => {
-                compile.call(standard, shader, renderer);
-                shader.uniforms.colonyCharacterLight = characterInterior.light;
-                shader.uniforms.colonyInside = characterInterior.inside;
+/** Um personagem e seus equipamentos compartilham a luz da posição dele. */
+export function createCharacterInteriorLight() {
+    const light = { value: new Color(0, 0, 0) }, inside = { value: 0 };
+    const bound = new WeakSet<MeshStandardMaterial>();
+    let level = 0;
+
+    function bind(scene: Object3D, sharedMaterials = false) {
+        const copies = new Map<MeshStandardMaterial, MeshStandardMaterial>();
+        const restores: { mesh: Mesh; material: Mesh['material'] }[] = [];
+        const prepare = (original: Material) => {
+            const source = original as MeshStandardMaterial;
+            if (!source.isMeshStandardMaterial) return original;
+            let material = source;
+            if (sharedMaterials) {
+                const copy = copies.get(source);
+                if (copy) return copy;
+                material = source.clone();
+                material.onBeforeCompile = source.onBeforeCompile;
+                material.customProgramCacheKey = source.customProgramCacheKey;
+                copies.set(source, material);
+            }
+            if (bound.has(material)) return material;
+            bound.add(material);
+            const compile = material.onBeforeCompile, key = material.customProgramCacheKey;
+            material.customProgramCacheKey = () => key.call(material) + ':colony-character';
+            material.onBeforeCompile = (shader, renderer) => {
+                compile.call(material, shader, renderer);
+                shader.uniforms.colonyCharacterLight = light;
+                shader.uniforms.colonyInside = inside;
                 shader.fragmentShader = 'uniform vec3 colonyCharacterLight; uniform float colonyInside;\n'
                     + shader.fragmentShader.replace('#include <lights_fragment_begin>', characterLighting);
             };
-            standard.needsUpdate = true;
+            material.needsUpdate = true;
+            return material;
+        };
+        scene.traverse(node => {
+            const mesh = node as Mesh;
+            if (!mesh.isMesh) return;
+            if (sharedMaterials) restores.push({ mesh, material: mesh.material });
+            mesh.material = Array.isArray(mesh.material) ? mesh.material.map(prepare) : prepare(mesh.material);
+        });
+        return () => {
+            for (const { mesh, material } of restores) mesh.material = material;
+            for (const material of copies.values()) material.dispose();
+        };
+    }
+
+    return {
+        bind,
+        update(x: number, z: number, step: number) {
+            const power = interiorPowerAt(x, z);
+            inside.value += ((power >= 0 ? 1 : 0) - inside.value) * step;
+            level += (Math.max(0, power) * INTERIOR_LIGHT.character - level) * step;
+            light.value.copy(white).multiplyScalar(level);
+        },
+        reset() {
+            level = inside.value = 0;
+            light.value.setScalar(0);
         }
-    });
+    };
 }
-/** step = fração de aproximação do quadro; (x, z) fora de Marte nunca é chamado. */
-export function updateCharacterInterior(x: number, z: number, step: number) {
-    const power = interiorPowerAt(x, z), inside = characterInterior.inside;
-    inside.value += ((power >= 0 ? 1 : 0) - inside.value) * step;
-    const target = Math.max(0, power) * INTERIOR_LIGHT.character * inside.value;
-    characterInterior.light.value.copy(white).multiplyScalar(target);
-}
-export function resetCharacterInterior() {
-    characterInterior.inside.value = 0; characterInterior.light.value.setScalar(0);
-}
+export type CharacterInteriorLight = ReturnType<typeof createCharacterInteriorLight>;

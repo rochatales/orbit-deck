@@ -1,6 +1,7 @@
 import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import { Component, Suspense, useEffect, useMemo, type MutableRefObject, type ReactNode } from 'react';
+import type { CharacterInteriorLight } from '../../scene/marsColony/colonyPower';
 import { Mesh, type Object3D } from 'three';
 import rifleAsset from '../../assets/weapons/rifle-laser-v001.glb';
 import { attachRifle, attachBackRifle, attachHolsteredRifle, detachRifle, RifleAimRig } from './rifleAttachment';
@@ -18,15 +19,17 @@ interface PlayerRifleProps {
   motionRef: MutableRefObject<PlayerMotionState>;
   scene: Object3D;
   onAttached: (attached: boolean) => void;
+  interiorLight?: CharacterInteriorLight | null;
 }
 
-function HandRifle({ scene, onAttached, motionRef, combat, equipped = true }: PlayerRifleProps) {
+function HandRifle({ scene, onAttached, motionRef, combat, equipped = true, interiorLight }: PlayerRifleProps) {
   const gltf = useGLTF(rifleAsset);
   const rifle = useMemo(() => {
     const copy = gltf.scene.clone(true);
     copy.traverse(node => { if (node instanceof Mesh) { node.castShadow = true; node.receiveShadow = true; } });
     return copy;
   }, [gltf.scene]);
+  useEffect(() => interiorLight?.bind(rifle, true), [interiorLight, rifle]);
   const rig = useMemo(() => new RifleAimRig(scene, rifle, PLAYER_COLLIDER_CENTER_Y + PLAYER_MODEL_ROOT_Y, VISOR_LIGHT.headOffset), [scene, rifle]);
   useFrame(() => {
     if (combat && equipped && !simulationBlocked() && rifle.parent) rig.update(

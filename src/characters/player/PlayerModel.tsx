@@ -4,13 +4,14 @@ import { useCampaignStore } from '../../state/useCampaignStore';
 import { campaignRifleAllowed, campaignSwordAllowed } from '../../game/campaignPolicy';
 import { PlayerMachete, PlayerMacheteClips } from './PlayerMachete';
 import { createSwordLight } from './swordNeon';
+import { playerVisualPosition } from '../../state/playerTransient';
 import { playerStepDust } from './stepDust';
 import { useExpeditionStore } from "../../state/useExpeditionStore";
 import { useCallback, useEffect, useMemo, useRef, useState, type MutableRefObject } from "react";
 import { useFrame } from "@react-three/fiber";
 import type { Group, Object3D } from "three";
 import { useCombatStore } from "../../state/useCombatStore";
-import { bindCharacterInteriorLight } from "../../scene/marsColony/colonyPower";
+import { createCharacterInteriorLight } from "../../scene/marsColony/colonyPower";
 import { GLBCharacter, type GLBActionMap } from "../GLBCharacter";
 import { PLAYER_ASSET_VARIANTS, type PlayerAssetVariant } from "../characterAssetConfig";
 import { LocomotionController } from "./LocomotionController";
@@ -42,6 +43,11 @@ function PlayerVariant({ motionRef, combat, variant }: PlayerModelProps & { vari
   const macheteCarry = weaponCarryMode('machete', weapon, combat, swordAllowed && acquisition !== 'machete');
   const falling = useCombatStore(s => s.dead) && combat && weapon === 'machete';
   const bodyRef = useRef<Group>(null);
+  const interiorLight = useMemo(() => combat ? null : createCharacterInteriorLight(), [combat]);
+  useEffect(() => interiorLight?.reset, [interiorLight]);
+  useFrame((_, delta) => {
+    interiorLight?.update(playerVisualPosition.x, playerVisualPosition.z, 1 - Math.exp(-8 * Math.min(.05, delta)));
+  });
   const swordLight = useMemo(() => createSwordLight(), []);
   useFrame(() => { if (bodyRef.current) bodyRef.current.rotation.y = motionRef.current.bodyYaw; }, -35);
   const asset = PLAYER_ASSET_VARIANTS[variant];
@@ -65,10 +71,10 @@ function PlayerVariant({ motionRef, combat, variant }: PlayerModelProps & { vari
   const onSceneReady = useCallback((scene: Object3D) => {
     setScene(scene);
     // Em Marte, dentro de um prédio, o Salvager troca o sol pela luz branca da sala.
-    bindCharacterInteriorLight(scene);
+    interiorLight?.bind(scene);
     // Só em desenvolvimento: medição do contato dos pés no navegador (handoff da S2.12).
     if (import.meta.env.DEV) (window as unknown as { __hordaPlayerScene?: Object3D }).__hordaPlayerScene = scene;
-  }, []);
+  }, [interiorLight]);
 
   return (
     <>
@@ -94,11 +100,11 @@ function PlayerVariant({ motionRef, combat, variant }: PlayerModelProps & { vari
         </group>
         <LocomotionController motionRef={motionRef} actions={combinedActions} asset={asset} combat={combat} />
         {variant === 'astronauta' && swordAllowed && <PlayerMacheteClips actions={actions} ready={setMacheteActions}/>}
-        {variant === 'astronauta' && scene && macheteCarry !== 'hidden' && <PlayerMachete scene={scene} motionRef={motionRef} combat={combat} light={combat ? swordLight : null}/>}
+        {variant === 'astronauta' && scene && macheteCarry !== 'hidden' && <PlayerMachete scene={scene} motionRef={motionRef} combat={combat} interiorLight={interiorLight} light={combat ? swordLight : null}/>}
         {variant === 'astronauta' && combat && <primitive object={swordLight} dispose={null}/>}
-        {variant === 'astronauta' && scene && <PlayerBackpack scene={scene} illuminated={combat} />}
+        {variant === 'astronauta' && scene && <PlayerBackpack scene={scene} illuminated={combat} interiorLight={interiorLight} />}
         {variant === 'astronauta' && scene && <ColonyPlayerVisor scene={scene} illuminated={!combat} />}
-        {variant === 'astronauta' && scene && rifleCarry !== 'hidden' && <PlayerRifle equipped={weapon === 'rifle'} combat={combat} scene={scene} motionRef={motionRef} onAttached={setRifleAttached} />}
+        {variant === 'astronauta' && scene && rifleCarry !== 'hidden' && <PlayerRifle equipped={weapon === 'rifle'} combat={combat} scene={scene} motionRef={motionRef} onAttached={setRifleAttached} interiorLight={interiorLight} />}
       </group>
       {rifleCarry === 'hand' && !rifleAttached && <group name="PlayerRifle" position={[RIFLE_POSE.side, RIFLE_POSE.height - PLAYER_COLLIDER_CENTER_Y, RIFLE_POSE.gripForward]}>
         <mesh castShadow><boxGeometry args={[0.16, 0.18, 0.7]} /><meshStandardMaterial color="#243842" /></mesh>

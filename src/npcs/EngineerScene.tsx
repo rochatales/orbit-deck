@@ -12,6 +12,7 @@ import { playerPosition } from '../state/playerTransient';
 import { useExpeditionStore } from '../state/useExpeditionStore';
 import { useCampaignStore } from '../state/useCampaignStore';
 import { useGameStore } from '../state/useGameStore';
+import { createCharacterInteriorLight } from '../scene/marsColony/colonyPower';
 import { InteractionBubble } from '../interactions/InteractionBubble';
 import url from '../assets/characters/npcs/engenheiro-v001.glb';
 
@@ -22,10 +23,13 @@ export function EngineerScene({ world }: { world: OfficeWorld }) {
         && (s.saved?.campaign.stage === 'engineer-briefing' || s.saved?.campaign.stage === 'engineer-return-briefing'));
     const gltf = useGLTF(url), body = useRef<RapierRigidBody>(null), visual = useRef<Group>(null);
     const routine = useMemo(() => new EngineerRoutine(world), [world]);
+    const interiorLight = useMemo(createCharacterInteriorLight, []);
     const rig = useRef<EngineerRig>(), clock = useRef(0);
     const previewMood = useMemo(() => engineerPreviewMood(window.location.search), []);
     useLayoutEffect(() => {
         const root = clone(gltf.scene), instance = new EngineerRig(root, gltf.animations, visual.current!);
+        interiorLight.bind(root);
+        interiorLight.update(routine.position.x, routine.position.z, 1);
         visual.current!.add(root); rig.current = instance;
         engineerPresence.x = routine.position.x; engineerPresence.y = routine.position.y; engineerPresence.z = routine.position.z;
         engineerPresence.seated = routine.state.seated > 0;
@@ -33,10 +37,11 @@ export function EngineerScene({ world }: { world: OfficeWorld }) {
         engineerPresence.world = world; engineerPresence.active = true;
         instance.update(routine.state, 0, routine.position);
         return () => {
+            interiorLight.reset();
             root.removeFromParent(); instance.dispose(); rig.current = undefined;
             if (engineerPresence.world === world) { engineerPresence.active = false; engineerPresence.world = null; }
         };
-    }, [gltf.scene, gltf.animations, routine, world]);
+    }, [gltf.scene, gltf.animations, routine, world, interiorLight]);
     useFrame((_, delta) => {
         const expedition = useExpeditionStore.getState(), campaign = useCampaignStore.getState();
         const talking = expedition.panel === 'engineer';
@@ -57,6 +62,7 @@ export function EngineerScene({ world }: { world: OfficeWorld }) {
         engineerPresence.approach.x = routine.state.x; engineerPresence.approach.z = routine.state.z;
         body.current?.setNextKinematicTranslation(p);
         rig.current?.update(routine.state, dt, p);
+        interiorLight.update(p.x, p.z, 1 - Math.exp(-8 * dt));
     });
     return <>
         <RigidBody ref={body} name="Engenheiro" type="kinematicPosition" colliders={false} canSleep={false} friction={0} position={[ENGINEER.start.x, 0, ENGINEER.start.z]}>

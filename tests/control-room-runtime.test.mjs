@@ -23,9 +23,13 @@ test('Prédios aprovados: snapshot íntegro; 9320/8732 triângulos e UVs válido
    // A S5.3 conecta a energia da campanha sem alterar o asset aprovado.
    let code=fs.readFileSync(f.arquivo,'utf8');
    for(const line of [
+    "import { bindControlRoomScreens } from './controlRoomScreens';\n",
     "import { bindBuildingPower } from './colonyPower';\n",
-    "    const updatePower = useRef<() => number>(() => 0);\n",
-    "        updatePower.current = bindBuildingPower(scene, 'control-room', power => next.setPowered(power > .08));\n",
+    "    const updatePower = useRef<() => void>(() => {});\n",
+    "        const power = bindBuildingPower(scene, 'control-room', level => next.setPowered(level > .08));\n",
+    "        const screens = bindControlRoomScreens(scene);\n",
+    "        updatePower.current = () => screens.update(power());\n",
+    "            screens.dispose();\n",
     "        updatePower.current();\n",
    ]){assert.ok(code.includes(line));code=code.replace(line,'');}
    code=code.replace('=> { updatePower.current(); runtime.current?.update(playerPosition, simulationBlocked() ? 0 : delta); });','=> runtime.current?.update(playerPosition, simulationBlocked() ? 0 : delta));');

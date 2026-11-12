@@ -6,6 +6,7 @@ import type { Group } from 'three';
 import { playerPosition } from '../../state/playerTransient';
 import { simulationBlocked } from '../../game/simulationGate';
 import url from '../../assets/control-room/control-room-v002.glb';
+import { bindControlRoomScreens } from './controlRoomScreens';
 import { ControlRoomRuntime } from './controlRoomRuntime';
 
 export function ControlRoom() {
@@ -13,17 +14,20 @@ export function ControlRoom() {
     const visual = useRef<Group>(null);
     const runtime = useRef<ControlRoomRuntime>();
 
-    const updatePower = useRef<() => number>(() => 0);
+    const updatePower = useRef<() => void>(() => {});
     useLayoutEffect(() => {
         const scene = gltf.scene.clone(true);
         scene.name = 'ControlRoomVisual';
         const next = new ControlRoomRuntime(scene);
-        updatePower.current = bindBuildingPower(scene, 'control-room', power => next.setPowered(power > .08));
+        const power = bindBuildingPower(scene, 'control-room', level => next.setPowered(level > .08));
+        const screens = bindControlRoomScreens(scene);
+        updatePower.current = () => screens.update(power());
         updatePower.current();
         runtime.current = next;
         visual.current!.add(scene);
         return () => {
             scene.removeFromParent();
+            screens.dispose();
             next.dispose();
             runtime.current = undefined;
         };

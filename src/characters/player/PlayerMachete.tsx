@@ -1,3 +1,4 @@
+import type { CharacterInteriorLight } from '../../scene/marsColony/colonyPower';
 import { useFrame } from '@react-three/fiber';
 import { simulationBlocked } from '../../game/simulationGate';
 import { useGLTF } from '@react-three/drei';
@@ -16,13 +17,22 @@ import clipsAsset from '../../assets/characters/player/explorador-facao-v001.glb
 import swordClipsAsset from '../../assets/characters/player/explorador-espada-v002.glb';
 import { attachMachete, attachHolsteredMachete, MacheteGripRig, MacheteHolsterRig } from './macheteAttachment';
 
-function Sword({ scene, motionRef, combat, light }: { scene: Object3D; motionRef: MutableRefObject<PlayerMotionState>; combat: boolean; light?: PointLight | null }) {
+interface PlayerMacheteProps {
+  scene: Object3D;
+  motionRef: MutableRefObject<PlayerMotionState>;
+  combat: boolean;
+  light?: PointLight | null;
+  interiorLight?: CharacterInteriorLight | null;
+}
+
+function Sword({ scene, motionRef, combat, light, interiorLight }: PlayerMacheteProps) {
   const gltf = useGLTF(weaponAsset);
   const sword = useMemo(() => {
     const copy = gltf.scene.clone(true);
     copy.traverse(node => { const mesh = node as Mesh; if (mesh.isMesh) { mesh.castShadow = true; mesh.receiveShadow = true; } });
     return copy;
   }, [gltf.scene]);
+  useEffect(() => interiorLight?.bind(sword, true), [interiorLight, sword]);
   const rig = useMemo(() => new MacheteGripRig(scene, sword), [scene, sword]);
   const holster = useMemo(() => new MacheteHolsterRig(scene, sword), [scene, sword]);
   const neonRef = useRef<ReturnType<typeof createSwordNeon> | null>(null);
@@ -83,8 +93,8 @@ class MacheteBoundary extends Component<{ children: ReactNode }, { failed: boole
   static getDerivedStateFromError() { return { failed: true }; }
   render() { return this.state.failed ? null : this.props.children; }
 }
-export function PlayerMachete({ scene, motionRef, combat, light }: { scene: Object3D; motionRef: MutableRefObject<PlayerMotionState>; combat: boolean; light?: PointLight | null }) {
-  return <MacheteBoundary><Suspense fallback={null}><Sword scene={scene} motionRef={motionRef} combat={combat} light={light}/></Suspense></MacheteBoundary>;
+export function PlayerMachete(props: PlayerMacheteProps) {
+  return <MacheteBoundary><Suspense fallback={null}><Sword {...props}/></Suspense></MacheteBoundary>;
 }
 export function PlayerMacheteClips(props: { actions: GLBActionMap; ready: (actions: GLBActionMap) => void }) {
   return <MacheteBoundary><Suspense fallback={null}><Clips {...props}/></Suspense></MacheteBoundary>;

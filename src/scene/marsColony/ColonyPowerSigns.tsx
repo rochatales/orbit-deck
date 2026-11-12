@@ -1,16 +1,15 @@
 import { useFrame } from '@react-three/fiber';
-import { useEffect, useMemo, type RefObject } from 'react';
-import { AdditiveBlending, BufferAttribute, BufferGeometry, Color, DoubleSide, NormalBlending, ShaderMaterial } from 'three';
+import { useMemo, useRef, type RefObject } from 'react';
+import { AdditiveBlending, BufferAttribute, BufferGeometry, Color, DoubleSide, NormalBlending, ShaderMaterial, type Mesh } from 'three';
 import { COLONY_BUILDINGS } from '../../game/colonyBuildingsLayout';
 import { useCampaignStore } from '../../state/useCampaignStore';
 import { useGameStore } from '../../state/useGameStore';
-import { playerVisualPosition } from '../../state/playerTransient';
-import { resetCharacterInterior, updateCharacterInterior } from './colonyPower';
 import { buildingPower } from './activationSequence';
 import { COLONY_POWER, SOLAR_CURRENT, WORKSHOP_SMOKE } from './colonyPowerConfig';
 import type { ColonyBuildingRuntime } from './colonyBuildingRuntime';
 
-const power = (id: 'workshop' | 'data-center') => {
+type SolarBuilding = 'data-center' | 'control-room';
+const power = (id: 'workshop' | SolarBuilding) => {
     const { mode, saved } = useCampaignStore.getState();
     return buildingPower(id, mode === 'campaign', !!saved?.campaign[COLONY_POWER[id].flag]);
 };
@@ -73,9 +72,12 @@ export function WorkshopSmoke({ runtime }: { runtime: RefObject<ColonyBuildingRu
         }}/>;
 }
 
-/** Pulsos de corrente no cabo da fazenda solar até o Data Center: o prédio recebe energia. */
-function SolarCurrent() {
-    const { x, y, fromZ, toZ, width } = SOLAR_CURRENT, length = Math.abs(toZ - fromZ);
+/** Pulsos no sentido da fazenda solar para o prédio. */
+function SolarCurrent({ building }: { building: SolarBuilding }) {
+    const { y, width } = SOLAR_CURRENT;
+    const { fromX, fromZ, toX, toZ } = SOLAR_CURRENT[building];
+    const dx = toX - fromX, dz = toZ - fromZ, length = Math.hypot(dx, dz);
+    const mesh = useRef<Mesh>(null);
     const material = useMemo(() => new ShaderMaterial({
         transparent: true, depthWrite: false, blending: AdditiveBlending, side: DoubleSide,
         uniforms: { time: { value: 0 }, power: { value: 0 }, tint: { value: new Color(SOLAR_CURRENT.color) } },
@@ -94,22 +96,19 @@ function SolarCurrent() {
             }`
     }), [length]);
     useFrame((_, delta) => {
-        material.uniforms.power.value = power('data-center');
+        const energy = power(building);
+        material.uniforms.power.value = energy;
+        if (mesh.current) mesh.current.visible = energy > 0;
         if (!useGameStore.getState().isPaused) material.uniforms.time.value += Math.min(delta, .05);
     });
     // Plano deitado sobre o cabo; rotação mantém uv.y no sentido fazenda → prédio.
-    return <mesh name="SolarCurrent" position={[x, y, (fromZ + toZ) / 2]} rotation={[-Math.PI / 2, 0, toZ > fromZ ? Math.PI : 0]} material={material} renderOrder={4}>
+    return <mesh ref={mesh} name={building === 'control-room' ? 'EdenSolarCurrent' : 'SolarCurrent'}
+        position={[(fromX + toX) / 2, y, (fromZ + toZ) / 2]} rotation={[-Math.PI / 2, 0, Math.atan2(-dx, -dz)]}
+        visible={false} material={material} renderOrder={4}>
         <planeGeometry args={[width, length]}/>
     </mesh>;
 }
 
-/** O Salvager recebe a luz da sala em que está; ao sair de Marte volta à luz do mapa. */
-function CharacterInteriorLight() {
-    useEffect(() => resetCharacterInterior, []);
-    useFrame((_, delta) => updateCharacterInterior(playerVisualPosition.x, playerVisualPosition.z, 1 - Math.exp(-8 * Math.min(.05, delta))));
-    return null;
-}
-
 export function ColonyPowerSigns() {
-    return <group name="ColonyPowerSigns"><SolarCurrent/><CharacterInteriorLight/></group>;
+    return <group name="ColonyPowerSigns"><SolarCurrent building="data-center"/><SolarCurrent building="control-room"/></group>;
 }

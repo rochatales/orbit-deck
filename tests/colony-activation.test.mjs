@@ -138,11 +138,11 @@ test('S5.3: fumaça da Oficina e corrente do Data Center usam a implantação re
     assert.ok(WORKSHOP_SMOKE.local.y >= top && WORKSHOP_SMOKE.local.y - top < .1);
     const original = JSON.stringify(load('src/assets/colony-v007.manifest.json'));
     const cable = JSON.parse(original.slice(original.indexOf('"bounds"', original.indexOf('"name":"Cabo_Solar_Data"')) + 9, original.indexOf('}', original.indexOf('"bounds"', original.indexOf('"name":"Cabo_Solar_Data"'))) + 1));
-    assert.ok(Math.abs((cable.minX + cable.maxX) / 2 - SOLAR_CURRENT.x) < .01);
-    assert.ok(Math.abs(cable.minZ - SOLAR_CURRENT.fromZ) < .01);
+    assert.ok(Math.abs((cable.minX + cable.maxX) / 2 - SOLAR_CURRENT['data-center'].fromX) < .01);
+    assert.ok(Math.abs(cable.minZ - SOLAR_CURRENT['data-center'].fromZ) < .01);
     // Termina na face norte do Data Center; a corrente corre da fazenda solar para o prédio.
     const dataCenter = COLONY_BUILDINGS.find(building => building.id === 'data-center').visual;
-    assert.ok(Math.abs(SOLAR_CURRENT.toZ - dataCenter.minZ) < .05 && SOLAR_CURRENT.toZ > SOLAR_CURRENT.fromZ);
+    assert.ok(Math.abs(SOLAR_CURRENT['data-center'].toZ - dataCenter.minZ) < .05 && SOLAR_CURRENT['data-center'].toZ > SOLAR_CURRENT['data-center'].fromZ);
 });
 
 test('S6.19: piscina de luzes mantém o teto e as sombras têm malhas independentes do fade', async () => {
@@ -201,24 +201,49 @@ test('S6.19: Salvager recebe a luz da sala ligada, perde o sol dentro e volta ao
     const material = new MeshStandardMaterial();
     let chained = 0;
     material.onBeforeCompile = () => { chained++; };
-    power.bindCharacterInteriorLight(new Mesh(undefined, material));
+    const salvager = power.createCharacterInteriorLight(), engineer = power.createCharacterInteriorLight();
+    salvager.bind(new Mesh(undefined, material));
+    salvager.bind(new Mesh(undefined, material));
     const shader = { uniforms: {}, vertexShader: ShaderLib.standard.vertexShader, fragmentShader: ShaderLib.standard.fragmentShader };
     material.onBeforeCompile(shader);
     assert.equal(chained, 1);
     assert.match(shader.fragmentShader, /directLight\.color \*= 1\.0 - colonyInside/);
     assert.match(shader.fragmentShader, /getAmbientLightIrradiance\( ambientLightColor \) \+ colonyCharacterLight/);
-    assert.equal(shader.uniforms.colonyInside, power.characterInterior.inside);
-    for (let i = 0; i < 80; i++) power.updateCharacterInterior(-12, 11.2, .2);
-    assert.ok(power.characterInterior.inside.value > .99 && power.characterInterior.light.value.g > .7);
-    for (let i = 0; i < 80; i++) power.updateCharacterInterior(0, -12, .2);
-    assert.ok(power.characterInterior.inside.value > .99);
-    assert.equal(power.characterInterior.light.value.g, 0);
-    for (let i = 0; i < 80; i++) power.updateCharacterInterior(0, 26, .2);
-    assert.ok(power.characterInterior.inside.value < .01 && power.characterInterior.light.value.g < .01);
-    power.updateCharacterInterior(-12, 11.2, 1);
-    power.resetCharacterInterior();
-    assert.equal(power.characterInterior.inside.value, 0);
-    assert.equal(power.characterInterior.light.value.r, 0);
+    const source = new MeshStandardMaterial();
+    const equipment = ['Rifle', 'Facão', 'Mochila'].map(name => {
+        const mesh = new Mesh(undefined, source);
+        mesh.name = name;
+        return mesh;
+    });
+    const npc = new Mesh(undefined, new MeshStandardMaterial());
+    const release = equipment.map(mesh => salvager.bind(mesh, true));
+    engineer.bind(npc);
+    const compile = mesh => {
+        const state = { uniforms: {}, fragmentShader: ShaderLib.standard.fragmentShader };
+        mesh.material.onBeforeCompile(state);
+        return state.uniforms;
+    };
+    const npcUniforms = compile(npc), player = shader.uniforms;
+    for (const mesh of equipment) {
+        assert.notEqual(mesh.material, source);
+        assert.equal(compile(mesh).colonyInside, player.colonyInside);
+        assert.equal(compile(mesh).colonyCharacterLight, player.colonyCharacterLight);
+    }
+    assert.notEqual(npcUniforms.colonyInside, player.colonyInside);
+    salvager.update(-12, 11.2, 1);
+    engineer.update(0, 26, 1);
+    assert.ok(player.colonyInside.value === 1 && player.colonyCharacterLight.value.g > .7);
+    assert.equal(npcUniforms.colonyInside.value, 0);
+    engineer.update(-12, 11.2, 1);
+    salvager.update(0, -12, 1);
+    assert.equal(player.colonyInside.value, 1);
+    assert.equal(player.colonyCharacterLight.value.g, 0);
+    assert.ok(npcUniforms.colonyCharacterLight.value.g > .7);
+    salvager.reset();
+    assert.equal(player.colonyInside.value, 0);
+    assert.equal(player.colonyCharacterLight.value.r, 0);
+    release.forEach(dispose => dispose());
+    assert.ok(equipment.every(mesh => mesh.material === source));
 });
 
 function loadGlbPositions(path, nodeName) {
