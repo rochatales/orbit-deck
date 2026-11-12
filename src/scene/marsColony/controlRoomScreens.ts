@@ -7,22 +7,27 @@ import { COLONY_POWER } from './colonyPowerConfig';
 // Coordenadas do GLB v002, nos eixos locais da bancada. O quadro e o vidro
 // foram exportados como caixas inclinadas 18°, com centros distintos.
 const MONITOR_CENTERS = [.42, 1.2, 1.98];
+const MONITOR_SETBACK = .25;
 const FRAME = { y: 1.4, z: -2.32, width: .64, height: .39, depth: .11 };
 const GLASS = { y: 1.41, z: -2.253, width: .54, height: .29, depth: .02 };
 
-function uprightMonitors(desk: Mesh) {
+const SUPPORT = { y: 1.18, z: -2.34, width: .14, height: .14, depth: .09 };
+const MONITOR_PARTS = [FRAME, GLASS, SUPPORT];
+
+function positionMonitors(desk: Mesh) {
     const geometry = desk.geometry.clone();
     const position = geometry.getAttribute('position'), normal = geometry.getAttribute('normal');
-    const tilt = Math.PI / 10, cos = Math.cos(tilt), sin = Math.sin(tilt);
+    const tilt = Math.PI / 10, tiltCos = Math.cos(tilt), tiltSin = Math.sin(tilt);
     const onEdge = (value: number, size: number) => Math.abs(Math.abs(value) - size / 2) < .0001;
     for (let i = 0; i < position.count; i++) {
         const x = position.getX(i), y = position.getY(i), z = position.getZ(i);
-        for (const box of [FRAME, GLASS]) {
+        for (const box of MONITOR_PARTS) {
             if (!MONITOR_CENTERS.some(center => onEdge(x - center, box.width))) continue;
+            const cos = box === SUPPORT ? 1 : tiltCos, sin = box === SUPPORT ? 0 : tiltSin;
             const dy = y - box.y, dz = z - box.z;
             const vertical = cos * dy + sin * dz, depth = -sin * dy + cos * dz;
             if (!onEdge(vertical, box.height) || !onEdge(depth, box.depth)) continue;
-            position.setXYZ(i, x, box.y + vertical, box.z + depth);
+            position.setXYZ(i, x, box.y + vertical, box.z + depth - MONITOR_SETBACK);
             const ny = normal.getY(i), nz = normal.getZ(i);
             normal.setXYZ(i, normal.getX(i), cos * ny + sin * nz, -sin * ny + cos * nz);
             break;
@@ -59,8 +64,8 @@ function displayTexture() {
 /** Superfícies frontais medidas no GLB. O vidro usa o tile escuro do atlas v002. */
 export function bindControlRoomScreens(scene: Object3D) {
     const desk = scene.getObjectByName('PROP_Control_Consoles_N') as Mesh | undefined;
-    const original = desk?.geometry, upright = desk?.isMesh ? uprightMonitors(desk) : undefined;
-    if (desk && upright) desk.geometry = upright;
+    const original = desk?.geometry, positioned = desk?.isMesh ? positionMonitors(desk) : undefined;
+    if (desk && positioned) desk.geometry = positioned;
     const vertices: number[] = [], uv: number[] = [], faces: number[] = [];
     const add = (x: number, y: number, z: number, width: number, height: number, yaw = 0) => {
         const i = vertices.length / 3, half = width / 2, dx = Math.cos(yaw) * half, dz = -Math.sin(yaw) * half;
@@ -71,7 +76,7 @@ export function bindControlRoomScreens(scene: Object3D) {
         uv.push(0, 0, 1, 0, 1, 1, 0, 1);
         faces.push(i, i + 1, i + 2, i, i + 2, i + 3);
     };
-    for (const x of MONITOR_CENTERS) add(x, 1.26, -12.741, .53, .28);
+    for (const x of MONITOR_CENTERS) add(x, 1.26, -12.741 - MONITOR_SETBACK, .53, .28);
     add(1.22, 1.92, -13.48, 2.59, .52);  // telão norte
     add(-3.1555, 1.27, -11.6, .65, .34, Math.PI / 2);  // terminal oeste
     for (let side = 0; side < 4; side++) {
@@ -102,9 +107,9 @@ export function bindControlRoomScreens(scene: Object3D) {
         dispose() {
             screens.removeFromParent();
             geometry.dispose(); texture.dispose(); material.dispose();
-            if (desk && upright && original) {
+            if (desk && positioned && original) {
                 desk.geometry = original;
-                upright.dispose();
+                positioned.dispose();
             }
         }
     };

@@ -32,7 +32,26 @@ test('S5.3: monitores de pé e telas ligadas depois da sala, com estado final ao
         for (const i of turned) {
             assert.ok(Math.abs(normal.getY(i)) < .0001 || Math.abs(normal.getY(i)) > .9999);
         }
-        assert.equal(display.geometry.getAttribute('position').count, 52);
+        const surfaces = display.geometry.getAttribute('position');
+        assert.equal(surfaces.count, 52);
+        // Vidro e suporte ficam sobre o tampo, e a face emissiva acompanha o vidro.
+        for (const center of [.42, 1.2, 1.98]) {
+            let front = -Infinity, feet = 0;
+            for (let i = 0; i < upright.count; i++) {
+                const x = original.getX(i), y = original.getY(i), z = original.getZ(i);
+                if (Math.abs(Math.abs(x - center) - .07) < .0001 && Math.abs(y - 1.11) < .0001
+                    && Math.abs(Math.abs(z + 2.34) - .045) < .0001) {
+                    assert.ok(Math.abs(upright.getZ(i) - (z - .25)) < .0001);
+                    feet++;
+                }
+                if (Math.abs(x - center) <= .321 && upright.getY(i) > 1.2)
+                    front = Math.max(front, upright.getZ(i) + desk.position.z);
+            }
+            assert.ok(feet > 0);
+            assert.ok(front < -12.97, 'o vidro recuado deixa espaço até a borda do tampo em -12,8');
+            const i = [.42, 1.2, 1.98].indexOf(center) * 4;
+            assert.ok(Math.abs(surfaces.getZ(i) - front - .002) < .0001);
+        }
         assert.ok(display.material.isMeshStandardMaterial);
         const update = () => screens.update(buildingPower('control-room', true, useCampaignStore.getState().saved.campaign.edenActive));
         update();
