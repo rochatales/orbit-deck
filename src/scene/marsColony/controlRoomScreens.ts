@@ -1,6 +1,7 @@
 import {
     BufferAttribute, BufferGeometry, DataTexture, Mesh, MeshStandardMaterial, SRGBColorSpace, type Object3D
 } from 'three';
+import { CONTROL_DESK_FRONT_Z } from '../../game/controlRoomLayout';
 import { activationClock, useActivationSequence } from './activationSequence';
 import { COLONY_POWER } from './colonyPowerConfig';
 
@@ -14,13 +15,20 @@ const GLASS = { y: 1.41, z: -2.253, width: .54, height: .29, depth: .02 };
 const SUPPORT = { y: 1.18, z: -2.34, width: .14, height: .14, depth: .09 };
 const MONITOR_PARTS = [FRAME, GLASS, SUPPORT];
 
-function positionMonitors(desk: Mesh) {
+function prepareDesk(desk: Mesh) {
     const geometry = desk.geometry.clone();
     const position = geometry.getAttribute('position'), normal = geometry.getAttribute('normal');
     const tilt = Math.PI / 10, tiltCos = Math.cos(tilt), tiltSin = Math.sin(tilt);
+    // Bordas e chanfro do móvel v002. Os periféricos ficam entre as extremidades em X.
+    const front = -2.30, bevel = .045;
+    const extension = CONTROL_DESK_FRONT_Z - desk.position.z - front;
     const onEdge = (value: number, size: number) => Math.abs(Math.abs(value) - size / 2) < .0001;
     for (let i = 0; i < position.count; i++) {
         const x = position.getX(i), y = position.getY(i), z = position.getZ(i);
+        if ((x < .10 || x > 2.30) && y <= 1.1501 && z >= front - bevel - .0001) {
+            position.setZ(i, z + extension);
+            continue;
+        }
         for (const box of MONITOR_PARTS) {
             if (!MONITOR_CENTERS.some(center => onEdge(x - center, box.width))) continue;
             const cos = box === SUPPORT ? 1 : tiltCos, sin = box === SUPPORT ? 0 : tiltSin;
@@ -64,7 +72,7 @@ function displayTexture() {
 /** Superfícies frontais medidas no GLB. O vidro usa o tile escuro do atlas v002. */
 export function bindControlRoomScreens(scene: Object3D) {
     const desk = scene.getObjectByName('PROP_Control_Consoles_N') as Mesh | undefined;
-    const original = desk?.geometry, positioned = desk?.isMesh ? positionMonitors(desk) : undefined;
+    const original = desk?.geometry, positioned = desk?.isMesh ? prepareDesk(desk) : undefined;
     if (desk && positioned) desk.geometry = positioned;
     const vertices: number[] = [], uv: number[] = [], faces: number[] = [];
     const add = (x: number, y: number, z: number, width: number, height: number, yaw = 0) => {

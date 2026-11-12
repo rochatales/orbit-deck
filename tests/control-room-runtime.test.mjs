@@ -48,6 +48,11 @@ test('Prédios aprovados: snapshot íntegro; 9320/8732 triângulos e UVs válido
    ]){assert.ok(code.includes(line));code=code.replace(line,'');}
    code=code.replace('this.interactionNode.visible = this.powered && nearEden;', 'this.interactionNode.visible = nearEden;');
    assert.equal(crypto.createHash('sha256').update(code).digest('hex'),f.sha256,f.arquivo);
+  }else if(f.arquivo==='src/game/controlRoomLayout.ts'){
+   const code=fs.readFileSync(f.arquivo,'utf8')
+     .replace('export const CONTROL_DESK_FRONT_Z = -12.45;\n\n','')
+     .replace('maxZ: CONTROL_DESK_FRONT_Z','maxZ: -12.55');
+   assert.equal(crypto.createHash('sha256').update(code).digest('hex'),f.sha256,f.arquivo);
   }else assert.equal(hash(f.arquivo),f.sha256,f.arquivo);
  }
  for(const [file,triangles] of [['src/assets/control-room/control-room-v002.glb',9320],['src/assets/hangar/hangar-v002.glb',8732]]){

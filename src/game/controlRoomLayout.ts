@@ -12,6 +12,8 @@ const REMOVED_BRAND_BRAIN_COLLIDERS = new Set([
     'interior-113'
 ]);
 
+export const CONTROL_DESK_FRONT_Z = -12.45;
+
 export const CONTROL_ROOM = {
     version: manifest.version,
     position: manifest.position,
@@ -28,7 +30,7 @@ export const CONTROL_ROOM = {
         // Rack de servidores NW
         { minX: -2.94, maxX: -2.14, minZ: -13.56, maxZ: -12.58 },
         // Bancada de consoles NE
-        { minX: 0.0, maxX: 2.4, minZ: -13.55, maxZ: -12.55 }
+        { minX: 0.0, maxX: 2.4, minZ: -13.55, maxZ: CONTROL_DESK_FRONT_Z }
     ]
 };
 

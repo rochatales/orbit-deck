@@ -10,6 +10,7 @@ test('S5.3: monitores de pé e telas ligadas depois da sala, com estado final ao
     const { bindControlRoomScreens } = load(folder + 'controlRoomScreens.ts');
     const { beginActivation, advanceActivation, finishActivation, buildingPower } = load(folder + 'activationSequence.ts');
     const { useCampaignStore } = load('src/state/useCampaignStore.ts');
+    const { CONTROL_ROOM } = load('src/game/controlRoomLayout.ts');
     const campaign = useCampaignStore.getState();
     campaign.startCampaign({ displayName: 'Telas QA', color: '#abcdef' });
     campaign.dispatch('finish-engineer-briefing');
@@ -35,7 +36,8 @@ test('S5.3: monitores de pé e telas ligadas depois da sala, com estado final ao
         const surfaces = display.geometry.getAttribute('position');
         assert.equal(surfaces.count, 52);
         // Vidro e suporte ficam sobre o tampo, e a face emissiva acompanha o vidro.
-        for (const center of [.42, 1.2, 1.98]) {
+        const centers = [.42, 1.2, 1.98];
+        for (const [index, center] of centers.entries()) {
             let front = -Infinity, feet = 0;
             for (let i = 0; i < upright.count; i++) {
                 const x = original.getX(i), y = original.getY(i), z = original.getZ(i);
@@ -48,10 +50,28 @@ test('S5.3: monitores de pé e telas ligadas depois da sala, com estado final ao
                     front = Math.max(front, upright.getZ(i) + desk.position.z);
             }
             assert.ok(feet > 0);
-            assert.ok(front < -12.97, 'o vidro recuado deixa espaço até a borda do tampo em -12,8');
-            const i = [.42, 1.2, 1.98].indexOf(center) * 4;
-            assert.ok(Math.abs(surfaces.getZ(i) - front - .002) < .0001);
+            assert.ok(front < -12.97, 'monitores conservam o recuo anterior');
+            assert.ok(Math.abs(surfaces.getZ(index * 4) - front - .002) < .0001);
         }
+        let keyboardFront = -Infinity, topFront = -Infinity, cabinetFront = -Infinity;
+        for (let i = 0; i < original.count; i++) {
+            const x = original.getX(i), y = original.getY(i), z = original.getZ(i);
+            const worldZ = upright.getZ(i) + desk.position.z;
+            const keyboardEdge = centers.some(center => {
+                const offset = Math.abs(x - center);
+                return Math.abs(offset - .275) < .0001 || Math.abs(offset - .245) < .0001;
+            });
+            if (keyboardEdge && y < 1.19 && z >= -2.341 && z <= -2.059) {
+                assert.equal(upright.getZ(i), z, 'teclado mantém a posição');
+                keyboardFront = Math.max(keyboardFront, worldZ);
+            }
+            if (x < .1 || x > 2.30) {
+                if (Math.abs(y - 1.15) < .0001) topFront = Math.max(topFront, worldZ);
+                if (y < 1.15) cabinetFront = Math.max(cabinetFront, worldZ);
+            }
+        }
+        assert.ok(Number.isFinite(keyboardFront) && topFront - keyboardFront > .05, 'teclados apoiados no tampo plano');
+        assert.ok(Math.abs(CONTROL_ROOM.obstacles[2].maxZ - cabinetFront) < .0001, 'colisor acompanha a frente do móvel');
         assert.ok(display.material.isMeshStandardMaterial);
         const update = () => screens.update(buildingPower('control-room', true, useCampaignStore.getState().saved.campaign.edenActive));
         update();
