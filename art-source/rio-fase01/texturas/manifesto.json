@@ -1,0 +1,65 @@
+[
+  {
+    "file": "reboco.png",
+    "width": 256,
+    "height": 256,
+    "origin": "Procedural autoral, numpy, semente 13112026",
+    "uv": "REPEAT, família isolada; sem blocos de cores vizinhos no atlas"
+  },
+  {
+    "file": "concreto.png",
+    "width": 256,
+    "height": 256,
+    "origin": "Procedural autoral, numpy, semente 13112026",
+    "uv": "REPEAT, família isolada; sem blocos de cores vizinhos no atlas"
+  },
+  {
+    "file": "asfalto.png",
+    "width": 256,
+    "height": 256,
+    "origin": "Procedural autoral, numpy, semente 13112026",
+    "uv": "REPEAT, família isolada; sem blocos de cores vizinhos no atlas"
+  },
+  {
+    "file": "pedra.png",
+    "width": 256,
+    "height": 256,
+    "origin": "Procedural autoral, numpy, semente 13112026",
+    "uv": "REPEAT, família isolada; sem blocos de cores vizinhos no atlas"
+  },
+  {
+    "file": "areia.png",
+    "width": 256,
+    "height": 256,
+    "origin": "Procedural autoral, numpy, semente 13112026",
+    "uv": "REPEAT, família isolada; sem blocos de cores vizinhos no atlas"
+  },
+  {
+    "file": "madeira.png",
+    "width": 256,
+    "height": 256,
+    "origin": "Procedural autoral, numpy, semente 13112026",
+    "uv": "REPEAT, família isolada; sem blocos de cores vizinhos no atlas"
+  },
+  {
+    "file": "ferrugem.png",
+    "width": 256,
+    "height": 256,
+    "origin": "Procedural autoral, numpy, semente 13112026",
+    "uv": "REPEAT, família isolada; sem blocos de cores vizinhos no atlas"
+  },
+  {
+    "file": "folha.png",
+    "width": 256,
+    "height": 256,
+    "origin": "Procedural autoral, numpy, semente 13112026",
+    "uv": "REPEAT, família isolada; sem blocos de cores vizinhos no atlas"
+  },
+  {
+    "file": "ondas.png",
+    "width": 1024,
+    "height": 1024,
+    "origin": "Procedural autoral, numpy, semente 13112026",
+    "uv": "REPEAT, família isolada; sem blocos de cores vizinhos no atlas"
+  }
+]

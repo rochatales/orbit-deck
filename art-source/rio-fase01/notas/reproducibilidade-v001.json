@@ -1,0 +1,63 @@
+{
+  "blender": "5.1.1",
+  "metodo": "Duas execuções independentes, factory settings vazio, mesma planta e semente",
+  "arquivos": [
+    {
+      "arquivo": "export/rio-limites-v001.glb",
+      "sha256": "02d02b4cdd1a7fde4738d0892f230cb4367a9ec452c45e7e18bed6c4cf4d7c43",
+      "identico": true
+    },
+    {
+      "arquivo": "export/rio-fase01.glb",
+      "sha256": "bb2f9eef536030232a38e634703058a6e8494ab219a519bf69ccf1cbc18f5f6e",
+      "identico": true
+    },
+    {
+      "arquivo": "texturas/folha.png",
+      "sha256": "52617b84e447696cf17ce3cba1b29012dcb264bf754493ccea8411316580d31f",
+      "identico": true
+    },
+    {
+      "arquivo": "texturas/pedra.png",
+      "sha256": "9a6a7f266836e7104f5f295fb25b3b7e51bcf35cda29de1dc562e3d75042bf36",
+      "identico": true
+    },
+    {
+      "arquivo": "texturas/asfalto.png",
+      "sha256": "d8f8d6bc1780b027d5c5bbc843f432a574db0e95b89134ee6e8157ccf4a3887d",
+      "identico": true
+    },
+    {
+      "arquivo": "texturas/concreto.png",
+      "sha256": "72fcd768fade6d4b9240e4e6e21d42a7f64d0e4c50495e7be1f31401602dc023",
+      "identico": true
+    },
+    {
+      "arquivo": "texturas/madeira.png",
+      "sha256": "d8e8907663a6b4a865db95fe34e7798ecffc0fbf447171fe93d974437e79e989",
+      "identico": true
+    },
+    {
+      "arquivo": "texturas/areia.png",
+      "sha256": "be849da51291949913d7d2ef079e23bf4a1cb7536d0bfef0dbf491d1be94fe6d",
+      "identico": true
+    },
+    {
+      "arquivo": "texturas/ondas.png",
+      "sha256": "3dd38a17564923aa02cd48375cad13f8f00710fab90e247b34f7772bdb9c1368",
+      "identico": true
+    },
+    {
+      "arquivo": "texturas/reboco.png",
+      "sha256": "734949737642eb1b4b4b7350b7840ef11f47d1287525e73bac47eb28763ca3ca",
+      "identico": true
+    },
+    {
+      "arquivo": "texturas/ferrugem.png",
+      "sha256": "db6456bb741c87889efae99bb667b4d261e0d59839bed99ccc11007e6c82dd8b",
+      "identico": true
+    }
+  ],
+  "todos_identicos": true,
+  "nota": "Compara bytes dos GLBs e PNGs de textura; .blend é reconstruído e auditado, sem promessa de identidade binária dos metadados de sessão."
+}

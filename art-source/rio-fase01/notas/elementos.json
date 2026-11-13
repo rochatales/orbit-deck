@@ -1,0 +1,217 @@
+[
+  {
+    "id": "lote_fundo",
+    "kind": "piso",
+    "object": "lote_fundo"
+  },
+  {
+    "id": "calcada_fundo",
+    "kind": "piso",
+    "object": "calcada_fundo"
+  },
+  {
+    "id": "rua_fundo",
+    "kind": "piso",
+    "object": "rua_fundo"
+  },
+  {
+    "id": "calcada_meio",
+    "kind": "piso",
+    "object": "calcada_meio"
+  },
+  {
+    "id": "lote_frente",
+    "kind": "piso",
+    "object": "lote_frente"
+  },
+  {
+    "id": "calcada_orla",
+    "kind": "piso",
+    "object": "calcada_orla"
+  },
+  {
+    "id": "pista_cidade",
+    "kind": "piso",
+    "object": "pista_cidade"
+  },
+  {
+    "id": "canteiro",
+    "kind": "piso",
+    "object": "canteiro"
+  },
+  {
+    "id": "pista_praia",
+    "kind": "piso",
+    "object": "pista_praia"
+  },
+  {
+    "id": "calcadao",
+    "kind": "piso",
+    "object": "calcadao"
+  },
+  {
+    "id": "areia",
+    "kind": "piso",
+    "object": "areia"
+  },
+  {
+    "id": "travessa_0",
+    "kind": "piso",
+    "object": "travessa_0"
+  },
+  {
+    "id": "travessa_0_asfalto",
+    "kind": "piso",
+    "object": "travessa_0_asfalto"
+  },
+  {
+    "id": "travessa_1",
+    "kind": "piso",
+    "object": "travessa_1"
+  },
+  {
+    "id": "travessa_1_asfalto",
+    "kind": "piso",
+    "object": "travessa_1_asfalto"
+  },
+  {
+    "id": "travessa_2",
+    "kind": "piso",
+    "object": "travessa_2"
+  },
+  {
+    "id": "travessa_2_asfalto",
+    "kind": "piso",
+    "object": "travessa_2_asfalto"
+  },
+  {
+    "id": "Quadra_F0",
+    "kind": "piso",
+    "object": "Quadra_F0"
+  },
+  {
+    "id": "Quadra_F1",
+    "kind": "piso",
+    "object": "Quadra_F1"
+  },
+  {
+    "id": "Quadra_F2",
+    "kind": "piso",
+    "object": "Quadra_F2"
+  },
+  {
+    "id": "Quadra_F3",
+    "kind": "piso",
+    "object": "Quadra_F3"
+  },
+  {
+    "id": "Quadra_T0",
+    "kind": "piso",
+    "object": "Quadra_T0"
+  },
+  {
+    "id": "Quadra_T1",
+    "kind": "piso",
+    "object": "Quadra_T1"
+  },
+  {
+    "id": "Quadra_T2",
+    "kind": "piso",
+    "object": "Quadra_T2"
+  },
+  {
+    "id": "Quadra_T3",
+    "kind": "piso",
+    "object": "Quadra_T3"
+  },
+  {
+    "id": "Praca_Sul",
+    "kind": "piso",
+    "object": "Praca_Sul"
+  },
+  {
+    "id": "Praca_Sul_jardim",
+    "kind": "piso",
+    "object": "Praca_Sul_jardim"
+  },
+  {
+    "id": "Praca_Central",
+    "kind": "piso",
+    "object": "Praca_Central"
+  },
+  {
+    "id": "Praca_Central_jardim",
+    "kind": "piso",
+    "object": "Praca_Central_jardim"
+  },
+  {
+    "id": "Praca_Norte",
+    "kind": "piso",
+    "object": "Praca_Norte"
+  },
+  {
+    "id": "Praca_Norte_jardim",
+    "kind": "piso",
+    "object": "Praca_Norte_jardim"
+  },
+  {
+    "id": "Deck_Pouso",
+    "kind": "piso",
+    "object": "Deck_Pouso"
+  },
+  {
+    "id": "Predio_F0",
+    "kind": "predio",
+    "family": "Predio_F0"
+  },
+  {
+    "id": "Predio_F1",
+    "kind": "predio",
+    "family": "Predio_F1"
+  },
+  {
+    "id": "Predio_F2",
+    "kind": "predio",
+    "family": "Predio_F2"
+  },
+  {
+    "id": "Predio_F3",
+    "kind": "predio",
+    "family": "Predio_F3"
+  },
+  {
+    "id": "Predio_T0",
+    "kind": "predio",
+    "family": "Predio_T0"
+  },
+  {
+    "id": "Predio_T1",
+    "kind": "predio",
+    "family": "Predio_T1"
+  },
+  {
+    "id": "Predio_T2",
+    "kind": "predio",
+    "family": "Predio_T2"
+  },
+  {
+    "id": "Predio_T3",
+    "kind": "predio",
+    "family": "Predio_T3"
+  },
+  {
+    "id": "Quiosque_1",
+    "kind": "piso",
+    "object": "Quiosque_1"
+  },
+  {
+    "id": "Quiosque_2",
+    "kind": "piso",
+    "object": "Quiosque_2"
+  },
+  {
+    "id": "Mar",
+    "kind": "piso",
+    "object": "Mar"
+  }
+]

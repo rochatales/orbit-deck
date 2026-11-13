@@ -1,0 +1,30 @@
+[
+  {
+    "caso": "Fonte e GLBs finais válidos",
+    "resultado": "passou"
+  },
+  {
+    "caso": "Câmera coincide com a planta SVG no chão, tolerância de 1 px",
+    "resultado": "passou"
+  },
+  {
+    "caso": "Desvio de 25 cm de um prédio é rejeitado",
+    "resultado": "passou"
+  },
+  {
+    "caso": "Reserva de pouso rejeita geometria invasora",
+    "resultado": "passou"
+  },
+  {
+    "caso": "Pista da praia rejeita geometria invasora",
+    "resultado": "passou"
+  },
+  {
+    "caso": "Linha da água rejeita geometria invasora",
+    "resultado": "passou"
+  },
+  {
+    "caso": "Restauração em memória preserva a cena válida",
+    "resultado": "passou"
+  }
+]
