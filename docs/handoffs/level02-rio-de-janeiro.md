@@ -55,8 +55,8 @@ python3 art-source/rio-fase01/scripts/layout.py
 
 ## Não verificado e pendências
 
-- A leitura do croqui é minha (ver decisão 1 do brief). Se o autor quis uma
-  planta vista de cima, com ruas em diagonal, a planta muda inteira.
+- Leitura do croqui **confirmada pelo autor em 13/11**: é a vista da câmera, com
+  o mundo alinhado aos eixos. A planta v0 vale como base do blockout.
 - Nenhum teste no jogo: não há mapa do Rio no runtime.
 - Alturas, largura do mar, térreos e encontros dependem do autor.
 - A base não tem a Frente B. Ao consolidar, o Rio herda extração por

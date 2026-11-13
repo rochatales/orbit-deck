@@ -11,6 +11,8 @@ autor**, exceto o que está marcado como decisão do autor.
 - O mapa segue o **croqui do autor** de 13/11.
 - O mapa tem a **mesma dimensão do mapa de Shanghai**.
 - O contorno cinza do croqui são os **limitantes**: escombros ou cadeia de montanhas.
+- **O croqui é a vista da câmera do jogo** (confirmado em 13/11): o mundo fica
+  alinhado aos eixos, como em Shanghai, e a câmera dá a diagonal do desenho.
 
 Referências guardadas em `art-source/rio-fase01/referencias/`:
 
@@ -109,10 +111,8 @@ caminháveis. Shanghai é toda caminhável; aqui o mar ocupa 15% do mapa.
 
 ## 5. Decisões em aberto
 
-1. **Leitura do croqui.** Li o croqui como a vista da câmera do jogo, com o
-   mundo alinhado aos eixos, igual a Shanghai. A outra leitura é a de uma planta
-   vista de cima, com as ruas em diagonal dentro do retângulo do mapa. Essa
-   segunda exigiria colisores inclinados, que o jogo hoje não tem.
+1. ~~Leitura do croqui.~~ Resolvida pelo autor em 13/11: vista da câmera, mundo
+   alinhado aos eixos. A planta v0 vale como base.
 2. **Altura dos prédios.** A planta usa de 6 a 8 pavimentos na orla e 9 ou 10
    no fundo (até 33 m). Shanghai vai até 5 pavimentos (16,5 m).
 3. **Mar.** O mar tira 15 m de largura do mapa. Dá para reduzir a faixa de mar
