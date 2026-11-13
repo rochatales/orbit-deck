@@ -113,3 +113,21 @@ A única amostra com quadro acima de 33,3 ms foi a horda 2 de Shanghai
 A revisão de código do Claude e o aceite visual e de jogabilidade do autor
 estão pendentes. A arte do cenário e dos inimigos do Rio, as cotas, a
 progressão e a integração com a Frente B seguem para as fases previstas.
+
+## Revisão do Claude · `bf5989c...99fa57f` · 13/11/2026
+
+Revisão enxuta, por leitura dos pontos estruturais e execução da suíte.
+
+- `npm test` executado por mim na worktree do Codex: **663/663**.
+  `git diff --check bf5989c HEAD` verde. Build não reexecutado por mim.
+- A cópia do runtime (`src/assets/rio-fase01/layout.json`) é idêntica à
+  exportação da planta, e a planta não foi alterada.
+- O terceiro mapa entrou por `kind: 'hub' | 'expedition'` e `isExpedition()` em
+  `src/game/config.ts`, como pedido, em vez de comparações espalhadas.
+- O visual do Rio é gerado da planta em `src/game/rio/visual.ts` e chamado em
+  um único ponto (`world.ts`), o que facilita a troca pelo GLB na fase de arte.
+- Sem achados que bloqueiem. O autor informou que testou e aprovou na prévia.
+
+Não revisei em detalhe a cabine, o áudio e os testes novos linha a linha, nem
+abri a prévia. Restam comparações com `'shanghai'` em seis arquivos; não
+conferi uma a uma se todas são regras específicas de Shanghai.
