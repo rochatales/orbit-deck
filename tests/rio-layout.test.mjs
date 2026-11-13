@@ -52,4 +52,10 @@ test('Level 02 Rio: saída, suprimentos, rotas e entradas de inimigos ficam em p
     // Mesma regra de Shanghai: nenhum inimigo nasce a menos de 14 m do desembarque.
     for (const spawn of rio.spawns) assert.ok(Math.hypot(spawn.x - rio.exit.x, spawn.z - rio.exit.z) >= 14, spawn.id);
     assert.ok(inside(rio.exit, rio.landingReservation));
+    // Spawns no formato de Shanghai: cada um aponta para um waypoint de uma rota existente.
+    for (const spawn of rio.spawns) {
+        assert.ok(Number.isInteger(spawn.routeIndex) && spawn.routeIndex < rio.patrolRoutes.length, spawn.id);
+        assert.ok(Number.isInteger(spawn.waypoint) && spawn.waypoint < rio.patrolRoutes[spawn.routeIndex].length, spawn.id);
+    }
+    assert.deepEqual(Object.keys(shanghai.spawns[0]).filter(key => !(key in rio.spawns[0])), []);
 });

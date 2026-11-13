@@ -145,6 +145,11 @@ for i, x in enumerate((lane_w, lane_e, 12.5)):  # Patrol Rio chegam pela ponta n
     spawns.append(dict(id=f'SPAWN_Avenida_Norte_{i}', x=float(x), z=-52.0, origem='avenida_norte'))
 spawns.append(dict(id='SPAWN_Rua_Fundo_Norte', x=float(back), z=-52.0, origem='rua_fundo'))
 spawns.append(dict(id='SPAWN_Rua_Fundo_Sul', x=float(back), z=52.0, origem='rua_fundo'))
+# Mesmo formato dos spawns de Shanghai: rota de patrulha e waypoint mais próximo.
+for spawn in spawns:
+    candidates = range(len(patrol_routes)) if spawn['id'].startswith(('SPAWN_Morro', 'SPAWN_Rua')) else (0, 3)
+    best = min(((math.hypot(p['x'] - spawn['x'], p['z'] - spawn['z']), r, w) for r in candidates for w, p in enumerate(patrol_routes[r])))
+    spawn['routeIndex'], spawn['waypoint'] = best[1], best[2]
 routes = [[dict(**EXIT), dict(x=12.5, z=43.5), dict(x=12.5, z=21), dict(x=lane_e, z=21), dict(x=lane_w, z=-1), dict(x=back, z=-1)]]
 viewpoints = [dict(id='chegada', x=EXIT['x'], z=EXIT['z']), dict(id='praca-central', x=.5, z=-.5),
               dict(id='quiosque-norte', x=23.5, z=-36), dict(id='rua-de-tras', x=back, z=-1)]
