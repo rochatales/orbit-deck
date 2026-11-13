@@ -1,0 +1,893 @@
+{
+ "version": "rio-fase01-planta-v0",
+ "bounds": {
+  "minX": -51,
+  "maxX": 51,
+  "minZ": -54,
+  "maxZ": 54
+ },
+ "ship": {
+  "x": 25,
+  "y": 0,
+  "z": 47
+ },
+ "exit": {
+  "x": 25,
+  "y": 0,
+  "z": 43.5
+ },
+ "landingReservation": {
+  "minX": 20,
+  "maxX": 30,
+  "minZ": 40,
+  "maxZ": 53
+ },
+ "walkableAreas": [
+  {
+   "minX": -51,
+   "maxX": 36,
+   "minZ": -54,
+   "maxZ": 54
+  }
+ ],
+ "obstacles": [
+  {
+   "id": "COL_Predio_F0",
+   "minX": -28,
+   "maxX": -12,
+   "minZ": 40,
+   "maxZ": 54,
+   "source": "Predio_F0",
+   "minY": 0.0,
+   "maxY": 23.1
+  },
+  {
+   "id": "COL_Predio_F1",
+   "minX": -28,
+   "maxX": -12,
+   "minZ": 6,
+   "maxZ": 26,
+   "source": "Predio_F1",
+   "minY": 0.0,
+   "maxY": 26.4
+  },
+  {
+   "id": "COL_Predio_F2",
+   "minX": -28,
+   "maxX": -12,
+   "minZ": -28,
+   "maxZ": -8,
+   "source": "Predio_F2",
+   "minY": 0.0,
+   "maxY": 19.8
+  },
+  {
+   "id": "COL_Predio_F3",
+   "minX": -28,
+   "maxX": -12,
+   "minZ": -54,
+   "maxZ": -42,
+   "source": "Predio_F3",
+   "minY": 0.0,
+   "maxY": 26.4
+  },
+  {
+   "id": "COL_Predio_T0",
+   "minX": -51,
+   "maxX": -41,
+   "minZ": 40,
+   "maxZ": 54,
+   "source": "Predio_T0",
+   "minY": 0.0,
+   "maxY": 33.0
+  },
+  {
+   "id": "COL_Predio_T1",
+   "minX": -51,
+   "maxX": -41,
+   "minZ": 6,
+   "maxZ": 26,
+   "source": "Predio_T1",
+   "minY": 0.0,
+   "maxY": 29.7
+  },
+  {
+   "id": "COL_Predio_T2",
+   "minX": -51,
+   "maxX": -41,
+   "minZ": -28,
+   "maxZ": -8,
+   "source": "Predio_T2",
+   "minY": 0.0,
+   "maxY": 33.0
+  },
+  {
+   "id": "COL_Predio_T3",
+   "minX": -51,
+   "maxX": -41,
+   "minZ": -54,
+   "maxZ": -42,
+   "source": "Predio_T3",
+   "minY": 0.0,
+   "maxY": 29.7
+  },
+  {
+   "id": "COL_Quiosque_1_Nucleo",
+   "minX": 16.15,
+   "maxX": 21.35,
+   "minZ": 14.9,
+   "maxZ": 20.1,
+   "source": "Quiosque_1",
+   "minY": 0.0,
+   "maxY": 3.4
+  },
+  {
+   "id": "COL_Quiosque_2_Nucleo",
+   "minX": 16.15,
+   "maxX": 21.35,
+   "minZ": -38.6,
+   "maxZ": -33.4,
+   "source": "Quiosque_2",
+   "minY": 0.0,
+   "maxY": 3.4
+  }
+ ],
+ "buildings": [
+  {
+   "id": "Predio_F0",
+   "x": -20.0,
+   "z": 47.0,
+   "w": 16,
+   "d": 14,
+   "height": 23.1,
+   "floors": 7,
+   "ruin": false,
+   "pilotis": true,
+   "row": "orla"
+  },
+  {
+   "id": "Predio_F1",
+   "x": -20.0,
+   "z": 16.0,
+   "w": 16,
+   "d": 20,
+   "height": 26.4,
+   "floors": 8,
+   "ruin": false,
+   "pilotis": true,
+   "row": "orla"
+  },
+  {
+   "id": "Predio_F2",
+   "x": -20.0,
+   "z": -18.0,
+   "w": 16,
+   "d": 20,
+   "height": 19.8,
+   "floors": 6,
+   "ruin": false,
+   "pilotis": true,
+   "row": "orla"
+  },
+  {
+   "id": "Predio_F3",
+   "x": -20.0,
+   "z": -48.0,
+   "w": 16,
+   "d": 12,
+   "height": 26.4,
+   "floors": 8,
+   "ruin": false,
+   "pilotis": true,
+   "row": "orla"
+  },
+  {
+   "id": "Predio_T0",
+   "x": -46.0,
+   "z": 47.0,
+   "w": 10,
+   "d": 14,
+   "height": 33.0,
+   "floors": 10,
+   "ruin": false,
+   "pilotis": false,
+   "row": "fundo"
+  },
+  {
+   "id": "Predio_T1",
+   "x": -46.0,
+   "z": 16.0,
+   "w": 10,
+   "d": 20,
+   "height": 29.7,
+   "floors": 9,
+   "ruin": false,
+   "pilotis": false,
+   "row": "fundo"
+  },
+  {
+   "id": "Predio_T2",
+   "x": -46.0,
+   "z": -18.0,
+   "w": 10,
+   "d": 20,
+   "height": 33.0,
+   "floors": 10,
+   "ruin": false,
+   "pilotis": false,
+   "row": "fundo"
+  },
+  {
+   "id": "Predio_T3",
+   "x": -46.0,
+   "z": -48.0,
+   "w": 10,
+   "d": 12,
+   "height": 29.7,
+   "floors": 9,
+   "ruin": false,
+   "pilotis": false,
+   "row": "fundo"
+  }
+ ],
+ "loot": [
+  {
+   "id": "LOOT_Quiosque_1",
+   "kind": "deposito",
+   "x": 21.95,
+   "z": 17.5
+  },
+  {
+   "id": "LOOT_Quiosque_2",
+   "kind": "deposito",
+   "x": 21.95,
+   "z": -36.0
+  }
+ ],
+ "patrolRoutes": [
+  [
+   {
+    "x": 7.0,
+    "z": 21
+   },
+   {
+    "x": 7.0,
+    "z": -22
+   },
+   {
+    "x": -6.0,
+    "z": -22
+   },
+   {
+    "x": -6.0,
+    "z": 21
+   }
+  ],
+  [
+   {
+    "x": -6.0,
+    "z": 33
+   },
+   {
+    "x": -6.0,
+    "z": -1
+   },
+   {
+    "x": -34.5,
+    "z": -1
+   },
+   {
+    "x": -34.5,
+    "z": 33
+   }
+  ],
+  [
+   {
+    "x": -6.0,
+    "z": -1
+   },
+   {
+    "x": -6.0,
+    "z": -35
+   },
+   {
+    "x": -34.5,
+    "z": -35
+   },
+   {
+    "x": -34.5,
+    "z": -1
+   }
+  ],
+  [
+   {
+    "x": 12.5,
+    "z": 30
+   },
+   {
+    "x": 12.5,
+    "z": -45
+   },
+   {
+    "x": 28,
+    "z": -45
+   },
+   {
+    "x": 28,
+    "z": 30
+   }
+  ]
+ ],
+ "spawns": [
+  {
+   "id": "SPAWN_Morro_0",
+   "x": -49.0,
+   "z": 33.0,
+   "origem": "morro"
+  },
+  {
+   "id": "SPAWN_Morro_1",
+   "x": -49.0,
+   "z": -1.0,
+   "origem": "morro"
+  },
+  {
+   "id": "SPAWN_Morro_2",
+   "x": -49.0,
+   "z": -35.0,
+   "origem": "morro"
+  },
+  {
+   "id": "SPAWN_Avenida_Norte_0",
+   "x": -6.0,
+   "z": -52.0,
+   "origem": "avenida_norte"
+  },
+  {
+   "id": "SPAWN_Avenida_Norte_1",
+   "x": 7.0,
+   "z": -52.0,
+   "origem": "avenida_norte"
+  },
+  {
+   "id": "SPAWN_Avenida_Norte_2",
+   "x": 12.5,
+   "z": -52.0,
+   "origem": "avenida_norte"
+  },
+  {
+   "id": "SPAWN_Rua_Fundo_Norte",
+   "x": -34.5,
+   "z": -52.0,
+   "origem": "rua_fundo"
+  },
+  {
+   "id": "SPAWN_Rua_Fundo_Sul",
+   "x": -34.5,
+   "z": 52.0,
+   "origem": "rua_fundo"
+  }
+ ],
+ "routes": [
+  [
+   {
+    "x": 25,
+    "y": 0,
+    "z": 43.5
+   },
+   {
+    "x": 12.5,
+    "z": 43.5
+   },
+   {
+    "x": 12.5,
+    "z": 21
+   },
+   {
+    "x": 7.0,
+    "z": 21
+   },
+   {
+    "x": -6.0,
+    "z": -1
+   },
+   {
+    "x": -34.5,
+    "z": -1
+   }
+  ]
+ ],
+ "viewpoints": [
+  {
+   "id": "chegada",
+   "x": 25,
+   "z": 43.5
+  },
+  {
+   "id": "praca-central",
+   "x": 0.5,
+   "z": -0.5
+  },
+  {
+   "id": "quiosque-norte",
+   "x": 23.5,
+   "z": -36
+  },
+  {
+   "id": "rua-de-tras",
+   "x": -34.5,
+   "z": -1
+  }
+ ],
+ "bands": [
+  {
+   "id": "lote_fundo",
+   "minX": -51,
+   "maxX": -40,
+   "label": "Quadra de fundo, cortada pelo morro"
+  },
+  {
+   "id": "calcada_fundo",
+   "minX": -40,
+   "maxX": -38,
+   "label": "Calçada"
+  },
+  {
+   "id": "rua_fundo",
+   "minX": -38,
+   "maxX": -31,
+   "label": "Rua de trás"
+  },
+  {
+   "id": "calcada_meio",
+   "minX": -31,
+   "maxX": -29,
+   "label": "Calçada"
+  },
+  {
+   "id": "lote_frente",
+   "minX": -29,
+   "maxX": -11,
+   "label": "Quadra da orla"
+  },
+  {
+   "id": "calcada_orla",
+   "minX": -11,
+   "maxX": -9,
+   "label": "Calçada dos prédios"
+  },
+  {
+   "id": "pista_cidade",
+   "minX": -9,
+   "maxX": -3,
+   "label": "Pista da avenida, lado dos prédios"
+  },
+  {
+   "id": "canteiro",
+   "minX": -3,
+   "maxX": 4,
+   "label": "Praças do canteiro central"
+  },
+  {
+   "id": "pista_praia",
+   "minX": 4,
+   "maxX": 10,
+   "label": "Pista da avenida, lado da praia"
+  },
+  {
+   "id": "calcadao",
+   "minX": 10,
+   "maxX": 15,
+   "label": "Calçadão de pedras portuguesas em ondas"
+  },
+  {
+   "id": "areia",
+   "minX": 15,
+   "maxX": 36,
+   "label": "Faixa de areia"
+  },
+  {
+   "id": "mar",
+   "minX": 36,
+   "maxX": 51,
+   "label": "Mar: limite leste"
+  }
+ ],
+ "parts": [
+  {
+   "id": "calcada_fundo",
+   "kind": "faixa",
+   "minX": -40,
+   "maxX": -38,
+   "minZ": -54,
+   "maxZ": 54,
+   "label": "Calçada"
+  },
+  {
+   "id": "rua_fundo",
+   "kind": "faixa",
+   "minX": -38,
+   "maxX": -31,
+   "minZ": -54,
+   "maxZ": 54,
+   "label": "Rua de trás"
+  },
+  {
+   "id": "calcada_meio",
+   "kind": "faixa",
+   "minX": -31,
+   "maxX": -29,
+   "minZ": -54,
+   "maxZ": 54,
+   "label": "Calçada"
+  },
+  {
+   "id": "calcada_orla",
+   "kind": "faixa",
+   "minX": -11,
+   "maxX": -9,
+   "minZ": -54,
+   "maxZ": 54,
+   "label": "Calçada dos prédios"
+  },
+  {
+   "id": "pista_cidade",
+   "kind": "faixa",
+   "minX": -9,
+   "maxX": -3,
+   "minZ": -54,
+   "maxZ": 54,
+   "label": "Pista da avenida, lado dos prédios"
+  },
+  {
+   "id": "pista_praia",
+   "kind": "faixa",
+   "minX": 4,
+   "maxX": 10,
+   "minZ": -54,
+   "maxZ": 54,
+   "label": "Pista da avenida, lado da praia"
+  },
+  {
+   "id": "calcadao",
+   "kind": "faixa",
+   "minX": 10,
+   "maxX": 15,
+   "minZ": -54,
+   "maxZ": 54,
+   "label": "Calçadão de pedras portuguesas em ondas"
+  },
+  {
+   "id": "areia",
+   "kind": "faixa",
+   "minX": 15,
+   "maxX": 36,
+   "minZ": -54,
+   "maxZ": 54,
+   "label": "Faixa de areia"
+  },
+  {
+   "id": "mar",
+   "kind": "faixa",
+   "minX": 36,
+   "maxX": 51,
+   "minZ": -54,
+   "maxZ": 54,
+   "label": "Mar: limite leste"
+  },
+  {
+   "id": "travessa_0",
+   "kind": "faixa",
+   "minX": -51,
+   "maxX": -9,
+   "minZ": 27,
+   "maxZ": 39,
+   "label": "Rua transversal"
+  },
+  {
+   "id": "travessa_1",
+   "kind": "faixa",
+   "minX": -51,
+   "maxX": -9,
+   "minZ": -7,
+   "maxZ": 5,
+   "label": "Rua transversal"
+  },
+  {
+   "id": "travessa_2",
+   "kind": "faixa",
+   "minX": -51,
+   "maxX": -9,
+   "minZ": -41,
+   "maxZ": -29,
+   "label": "Rua transversal"
+  },
+  {
+   "id": "pista_canteiro",
+   "kind": "faixa",
+   "minX": -3,
+   "maxX": 4,
+   "minZ": -54,
+   "maxZ": 54,
+   "label": "Travessias do canteiro"
+  },
+  {
+   "id": "Quadra_F0",
+   "kind": "quadra",
+   "minX": -29,
+   "maxX": -11,
+   "minZ": 39,
+   "maxZ": 54
+  },
+  {
+   "id": "Predio_F0",
+   "kind": "predio",
+   "minX": -28,
+   "maxX": -12,
+   "minZ": 40,
+   "maxZ": 54,
+   "floors": 7
+  },
+  {
+   "id": "Quadra_F1",
+   "kind": "quadra",
+   "minX": -29,
+   "maxX": -11,
+   "minZ": 5,
+   "maxZ": 27
+  },
+  {
+   "id": "Predio_F1",
+   "kind": "predio",
+   "minX": -28,
+   "maxX": -12,
+   "minZ": 6,
+   "maxZ": 26,
+   "floors": 8
+  },
+  {
+   "id": "Quadra_F2",
+   "kind": "quadra",
+   "minX": -29,
+   "maxX": -11,
+   "minZ": -29,
+   "maxZ": -7
+  },
+  {
+   "id": "Predio_F2",
+   "kind": "predio",
+   "minX": -28,
+   "maxX": -12,
+   "minZ": -28,
+   "maxZ": -8,
+   "floors": 6
+  },
+  {
+   "id": "Quadra_F3",
+   "kind": "quadra",
+   "minX": -29,
+   "maxX": -11,
+   "minZ": -54,
+   "maxZ": -41
+  },
+  {
+   "id": "Predio_F3",
+   "kind": "predio",
+   "minX": -28,
+   "maxX": -12,
+   "minZ": -54,
+   "maxZ": -42,
+   "floors": 8
+  },
+  {
+   "id": "Quadra_T0",
+   "kind": "quadra",
+   "minX": -51,
+   "maxX": -40,
+   "minZ": 39,
+   "maxZ": 54
+  },
+  {
+   "id": "Predio_T0",
+   "kind": "predio",
+   "minX": -51,
+   "maxX": -41,
+   "minZ": 40,
+   "maxZ": 54,
+   "floors": 10
+  },
+  {
+   "id": "Quadra_T1",
+   "kind": "quadra",
+   "minX": -51,
+   "maxX": -40,
+   "minZ": 5,
+   "maxZ": 27
+  },
+  {
+   "id": "Predio_T1",
+   "kind": "predio",
+   "minX": -51,
+   "maxX": -41,
+   "minZ": 6,
+   "maxZ": 26,
+   "floors": 9
+  },
+  {
+   "id": "Quadra_T2",
+   "kind": "quadra",
+   "minX": -51,
+   "maxX": -40,
+   "minZ": -29,
+   "maxZ": -7
+  },
+  {
+   "id": "Predio_T2",
+   "kind": "predio",
+   "minX": -51,
+   "maxX": -41,
+   "minZ": -28,
+   "maxZ": -8,
+   "floors": 10
+  },
+  {
+   "id": "Quadra_T3",
+   "kind": "quadra",
+   "minX": -51,
+   "maxX": -40,
+   "minZ": -54,
+   "maxZ": -41
+  },
+  {
+   "id": "Predio_T3",
+   "kind": "predio",
+   "minX": -51,
+   "maxX": -41,
+   "minZ": -54,
+   "maxZ": -42,
+   "floors": 9
+  },
+  {
+   "id": "Praca_Sul",
+   "kind": "praca",
+   "minX": -2.5,
+   "maxX": 3.5,
+   "minZ": 25,
+   "maxZ": 54,
+   "radius": 3,
+   "step": 0.12
+  },
+  {
+   "id": "Praca_Central",
+   "kind": "praca",
+   "minX": -2.5,
+   "maxX": 3.5,
+   "minZ": -18,
+   "maxZ": 17,
+   "radius": 3,
+   "step": 0.12
+  },
+  {
+   "id": "Praca_Norte",
+   "kind": "praca",
+   "minX": -2.5,
+   "maxX": 3.5,
+   "minZ": -54,
+   "maxZ": -26,
+   "radius": 3,
+   "step": 0.12
+  },
+  {
+   "id": "Quiosque_1",
+   "kind": "quiosque",
+   "minX": 15,
+   "maxX": 22.5,
+   "minZ": 11.0,
+   "maxZ": 24.0
+  },
+  {
+   "id": "Quiosque_2",
+   "kind": "quiosque",
+   "minX": 15,
+   "maxX": 22.5,
+   "minZ": -42.5,
+   "maxZ": -29.5
+  },
+  {
+   "id": "Deck_Pouso",
+   "kind": "deck",
+   "minX": 17,
+   "maxX": 33,
+   "minZ": 40,
+   "maxZ": 54
+  },
+  {
+   "id": "Reserva_Pouso",
+   "kind": "reserva",
+   "minX": 20,
+   "maxX": 30,
+   "minZ": 40,
+   "maxZ": 53
+  }
+ ],
+ "limits": [
+  {
+   "id": "Limite_Leste_Mar",
+   "kind": "mar",
+   "minX": 36,
+   "maxX": 51,
+   "minZ": -54,
+   "maxZ": 54,
+   "note": "Linha d'água irregular no visual; colisão reta em X = 36."
+  },
+  {
+   "id": "Limite_Oeste_Morro",
+   "kind": "morro",
+   "minX": -67,
+   "maxX": -51,
+   "minZ": -54,
+   "maxZ": 54,
+   "note": "Cadeia de morros de granito com mata atrás das quadras de fundo."
+  },
+  {
+   "id": "Limite_Norte_Morro_Escombros",
+   "kind": "morro_escombros",
+   "minX": -51,
+   "maxX": 36,
+   "minZ": -70,
+   "maxZ": -54,
+   "note": "Morro que avança até o mar e fecha a praia, com escombros na avenida."
+  },
+  {
+   "id": "Limite_Sul_Escombros",
+   "kind": "escombros",
+   "minX": -51,
+   "maxX": 36,
+   "minZ": 54,
+   "maxZ": 70,
+   "note": "Prédios desabados e avenida destruída atrás do deck de pouso."
+  }
+ ],
+ "limitColliders": [
+  {
+   "id": "COL_Limite_Norte",
+   "minX": -51.0,
+   "maxX": 51.0,
+   "minZ": -57.0,
+   "maxZ": -54.0,
+   "minY": 0.0,
+   "maxY": 4.0
+  },
+  {
+   "id": "COL_Limite_Sul",
+   "minX": -51.0,
+   "maxX": 51.0,
+   "minZ": 54.0,
+   "maxZ": 57.0,
+   "minY": 0.0,
+   "maxY": 4.0
+  },
+  {
+   "id": "COL_Limite_Oeste",
+   "minX": -54.0,
+   "maxX": -51.0,
+   "minZ": -54.0,
+   "maxZ": 54.0,
+   "minY": 0.0,
+   "maxY": 4.0
+  },
+  {
+   "id": "COL_Limite_Mar",
+   "minX": 36.0,
+   "maxX": 54.0,
+   "minZ": -54.0,
+   "maxZ": 54.0,
+   "minY": 0.0,
+   "maxY": 4.0
+  }
+ ],
+ "camera": {
+  "azimuth": "pi/4",
+  "note": "Mar embaixo à direita e deck embaixo à esquerda, como no croqui."
+ }
+}
