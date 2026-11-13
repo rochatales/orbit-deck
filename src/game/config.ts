@@ -1,5 +1,6 @@
 import masterplan from '../world/marsMasterplan.json';
-import type { MapId } from './session';
+import rio from '../assets/rio-fase01/layout.json';
+import type { MapId, ExpeditionMapId } from './session';
 import { isShanghaiPhase01 } from './shanghai/previewMode';
 export interface Point {
     x: number;
@@ -16,6 +17,7 @@ export interface NpcConfig {
 const edenRoom = masterplan.rooms.find(room => room.id === 'brand-brain')!;
 export const EDEN: NpcConfig = { id: 'eden', name: 'EDEN', color: '#f2c94c', position: { x: edenRoom.position.x, y: 0, z: edenRoom.position.z }, interactionRadius: 2.7 };
 export const MAPS: Record<MapId, {
+    kind: 'hub' | 'expedition';
     title: string;
     ship: Point;
     exit: Point;
@@ -26,10 +28,14 @@ export const MAPS: Record<MapId, {
         maxZ: number;
     };
 }> = {
-    mars: { title: 'Marte · Colônia humana', ship: { x: 0, y: 0, z: 33 }, exit: { x: 0, y: 0, z: 29.5 }, bounds: { minX: -22, maxX: 24, minZ: -20, maxZ: 39 } },
-    shanghai: { title: 'Terra · Shanghai', ship: { x: 0, y: 0, z: 13 }, exit: { x: 0, y: 0, z: 9.5 }, bounds: isShanghaiPhase01() ? { minX: -51, maxX: 51, minZ: -54, maxZ: 54 } : { minX: -17, maxX: 17, minZ: -18, maxZ: 18 } }
+    mars: { kind: 'hub', title: 'Marte · Colônia humana', ship: { x: 0, y: 0, z: 33 }, exit: { x: 0, y: 0, z: 29.5 }, bounds: { minX: -22, maxX: 24, minZ: -20, maxZ: 39 } },
+    shanghai: { kind: 'expedition', title: 'Terra · Shanghai', ship: { x: 0, y: 0, z: 13 }, exit: { x: 0, y: 0, z: 9.5 }, bounds: isShanghaiPhase01() ? { minX: -51, maxX: 51, minZ: -54, maxZ: 54 } : { minX: -17, maxX: 17, minZ: -18, maxZ: 18 } },
+    rio: { kind: 'expedition', title: 'Terra · Rio de Janeiro', ship: rio.ship, exit: rio.exit, bounds: rio.bounds }
 };
+export function isExpedition(map: string): map is ExpeditionMapId {
+    return Object.prototype.hasOwnProperty.call(MAPS, map) && MAPS[map as MapId].kind === 'expedition';
+}
 export const INITIAL_POSITION: Point = { x: -1, y: 0, z: 26 };
 export function near(a: Point, b: Point, distance: number) { return Math.hypot(a.x - b.x, a.z - b.z) <= distance; }
 
-export const MAP_CAMERA_ANGLE: Record<MapId, number> = { mars: 3 * Math.PI / 4, shanghai: Math.PI / 4 };
+export const MAP_CAMERA_ANGLE: Record<MapId, number> = { mars: 3 * Math.PI / 4, shanghai: Math.PI / 4, rio: Math.PI / 4 };

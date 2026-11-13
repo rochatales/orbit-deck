@@ -44,7 +44,7 @@ test('Cabine: localização/destino reais, máscara sobre vídeo local e navega�
     }
     const app = fs.readFileSync('src/app/App.tsx', 'utf8');
     assert.match(app, /!inCockpit && <>/);
-    assert.match(app, /onDepart=\{\(\) => s.send\('depart'\)\}/);
+    assert.match(app, /onDepart=\{destination => s.send\('depart', destination\)\}/);
     assert.match(app, /onExit=\{\(\) => s.send\('exit'\)\}/);
     assert.match(app, /if \(state.session.phase === 'aboard'\)\s+state.send\('exit'\)/);
 });

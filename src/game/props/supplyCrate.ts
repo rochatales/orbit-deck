@@ -16,8 +16,8 @@ export const SHANGHAI_SUPPLY_CRATES: readonly CratePlacement[] = [
 export function crateMarker(p: CratePlacement) {
     return { x: p.x + Math.sin(p.angle ?? 0) * 1.6, z: p.z + Math.cos(p.angle ?? 0) * 1.6 };
 }
-export function crateObstacle(p: CratePlacement) {
-    const c = Math.abs(Math.cos(p.angle ?? 0)), s = Math.abs(Math.sin(p.angle ?? 0)), floor = phase01SurfaceGrid()(p.x, p.z);
+export function crateObstacle(p: CratePlacement, floor = phase01SurfaceGrid()(p.x, p.z)) {
+    const c = Math.abs(Math.cos(p.angle ?? 0)), s = Math.abs(Math.sin(p.angle ?? 0));
     const halfX = c * .9 + s, halfZ = s * .9 + c;
     return { minX: p.x - halfX, maxX: p.x + halfX, minZ: p.z - halfZ, maxZ: p.z + halfZ, minY: floor + SUPPLY_CRATE.minY, maxY: floor + SUPPLY_CRATE.maxY };
 }

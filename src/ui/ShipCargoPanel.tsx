@@ -1,3 +1,4 @@
+import { isExpedition } from '../game/config';
 import { engineerBriefingRequired, missionDepositRemaining } from '../game/campaignPolicy';
 import { useEffect, useRef, useState } from 'react';
 import { Plane, ArrowRight, ArrowLeft } from 'lucide-react';
@@ -59,7 +60,7 @@ function Grid({ cargo, slots, action, onMove, label }: { cargo: ResourceCargo; s
 /** O depósito rápido destaca a aeronave à esquerda. O menu completo mantém a ordem da mochila. */
 export function ShipCargoPanel({ map, depositOnly = false }: { map: MapId; depositOnly?: boolean }) {
   const campaign = useCampaignStore(s => s.mode === 'campaign');
-  const combat = map === 'shanghai', live = useCombatStore(), backpack: ResourceCargo = combat ? live : EMPTY_CARGO;
+  const combat = isExpedition(map), live = useCombatStore(), backpack: ResourceCargo = combat ? live : EMPTY_CARGO;
   const ship = useShipCargoStore(s => s.cargo), deposit = useShipCargoStore(s => s.deposit), withdraw = useShipCargoStore(s => s.withdraw);
   const [note, setNote] = useState('');
   const remaining = useCampaignStore(s => missionDepositRemaining(map, s));

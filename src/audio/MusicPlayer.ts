@@ -1,6 +1,5 @@
 import { AUDIO } from './config';
-import type { MapId } from '../game/session';
-export type MusicScene = 'home' | MapId;
+export type MusicScene = 'home' | 'mars' | 'shanghai';
 export type MusicFiles = Record<MusicScene, { url: string }>;
 /** Uma trilha em streaming por vez, com o volume geral compartilhado. */
 export class MusicPlayer {

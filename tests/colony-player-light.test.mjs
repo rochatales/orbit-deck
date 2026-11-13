@@ -74,12 +74,13 @@ test('Colônia: faixa azul abaixo do capacete e foco suave frontal presos à cab
   const legacy = createColonyVisor(colon); assert.equal(legacy.head, head); legacy.dispose();
 });
 
-test('Iluminação por mapa: filete nos dois mapas; foco local só em Marte, Shanghai mantém farol e mochila', () => {
+test('Iluminação por mapa: filete em todos os mapas; foco local em Marte, farol e mochila nas expedições', () => {
   const model = fs.readFileSync('src/characters/player/PlayerModel.tsx', 'utf8');
   assert.match(model, /<PlayerBackpack scene=\{scene\} illuminated=\{combat\}/);
   assert.match(model, /<ColonyPlayerVisor scene=\{scene\} illuminated=\{!combat\}/);
   const office = fs.readFileSync('src/scene/OfficeScene.tsx', 'utf8');
-  assert.match(office, /map === 'shanghai'[^\n]*<PlayerVisorLight/);
+  assert.match(office, /combat = isExpedition\(map\)/);
+  assert.match(office, /combat &&[^\n]*<PlayerVisorLight/);
 });
 
 test('Shanghai: filete azul visível no Head também com espada, sem acrescentar uma luz local', async () => {

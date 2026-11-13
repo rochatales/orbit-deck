@@ -1,5 +1,6 @@
 /** Pure session rules. Travel never grants loot; expeditions are not saved mid-flight. */
-export type MapId = 'mars' | 'shanghai';
+export type MapId = 'mars' | ExpeditionMapId;
+export type ExpeditionMapId = 'shanghai' | 'rio';
 export type TravelPhase = 'walking' | 'aboard' | 'travelling';
 export interface Session {
     map: MapId;
@@ -9,13 +10,13 @@ export interface Session {
 }
 export type SessionEvent = 'board' | 'exit' | 'depart' | 'arrive' | 'fail';
 export const INITIAL_SESSION: Session = { map: 'mars', phase: 'walking', destination: null, revision: 0 };
-export function transition(s: Session, event: SessionEvent): Session {
+export function transition(s: Session, event: SessionEvent, outbound: ExpeditionMapId = 'shanghai'): Session {
     if (event === 'board' && s.phase === 'walking')
         return { ...s, phase: 'aboard', revision: s.revision + 1 };
     if (event === 'exit' && s.phase === 'aboard')
         return { ...s, phase: 'walking', revision: s.revision + 1 };
     if (event === 'depart' && s.phase === 'aboard')
-        return { ...s, phase: 'travelling', destination: s.map === 'mars' ? 'shanghai' : 'mars' };
+        return { ...s, phase: 'travelling', destination: s.map === 'mars' ? outbound : 'mars' };
     if (event === 'arrive' && s.phase === 'travelling' && s.destination)
         return { map: s.destination, phase: 'aboard', destination: null, revision: s.revision + 1 };
     if (event === 'fail' && s.phase === 'travelling')

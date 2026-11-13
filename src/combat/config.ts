@@ -1,5 +1,8 @@
 import { SHANGHAI_MEDICAL_KITS, MEDICAL_KIT } from '../game/props/medicalKit';
 import phase01 from '../assets/shanghai-fase01/layout.json';
+import rio from '../assets/rio-fase01/layout.json';
+import type { ExpeditionMapId } from '../game/session';
+import { RIO_MEDICAL_KITS } from '../game/rio/supplies';
 import { isShanghaiPhase01 } from '../game/shanghai/previewMode';
 /** First playable tuning; units are metres, seconds and hit points. */
 export const COMBAT = {
@@ -91,7 +94,7 @@ export const HORDE_SPAWNS = PATROL_ROUTES.flatMap((route, routeIndex) => {
 });
 
 export interface EncounterSpawn { x: number; z: number; routeIndex: number; waypoint: number }
-/** Onde a horda nasce, patrulha e onde ficam os corações, por mapa de Shanghai. */
+/** Onde a horda nasce, patrulha e onde ficam os corações, por mapa de expedição. */
 export interface EncounterLayout {
     routes: readonly (readonly { x: number; z: number }[])[];
     spawns: readonly EncounterSpawn[];
@@ -100,6 +103,8 @@ export interface EncounterLayout {
     hearts: readonly { x: number; z: number }[];
     /** Ponto de desembarque: spawns de horda precisam ter caminho até ele. */
     arrival: { x: number; z: number };
+    /** Perímetro em terra quando os limites do mapa incluem água. */
+    perimeter?: import('../utils/math').RectBounds;
 }
 const CURRENT_LAYOUT: EncounterLayout = {
     routes: PATROL_ROUTES, spawns: HORDE_SPAWNS, hearts: COMBAT.hearts,
@@ -117,7 +122,15 @@ const PHASE01_LAYOUT: EncounterLayout = {
     small: [...phase01.spawns].sort((a, b) => Math.hypot(a.x - exit.x, a.z - exit.z) - Math.hypot(b.x - exit.x, b.z - exit.z)),
     arrival: { x: exit.x, z: exit.z },
 };
-export function encounterLayout(phase = isShanghaiPhase01()): EncounterLayout {
+const RIO_ENCOUNTER: EncounterLayout = {
+    routes: rio.patrolRoutes, spawns: rio.spawns, hearts: RIO_MEDICAL_KITS,
+    small: [...rio.spawns].sort((a, b) => Math.hypot(a.x - rio.exit.x, a.z - rio.exit.z) - Math.hypot(b.x - rio.exit.x, b.z - rio.exit.z)),
+    arrival: rio.exit,
+    perimeter: rio.walkableAreas[0],
+};
+export function encounterLayout(mapOrShanghaiPhase: ExpeditionMapId | boolean = 'shanghai'): EncounterLayout {
+    if (mapOrShanghaiPhase === 'rio') return RIO_ENCOUNTER;
+    const phase = typeof mapOrShanghaiPhase === 'boolean' ? mapOrShanghaiPhase : isShanghaiPhase01();
     return phase ? PHASE01_LAYOUT : CURRENT_LAYOUT;
 }
 

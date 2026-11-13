@@ -1,7 +1,7 @@
 import { CAMPAIGN_QUOTAS, campaignDepartureBlock, campaignObjective } from '../game/campaign';
 import { create } from 'zustand';
-import { INITIAL_SESSION, migrateProfile, parseSave, transition, type HubSave, type Profile, type Session, type SessionEvent } from '../game/session';
-import { INITIAL_POSITION, MAPS, type Point } from '../game/config';
+import { INITIAL_SESSION, migrateProfile, parseSave, transition, type ExpeditionMapId, type HubSave, type Profile, type Session, type SessionEvent } from '../game/session';
+import { INITIAL_POSITION, MAPS, isExpedition, type Point } from '../game/config';
 import { LABORATORIO } from '../game/laboratorioLayout';
 import type { MapId } from '../game/session';
 import { useGameStore } from './useGameStore';
@@ -66,7 +66,7 @@ interface ExpeditionState {
     openDeposit: () => void;
     activateSynthesizer: () => void;
     closePanel: () => void;
-    send: (event: SessionEvent) => void;
+    send: (event: SessionEvent, outbound?: ExpeditionMapId) => void;
     restartMission: () => void;
     setReady: (ready: boolean) => void;
     setError: (error: string | null) => void;
@@ -156,7 +156,7 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
     acknowledgeEden: () => {
         const s = get(), c = useCampaignStore.getState();
         if (!onFootInColony(s) || s.panel !== 'eden') return;
-        if (c.mode !== 'campaign') s.setRadio('Siga ao sul até o deck de lançamento. Entre na aeronave e escolha Shanghai.');
+        if (c.mode !== 'campaign') s.setRadio('Siga ao sul até o deck de lançamento. Entre na aeronave e escolha o destino.');
         else if (c.dispatch('finish-eden-briefing')) {
             set({ briefingSeen: true });
             s.setRadio('O Engenheiro está à sua espera na Oficina com o facão de plasma.');
@@ -192,10 +192,10 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
         if (s.panel === 'engineer') useCampaignStore.getState().dispatch('finish-engineer-return-briefing');
         set({ panel: s.panel === 'engineer' && s.acquisition ? 'acquisition' : null });
     },
-    send: (event) => {
+    send: (event, outbound) => {
         const s = get();
         const paused = useGameStore.getState().isPaused;
-        if (['board', 'exit', 'depart'].includes(event) && (!s.ready || (paused && s.session.phase === 'walking') || (s.session.map === 'shanghai' && useCombatStore.getState().dead)))
+        if (['board', 'exit', 'depart'].includes(event) && (!s.ready || (paused && s.session.phase === 'walking') || (isExpedition(s.session.map) && useCombatStore.getState().dead)))
             return;
         // A cabine cobre o menu de pausa: uma pausa antiga não pode travar nem reaparecer ao desembarcar.
         if (paused && s.session.phase !== 'walking') useGameStore.setState({ isPaused: false });
@@ -206,7 +206,8 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
         const campaign = useCampaignStore.getState();
         if (event === 'depart' && s.session.map === 'mars' && campaign.mode === 'campaign'
             && campaign.saved && campaignDepartureBlock(campaign.saved.campaign)) return;
-        const session = transition(s.session, event);
+        if (event === 'depart' && s.session.map === 'mars' && outbound === 'rio' && campaign.mode !== 'development') return;
+        const session = transition(s.session, event, outbound);
         if (session === s.session)
             return;
         if (event === 'arrive' && session.map === 'mars' && s.session.map === 'shanghai' && useCampaignStore.getState().mode === 'campaign')
@@ -216,12 +217,12 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
             get().setRadio(returning ? 'Chegamos a Marte. Fale com o Engenheiro sobre o cobre.'
                 : 'Chegamos a Marte. A carga da aeronave está consolidada.', 'Sistema', 'mars');
         }
-        if (event === 'arrive' && session.map === 'shanghai') {
+        if (event === 'arrive' && isExpedition(session.map)) {
             useCombatStore.getState().restart();
             set({ quotaAnnounced: false });
-            if (campaign.mode === 'campaign' && campaign.saved?.campaign.stage === 'expedition-copper')
+            if (session.map === 'shanghai' && campaign.mode === 'campaign' && campaign.saved?.campaign.stage === 'expedition-copper')
                 get().setRadio('Conferi aqui, você vai precisar de 04 unidades de cobre.', 'Engenheiro', 'shanghai');
-            if (campaign.mode === 'campaign' && campaign.saved?.campaign.stage === 'expedition-organic')
+            if (session.map === 'shanghai' && campaign.mode === 'campaign' && campaign.saved?.campaign.stage === 'expedition-organic')
                 get().setRadio('Salvager, recolha a matéria orgânica dos mutantes e guarde as amostras na aeronave.', 'EDEN', 'shanghai');
         }
         let spawn = s.spawn;
@@ -234,12 +235,12 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
     },
     restartMission: () => {
         const s = get();
-        if (s.session.map !== 'shanghai' || !s.ready || s.session.phase !== 'walking') return;
+        if (!isExpedition(s.session.map) || !s.ready || s.session.phase !== 'walking') return;
         useCampaignStore.getState().abandonAttempt();
         useCombatStore.getState().restart();
         set({ quotaAnnounced: false });
-        const spawn = MAPS.shanghai.exit;
-        respawn(spawn, 'shanghai');
+        const spawn = MAPS[s.session.map].exit;
+        respawn(spawn, s.session.map);
         set({ spawn, panel: null, session: { ...s.session, revision: s.session.revision + 1 } });
         const radio = 'Nova tentativa. Mova-se, mire com o mouse e use R para recarregar.';
         if (useCampaignStore.getState().mode === 'campaign') get().setRadio(radio, 'Sistema');

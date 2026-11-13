@@ -1,3 +1,4 @@
+import { isExpedition } from '../../game/config';
 import { useExpeditionStore } from "../../state/useExpeditionStore";
 import type { RapierCollider, RapierRigidBody } from "@react-three/rapier";
 import { useRef } from "react";
@@ -17,7 +18,7 @@ interface PlayerProps {
 }
 
 export function Player({ officeWorld, spawn }: PlayerProps) {
-  const combat = useExpeditionStore(s => s.session.map === "shanghai");
+  const combat = useExpeditionStore(s => isExpedition(s.session.map));
   const rigidBodyRef = useRef<RapierRigidBody | null>(null);
   const colliderRef = useRef<RapierCollider | null>(null);
   const motionRef = useRef(createInitialPlayerMotionState());

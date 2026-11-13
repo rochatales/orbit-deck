@@ -1,3 +1,4 @@
+import { isExpedition } from '../../game/config';
 import { recoverBackpackEnergy } from '../../game/backpackConfig';
 import { backpackEnergy, resetBackpackEnergy } from '../../state/useBackpackEnergy';
 import { advanceDash, dashEnabled } from './playerDash';
@@ -155,7 +156,7 @@ export function PlayerController({
       combatRuntime.aim.x, combatRuntime.aim.z, combatRuntime.aimValid, PLAYER_LOCOMOTION.aimMinDistance);
     const interactionAngle = isDialogOpen ? getInteractionFacingAngle(translation.x, translation.z, activeNpcId) : null;
     const targetAngle = interactionAngle ?? aimAngleRef.current;
-    const simulation = useExpeditionStore.getState().session.map === 'shanghai' ? combatRuntime.simulation : null;
+    const simulation = isExpedition(useExpeditionStore.getState().session.map) ? combatRuntime.simulation : null;
     let swordStepping = false;
     if (simulation && !isDashing && useWeaponStore.getState().weapon === 'machete') {
       swordStepping = swordRoot.update(simulation.swingId, simulation.comboStage, simulation.meleeLeft, targetAngle);

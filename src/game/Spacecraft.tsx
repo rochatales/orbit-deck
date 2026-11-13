@@ -31,7 +31,7 @@ export function Spacecraft({ map }: {
     map: MapId;
 }) {
     const p = MAPS[map].ship;
-    if (map === 'shanghai' && isShanghaiPhase01()) return null;
+    if (map === 'rio' || (map === 'shanghai' && isShanghaiPhase01())) return null;
     if (map === 'shanghai') return <ParkedRocket x={p.x} z={p.z}/>;
     return <group position={[p.x, 0, p.z]}>
     {/* Open-roof cabin: the boarded explorer remains visible. Front is the access ramp. */}

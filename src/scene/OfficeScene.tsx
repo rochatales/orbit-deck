@@ -7,6 +7,8 @@ import { PlayerVisorLight } from './PlayerVisorLight';
 import { SHANGHAI_DAWN } from './lightingConfig';
 import { Suspense } from 'react';
 import { Html } from '@react-three/drei';
+import { isExpedition } from '../game/config';
+import { RIO_SKY, RioLighting } from './RioLighting';
 import { ShanghaiLighting } from './ShanghaiLighting';
 import { SceneReady } from './SceneReady';
 import { ShanghaiAssetGate } from './ShanghaiAssetGate';
@@ -30,13 +32,13 @@ import { ShanghaiDecay } from './ShanghaiDecay';
 import { useFrame } from '@react-three/fiber';
 import { playerPosition } from '../state/playerTransient';
 
-function ShanghaiAtmosphere({ world }: { world: OfficeWorld }) {
+function ExpeditionAtmosphere({ world, phase01 }: { world: OfficeWorld; phase01: boolean }) {
     useFrame(({ camera }, dt) => {
         const step = Math.min(dt, 0.1), { limitsRuinFade, buildingFade } = world.group.userData;
         limitsRuinFade?.update(playerPosition.x, playerPosition.z, camera, step);
         buildingFade?.update(playerPosition.x, playerPosition.z, camera, step);
     });
-    return <><ShanghaiClouds /><ShanghaiDecay world={world}/></>;
+    return phase01 ? <><ShanghaiClouds /><ShanghaiDecay world={world}/></> : null;
 }
 
 export function OfficeScene({ world, map }: {
@@ -45,25 +47,26 @@ export function OfficeScene({ world, map }: {
 }) {
     const spawn = useExpeditionStore(s => s.spawn), revision = useExpeditionStore(s => s.session.revision);
     const phase01 = map === 'shanghai' && isShanghaiPhase01();
-    const sky = map === 'mars' ? SANDWIND_APPEARANCE.color : SHANGHAI_DAWN.horizon;
-    return <Suspense fallback={<Html center><p role="status">{map === 'mars' ? 'Carregando colônia de Marte…' : 'Carregando Shanghai fase 01…'}</p></Html>}><ShanghaiAssetGate world={world}><>
-    {map === 'mars' ? <color attach="background" args={[sky]}/> : <DawnBackground/>}
-    <fog attach="fog" args={map === 'mars' ? [sky, 130, 270] : [sky, SHANGHAI_DAWN.fogNear, SHANGHAI_DAWN.fogFar]}/>
-    {map === 'shanghai' ? <ShanghaiLighting/> : <Lighting/>}
+    const combat = isExpedition(map), rio = map === 'rio';
+    const sky = rio ? RIO_SKY : combat ? SHANGHAI_DAWN.horizon : SANDWIND_APPEARANCE.color;
+    return <Suspense fallback={<Html center><p role="status">{map === 'mars' ? 'Carregando colônia de Marte…' : rio ? 'Carregando Rio de Janeiro…' : 'Carregando Shanghai fase 01…'}</p></Html>}><ShanghaiAssetGate world={world}><>
+    {map !== 'shanghai' ? <color attach="background" args={[sky]}/> : <DawnBackground/>}
+    <fog attach="fog" args={map === 'mars' ? [sky, 130, 270] : rio ? [sky, 85, 180] : [sky, SHANGHAI_DAWN.fogNear, SHANGHAI_DAWN.fogFar]}/>
+    {rio ? <RioLighting/> : combat ? <ShanghaiLighting/> : <Lighting/>}
     {/* Recuo ×3 no mesmo eixo ortográfico: torres de Marte (S6.12) e prédios da fase 01 (S6.3). */}
-    <CameraRig key={`camera-${revision}`} bounds={world.bounds} spawn={spawn} map={map} framing={map === 'shanghai' ? SHANGHAI_FRAMING : undefined} distanceScale={map === 'mars' || phase01 ? 3 : 1}/>
+    <CameraRig key={`camera-${revision}`} bounds={world.bounds} spawn={spawn} map={map} framing={map === 'shanghai' ? SHANGHAI_FRAMING : undefined} distanceScale={map === 'mars' || phase01 || rio ? 3 : 1}/>
     <PlayerAim key={`aim-${revision}`}/>
     <PhysicsWorld officeWorld={world}>
-      <OfficeMap officeWorld={world} animate={map !== 'mars'}/>
+      <OfficeMap officeWorld={world} animate={combat}/>
       <Player key={revision} officeWorld={world} spawn={spawn}/>
       {map === 'mars' && <EngineerScene world={world}/>}
     </PhysicsWorld>
     <PlayerStepDust key={`dust-${map}-${revision}`} world={world} map={map}/>
-    {map === 'shanghai' && <><CombatScene world={world}/><PlayerVisorLight/></>}
-    {phase01 && <ShanghaiAtmosphere world={world}/>}
+    {combat && <><CombatScene world={world} map={map}/><PlayerVisorLight/></>}
+    {(phase01 || rio) && <ExpeditionAtmosphere world={world} phase01={phase01}/>}
     {map === 'mars' ? <MarsColony world={world}/> : <Spacecraft map={map}/>}
     <WorldInteractionBubbles key={`interactions-${map}-${revision}`} map={map} world={world}/>
-    <PlayerReticle key={`reticle-${revision}`} world={world} combat={map === 'shanghai'}/>
+    <PlayerReticle key={`reticle-${revision}`} world={world} combat={combat}/>
     <SceneReady world={world}/>
   </></ShanghaiAssetGate></Suspense>;
 }

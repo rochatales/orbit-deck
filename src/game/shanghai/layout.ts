@@ -19,7 +19,7 @@ export function createPhase01Terrain(): OfficeWorld {
         walkableAreas: data.walkableAreas.map(a => ({ ...a })), update: () => { }
     };
     world.obstacles.push(...SHANGHAI_CARS.map(car => carObstacle(car, height(car.x, car.z))));
-    world.obstacles.push(...SHANGHAI_SUPPLY_CRATES.map(crateObstacle));
+    world.obstacles.push(...SHANGHAI_SUPPLY_CRATES.map(crate => crateObstacle(crate)));
     addAresCollisions(world);
     return world;
 }

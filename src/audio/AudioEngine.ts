@@ -1,4 +1,5 @@
-import { MusicPlayer, type MusicFiles } from './MusicPlayer';
+import { isExpedition } from '../game/config';
+import { MusicPlayer, type MusicFiles, type MusicScene } from './MusicPlayer';
 import { AmbienceMixer, type MarsAmbienceFiles } from './AmbienceMixer';
 import { AUDIO, distanceGain, soundFor, variationIndex, type Category } from './config';
 import type { SoundEvent, SoundQueue } from './events';
@@ -7,6 +8,10 @@ interface StorageLike { getItem(key: string): string | null; setItem(key: string
 interface Voice { source: AudioBufferSourceNode; gain: GainNode; pan: StereoPannerNode; category: Category; retiring: boolean; emitter?: number }
 export interface SoundFile { name: string; url: string }
 /** Serviço único por página. Contexto e buffers só existem depois de um gesto. */
+function musicScene(map: MapId | null): MusicScene {
+    return isExpedition(map ?? '') ? 'shanghai' : map === 'mars' ? 'mars' : 'home';
+}
+
 export class AudioEngine {
     context: AudioContext | null = null;
     volume: number = AUDIO.defaultVolume;
@@ -55,7 +60,7 @@ export class AudioEngine {
             this.ambienceMixer = new AmbienceMixer(this.context, this.master, this.ambience, this.marsAmbience, () => { this.stats.decodeErrors++; });
             this.prepareGameplay();
             if (this.music) {
-                this.musicPlayer = new MusicPlayer(this.context, this.master, this.music, this.map ?? 'home', this.preparedHomeMusic ?? undefined);
+                this.musicPlayer = new MusicPlayer(this.context, this.master, this.music, musicScene(this.map), this.preparedHomeMusic ?? undefined);
                 this.preparedHomeMusic = null;
             }
         }
@@ -123,7 +128,7 @@ export class AudioEngine {
             this.preparedHomeMusic.src = this.music.home.url;
         }
         this.prepareGameplay();
-        this.musicPlayer?.setScene(map ?? 'home');
+        this.musicPlayer?.setScene(musicScene(map));
         this.syncPlayback();
     }
     setMarsInterior(inside: boolean) {

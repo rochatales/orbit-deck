@@ -3,7 +3,7 @@ export const STEP_DUST = {
     capacity: 96, perStep: 8, pendingCapacity: 4,
     minLife: .45, maxLife: .75, groundOffset: .025,
     initialSize: .14, growth: .3, opacity: .48, supportTolerance: .1,
-    colors: { mars: '#bd6f4c', shanghai: '#a2a5a6', indoor: '#d9dde0' },
+    colors: { mars: '#bd6f4c', shanghai: '#a2a5a6', rio: '#c3a77e', indoor: '#d9dde0' },
 } as const;
 interface DustParticle {
     x: number; y: number; z: number; vx: number; vy: number; vz: number;

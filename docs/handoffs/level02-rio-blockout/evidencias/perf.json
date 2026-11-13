@@ -1,0 +1,445 @@
+{
+  "method": "Runtime Vite com ?perf. Chromium headless, ANGLE/Metal. Amostras de 4 s com o jogador parado no desembarque, horda inteira viva no início. O QA encerra a horda entre amostras. Intervalos rAF, sem medição direta da GPU.",
+  "viewport": [
+    1440,
+    900
+  ],
+  "dpr": 1,
+  "host": "Apple M2 Pro",
+  "waves": [
+    {
+      "map": "rio",
+      "wave": 1,
+      "aliveStart": 13,
+      "aliveEnd": 13,
+      "sample": {
+        "status": "valid",
+        "invalidReason": null,
+        "warnings": [],
+        "startedAtMs": 13418.299999952316,
+        "requestedMs": 4000,
+        "elapsedMs": 4015.100000143051,
+        "map": "rio",
+        "coverage": {
+          "intervalsCollected": 241,
+          "intervalsCapacity": 2016,
+          "intervalsSaturated": false,
+          "countersCollected": 38,
+          "countersCapacity": 56,
+          "countersSaturated": false
+        },
+        "rafIntervals": {
+          "count": 241,
+          "p50": 16.69999999999891,
+          "p95": 16.700000000000728,
+          "max": 16.80000000000109,
+          "mean": 16.6655601659751,
+          "rafOver33": 0,
+          "rafOver50": 0
+        },
+        "longAnimationFrames": {
+          "supported": true,
+          "count": 0,
+          "maxDurationMs": null
+        },
+        "renderer": {
+          "samples": 38,
+          "firstSampledAtMs": 13418.600000143051,
+          "lastSampledAtMs": 17416.799999952316,
+          "drawCalls": {
+            "min": 89,
+            "max": 95,
+            "mean": 90.3157894736842
+          },
+          "triangles": {
+            "min": 62168,
+            "max": 62444,
+            "mean": 62228.52631578947
+          }
+        }
+      }
+    },
+    {
+      "map": "rio",
+      "wave": 2,
+      "aliveStart": 26,
+      "aliveEnd": 26,
+      "sample": {
+        "status": "valid",
+        "invalidReason": null,
+        "warnings": [],
+        "startedAtMs": 23513.400000095367,
+        "requestedMs": 4000,
+        "elapsedMs": 4003,
+        "map": "rio",
+        "coverage": {
+          "intervalsCollected": 240,
+          "intervalsCapacity": 2016,
+          "intervalsSaturated": false,
+          "countersCollected": 37,
+          "countersCapacity": 56,
+          "countersSaturated": false
+        },
+        "rafIntervals": {
+          "count": 240,
+          "p50": 16.700000000000728,
+          "p95": 16.700000000000728,
+          "max": 16.80000000000291,
+          "mean": 16.66583333333333,
+          "rafOver33": 0,
+          "rafOver50": 0
+        },
+        "longAnimationFrames": {
+          "supported": true,
+          "count": 0,
+          "maxDurationMs": null
+        },
+        "renderer": {
+          "samples": 37,
+          "firstSampledAtMs": 23516.799999952316,
+          "lastSampledAtMs": 27466.200000047684,
+          "drawCalls": {
+            "min": 97,
+            "max": 107,
+            "mean": 99.75675675675676
+          },
+          "triangles": {
+            "min": 95410,
+            "max": 105794,
+            "mean": 103584.27027027027
+          }
+        }
+      }
+    },
+    {
+      "map": "rio",
+      "wave": 3,
+      "aliveStart": 32,
+      "aliveEnd": 32,
+      "sample": {
+        "status": "valid",
+        "invalidReason": null,
+        "warnings": [],
+        "startedAtMs": 33794.40000009537,
+        "requestedMs": 4000,
+        "elapsedMs": 4004.899999856949,
+        "map": "rio",
+        "coverage": {
+          "intervalsCollected": 240,
+          "intervalsCapacity": 2016,
+          "intervalsSaturated": false,
+          "countersCollected": 37,
+          "countersCapacity": 56,
+          "countersSaturated": false
+        },
+        "rafIntervals": {
+          "count": 240,
+          "p50": 16.69999999999709,
+          "p95": 16.700000000004366,
+          "max": 16.80000000000291,
+          "mean": 16.665833333333314,
+          "rafOver33": 0,
+          "rafOver50": 0
+        },
+        "longAnimationFrames": {
+          "supported": true,
+          "count": 0,
+          "maxDurationMs": null
+        },
+        "renderer": {
+          "samples": 37,
+          "firstSampledAtMs": 33799.60000014305,
+          "lastSampledAtMs": 37716.40000009537,
+          "drawCalls": {
+            "min": 105,
+            "max": 110,
+            "mean": 105.27027027027027
+          },
+          "triangles": {
+            "min": 144786,
+            "max": 153452,
+            "mean": 145710.43243243243
+          }
+        }
+      }
+    },
+    {
+      "map": "rio",
+      "wave": 4,
+      "aliveStart": 44,
+      "aliveEnd": 44,
+      "sample": {
+        "status": "valid",
+        "invalidReason": null,
+        "warnings": [],
+        "startedAtMs": 43903,
+        "requestedMs": 4000,
+        "elapsedMs": 4011.9000000953674,
+        "map": "rio",
+        "coverage": {
+          "intervalsCollected": 240,
+          "intervalsCapacity": 2016,
+          "intervalsSaturated": false,
+          "countersCollected": 37,
+          "countersCapacity": 56,
+          "countersSaturated": false
+        },
+        "rafIntervals": {
+          "count": 240,
+          "p50": 16.69999999999709,
+          "p95": 16.799999999995634,
+          "max": 16.80000000000291,
+          "mean": 16.666250000000005,
+          "rafOver33": 0,
+          "rafOver50": 0
+        },
+        "longAnimationFrames": {
+          "supported": true,
+          "count": 0,
+          "maxDurationMs": null
+        },
+        "renderer": {
+          "samples": 37,
+          "firstSampledAtMs": 43916,
+          "lastSampledAtMs": 47866.10000014305,
+          "drawCalls": {
+            "min": 111,
+            "max": 115,
+            "mean": 112.43243243243244
+          },
+          "triangles": {
+            "min": 170076,
+            "max": 178690,
+            "mean": 175611.13513513515
+          }
+        }
+      }
+    },
+    {
+      "map": "shanghai",
+      "wave": 1,
+      "aliveStart": 13,
+      "aliveEnd": 13,
+      "sample": {
+        "status": "valid",
+        "invalidReason": null,
+        "warnings": [],
+        "startedAtMs": 15903.100000143051,
+        "requestedMs": 4000,
+        "elapsedMs": 4005,
+        "map": "shanghai",
+        "coverage": {
+          "intervalsCollected": 240,
+          "intervalsCapacity": 2016,
+          "intervalsSaturated": false,
+          "countersCollected": 37,
+          "countersCapacity": 56,
+          "countersSaturated": false
+        },
+        "rafIntervals": {
+          "count": 240,
+          "p50": 16.700000000000728,
+          "p95": 16.700000000000728,
+          "max": 16.80000000000291,
+          "mean": 16.666250000000005,
+          "rafOver33": 0,
+          "rafOver50": 0
+        },
+        "longAnimationFrames": {
+          "supported": true,
+          "count": 0,
+          "maxDurationMs": null
+        },
+        "renderer": {
+          "samples": 37,
+          "firstSampledAtMs": 15908.100000143051,
+          "lastSampledAtMs": 19808.300000190735,
+          "drawCalls": {
+            "min": 125,
+            "max": 125,
+            "mean": 125
+          },
+          "triangles": {
+            "min": 216817,
+            "max": 216817,
+            "mean": 216817
+          }
+        }
+      }
+    },
+    {
+      "map": "shanghai",
+      "wave": 2,
+      "aliveStart": 26,
+      "aliveEnd": 26,
+      "sample": {
+        "status": "valid",
+        "invalidReason": null,
+        "warnings": [],
+        "startedAtMs": 25994.800000190735,
+        "requestedMs": 4000,
+        "elapsedMs": 4012.7999999523163,
+        "map": "shanghai",
+        "coverage": {
+          "intervalsCollected": 238,
+          "intervalsCapacity": 2016,
+          "intervalsSaturated": false,
+          "countersCollected": 38,
+          "countersCapacity": 56,
+          "countersSaturated": false
+        },
+        "rafIntervals": {
+          "count": 238,
+          "p50": 16.69999999999709,
+          "p95": 16.799999999999272,
+          "max": 49.89999999999782,
+          "mean": 16.80630252100841,
+          "rafOver33": 1,
+          "rafOver50": 0
+        },
+        "longAnimationFrames": {
+          "supported": true,
+          "count": 1,
+          "maxDurationMs": 62
+        },
+        "renderer": {
+          "samples": 38,
+          "firstSampledAtMs": 26007.900000095367,
+          "lastSampledAtMs": 29973.5,
+          "drawCalls": {
+            "min": 125,
+            "max": 125,
+            "mean": 125
+          },
+          "triangles": {
+            "min": 218065,
+            "max": 218065,
+            "mean": 218065
+          }
+        }
+      }
+    },
+    {
+      "map": "shanghai",
+      "wave": 3,
+      "aliveStart": 32,
+      "aliveEnd": 32,
+      "sample": {
+        "status": "valid",
+        "invalidReason": null,
+        "warnings": [],
+        "startedAtMs": 36097.700000047684,
+        "requestedMs": 4000,
+        "elapsedMs": 4008.9000000953674,
+        "map": "shanghai",
+        "coverage": {
+          "intervalsCollected": 240,
+          "intervalsCapacity": 2016,
+          "intervalsSaturated": false,
+          "countersCollected": 37,
+          "countersCapacity": 56,
+          "countersSaturated": false
+        },
+        "rafIntervals": {
+          "count": 240,
+          "p50": 16.69999999999709,
+          "p95": 16.700000000004366,
+          "max": 16.80000000000291,
+          "mean": 16.665833333333346,
+          "rafOver33": 0,
+          "rafOver50": 0
+        },
+        "longAnimationFrames": {
+          "supported": true,
+          "count": 0,
+          "maxDurationMs": null
+        },
+        "renderer": {
+          "samples": 37,
+          "firstSampledAtMs": 36106.800000190735,
+          "lastSampledAtMs": 40007.40000009537,
+          "drawCalls": {
+            "min": 125,
+            "max": 125,
+            "mean": 125
+          },
+          "triangles": {
+            "min": 218641,
+            "max": 218641,
+            "mean": 218641
+          }
+        }
+      }
+    },
+    {
+      "map": "shanghai",
+      "wave": 4,
+      "aliveStart": 44,
+      "aliveEnd": 44,
+      "sample": {
+        "status": "valid",
+        "invalidReason": null,
+        "warnings": [],
+        "startedAtMs": 46203.10000014305,
+        "requestedMs": 4000,
+        "elapsedMs": 4003.7000000476837,
+        "map": "shanghai",
+        "coverage": {
+          "intervalsCollected": 239,
+          "intervalsCapacity": 2016,
+          "intervalsSaturated": false,
+          "countersCollected": 38,
+          "countersCapacity": 56,
+          "countersSaturated": false
+        },
+        "rafIntervals": {
+          "count": 239,
+          "p50": 16.69999999999709,
+          "p95": 16.700000000004366,
+          "max": 33.299999999995634,
+          "mean": 16.73556485355647,
+          "rafOver33": 0,
+          "rafOver50": 0
+        },
+        "longAnimationFrames": {
+          "supported": true,
+          "count": 1,
+          "maxDurationMs": 59.09999990463257
+        },
+        "renderer": {
+          "samples": 38,
+          "firstSampledAtMs": 46207.10000014305,
+          "lastSampledAtMs": 50140.40000009537,
+          "drawCalls": {
+            "min": 125,
+            "max": 125,
+            "mean": 125
+          },
+          "triangles": {
+            "min": 219793,
+            "max": 219793,
+            "mean": 219793
+          }
+        }
+      }
+    }
+  ],
+  "errors": [],
+  "rioPause": true,
+  "roundtrip": {
+    "map": "mars",
+    "phase": "walking",
+    "savesUnchanged": true
+  },
+  "overview": {
+    "angle": 0.7853981633974483,
+    "zoom": 6.300099489784233
+  },
+  "fade": 0.1201331767490855,
+  "campaign": {
+    "selector": false,
+    "rioActionRejected": true,
+    "savesUnchanged": true,
+    "shanghaiArrived": true
+  }
+}

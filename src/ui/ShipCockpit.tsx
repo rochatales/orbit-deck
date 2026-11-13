@@ -3,7 +3,7 @@ import { campaignDepartureBlock } from '../game/campaign';
 import { missionDepositRemaining } from '../game/campaignPolicy';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { ArrowUpRight, ChevronRight, Package, Plane, Radio, LogOut } from 'lucide-react';
-import type { MapId, TravelPhase } from '../game/session';
+import type { ExpeditionMapId, MapId, TravelPhase } from '../game/session';
 import { cargoWeight } from '../game/backpackConfig';
 import { shipCapacityLabel } from '../game/shipCargo';
 import { useShipCargoStore } from '../state/useShipCargoStore';
@@ -17,9 +17,11 @@ import marsPoster from '../assets/ui/cockpit/mars.png';
 import shanghaiPoster from '../assets/ui/cockpit/shanghai.png';
 import './ship-cockpit.css';
 
+const RIO_ROUTE = { destination: 'Rio de Janeiro', destinationPlanet: 'TERRA', description: 'Orla do Rio de Janeiro. Explore a avenida e a praia, e procure suprimentos nos quiosques.', action: 'Decolar para Rio de Janeiro' };
 const EXTERIOR = {
     mars: { video: marsVideo, poster: marsPoster, planet: 'MARTE', location: 'Colônia humana', destination: 'Shanghai', destinationPlanet: 'TERRA', description: 'Ruínas de Shanghai. Explore a cidade, enfrente as ameaças e recupere materiais para a colônia.', action: 'Decolar para Shanghai' },
-    shanghai: { video: shanghaiVideo, poster: shanghaiPoster, planet: 'TERRA', location: 'Shanghai', destination: 'Colônia humana', destinationPlanet: 'MARTE', description: 'Nosso lar, em Marte. Retorne ao deck de lançamento e desembarque para voltar à colônia.', action: 'Retornar a Marte' }
+    shanghai: { video: shanghaiVideo, poster: shanghaiPoster, planet: 'TERRA', location: 'Shanghai', destination: 'Colônia humana', destinationPlanet: 'MARTE', description: 'Nosso lar, em Marte. Retorne ao deck de lançamento e desembarque para voltar à colônia.', action: 'Retornar a Marte' },
+    rio: { video: shanghaiVideo, poster: shanghaiPoster, planet: 'TERRA', location: 'Rio de Janeiro', destination: 'Colônia humana', destinationPlanet: 'MARTE', description: 'Retorne ao deck de lançamento e desembarque para voltar à colônia de Marte.', action: 'Retornar a Marte' }
 } as const;
 
 function CockpitExterior({ map }: { map: MapId }) {
@@ -46,9 +48,9 @@ export interface ShipCockpitProps {
     ready: boolean;
     error: string | null;
     name: string;
-    onDepart: () => void;
+    onDepart: (destination?: ExpeditionMapId) => void;
     onExit: () => void;
-    onRetry: () => void;
+    onRetry: (destination?: ExpeditionMapId) => void;
     encounter?: ReactNode;
 }
 
@@ -61,10 +63,15 @@ export function ShipCockpit({ map, phase, ready, error, name, onDepart, onExit, 
     const depositRemaining = useCampaignStore(s => missionDepositRemaining(map, s));
     const departureBlock = (depositRemaining ?? 0) > 0 ? 'Desembarque, recolha a cota e deposite na traseira da aeronave.' : colonyBlock;
     const [tab, setTab] = useState<'navigation' | 'cargo'>('navigation');
-    const root = useRef<HTMLElement>(null), info = EXTERIOR[map];
+    const [outbound, setOutbound] = useState<ExpeditionMapId>('shanghai');
+    const selectDestination = map === 'mars' && !campaign;
+    const destination = selectDestination ? outbound : undefined;
+    const root = useRef<HTMLElement>(null), exterior = EXTERIOR[map];
+    const info = destination === 'rio' ? { ...exterior, ...RIO_ROUTE } : exterior;
     const hold = cargoWeight(useShipCargoStore(s => s.cargo));
     const busy = !ready || phase === 'travelling';
     useEffect(() => bindDialogFocus(root.current!, document), []);
+    useEffect(() => { if (map !== 'mars') setOutbound('shanghai'); }, [map]);
     // Um voo/chegada nunca deixa os controles de carga da outra região ativos.
     useEffect(() => { setTab('navigation'); }, [map, phase]);
     return <section className="ship-cockpit" role="dialog" aria-modal="true" aria-label="Cabine da aeronave" ref={root} tabIndex={-1}>
@@ -82,7 +89,7 @@ export function ShipCockpit({ map, phase, ready, error, name, onDepart, onExit, 
             {busy || error ? <section className="cockpit-flight cockpit-hologram" role="status" aria-live="polite">
                 <p className="cockpit-kicker">CONTROLE DE VOO / {edenActive ? 'EDEN' : 'ENGENHEIRO'}</p><h1>{error ? 'Viagem interrompida' : 'Preparando a chegada'}</h1>
                 <p>{error ?? 'Carregando a região de destino. Aguarde para desembarcar.'}</p>
-                {error ? <button className="cockpit-depart" disabled={!!departureBlock} onClick={onRetry}>Tentar novamente <ArrowUpRight size={20}/></button> : <div className="cockpit-loading" aria-hidden="true"><i/></div>}
+                {error ? <button className="cockpit-depart" disabled={!!departureBlock} onClick={() => onRetry(destination)}>Tentar novamente <ArrowUpRight size={20}/></button> : <div className="cockpit-loading" aria-hidden="true"><i/></div>}
             </section> : tab === 'cargo' && depositRemaining === null ? <div className="cockpit-cargo cockpit-hologram"><ShipCargoPanel map={map}/></div> : <div className="cockpit-navigation">
                 <section className="cockpit-location cockpit-hologram">
                     <p className="cockpit-kicker">01 / LOCALIZAÇÃO ATUAL</p><p className="cockpit-planet">{info.planet}</p><h1>{info.location}</h1>
@@ -95,11 +102,17 @@ export function ShipCockpit({ map, phase, ready, error, name, onDepart, onExit, 
                 </section>
                 <section className="cockpit-route cockpit-hologram">
                     <p className="cockpit-kicker">02 / DESTINO DISPONÍVEL</p>
+                    {selectDestination && <label className="cockpit-destination">Destino da expedição
+                        <select value={outbound} onChange={event => setOutbound(event.target.value === 'rio' ? 'rio' : 'shanghai')}>
+                            <option value="shanghai">Shanghai</option>
+                            <option value="rio">Rio de Janeiro</option>
+                        </select>
+                    </label>}
                     <div className="cockpit-route-heading"><div><span>{info.destinationPlanet}</span><h2>{info.destination}</h2></div><ArrowUpRight aria-hidden="true"/></div>
                     <p>{info.description}</p>
                     <div className="cockpit-route-strip"><span>{info.planet}</span><i/><Plane size={16} aria-hidden="true"/><i/><span>{info.destinationPlanet}</span></div>
                     {encounter && <details className="cockpit-encounter"><summary>Configurar encontro de teste <ChevronRight size={13}/></summary>{encounter}</details>}
-                    <button className="cockpit-depart" disabled={!!departureBlock} onClick={onDepart}>{info.action}<ArrowUpRight size={21} aria-hidden="true"/></button>
+                    <button className="cockpit-depart" disabled={!!departureBlock} onClick={() => onDepart(destination)}>{info.action}<ArrowUpRight size={21} aria-hidden="true"/></button>
                     <small className="cockpit-route-note">{departureBlock ?? 'A viagem só começa ao confirmar a decolagem.'}</small>
                 </section>
             </div>}

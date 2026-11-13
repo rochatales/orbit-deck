@@ -1,4 +1,4 @@
-import { EDEN, MAPS } from '../game/config';
+import { EDEN, MAPS, isExpedition } from '../game/config';
 import type { MapId } from '../game/session';
 import type { OfficeWorld } from '../world/createOfficeMap';
 import { SHIP_INTERACTION_RADIUS, playerPosition } from '../state/playerTransient';
@@ -6,7 +6,8 @@ import { canOpenMissionDeposit, useExpeditionStore } from '../state/useExpeditio
 import { useCampaignStore } from '../state/useCampaignStore';
 import { missionDepositRemaining } from '../game/campaignPolicy';
 import { combatRuntime } from '../state/useCombatStore';
-import { SHANGHAI_SUPPLY_CRATES, SUPPLY_CRATE, crateMarker } from '../game/props/supplyCrate';
+import { expeditionCrates } from '../game/props/expeditionCrates';
+import { SUPPLY_CRATE, crateMarker } from '../game/props/supplyCrate';
 import { interactWithSupplyCrate } from '../game/props/crateInteraction';
 import { InteractionBubble, NpcInteractionBubble } from './InteractionBubble';
 import { MISSION_DEPOSIT_POINT, MISSION_DEPOSIT_RADIUS, requestShipCargo } from '../game/shipCargo';
@@ -24,7 +25,7 @@ export function WorldInteractionBubbles({ map, world }: { map: MapId; world: Off
     return <>
         <InteractionBubble id={`ship:${map}`} label="Entrar na aeronave" point={exit} radius={SHIP_INTERACTION_RADIUS} priority={10}
             position={[exit.x, height(exit.x, exit.z) + 1.8, exit.z]} available={circuitMission ? canBoardInShanghai : undefined} onInteract={board}>
-            {map === 'shanghai' && !circuitMission && <button type="button" className="secondary" onClick={event => { event.stopPropagation(); requestShipCargo(); }}>F · Carga da aeronave</button>}
+            {isExpedition(map) && !circuitMission && <button type="button" className="secondary" onClick={event => { event.stopPropagation(); requestShipCargo(); }}>F · Carga da aeronave</button>}
         </InteractionBubble>
         {circuitMission && <InteractionBubble id="ship:deposit" label="Depositar no porão" point={rear} radius={MISSION_DEPOSIT_RADIUS}
             position={[rear.x, height(rear.x, rear.z) + 1.8, rear.z]} priority={20} available={canOpenMissionDeposit} onInteract={deposit}/>}
@@ -34,7 +35,7 @@ export function WorldInteractionBubbles({ map, world }: { map: MapId; world: Off
                 position={[EDEN.position.x, 1.8, EDEN.position.z]} priority={30} alwaysVisible={showEdenMarker} onInteract={activateEden}/>
             <NpcInteractionBubble npc={EDEN} height={3} onInteract={talkToEden}/>
         </>}
-        {map === 'shanghai' && SHANGHAI_SUPPLY_CRATES.map(crate => <InteractionBubble key={crate.id} id={`crate:${crate.id}`}
+        {expeditionCrates(map, true).map(crate => <InteractionBubble key={crate.id} id={`crate:${crate.id}`}
             label={`Abrir cabine · +${SUPPLY_CRATE.ammo} munições`} point={crateMarker(crate)} radius={SUPPLY_CRATE.radius} priority={20}
             position={[crate.x, height(crate.x, crate.z) + SUPPLY_CRATE.maxY + .45, crate.z]}
             available={() => combatRuntime.simulation?.nearbySupplyCrate(playerPosition)?.id === crate.id} onInteract={interactWithSupplyCrate}/>) }

@@ -1,3 +1,4 @@
+import { isExpedition } from '../../game/config';
 import { campaignWeaponAllowed } from '../../game/campaignPolicy';
 import { useStoredMedicalKit } from '../../game/props/medicalKitInteraction';
 import { useEffect } from 'react';
@@ -10,7 +11,7 @@ import type { PlayerWeapon } from '../../combat/melee';
 export function canEquipPlayerWeapon(source: 'shortcut' | 'inventory' = 'shortcut') {
   const s = useExpeditionStore.getState();
   return s.ready && s.panel === null && s.session.phase === 'walking'
-    && !(s.session.map === 'shanghai' && useCombatStore.getState().dead)
+    && !(isExpedition(s.session.map) && useCombatStore.getState().dead)
     && (source === 'inventory' || !useGameStore.getState().isPaused);
 }
 export function equipPlayerWeapon(weapon: PlayerWeapon, source: 'shortcut' | 'inventory' = 'shortcut') {

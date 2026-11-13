@@ -68,3 +68,19 @@
 @media (prefers-reduced-motion: reduce) { .cockpit-video { visibility: hidden; } .cockpit-loading i { animation: none; width: 100%; opacity: .5; } }
 @media (max-width: 900px) { .cockpit-signal > span { display: none; } .cockpit-console { width: calc(100% - 40px); margin-top: 4vh; } .cockpit-navigation { gap: 24px; } .cockpit-close kbd { display: none; } }
 @media (max-width: 620px) { .cockpit-header { flex-wrap: wrap; gap: 15px; } .cockpit-brand { font-size: 20px; } .cockpit-signal { order: 3; width: 100%; } .cockpit-console { margin-top: 10px; } .cockpit-navigation { grid-template-columns: 1fr; } .cockpit-location { margin-top: 0; } .cockpit-kicker { margin-bottom: 20px; } .cockpit-tabs > button { padding: 12px; font-size: 10px; } .cockpit-cargo { padding: 15px; } .cockpit-footer { font-size: 7px; bottom: 12px; } .cockpit-footer > span:last-child { display: none; } }
+
+.cockpit-destination {
+    display: grid;
+    gap: .35rem;
+    margin-bottom: .8rem;
+    color: #c5d9e4;
+    font-size: .8rem;
+}
+.cockpit-destination select {
+    width: 100%;
+    padding: .45rem .6rem;
+    color: #ecfaff;
+    background: #172c39;
+    border: 1px solid #456276;
+    border-radius: .25rem;
+}

@@ -12,3 +12,5 @@ export const CAMPAIGN_EDEN_BRIEFING = [
     'Passe na Oficina antes de partir. Pedi ao Engenheiro que preparasse um facão de plasma para você.'
 ];
 export const ORGANIC_QUOTA_RADIO = 'Excelente, já temos o suficiente. Volte a base e vamos ligar o sintetizador.';
+
+export const RIO_BRIEFING = 'Pousamos no Rio de Janeiro. O deck fica ao sul da orla. Procure suprimentos nos quiosques e volte à aeronave quando estiver pronto.';

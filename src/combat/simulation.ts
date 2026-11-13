@@ -66,8 +66,11 @@ export function validContactSpawn(terrain: Terrain, navigation: Navigation, star
  * `edgeStep` metros, em ordem ao redor do mapa. Só entram pontos livres de prédios e
  * com caminho até o desembarque (nenhum robô nasce preso).
  */
-export function hordeEdgeSpawns(terrain: Terrain, navigation: Navigation, arrival: Position, radius = COMBAT.robot.radius as number, contactRange = COMBAT.robot.contactRange as number): Position[] {
-    const { edgeStep } = COMBAT.hordes, inset = Math.max(COMBAT.hordes.edgeInset, radius + 0.2), b = terrain.bounds;
+export function hordeEdgeSpawns(terrain: Terrain, navigation: Navigation, arrival: Position, radius = COMBAT.robot.radius as number, contactRange = COMBAT.robot.contactRange as number, perimeter?: Terrain['bounds']): Position[] {
+    const { edgeStep } = COMBAT.hordes, clearance = radius + .2;
+    // Em limites com colisores colados ao perímetro, o contato exato já conta como colisão.
+    const inset = Math.max(COMBAT.hordes.edgeInset, clearance + (perimeter ? .01 : 0));
+    const b = perimeter ?? terrain.bounds;
     const minX = b.minX + inset, maxX = b.maxX - inset, minZ = b.minZ + inset, maxZ = b.maxZ - inset;
     const w = maxX - minX, d = maxZ - minZ, result: Position[] = [];
     for (let s = 0; s < 2 * (w + d); s += edgeStep) {
@@ -75,7 +78,7 @@ export function hordeEdgeSpawns(terrain: Terrain, navigation: Navigation, arriva
             : s < w + d ? { x: maxX, z: minZ + s - w }
                 : s < 2 * w + d ? { x: maxX - (s - w - d), z: maxZ }
                     : { x: minX, z: maxZ - (s - 2 * w - d) };
-        if (!traversable(p, terrain, radius + 0.2)) continue;
+        if (!traversable(p, terrain, clearance)) continue;
         if (validContactSpawn(terrain, navigation, p, arrival, radius, contactRange)) result.push(p);
     }
     return result;
@@ -211,13 +214,13 @@ export class CombatSimulation {
             // Slots reutilizados entre hordas (tamanho da maior); peças têm um slot por robô da rodada.
             this.waves = this.organicEncounter ? ORGANIC_WAVES : HORDE_TOTALS;
             this.mutantNavigation = new Navigation(terrain, SMALL_MUTANT.radius, COMBAT.grid);
-            this.mutantEdgeSpawns = hordeEdgeSpawns(terrain, this.mutantNavigation, layout.arrival, SMALL_MUTANT.radius, SMALL_MUTANT.contactRange);
+            this.mutantEdgeSpawns = hordeEdgeSpawns(terrain, this.mutantNavigation, layout.arrival, SMALL_MUTANT.radius, SMALL_MUTANT.contactRange, layout.perimeter);
             if (!this.organicEncounter) {
-                this.edgeSpawns = hordeEdgeSpawns(terrain, this.navigation, layout.arrival);
+                this.edgeSpawns = hordeEdgeSpawns(terrain, this.navigation, layout.arrival, undefined, undefined, layout.perimeter);
                 this.largeNavigation = new Navigation(terrain, LARGE_PATROL.radius, COMBAT.grid);
-                this.largeEdgeSpawns = hordeEdgeSpawns(terrain, this.largeNavigation, layout.arrival, LARGE_PATROL.radius, LARGE_PATROL.contactRange);
+                this.largeEdgeSpawns = hordeEdgeSpawns(terrain, this.largeNavigation, layout.arrival, LARGE_PATROL.radius, LARGE_PATROL.contactRange, layout.perimeter);
                 this.largeMutantNavigation = new Navigation(terrain, LARGE_MUTANT.radius, COMBAT.grid);
-                this.largeMutantEdgeSpawns = hordeEdgeSpawns(terrain, this.largeMutantNavigation, layout.arrival, LARGE_MUTANT.radius, LARGE_MUTANT.contactRange);
+                this.largeMutantEdgeSpawns = hordeEdgeSpawns(terrain, this.largeMutantNavigation, layout.arrival, LARGE_MUTANT.radius, LARGE_MUTANT.contactRange, layout.perimeter);
             }
             if (!this.mutantEdgeSpawns.length || (!this.organicEncounter && (!this.edgeSpawns.length || !this.largeEdgeSpawns.length || !this.largeMutantEdgeSpawns.length)))
                 throw new Error('Mapa sem ponto livre e alcançável para as hordas.');
@@ -247,6 +250,24 @@ export class CombatSimulation {
                     const target = layout.routes[routeIndex][waypoint];
                     return createRobot(id, x, z, routeIndex, waypoint, Math.atan2(target.x - x, target.z - z), true);
                 });
+                if (layout.perimeter && this.robots.length < size) {
+                    // Os pontos da planta têm prioridade; o restante ocupa posições livres na borda.
+                    const edge = hordeEdgeSpawns(terrain, this.navigation, layout.arrival, undefined, undefined, layout.perimeter)
+                        .filter(p => Math.hypot(p.x - layout.arrival.x, p.z - layout.arrival.z) >= COMBAT.hordes.minPlayerDistance
+                            && spawns.every(spawn => Math.hypot(p.x - spawn.x, p.z - spawn.z) >= COMBAT.robot.spacing));
+                    const needed = size - this.robots.length;
+                    if (edge.length < needed) throw new Error('Perímetro sem pontos suficientes para a patrulha de teste.');
+                    for (let i = 0; i < needed; i++) {
+                        const { x, z } = edge[Math.floor(i * edge.length / needed)];
+                        let routeIndex = 0, waypoint = 0, nearest = Infinity;
+                        for (const [routeId, route] of layout.routes.entries()) for (const [pointId, point] of route.entries()) {
+                            const distance = Math.hypot(point.x - x, point.z - z);
+                            if (distance < nearest) { routeIndex = routeId; waypoint = pointId; nearest = distance; }
+                        }
+                        const target = layout.routes[routeIndex][waypoint];
+                        this.robots.push(createRobot(this.robots.length, x, z, routeIndex, waypoint, Math.atan2(target.x - x, target.z - z), true));
+                    }
+                }
             }
             else this.robots = this.singleKindPatrol(kind, Math.max(1, Math.min(5, Math.floor(patrol.count))));
             this.total = this.robots.length;
@@ -285,7 +306,7 @@ export class CombatSimulation {
             return createRobot(id, x, z, routeIndex, waypoint, Math.atan2(target.x - x, target.z - z), true);
         });
         if (robots.length < count) {
-            const edge = hordeEdgeSpawns(this.terrain, navigation, layout.arrival, R.radius, R.contactRange);
+            const edge = hordeEdgeSpawns(this.terrain, navigation, layout.arrival, R.radius, R.contactRange, layout.perimeter);
             if (!edge.length) throw new Error(`Mapa sem ponto livre e alcançável para a patrulha de ${kind}.`);
             for (let i = robots.length; i < count; i++) {
                 const p = edge[Math.floor((i + .5) * edge.length / count) % edge.length];

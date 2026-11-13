@@ -23,7 +23,7 @@ import { playerPosition, playerFacing } from '../state/playerTransient';
 import { combatRuntime, useCombatStore } from '../state/useCombatStore';
 import { simulationBlocked } from '../game/simulationGate';
 import { CombatSimulation, type CombatInput } from './simulation';
-import { COMBAT, robotConfig, type RobotKind } from './config';
+import { COMBAT, encounterLayout, robotConfig, type RobotKind } from './config';
 import { PATROL_UNIT, PatrolUnitRig } from './patrolUnit';
 import { ResourceDrops } from './ResourceDrops';
 import largeMutantUrl from '../assets/enemies/large-mutant.glb';
@@ -31,14 +31,16 @@ import mutantUrl from '../assets/enemies/mutant-animal.glb';
 import largePatrolUrl from '../assets/enemies/large-patrol-unit.glb';
 import patrolUnitUrl from '../assets/enemies/patrol-unit.glb';
 import { SupplyCrates } from '../game/props/SupplyCrates';
-import { SHANGHAI_SUPPLY_CRATES } from '../game/props/supplyCrate';
-import { isShanghaiPhase01 } from '../game/shanghai/previewMode';
-export function CombatScene({ world }: {
+import { expeditionCrates } from '../game/props/expeditionCrates';
+import type { ExpeditionMapId } from '../game/session';
+import { RioSupplyVisuals } from '../game/rio/RioSupplyVisuals';
+export function CombatScene({ world, map = 'shanghai' }: {
     world: OfficeWorld;
+    map?: ExpeditionMapId;
 }) {
     const run = useCombatStore(s => s.run);
-    const simulation = useMemo(() => new CombatSimulation(world, useCampaignStore.getState().mode === 'campaign' ? campaignEncounter(useCampaignStore.getState().saved?.campaign.stage) : useCombatStore.getState().encounter, undefined,
-        isShanghaiPhase01() ? SHANGHAI_SUPPLY_CRATES : []), [world, run]);
+    const simulation = useMemo(() => new CombatSimulation(world, useCampaignStore.getState().mode === 'campaign' ? campaignEncounter(useCampaignStore.getState().saved?.campaign.stage) : useCombatStore.getState().encounter, encounterLayout(map),
+        expeditionCrates(map)), [world, map, run]);
     const indicators = useMemo(() => new EnemyIndicators(simulation.robots.length), [simulation]);
     useEffect(() => () => indicators.dispose(), [indicators]);
     const { gl } = useThree();
@@ -202,7 +204,8 @@ export function CombatScene({ world }: {
     <ChargeWarnings simulation={simulation}/>
     <CombatEffects effects={simulation.effects}/>
     <ResourceDrops drops={simulation.drops}/>
-    {simulation.crates.length > 0 && <SupplyCrates crates={simulation.crates} surfaceHeight={world.surfaceHeight}/>}
+    {map === 'rio' && <RioSupplyVisuals key={run} pickups={simulation.hearts} crates={simulation.crates}/>}
+    {map === 'shanghai' && simulation.crates.length > 0 && <SupplyCrates crates={simulation.crates} surfaceHeight={world.surfaceHeight}/>}
     {simulation.robots.map((r, i) => <group key={`${run}-${r.id}`} ref={g => { robots.current[i] = g; }}>
       <primitive object={rigs[i].root}/>
       {largeRigs[i] && <primitive object={largeRigs[i]!.root}/>}
@@ -215,7 +218,7 @@ export function CombatScene({ world }: {
       </Billboard>
     </group>)}
     <SupplyBeaconLights kits={simulation.hearts} crates={simulation.crates} height={world.surfaceHeight}/>
-    <HealthPickups pickups={simulation.hearts} surfaceHeight={world.surfaceHeight}/>
+    {map === 'shanghai' && <HealthPickups pickups={simulation.hearts} surfaceHeight={world.surfaceHeight}/>}
     {[0, 1, 2].map(i => <mesh key={i} visible={false} ref={m => { tracers.current[i] = m; }}><cylinderGeometry args={[COMBAT_VFX.tracerRadius, COMBAT_VFX.tracerRadius, 1, 8]}/><meshBasicMaterial color={[2,2,2]} toneMapped={false}/><mesh><cylinderGeometry args={[COMBAT_VFX.tracerHaloRadius,COMBAT_VFX.tracerHaloRadius,1,8]}/><meshBasicMaterial color="#ffe052" toneMapped={false} transparent opacity={COMBAT_VFX.tracerHaloOpacity} blending={AdditiveBlending} depthWrite={false}/></mesh></mesh>)}
   </>;
 }

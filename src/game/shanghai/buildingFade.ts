@@ -21,13 +21,22 @@ export class BuildingFade {
   private readonly ray = new Ray();
   private readonly hit = new Vector3();
 
-  constructor(map: Object3D, buildings: readonly FadeBuilding[]) {
+  constructor(map: Object3D, buildings: readonly FadeBuilding[], meshesByBuilding?: ReadonlyMap<string, Mesh<BufferGeometry, Material>>) {
     map.updateMatrixWorld(true);
     for (const b of buildings) if (b.height >= BUILDING_FADE.minHeight) {
       const m = BUILDING_FADE.margin;
       this.entries.push({ id: b.id, opacity: 1, clearFor: RUIN_RETURN_AFTER, materials: [],
         foot: new Box3(new Vector3(b.x - b.w / 2 - m, .05, b.z - b.d / 2 - m), new Vector3(b.x + b.w / 2 + m, Infinity, b.z + b.d / 2 + m)),
         box: new Box3(new Vector3(b.x - b.w / 2, 0, b.z - b.d / 2), new Vector3(b.x + b.w / 2, b.height + .6, b.z + b.d / 2)) });
+    }
+    if (meshesByBuilding) {
+      for (const entry of this.entries) {
+        const material = meshesByBuilding.get(entry.id)?.material;
+        if (!material) continue;
+        entry.materials.push({ material, opacity: material.opacity, depthWrite: material.depthWrite });
+        material.transparent = true;
+      }
+      return;
     }
     const meshes: Mesh[] = [];
     map.traverse(o => { const mesh = o as Mesh; if (mesh.isMesh && !Array.isArray(mesh.material) && mesh.geometry.index && !(BUILDING_FADE.groundMaterials as readonly string[]).includes(mesh.material.name)) meshes.push(mesh); });

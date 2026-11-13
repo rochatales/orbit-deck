@@ -1,6 +1,8 @@
+import { isExpedition } from '../game/config';
 import { AUDIO } from './config';
 export interface AmbienceFile { name: string; url: string }
 export interface MarsAmbienceFiles { outside: AmbienceFile; inside: AmbienceFile }
+import type { MapId } from '../game/session';
 type Scene = 'shanghai' | 'marsOutside' | 'marsInside';
 interface Layer {
     file: AmbienceFile; volume: number; buffer: AudioBuffer | null; loading: Promise<void> | null;
@@ -18,8 +20,8 @@ export class AmbienceMixer {
         if (shanghai) add('shanghai', shanghai, AUDIO.shanghaiAmbience.volume);
         if (mars) { add('marsOutside', mars.outside, AUDIO.marsAmbience.outsideVolume); add('marsInside', mars.inside, AUDIO.marsAmbience.insideVolume); }
     }
-    select(map: 'mars' | 'shanghai', inside: boolean) {
-        const next: Scene = map === 'shanghai' ? 'shanghai' : inside ? 'marsInside' : 'marsOutside';
+    select(map: MapId, inside: boolean) {
+        const next: Scene = isExpedition(map) ? 'shanghai' : inside ? 'marsInside' : 'marsOutside';
         if ((next === 'shanghai') !== (this.scene === 'shanghai')) {
             for (const layer of this.layers.values()) { this.stop(layer); layer.offset = 0; }
         }

@@ -1,8 +1,9 @@
+import { isExpedition } from '../../game/config';
 import { consumeDashEnergy, type BackpackEnergy } from '../../game/backpackConfig';
 import { PLAYER_MOVEMENT } from './playerConfig';
 
 /** Dash liberado pelo autor na colônia e em Shanghai; demais bloqueios seguem no controller. */
-export function dashEnabled(map: string): boolean { return map === 'mars' || map === 'shanghai'; }
+export function dashEnabled(map: string): boolean { return map === 'mars' || isExpedition(map); }
 
 type Mutable<T> = { current: T };
 /** Janela em tempo de simulação. Segurar Espaço não rearma o dash após o cooldown. */
