@@ -82,8 +82,22 @@ def audit(write_report=True):
     land_violations=[];water_violations=[];road_violations=[]
     # Testa envelopes reais por peça. Decalques <= 5 cm são acabamento.
     # Copas acima de 3 m podem sombrear as vias, sem fechar a circulação.
+    # v002: destroços e píer só valem dentro das peças declaradas na planta.
+    props={p['id']:next(c for c in d['obstacles'] if c['source']==p['id']) for p in d.get('props',[])}
+    pier=[p for p in d['parts'] if p['kind']=='pier']
+    pier_box=dict(minX=min(p['minX'] for p in pier),maxX=max(p['maxX'] for p in pier),minZ=pier[0]['minZ'],maxZ=pier[0]['maxZ']) if pier else None
+    prop_violations=[];pier_violations=[]
     for o in source:
         bb=bounds([o])
+        if o.get('prop') in props:
+            c=props[o['prop']]
+            if any(bb[k]<c[k]-.05 for k in ['minX','minZ']) or any(bb[k]>c[k]+.05 for k in ['maxX','maxZ']) or bb['maxY']>c['maxY']+.05:
+                prop_violations.append(o.name+' @ '+o['prop'])
+            continue
+        if o.get('familia')=='Pier_Morro':
+            if any(bb[k]<pier_box[k]-.05 for k in ['minX','minZ']) or any(bb[k]>pier_box[k]+.05 for k in ['maxX','maxZ']):
+                pier_violations.append(o.name)
+            continue
         if bb['maxY']>.05 and (overlap(bb,deck) or overlap(bb,d['landingReservation'])):
             land_violations.append(o.name)
         if o['destino']=='mapa' and bb['maxX']>36.05:water_violations.append(o.name)
@@ -92,6 +106,11 @@ def audit(write_report=True):
     if land_violations:errors.append(dict(deck=land_violations))
     if water_violations:errors.append(dict(agua=water_violations))
     if road_violations:errors.append(dict(vias=road_violations))
+    if prop_violations:errors.append(dict(destrocos_fora_do_colisor=prop_violations))
+    if pier_violations:errors.append(dict(pier_fora_da_planta=pier_violations))
+    for p in d.get('props',[]):
+        if not any(o.get('prop')==p['id'] for o in source):errors.append(dict(id=p['id'],erro='Destroço da planta sem arte'))
+    if pier and not any(o.get('familia')=='Pier_Morro' for o in source):errors.append(dict(erro='Píer ausente'))
     assets={name:glb(ART/'export'/name) for name in ['rio-fase01.glb','rio-limites-v001.glb']}
     # Verifica a geometria exportada corresponde às coleções selecionadas.
     for name,col in [('rio-fase01.glb','02_EXPORT_MAPA'),('rio-limites-v001.glb','03_EXPORT_LIMITES')]:
@@ -102,17 +121,17 @@ def audit(write_report=True):
     budget={name:dict(triangulos_delta=a['triangulos']-limit,bytes_delta=a['bytes']-size)
             for name,a,limit,size in [(n,assets[n],55042 if n=='rio-fase01.glb' else 28838,11100000 if n=='rio-fase01.glb' else 1500000) for n in assets]}
     report=dict(blender=bpy.app.version_string,tolerancia_m=.05,planta_sha256=digest(ART/'export/layout.json'),
-                fonte_sha256=digest(ART/'blend/rio_fase01_v001.blend'),assets=assets,orcamento=budget,
+                fonte_sha256=digest(ART/'blend/rio_fase01_v002.blend'),assets=assets,orcamento=budget,
                 elementos=elements,erros=errors,deck_livre=not land_violations,terra_dentro_x36=not water_violations,
-                vias_livres=not road_violations,emissao_exterior=0,
+                vias_livres=not road_violations,destrocos_no_colisor=not prop_violations,pier_na_planta=not pier_violations,emissao_exterior=0,
                 texturas=json.loads((ART/'texturas/manifesto.json').read_text()),
-                criterio='Envelope de cada peça na fonte editável. Copas acima de 3 m e acabamento até 5 cm liberados sobre vias. Escada/quiosque contidos no deck da planta. Alturas de prédios incluem caixa de água.')
-    if write_report:(ART/'notas/rio-fase01-v001.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+                criterio='Envelope de cada peça na fonte editável. Copas acima de 3 m e acabamento até 5 cm liberados sobre vias. Escada/quiosque contidos no deck da planta. Alturas de prédios incluem caixa de água. Destroços da planta v1 liberados nas vias só dentro do próprio colisor; píer liberado sobre o mar só dentro das peças Pier_*.')
+    if write_report:(ART/'notas/rio-fase01-v002.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
     print('AUDITORIA',json.dumps(dict(assets=assets,erros=errors),ensure_ascii=False))
     if errors:raise RuntimeError('Auditoria contra a planta falhou')
     if any(v['triangulos_delta']>0 or v['bytes_delta']>0 for v in budget.values()):
         raise RuntimeError('Orçamento excedido, consultar notas antes de seguir')
     return report
 if __name__=='__main__':
-    bpy.ops.wm.open_mainfile(filepath=str(ART/'blend/rio_fase01_v001.blend'))
+    bpy.ops.wm.open_mainfile(filepath=str(ART/'blend/rio_fase01_v002.blend'))
     audit()

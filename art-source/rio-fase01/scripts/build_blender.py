@@ -1,4 +1,4 @@
-"""Rio v001. Blender 5.1.1 --background --python <este arquivo> [-- --render].
+"""Rio v002 (planta v1: píer quebrado e passe pós-apocalíptico). Blender 5.1.1 --background --python <este arquivo> [-- --render].
 Reconstrói fontes editáveis, kit compartilhado e dois GLBs a partir da planta.
 """
 import bpy
@@ -19,7 +19,8 @@ bpy.ops.wm.read_factory_settings(use_empty=True)
 S = bpy.context.scene
 S.unit_settings.system = 'METRIC'
 S.unit_settings.scale_length = 1
-for folder in ['blend','texturas','notas','renders/v001']:
+REV='v002'
+for folder in ['blend','texturas','notas','renders/'+REV]:
     (ART/folder).mkdir(parents=True,exist_ok=True)
 
 def collection(name):
@@ -42,7 +43,7 @@ for name,col,tex in [
     ('ondas',(1,1,1),'ondas'),('vidro',(.075,.12,.12),None),
     ('metal',(.17,.19,.17),None),('toldo',(.22,.36,.32),None),
     ('faixa',(.65,.60,.44),None),('mar',(.12,.29,.30),None),
-    ('espuma',(.66,.75,.65),None)]:
+    ('espuma',(.66,.75,.65),None),('fenda',(.03,.03,.028),None)]:
     m=bpy.data.materials.new(name)
     m.use_nodes=True
     bs=m.node_tree.nodes.get('Principled BSDF')
@@ -342,6 +343,187 @@ for i in range(42):
     grass(x,z,0,R.uniform(.3,.9))
     if i%3==0:
         box('Destroco_praia',x,.09,z,.12,.14,R.uniform(.4,1.2),'madeira',R.random()*3)
+# ---- v002: píer quebrado junto ao morro, destroços com colisor da planta e dano aparente ----
+def strip(name,points,mat='fenda'):
+    """Fita em ziguezague a partir de pares (esquerda, direita) já em coordenadas do Blender."""
+    verts=[v for pair in points for v in pair]
+    faces=[(2*i,2*i+1,2*i+3,2*i+2) for i in range(len(points)-1)]
+    return mesh(name,verts,faces,mat)
+
+def crack(x,z,length,ang,width=.2,y=.034):
+    pts=[];n=5
+    for i in range(n+1):
+        t=i/n-.5
+        off=R.uniform(-.38,.38) if 0<i<n else 0
+        px=x+math.cos(ang)*t*length-math.sin(ang)*off
+        pz=z+math.sin(ang)*t*length+math.cos(ang)*off
+        half=width*(.3+math.sin(i/n*math.pi))/2
+        nx,nz=-math.sin(ang)*half,math.cos(ang)*half
+        pts.append(((px+nx,-(pz+nz),y),(px-nx,-(pz-nz),y)))
+    return strip('Rachadura_piso',pts)
+
+def wall_crack(fx,fz,y0,y1,along_z=True,width=.3):
+    """Rachadura vertical numa fachada; a fita fica 2 cm fora do reboco, dentro do envelope."""
+    pts=[];n=6
+    for i in range(n+1):
+        yy=y0+(y1-y0)*i/n
+        off=R.uniform(-.55,.55) if 0<i<n else 0
+        half=width*(.25+math.sin(i/n*math.pi))/2
+        if along_z:pts.append(((fx,-(fz+off+half),yy),(fx,-(fz+off-half),yy)))
+        else:pts.append(((fx+off+half,-fz,yy),(fx+off-half,-fz,yy)))
+    return strip('Rachadura_fachada',pts)
+
+def wreck(p):
+    """Carcaça da planta: o envelope girado cabe no colisor alinhado aos eixos."""
+    start=len(SOURCE.objects)
+    a=math.radians(p['yaw'])+(math.pi/2 if p['axis']=='x' else 0)
+    w,d,h=p['w'],p['length'],p['height']
+    def place(name,lx,y,lz,bw,bh,bd,mat):
+        gx=p['x']+lx*math.cos(a)+lz*math.sin(a)
+        gz=p['z']-lx*math.sin(a)+lz*math.cos(a)
+        return box(name,gx,y,gz,bw,bh,bd,mat,a)
+    bus=p['kind']=='onibus'
+    place('Carcaca',0,.68,0,w,.92,d,'ferrugem')
+    place('Carcaca_cabine',0,1.14+(h-1.14)/2,-d*.04 if bus else d*.06,w*.92,h-1.14,d*(.9 if bus else .5),'ferrugem')
+    for side in [-1,1]:
+        place('Carcaca_vidro',side*w*.462,1.14+(h-1.14)*.55,-d*.04 if bus else d*.06,.03,(h-1.14)*.5,d*(.8 if bus else .4),'fenda')
+        for k,lz in enumerate([-d*.3,d*.3]):
+            # Uma roda arriada por veículo: pneu deitado ao lado da carcaça.
+            if side==1 and k==0 and not bus:
+                o=cyl('Roda_solta',0,.11,0,.36,.2,'metal',6)
+                o.location=(p['x']+(w*.3)*math.cos(a)+lz*math.sin(a),-(p['z']-(w*.3)*math.sin(a)+lz*math.cos(a)),.36)
+                continue
+            o=cyl('Roda',0,0,0,.36,.2,'metal',6)
+            lx=side*(w/2-.13)
+            o.location=(p['x']+lx*math.cos(a)+lz*math.sin(a),-(p['z']-lx*math.sin(a)+lz*math.cos(a)),.36)
+            o.rotation_euler=(0,math.pi/2,a)
+    for o in list(SOURCE.objects)[start:]:o['prop']=p['id']
+    remember('carcaca_'+p['kind'],start,p['x'],p['z'])
+
+def rubble(p):
+    start=len(SOURCE.objects)
+    w,d,h=p['w'],p['d'],p['height']
+    for k in range(6):
+        bw,bd=R.uniform(.5,1.1),R.uniform(.5,1.2)
+        reach=math.hypot(bw,bd)/2+.05
+        bh=R.uniform(.3,h*.55)
+        px=p['x']+R.uniform(-(w/2-reach),w/2-reach)
+        pz=p['z']+R.uniform(-(d/2-reach),d/2-reach)
+        box('Entulho_bloco',px,bh/2+(h-bh-.05)*R.random()*(.6 if k<3 else 0),pz,bw,bh,bd,'pedra' if k%2 else 'concreto',R.random()*3)
+    # Laje caída apoiada no monte, sempre dentro do colisor.
+    sw,sd=min(w-.9,2.6),min(d-.9,3.0)
+    slab=box('Entulho_laje',p['x'],h*.5,p['z'],sw*.8,.16,sd*.8,'concreto',R.uniform(-.3,.3))
+    slab.rotation_euler.x=R.uniform(-.2,.2);slab.rotation_euler.y=R.uniform(.12,.3)
+    for k in range(2):
+        beam('Entulho_vergalhao',(p['x']+R.uniform(-.4,.4),h*.5,p['z']+R.uniform(-.4,.4)),
+             (p['x']+R.uniform(-.5,.5),h-.06,p['z']+R.uniform(-.5,.5)),.03,'ferrugem',4)
+    for o in list(SOURCE.objects)[start:]:o['prop']=p['id']
+    remember('entulho',start,p['x'],p['z'])
+
+for p in D['props']:
+    owner=p['id']
+    rubble(p) if p['kind']=='entulho' else wreck(p)
+
+# Píer: rampa na areia, tablado andável até X = 46 e ponta desabada fora de alcance.
+owner='Pier_Morro'
+PIER={q['id']:q for q in D['parts'] if q['kind']=='pier'}
+ramp,deckp,tip=PIER['Pier_Rampa'],PIER['Pier_Tablado'],PIER['Pier_Ponta_Caida']
+pz0,pz1=deckp['minZ'],deckp['maxZ'];pzc=(pz0+pz1)/2
+start=len(SOURCE.objects)
+o=box('Pier_rampa',(ramp['minX']+ramp['maxX'])/2,.03,pzc,ramp['maxX']-ramp['minX'],.06,pz1-pz0,'concreto')
+o['planta']='Pier_Rampa'
+for xx,zz in [(29.5,-48.6),(32.5,-51.6),(34.6,-49.2)]:patch('Pier_areia',xx,zz,2.6,2.2,.03,'areia',8)
+crack(31,-50.4,4.5,.5,.22,.07);crack(34,-49,3,2.2,.18,.07)
+for zz in [pz0+.45,pz1-.45]:
+    box('Pier_longarina',(deckp['minX']+deckp['maxX'])/2,-.16,zz,deckp['maxX']-deckp['minX'],.3,.34,'madeira')
+board=.92
+for i in range(int((deckp['maxX']-deckp['minX'])/board)):
+    cx=deckp['minX']+board*(i+.5)
+    sunk=i in (3,6,9)
+    # Tábua afundada continua fechando o vão: a colisão do tablado é contínua.
+    o=box('Pier_tabua',cx,-.03 if sunk else .045,pzc+(R.uniform(-.12,.12) if sunk else 0),board-.07,.09,pz1-pz0-.12,'madeira')
+    if sunk:o.rotation_euler.x=R.uniform(-.035,.035)
+for cx in [37.2,41.2,45.2]:
+    for zz in [pz0+.42,pz1-.42]:cyl('Pier_pilar',cx,-1.15,zz,.26,2.2,'concreto',8)
+# Guarda-corpo incompleto: falta no trecho final para o vão ficar evidente.
+for side,zz in [(-1,pz0+.16),(1,pz1-.16)]:
+    posts=[36.4,38.6,40.8,43.0] if side<0 else [36.4,38.6,43.0,45.2]
+    for cx in posts:beam('Pier_montante',(cx,.08,zz),(cx+R.uniform(-.12,.12),1.02,zz),.05,'metal',4)
+    for a,b in zip(posts,posts[1:]):
+        if b-a>2.3:continue
+        beam('Pier_corrimao',(a,.98,zz),(b,.98 if R.random()>.4 else .55,zz),.035,'ferrugem',4)
+# Ponta desabada: lajes inclinadas e meio submersas, pilares isolados.
+for cx,zz,rx,ry,rz,yy in [(47.3,-51.2,.12,.42,.2,-.18),(49.0,-48.7,-.2,-.3,-.5,-.34),(49.5,-51.3,.3,.15,.6,-.42)]:
+    o=box('Pier_laje_caida',cx,yy,zz,1.7,.14,2.2,'madeira');o.rotation_euler=(rx,ry,rz)
+for cx,zz,top in [(48.2,pz0+.5,.5),(49.6,pz1-.6,.15)]:cyl('Pier_pilar_isolado',cx,top-1.1,zz,.26,2.2,'concreto',8)
+beam('Pier_viga_caida',(46.1,.02,pz1-.9),(48.3,-.5,pz1-1.6),.11,'madeira',4)
+box('Pier_borda_quebrada',45.86,.045,pzc+.9,.22,.09,2.6,'madeira',.22)
+remember('pier',start,deckp['minX'],pzc)
+
+# Pistas rachadas: fendas, buracos e placas levantadas até 19 cm, sem fechar a circulação.
+owner='Dano_vias'
+LANES=[(-9,-3),(4,10),(-38,-31)]
+for i in range(34):
+    x0,x1=LANES[i%3]
+    crack(R.uniform(x0+.6,x1-.6),R.uniform(-51,51),R.uniform(2.5,6.5),R.uniform(0,math.pi),R.uniform(.14,.34))
+for z0,z1 in [(29,37),(-5,3),(-39,-31)]:
+    for k in range(4):crack(R.uniform(-48,-12),R.uniform(z0+.6,z1-.6),R.uniform(3,7),R.uniform(-.5,.5),R.uniform(.16,.32))
+for i in range(12):
+    x0,x1=LANES[i%3]
+    patch('Buraco',R.uniform(x0+1,x1-1),R.uniform(-50,50),R.uniform(1.1,2.4),R.uniform(1,2),.006,'fenda',7).location.z=.03
+for i in range(10):
+    x0,x1=LANES[i%3]
+    o=box('Placa_levantada',R.uniform(x0+1.2,x1-1.2),.07,R.uniform(-50,50),R.uniform(1.2,2.0),.09,R.uniform(1.0,1.8),'asfalto',R.random()*3)
+    o.rotation_euler.x=R.uniform(-.035,.035);o.rotation_euler.y=R.uniform(-.035,.035)
+for i in range(8):crack(R.uniform(10.6,14.4),R.uniform(-50,36),R.uniform(1.6,3.4),R.uniform(.9,2.2),.2,.03)
+for i in range(26):
+    lane=LANES[i%3]
+    # Mato nas sarjetas, do lado de fora das pistas.
+    gz=R.uniform(-52,52)
+    # Fora dos cruzamentos: as travessas também são vias livres.
+    while any(z0-1<gz<z1+1 for z0,z1 in [(27,39),(-7,5),(-41,-29)]):gz=R.uniform(-52,52)
+    grass(R.choice([lane[0]-.3,lane[1]+.3]),gz,.02,R.uniform(.35,.7))
+
+# Prédios rachados, com fachada aberta ou canto desabado. Tudo dentro do envelope da planta.
+for b in D['buildings']:
+    owner=b['id']
+    x,z,w,d,h=b['x'],b['z'],b['w'],b['d'],b['height']
+    east=x+w/2-.015
+    for k in range(4):
+        y0=R.uniform(.4,h*.45)
+        wall_crack(east,z+R.uniform(-d/2+1.5,d/2-1.5),y0,min(h-2.2,y0+R.uniform(5,11)),True,R.uniform(.22,.42))
+    for side in [-1,1]:
+        y0=R.uniform(1,h*.4)
+        wall_crack(x+R.uniform(-w/2+1.5,w/2-1.5),z+side*(d/2-.015),y0,min(h-2.2,y0+R.uniform(5,9)),False,R.uniform(.22,.38))
+    if b['damage']=='fachada_aberta':
+        # Rombo de três pavimentos na fachada principal: interior escuro, lajes expostas e ferragem.
+        cz=z+R.uniform(-d/2+4.5,d/2-4.5);base=3.3*R.randint(1,max(1,b['floors']-4))
+        for k,(dz,hh,ww) in enumerate([(0,8.6,4.2),(-2.3,5.4,2.2),(2.1,6.6,2.6)]):
+            box('Rombo',east-.03,base+hh/2+(.6 if k else 0),cz+dz,.06,hh,ww,'fenda')
+        for k in range(3):
+            slab=box('Laje_exposta',east-.5,base+3.3*k+.1,cz+R.uniform(-.6,.6),.9,.16,R.uniform(2.6,4),'concreto')
+            slab.rotation_euler.y=R.uniform(.05,.2)
+            for j in range(2):
+                fz=cz+R.uniform(-1.6,1.6)
+                beam('Ferragem',(east-.12,base+3.3*k+.2,fz),(east-.02,base+3.3*k-R.uniform(.6,1.3),fz+R.uniform(-.3,.3)),.03,'ferrugem',4)
+    if b['damage']=='canto_desabado':
+        # Canto alto arrancado: recortes escuros nas duas faces, laje pendente e ferragem.
+        cs=1 if b['z']<0 else -1
+        top=h-1.9;drop=R.uniform(6,9)
+        cornerz=z+cs*(d/2-.015)
+        for k,(hh,ww) in enumerate([(drop,3.4),(drop*.62,2.0),(drop*.34,1.6)]):
+            off=sum([3.4,2.0,1.6][:k])
+            box('Canto_recorte',east-.03,top-hh/2,z+cs*(d/2-ww/2-off)-cs*.02,.06,hh,ww,'fenda')
+            box('Canto_recorte',x+w/2-ww/2-off-.02,top-hh/2,cornerz-cs*.03,ww,hh,.06,'fenda')
+        slab=box('Canto_laje',east-1.0,top-drop*.55,z+cs*(d/2-1.6),1.6,.18,2.6,'concreto')
+        slab.rotation_euler.x=cs*.22;slab.rotation_euler.y=.2
+        for j in range(4):
+            fz=z+cs*(d/2-R.uniform(.5,3))
+            beam('Ferragem',(east-.1,top-R.uniform(.4,drop*.5),fz),(east-.02,top-drop*.5-R.uniform(.5,1.4),fz),.03,'ferrugem',4)
+    for k in range(4):
+        fz=z+R.uniform(-d/2+1,d/2-1)
+        box('Hera_fachada',east-.02,R.uniform(2.5,h*.6),fz,.04,R.uniform(2,4.5),R.uniform(.5,1.1),'folha')
+owner='solo'
 # Faixas de trânsito fragmentadas, sem material emissivo.
 for x in [-6,7]:
     for z in range(-50,52,7):box('Faixa_apagada',x,.008,z,.12,.012,2.4,'faixa')
@@ -369,6 +551,8 @@ owner='Limite_Oeste_Morro'
 for z in range(-46,55,16):rock(-62-R.random()*2,z,22,25,21+R.random()*17)
 owner='Limite_Norte_Morro_Escombros'
 for x in range(-43,36,15):rock(x,-65-R.random()*2,25,22,13+R.random()*18)
+# Rochas do morro encostando no píer e avançando sobre o mar.
+for x,zz,hh in [(33,-57.5,7),(43,-58.5,9.5)]:rock(x,zz,9,6.5,hh)
 owner='Limite_Sul_Escombros'
 for i,x in enumerate(range(-47,34,8)):
     start=len(SOURCE.objects)
@@ -446,7 +630,7 @@ def camera(name,target,scale,top=False):
 # Mesmos limites de projeção, escala e margem da prancha SVG (7 px/m).
 # O cabeçalho de 30 px desloca o centro vertical da área útil em 15 px.
 S.camera=camera('CAM_Jogo',(-10.625,0,-2.625),1361/7)
-S.camera['referencia_enquadramento']='notas/planta-v0-camera.svg; 7 px/m; cabeçalho 30 px'
+S.camera['referencia_enquadramento']='notas/planta-v1-camera.svg; 7 px/m; cabeçalho 30 px'
 # Vista adicional sem corte das cotas altas, para inspeção geral da arte.
 camera('CAM_Geral',(-8,10,0),210)
 camera('CAM_Topo',(-8,0,0),260,True)
@@ -454,7 +638,9 @@ for name,target,scale in [
     ('Calcadao',(14,0,9),24),('Predio',(-20,12,16),47),
     ('Quiosque',(18.75,2,17.5),21),('Praca',(.5,2,-.5),34),
     ('Deck',(25,0,47),27),('Morro',(-56,12,-15),48),
-    ('Escombros',(-7,3,61),36),('Linha_dagua',(35,0,1),23)]:
+    ('Escombros',(-7,3,61),36),('Linha_dagua',(35,0,1),23),
+    ('Pier',(40,1,-50),28),('Pier_ponta',(47,0,-50),15),
+    ('Avenida',(-3,2,-12),46),('Rua_fundo',(-34,2,14),40)]:
     cam=camera('CAM_'+name,target,scale)
     if name=='Morro':
         t=Vector((-62,15,15))
@@ -479,7 +665,7 @@ for c,filename in [(MAP,'rio-fase01.glb'),(LIMITS,'rio-limites-v001.glb')]:
 S.camera=bpy.data.objects['CAM_Jogo']
 # Preserva quaisquer .blend1 já existentes em regenerações automáticas.
 bpy.context.preferences.filepaths.save_version=0
-bpy.ops.wm.save_as_mainfile(filepath=str(ART/'blend/rio_fase01_v001.blend'))
+bpy.ops.wm.save_as_mainfile(filepath=str(ART/f'blend/rio_fase01_{REV}.blend'))
 (ART/'notas/elementos.json').write_text(json.dumps(records,ensure_ascii=False,indent=2)+'\n')
 import audit_view
 audit_view.audit()
@@ -487,6 +673,6 @@ if '--render' in sys.argv:
     for o in RIG.objects:
         if o.type!='CAMERA':continue
         S.camera=o
-        S.render.filepath=str(ART/'renders/v001'/(o.name[4:].lower()+'.png'))
+        S.render.filepath=str(ART/'renders'/REV/(o.name[4:].lower()+'.png'))
         bpy.ops.render.render(write_still=True)
 print('RIO_CONCLUIDO')

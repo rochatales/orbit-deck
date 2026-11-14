@@ -85,6 +85,38 @@ function border(group: Group) {
     }
 }
 
+/** Píer quebrado e destroços da planta v1, em volumes simples. A colisão vem só dos dados. */
+function wreckage(group: Group) {
+    for (const part of RIO_LAYOUT.parts) {
+        if (part.kind !== 'pier') continue;
+        const { x, z } = center(part), w = part.maxX - part.minX, d = part.maxZ - part.minZ;
+        if ('walkable' in part && part.walkable) {
+            box(group, x, .03, z, w, .06, d, '#8a6a45').name = part.id;
+        } else {
+            // Trecho desabado: pedaços soltos e inclinados, fora da área caminhável.
+            const fallen = box(group, x - .6, -.12, z + .8, w * .5, .08, d * .45, '#5d4a35');
+            fallen.rotation.set(.22, .3, -.28); fallen.name = part.id;
+            box(group, x + 1.2, -.2, z - 1.4, w * .3, .08, d * .3, '#5d4a35').rotation.set(-.3, -.5, .2);
+        }
+    }
+    for (const prop of RIO_LAYOUT.props) {
+        if (prop.kind === 'entulho') {
+            const heap = box(group, prop.x, prop.height * .35, prop.z, prop.w * .9, prop.height * .7, (prop.d ?? prop.w) * .9, '#857c74');
+            heap.rotation.y = .18; heap.name = prop.id;
+            box(group, prop.x + prop.w * .15, prop.height * .78, prop.z - .3, prop.w * .5, prop.height * .4, (prop.d ?? prop.w) * .4, '#6e6761').rotation.set(.2, -.4, .15);
+            continue;
+        }
+        const wreck = new Group();
+        wreck.name = prop.id;
+        wreck.position.set(prop.x, 0, prop.z);
+        wreck.rotation.y = (prop.axis === 'x' ? Math.PI / 2 : 0) + (prop.yaw ?? 0) * Math.PI / 180;
+        const length = prop.length ?? prop.w;
+        box(wreck, 0, .65, 0, prop.w, 1.1, length, '#8a4a2e');
+        box(wreck, 0, .65 + prop.height * .4, 0, prop.w * .9, prop.height * .5, length * .72, '#74402a');
+        group.add(wreck);
+    }
+}
+
 export function buildRioVisual(group: Group) {
     const { bounds, bands, buildings, landingReservation, limits, obstacles, parts } = RIO_LAYOUT;
     for (const limit of limits) {
@@ -117,6 +149,7 @@ export function buildRioVisual(group: Group) {
             group.add(mesh);
         }
     }
+    wreckage(group);
     const meshes = new Map<string, Mesh<BoxGeometry, MeshStandardMaterial>>();
     for (const b of buildings) {
         const mesh = box(group, b.x, b.height / 2, b.z, b.w, b.height, b.d, b.row === 'orla' ? '#d7c8b2' : '#b0a497');

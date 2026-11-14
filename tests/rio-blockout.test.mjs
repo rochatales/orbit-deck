@@ -17,7 +17,7 @@ test('Rio: exportação byte a byte, terreno plano, limites da planta e colisão
     const terrain = createRioTerrain();
     assert.deepEqual(terrain.bounds, rio.bounds);
     assert.deepEqual(terrain.walkableAreas, rio.walkableAreas);
-    assert.deepEqual(terrain.obstacles.slice(0, rio.obstacles.length + 4), [...rio.obstacles, ...rio.limitColliders]);
+    assert.deepEqual(terrain.obstacles.slice(0, rio.obstacles.length + rio.limitColliders.length), [...rio.obstacles, ...rio.limitColliders]);
     assert.deepEqual(MAPS.rio.exit, rio.exit);
     assert.deepEqual(MAPS.rio.ship, rio.ship);
     assert.equal(MAP_CAMERA_ANGLE.rio, Math.PI / 4);
@@ -168,3 +168,19 @@ function travelFixture(t) {
     };
     return { expedition, combat, ship, send, board, arrive, original, values, writes };
 }
+
+test('Rio v1: os quatro tipos de inimigo alcançam o fim do píer e voltam; a ponta desabada é inacessível', () => {
+    const world = createRioTerrain(), layout = encounterLayout('rio');
+    const pier = rio.walkableAreas[1], middle = (pier.minZ + pier.maxZ) / 2;
+    for (const kind of PATROL_KINDS) {
+        const { radius, contactRange } = robotConfig({ kind });
+        const navigation = new Navigation(world, radius, COMBAT.grid);
+        const end = { x: pier.maxX - radius - .4, z: middle };
+        assert.ok(traversable(end, world, radius), `${kind}: fim do píer`);
+        // Do píer ao desembarque e de um spawn do morro até o píer.
+        assert.ok(validContactSpawn(world, navigation, end, layout.arrival, radius, contactRange), `${kind}: píer → desembarque`);
+        assert.ok(validContactSpawn(world, navigation, rio.spawns[0], end, radius, contactRange), `${kind}: morro → píer`);
+        assert.ok(!traversable({ x: pier.maxX + 1.5, z: middle }, world, radius), `${kind}: ponta desabada`);
+        assert.ok(!traversable({ x: 40, z: pier.maxZ + 2 }, world, radius), `${kind}: mar`);
+    }
+});

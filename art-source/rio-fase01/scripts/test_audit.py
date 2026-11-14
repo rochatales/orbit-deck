@@ -12,7 +12,7 @@ from pathlib import Path
 ART=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ART/'scripts'))
 from audit_view import audit
-bpy.ops.wm.open_mainfile(filepath=str(ART/'blend/rio_fase01_v001.blend'))
+bpy.ops.wm.open_mainfile(filepath=str(ART/'blend/rio_fase01_v002.blend'))
 source=bpy.data.collections['01_KIT_LAYOUT_EDITAVEL']
 results=[]
 
@@ -54,5 +54,5 @@ for name,x,z in [('Reserva de pouso',25,47),('Pista da praia',7,0),('Linha da á
     check(name+' rejeita geometria invasora',True)
 bpy.data.objects.remove(probe,do_unlink=True)
 check('Restauração em memória preserva a cena válida')
-(ART/'notas/testes-auditoria-v001.json').write_text(json.dumps(results,ensure_ascii=False,indent=2)+'\n')
+(ART/'notas/testes-auditoria-v002.json').write_text(json.dumps(results,ensure_ascii=False,indent=2)+'\n')
 print('REGRESSAO_AUDITORIA',len(results),'casos passaram')

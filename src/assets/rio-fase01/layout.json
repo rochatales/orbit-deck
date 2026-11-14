@@ -1,5 +1,5 @@
 {
- "version": "rio-fase01-planta-v0",
+ "version": "rio-fase01-planta-v1",
  "bounds": {
   "minX": -51,
   "maxX": 51,
@@ -28,6 +28,12 @@
    "maxX": 36,
    "minZ": -54,
    "maxZ": 54
+  },
+  {
+   "minX": 34,
+   "maxX": 46,
+   "minZ": -53,
+   "maxZ": -47
   }
  ],
  "obstacles": [
@@ -130,6 +136,196 @@
    "source": "Quiosque_2",
    "minY": 0.0,
    "maxY": 3.4
+  },
+  {
+   "id": "COL_Onibus_Praia",
+   "minX": 7.067,
+   "maxX": 10.133,
+   "minZ": -12.177,
+   "maxZ": -3.823,
+   "source": "Onibus_Praia",
+   "minY": 0.0,
+   "maxY": 2.65
+  },
+  {
+   "id": "COL_Onibus_Avenida",
+   "minX": -9.272,
+   "maxX": -5.928,
+   "minZ": 9.792,
+   "maxZ": 18.208,
+   "source": "Onibus_Avenida",
+   "minY": 0.0,
+   "maxY": 2.65
+  },
+  {
+   "id": "COL_Onibus_Fundo",
+   "minX": -38.063,
+   "maxX": -35.137,
+   "minZ": -22.16,
+   "maxZ": -13.84,
+   "source": "Onibus_Fundo",
+   "minY": 0.0,
+   "maxY": 2.65
+  },
+  {
+   "id": "COL_Onibus_Travessa",
+   "minX": -26.193,
+   "maxX": -17.807,
+   "minZ": 33.797,
+   "maxZ": 37.003,
+   "source": "Onibus_Travessa",
+   "minY": 0.0,
+   "maxY": 2.65
+  },
+  {
+   "id": "COL_Carro_Praia_Sul",
+   "minX": 3.914,
+   "maxX": 6.486,
+   "minZ": 27.905,
+   "maxZ": 32.095,
+   "source": "Carro_Praia_Sul",
+   "minY": 0.0,
+   "maxY": 1.6
+  },
+  {
+   "id": "COL_Carro_Avenida_Norte",
+   "minX": -5.394,
+   "maxX": -3.006,
+   "minZ": -32.067,
+   "maxZ": -27.933,
+   "source": "Carro_Avenida_Norte",
+   "minY": 0.0,
+   "maxY": 1.6
+  },
+  {
+   "id": "COL_Carro_Deck",
+   "minX": 7.869,
+   "maxX": 10.131,
+   "minZ": 45.455,
+   "maxZ": 49.545,
+   "source": "Carro_Deck",
+   "minY": 0.0,
+   "maxY": 1.6
+  },
+  {
+   "id": "COL_Carro_Fundo",
+   "minX": -33.545,
+   "maxX": -30.855,
+   "minZ": 9.89,
+   "maxZ": 14.11,
+   "source": "Carro_Fundo",
+   "minY": 0.0,
+   "maxY": 1.6
+  },
+  {
+   "id": "COL_Carro_Travessa",
+   "minX": -24.556,
+   "maxX": -20.444,
+   "minZ": 2.037,
+   "maxZ": 4.363,
+   "source": "Carro_Travessa",
+   "minY": 0.0,
+   "maxY": 1.6
+  },
+  {
+   "id": "COL_Carro_Avenida_Sul",
+   "minX": -5.674,
+   "maxX": -2.926,
+   "minZ": 37.884,
+   "maxZ": 42.116,
+   "source": "Carro_Avenida_Sul",
+   "minY": 0.0,
+   "maxY": 1.6
+  },
+  {
+   "id": "COL_Carro_Calcadao",
+   "minX": 12.035,
+   "maxX": 15.165,
+   "minZ": -14.145,
+   "maxZ": -9.855,
+   "source": "Carro_Calcadao",
+   "minY": 0.0,
+   "maxY": 1.6
+  },
+  {
+   "id": "COL_Carro_Ponta_Norte",
+   "minX": -5.625,
+   "maxX": -3.175,
+   "minZ": -48.077,
+   "maxZ": -43.923,
+   "source": "Carro_Ponta_Norte",
+   "minY": 0.0,
+   "maxY": 1.6
+  },
+  {
+   "id": "COL_Entulho_F2_Avenida",
+   "minX": -11.4,
+   "maxX": -7.8,
+   "minZ": -25.0,
+   "maxZ": -19.0,
+   "source": "Entulho_F2_Avenida",
+   "minY": 0.0,
+   "maxY": 1.6
+  },
+  {
+   "id": "COL_Entulho_F1_Travessa",
+   "minX": -16.0,
+   "maxX": -12.0,
+   "minZ": 3.3,
+   "maxZ": 5.7,
+   "source": "Entulho_F1_Travessa",
+   "minY": 0.0,
+   "maxY": 1.2
+  },
+  {
+   "id": "COL_Entulho_T1_Fundo",
+   "minX": -40.0,
+   "maxX": -37.2,
+   "minZ": 18.0,
+   "maxZ": 24.0,
+   "source": "Entulho_T1_Fundo",
+   "minY": 0.0,
+   "maxY": 1.8
+  },
+  {
+   "id": "COL_Entulho_F3_Ponta",
+   "minX": -11.399999999999999,
+   "maxX": -9.0,
+   "minZ": -48.2,
+   "maxZ": -43.8,
+   "source": "Entulho_F3_Ponta",
+   "minY": 0.0,
+   "maxY": 1.4
+  },
+  {
+   "id": "COL_Entulho_Calcadao",
+   "minX": 10.1,
+   "maxX": 12.299999999999999,
+   "minZ": 34.5,
+   "maxZ": 37.5,
+   "source": "Entulho_Calcadao",
+   "minY": 0.0,
+   "maxY": 0.9
+  },
+  {
+   "id": "COL_Entulho_Travessa_Norte",
+   "minX": -32.5,
+   "maxX": -27.5,
+   "minZ": -39.699999999999996,
+   "maxZ": -37.1,
+   "source": "Entulho_Travessa_Norte",
+   "minY": 0.0,
+   "maxY": 1.3
+  },
+  {
+   "id": "COL_Entulho_T2_Fundo",
+   "minX": -40.0,
+   "maxX": -38.0,
+   "minZ": 7.5,
+   "maxZ": 12.5,
+   "source": "Entulho_T2_Fundo",
+   "minY": 0.0,
+   "maxY": 1.5
   }
  ],
  "buildings": [
@@ -143,7 +339,8 @@
    "floors": 7,
    "ruin": false,
    "pilotis": true,
-   "row": "orla"
+   "row": "orla",
+   "damage": "rachado"
   },
   {
    "id": "Predio_F1",
@@ -155,7 +352,8 @@
    "floors": 8,
    "ruin": false,
    "pilotis": true,
-   "row": "orla"
+   "row": "orla",
+   "damage": "canto_desabado"
   },
   {
    "id": "Predio_F2",
@@ -167,7 +365,8 @@
    "floors": 6,
    "ruin": false,
    "pilotis": true,
-   "row": "orla"
+   "row": "orla",
+   "damage": "rachado"
   },
   {
    "id": "Predio_F3",
@@ -179,7 +378,8 @@
    "floors": 8,
    "ruin": false,
    "pilotis": true,
-   "row": "orla"
+   "row": "orla",
+   "damage": "fachada_aberta"
   },
   {
    "id": "Predio_T0",
@@ -191,7 +391,8 @@
    "floors": 10,
    "ruin": false,
    "pilotis": false,
-   "row": "fundo"
+   "row": "fundo",
+   "damage": "rachado"
   },
   {
    "id": "Predio_T1",
@@ -203,7 +404,8 @@
    "floors": 9,
    "ruin": false,
    "pilotis": false,
-   "row": "fundo"
+   "row": "fundo",
+   "damage": "fachada_aberta"
   },
   {
    "id": "Predio_T2",
@@ -215,7 +417,8 @@
    "floors": 10,
    "ruin": false,
    "pilotis": false,
-   "row": "fundo"
+   "row": "fundo",
+   "damage": "canto_desabado"
   },
   {
    "id": "Predio_T3",
@@ -227,7 +430,8 @@
    "floors": 9,
    "ruin": false,
    "pilotis": false,
-   "row": "fundo"
+   "row": "fundo",
+   "damage": "rachado"
   }
  ],
  "loot": [
@@ -507,6 +711,203 @@
    "minX": 36,
    "maxX": 51,
    "label": "Mar: limite leste"
+  }
+ ],
+ "props": [
+  {
+   "id": "Onibus_Praia",
+   "kind": "onibus",
+   "x": 8.6,
+   "z": -8.0,
+   "axis": "z",
+   "yaw": 4,
+   "w": 2.5,
+   "length": 8.2,
+   "height": 2.65
+  },
+  {
+   "id": "Onibus_Avenida",
+   "kind": "onibus",
+   "x": -7.6,
+   "z": 14.0,
+   "axis": "z",
+   "yaw": -6,
+   "w": 2.5,
+   "length": 8.2,
+   "height": 2.65
+  },
+  {
+   "id": "Onibus_Fundo",
+   "kind": "onibus",
+   "x": -36.6,
+   "z": -18.0,
+   "axis": "z",
+   "yaw": 3,
+   "w": 2.5,
+   "length": 8.2,
+   "height": 2.65
+  },
+  {
+   "id": "Onibus_Travessa",
+   "kind": "onibus",
+   "x": -22.0,
+   "z": 35.4,
+   "axis": "x",
+   "yaw": 5,
+   "w": 2.5,
+   "length": 8.2,
+   "height": 2.65
+  },
+  {
+   "id": "Carro_Praia_Sul",
+   "kind": "carro",
+   "x": 5.2,
+   "z": 30.0,
+   "axis": "z",
+   "yaw": 12,
+   "w": 1.8,
+   "length": 3.9,
+   "height": 1.6
+  },
+  {
+   "id": "Carro_Avenida_Norte",
+   "kind": "carro",
+   "x": -4.2,
+   "z": -30.0,
+   "axis": "z",
+   "yaw": -9,
+   "w": 1.8,
+   "length": 3.9,
+   "height": 1.6
+  },
+  {
+   "id": "Carro_Deck",
+   "kind": "carro",
+   "x": 9.0,
+   "z": 47.5,
+   "axis": "z",
+   "yaw": 7,
+   "w": 1.8,
+   "length": 3.9,
+   "height": 1.6
+  },
+  {
+   "id": "Carro_Fundo",
+   "kind": "carro",
+   "x": -32.2,
+   "z": 12.0,
+   "axis": "z",
+   "yaw": -14,
+   "w": 1.8,
+   "length": 3.9,
+   "height": 1.6
+  },
+  {
+   "id": "Carro_Travessa",
+   "kind": "carro",
+   "x": -22.5,
+   "z": 3.2,
+   "axis": "x",
+   "yaw": 8,
+   "w": 1.8,
+   "length": 3.9,
+   "height": 1.6
+  },
+  {
+   "id": "Carro_Avenida_Sul",
+   "kind": "carro",
+   "x": -4.3,
+   "z": 40.0,
+   "axis": "z",
+   "yaw": 15,
+   "w": 1.8,
+   "length": 3.9,
+   "height": 1.6
+  },
+  {
+   "id": "Carro_Calcadao",
+   "kind": "carro",
+   "x": 13.6,
+   "z": -12.0,
+   "axis": "z",
+   "yaw": -22,
+   "w": 1.8,
+   "length": 3.9,
+   "height": 1.6
+  },
+  {
+   "id": "Carro_Ponta_Norte",
+   "kind": "carro",
+   "x": -4.4,
+   "z": -46.0,
+   "axis": "z",
+   "yaw": 10,
+   "w": 1.8,
+   "length": 3.9,
+   "height": 1.6
+  },
+  {
+   "id": "Entulho_F2_Avenida",
+   "kind": "entulho",
+   "x": -9.6,
+   "z": -22.0,
+   "w": 3.6,
+   "d": 6.0,
+   "height": 1.6
+  },
+  {
+   "id": "Entulho_F1_Travessa",
+   "kind": "entulho",
+   "x": -14.0,
+   "z": 4.5,
+   "w": 4.0,
+   "d": 2.4,
+   "height": 1.2
+  },
+  {
+   "id": "Entulho_T1_Fundo",
+   "kind": "entulho",
+   "x": -38.6,
+   "z": 21.0,
+   "w": 2.8,
+   "d": 6.0,
+   "height": 1.8
+  },
+  {
+   "id": "Entulho_F3_Ponta",
+   "kind": "entulho",
+   "x": -10.2,
+   "z": -46.0,
+   "w": 2.4,
+   "d": 4.4,
+   "height": 1.4
+  },
+  {
+   "id": "Entulho_Calcadao",
+   "kind": "entulho",
+   "x": 11.2,
+   "z": 36.0,
+   "w": 2.2,
+   "d": 3.0,
+   "height": 0.9
+  },
+  {
+   "id": "Entulho_Travessa_Norte",
+   "kind": "entulho",
+   "x": -30.0,
+   "z": -38.4,
+   "w": 5.0,
+   "d": 2.6,
+   "height": 1.3
+  },
+  {
+   "id": "Entulho_T2_Fundo",
+   "kind": "entulho",
+   "x": -39.0,
+   "z": 10.0,
+   "w": 2.0,
+   "d": 5.0,
+   "height": 1.5
   }
  ],
  "parts": [
@@ -810,6 +1211,33 @@
    "maxZ": -29.5
   },
   {
+   "id": "Pier_Rampa",
+   "kind": "pier",
+   "minX": 28,
+   "maxX": 36,
+   "minZ": -53,
+   "maxZ": -47,
+   "walkable": true
+  },
+  {
+   "id": "Pier_Tablado",
+   "kind": "pier",
+   "minX": 36,
+   "maxX": 46,
+   "minZ": -53,
+   "maxZ": -47,
+   "walkable": true
+  },
+  {
+   "id": "Pier_Ponta_Caida",
+   "kind": "pier",
+   "minX": 46,
+   "maxX": 51,
+   "minZ": -53,
+   "maxZ": -47,
+   "walkable": false
+  },
+  {
    "id": "Deck_Pouso",
    "kind": "deck",
    "minX": 17,
@@ -896,8 +1324,26 @@
    "id": "COL_Limite_Mar",
    "minX": 36.0,
    "maxX": 54.0,
-   "minZ": -54.0,
+   "minZ": -47.0,
    "maxZ": 54.0,
+   "minY": 0.0,
+   "maxY": 4.0
+  },
+  {
+   "id": "COL_Limite_Mar_Pier_Norte",
+   "minX": 36.0,
+   "maxX": 54.0,
+   "minZ": -54.0,
+   "maxZ": -53.0,
+   "minY": 0.0,
+   "maxY": 4.0
+  },
+  {
+   "id": "COL_Limite_Mar_Pier_Ponta",
+   "minX": 46.0,
+   "maxX": 54.0,
+   "minZ": -53.0,
+   "maxZ": -47.0,
    "minY": 0.0,
    "maxY": 4.0
   }

@@ -12,7 +12,7 @@ from pathlib import Path
 import json, math
 
 OUT = Path(__file__).resolve().parents[1]
-VERSION = 'rio-fase01-planta-v0'
+VERSION = 'rio-fase01-planta-v1'
 # Mesma dimensão de Shanghai fase 01.
 BOUNDS = dict(minX=-51, maxX=51, minZ=-54, maxZ=54)
 FLOOR = 3.3  # altura de pavimento usada em Shanghai
@@ -47,7 +47,32 @@ SHIP = dict(x=25, y=0, z=47)
 EXIT = dict(x=25, y=0, z=43.5)
 LANDING = dict(minX=20, maxX=30, minZ=40, maxZ=53)
 
-parts, obstacles, buildings, limits = [], [], [], []
+# Planta v1: píer quebrado junto ao morro do norte. Só os dois primeiros trechos são caminháveis.
+PIER_Z = (-53, -47)
+PIER_SECTIONS = [('Pier_Rampa', 28, 36, True), ('Pier_Tablado', 36, 46, True), ('Pier_Ponta_Caida', 46, 51, False)]
+PIER_END = 46
+# Planta v1: destroços com colisão. (id, tipo, x, z, eixo do comprimento, giro visual em graus)
+VEHICLE_SIZE = dict(onibus=(2.5, 8.2, 2.65), carro=(1.8, 3.9, 1.6))
+VEHICLES = [
+    ('Onibus_Praia', 'onibus', 8.6, -8.0, 'z', 4), ('Onibus_Avenida', 'onibus', -7.6, 14.0, 'z', -6),
+    ('Onibus_Fundo', 'onibus', -36.6, -18.0, 'z', 3), ('Onibus_Travessa', 'onibus', -22.0, 35.4, 'x', 5),
+    ('Carro_Praia_Sul', 'carro', 5.2, 30.0, 'z', 12), ('Carro_Avenida_Norte', 'carro', -4.2, -30.0, 'z', -9),
+    ('Carro_Deck', 'carro', 9.0, 47.5, 'z', 7), ('Carro_Fundo', 'carro', -32.2, 12.0, 'z', -14),
+    ('Carro_Travessa', 'carro', -22.5, 3.2, 'x', 8), ('Carro_Avenida_Sul', 'carro', -4.3, 40.0, 'z', 15),
+    ('Carro_Calcadao', 'carro', 13.6, -12.0, 'z', -22), ('Carro_Ponta_Norte', 'carro', -4.4, -46.0, 'z', 10),
+]
+# (id, x, z, largura em X, comprimento em Z, altura): entulho de fachada caído sobre calçadas e pistas.
+RUBBLE = [
+    ('Entulho_F2_Avenida', -9.6, -22.0, 3.6, 6.0, 1.6), ('Entulho_F1_Travessa', -14.0, 4.5, 4.0, 2.4, 1.2),
+    ('Entulho_T1_Fundo', -38.6, 21.0, 2.8, 6.0, 1.8), ('Entulho_F3_Ponta', -10.2, -46.0, 2.4, 4.4, 1.4),
+    ('Entulho_Calcadao', 11.2, 36.0, 2.2, 3.0, .9), ('Entulho_Travessa_Norte', -30.0, -38.4, 5.0, 2.6, 1.3),
+    ('Entulho_T2_Fundo', -39.0, 10.0, 2.0, 5.0, 1.5),
+]
+# Dano visual por prédio; o envelope de colisão não muda.
+DAMAGE = dict(F0='rachado', F1='canto_desabado', F2='rachado', F3='fachada_aberta',
+              T0='rachado', T1='fachada_aberta', T2='canto_desabado', T3='rachado')
+
+parts, obstacles, buildings, limits, props = [], [], [], [], []
 
 
 def rect(kind, name, minX, maxX, minZ, maxZ, **extra):
@@ -85,7 +110,7 @@ for row, lot, floors_by_block in (('F', 'lote_frente', (7, 8, 6, 8)), ('T', 'lot
         height = floors * FLOOR
         buildings.append(dict(id=name, x=(bx0 + bx1) / 2, z=(bz0 + bz1) / 2, w=bx1 - bx0, d=bz1 - bz0,
                               height=round(height, 2), floors=floors, ruin=False,
-                              pilotis=row == 'F', row='orla' if row == 'F' else 'fundo'))
+                              pilotis=row == 'F', row='orla' if row == 'F' else 'fundo', damage=DAMAGE[row + block]))
         rect('predio', name, bx0, bx1, bz0, bz1, floors=floors)
         collider(name, bx0, bx1, bz0, bz1, height, name)
 
@@ -101,6 +126,20 @@ for name, zc in KIOSKS:
     # Núcleo circular do quiosque (raio 2,6 m) como colisor; o deck em volta é caminhável.
     cx, r = (box[0] + box[1]) / 2, 2.6
     collider(name + '_Nucleo', cx - r, cx + r, zc - r, zc + r, 3.4, name)
+
+for name, x0, x1, walk in PIER_SECTIONS:
+    rect('pier', name, x0, x1, *PIER_Z, walkable=walk)
+for name, kind, x, z, axis, yaw in VEHICLES:
+    w, length, height = VEHICLE_SIZE[kind]
+    a = math.radians(abs(yaw))
+    # Caixa alinhada aos eixos que contém o veículo girado.
+    across, along = w * math.cos(a) + length * math.sin(a), length * math.cos(a) + w * math.sin(a)
+    dx, dz = (across, along) if axis == 'z' else (along, across)
+    props.append(dict(id=name, kind=kind, x=x, z=z, axis=axis, yaw=yaw, w=w, length=length, height=height))
+    collider(name, round(x - dx / 2, 3), round(x + dx / 2, 3), round(z - dz / 2, 3), round(z + dz / 2, 3), height, name)
+for name, x, z, w, d, h in RUBBLE:
+    props.append(dict(id=name, kind='entulho', x=x, z=z, w=w, d=d, height=h))
+    collider(name, x - w / 2, x + w / 2, z - d / 2, z + d / 2, h, name)
 
 rect('deck', 'Deck_Pouso', **DECK)
 rect('reserva', 'Reserva_Pouso', **LANDING)
@@ -118,10 +157,15 @@ limit_colliders = [
     dict(id='COL_Limite_Norte', minX=-51.0, maxX=51.0, minZ=-57.0, maxZ=-54.0, minY=0.0, maxY=4.0),
     dict(id='COL_Limite_Sul', minX=-51.0, maxX=51.0, minZ=54.0, maxZ=57.0, minY=0.0, maxY=4.0),
     dict(id='COL_Limite_Oeste', minX=-54.0, maxX=-51.0, minZ=-54.0, maxZ=54.0, minY=0.0, maxY=4.0),
-    dict(id='COL_Limite_Mar', minX=float(WATERLINE), maxX=54.0, minZ=-54.0, maxZ=54.0, minY=0.0, maxY=4.0),
+    # O mar abre só a boca do píer: fecha ao sul dele, na face do morro e depois do trecho desabado.
+    dict(id='COL_Limite_Mar', minX=float(WATERLINE), maxX=54.0, minZ=float(PIER_Z[1]), maxZ=54.0, minY=0.0, maxY=4.0),
+    dict(id='COL_Limite_Mar_Pier_Norte', minX=float(WATERLINE), maxX=54.0, minZ=-54.0, maxZ=float(PIER_Z[0]), minY=0.0, maxY=4.0),
+    dict(id='COL_Limite_Mar_Pier_Ponta', minX=float(PIER_END), maxX=54.0, minZ=float(PIER_Z[0]), maxZ=float(PIER_Z[1]), minY=0.0, maxY=4.0),
 ]
 
-walkable = [dict(minX=BOUNDS['minX'], maxX=WATERLINE, minZ=BOUNDS['minZ'], maxZ=BOUNDS['maxZ'])]
+walkable = [dict(minX=BOUNDS['minX'], maxX=WATERLINE, minZ=BOUNDS['minZ'], maxZ=BOUNDS['maxZ']),
+            # Tablado do píer; sobrepõe 2 m de areia para a navegação cruzar sem costura.
+            dict(minX=WATERLINE - 2, maxX=PIER_END, minZ=PIER_Z[0], maxZ=PIER_Z[1])]
 
 # Propostas de jogo, a validar: suprimentos nos quiosques, rotas e pontos de entrada dos inimigos.
 # Balcão do quiosque no lado do mar, fora do núcleo circular.
@@ -173,6 +217,12 @@ def check():
             errors.append(f"{o['id']} fora dos limites")
         if overlaps(o, LANDING):
             errors.append(f"{o['id']} invade a reserva de pouso")
+    for c in limit_colliders:
+        if any(overlaps(c, dict(minX=area['minX'] + .01, maxX=area['maxX'] - .01, minZ=area['minZ'] + .01, maxZ=area['maxZ'] - .01)) for area in walkable):
+            errors.append(f"{c['id']} fecha área caminhável")
+    for o in obstacles:
+        if any(overlaps(o, dict(minX=x0, maxX=x1, minZ=PIER_Z[0], maxZ=PIER_Z[1])) for _, x0, x1, _ in PIER_SECTIONS):
+            errors.append(f"{o['id']} sobre o píer")
     for i, a in enumerate(obstacles):
         for b in obstacles[i + 1:]:
             if overlaps(a, b):
@@ -181,7 +231,7 @@ def check():
         + [(f'rota{i}_{j}', p) for i, r in enumerate(patrol_routes + routes) for j, p in enumerate(r)] \
         + [(v['id'], v) for v in viewpoints]
     for name, p in points:
-        if not inside(p, walkable[0]):
+        if not any(inside(p, area) for area in walkable):
             errors.append(f'{name} fora da área caminhável')
         if any(inside(p, o) for o in obstacles):
             errors.append(f'{name} dentro de um colisor')
@@ -198,8 +248,8 @@ def area(b):
 COLORS = dict(mar='#2f6f8f', areia='#e3cf9c', calcadao='#cfcfcf', pista_praia='#4a4d52', pista_cidade='#4a4d52',
               pista_canteiro='#4a4d52', rua_fundo='#4a4d52', calcada_orla='#9a9a94', calcada_meio='#9a9a94',
               calcada_fundo='#9a9a94', travessa='#4a4d52', quadra='#8d8778', predio='#d8cdb4', praca='#6f9a5c',
-              quiosque='#b98a5a', deck='#5fd6e6', reserva='none')
-ORDER = ['faixa', 'quadra', 'praca', 'predio', 'quiosque', 'deck', 'reserva']
+              quiosque='#b98a5a', deck='#5fd6e6', reserva='none', pier='#8a6a45')
+ORDER = ['faixa', 'quadra', 'praca', 'predio', 'quiosque', 'pier', 'deck', 'reserva']
 
 
 def svg(project, filename, title):
@@ -233,13 +283,19 @@ def svg(project, filename, title):
                 continue
             key = part['id'] if kind == 'faixa' else kind
             key = 'travessa' if key.startswith('travessa') else key
-            if kind == 'reserva':
+            if kind == 'pier' and not part.get('walkable'):
+                out.append(poly(part, '#5d4a35', '#2b2b2b', .6, 'stroke-dasharray="3 2" opacity="0.7"'))
+            elif kind == 'reserva':
                 out.append(poly(part, 'none', '#0b6b7a', 1, 'stroke-dasharray="4 3"'))
             else:
                 out.append(poly(part, COLORS.get(key, '#bbbbbb')))
     for o in obstacles:
         if 'Nucleo' in o['id']:
             out.append(poly(o, '#7a5a38'))
+        elif o['source'].startswith(('Onibus', 'Carro')):
+            out.append(poly(o, '#9c4a2c'))
+        elif o['source'].startswith('Entulho'):
+            out.append(poly(o, '#6f6a64'))
     for b in buildings:
         out.append(label(b['x'], b['z'], f"{b['id'].replace('Predio_', 'Prédio ')} · {b['floors']} pav."))
     for name, z0, z1 in PLAZAS:
@@ -247,6 +303,7 @@ def svg(project, filename, title):
     for name, zc in KIOSKS:
         out.append(label(BAND['areia'][0] + KIOSK['depthX'] / 2, zc, name.replace('_', ' '), 9))
     out.append(label(25, 50.5, 'Deck de pouso', 10, '#063e47'))
+    out.append(label(37, -50, 'Píer quebrado', 9, '#f3e7d2'))
     out.append(label(43.5, 0, 'MAR', 16, '#e9f4f8'))
     out.append(label(25.5, -8, 'AREIA', 12, '#6b5a2c'))
     out.append(label(12.5, -8, 'CALÇADÃO', 9))
@@ -278,7 +335,7 @@ def main():
     data = dict(version=VERSION, bounds=BOUNDS, ship=SHIP, exit=EXIT, landingReservation=LANDING,
                 walkableAreas=walkable, obstacles=obstacles, buildings=buildings, loot=loot,
                 patrolRoutes=patrol_routes, spawns=spawns, routes=routes, viewpoints=viewpoints,
-                bands=[dict(id=n, minX=a, maxX=b, label=l) for n, a, b, l in BANDS],
+                bands=[dict(id=n, minX=a, maxX=b, label=l) for n, a, b, l in BANDS], props=props,
                 parts=parts, limits=limits, limitColliders=limit_colliders,
                 camera=dict(azimuth='pi/4', note='Mar embaixo à direita e deck embaixo à esquerda, como no croqui.'))
     (OUT / 'export').mkdir(exist_ok=True)
@@ -288,13 +345,13 @@ def main():
     built = sum(area(o) for o in obstacles)
     metrics = dict(version=VERSION, erros=errors,
                    dimensao=dict(x=BOUNDS['maxX'] - BOUNDS['minX'], z=BOUNDS['maxZ'] - BOUNDS['minZ'], area_m2=total),
-                   area_caminhavel_m2=area(walkable[0]) - built, area_mar_m2=area(limits[0]),
-                   area_colisores_m2=round(built, 1), predios=len(buildings), quiosques=len(KIOSKS),
+                   area_caminhavel_m2=round(area(walkable[0]) + (PIER_END - WATERLINE) * (PIER_Z[1] - PIER_Z[0]) - built, 1), area_mar_m2=area(limits[0]),
+                   area_colisores_m2=round(built, 1), predios=len(buildings), quiosques=len(KIOSKS), veiculos=len(VEHICLES), entulhos=len(RUBBLE), pier_caminhavel_m=PIER_END - 28,
                    pracas=len(PLAZAS), spawns=len(spawns),
                    referencia_shanghai=dict(x=102, z=108, pouso='10 x 13 m', pavimento_m=FLOOR))
-    (OUT / 'notas' / 'planta-v0.json').write_text(json.dumps(metrics, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
-    svg(top_down, 'planta-v0-topo.svg', 'Rio de Janeiro · Level 02 · planta v0 vista de cima (leste à direita)')
-    svg(camera, 'planta-v0-camera.svg', 'Rio de Janeiro · Level 02 · planta v0 no ângulo da câmera do jogo')
+    (OUT / 'notas' / 'planta-v1.json').write_text(json.dumps(metrics, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
+    svg(top_down, 'planta-v1-topo.svg', 'Rio de Janeiro · Level 02 · planta v1 vista de cima (leste à direita)')
+    svg(camera, 'planta-v1-camera.svg', 'Rio de Janeiro · Level 02 · planta v1 no ângulo da câmera do jogo')
     print(json.dumps(metrics, ensure_ascii=False, indent=1))
     if errors:
         raise SystemExit(1)
