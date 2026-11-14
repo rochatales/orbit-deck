@@ -61,7 +61,7 @@ test('Level 02 Rio: saída, suprimentos, rotas e entradas de inimigos ficam em p
 });
 
 test('Level 02 Rio v1: píer quebrado é caminhável só até o trecho desabado', () => {
-    assert.equal(rio.version, 'rio-fase01-planta-v1');
+    assert.equal(rio.version, 'rio-fase01-planta-v2');
     const sea = rio.bands.at(-1);
     const sections = rio.parts.filter(part => part.kind === 'pier');
     assert.deepEqual(sections.map(part => [part.id, part.walkable]), [['Pier_Rampa', true], ['Pier_Tablado', true], ['Pier_Ponta_Caida', false]]);
@@ -89,9 +89,9 @@ test('Level 02 Rio v1: píer quebrado é caminhável só até o trecho desabado'
 });
 
 test('Level 02 Rio v1: veículos e entulho têm colisor e deixam as vias transitáveis', () => {
-    assert.equal(rio.props.filter(prop => prop.kind === 'onibus').length, 4);
-    assert.equal(rio.props.filter(prop => prop.kind === 'carro').length, 8);
-    assert.equal(rio.props.filter(prop => prop.kind === 'entulho').length, 7);
+    assert.equal(rio.props.filter(prop => prop.kind === 'onibus').length, 5);
+    assert.equal(rio.props.filter(prop => prop.kind === 'carro').length, 13);
+    assert.equal(rio.props.filter(prop => prop.kind === 'entulho').length, 14);
     for (const prop of rio.props) {
         const collider = rio.obstacles.find(obstacle => obstacle.source === prop.id);
         assert.ok(collider && inside(prop, collider), prop.id);
@@ -105,5 +105,9 @@ test('Level 02 Rio v1: veículos e entulho têm colisor e deixam as vias transit
         const median = lane.id.startsWith('pista') ? 7 : 2;
         assert.ok(free + median >= 3.3, `${obstacle.id} em ${lane.id}: ${free}`);
     }
-    assert.ok(rio.buildings.every(building => ['rachado', 'canto_desabado', 'fachada_aberta'].includes(building.damage)));
+    assert.ok(rio.buildings.every(building => ['ruina', 'canto_desabado', 'fachada_aberta'].includes(building.damage)));
+    // Planta v2: dois prédios em ruína, mais baixos, com o mesmo colisor de térreo.
+    const ruins = rio.buildings.filter(building => building.ruin);
+    assert.deepEqual(ruins.map(building => [building.id, building.floors, building.damage]), [['Predio_F2', 3, 'ruina'], ['Predio_T3', 5, 'ruina']]);
+    for (const ruin of ruins) assert.ok(rio.props.some(prop => prop.id.startsWith('Desabamento_' + ruin.id.slice(-2))), ruin.id);
 });

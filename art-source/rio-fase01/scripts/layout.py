@@ -12,7 +12,7 @@ from pathlib import Path
 import json, math
 
 OUT = Path(__file__).resolve().parents[1]
-VERSION = 'rio-fase01-planta-v1'
+VERSION = 'rio-fase01-planta-v2'
 # Mesma dimensão de Shanghai fase 01.
 BOUNDS = dict(minX=-51, maxX=51, minZ=-54, maxZ=54)
 FLOOR = 3.3  # altura de pavimento usada em Shanghai
@@ -60,6 +60,10 @@ VEHICLES = [
     ('Carro_Deck', 'carro', 9.0, 47.5, 'z', 7), ('Carro_Fundo', 'carro', -32.2, 12.0, 'z', -14),
     ('Carro_Travessa', 'carro', -22.5, 3.2, 'x', 8), ('Carro_Avenida_Sul', 'carro', -4.3, 40.0, 'z', 15),
     ('Carro_Calcadao', 'carro', 13.6, -12.0, 'z', -22), ('Carro_Ponta_Norte', 'carro', -4.4, -46.0, 'z', 10),
+    # Planta v2: mais carcaças, a pedido do autor.
+    ('Onibus_Calcadao', 'onibus', 12.9, 3.0, 'z', -9), ('Carro_Fundo_Norte', 'carro', -32.6, -27.0, 'z', 18),
+    ('Carro_Praia_Norte', 'carro', 8.4, -36.0, 'z', -16), ('Carro_Travessa_Sul', 'carro', -44.0, 31.0, 'x', -12),
+    ('Carro_Avenida_Centro', 'carro', -4.3, 1.5, 'z', 20), ('Carro_Fundo_Sul', 'carro', -36.6, 44.0, 'z', -10),
 ]
 # (id, x, z, largura em X, comprimento em Z, altura): entulho de fachada caído sobre calçadas e pistas.
 RUBBLE = [
@@ -67,10 +71,17 @@ RUBBLE = [
     ('Entulho_T1_Fundo', -38.6, 21.0, 2.8, 6.0, 1.8), ('Entulho_F3_Ponta', -10.2, -46.0, 2.4, 4.4, 1.4),
     ('Entulho_Calcadao', 11.2, 36.0, 2.2, 3.0, .9), ('Entulho_Travessa_Norte', -30.0, -38.4, 5.0, 2.6, 1.3),
     ('Entulho_T2_Fundo', -39.0, 10.0, 2.0, 5.0, 1.5),
+    # Planta v2: desabamentos maiores, ao pé dos dois prédios em ruína e nas travessas.
+    ('Desabamento_F2', -9.4, -12.5, 4.6, 8.0, 2.6), ('Desabamento_F2_Fundo', -30.2, -18.0, 2.4, 9.0, 2.2),
+    ('Desabamento_T3', -39.2, -49.0, 2.4, 7.0, 2.4), ('Desabamento_Travessa_Sul', -33.0, 29.9, 7.0, 2.6, 1.8),
+    ('Desabamento_Travessa_Centro', -44.0, 3.6, 8.0, 2.6, 2.0), ('Entulho_Praca_Central', 1.0, 9.0, 3.0, 4.0, 1.2),
+    ('Entulho_Areia', 19.0, -8.0, 4.0, 5.0, 1.3),
 ]
+# Planta v2: prédios em ruína, com menos pavimentos de pé. O colisor do térreo não muda.
+RUINS = dict(F2=3, T3=5)
 # Dano visual por prédio; o envelope de colisão não muda.
-DAMAGE = dict(F0='rachado', F1='canto_desabado', F2='rachado', F3='fachada_aberta',
-              T0='rachado', T1='fachada_aberta', T2='canto_desabado', T3='rachado')
+DAMAGE = dict(F0='fachada_aberta', F1='canto_desabado', F2='ruina', F3='fachada_aberta',
+              T0='canto_desabado', T1='fachada_aberta', T2='canto_desabado', T3='ruina')
 
 parts, obstacles, buildings, limits, props = [], [], [], [], []
 
@@ -107,9 +118,11 @@ for row, lot, floors_by_block in (('F', 'lote_frente', (7, 8, 6, 8)), ('T', 'lot
         bz1 = z1 if z1 == BOUNDS['maxZ'] else z1 - 1
         bx1 = x1 - 1
         name = f'Predio_{row}{block}'
+        ruin = row + block in RUINS
+        floors = RUINS.get(row + block, floors)
         height = floors * FLOOR
         buildings.append(dict(id=name, x=(bx0 + bx1) / 2, z=(bz0 + bz1) / 2, w=bx1 - bx0, d=bz1 - bz0,
-                              height=round(height, 2), floors=floors, ruin=False,
+                              height=round(height, 2), floors=floors, ruin=ruin,
                               pilotis=row == 'F', row='orla' if row == 'F' else 'fundo', damage=DAMAGE[row + block]))
         rect('predio', name, bx0, bx1, bz0, bz1, floors=floors)
         collider(name, bx0, bx1, bz0, bz1, height, name)
@@ -349,9 +362,9 @@ def main():
                    area_colisores_m2=round(built, 1), predios=len(buildings), quiosques=len(KIOSKS), veiculos=len(VEHICLES), entulhos=len(RUBBLE), pier_caminhavel_m=PIER_END - 28,
                    pracas=len(PLAZAS), spawns=len(spawns),
                    referencia_shanghai=dict(x=102, z=108, pouso='10 x 13 m', pavimento_m=FLOOR))
-    (OUT / 'notas' / 'planta-v1.json').write_text(json.dumps(metrics, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
-    svg(top_down, 'planta-v1-topo.svg', 'Rio de Janeiro · Level 02 · planta v1 vista de cima (leste à direita)')
-    svg(camera, 'planta-v1-camera.svg', 'Rio de Janeiro · Level 02 · planta v1 no ângulo da câmera do jogo')
+    (OUT / 'notas' / 'planta-v2.json').write_text(json.dumps(metrics, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
+    svg(top_down, 'planta-v2-topo.svg', 'Rio de Janeiro · Level 02 · planta v2 vista de cima (leste à direita)')
+    svg(camera, 'planta-v2-camera.svg', 'Rio de Janeiro · Level 02 · planta v2 no ângulo da câmera do jogo')
     print(json.dumps(metrics, ensure_ascii=False, indent=1))
     if errors:
         raise SystemExit(1)

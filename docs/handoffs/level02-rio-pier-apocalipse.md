@@ -114,3 +114,57 @@ Em `art-source/rio-fase01/renders/v002/`:
 2. Comparar `renders/v002/jogo.png` com `renders/v001/jogo.png`.
 3. No jogo, modo de desenvolvimento, Rio: andar até o fim do píer, tentar
    passar do vão e das bordas, e conferir a colisão dos ônibus, carros e entulhos.
+
+## Destruição ampliada · planta v2 e cena v003 · 14/11/2026
+
+O autor pediu mais peso de destruição e **autorizou passar do orçamento de
+triângulos de Shanghai**.
+
+### Planta v2
+
+- **Dois prédios em ruína:** `Predio_F2` (orla) cai de 6 para 3 pavimentos e
+  `Predio_T3` (fundo) de 9 para 5. O colisor de térreo é o mesmo.
+- **Mais carcaças:** 5 ônibus e 13 carros (eram 4 e 8).
+- **Mais entulho:** 14 montes (eram 7), com cinco desabamentos grandes de até
+  8 m ao pé das ruínas e nas travessas, um na Praça Central e um na areia.
+- Todos os outros prédios têm fachada aberta ou canto desabado.
+- Pranchas `notas/planta-v2-camera.svg` e `planta-v2-topo.svg`.
+- Um carro precisou sair da ponta norte da rua de trás: o teste de navegação
+  mostrou que o Patrol grande não passava ali.
+
+### Cena v003 (`blend/rio_fase01_v003.blend`)
+
+- Ruínas com paredes irregulares, laje caída, blocos, ferragem e mato no topo.
+- Desabamentos grandes com mais blocos, duas lajes e um pedaço de parede de pé.
+- Rachaduras de piso e de fachada mais largas e mais longas.
+- Nove crateras, 210 detritos rasos espalhados pelas vias, seis postes caídos
+  sobre as pistas e quatro palmeiras tombadas nas praças e na areia.
+- Rombos de fachada maiores, manchas de ferrugem e mais dunas invadindo as pistas.
+- As cenas v001 e v002, com suas notas e renders, foram mantidas.
+
+### Números
+
+| Arquivo | Triângulos | Shanghai | Tamanho |
+|---|---:|---:|---:|
+| `export/rio-fase01.glb` | 57.137 | 55.042 | 5,6 MB |
+| `export/rio-limites-v001.glb` | 16.424 | 28.838 | 1,4 MB |
+
+O mapa passou Shanghai em 2.095 triângulos (3,8%). O teto da auditoria subiu
+para 72.000, registrado em `audit_view.py` como decisão do autor. Mapa e limites
+somados (73.561) continuam abaixo da soma de Shanghai (83.880).
+
+### Verificação
+
+- `layout.py` sem erros; auditoria do Blender sem erros; regressão da auditoria
+  com 7 casos; `npm test` com **666/666**; build e `git diff --check` verdes.
+- Renders em `art-source/rio-fase01/renders/v003/` (15 imagens, mesmos nomes da v002).
+- Conferi em imagem `geral.png` e `avenida.png`: as duas ruínas, os
+  desabamentos, as carcaças, as crateras e os detritos lêem bem na vista geral.
+
+### Pontos fracos que vi nos renders
+
+- **Carcaças:** a textura de ferrugem ficou laranja viva e os veículos lêem como
+  blocos de tijolo. Precisam de cor mais escura e de forma menos quadrada.
+- **Manchas das fachadas:** usam a mesma ferrugem e parecem painéis de tijolo.
+- **Topo das ruínas:** a laje ainda está limpa demais para um prédio desabado.
+- Os outros 13 renders da v003 não foram conferidos, e o jogo não foi aberto.

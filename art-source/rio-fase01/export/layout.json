@@ -1,5 +1,5 @@
 {
- "version": "rio-fase01-planta-v1",
+ "version": "rio-fase01-planta-v2",
  "bounds": {
   "minX": -51,
   "maxX": 51,
@@ -65,7 +65,7 @@
    "maxZ": -8,
    "source": "Predio_F2",
    "minY": 0.0,
-   "maxY": 19.8
+   "maxY": 9.9
   },
   {
    "id": "COL_Predio_F3",
@@ -115,7 +115,7 @@
    "maxZ": -42,
    "source": "Predio_T3",
    "minY": 0.0,
-   "maxY": 29.7
+   "maxY": 16.5
   },
   {
    "id": "COL_Quiosque_1_Nucleo",
@@ -258,6 +258,66 @@
    "maxY": 1.6
   },
   {
+   "id": "COL_Onibus_Calcadao",
+   "minX": 11.024,
+   "maxX": 14.776,
+   "minZ": -1.245,
+   "maxZ": 7.245,
+   "source": "Onibus_Calcadao",
+   "minY": 0.0,
+   "maxY": 2.65
+  },
+  {
+   "id": "COL_Carro_Fundo_Norte",
+   "minX": -34.059,
+   "maxX": -31.141,
+   "minZ": -29.133,
+   "maxZ": -24.867,
+   "source": "Carro_Fundo_Norte",
+   "minY": 0.0,
+   "maxY": 1.6
+  },
+  {
+   "id": "COL_Carro_Praia_Norte",
+   "minX": 6.997,
+   "maxX": 9.803,
+   "minZ": -38.123,
+   "maxZ": -33.877,
+   "source": "Carro_Praia_Norte",
+   "minY": 0.0,
+   "maxY": 1.6
+  },
+  {
+   "id": "COL_Carro_Travessa_Sul",
+   "minX": -46.095,
+   "maxX": -41.905,
+   "minZ": 29.714,
+   "maxZ": 32.286,
+   "source": "Carro_Travessa_Sul",
+   "minY": 0.0,
+   "maxY": 1.6
+  },
+  {
+   "id": "COL_Carro_Avenida_Centro",
+   "minX": -5.813,
+   "maxX": -2.787,
+   "minZ": -0.64,
+   "maxZ": 3.64,
+   "source": "Carro_Avenida_Centro",
+   "minY": 0.0,
+   "maxY": 1.6
+  },
+  {
+   "id": "COL_Carro_Fundo_Sul",
+   "minX": -37.825,
+   "maxX": -35.375,
+   "minZ": 41.923,
+   "maxZ": 46.077,
+   "source": "Carro_Fundo_Sul",
+   "minY": 0.0,
+   "maxY": 1.6
+  },
+  {
    "id": "COL_Entulho_F2_Avenida",
    "minX": -11.4,
    "maxX": -7.8,
@@ -326,6 +386,76 @@
    "source": "Entulho_T2_Fundo",
    "minY": 0.0,
    "maxY": 1.5
+  },
+  {
+   "id": "COL_Desabamento_F2",
+   "minX": -11.7,
+   "maxX": -7.1000000000000005,
+   "minZ": -16.5,
+   "maxZ": -8.5,
+   "source": "Desabamento_F2",
+   "minY": 0.0,
+   "maxY": 2.6
+  },
+  {
+   "id": "COL_Desabamento_F2_Fundo",
+   "minX": -31.4,
+   "maxX": -29.0,
+   "minZ": -22.5,
+   "maxZ": -13.5,
+   "source": "Desabamento_F2_Fundo",
+   "minY": 0.0,
+   "maxY": 2.2
+  },
+  {
+   "id": "COL_Desabamento_T3",
+   "minX": -40.400000000000006,
+   "maxX": -38.0,
+   "minZ": -52.5,
+   "maxZ": -45.5,
+   "source": "Desabamento_T3",
+   "minY": 0.0,
+   "maxY": 2.4
+  },
+  {
+   "id": "COL_Desabamento_Travessa_Sul",
+   "minX": -36.5,
+   "maxX": -29.5,
+   "minZ": 28.599999999999998,
+   "maxZ": 31.2,
+   "source": "Desabamento_Travessa_Sul",
+   "minY": 0.0,
+   "maxY": 1.8
+  },
+  {
+   "id": "COL_Desabamento_Travessa_Centro",
+   "minX": -48.0,
+   "maxX": -40.0,
+   "minZ": 2.3,
+   "maxZ": 4.9,
+   "source": "Desabamento_Travessa_Centro",
+   "minY": 0.0,
+   "maxY": 2.0
+  },
+  {
+   "id": "COL_Entulho_Praca_Central",
+   "minX": -0.5,
+   "maxX": 2.5,
+   "minZ": 7.0,
+   "maxZ": 11.0,
+   "source": "Entulho_Praca_Central",
+   "minY": 0.0,
+   "maxY": 1.2
+  },
+  {
+   "id": "COL_Entulho_Areia",
+   "minX": 17.0,
+   "maxX": 21.0,
+   "minZ": -10.5,
+   "maxZ": -5.5,
+   "source": "Entulho_Areia",
+   "minY": 0.0,
+   "maxY": 1.3
   }
  ],
  "buildings": [
@@ -340,7 +470,7 @@
    "ruin": false,
    "pilotis": true,
    "row": "orla",
-   "damage": "rachado"
+   "damage": "fachada_aberta"
   },
   {
    "id": "Predio_F1",
@@ -361,12 +491,12 @@
    "z": -18.0,
    "w": 16,
    "d": 20,
-   "height": 19.8,
-   "floors": 6,
-   "ruin": false,
+   "height": 9.9,
+   "floors": 3,
+   "ruin": true,
    "pilotis": true,
    "row": "orla",
-   "damage": "rachado"
+   "damage": "ruina"
   },
   {
    "id": "Predio_F3",
@@ -392,7 +522,7 @@
    "ruin": false,
    "pilotis": false,
    "row": "fundo",
-   "damage": "rachado"
+   "damage": "canto_desabado"
   },
   {
    "id": "Predio_T1",
@@ -426,12 +556,12 @@
    "z": -48.0,
    "w": 10,
    "d": 12,
-   "height": 29.7,
-   "floors": 9,
-   "ruin": false,
+   "height": 16.5,
+   "floors": 5,
+   "ruin": true,
    "pilotis": false,
    "row": "fundo",
-   "damage": "rachado"
+   "damage": "ruina"
   }
  ],
  "loot": [
@@ -847,6 +977,72 @@
    "height": 1.6
   },
   {
+   "id": "Onibus_Calcadao",
+   "kind": "onibus",
+   "x": 12.9,
+   "z": 3.0,
+   "axis": "z",
+   "yaw": -9,
+   "w": 2.5,
+   "length": 8.2,
+   "height": 2.65
+  },
+  {
+   "id": "Carro_Fundo_Norte",
+   "kind": "carro",
+   "x": -32.6,
+   "z": -27.0,
+   "axis": "z",
+   "yaw": 18,
+   "w": 1.8,
+   "length": 3.9,
+   "height": 1.6
+  },
+  {
+   "id": "Carro_Praia_Norte",
+   "kind": "carro",
+   "x": 8.4,
+   "z": -36.0,
+   "axis": "z",
+   "yaw": -16,
+   "w": 1.8,
+   "length": 3.9,
+   "height": 1.6
+  },
+  {
+   "id": "Carro_Travessa_Sul",
+   "kind": "carro",
+   "x": -44.0,
+   "z": 31.0,
+   "axis": "x",
+   "yaw": -12,
+   "w": 1.8,
+   "length": 3.9,
+   "height": 1.6
+  },
+  {
+   "id": "Carro_Avenida_Centro",
+   "kind": "carro",
+   "x": -4.3,
+   "z": 1.5,
+   "axis": "z",
+   "yaw": 20,
+   "w": 1.8,
+   "length": 3.9,
+   "height": 1.6
+  },
+  {
+   "id": "Carro_Fundo_Sul",
+   "kind": "carro",
+   "x": -36.6,
+   "z": 44.0,
+   "axis": "z",
+   "yaw": -10,
+   "w": 1.8,
+   "length": 3.9,
+   "height": 1.6
+  },
+  {
    "id": "Entulho_F2_Avenida",
    "kind": "entulho",
    "x": -9.6,
@@ -908,6 +1104,69 @@
    "w": 2.0,
    "d": 5.0,
    "height": 1.5
+  },
+  {
+   "id": "Desabamento_F2",
+   "kind": "entulho",
+   "x": -9.4,
+   "z": -12.5,
+   "w": 4.6,
+   "d": 8.0,
+   "height": 2.6
+  },
+  {
+   "id": "Desabamento_F2_Fundo",
+   "kind": "entulho",
+   "x": -30.2,
+   "z": -18.0,
+   "w": 2.4,
+   "d": 9.0,
+   "height": 2.2
+  },
+  {
+   "id": "Desabamento_T3",
+   "kind": "entulho",
+   "x": -39.2,
+   "z": -49.0,
+   "w": 2.4,
+   "d": 7.0,
+   "height": 2.4
+  },
+  {
+   "id": "Desabamento_Travessa_Sul",
+   "kind": "entulho",
+   "x": -33.0,
+   "z": 29.9,
+   "w": 7.0,
+   "d": 2.6,
+   "height": 1.8
+  },
+  {
+   "id": "Desabamento_Travessa_Centro",
+   "kind": "entulho",
+   "x": -44.0,
+   "z": 3.6,
+   "w": 8.0,
+   "d": 2.6,
+   "height": 2.0
+  },
+  {
+   "id": "Entulho_Praca_Central",
+   "kind": "entulho",
+   "x": 1.0,
+   "z": 9.0,
+   "w": 3.0,
+   "d": 4.0,
+   "height": 1.2
+  },
+  {
+   "id": "Entulho_Areia",
+   "kind": "entulho",
+   "x": 19.0,
+   "z": -8.0,
+   "w": 4.0,
+   "d": 5.0,
+   "height": 1.3
   }
  ],
  "parts": [
@@ -1077,7 +1336,7 @@
    "maxX": -12,
    "minZ": -28,
    "maxZ": -8,
-   "floors": 6
+   "floors": 3
   },
   {
    "id": "Quadra_F3",
@@ -1162,7 +1421,7 @@
    "maxX": -41,
    "minZ": -54,
    "maxZ": -42,
-   "floors": 9
+   "floors": 5
   },
   {
    "id": "Praca_Sul",

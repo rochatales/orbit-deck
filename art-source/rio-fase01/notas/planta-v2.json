@@ -1,0 +1,25 @@
+{
+ "version": "rio-fase01-planta-v2",
+ "erros": [],
+ "dimensao": {
+  "x": 102,
+  "z": 108,
+  "area_m2": 11016
+ },
+ "area_caminhavel_m2": 7170.4,
+ "area_mar_m2": 1620,
+ "area_colisores_m2": 2285.6,
+ "predios": 8,
+ "quiosques": 2,
+ "veiculos": 18,
+ "entulhos": 14,
+ "pier_caminhavel_m": 18,
+ "pracas": 3,
+ "spawns": 8,
+ "referencia_shanghai": {
+  "x": 102,
+  "z": 108,
+  "pouso": "10 x 13 m",
+  "pavimento_m": 3.3
+ }
+}

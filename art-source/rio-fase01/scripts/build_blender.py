@@ -1,4 +1,4 @@
-"""Rio v002 (planta v1: píer quebrado e passe pós-apocalíptico). Blender 5.1.1 --background --python <este arquivo> [-- --render].
+"""Rio v003 (planta v2: píer quebrado, ruínas e destruição ampliada). Blender 5.1.1 --background --python <este arquivo> [-- --render].
 Reconstrói fontes editáveis, kit compartilhado e dois GLBs a partir da planta.
 """
 import bpy
@@ -19,7 +19,7 @@ bpy.ops.wm.read_factory_settings(use_empty=True)
 S = bpy.context.scene
 S.unit_settings.system = 'METRIC'
 S.unit_settings.scale_length = 1
-REV='v002'
+REV='v003'
 for folder in ['blend','texturas','notas','renders/'+REV]:
     (ART/folder).mkdir(parents=True,exist_ok=True)
 
@@ -245,20 +245,38 @@ for b in D['buildings']:
                 box('Cobogo_horizontal',fx,base+.45+k*.6,z,.08,.13,1.2,'concreto')
             for dz in [-.55,0,.55]:box('Cobogo_vertical',fx,base+(.75 if last else 1.3),z+dz,.08,1.0 if last else 2,.10,'concreto')
         remember(('terreo_' if level==0 else 'pavimento_tipo_')+b['row'],module_start,x,z)
-    module_start=len(SOURCE.objects)
-    # Cobertura técnica incluída na altura total da planta.
-    box('Cobertura_laje',x,h-1.75,z,w,.18,d,'concreto')
-    for side in [-1,1]:
-        box('Platibanda',x+side*(w/2-.12),h-1.35,z,.24,.8,d,'reboco')
-        box('Platibanda',x,h-1.35,z+side*(d/2-.12),w-.48,.8,.24,'reboco')
-    box('Casa_dagua',x-1,h-.95,z,3.0,1.7,3.3,'reboco')
-    box('Tampa_dagua',x-1,h-.05,z,3.2,.1,3.5,'concreto')
-    for j in range(9):
-        grass(x+w/2-.6,z+R.uniform(-d/2+1,d/2-1),h-1.6,.8)
-    for k in range(5):
-        fz=z+R.uniform(-d/2+1,d/2-1)
-        box('Hera_pendente',x+w/2-.03,h-2.4-R.random(),fz,.04,1.6+R.random(),.28+R.random()*.4,'folha')
-    remember('cobertura_'+b['row'],module_start,x,z)
+    if b['ruin']:
+        # Ruína: pavimentos de cima desabaram. Paredes irregulares até a altura da planta e laje caída.
+        top=h-1.8
+        box('Ruina_laje',x,top+.09,z,w-.4,.18,d-.4,'concreto')
+        stubs=[(x-w/2+.2,z,.4,d),(x+w/2-.2,z-d*.2,.4,d*.5),(x,z-d/2+.2,w*.6,.4),(x-w*.15,z+d/2-.2,w*.55,.4)]
+        for k,(sx,sz,sw,sd) in enumerate(stubs):
+            sh=1.8 if k==0 else R.uniform(.5,1.5)
+            box('Ruina_parede',sx,top+sh/2,sz,sw,sh,sd,'reboco')
+        slab=box('Ruina_laje_caida',x+w*.12,top+.6,z+d*.12,w*.5,.2,d*.4,'concreto',R.uniform(-.3,.3))
+        slab.rotation_euler.x=R.uniform(.05,.08);slab.rotation_euler.y=R.uniform(-.08,-.05)
+        for k in range(7):
+            o=box('Ruina_bloco',x+R.uniform(-w/2+1.5,w/2-1.5),top+R.uniform(.3,.6),z+R.uniform(-d/2+1.5,d/2-1.5),R.uniform(.7,1.6),R.uniform(.4,.9),R.uniform(.7,1.6),'pedra',R.random()*3)
+        for k in range(6):
+            fx,fz=x+R.uniform(-w/2+.6,w/2-.6),z+R.uniform(-d/2+.6,d/2-.6)
+            beam('Ferragem',(fx,top+.1,fz),(fx+R.uniform(-.25,.25),top+R.uniform(.9,1.7),fz+R.uniform(-.25,.25)),.035,'ferrugem',4)
+        for j in range(8):grass(x+R.uniform(-w/2+1,w/2-1),z+R.uniform(-d/2+1,d/2-1),top+.18,R.uniform(.6,1))
+        remember('ruina_topo',len(SOURCE.objects)-28,x,z)
+    else:
+        module_start=len(SOURCE.objects)
+        # Cobertura técnica incluída na altura total da planta.
+        box('Cobertura_laje',x,h-1.75,z,w,.18,d,'concreto')
+        for side in [-1,1]:
+            box('Platibanda',x+side*(w/2-.12),h-1.35,z,.24,.8,d,'reboco')
+            box('Platibanda',x,h-1.35,z+side*(d/2-.12),w-.48,.8,.24,'reboco')
+        box('Casa_dagua',x-1,h-.95,z,3.0,1.7,3.3,'reboco')
+        box('Tampa_dagua',x-1,h-.05,z,3.2,.1,3.5,'concreto')
+        for j in range(9):
+            grass(x+w/2-.6,z+R.uniform(-d/2+1,d/2-1),h-1.6,.8)
+        for k in range(5):
+            fz=z+R.uniform(-d/2+1,d/2-1)
+            box('Hera_pendente',x+w/2-.03,h-2.4-R.random(),fz,.04,1.6+R.random(),.28+R.random()*.4,'folha')
+        remember('cobertura_'+b['row'],module_start,x,z)
     remember('fachada_'+b['row'],start,x,z)
 
 # Quiosque com balcão térreo, terraço, escada helicoidal e guarda-corpo.
@@ -329,9 +347,9 @@ for z in [-48,-22,5,29]:
     box('Poste_luminaria',11.65,6.45,z,.55,.14,.28,'metal')
     remember('poste',start,10.25,z)
 # Dunas rasas são revestimento visual, até 5 cm sobre vias e calçadão.
-for x,z in [(11,-44),(13,-21),(11,9),(14,31),(8,36),(-8,-26),(-32,30)]:
+for x,z in [(11,-44),(13,-21),(11,9),(14,31),(8,36),(-8,-26),(-32,30),(6,-18),(-5,8),(9,24),(-35,-30),(5,-46),(-7,46),(12,-2),(-33,40)]:
     owner='Areia_invasora';start=len(SOURCE.objects)
-    patch('Duna_rasa',x,z,3.8,6,.012,'areia')
+    patch('Duna_rasa',x,z,R.uniform(3.8,6.5),R.uniform(6,11),.012,'areia')
     remember('duna',start,x,z)
 for z in [-39,-12,22,34]:
     owner='Calcadao_quebrado'
@@ -403,8 +421,9 @@ def wreck(p):
 def rubble(p):
     start=len(SOURCE.objects)
     w,d,h=p['w'],p['d'],p['height']
-    for k in range(6):
-        bw,bd=R.uniform(.5,1.1),R.uniform(.5,1.2)
+    big=w*d>=14
+    for k in range(6+int(w*d/4) if big else 6):
+        bw,bd=(R.uniform(.7,1.7),R.uniform(.7,1.8)) if big else (R.uniform(.5,1.1),R.uniform(.5,1.2))
         reach=math.hypot(bw,bd)/2+.05
         bh=R.uniform(.3,h*.55)
         px=p['x']+R.uniform(-(w/2-reach),w/2-reach)
@@ -414,7 +433,12 @@ def rubble(p):
     sw,sd=min(w-.9,2.6),min(d-.9,3.0)
     slab=box('Entulho_laje',p['x'],h*.5,p['z'],sw*.8,.16,sd*.8,'concreto',R.uniform(-.3,.3))
     slab.rotation_euler.x=R.uniform(-.2,.2);slab.rotation_euler.y=R.uniform(.12,.3)
-    for k in range(2):
+    if big:
+        # Segunda laje e pedaço de parede de pé nos desabamentos grandes.
+        s2=box('Entulho_laje',p['x'],h*.32,p['z']+R.uniform(-.4,.4),sw*.65,.18,sd*.65,'concreto',R.uniform(-.2,.2))
+        s2.rotation_euler.x=R.uniform(-.25,-.12);s2.rotation_euler.y=R.uniform(-.3,-.15)
+        box('Entulho_parede',p['x'],h*.5,p['z'],min(.35,w-1.2),h-.1,min(sd*.8,d-1.6),'reboco',0)
+    for k in range(6 if big else 2):
         beam('Entulho_vergalhao',(p['x']+R.uniform(-.4,.4),h*.5,p['z']+R.uniform(-.4,.4)),
              (p['x']+R.uniform(-.5,.5),h-.06,p['z']+R.uniform(-.5,.5)),.03,'ferrugem',4)
     for o in list(SOURCE.objects)[start:]:o['prop']=p['id']
@@ -441,7 +465,7 @@ for i in range(int((deckp['maxX']-deckp['minX'])/board)):
     cx=deckp['minX']+board*(i+.5)
     sunk=i in (3,6,9)
     # Tábua afundada continua fechando o vão: a colisão do tablado é contínua.
-    o=box('Pier_tabua',cx,-.03 if sunk else .045,pzc+(R.uniform(-.12,.12) if sunk else 0),board-.07,.09,pz1-pz0-.12,'madeira')
+    o=box('Pier_tabua',cx,-.03 if sunk else .045,pzc+(R.uniform(-.04,.04) if sunk else 0),board-.07,.09,pz1-pz0-.12,'madeira')
     if sunk:o.rotation_euler.x=R.uniform(-.035,.035)
 for cx in [37.2,41.2,45.2]:
     for zz in [pz0+.42,pz1-.42]:cyl('Pier_pilar',cx,-1.15,zz,.26,2.2,'concreto',8)
@@ -465,9 +489,9 @@ owner='Dano_vias'
 LANES=[(-9,-3),(4,10),(-38,-31)]
 for i in range(34):
     x0,x1=LANES[i%3]
-    crack(R.uniform(x0+.6,x1-.6),R.uniform(-51,51),R.uniform(2.5,6.5),R.uniform(0,math.pi),R.uniform(.14,.34))
+    crack(R.uniform(x0+.9,x1-.9),R.uniform(-51,51),R.uniform(4,9),R.uniform(0,math.pi),R.uniform(.3,.75))
 for z0,z1 in [(29,37),(-5,3),(-39,-31)]:
-    for k in range(4):crack(R.uniform(-48,-12),R.uniform(z0+.6,z1-.6),R.uniform(3,7),R.uniform(-.5,.5),R.uniform(.16,.32))
+    for k in range(6):crack(R.uniform(-48,-12),R.uniform(z0+.9,z1-.9),R.uniform(4,9),R.uniform(-.5,.5),R.uniform(.3,.7))
 for i in range(12):
     x0,x1=LANES[i%3]
     patch('Buraco',R.uniform(x0+1,x1-1),R.uniform(-50,50),R.uniform(1.1,2.4),R.uniform(1,2),.006,'fenda',7).location.z=.03
@@ -484,21 +508,41 @@ for i in range(26):
     while any(z0-1<gz<z1+1 for z0,z1 in [(27,39),(-7,5),(-41,-29)]):gz=R.uniform(-52,52)
     grass(R.choice([lane[0]-.3,lane[1]+.3]),gz,.02,R.uniform(.35,.7))
 
+# v003: crateras largas, campos de detritos rasos (até 19 cm) e postes caídos sobre as pistas.
+for i in range(9):
+    x0,x1=LANES[i%3];cx,cz=R.uniform(x0+1.6,x1-1.6),R.uniform(-48,48)
+    patch('Cratera',cx,cz,R.uniform(3,4.6),R.uniform(3,5),.008,'fenda',9).location.z=.028
+    patch('Cratera_borda',cx+.3,cz-.2,R.uniform(1.6,2.4),R.uniform(1.6,2.6),.05,'pedra',7).location.z=.04
+for i in range(150):
+    x0,x1=LANES[i%3] if i%4 else (10,15)
+    o=box('Detrito',R.uniform(x0+.3,x1-.3),.07,R.uniform(-52,52),R.uniform(.25,.7),R.uniform(.08,.13),R.uniform(.25,.8),'pedra' if i%3 else 'concreto',R.random()*3)
+for i in range(60):
+    o=box('Detrito_travessa',R.uniform(-49,-11),.07,R.choice([(29.5,36.5),(-4.5,2.5),(-38.5,-31.5)])[0]+R.uniform(0,7),R.uniform(.25,.7),R.uniform(.08,.13),R.uniform(.25,.8),'pedra',R.random()*3)
+for cx,cz,ang in [(7,-26,.4),(-6,24,-.5),(-34.5,2,.3),(7,14,-.2),(-6,-38,.6),(12.5,-30,1.2)]:
+    dx,dz=math.cos(ang)*3.1,math.sin(ang)*3.1
+    beam('Poste_caido',(cx-dx,.085,cz-dz),(cx+dx,.085,cz+dz),.075,'metal')
+for cx,cz,ang in [(1,-40,.7),(27,6,2.1),(1,40,-.9),(30,-30,.4)]:
+    dx,dz=math.cos(ang)*3,math.sin(ang)*3
+    beam('Palmeira_caida',(cx-dx,.2,cz-dz),(cx+dx,.16,cz+dz),.15,'madeira',7)
+    for j in range(5):grass(cx+dx*.7+R.uniform(-.3,.3),cz+dz*.7+R.uniform(-.3,.3),.05,1.2)
 # Prédios rachados, com fachada aberta ou canto desabado. Tudo dentro do envelope da planta.
 for b in D['buildings']:
     owner=b['id']
     x,z,w,d,h=b['x'],b['z'],b['w'],b['d'],b['height']
     east=x+w/2-.015
-    for k in range(4):
+    for k in range(6):
         y0=R.uniform(.4,h*.45)
-        wall_crack(east,z+R.uniform(-d/2+1.5,d/2-1.5),y0,min(h-2.2,y0+R.uniform(5,11)),True,R.uniform(.22,.42))
+        wall_crack(east,z+R.uniform(-d/2+1.5,d/2-1.5),y0,min(h-2.2,y0+R.uniform(6,14)),True,R.uniform(.45,.9))
+    for k in range(3):
+        # Mancha de fuligem e ferrugem escorrendo, fina e dentro do envelope.
+        sh=R.uniform(2.5,max(2.6,min(9,h-5)));box('Mancha',east-.012,R.uniform(sh/2+1,max(sh/2+1.01,h-2.4-sh/2)),z+R.uniform(-d/2+2,d/2-2),.024,sh,R.uniform(1,2.4),'ferrugem')
     for side in [-1,1]:
         y0=R.uniform(1,h*.4)
-        wall_crack(x+R.uniform(-w/2+1.5,w/2-1.5),z+side*(d/2-.015),y0,min(h-2.2,y0+R.uniform(5,9)),False,R.uniform(.22,.38))
+        for k in range(2):wall_crack(x+R.uniform(-w/2+1.5,w/2-1.5),z+side*(d/2-.015),y0,min(h-2.2,y0+R.uniform(5,11)),False,R.uniform(.4,.8))
     if b['damage']=='fachada_aberta':
         # Rombo de três pavimentos na fachada principal: interior escuro, lajes expostas e ferragem.
-        cz=z+R.uniform(-d/2+4.5,d/2-4.5);base=3.3*R.randint(1,max(1,b['floors']-4))
-        for k,(dz,hh,ww) in enumerate([(0,8.6,4.2),(-2.3,5.4,2.2),(2.1,6.6,2.6)]):
+        cz=z+R.uniform(-d/2+5.5,d/2-5.5);base=3.3*R.randint(1,max(1,b['floors']-5))
+        for k,(dz,hh,ww) in enumerate([(0,11.5,6.2),(-3.4,7.4,3.0),(3.2,9.0,3.4)]):
             box('Rombo',east-.03,base+hh/2+(.6 if k else 0),cz+dz,.06,hh,ww,'fenda')
         for k in range(3):
             slab=box('Laje_exposta',east-.5,base+3.3*k+.1,cz+R.uniform(-.6,.6),.9,.16,R.uniform(2.6,4),'concreto')
@@ -630,7 +674,7 @@ def camera(name,target,scale,top=False):
 # Mesmos limites de projeção, escala e margem da prancha SVG (7 px/m).
 # O cabeçalho de 30 px desloca o centro vertical da área útil em 15 px.
 S.camera=camera('CAM_Jogo',(-10.625,0,-2.625),1361/7)
-S.camera['referencia_enquadramento']='notas/planta-v1-camera.svg; 7 px/m; cabeçalho 30 px'
+S.camera['referencia_enquadramento']='notas/planta-v2-camera.svg; 7 px/m; cabeçalho 30 px'
 # Vista adicional sem corte das cotas altas, para inspeção geral da arte.
 camera('CAM_Geral',(-8,10,0),210)
 camera('CAM_Topo',(-8,0,0),260,True)
