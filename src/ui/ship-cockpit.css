@@ -63,7 +63,7 @@
 .cockpit-location { grid-column: 3; }
 /* Holograma sem caixa: só linhas e texto no ar, com uma sombra difusa para ler sobre a vista. */
 .cockpit-hologram { position: relative; color: #d4f8ec; border-top: 1px solid #82dec199; text-shadow: 0 0 10px #02161a, 0 0 3px #02161a, 0 0 22px #58f2d833;
-    background: radial-gradient(ellipse 85% 80% at 50% 45%, #02161aa6 0%, #02161a66 55%, transparent 100%), repeating-linear-gradient(0deg, transparent 0 3px, #a6fff907 3px 4px); }
+    background: radial-gradient(ellipse closest-side, #02161a8c 0%, #02161a4d 60%, transparent 100%); }
 .cockpit-hologram::before, .cockpit-hologram::after { content: ''; position: absolute; width: 25px; height: 7px; pointer-events: none; border-top: 2px solid #b0ffe6; top: -1px; }
 .cockpit-hologram::before { left: 0; border-left: 2px solid #b0ffe6; }
 .cockpit-hologram::after { right: 0; border-right: 2px solid #b0ffe6; }
