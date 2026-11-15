@@ -51,6 +51,22 @@ LANDING = dict(minX=20, maxX=30, minZ=40, maxZ=53)
 PIER_Z = (-53, -47)
 PIER_SECTIONS = [('Pier_Rampa', 28, 36, True), ('Pier_Tablado', 36, 46, True), ('Pier_Ponta_Caida', 46, 51, False)]
 PIER_END = 46
+# Faixa rasa caminhável no mar: 3,2 m além da linha d'água (X = 36..39,2),
+# com fundo descendo suavemente até -0,30 m e terminando ao sul do canal do píer (Z = -45,2..54).
+SHALLOW_END = 39.2
+SHALLOW_Z = (-45.2, 54.0)
+SHALLOW_MAX_DEPTH = 0.30
+SWASH_MIN_X = 34.0
+SHALLOW_WATER = dict(
+    minX=WATERLINE,
+    maxX=SHALLOW_END,
+    minZ=SHALLOW_Z[0],
+    maxZ=SHALLOW_Z[1],
+    swashMinX=SWASH_MIN_X,
+    maxDepth=SHALLOW_MAX_DEPTH,
+    pierBufferMinZ=float(PIER_Z[1]),
+    pierBufferMaxZ=SHALLOW_Z[0],
+)
 # Planta v1: destroços com colisão. (id, tipo, x, z, eixo do comprimento, giro visual em graus)
 VEHICLE_SIZE = dict(onibus=(2.5, 8.2, 2.65), carro=(1.8, 3.9, 1.6))
 VEHICLES = [
@@ -142,6 +158,7 @@ for name, zc in KIOSKS:
 
 for name, x0, x1, walk in PIER_SECTIONS:
     rect('pier', name, x0, x1, *PIER_Z, walkable=walk)
+rect('mar_raso', 'Mar_Raso', WATERLINE, SHALLOW_END, *SHALLOW_Z, walkable=True, maxDepth=SHALLOW_MAX_DEPTH)
 for name, kind, x, z, axis, yaw in VEHICLES:
     w, length, height = VEHICLE_SIZE[kind]
     a = math.radians(abs(yaw))
@@ -159,8 +176,8 @@ rect('reserva', 'Reserva_Pouso', **LANDING)
 
 # Limites. O mar fecha a leste; morro e escombros fecham os outros três lados.
 limits.append(dict(id='Limite_Leste_Mar', kind='mar', minX=WATERLINE, maxX=BOUNDS['maxX'], minZ=BOUNDS['minZ'], maxZ=BOUNDS['maxZ'],
-                   note='Linha d\'água irregular no visual; colisão reta em X = 36.'))
-limits.append(dict(id='Limite_Oeste_Morro', kind='morro', minX=BOUNDS['minX'] - 16, maxX=BOUNDS['minX'], minZ=BOUNDS['minZ'], maxZ=BOUNDS['maxZ'],
+                   note='Faixa rasa caminhável em X = 36..39,2 (Z = -45,2..54); água profunda bloqueada em X = 39,2.'))
+limits.append(dict(id='Limite_Oeste_Morro', kind='morro', minX=BOUNDS['minX'] - 16, maxX=BOUNDS['minX'], minZ=BOUNDS['minZ'], maxZ=BOUNDS['minZ'] + 108,
                    note='Cadeia de morros de granito com mata atrás das quadras de fundo.'))
 limits.append(dict(id='Limite_Norte_Morro_Escombros', kind='morro_escombros', minX=BOUNDS['minX'], maxX=WATERLINE, minZ=BOUNDS['minZ'] - 16, maxZ=BOUNDS['minZ'],
                    note='Morro que avança até o mar e fecha a praia, com escombros na avenida.'))
@@ -170,15 +187,21 @@ limit_colliders = [
     dict(id='COL_Limite_Norte', minX=-51.0, maxX=51.0, minZ=-57.0, maxZ=-54.0, minY=0.0, maxY=4.0),
     dict(id='COL_Limite_Sul', minX=-51.0, maxX=51.0, minZ=54.0, maxZ=57.0, minY=0.0, maxY=4.0),
     dict(id='COL_Limite_Oeste', minX=-54.0, maxX=-51.0, minZ=-54.0, maxZ=54.0, minY=0.0, maxY=4.0),
-    # O mar abre só a boca do píer: fecha ao sul dele, na face do morro e depois do trecho desabado.
-    dict(id='COL_Limite_Mar', minX=float(WATERLINE), maxX=54.0, minZ=float(PIER_Z[1]), maxZ=54.0, minY=0.0, maxY=4.0),
+    # O mar abre a faixa rasa (X = 36..39,2, Z = -45,2..54) e a boca do píer:
+    # fecha na água profunda (X >= 39,2), no canal profundo ao sul do píer (Z = -47..-45,2),
+    # na face do morro ao norte do píer e depois do trecho desabado.
+    dict(id='COL_Limite_Mar', minX=float(SHALLOW_END), maxX=54.0, minZ=float(SHALLOW_Z[0]), maxZ=54.0, minY=0.0, maxY=4.0),
+    dict(id='COL_Limite_Mar_Pier_Sul', minX=float(WATERLINE), maxX=54.0, minZ=float(PIER_Z[1]), maxZ=float(SHALLOW_Z[0]), minY=0.0, maxY=4.0),
     dict(id='COL_Limite_Mar_Pier_Norte', minX=float(WATERLINE), maxX=54.0, minZ=-54.0, maxZ=float(PIER_Z[0]), minY=0.0, maxY=4.0),
     dict(id='COL_Limite_Mar_Pier_Ponta', minX=float(PIER_END), maxX=54.0, minZ=float(PIER_Z[0]), maxZ=float(PIER_Z[1]), minY=0.0, maxY=4.0),
 ]
 
 walkable = [dict(minX=BOUNDS['minX'], maxX=WATERLINE, minZ=BOUNDS['minZ'], maxZ=BOUNDS['maxZ']),
             # Tablado do píer; sobrepõe 2 m de areia para a navegação cruzar sem costura.
-            dict(minX=WATERLINE - 2, maxX=PIER_END, minZ=PIER_Z[0], maxZ=PIER_Z[1])]
+            dict(minX=WATERLINE - 2, maxX=PIER_END, minZ=PIER_Z[0], maxZ=PIER_Z[1]),
+            # Faixa rasa do mar (X = 36..39,2, Z = -45,2..54); sobrepõe 2 m de areia úmida/molhada
+            # e termina 1,8 m ao sul do píer para impedir acesso lateral ou contorno da ponta caída.
+            dict(minX=WATERLINE - 2, maxX=SHALLOW_END, minZ=SHALLOW_Z[0], maxZ=SHALLOW_Z[1])]
 
 # Propostas de jogo, a validar: suprimentos nos quiosques, rotas e pontos de entrada dos inimigos.
 # Balcão do quiosque no lado do mar, fora do núcleo circular.
@@ -258,11 +281,11 @@ def area(b):
     return (b['maxX'] - b['minX']) * (b['maxZ'] - b['minZ'])
 
 
-COLORS = dict(mar='#2f6f8f', areia='#e3cf9c', calcadao='#cfcfcf', pista_praia='#4a4d52', pista_cidade='#4a4d52',
+COLORS = dict(mar='#2f6f8f', mar_raso='#568b92', areia='#e3cf9c', calcadao='#cfcfcf', pista_praia='#4a4d52', pista_cidade='#4a4d52',
               pista_canteiro='#4a4d52', rua_fundo='#4a4d52', calcada_orla='#9a9a94', calcada_meio='#9a9a94',
               calcada_fundo='#9a9a94', travessa='#4a4d52', quadra='#8d8778', predio='#d8cdb4', praca='#6f9a5c',
               quiosque='#b98a5a', deck='#5fd6e6', reserva='none', pier='#8a6a45')
-ORDER = ['faixa', 'quadra', 'praca', 'predio', 'quiosque', 'pier', 'deck', 'reserva']
+ORDER = ['faixa', 'mar_raso', 'quadra', 'praca', 'predio', 'quiosque', 'pier', 'deck', 'reserva']
 
 
 def svg(project, filename, title):
@@ -346,7 +369,7 @@ def camera(x, z):
 def main():
     errors = check()
     data = dict(version=VERSION, bounds=BOUNDS, ship=SHIP, exit=EXIT, landingReservation=LANDING,
-                walkableAreas=walkable, obstacles=obstacles, buildings=buildings, loot=loot,
+                shallowWater=SHALLOW_WATER, walkableAreas=walkable, obstacles=obstacles, buildings=buildings, loot=loot,
                 patrolRoutes=patrol_routes, spawns=spawns, routes=routes, viewpoints=viewpoints,
                 bands=[dict(id=n, minX=a, maxX=b, label=l) for n, a, b, l in BANDS], props=props,
                 parts=parts, limits=limits, limitColliders=limit_colliders,
@@ -356,10 +379,13 @@ def main():
     (OUT / 'export' / 'layout.json').write_text(json.dumps(data, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
     total = area(BOUNDS)
     built = sum(area(o) for o in obstacles)
+    shallow_m2 = (SHALLOW_END - WATERLINE) * (SHALLOW_Z[1] - SHALLOW_Z[0])
     metrics = dict(version=VERSION, erros=errors,
                    dimensao=dict(x=BOUNDS['maxX'] - BOUNDS['minX'], z=BOUNDS['maxZ'] - BOUNDS['minZ'], area_m2=total),
-                   area_caminhavel_m2=round(area(walkable[0]) + (PIER_END - WATERLINE) * (PIER_Z[1] - PIER_Z[0]) - built, 1), area_mar_m2=area(limits[0]),
+                   area_caminhavel_m2=round(area(walkable[0]) + (PIER_END - WATERLINE) * (PIER_Z[1] - PIER_Z[0]) + shallow_m2 - built, 1),
+                   area_mar_raso_m2=round(shallow_m2, 1), area_mar_m2=area(limits[0]),
                    area_colisores_m2=round(built, 1), predios=len(buildings), quiosques=len(KIOSKS), veiculos=len(VEHICLES), entulhos=len(RUBBLE), pier_caminhavel_m=PIER_END - 28,
+                   mar_raso_largura_m=round(SHALLOW_END - WATERLINE, 2), mar_raso_profundidade_max_m=SHALLOW_MAX_DEPTH,
                    pracas=len(PLAZAS), spawns=len(spawns),
                    referencia_shanghai=dict(x=102, z=108, pouso='10 x 13 m', pavimento_m=FLOOR))
     (OUT / 'notas' / 'planta-v2.json').write_text(json.dumps(metrics, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')

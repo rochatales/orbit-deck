@@ -37,6 +37,7 @@ export function PlayerStepDust({ world, map }: { world: OfficeWorld; map: MapId 
             const floor = pool.pending > 0 ? dustSurfaceHeight(world, playerVisualPosition.x, playerVisualPosition.z) - STEP_DUST.groundOffset : 0;
             // Mixer a -30; amostragem depois da pose animada e da física, no espaço mundial.
             for (let i = 0; i < pool.pending; i++) {
+                if (map === 'rio' && floor < -0.015) continue;
                 if (!hasDustSupport(pool.grounded[i] === 1, playerVisualPosition.y, floor)) continue;
                 const side = pool.sides[i], foot = side === 0 ? pool.leftFoot : pool.rightFoot;
                 if (foot) foot.getWorldPosition(pose.point);

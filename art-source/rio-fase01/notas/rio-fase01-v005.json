@@ -1,0 +1,683 @@
+{
+  "blender": "5.1.1",
+  "tolerancia_m": 0.05,
+  "planta_sha256": "bfce1a86a343f4dc6a1f6a5a44357a8ad4e43d8e86b8a45dc12b27bae34ae492",
+  "fonte_sha256": "97aeea32822dc1a23aa6eefdfc2a9b9e2077a079e696a7ada317102dc9d36046",
+  "assets": {
+    "rio-fase01.glb": {
+      "triangulos": 57677,
+      "malhas": 97,
+      "materiais": 15,
+      "bytes": 5693512,
+      "sha256": "edf2114bc47fe14b5f505f716686c0b5e79134b3dd72432502b5bfb2a4457391",
+      "max_desvio_exportacao_m": 0.0,
+      "primitivas": 97,
+      "nodes": 97
+    },
+    "rio-limites-v002.glb": {
+      "triangulos": 27074,
+      "malhas": 42,
+      "materiais": 13,
+      "bytes": 1414900,
+      "sha256": "52dd8069df0ec45fce34b13f350978fd078092b3e11d8d7efe14d190ddfe1117",
+      "max_desvio_exportacao_m": 0.0,
+      "primitivas": 42,
+      "nodes": 42
+    }
+  },
+  "orcamento": {
+    "rio-fase01.glb": {
+      "triangulos_delta": -14323,
+      "bytes_delta": -5406488
+    },
+    "rio-limites-v002.glb": {
+      "triangulos_delta": -1764,
+      "bytes_delta": -85100
+    }
+  },
+  "elementos": [
+    {
+      "id": "Predio_F0",
+      "bounds": {
+        "minX": -28.0,
+        "maxX": -11.992748260498047,
+        "minZ": 40.0,
+        "maxZ": 54.0,
+        "minY": 0.0,
+        "maxY": 23.099998474121094
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.007251739501953125,
+        "minZ": 0.0,
+        "maxZ": 0.0,
+        "maxY": 1.5258789076710855e-06
+      }
+    },
+    {
+      "id": "Predio_F1",
+      "bounds": {
+        "minX": -28.0,
+        "maxX": -12.0,
+        "minZ": 6.0,
+        "maxZ": 26.0,
+        "minY": 0.0,
+        "maxY": 26.399999618530273
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.0,
+        "minZ": 0.0,
+        "maxZ": 0.0,
+        "maxY": 3.8146972514141453e-07
+      }
+    },
+    {
+      "id": "Predio_F2",
+      "bounds": {
+        "minX": -28.0,
+        "maxX": -12.0,
+        "minZ": -28.0,
+        "maxZ": -8.0,
+        "minY": 0.0,
+        "maxY": 9.899999618530273
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.0,
+        "minZ": 0.0,
+        "maxZ": 0.0,
+        "maxY": 3.8146972691777137e-07
+      }
+    },
+    {
+      "id": "Predio_F3",
+      "bounds": {
+        "minX": -28.0,
+        "maxX": -11.992795944213867,
+        "minZ": -54.0,
+        "maxZ": -42.0,
+        "minY": 0.0,
+        "maxY": 26.399999618530273
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.0072040557861328125,
+        "minZ": 0.0,
+        "maxZ": 0.0,
+        "maxY": 3.8146972514141453e-07
+      }
+    },
+    {
+      "id": "Predio_T0",
+      "bounds": {
+        "minX": -51.0,
+        "maxX": -41.0,
+        "minZ": 40.0,
+        "maxZ": 54.0,
+        "minY": 0.0,
+        "maxY": 33.0
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.0,
+        "minZ": 0.0,
+        "maxZ": 0.0,
+        "maxY": 0.0
+      }
+    },
+    {
+      "id": "Predio_T1",
+      "bounds": {
+        "minX": -51.0,
+        "maxX": -40.99298858642578,
+        "minZ": 6.0,
+        "maxZ": 26.0,
+        "minY": 0.0,
+        "maxY": 29.69999885559082
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.00701141357421875,
+        "minZ": 0.0,
+        "maxZ": 0.0,
+        "maxY": 1.1444091789769573e-06
+      }
+    },
+    {
+      "id": "Predio_T2",
+      "bounds": {
+        "minX": -51.0,
+        "maxX": -41.0,
+        "minZ": -28.0,
+        "maxZ": -8.0,
+        "minY": 0.0,
+        "maxY": 33.0
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.0,
+        "minZ": 0.0,
+        "maxZ": 0.0,
+        "maxY": 0.0
+      }
+    },
+    {
+      "id": "Predio_T3",
+      "bounds": {
+        "minX": -51.0,
+        "maxX": -41.0,
+        "minZ": -54.0,
+        "maxZ": -42.0,
+        "minY": 0.0,
+        "maxY": 16.5
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.0,
+        "minZ": 0.0,
+        "maxZ": 0.0,
+        "maxY": 0.0
+      }
+    },
+    {
+      "id": "lote_fundo",
+      "bounds": {
+        "minX": -51.0,
+        "maxX": -40.0,
+        "minZ": -54.0,
+        "maxZ": 54.0,
+        "minY": -0.07999999821186066,
+        "maxY": 0.0
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.0,
+        "minZ": 0.0,
+        "maxZ": 0.0
+      }
+    },
+    {
+      "id": "calcada_fundo",
+      "bounds": {
+        "minX": -40.0,
+        "maxX": -38.0,
+        "minZ": -54.0,
+        "maxZ": 54.0,
+        "minY": -0.07999999821186066,
+        "maxY": 0.0
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.0,
+        "minZ": 0.0,
+        "maxZ": 0.0
+      }
+    },
+    {
+      "id": "rua_fundo",
+      "bounds": {
+        "minX": -38.0,
+        "maxX": -31.0,
+        "minZ": -54.0,
+        "maxZ": 54.0,
+        "minY": -0.07999999821186066,
+        "maxY": 0.0
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.0,
+        "minZ": 0.0,
+        "maxZ": 0.0
+      }
+    },
+    {
+      "id": "calcada_meio",
+      "bounds": {
+        "minX": -31.0,
+        "maxX": -29.0,
+        "minZ": -54.0,
+        "maxZ": 54.0,
+        "minY": -0.07999999821186066,
+        "maxY": 0.0
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.0,
+        "minZ": 0.0,
+        "maxZ": 0.0
+      }
+    },
+    {
+      "id": "lote_frente",
+      "bounds": {
+        "minX": -29.0,
+        "maxX": -11.0,
+        "minZ": -54.0,
+        "maxZ": 54.0,
+        "minY": -0.07999999821186066,
+        "maxY": 0.0
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.0,
+        "minZ": 0.0,
+        "maxZ": 0.0
+      }
+    },
+    {
+      "id": "calcada_orla",
+      "bounds": {
+        "minX": -11.0,
+        "maxX": -9.0,
+        "minZ": -54.0,
+        "maxZ": 54.0,
+        "minY": -0.07999999821186066,
+        "maxY": 0.0
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.0,
+        "minZ": 0.0,
+        "maxZ": 0.0
+      }
+    },
+    {
+      "id": "pista_cidade",
+      "bounds": {
+        "minX": -9.0,
+        "maxX": -3.0,
+        "minZ": -54.0,
+        "maxZ": 54.0,
+        "minY": -0.07999999821186066,
+        "maxY": 0.0
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.0,
+        "minZ": 0.0,
+        "maxZ": 0.0
+      }
+    },
+    {
+      "id": "canteiro",
+      "bounds": {
+        "minX": -3.0,
+        "maxX": 4.0,
+        "minZ": -54.0,
+        "maxZ": 54.0,
+        "minY": -0.07999999821186066,
+        "maxY": 0.0
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.0,
+        "minZ": 0.0,
+        "maxZ": 0.0
+      }
+    },
+    {
+      "id": "pista_praia",
+      "bounds": {
+        "minX": 4.0,
+        "maxX": 10.0,
+        "minZ": -54.0,
+        "maxZ": 54.0,
+        "minY": -0.07999999821186066,
+        "maxY": 0.0
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.0,
+        "minZ": 0.0,
+        "maxZ": 0.0
+      }
+    },
+    {
+      "id": "calcadao",
+      "bounds": {
+        "minX": 10.0,
+        "maxX": 15.0,
+        "minZ": -54.0,
+        "maxZ": 54.0,
+        "minY": -0.07999999821186066,
+        "maxY": 0.0
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.0,
+        "minZ": 0.0,
+        "maxZ": 0.0
+      }
+    },
+    {
+      "id": "areia",
+      "bounds": {
+        "minX": 15.0,
+        "maxX": 36.0,
+        "minZ": -54.0,
+        "maxZ": 54.0,
+        "minY": -0.07999999821186066,
+        "maxY": 0.0
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.0,
+        "minZ": 0.0,
+        "maxZ": 0.0
+      }
+    },
+    {
+      "id": "travessa_0",
+      "bounds": {
+        "minX": -51.0,
+        "maxX": -9.0,
+        "minZ": 27.0,
+        "maxZ": 39.0,
+        "minY": -0.06800000369548798,
+        "maxY": 0.011999998241662979
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.0,
+        "minZ": 0.0,
+        "maxZ": 0.0
+      }
+    },
+    {
+      "id": "travessa_1",
+      "bounds": {
+        "minX": -51.0,
+        "maxX": -9.0,
+        "minZ": -7.0,
+        "maxZ": 5.0,
+        "minY": -0.06800000369548798,
+        "maxY": 0.011999998241662979
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.0,
+        "minZ": 0.0,
+        "maxZ": 0.0
+      }
+    },
+    {
+      "id": "travessa_2",
+      "bounds": {
+        "minX": -51.0,
+        "maxX": -9.0,
+        "minZ": -41.0,
+        "maxZ": -29.0,
+        "minY": -0.06800000369548798,
+        "maxY": 0.011999998241662979
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.0,
+        "minZ": 0.0,
+        "maxZ": 0.0
+      }
+    },
+    {
+      "id": "Praca_Sul",
+      "bounds": {
+        "minX": -2.5,
+        "maxX": 3.5,
+        "minZ": 25.0,
+        "maxZ": 54.0,
+        "minY": 0.03999999910593033,
+        "maxY": 0.11999999731779099
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.0,
+        "minZ": 0.0,
+        "maxZ": 0.0
+      }
+    },
+    {
+      "id": "Praca_Central",
+      "bounds": {
+        "minX": -2.5,
+        "maxX": 3.5,
+        "minZ": -18.0,
+        "maxZ": 17.0,
+        "minY": 0.03999999910593033,
+        "maxY": 0.11999999731779099
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.0,
+        "minZ": 0.0,
+        "maxZ": 0.0
+      }
+    },
+    {
+      "id": "Praca_Norte",
+      "bounds": {
+        "minX": -2.5,
+        "maxX": 3.5,
+        "minZ": -54.0,
+        "maxZ": -26.0,
+        "minY": 0.03999999910593033,
+        "maxY": 0.11999999731779099
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.0,
+        "minZ": 0.0,
+        "maxZ": 0.0
+      }
+    },
+    {
+      "id": "Quiosque_1",
+      "bounds": {
+        "minX": 15.0,
+        "maxX": 22.5,
+        "minZ": 11.0,
+        "maxZ": 24.0,
+        "minY": 0.0,
+        "maxY": 0.07999999821186066
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.0,
+        "minZ": 0.0,
+        "maxZ": 0.0
+      }
+    },
+    {
+      "id": "Quiosque_2",
+      "bounds": {
+        "minX": 15.0,
+        "maxX": 22.5,
+        "minZ": -42.5,
+        "maxZ": -29.5,
+        "minY": 0.0,
+        "maxY": 0.07999999821186066
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.0,
+        "minZ": 0.0,
+        "maxZ": 0.0
+      }
+    },
+    {
+      "id": "Deck_Pouso",
+      "bounds": {
+        "minX": 17.0,
+        "maxX": 33.0,
+        "minZ": 40.0,
+        "maxZ": 54.0,
+        "minY": -0.05999999865889549,
+        "maxY": 0.019999999552965164
+      },
+      "desvios": {
+        "minX": 0.0,
+        "maxX": 0.0,
+        "minZ": 0.0,
+        "maxZ": 0.0
+      }
+    }
+  ],
+  "erros": [],
+  "deck_livre": true,
+  "terra_dentro_x36": true,
+  "teto_triangulos_mapa": 72000,
+  "referencia_shanghai_triangulos": 55042,
+  "vias_livres": true,
+  "destrocos_no_colisor": true,
+  "pier_na_planta": true,
+  "emissao_exterior": 0,
+  "texturas": [
+    {
+      "file": "reboco.png",
+      "width": 256,
+      "height": 256,
+      "origin": "Procedural autoral, numpy, semente 13112026",
+      "uv": "REPEAT, família isolada; sem blocos de cores vizinhos no atlas"
+    },
+    {
+      "file": "concreto.png",
+      "width": 256,
+      "height": 256,
+      "origin": "Procedural autoral, numpy, semente 13112026",
+      "uv": "REPEAT, família isolada; sem blocos de cores vizinhos no atlas"
+    },
+    {
+      "file": "asfalto.png",
+      "width": 256,
+      "height": 256,
+      "origin": "Procedural autoral, numpy, semente 13112026",
+      "uv": "REPEAT, família isolada; sem blocos de cores vizinhos no atlas"
+    },
+    {
+      "file": "pedra.png",
+      "width": 256,
+      "height": 256,
+      "origin": "Procedural autoral, numpy, semente 13112026",
+      "uv": "REPEAT, família isolada; sem blocos de cores vizinhos no atlas"
+    },
+    {
+      "file": "areia.png",
+      "width": 256,
+      "height": 256,
+      "origin": "Procedural autoral, numpy, semente 13112026",
+      "uv": "REPEAT, família isolada; sem blocos de cores vizinhos no atlas"
+    },
+    {
+      "file": "madeira.png",
+      "width": 256,
+      "height": 256,
+      "origin": "Procedural autoral, numpy, semente 13112026",
+      "uv": "REPEAT, família isolada; sem blocos de cores vizinhos no atlas"
+    },
+    {
+      "file": "ferrugem.png",
+      "width": 256,
+      "height": 256,
+      "origin": "Procedural autoral, numpy, semente 13112026",
+      "uv": "REPEAT, família isolada; sem blocos de cores vizinhos no atlas"
+    },
+    {
+      "file": "folha.png",
+      "width": 256,
+      "height": 256,
+      "origin": "Procedural autoral, numpy, semente 13112026",
+      "uv": "REPEAT, família isolada; sem blocos de cores vizinhos no atlas"
+    },
+    {
+      "file": "ondas.png",
+      "width": 1024,
+      "height": 1024,
+      "origin": "Procedural autoral, numpy, semente 13112026",
+      "uv": "REPEAT, família isolada; sem blocos de cores vizinhos no atlas"
+    },
+    {
+      "file": "pedra_morro.png",
+      "width": 256,
+      "height": 256,
+      "origin": "Procedural autoral (morros v004), numpy, semente 15112026",
+      "uv": "REPEAT, família isolada exclusiva dos morros; sem ruído de alta frequência"
+    },
+    {
+      "file": "pedra_umida.png",
+      "width": 256,
+      "height": 256,
+      "origin": "Procedural autoral (morros v004), numpy, semente 15112026",
+      "uv": "REPEAT, família isolada exclusiva dos morros; sem ruído de alta frequência"
+    },
+    {
+      "file": "mata_escura.png",
+      "width": 256,
+      "height": 256,
+      "origin": "Procedural autoral (morros v004), numpy, semente 15112026",
+      "uv": "REPEAT, família isolada exclusiva dos morros; sem ruído de alta frequência"
+    },
+    {
+      "file": "mata_media.png",
+      "width": 256,
+      "height": 256,
+      "origin": "Procedural autoral (morros v004), numpy, semente 15112026",
+      "uv": "REPEAT, família isolada exclusiva dos morros; sem ruído de alta frequência"
+    },
+    {
+      "file": "mata_clara.png",
+      "width": 256,
+      "height": 256,
+      "origin": "Procedural autoral (morros v004), numpy, semente 15112026",
+      "uv": "REPEAT, família isolada exclusiva dos morros; sem ruído de alta frequência"
+    },
+    {
+      "file": "areia_umida.png",
+      "width": 256,
+      "height": 256,
+      "origin": "Procedural autoral (transição costeira v005), numpy, semente 16112026",
+      "uv": "REPEAT, família isolada exclusiva da transição praia-mar; sem emendas duras"
+    },
+    {
+      "file": "areia_molhada.png",
+      "width": 256,
+      "height": 256,
+      "origin": "Procedural autoral (transição costeira v005), numpy, semente 16112026",
+      "uv": "REPEAT, família isolada exclusiva da transição praia-mar; sem emendas duras"
+    },
+    {
+      "file": "mar_raso.png",
+      "width": 256,
+      "height": 256,
+      "origin": "Procedural autoral (transição costeira v005), numpy, semente 16112026",
+      "uv": "REPEAT, família isolada exclusiva da transição praia-mar; sem emendas duras"
+    },
+    {
+      "file": "mar_costeiro.png",
+      "width": 256,
+      "height": 256,
+      "origin": "Procedural autoral (transição costeira v005), numpy, semente 16112026",
+      "uv": "REPEAT, família isolada exclusiva da transição praia-mar; sem emendas duras"
+    },
+    {
+      "file": "espuma_renda.png",
+      "width": 256,
+      "height": 256,
+      "origin": "Procedural autoral (transição costeira v005), numpy, semente 16112026",
+      "uv": "REPEAT, família isolada exclusiva da transição praia-mar; sem emendas duras"
+    },
+    {
+      "file": "costa_praia.png",
+      "width": 256,
+      "height": 256,
+      "origin": "Procedural autoral (gradiente costeiro contínuo v005), numpy, semente 16112026",
+      "uv": "U contínuo transversal à costa (sem faixas duras), V periódico ao longo da praia"
+    },
+    {
+      "file": "costa_mar.png",
+      "width": 256,
+      "height": 256,
+      "origin": "Procedural autoral (gradiente costeiro contínuo v005), numpy, semente 16112026",
+      "uv": "U contínuo transversal à costa (sem faixas duras), V periódico ao longo da praia"
+    }
+  ],
+  "criterio": "Envelope de cada peça na fonte editável. Copas acima de 3 m e acabamento até 5 cm liberados sobre vias. Escada/quiosque contidos no deck da planta. Alturas de prédios incluem caixa de água. Destroços da planta v1 liberados nas vias só dentro do próprio colisor; píer liberado sobre o mar só dentro das peças Pier_*."
+}

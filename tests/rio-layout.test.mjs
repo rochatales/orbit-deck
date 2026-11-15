@@ -18,7 +18,7 @@ test('Level 02 Rio: planta tem a dimensão e o contrato de dados de Shanghai', (
     assert.equal(Math.hypot(rio.ship.x - rio.exit.x, rio.ship.z - rio.exit.z), 3.5);
 });
 
-test('Level 02 Rio: faixas cobrem o mapa do morro ao mar e o mar não é caminhável', () => {
+test('Level 02 Rio: faixas cobrem o mapa do morro ao mar e o mar abre só a faixa rasa e o píer', () => {
     assert.equal(rio.bands[0].minX, rio.bounds.minX);
     assert.equal(rio.bands.at(-1).maxX, rio.bounds.maxX);
     for (let i = 1; i < rio.bands.length; i++) assert.equal(rio.bands[i].minX, rio.bands[i - 1].maxX);
@@ -26,7 +26,8 @@ test('Level 02 Rio: faixas cobrem o mapa do morro ao mar e o mar não é caminh�
     assert.equal(sea.id, 'mar');
     assert.equal(rio.walkableAreas[0].maxX, sea.minX);
     assert.deepEqual(rio.limits.map(limit => limit.kind).sort(), ['escombros', 'mar', 'morro', 'morro_escombros']);
-    assert.ok(rio.limitColliders.some(collider => collider.id === 'COL_Limite_Mar' && collider.minX === sea.minX));
+    assert.ok(rio.limitColliders.some(collider => collider.id === 'COL_Limite_Mar' && collider.minX === rio.shallowWater.maxX));
+    assert.ok(rio.limitColliders.some(collider => collider.id === 'COL_Limite_Mar_Pier_Sul' && collider.minX === sea.minX));
 });
 
 test('Level 02 Rio: colisores dentro do mapa, sem sobreposição e fora da reserva de pouso', () => {
@@ -65,8 +66,10 @@ test('Level 02 Rio v1: píer quebrado é caminhável só até o trecho desabado'
     const sea = rio.bands.at(-1);
     const sections = rio.parts.filter(part => part.kind === 'pier');
     assert.deepEqual(sections.map(part => [part.id, part.walkable]), [['Pier_Rampa', true], ['Pier_Tablado', true], ['Pier_Ponta_Caida', false]]);
-    const [, deck, tip] = sections, pier = rio.walkableAreas[1];
-    assert.equal(rio.walkableAreas.length, 2);
+    const [, deck, tip] = sections, pier = rio.walkableAreas[1], shallow = rio.walkableAreas[2];
+    assert.equal(rio.walkableAreas.length, 3);
+    assert.equal(shallow.maxX, rio.shallowWater.maxX);
+    assert.equal(shallow.minZ, rio.shallowWater.minZ);
     // Encostado no morro do norte, com 6 m de largura e 10 m sobre o mar.
     assert.deepEqual([pier.minZ, pier.maxZ, pier.maxX], [deck.minZ, deck.maxZ, deck.maxX]);
     assert.equal(deck.maxZ - deck.minZ, 6);
@@ -77,13 +80,15 @@ test('Level 02 Rio v1: píer quebrado é caminhável só até o trecho desabado'
     const open = point => rio.walkableAreas.some(area => inside(point, area)) && !blocked(point);
     assert.ok(open({ x: 45.5, z: -50 }), 'fim do tablado');
     assert.ok(open({ x: 36, z: -50 }), 'boca do píer');
+    assert.ok(open({ x: 37.6, z: 0 }), 'faixa rasa do mar');
     assert.ok(!open({ x: 47, z: -50 }), 'trecho desabado');
+    assert.ok(!open({ x: 37.5, z: -46.0 }), 'canal fundo ao sul do píer');
     assert.ok(!open({ x: 40, z: -46.5 }), 'mar ao sul do píer');
     assert.ok(!open({ x: 40, z: -53.5 }), 'face do morro');
-    assert.ok(!open({ x: 40, z: 0 }), 'mar aberto');
-    // Os colisores do mar fecham toda a linha d'água fora da boca do píer.
+    assert.ok(!open({ x: 40, z: 0 }), 'mar profundo');
+    // Os colisores do mar fecham a água profunda (X >= 39,2) e o canal do píer.
     for (let z = rio.bounds.minZ + .25; z < rio.bounds.maxZ; z += .5)
-        assert.equal(blocked({ x: sea.minX + .5, z }), z < pier.minZ || z > pier.maxZ, `z=${z}`);
+        assert.equal(blocked({ x: rio.shallowWater.maxX + .5, z }), z < pier.minZ || z > pier.maxZ, `z=${z}`);
     assert.ok(!rio.obstacles.some(obstacle => sections.some(part => overlaps(obstacle, part))));
     assert.ok(!rio.spawns.some(spawn => sections.some(part => inside(spawn, part))), 'nenhum inimigo nasce no píer');
 });

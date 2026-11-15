@@ -22,6 +22,16 @@
   "minZ": 40,
   "maxZ": 53
  },
+ "shallowWater": {
+  "minX": 36,
+  "maxX": 39.2,
+  "minZ": -45.2,
+  "maxZ": 54.0,
+  "swashMinX": 34.0,
+  "maxDepth": 0.3,
+  "pierBufferMinZ": -47.0,
+  "pierBufferMaxZ": -45.2
+ },
  "walkableAreas": [
   {
    "minX": -51,
@@ -34,6 +44,12 @@
    "maxX": 46,
    "minZ": -53,
    "maxZ": -47
+  },
+  {
+   "minX": 34,
+   "maxX": 39.2,
+   "minZ": -45.2,
+   "maxZ": 54.0
   }
  ],
  "obstacles": [
@@ -1497,6 +1513,16 @@
    "walkable": false
   },
   {
+   "id": "Mar_Raso",
+   "kind": "mar_raso",
+   "minX": 36,
+   "maxX": 39.2,
+   "minZ": -45.2,
+   "maxZ": 54.0,
+   "walkable": true,
+   "maxDepth": 0.3
+  },
+  {
    "id": "Deck_Pouso",
    "kind": "deck",
    "minX": 17,
@@ -1521,7 +1547,7 @@
    "maxX": 51,
    "minZ": -54,
    "maxZ": 54,
-   "note": "Linha d'água irregular no visual; colisão reta em X = 36."
+   "note": "Faixa rasa caminhável em X = 36..39,2 (Z = -45,2..54); água profunda bloqueada em X = 39,2."
   },
   {
    "id": "Limite_Oeste_Morro",
@@ -1581,10 +1607,19 @@
   },
   {
    "id": "COL_Limite_Mar",
+   "minX": 39.2,
+   "maxX": 54.0,
+   "minZ": -45.2,
+   "maxZ": 54.0,
+   "minY": 0.0,
+   "maxY": 4.0
+  },
+  {
+   "id": "COL_Limite_Mar_Pier_Sul",
    "minX": 36.0,
    "maxX": 54.0,
    "minZ": -47.0,
-   "maxZ": 54.0,
+   "maxZ": -45.2,
    "minY": 0.0,
    "maxY": 4.0
   },

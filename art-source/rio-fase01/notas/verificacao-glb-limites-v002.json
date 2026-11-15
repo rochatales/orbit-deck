@@ -1,0 +1,408 @@
+{
+  "blender": "5.1.1",
+  "reimportacao_glb_v002": {
+    "objetos_malha": 44,
+    "triangulos_reimportados": 26398,
+    "normais_invalidas": 0,
+    "erros_tangentes": 0,
+    "malhas_sem_uv": 0,
+    "imagens_carregadas": [
+      {
+        "nome": "concreto",
+        "resolucao": [
+          256,
+          256
+        ],
+        "packed": true
+      },
+      {
+        "nome": "ferrugem",
+        "resolucao": [
+          256,
+          256
+        ],
+        "packed": true
+      },
+      {
+        "nome": "mata_clara",
+        "resolucao": [
+          256,
+          256
+        ],
+        "packed": true
+      },
+      {
+        "nome": "mata_escura",
+        "resolucao": [
+          256,
+          256
+        ],
+        "packed": true
+      },
+      {
+        "nome": "mata_media",
+        "resolucao": [
+          256,
+          256
+        ],
+        "packed": true
+      },
+      {
+        "nome": "pedra",
+        "resolucao": [
+          256,
+          256
+        ],
+        "packed": true
+      },
+      {
+        "nome": "pedra_morro",
+        "resolucao": [
+          256,
+          256
+        ],
+        "packed": true
+      },
+      {
+        "nome": "pedra_umida",
+        "resolucao": [
+          256,
+          256
+        ],
+        "packed": true
+      },
+      {
+        "nome": "reboco",
+        "resolucao": [
+          256,
+          256
+        ],
+        "packed": true
+      }
+    ],
+    "imagens_quebradas": [],
+    "materiais_pbr": [
+      {
+        "nome": "concreto",
+        "base_color": [
+          0.8,
+          0.8,
+          0.8,
+          1.0
+        ],
+        "roughness": 0.9
+      },
+      {
+        "nome": "espuma",
+        "base_color": [
+          0.66,
+          0.75,
+          0.65,
+          1.0
+        ],
+        "roughness": 0.9
+      },
+      {
+        "nome": "ferrugem",
+        "base_color": [
+          0.8,
+          0.8,
+          0.8,
+          1.0
+        ],
+        "roughness": 0.9
+      },
+      {
+        "nome": "mar",
+        "base_color": [
+          0.12,
+          0.29,
+          0.3,
+          1.0
+        ],
+        "roughness": 0.45
+      },
+      {
+        "nome": "mata_clara",
+        "base_color": [
+          0.8,
+          0.8,
+          0.8,
+          1.0
+        ],
+        "roughness": 0.8
+      },
+      {
+        "nome": "mata_escura",
+        "base_color": [
+          0.8,
+          0.8,
+          0.8,
+          1.0
+        ],
+        "roughness": 0.92
+      },
+      {
+        "nome": "mata_media",
+        "base_color": [
+          0.8,
+          0.8,
+          0.8,
+          1.0
+        ],
+        "roughness": 0.86
+      },
+      {
+        "nome": "metal",
+        "base_color": [
+          0.17,
+          0.19,
+          0.17,
+          1.0
+        ],
+        "roughness": 0.9
+      },
+      {
+        "nome": "pedra",
+        "base_color": [
+          0.8,
+          0.8,
+          0.8,
+          1.0
+        ],
+        "roughness": 0.9
+      },
+      {
+        "nome": "pedra_morro",
+        "base_color": [
+          0.8,
+          0.8,
+          0.8,
+          1.0
+        ],
+        "roughness": 0.84
+      },
+      {
+        "nome": "pedra_umida",
+        "base_color": [
+          0.8,
+          0.8,
+          0.8,
+          1.0
+        ],
+        "roughness": 0.74
+      },
+      {
+        "nome": "reboco",
+        "base_color": [
+          0.8,
+          0.8,
+          0.8,
+          1.0
+        ],
+        "roughness": 0.9
+      },
+      {
+        "nome": "vidro",
+        "base_color": [
+          0.075,
+          0.12,
+          0.12,
+          1.0
+        ],
+        "roughness": 0.45
+      }
+    ],
+    "status": "OK"
+  },
+  "comparativo_limites": {
+    "v001_commit_3d8c0f2": {
+      "arquivo": "rio-limites-v001.glb (v001)",
+      "triangulos": 14608,
+      "malhas": 25,
+      "materiais": 9,
+      "bytes": 1273244,
+      "sha256": "02d02b4cdd1a7fde4738d0892f230cb4367a9ec452c45e7e18bed6c4cf4d7c43"
+    },
+    "v003_commit_6e814a3": {
+      "arquivo": "rio-limites-v001.glb",
+      "bytes": 1397192,
+      "sha256": "f8e1c620e76eb497fb68a60c79af5a6f4cd32b9e657828ea16ebd802a9a08c3a",
+      "malhas": 25,
+      "nodes": 25,
+      "materiais": 9,
+      "lista_materiais": [
+        "folha",
+        "concreto",
+        "ferrugem",
+        "metal",
+        "pedra",
+        "reboco",
+        "vidro",
+        "espuma",
+        "mar"
+      ],
+      "imagens_embutidas": 5,
+      "links_externos_quebrados_ou_uris": 0,
+      "triangulos_total": 16424,
+      "vertices_gltf_total": 30484,
+      "triangulos_por_material": {
+        "folha": 12600,
+        "concreto": 264,
+        "ferrugem": 72,
+        "metal": 504,
+        "pedra": 1680,
+        "reboco": 132,
+        "vidro": 80,
+        "espuma": 1080,
+        "mar": 12
+      },
+      "vertices_por_material": {
+        "folha": 22050,
+        "concreto": 528,
+        "ferrugem": 144,
+        "metal": 864,
+        "pedra": 3210,
+        "reboco": 264,
+        "vidro": 160,
+        "espuma": 3240,
+        "mar": 24
+      }
+    },
+    "v004_novo": {
+      "arquivo": "rio-limites-v002.glb",
+      "bytes": 1373304,
+      "sha256": "27f18e814d766a39865fe872a9cbd13d7ec9420aaf9380860cf730d057ab17fd",
+      "malhas": 44,
+      "nodes": 44,
+      "materiais": 13,
+      "lista_materiais": [
+        "mata_clara",
+        "mata_escura",
+        "mata_media",
+        "pedra_morro",
+        "pedra_umida",
+        "concreto",
+        "ferrugem",
+        "metal",
+        "pedra",
+        "reboco",
+        "vidro",
+        "espuma",
+        "mar"
+      ],
+      "imagens_embutidas": 9,
+      "links_externos_quebrados_ou_uris": 0,
+      "triangulos_total": 26398,
+      "vertices_gltf_total": 23853,
+      "triangulos_por_material": {
+        "mata_clara": 3822,
+        "mata_escura": 5670,
+        "mata_media": 6510,
+        "pedra_morro": 6098,
+        "pedra_umida": 1494,
+        "concreto": 264,
+        "ferrugem": 72,
+        "metal": 504,
+        "pedra": 660,
+        "reboco": 132,
+        "vidro": 80,
+        "espuma": 1080,
+        "mar": 12
+      },
+      "vertices_por_material": {
+        "mata_clara": 2093,
+        "mata_escura": 3105,
+        "mata_media": 3565,
+        "pedra_morro": 6885,
+        "pedra_umida": 1661,
+        "concreto": 528,
+        "ferrugem": 144,
+        "metal": 864,
+        "pedra": 1320,
+        "reboco": 264,
+        "vidro": 160,
+        "espuma": 3240,
+        "mar": 24
+      }
+    },
+    "decomposicao_morros_v003_vs_v004": {
+      "v003": {
+        "rocha_morros_tris": 1020,
+        "vegetacao_morros_tris": 12600,
+        "mar_e_escombros_sul_tris": 2804,
+        "total_tris": 16424,
+        "vertices_gltf_total": 30484,
+        "bytes": 1397192
+      },
+      "v004": {
+        "rocha_morros_tris": 7592,
+        "vegetacao_morros_tris": 16002,
+        "mar_e_escombros_sul_tris": 2804,
+        "total_tris": 26398,
+        "vertices_gltf_total": 23853,
+        "bytes": 1373304
+      }
+    }
+  },
+  "preservacao_mapa_principal": {
+    "arquivo": "rio-fase01.glb",
+    "bytes": 5598136,
+    "sha256": "354e2ae5965d12e90abc36d1c6ddb2f2f1c44688c6ec92a8c43443382eb0fdee",
+    "malhas": 96,
+    "nodes": 96,
+    "materiais": 14,
+    "lista_materiais": [
+      "areia",
+      "asfalto",
+      "concreto",
+      "fenda",
+      "ferrugem",
+      "folha",
+      "madeira",
+      "metal",
+      "pedra",
+      "reboco",
+      "toldo",
+      "vidro",
+      "faixa",
+      "ondas"
+    ],
+    "imagens_embutidas": 9,
+    "links_externos_quebrados_ou_uris": 0,
+    "triangulos_total": 57137,
+    "vertices_gltf_total": 113181,
+    "triangulos_por_material": {
+      "areia": 288,
+      "asfalto": 204,
+      "concreto": 14484,
+      "fenda": 2501,
+      "ferrugem": 4548,
+      "folha": 2497,
+      "madeira": 21268,
+      "metal": 3272,
+      "pedra": 2871,
+      "reboco": 832,
+      "toldo": 288,
+      "vidro": 3664,
+      "faixa": 408,
+      "ondas": 12
+    },
+    "vertices_por_material": {
+      "areia": 786,
+      "asfalto": 408,
+      "concreto": 28692,
+      "fenda": 3871,
+      "ferrugem": 9000,
+      "folha": 6099,
+      "madeira": 42264,
+      "metal": 5928,
+      "pedra": 5805,
+      "reboco": 1584,
+      "toldo": 576,
+      "vidro": 7328,
+      "faixa": 816,
+      "ondas": 24
+    }
+  }
+}

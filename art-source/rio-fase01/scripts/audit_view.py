@@ -113,9 +113,9 @@ def audit(write_report=True):
     for p in d.get('props',[]):
         if not any(o.get('prop')==p['id'] for o in source):errors.append(dict(id=p['id'],erro='Destroço da planta sem arte'))
     if pier and not any(o.get('familia')=='Pier_Morro' for o in source):errors.append(dict(erro='Píer ausente'))
-    assets={name:glb(ART/'export'/name) for name in ['rio-fase01.glb','rio-limites-v001.glb']}
+    assets={name:glb(ART/'export'/name) for name in ['rio-fase01.glb','rio-limites-v002.glb']}
     # Verifica a geometria exportada corresponde às coleções selecionadas.
-    for name,col in [('rio-fase01.glb','02_EXPORT_MAPA'),('rio-limites-v001.glb','03_EXPORT_LIMITES')]:
+    for name,col in [('rio-fase01.glb','02_EXPORT_MAPA'),('rio-limites-v002.glb','03_EXPORT_LIMITES')]:
         triangles=0
         for o in bpy.data.collections[col].objects:
             o.data.calc_loop_triangles();triangles+=len(o.data.loop_triangles)
@@ -123,17 +123,17 @@ def audit(write_report=True):
     budget={name:dict(triangulos_delta=a['triangulos']-limit,bytes_delta=a['bytes']-size)
             for name,a,limit,size in [(n,assets[n],MAP_TRIANGLE_LIMIT if n=='rio-fase01.glb' else 28838,11100000 if n=='rio-fase01.glb' else 1500000) for n in assets]}
     report=dict(blender=bpy.app.version_string,tolerancia_m=.05,planta_sha256=digest(ART/'export/layout.json'),
-                fonte_sha256=digest(ART/'blend/rio_fase01_v003.blend'),assets=assets,orcamento=budget,
+                fonte_sha256=digest(ART/'blend/rio_fase01_v005.blend'),assets=assets,orcamento=budget,
                 elementos=elements,erros=errors,deck_livre=not land_violations,terra_dentro_x36=not water_violations,
                 teto_triangulos_mapa=MAP_TRIANGLE_LIMIT,referencia_shanghai_triangulos=55042,vias_livres=not road_violations,destrocos_no_colisor=not prop_violations,pier_na_planta=not pier_violations,emissao_exterior=0,
                 texturas=json.loads((ART/'texturas/manifesto.json').read_text()),
                 criterio='Envelope de cada peça na fonte editável. Copas acima de 3 m e acabamento até 5 cm liberados sobre vias. Escada/quiosque contidos no deck da planta. Alturas de prédios incluem caixa de água. Destroços da planta v1 liberados nas vias só dentro do próprio colisor; píer liberado sobre o mar só dentro das peças Pier_*.')
-    if write_report:(ART/'notas/rio-fase01-v003.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+    if write_report:(ART/'notas/rio-fase01-v005.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
     print('AUDITORIA',json.dumps(dict(assets=assets,erros=errors),ensure_ascii=False))
     if errors:raise RuntimeError('Auditoria contra a planta falhou')
     if any(v['triangulos_delta']>0 or v['bytes_delta']>0 for v in budget.values()):
         raise RuntimeError('Orçamento excedido, consultar notas antes de seguir')
     return report
 if __name__=='__main__':
-    bpy.ops.wm.open_mainfile(filepath=str(ART/'blend/rio_fase01_v003.blend'))
+    bpy.ops.wm.open_mainfile(filepath=str(ART/'blend/rio_fase01_v005.blend'))
     audit()

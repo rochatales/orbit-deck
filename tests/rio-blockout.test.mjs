@@ -24,11 +24,13 @@ test('Rio: exportação byte a byte, terreno plano, limites da planta e colisão
     assert.equal(isExpedition('rio'), true);
     assert.equal(isExpedition('shanghai'), true);
     assert.equal(isExpedition('mars'), false);
-    for (const point of [{ x: 36.1, z: 0 }, { x: -51.1, z: -1 }, { x: 7, z: -54.1 }, { x: 12.5, z: 54.1 }]) {
+    for (const point of [{ x: 39.3, z: 0 }, { x: 37.5, z: -46.0 }, { x: -51.1, z: -1 }, { x: 7, z: -54.1 }, { x: 12.5, z: 54.1 }]) {
         assert.equal(traversable(point, terrain, .32), false);
     }
+    assert.equal(traversable({ x: 37.5, z: 0 }, terrain, .32), true);
     assert.equal(terrain.surfaceHeight(.5, -.5), 0);
     assert.equal(terrain.supportHeight(rio.exit.x, rio.exit.z), 0);
+    assert.ok(terrain.supportHeight(37.5, 0) < -0.05 && terrain.supportHeight(37.5, 0) > -0.31);
     assert.ok(traversable(rio.exit, terrain, .32));
     for (const box of ARES_COLLIDERS) {
         const x = RIO_ARES_POSITION.x + (box.minX + box.maxX) / 2;

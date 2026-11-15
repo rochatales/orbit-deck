@@ -61,5 +61,89 @@
     "height": 1024,
     "origin": "Procedural autoral, numpy, semente 13112026",
     "uv": "REPEAT, família isolada; sem blocos de cores vizinhos no atlas"
+  },
+  {
+    "file": "pedra_morro.png",
+    "width": 256,
+    "height": 256,
+    "origin": "Procedural autoral (morros v004), numpy, semente 15112026",
+    "uv": "REPEAT, família isolada exclusiva dos morros; sem ruído de alta frequência"
+  },
+  {
+    "file": "pedra_umida.png",
+    "width": 256,
+    "height": 256,
+    "origin": "Procedural autoral (morros v004), numpy, semente 15112026",
+    "uv": "REPEAT, família isolada exclusiva dos morros; sem ruído de alta frequência"
+  },
+  {
+    "file": "mata_escura.png",
+    "width": 256,
+    "height": 256,
+    "origin": "Procedural autoral (morros v004), numpy, semente 15112026",
+    "uv": "REPEAT, família isolada exclusiva dos morros; sem ruído de alta frequência"
+  },
+  {
+    "file": "mata_media.png",
+    "width": 256,
+    "height": 256,
+    "origin": "Procedural autoral (morros v004), numpy, semente 15112026",
+    "uv": "REPEAT, família isolada exclusiva dos morros; sem ruído de alta frequência"
+  },
+  {
+    "file": "mata_clara.png",
+    "width": 256,
+    "height": 256,
+    "origin": "Procedural autoral (morros v004), numpy, semente 15112026",
+    "uv": "REPEAT, família isolada exclusiva dos morros; sem ruído de alta frequência"
+  },
+  {
+    "file": "areia_umida.png",
+    "width": 256,
+    "height": 256,
+    "origin": "Procedural autoral (transição costeira v005), numpy, semente 16112026",
+    "uv": "REPEAT, família isolada exclusiva da transição praia-mar; sem emendas duras"
+  },
+  {
+    "file": "areia_molhada.png",
+    "width": 256,
+    "height": 256,
+    "origin": "Procedural autoral (transição costeira v005), numpy, semente 16112026",
+    "uv": "REPEAT, família isolada exclusiva da transição praia-mar; sem emendas duras"
+  },
+  {
+    "file": "mar_raso.png",
+    "width": 256,
+    "height": 256,
+    "origin": "Procedural autoral (transição costeira v005), numpy, semente 16112026",
+    "uv": "REPEAT, família isolada exclusiva da transição praia-mar; sem emendas duras"
+  },
+  {
+    "file": "mar_costeiro.png",
+    "width": 256,
+    "height": 256,
+    "origin": "Procedural autoral (transição costeira v005), numpy, semente 16112026",
+    "uv": "REPEAT, família isolada exclusiva da transição praia-mar; sem emendas duras"
+  },
+  {
+    "file": "espuma_renda.png",
+    "width": 256,
+    "height": 256,
+    "origin": "Procedural autoral (transição costeira v005), numpy, semente 16112026",
+    "uv": "REPEAT, família isolada exclusiva da transição praia-mar; sem emendas duras"
+  },
+  {
+    "file": "costa_praia.png",
+    "width": 256,
+    "height": 256,
+    "origin": "Procedural autoral (gradiente costeiro contínuo v005), numpy, semente 16112026",
+    "uv": "U contínuo transversal à costa (sem faixas duras), V periódico ao longo da praia"
+  },
+  {
+    "file": "costa_mar.png",
+    "width": 256,
+    "height": 256,
+    "origin": "Procedural autoral (gradiente costeiro contínuo v005), numpy, semente 16112026",
+    "uv": "U contínuo transversal à costa (sem faixas duras), V periódico ao longo da praia"
   }
 ]

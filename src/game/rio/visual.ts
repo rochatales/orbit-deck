@@ -4,6 +4,7 @@ import { ARES_COLLIDERS } from '../aresCollisions';
 import { BuildingFade } from '../shanghai/buildingFade';
 import { box } from '../worldUtils';
 import { RIO_ARES_POSITION, RIO_LAYOUT } from './layout';
+import { buildRioCoastalWater, type RioCoastalWaterRuntime } from './waterVisual';
 
 const ASPHALT = '#42464c';
 const SIDEWALK = '#aaa79a';
@@ -92,11 +93,28 @@ function wreckage(group: Group) {
         const { x, z } = center(part), w = part.maxX - part.minX, d = part.maxZ - part.minZ;
         if ('walkable' in part && part.walkable) {
             box(group, x, .03, z, w, .06, d, '#8a6a45').name = part.id;
+            if (part.id === 'Pier_Tablado') {
+                for (const px of [37.2, 41.2, 45.2]) {
+                    for (const pz of [part.minZ + .45, part.maxZ - .45]) {
+                        const pillar = new Mesh(new CylinderGeometry(.24, .26, 1.4, 8),
+                            new MeshStandardMaterial({ color: '#6c6a64', roughness: .92 }));
+                        pillar.position.set(px, -.65, pz);
+                        pillar.castShadow = pillar.receiveShadow = true;
+                        group.add(pillar);
+                    }
+                }
+            }
         } else {
             // Trecho desabado: pedaços soltos e inclinados, fora da área caminhável.
             const fallen = box(group, x - .6, -.12, z + .8, w * .5, .08, d * .45, '#5d4a35');
             fallen.rotation.set(.22, .3, -.28); fallen.name = part.id;
             box(group, x + 1.2, -.2, z - 1.4, w * .3, .08, d * .3, '#5d4a35').rotation.set(-.3, -.5, .2);
+            for (const [px, pz, py] of [[48.2, part.minZ + .5, -.35], [49.6, part.maxZ - .6, -.55]] as const) {
+                const stub = new Mesh(new CylinderGeometry(.24, .26, 1.3, 8),
+                    new MeshStandardMaterial({ color: '#63615b', roughness: .92 }));
+                stub.position.set(px, py, pz);
+                group.add(stub);
+            }
         }
     }
     for (const prop of RIO_LAYOUT.props) {
@@ -117,7 +135,7 @@ function wreckage(group: Group) {
     }
 }
 
-export function buildRioVisual(group: Group) {
+export function buildRioVisual(group: Group): RioCoastalWaterRuntime {
     const { bounds, bands, buildings, landingReservation, limits, obstacles, parts } = RIO_LAYOUT;
     for (const limit of limits) {
         if (limit.kind === 'mar') continue;
@@ -125,10 +143,12 @@ export function buildRioVisual(group: Group) {
         floor(group, limit, 0, rock ? '#687363' : '#968373', limit.id);
     }
     for (const band of bands) {
+        if (band.id === 'areia' || band.id === 'mar') continue;
         const rect = { ...bounds, ...band };
-        // O plano d'água continua fora do mapa; a faixa caminhável termina na linha da planta.
-        floor(group, band.id === 'mar' ? { ...rect, maxX: rect.maxX + 165, minZ: rect.minZ - 165, maxZ: rect.maxZ + 165 } : rect, 0, BAND_COLORS[band.id], band.id);
+        floor(group, rect, 0, BAND_COLORS[band.id], band.id);
     }
+    const coastalWater = buildRioCoastalWater(group);
+    group.userData.coastalWater = coastalWater;
     for (const part of parts) {
         if (part.id.startsWith('travessa_')) {
             floor(group, part, .006, SIDEWALK, part.id);
@@ -160,4 +180,5 @@ export function buildRioVisual(group: Group) {
     border(group);
     landingMark(group, landingReservation);
     aresBlockout(group);
+    return coastalWater;
 }

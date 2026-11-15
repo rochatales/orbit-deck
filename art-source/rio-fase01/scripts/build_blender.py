@@ -1,5 +1,6 @@
-"""Rio v003 (planta v2: píer quebrado, ruínas e destruição ampliada). Blender 5.1.1 --background --python <este arquivo> [-- --render].
-Reconstrói fontes editáveis, kit compartilhado e dois GLBs a partir da planta.
+"""Rio v005 (planta v2 + morros refinados v004 + transição costeira, areia molhada e mar raso v005).
+Blender 5.1.1 --background --python <este arquivo> [-- --render].
+Reconstrói fontes editáveis, kit compartilhado e GLBs a partir da planta, preservando v001..v004.
 """
 import bpy
 import sys
@@ -13,13 +14,15 @@ from mathutils import Vector, Matrix
 ART = Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ART/'scripts'))
 from textures import generate
+import morros
+import agua_costeira
 D = json.loads((ART/'export/layout.json').read_text())
 R = random.Random(13112026)
 bpy.ops.wm.read_factory_settings(use_empty=True)
 S = bpy.context.scene
 S.unit_settings.system = 'METRIC'
 S.unit_settings.scale_length = 1
-REV='v003'
+REV='v005'
 for folder in ['blend','texturas','notas','renders/'+REV]:
     (ART/folder).mkdir(parents=True,exist_ok=True)
 
@@ -571,32 +574,19 @@ owner='solo'
 # Faixas de trânsito fragmentadas, sem material emissivo.
 for x in [-6,7]:
     for z in range(-50,52,7):box('Faixa_apagada',x,.008,z,.12,.012,2.4,'faixa')
-# Limites de granito facetado com vegetação em copas irregulares.
+# Limites de granito costeiro e mata atlântica integrada (v004, isolado em morros.py).
 category='limites'
-def rock(x,z,w,d,h):
-    start=len(SOURCE.objects)
-    verts=[];n=9
-    for level,sc,yy in [(0,1,0),(1,.91,h*.3),(2,.66,h*.78),(3,.29,h)]:
-        for i in range(n):
-            a=i*math.tau/n
-            factor=.88+.12*math.sin(i*2.7+level)
-            verts.append((x+math.cos(a)*w/2*sc*factor,-z+math.sin(a)*d/2*sc*factor,yy))
-    faces=[tuple(reversed(range(n))),tuple(range(3*n,4*n))]
-    faces += [(l*n+i,l*n+(i+1)%n,(l+1)*n+(i+1)%n,(l+1)*n+i) for l in range(3) for i in range(n)]
-    mesh('Granito',verts,faces,'pedra')
-    for i in range(35):
-        a=i*2.4
-        radial=R.uniform(.24,.45)
-        xx=x+math.cos(a)*w*radial;zz=z+math.sin(a)*d*radial
-        yy=h*(1.10-1.8*radial)+1.4
-        cyl('Copa_morro',xx,yy,zz,2.1+R.random()*1.5,3.5,'folha',7,top=.8)
-    remember('rocha_morro',start,x,z)
-owner='Limite_Oeste_Morro'
-for z in range(-46,55,16):rock(-62-R.random()*2,z,22,25,21+R.random()*17)
-owner='Limite_Norte_Morro_Escombros'
-for x in range(-43,36,15):rock(x,-65-R.random()*2,25,22,13+R.random()*18)
-# Rochas do morro encostando no píer e avançando sobre o mar.
-for x,zz,hh in [(33,-57.5,7),(43,-58.5,9.5)]:rock(x,zz,9,6.5,hh)
+# Avança o gerador aleatório principal exatamente pelo mesmo número de chamadas da v003
+# para que Limite_Sul_Escombros e Limite_Leste_Mar permaneçam 100% idênticos.
+for _ in range(7):
+    R.random();R.random()
+    for _ in range(35):R.uniform(.24,.45);R.random()
+for _ in range(6):
+    R.random();R.random()
+    for _ in range(35):R.uniform(.24,.45);R.random()
+for _ in range(2):
+    for _ in range(35):R.uniform(.24,.45);R.random()
+morros.build_morros(SOURCE, M, MODULES, include_vegetation=('--clay-only' not in sys.argv))
 owner='Limite_Sul_Escombros'
 for i,x in enumerate(range(-47,34,8)):
     start=len(SOURCE.objects)
@@ -612,14 +602,10 @@ for i,x in enumerate(range(-47,34,8)):
     remember('escombro',start,x,62)
 vehicle(-7,59,True);vehicle(10,59);vehicle(-33,59)
 owner='Limite_Leste_Mar'
-# Mar e espuma ficam integralmente em X >= 36.
-floor(dict(id='Mar',minX=36,maxX=51,minZ=-54,maxZ=54),'mar',-.045)
-for i in range(108):
-    z=-53.5+i
-    x=36.55+.1*math.sin(i*.8)
-    patch('Espuma',x,z,.6+.2*math.sin(i),1.4,.005,'espuma',8)
-    if i%3==0:
-        patch('Onda_externa',38+.3*math.sin(i),z,.12,2.3,.008,'espuma',6)
+# Transição costeira contínua (v005): areia úmida/molhada na praia (X <= 36) +
+# fundo submerso, água rasa, água profunda e espuma orgânica com vazios internos (X >= 36).
+agua_costeira.build_coastal_transition(SOURCE, M, MODULES)
+records.append(dict(id='Mar',kind='piso',object='Mar'))
 # Kit de amostras com dados compartilhados, oculto da exportação e renderização.
 for name,(objects,x,z) in MODULES.items():
     c=bpy.data.collections.new('MOD_'+name);KIT.children.link(c)
@@ -637,15 +623,28 @@ for o in SOURCE.objects:
     sector=f'{min(2,max(0,int((co.x+51)/34)))}{min(2,max(0,int((-co.y+54)/36)))}'
     batches[(o['destino'],sector,o.data.materials[0].name)].append(o)
 for (dest,sector,mat),objects in sorted(batches.items()):
-    verts=[];faces=[];uvs=[]
+    verts=[];faces=[];uvs=[];smooth_flags=[];sharp_edges=set()
     for o in objects:
         off=len(verts)
         verts.extend(tuple(o.matrix_world@v.co) for v in o.data.vertices)
+        if o.get('morro_refinado'):
+            for e in o.data.edges:
+                if e.use_edge_sharp:
+                    v0,v1=off+e.vertices[0],off+e.vertices[1]
+                    sharp_edges.add((min(v0,v1),max(v0,v1)))
         for poly in o.data.polygons:
             faces.append(tuple(off+i for i in poly.vertices))
+            smooth_flags.append(bool(o.get('morro_refinado') and poly.use_smooth))
             uvs.extend(tuple(o.data.uv_layers.active.data[li].uv) for li in poly.loop_indices)
     data=bpy.data.meshes.new(f'RIO_{dest}_{sector}_{mat}')
     data.from_pydata(verts,[],faces);data.update()
+    if any(smooth_flags):
+        for poly,sm in zip(data.polygons,smooth_flags):
+            poly.use_smooth=sm
+        for e in data.edges:
+            v0,v1=e.vertices[0],e.vertices[1]
+            if (min(v0,v1),max(v0,v1)) in sharp_edges:
+                e.use_edge_sharp=True
     layer=data.uv_layers.new()
     for i,uv in enumerate(uvs):layer.data[i].uv=uv
     data.materials.append(M[mat])
@@ -701,7 +700,7 @@ S.view_settings.view_transform='AgX'
 S.render.image_settings.file_format='PNG'
 S['convencao']='Blender X=x, Y=-z, Z=altura; GLB X=x, Y=altura, Z=z; metros'
 S['planta_sha256']=__import__('hashlib').sha256((ART/'export/layout.json').read_bytes()).hexdigest()
-for c,filename in [(MAP,'rio-fase01.glb'),(LIMITS,'rio-limites-v001.glb')]:
+for c,filename in [(MAP,'rio-fase01.glb'),(LIMITS,'rio-limites-v002.glb'),(LIMITS,'rio-limites-v003.glb')]:
     bpy.ops.object.select_all(action='DESELECT')
     for o in c.objects:o.select_set(True)
     bpy.ops.export_scene.gltf(filepath=str(ART/'export'/filename),use_selection=True,export_format='GLB',

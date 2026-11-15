@@ -6,7 +6,8 @@
   "z": 108,
   "area_m2": 11016
  },
- "area_caminhavel_m2": 7170.4,
+ "area_caminhavel_m2": 7487.8,
+ "area_mar_raso_m2": 317.4,
  "area_mar_m2": 1620,
  "area_colisores_m2": 2285.6,
  "predios": 8,
@@ -14,6 +15,8 @@
  "veiculos": 18,
  "entulhos": 14,
  "pier_caminhavel_m": 18,
+ "mar_raso_largura_m": 3.2,
+ "mar_raso_profundidade_max_m": 0.3,
  "pracas": 3,
  "spawns": 8,
  "referencia_shanghai": {
