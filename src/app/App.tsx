@@ -45,7 +45,7 @@ const ARRIVAL_BRIEFING: Record<MapId, string> = {
     shanghai: SHANGHAI_BRIEFING,
     rio: RIO_BRIEFING,
 };
-function Runtime({ onHome }: { onHome: () => void }) {
+function Runtime({ onHome, rioPreview = false }: { onHome: () => void; rioPreview?: boolean }) {
     const s = useExpeditionStore();
     const combat = isExpedition(s.session.map);
     const campaign = useCampaignStore();
@@ -80,10 +80,12 @@ function Runtime({ onHome }: { onHome: () => void }) {
             return;
         }
         useExpeditionStore.getState().setReady(false);
-        loadWorld[requested]().then(module => {
+        const load = requested === 'rio' && rioPreview ? () => import('../game/rio/previewVisual') : loadWorld[requested];
+        load().then(async module => {
             if (cancelled)
                 return;
-            const data = module.createWorld();
+            const data = await module.createWorld();
+            if (cancelled) { disposeWorld(data); return; }
             setWorld({ map: requested, data });
             const state = useExpeditionStore.getState();
             if (state.session.phase === 'travelling') {
@@ -101,7 +103,7 @@ function Runtime({ onHome }: { onHome: () => void }) {
             state.setError('Não foi possível carregar o destino. Tente novamente. Sua sessão foi preservada.');
         });
         return () => { cancelled = true; };
-    }, [requested, retry]);
+    }, [requested, retry, rioPreview]);
     useEffect(() => () => { if (world)
         disposeWorld(world.data); }, [world]);
     useEffect(() => {
@@ -223,7 +225,7 @@ function Runtime({ onHome }: { onHome: () => void }) {
         setRetry(x => x + 1); }}>Tentar novamente</button>}</article></section>}
   </main>;
 }
-export function App() {
+export function App({ rioPreview = false }: { rioPreview?: boolean }) {
     const profile = useExpeditionStore(s => s.profile), [entered, setEntered] = useState(false);
     const [exited, setExited] = useState(false);
     const home = !entered || !profile;
@@ -231,5 +233,5 @@ export function App() {
         <h1>Sessão encerrada</h1>
         <button type="button" onClick={() => setExited(false)}>Voltar ao menu</button>
     </main>;
-    return <><AudioLifecycle home={home}/>{home ? <HomeScreen onEnter={() => setEntered(true)} onExit={() => setExited(true)}/> : <Runtime onHome={() => { setEntered(false); useExpeditionStore.getState().returnHome(); }}/>}</>;
+    return <><AudioLifecycle home={home}/>{home ? <HomeScreen rioPreview={rioPreview} onEnter={() => setEntered(true)} onExit={() => setExited(true)}/> : <Runtime onHome={() => { setEntered(false); useExpeditionStore.getState().returnHome(); }} rioPreview={rioPreview}/>}</>;
 }

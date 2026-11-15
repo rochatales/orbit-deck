@@ -41,7 +41,7 @@ function landingMark(group: Group, rect: RectBounds) {
     }
 }
 
-function aresBlockout(group: Group) {
+export function aresBlockout(group: Group) {
     const ship = new Group();
     ship.name = 'RioARES';
     ship.position.set(RIO_ARES_POSITION.x, RIO_ARES_POSITION.y, RIO_ARES_POSITION.z);

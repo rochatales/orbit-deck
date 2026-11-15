@@ -113,6 +113,18 @@ test('Rio: ida, nova tentativa e volta no Desenvolvimento preservam saves e por�
     assert.deepEqual(f.writes, []);
 });
 
+test('Rio: a prévia de desenvolvimento inicia no desembarque e preserva os saves', t => {
+    const f = travelFixture(t);
+    assert.ok(f.expedition.getState().enterDevelopment('rio'));
+    const { session, spawn, panel } = f.expedition.getState();
+    assert.equal(session.map, 'rio');
+    assert.equal(session.phase, 'walking');
+    assert.deepEqual(spawn, MAPS.rio.exit);
+    assert.equal(panel, null);
+    assert.deepEqual(f.values, f.original);
+    assert.deepEqual(f.writes, []);
+});
+
 test('Rio: campanha recusa a decolagem direta ao Rio e mantém Shanghai como destino', t => {
     const f = travelFixture(t);
     assert.ok(f.expedition.getState().enterCampaign());
