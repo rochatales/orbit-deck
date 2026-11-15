@@ -146,3 +146,55 @@ test('Cabine: referência intacta e vídeos H264 reais de 6 s, sem áudio; hashe
         }
     }
 });
+
+test('Cabine holográfica: entrada, globo em SVG, destinos em botões e painel da aeronave com dados reais', () => {
+    const html = render();
+    assert.match(html, /data-boot="(full|quick)" data-stage="idle"/);
+    assert.match(html, /class="cockpit-boot"/);
+    assert.match(html, /class="cockpit-globe is-earth"/); assert.match(html, /class="globe-land" d="M/);
+    assert.match(html, /class="globe-mark"/, 'destino de frente e marcado');
+    assert.match(html, /ALVO<\/span>SHANGHAI/); assert.match(html, /31,2° N · 121,5° L/);
+    assert.match(html, /aria-label="Destino da expedição"/); assert.match(html, /aria-pressed="true"[^>]*>Shanghai/); assert.match(html, /Rio de Janeiro/);
+    assert.match(html, /02 \/ AERONAVE/); assert.match(html, /NÍVEL/); assert.match(html, /PORÃO/); assert.match(html, /MARTE · Colônia humana/);
+    assert.equal(html.match(/<rect [^>]*style="animation-delay/g).length, 12, 'doze luzes do painel');
+    assert.doesNotMatch(html, /<canvas|<select/);
+    const earth = render({ map: 'shanghai' });
+    assert.match(earth, /class="cockpit-globe is-mars"/); assert.match(earth, /COLÔNIA HUMANA/);
+    assert.doesNotMatch(earth, /aria-label="Destino da expedição"/);
+    const flight = render({ ready: false, phase: 'travelling' });
+    assert.match(flight, /data-stage="warp"/); assert.equal(flight.match(/--a:/g).length, 72);
+    assert.doesNotMatch(flight, /cockpit-globe|cockpit-tabs|cockpit-loading/, 'as estrelas substituem o carregamento');
+});
+
+test('Cabine holográfica: viagem em quatro tempos; estrelas duram o carregamento e o pouso espera o mapa', () => {
+    const { flightStep, FLIGHT, WARP_STREAKS } = loadSource('src/ui/cockpitSequence.ts');
+    assert.deepEqual(flightStep('idle', false, 1e9), { stage: 'idle', wait: null });
+    assert.deepEqual(flightStep('idle', true, 0), { stage: 'launch', wait: FLIGHT.launchMs });
+    assert.deepEqual(flightStep('launch', false, 100), { stage: 'launch', wait: FLIGHT.launchMs - 100 }, 'carregamento rápido não corta a fumaça');
+    assert.equal(flightStep('launch', true, FLIGHT.launchMs).stage, 'warp');
+    assert.deepEqual(flightStep('warp', true, 1e9), { stage: 'warp', wait: null }, 'repete enquanto carrega');
+    assert.deepEqual(flightStep('warp', false, 500), { stage: 'warp', wait: FLIGHT.warpMinMs - 500 }, 'duração mínima');
+    assert.equal(flightStep('warp', false, FLIGHT.warpMinMs).stage, 'landing');
+    assert.equal(flightStep('landing', true, 10).stage, 'landing');
+    assert.deepEqual(flightStep('landing', false, FLIGHT.landingMs), { stage: 'idle', wait: null });
+    assert.equal(WARP_STREAKS.length, 72);
+    assert.ok(new Set(WARP_STREAKS.map(s => s.angle)).size > 60, 'riscos espalhados em todas as direções');
+});
+
+test('Cabine holográfica: globo põe as cidades em terra firme, de frente, e gira pelo caminho mais curto', () => {
+    const g = loadSource('src/ui/cockpitGlobe.ts');
+    for (const id of ['shanghai', 'rio']) {
+        const t = g.GLOBE_TARGETS[id], view = g.globeViewFor(t), p = g.globePoint(t.lon, t.lat, view, 100);
+        assert.ok(g.isLand(t.lon - 3, t.lat), `${id} no continente`);
+        assert.equal(p.visible, true); assert.ok(Math.hypot(p.x, p.y) < 30, 'alvo perto do centro');
+    }
+    for (const [lon, lat] of [[-150, 0], [-30, 30], [80, -30], [-140, -40]]) assert.equal(g.isLand(lon, lat), false, `oceano em ${lon}, ${lat}`);
+    for (const [lon, lat] of [[-100, 40], [-55, -10], [20, 10], [10, 50], [100, 50], [135, -25]]) assert.equal(g.isLand(lon, lat), true, `terra em ${lon}, ${lat}`);
+    assert.ok(g.EARTH_DOTS.length / 3 > 250 && g.MARS_DOTS.length / 3 > 150);
+    assert.equal(g.globePoint(-58.5, -31.2, g.globeViewFor(g.GLOBE_TARGETS.shanghai), 100).visible, false, 'lado oposto fica oculto');
+    const a = g.globeViewFor(g.GLOBE_TARGETS.shanghai), b = g.globeViewFor(g.GLOBE_TARGETS.rio);
+    assert.deepEqual(g.globeTween(a, b, 0), a);
+    const end = g.globeTween(a, b, 1); assert.ok(Math.abs(end.lon - b.lon) < 1e-9 && Math.abs(end.lat - b.lat) < 1e-9);
+    assert.ok(Math.abs(g.globeTween({ lon: 170, lat: 0 }, { lon: -170, lat: 0 }, .5).lon - 180) < 1e-9, 'cruza a linha de data em vez de dar a volta');
+    assert.match(g.globeDotsPath(g.EARTH_DOTS, a, 100), /^M-?\d/); assert.match(g.globeGridPath(a, 100), /^M-?\d/);
+});

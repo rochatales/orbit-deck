@@ -15,6 +15,7 @@ import { GameplayHud, BackpackContents } from '../ui/GameplayHud';
 import { MissionDepositPanel, ShipCargoPanel } from '../ui/ShipCargoPanel';
 import { EquipmentAcquisition } from '../ui/EquipmentAcquisition';
 import { ShipCockpit } from '../ui/ShipCockpit';
+import { cockpitSounds } from '../audio/cockpitSynth';
 import { OPEN_CARGO_EVENT, isNearCargo } from '../game/shipCargo';
 import { playerPosition } from '../state/playerTransient';
 import { activateWorldInteraction } from '../interactions/runtime';
@@ -196,7 +197,7 @@ function Runtime({ onHome }: { onHome: () => void }) {
     {s.panel === 'deposit' && <MissionDepositPanel onClose={s.closePanel}/>}
     {inCockpit && <ShipCockpit map={s.session.map} phase={s.session.phase} ready={s.ready} error={s.error} name={s.profile?.displayName ?? 'Explorador'}
       onDepart={destination => s.send('depart', destination)} onExit={() => s.send('exit')} onRetry={destination => { if (s.error === SCENE_STALLED_ERROR) { window.location.reload(); return; } s.setError(null); s.send('depart', destination); }}
-      encounter={campaign.mode !== 'campaign' && s.session.map === 'mars' ? <EncounterSelect/> : undefined}/>}
+      encounter={campaign.mode !== 'campaign' && s.session.map === 'mars' ? <EncounterSelect/> : undefined} sounds={cockpitSounds}/>}
     {paused && pauseView === 'pause' && !(combat && dead) && <PauseMenuFrame label="Jogo pausado" minimal tools={<div className="pause-settings">{settingsButton}{pauseButton}</div>}>
       <h2>Pausado</h2><button className="secondary" onClick={() => useGameStore.setState({ isPaused: false })}>Retomar · ESC</button>
     </PauseMenuFrame>}
