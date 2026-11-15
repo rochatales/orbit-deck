@@ -1,8 +1,8 @@
 # Estudo Visual e Proposta Técnica — Água, Arrebentação, Areia Molhada e Mar Raso (`v005`)
 
-**Projeto:** EXODEN · Level 02 Rio (`rio-fase01`)  
-**Autor e autoridade de aceite:** Tales Rocha  
-**Data:** 15/11/2026  
+**Projeto:** EXODEN · Level 02 Rio (`rio-fase01`)\
+**Autor e autoridade de aceite:** Tales Rocha\
+**Data:** 15/11/2026\
 **Referência principal:** `/Users/rochatales/Game Development/Horda Survivor/Mapas/Designing_post-apocalyptic_beach…_d64757f4.jpg`
 
 ---

@@ -61,3 +61,7 @@ python3 art-source/rio-fase01/scripts/layout.py
 - Alturas, largura do mar, térreos e encontros dependem do autor.
 - A base não tem a Frente B. Ao consolidar, o Rio herda extração por
   aniquilação e Level Clear sem trabalho extra, porque usa o contrato de Shanghai.
+
+## Atualização de base — 15/11/2026
+
+A branch `rochatales/level02-rio-morros` recebeu `fa79e37` pelo merge `267db19`, após preservar as entregas locais no commit `7156da9`. Ver [handoff de recebimento da base](level02-rio-base-consolidada-2026-11-15.md) para conflitos, 677 testes e pendências da S3.9 no Rio. A previsão anterior de equivalência automática com a campanha de Shanghai foi corrigida: o Rio ainda está restrito ao Desenvolvimento, e há seletores e textos específicos de Shanghai a revisar numa tarefa posterior.

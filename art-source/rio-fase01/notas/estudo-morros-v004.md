@@ -1,7 +1,7 @@
 # Estudo Visual e Plano de Adaptação — Morros Divisórios (Rio · Level 02 · v004)
 
-Data: 15/11/2026  
-Autor do pedido: Tales Rocha  
+Data: 15/11/2026\
+Autor do pedido: Tales Rocha\
 Escopo: Estudo visual pré-modelagem e projeto de refinamento das formações de granito costeiro e mata atlântica nos limites oeste (`Limite_Oeste_Morro`) e norte (`Limite_Norte_Morro_Escombros`) do mapa Rio de Janeiro.
 
 ---
@@ -19,8 +19,8 @@ Antes de qualquer edição, foram inspecionadas as worktrees e o histórico Git 
    - Worktree de origem: `/Users/rochatales/Automations/game-workplace/.claude/worktrees/exoden-design-sprints-397366`
    - Branch de origem: `claude/level02-rio-pier`
    - Commit de origem (`HEAD`): `6e814a31e1617030d624bf248864fe081b416334` (`6e814a3` — `feat: ampliar a destruição do Rio com ruínas, desabamentos e mais carcaças`, 14/11/2026 02:43:09 -0300), que sucede `8699edb` (`feat: píer quebrado e passe pós-apocalíptico no Rio`).
-   - Arquivo `.blend` mais recente: `art-source/rio-fase01/blend/rio_fase01_v003.blend`  
-     - Tamanho: `4.235.579` bytes  
+   - Arquivo `.blend` mais recente: `art-source/rio-fase01/blend/rio_fase01_v003.blend`\
+     - Tamanho: `4.235.579` bytes\
      - SHA-256: `4e7dd03834bd43d7ec1e9b2c7366074fbcfbe35cd087c77b76cb91a395513086`
    - Arquivos `.blend` anteriores preservados na mesma pasta:
      - `rio_fase01_v001.blend` (`3.521.721` bytes, SHA-256: `885044315450f073679570aa5c9b845f2ba451a4b212b986a3f4460c5dbb2169`)
