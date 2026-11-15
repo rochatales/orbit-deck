@@ -1,4 +1,4 @@
-import { Group, Mesh } from 'three';
+import { Mesh } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import mapUrl from '../../assets/rio-fase01/rio-fase01.glb';
 import limitsUrl from '../../assets/rio-fase01/rio-limites-v003.glb';
@@ -10,7 +10,7 @@ import { attachRioWater } from './world';
 import { aresBlockout } from './visual';
 import { buildRioCoastalWater } from './waterVisual';
 
-const STATIC_COAST_MATERIALS = new Set(['costa_praia', 'areia_molhada', 'mar']);
+import { removeRioStaticCoast } from './previewCoast';
 
 async function loadRioPreviewVisual(world: OfficeWorld) {
     const loader = new GLTFLoader();
@@ -25,21 +25,12 @@ async function loadRioPreviewVisual(world: OfficeWorld) {
     land.name = 'RioV005Mapa';
     border.name = 'RioV005Limites';
     try {
-        const staticCoast = new Group();
-        for (const scene of [land, border]) {
-            const excluded: Mesh[] = [];
-            scene.traverse(object => {
-                if (!(object instanceof Mesh)) return;
-                if (!Array.isArray(object.material) && STATIC_COAST_MATERIALS.has(object.material.name)) {
-                    excluded.push(object);
-                    return;
-                }
-                object.castShadow = true;
-                object.receiveShadow = true;
-            });
-            staticCoast.add(...excluded);
-        }
-        disposeWorld({ ...world, group: staticCoast });
+        removeRioStaticCoast(world, land, border);
+        world.group.traverse(object => {
+            if (!(object instanceof Mesh)) return;
+            object.castShadow = true;
+            object.receiveShadow = true;
+        });
         world.group.userData.buildingFade = new BuildingFade(land, RIO_LAYOUT.buildings);
         aresBlockout(world.group);
         return buildRioCoastalWater(world.group);

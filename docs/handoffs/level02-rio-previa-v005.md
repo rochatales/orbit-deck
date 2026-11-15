@@ -15,3 +15,11 @@ Para reabrir o servidor a partir da worktree:
 ```sh
 npm run dev -- --host 127.0.0.1 --port 5178 --strictPort
 ```
+
+## Correção de render da praia
+
+A faixa estática `RIO_mapa_21_areia` do GLB abrangia X = 15 a 36 e Z = −54 a 54, com o topo em Y = 0. Ela ocupava o mesmo espaço da malha contínua de praia do jogo, causando a alternância entre as duas superfícies. A prévia agora remove esse lote ao montar a cena. O material compartilhado pelas dunas, pelos canteiros e pelos depósitos de areia continua em uso nesses detalhes.
+
+A praia contínua ganhou variações de tom, marcas de vento, grão com filtragem pela escala em tela e recepção das sombras do cenário. O escurecimento começa antes da onda e persiste depois do recuo. A lâmina rasa começa translúcida e a espuma se divide em trechos irregulares. O ajuste atua no render em tempo real, sobre a mesma planta e o mesmo fundo físico.
+
+A praia foi conferida no navegador ao girar a câmera com Q. Passaram os 679 testes, o build e `git diff --check`. O teste novo verifica que a faixa estática sai da cena enquanto as malhas de areia do píer e da praça e o material compartilhado permanecem. Para revisão, entre em **Explorar Rio v005**, gire a câmera com Q ou C e acompanhe o avanço e recuo da água perto do desembarque. O aceite artístico segue com o autor.
