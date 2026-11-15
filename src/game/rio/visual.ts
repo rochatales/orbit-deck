@@ -1,9 +1,8 @@
 import { BoxGeometry, CylinderGeometry, Group, Mesh, MeshStandardMaterial, PlaneGeometry } from 'three';
 import type { RectBounds } from '../../utils/math';
-import { ARES_COLLIDERS } from '../aresCollisions';
 import { BuildingFade } from '../shanghai/buildingFade';
 import { box } from '../worldUtils';
-import { RIO_ARES_POSITION, RIO_LAYOUT } from './layout';
+import { RIO_LAYOUT } from './layout';
 import { buildRioCoastalWater, type RioCoastalWaterRuntime } from './waterVisual';
 
 const ASPHALT = '#42464c';
@@ -28,33 +27,6 @@ function floor(group: Group, rect: RectBounds, y: number, color: string, name: s
     mesh.position.set(x, y, z);
     mesh.receiveShadow = true;
     group.add(mesh);
-}
-
-function landingMark(group: Group, rect: RectBounds) {
-    const { x, z } = center(rect), w = rect.maxX - rect.minX, d = rect.maxZ - rect.minZ;
-    const color = '#f4dd9c', line = .18, y = .032;
-    for (const side of [rect.minX, rect.maxX]) {
-        floor(group, { minX: side - line, maxX: side + line, minZ: z - d / 2, maxZ: z + d / 2 }, y, color, 'Reserva_Pouso');
-    }
-    for (const end of [rect.minZ, rect.maxZ]) {
-        floor(group, { minX: x - w / 2 + line, maxX: x + w / 2 - line, minZ: end - line, maxZ: end + line }, y, color, 'Reserva_Pouso');
-    }
-}
-
-export function aresBlockout(group: Group) {
-    const ship = new Group();
-    ship.name = 'RioARES';
-    ship.position.set(RIO_ARES_POSITION.x, RIO_ARES_POSITION.y, RIO_ARES_POSITION.z);
-    for (const rect of ARES_COLLIDERS) {
-        const { x, z } = center(rect), w = rect.maxX - rect.minX, d = rect.maxZ - rect.minZ;
-        const hull = rect.id === 'casco', pod = rect.id.startsWith('pod');
-        const h = hull ? 1.85 : pod ? 1.05 : .36;
-        const y = hull ? 1.55 : pod ? 1.25 : h / 2;
-        box(ship, x, y, z, w, h, d, hull ? '#deded2' : '#627887').name = rect.id;
-    }
-    box(ship, -2.55, 2.68, 0, 1.7, .43, 1.92, '#294d67');
-    for (const z of [-2.04, 2.04]) box(ship, 4.12, 1.25, z, .24, .52, 1.05, '#69b8c6');
-    group.add(ship);
 }
 
 function border(group: Group) {
@@ -136,7 +108,7 @@ function wreckage(group: Group) {
 }
 
 export function buildRioVisual(group: Group): RioCoastalWaterRuntime {
-    const { bounds, bands, buildings, landingReservation, limits, obstacles, parts } = RIO_LAYOUT;
+    const { bounds, bands, buildings, limits, obstacles, parts } = RIO_LAYOUT;
     for (const limit of limits) {
         if (limit.kind === 'mar') continue;
         const rock = limit.kind !== 'escombros';
@@ -155,8 +127,6 @@ export function buildRioVisual(group: Group): RioCoastalWaterRuntime {
             floor(group, { ...part, minZ: part.minZ + 2, maxZ: part.maxZ - 2 }, .012, ASPHALT, part.id);
         } else if (part.kind === 'praca') {
             floor(group, part, .012, '#809274', part.id);
-        } else if (part.kind === 'deck') {
-            floor(group, part, .024, '#7d7e79', part.id);
         } else if (part.kind === 'quiosque') {
             const { x, z } = center(part);
             box(group, x, -.025, z, part.maxX - part.minX, .15, part.maxZ - part.minZ, '#a58261').name = part.id;
@@ -178,7 +148,5 @@ export function buildRioVisual(group: Group): RioCoastalWaterRuntime {
     }
     group.userData.buildingFade = new BuildingFade(group, buildings, meshes);
     border(group);
-    landingMark(group, landingReservation);
-    aresBlockout(group);
     return coastalWater;
 }

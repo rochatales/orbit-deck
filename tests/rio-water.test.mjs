@@ -33,7 +33,7 @@ const { CombatSimulation, traceShot, validContactSpawn } = loadSource('src/comba
 const { createPhase01Terrain } = loadSource('src/game/shanghai/layout.ts');
 const { createWorld: createMarsWorld } = loadSource('src/game/marsWorld.ts');
 
-test('Rio v005: remove a praia estática sobreposta e preserva as outras malhas e o material de areia', () => {
+test('Rio v005: remove praia estática, piso e marcas do pouso, preservando areia decorativa e faixas da avenida', () => {
     const { BufferGeometry, Group, Mesh, MeshStandardMaterial } = createRequire(import.meta.url)('three');
     const { removeRioStaticCoast } = loadSource('src/game/rio/previewCoast.ts');
     const world = createRioTerrain();
@@ -58,6 +58,13 @@ test('Rio v005: remove a praia estática sobreposta e preserva as outras malhas 
     const pierSand = land.getObjectByName('RIO_mapa_20_areia');
     const plazaSand = land.getObjectByName('RIO_mapa_12_areia');
     const wetSand = border.getObjectByName('RIO_limites_11_areia_molhada');
+    const deck = land.getObjectByName('RIO_mapa_22_concreto');
+    const landingPaint = land.getObjectByName('RIO_mapa_22_faixa');
+    const roadPaint = land.getObjectByName('RIO_mapa_12_faixa');
+    const footprint = rio.parts.find(part => part.id === 'Deck_Pouso');
+    assert.deepEqual(deck.userData.bounds.max.map(x => Math.round(x * 100) / 100), [footprint.maxX, .02, footprint.maxZ]);
+    assert.equal(landingPaint.userData.bounds.count, 96, 'quatro caixas de pintura');
+    assert.equal(roadPaint.material, landingPaint.material);
     assert.deepEqual(beach.userData.bounds.max, [36, 0, 54]);
     assert.equal(beach.userData.bounds.min[0], 15);
     assert.equal(beach.userData.bounds.min[2], -54);
@@ -69,6 +76,9 @@ test('Rio v005: remove a praia estática sobreposta e preserva as outras malhas 
     removeRioStaticCoast(world, land, border);
 
     assert.equal(land.getObjectByName(beach.name), undefined);
+    assert.equal(land.getObjectByName(deck.name), undefined);
+    assert.equal(land.getObjectByName(landingPaint.name), undefined);
+    assert.equal(land.getObjectByName(roadPaint.name), roadPaint);
     assert.equal(land.getObjectByName('RIO_mapa_11_costa_praia'), undefined);
     assert.equal(border.getObjectByName(wetSand.name), undefined);
     assert.equal(border.getObjectByName('RIO_limites_11_mar'), undefined);

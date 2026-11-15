@@ -22,6 +22,8 @@ import {
     createRioWaterContactVisual,
 } from './waterContact';
 
+import { RIO_ARES_POSITION } from './layout';
+
 const noRaycast = () => {};
 
 /** Gera malha subdividida não-uniforme concentrando resolução na faixa costeira (X = 31..46, Z = -56..56). */
@@ -247,6 +249,7 @@ function createUniformsFromConfig(config: RioWaterConfig, rippleBuffer: Float32A
     });
     return {
         uTime: { value: 0 },
+        uLandingOrigin: { value: new Vector2(RIO_ARES_POSITION.x, RIO_ARES_POSITION.z) },
         uWaterlineX: { value: config.waterlineX },
         uSwashMinX: { value: config.swashMinX },
         uSlopeStartX: { value: config.slopeStartX },
@@ -304,6 +307,7 @@ export function createRioBeachSeabedMaterial(uniforms: ReturnType<typeof createU
             uniform bool receiveShadow;
             #include <shadowmask_pars_fragment>
             ${SHARED_COASTAL_GLSL}
+            uniform vec2 uLandingOrigin;
             uniform vec3 uSunDirection;
             uniform vec3 uSunColor;
             uniform vec3 uSkyHorizonColor;
@@ -335,6 +339,14 @@ export function createRioBeachSeabedMaterial(uniforms: ReturnType<typeof createU
                 vec3 sandColor = drySand * mix(vec3(1.0), vec3(0.55, 0.59, 0.66), wetness);
                 float microRelief = (grain - 0.5) * 0.17 + (fineGrain - 0.5) * 0.095 + ripple * 0.036;
                 sandColor *= 1.0 + microRelief;
+                // Compactação das quatro sapatas e areia varrida sob os propulsores.
+                vec2 landing = sand - uLandingOrigin;
+                float padDistance = length(vec2(min(abs(landing.x + 1.82), abs(landing.x - 2.43)) / 0.49,
+                                                (abs(landing.y) - 1.60) / 0.53));
+                float pressure = 1.0 - smoothstep(0.44, 1.0, padDistance + (grain - 0.5) * 0.22);
+                vec2 exhaust = vec2((landing.x - 0.8) / 2.6, (abs(landing.y) - 2.1) / 1.28);
+                float sweep = (1.0 - smoothstep(0.24, 1.0, length(exhaust))) * (0.57 + windWarp * 0.43);
+                sandColor *= 1.0 - pressure * 0.19 - sweep * 0.14;
                 vec3 baseColor = mix(sandColor, vec3(0.145, 0.255, 0.298), smoothstep(0.26, 1.15, depth));
 
                 vec3 N = normalize(vWorldNormal + vec3((grain - 0.5) * 0.09 + ripple * 0.025, 0.0, (fineGrain - 0.5) * 0.045));

@@ -7,7 +7,6 @@ import { BuildingFade } from '../shanghai/buildingFade';
 import { disposeWorld } from '../worldUtils';
 import { createRioTerrain, RIO_LAYOUT } from './layout';
 import { attachRioWater } from './world';
-import { aresBlockout } from './visual';
 import { buildRioCoastalWater } from './waterVisual';
 
 import { removeRioStaticCoast } from './previewCoast';
@@ -32,7 +31,6 @@ async function loadRioPreviewVisual(world: OfficeWorld) {
             object.receiveShadow = true;
         });
         world.group.userData.buildingFade = new BuildingFade(land, RIO_LAYOUT.buildings);
-        aresBlockout(world.group);
         return buildRioCoastalWater(world.group);
     } catch (error) {
         disposeWorld(world);
