@@ -38,6 +38,14 @@ export function CombatScene({ world, map = 'shanghai' }: {
     world: OfficeWorld;
     map?: ExpeditionMapId;
 }) {
+    const reduceMotion = useRef(false);
+    useEffect(() => {
+        const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const update = () => { reduceMotion.current = preference.matches; };
+        update();
+        preference.addEventListener('change', update);
+        return () => preference.removeEventListener('change', update);
+    }, []);
     const run = useCombatStore(s => s.run);
     const simulation = useMemo(() => new CombatSimulation(world, useCampaignStore.getState().mode === 'campaign' ? campaignEncounter(useCampaignStore.getState().saved?.campaign.stage) : useCombatStore.getState().encounter, encounterLayout(map),
         expeditionCrates(map)), [world, map, run]);
@@ -135,6 +143,9 @@ export function CombatScene({ world, map = 'shanghai' }: {
             }
             useCombatStore.getState().publish(simulation.snapshot);
         }
+        const visualSlowdown = useCampaignStore.getState().mode === 'campaign' && simulation.clearTime > 0
+            && simulation.elapsed - simulation.clearTime < .32 && !reduceMotion.current;
+        const visualDelta = blocked ? 0 : Math.min(delta, .1) * (visualSlowdown ? .35 : 1);
         stepSlots.fill(-1); stepDistances.fill(Infinity);heavySlots.fill(-1);heavyDistances.fill(Infinity);
         simulation.robots.forEach((r, i) => {
             const mesh = robots.current[i];
@@ -155,7 +166,7 @@ export function CombatScene({ world, map = 'shanghai' }: {
                 rig.respawn();
                 mesh.position.y = world.surfaceHeight?.(r.x, r.z) ?? 0;
             }
-            rig.update(r, playerPosition.x, playerPosition.z, R.contactRange, blocked ? 0 : Math.min(delta, 0.1));
+            rig.update(r, playerPosition.x, playerPosition.z, R.contactRange, visualDelta);
             if (!blocked && !animal && r.hp > 0 && (rig.clip === 'PatrolWalk' || rig.clip === 'ChaseRun')) {
                 const d = Math.hypot(r.x - playerPosition.x, r.z - playerPosition.z);
                 const heavy=large||bigAnimal,slots=heavy?heavySlots:stepSlots,distances=heavy?heavyDistances:stepDistances;

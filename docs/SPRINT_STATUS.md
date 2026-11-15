@@ -1,5 +1,21 @@
 # Quadro de execução — EXODEN
 
+> **Consolidação aprovada pelo autor em 15/11/2026 — base atual para novas tarefas.**
+> Código `3105d4f`, publicado em `origin/rochatales/horda-survivor`; a publicação
+> anterior era `90e7734` (04/11). Reúne quatro blocos confirmados pelo autor:
+> (1) Oficina, estética de Quartel/Laboratório, fechamento da Sprint 2 e organização
+> de docs; (2) campanha com save próprio, Engenheiro, primeira expedição, pausa e
+> engrenagem, home com intro e trilha, mutante pequeno e trilha de Shanghai;
+> (3) colônia ligada: energia e ligamentos, interiores claros, fumaça da Oficina,
+> balões, telas e corrente de EDEN, Sala de Controle (linha até `72a03ef`);
+> (4) extração por mapa limpo e derrota da campanha (S3.9, `2a5e4cd`, juntada por
+> merge sem conflito). 658/658, build e diff-check verdes.
+> Fora desta consolidação: Level 02 Rio (`rochatales/level02-rio-*`, em produção
+> sobre `72a03ef`; deve receber esta base antes de entrar). Branches já contidas ou
+> superadas, preservadas sem apagar: `rochatales/s5.3-fumaca-oficina`,
+> `rochatales/s6.15-pausa-menu` e as de prompts/revisão do Claude.
+> Nova tarefa: `git fetch origin` e fixar `git rev-parse origin/rochatales/horda-survivor`.
+
 > **Revisão de game design · 07/11/2026 (proposta, aplicar após aprovação):**
 > posicionamento ARPG isométrico roguelite de sobrevivência de base, ciclo de risco
 > (extração por aniquilação, derrota volta antes da decolagem, colapso da colônia)

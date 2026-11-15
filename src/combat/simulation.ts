@@ -191,6 +191,7 @@ export class CombatSimulation {
     hearts: Pickup[];
     medkits = 0;
     elapsed = 0;
+    clearTime = 0;
     /** Tamanho de cada horda; vazio no encontro fixo (patrulhas presentes desde o início). */
     waves: readonly number[] = [];
     /** Hordas já iniciadas (a atual é `waves[wave - 1]`). */
@@ -326,9 +327,38 @@ export class CombatSimulation {
         for (const r of this.robots) if (r.hp > 0) n++;
         return n;
     }
-    get cleared() { return this.wave >= this.waves.length && this.waveLeft === 0 && this.queued === 0 && this.alive === 0; }
+    get cleared() { return !this.dead && this.wave >= this.waves.length && this.waveLeft === 0 && this.queued === 0 && this.alive === 0; }
     waveKind(wave: number, slot: number): RobotKind { return this.organicEncounter ? 'smallMutant' : waveRobotKind(wave, slot); }
-    get snapshot() { return { hp: this.hp, medkits: this.medkits, iron: this.iron, copper: this.copper, titanium: this.titanium, organic: this.organic, ammo: this.ammo, reserve: this.reserve, reloading: this.reloadLeft > 0, dead: this.dead, kills: this.kills, total: this.total, cleared: this.cleared, damage: this.damageFlash > 0, hit: this.hitFlash > 0, wave: this.wave, waves: this.waves.length, nextWave: Math.ceil(this.waveLeft), queued: this.queued, alive: this.alive }; }
+    private readonly hud = {
+        hp: 0, medkits: 0, iron: 0, copper: 0, titanium: 0, organic: 0, ammo: 0, reserve: 0,
+        reloading: false, dead: false, kills: 0, total: 0, cleared: false, damage: false, hit: false,
+        wave: 0, waves: 0, nextWave: 0, queued: 0, alive: 0, clearTime: 0
+    };
+    get snapshot() {
+        const hud = this.hud;
+        hud.hp = this.hp;
+        hud.medkits = this.medkits;
+        hud.iron = this.iron;
+        hud.copper = this.copper;
+        hud.titanium = this.titanium;
+        hud.organic = this.organic;
+        hud.ammo = this.ammo;
+        hud.reserve = this.reserve;
+        hud.reloading = this.reloadLeft > 0;
+        hud.dead = this.dead;
+        hud.kills = this.kills;
+        hud.total = this.total;
+        hud.cleared = this.cleared;
+        hud.damage = this.damageFlash > 0;
+        hud.hit = this.hitFlash > 0;
+        hud.wave = this.wave;
+        hud.waves = this.waves.length;
+        hud.nextWave = Math.ceil(this.waveLeft);
+        hud.queued = this.queued;
+        hud.alive = this.alive;
+        hud.clearTime = this.clearTime;
+        return hud;
+    }
     /** Prepara os slots/drops uma vez; o nascimento espera um ponto seguro. */
     private startWave(player: Position) {
         const waveIndex = this.wave++, count = this.waves[waveIndex];
@@ -585,6 +615,7 @@ export class CombatSimulation {
             }
             else if (this.wave < this.waves.length && this.alive === 0) this.waveLeft = COMBAT.hordes.intermission;
         }
+        if (!this.clearTime && this.cleared) this.clearTime = this.elapsed;
     }
     /** Dano/morte idempotentes: um slot concede contador e drops só uma vez. */
     private damageRobot(robot: Robot, damage: number, dx: number, dz: number) {

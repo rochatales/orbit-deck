@@ -120,11 +120,16 @@ test('Rio: campanha recusa a decolagem direta ao Rio e mantém Shanghai como des
     const before = f.expedition.getState().session;
     f.send('depart', 'rio');
     assert.strictEqual(f.expedition.getState().session, before);
+    assert.deepEqual(f.values, f.original, 'destino Rio recusado não inicia uma tentativa');
+    assert.deepEqual(f.writes, []);
     f.send('depart');
     assert.equal(f.expedition.getState().session.destination, 'shanghai');
     f.arrive('shanghai');
-    assert.deepEqual(f.values, f.original);
-    assert.deepEqual(f.writes, []);
+    // S3.9 persiste a carga anterior na decolagem válida, para restaurar após derrota.
+    const key = f.campaignSaveKey, savedBefore = JSON.parse(f.original.get(key));
+    assert.deepEqual(JSON.parse(f.values.get(key)), { ...savedBefore, departureCargo: savedBefore.cargo });
+    assert.deepEqual(f.writes, [key]);
+    for (const [otherKey, value] of f.original) if (otherKey !== key) assert.equal(f.values.get(otherKey), value);
 });
 
 function travelFixture(t) {
@@ -168,7 +173,7 @@ function travelFixture(t) {
         assert.equal(expedition.getState().session.phase, 'walking');
         assert.deepEqual(expedition.getState().spawn, MAPS[map].exit);
     };
-    return { expedition, combat, ship, send, board, arrive, original, values, writes };
+    return { expedition, combat, ship, send, board, arrive, original, values, writes, campaignSaveKey: CAMPAIGN_SAVE_KEY };
 }
 
 test('Rio v1: os quatro tipos de inimigo alcançam o fim do píer e voltam; a ponta desabada é inacessível', () => {

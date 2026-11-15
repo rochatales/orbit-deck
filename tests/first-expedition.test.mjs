@@ -25,7 +25,9 @@ function fixture(values = new Map()) {
     };
     const travel = () => {
         expedition.getState().setReady(true); game.setState({isPaused:false});
-        placePlayer(MAPS[expedition.getState().session.map].exit);
+        const { map } = expedition.getState().session;
+        if (map === 'shanghai' && campaign.getState().mode === 'campaign') combat.setState({ cleared: true });
+        placePlayer(MAPS[map].exit);
         expedition.getState().send('board'); assert.equal(expedition.getState().session.phase,'aboard');
         expedition.getState().send('depart'); expedition.getState().send('arrive');
         expedition.getState().setReady(true); expedition.getState().send('exit');
@@ -38,7 +40,7 @@ function fixture(values = new Map()) {
     return { load, values, writes, expedition, campaign, combat, combatRuntime, ship, game, placePlayer, MAPS, travel, pack, enter, deposit, rear };
 }
 
-test('S3.2: depósito soma ao saldo da visita e morte/restart descartam só esse saldo', () => {
+test('S3.2: depósito soma ao saldo da visita e derrota descarta só o saldo da tentativa', () => {
     const f=fixture(); f.enter(); f.campaign.getState().setCargo({...zero,copper:7,iron:5}); f.travel();
     const sim=f.pack(4,4); assert.equal(f.deposit(),8);
     assert.deepEqual(f.campaign.getState().saved.attemptCargo,{...zero,copper:4,iron:4});
@@ -47,13 +49,16 @@ test('S3.2: depósito soma ao saldo da visita e morte/restart descartam só esse
     assert.deepEqual(f.ship.getState().cargo,{...zero,copper:7,iron:5});
     assert.deepEqual(f.campaign.getState().saved.attemptCargo,zero);
     assert.equal(sim.copper,0);assert.equal(f.combat.getState().copper,0,'mochila perdida na morte');
-    f.expedition.getState().restartMission();f.pack(4);f.deposit();f.expedition.getState().restartMission();
+    f.expedition.getState().returnAfterDefeat();
+    assert.equal(f.expedition.getState().session.map,'mars');
+    assert.deepEqual(f.expedition.getState().spawn, f.MAPS.mars.exit);
+    const writes=f.writes.length;f.expedition.getState().returnAfterDefeat();assert.equal(f.writes.length,writes);
     assert.deepEqual(f.ship.getState().cargo,{...zero,copper:7,iron:5});
     assert.equal(f.expedition.getState().quotaAnnounced,false);
     assert.equal(f.campaign.getState().saved.campaign.copperDelivered,0);
 });
 
-test('S3.2: só o depósito traseiro e a cota no porão liberam o embarque', () => {
+test('S3.2: escada livre e decolagem bloqueada até o mapa limpo', () => {
     const f=fixture();f.enter();f.travel();
     const {simulationBlocked} = f.load('src/game/simulationGate.ts');
     f.placePlayer({...f.rear,y:0});f.expedition.getState().openDeposit();assert.equal(f.expedition.getState().panel,null);
@@ -70,7 +75,9 @@ test('S3.2: só o depósito traseiro e a cota no porão liberam o embarque', () 
     assert.equal(saved.campaign.copperDelivered,0);assert.equal(saved.campaign.stage,'expedition-copper');
     assert.equal(saved.cargo.copper,2);assert.equal(saved.attemptCargo.copper,2);
     f.placePlayer(f.MAPS.shanghai.exit);f.expedition.getState().send('board');
-    assert.equal(f.expedition.getState().session.phase,'walking','cota parcial mantém a escada bloqueada');
+    assert.equal(f.expedition.getState().session.phase,'aboard','a escada está livre');
+    f.expedition.getState().send('depart');assert.equal(f.expedition.getState().session.phase,'aboard','a ameaça bloqueia a decolagem');
+    f.expedition.getState().send('exit');
     f.deposit('copper',2);f.expedition.getState().send('board');
     assert.equal(f.expedition.getState().session.phase,'walking','a traseira não permite embarcar');
     f.travel();saved=f.campaign.getState().saved;
@@ -295,16 +302,17 @@ test('S3.2: a traseira fica em piso alcançável e fora do raio da escada nos do
     } finally { globalThis.window = previousWindow; }
 });
 
-test('S3.2 revisão: rádio não confunde cobre antigo com quota elegível, e retorno/retry têm remetente próprio',()=>{
+test('S3.2 revisão: rádio não confunde cobre antigo com quota elegível, e retorno e derrota têm remetente próprio',()=>{
     const f=fixture();f.enter();assert.equal(f.expedition.getState().radioSender,'Sistema');assert.doesNotMatch(f.expedition.getState().radio,/Encontre-a/);
     f.campaign.getState().setCargo({...zero,copper:4});f.travel();f.pack(0);const serial=f.expedition.getState().radioSerial;
     assert.equal(f.ship.getState().withdraw('copper',4),0);
     assert.equal(f.expedition.getState().radioSerial,serial,'cobre antigo não satisfaz quota de entrega');
-    f.expedition.getState().restartMission();assert.equal(f.expedition.getState().radioSender,'Sistema');assert.match(f.expedition.getState().radio,/Nova tentativa/);assert.ok(f.expedition.getState().radioSerial>serial);
+    f.combat.setState({dead:true,hp:0});f.expedition.getState().returnAfterDefeat();
+    assert.equal(f.expedition.getState().radioSender,'Engenheiro');assert.match(f.expedition.getState().radio,/A tentativa foi perdida/);assert.ok(f.expedition.getState().radioSerial>serial);
     f.expedition.getState().returnHome();f.expedition.getState().enterCampaign();
     f.expedition.getState().setReady(true);f.placePlayer(f.MAPS.mars.exit);
     f.expedition.getState().send('board');f.expedition.getState().send('depart');f.expedition.getState().send('arrive');f.expedition.getState().setReady(true);
-    // Chega na cabine, mas só consegue voltar depois de desembarcar e depositar.
+    // Chega na cabine com a decolagem bloqueada enquanto houver ameaças.
     f.expedition.getState().send('depart');f.expedition.getState().send('arrive');
     assert.equal(f.expedition.getState().session.map,'shanghai');assert.equal(f.expedition.getState().session.phase,'aboard');
     f.expedition.getState().send('exit');f.pack(4);f.deposit();f.travel();
@@ -445,7 +453,9 @@ test('Circuito inicial: pedestal, briefing, Oficina e sintetizador avançam uma 
     f.deposit('organic', 4);
     assert.equal(state().radioSerial, arrivalSerial + 1);
     f.placePlayer(f.MAPS.shanghai.exit);state().send('board');
-    assert.equal(state().session.phase, 'walking');
+    assert.equal(state().session.phase, 'aboard');
+    state().send('depart');assert.equal(state().session.phase, 'aboard');
+    state().send('exit');
     assert.equal(stage(), 'expedition-organic');
     assert.equal(f.campaign.getState().saved.campaign.organicDelivered, 0, 'a visita ainda não foi consolidada');
     f.deposit();
@@ -512,4 +522,47 @@ test('S5.3: energia segue a etapa e o save em cada montagem, e o visual dev mant
     const dev = bind('synthesizerActive');
     assert.equal(dev.stop, undefined);
     assert.equal(dev.material.emissiveIntensity, 2);
+});
+
+test('S3.9: mapa limpo permite voltar com cota parcial e completar em outra visita', () => {
+    const f=fixture();f.enter();f.travel();f.pack(2);
+    f.combat.setState({cleared:true});assert.equal(f.expedition.getState().quotaAnnounced,false);
+    f.deposit();f.travel();
+    assert.equal(f.campaign.getState().saved.campaign.stage,'expedition-copper');
+    assert.equal(f.campaign.getState().saved.campaign.copperDelivered,2);
+    f.travel();f.pack(2);f.deposit();f.travel();
+    assert.equal(f.campaign.getState().saved.campaign.stage,'engineer-return-briefing');
+    assert.equal(f.campaign.getState().saved.campaign.copperDelivered,4);
+});
+
+test('S3.9: derrota, abandono e reload recuperam o porão de antes da decolagem mesmo após retirada', () => {
+    for (const ending of ['defeat', 'home', 'reload']) {
+        const devHub = '{ "version":1,"profile":{"displayName":"Dev","color":"#abcdef"},"briefingSeen":true }';
+        const devCargo = '{ "iron":8,"copper":6,"titanium":4,"organic":2 }';
+        const f = fixture(new Map([['exoden:hub:v1', devHub], ['exoden-carga-aeronave-v1', devCargo]]));
+        f.enter();
+        const campaign = f.campaign.getState();
+        campaign.depositExpedition({ id:'cobre', copper:4, organic:0 });
+        for (const event of ['finish-copper-expedition','finish-engineer-return-briefing','activate-eden','finish-eden-briefing','pick-up-sword']) campaign.dispatch(event);
+        campaign.depositExpedition({ id:'orgânico', copper:0, organic:10 });
+        campaign.dispatch('finish-organic-expedition');campaign.dispatch('activate-synthesizer');
+        const previous = {...zero,copper:7,iron:5};
+        campaign.setCargo(previous);
+        f.travel();
+        const sim=f.pack(0,4);
+        assert.equal(f.ship.getState().withdraw('copper',3),3);
+        assert.equal(f.ship.getState().deposit('iron'),4);
+        assert.deepEqual(f.ship.getState().cargo,{...zero,copper:4,iron:9});
+        if (ending==='defeat') {
+            sim.dead=true;f.combat.setState({hp:0,dead:true});f.expedition.getState().returnAfterDefeat();
+            assert.deepEqual(f.ship.getState().cargo,previous);
+        }
+        if (ending==='home') f.expedition.getState().returnHome();
+        const loaded=fixture(f.values);
+        assert.deepEqual(loaded.campaign.getState().saved.cargo,previous);
+        assert.equal(loaded.campaign.getState().saved.departureCargo,undefined);
+        assert.equal(loaded.campaign.getState().saved.campaign.lastExpeditionId,'orgânico');
+        assert.equal(f.values.get('exoden:hub:v1'),devHub);
+        assert.equal(f.values.get('exoden-carga-aeronave-v1'),devCargo);
+    }
 });

@@ -118,6 +118,7 @@ function renderWithStores(file, f, name, props={}) {
   if(/\.(jpg|png|mp4)$/.test(spec))return spec;
   if(spec.endsWith('/ShipCargoPanel'))return {ShipCargoPanel:()=>null,ShipCargoButton:'test-ship-cargo'};
   if(spec.endsWith('/InteractionBubble'))return {InteractionBubble:'test-world-interaction',NpcInteractionBubble:'test-npc-interaction'};
+  if(spec.endsWith('/LevelClear'))return {LevelClear:'test-level-clear'};
   if(spec.endsWith('/RadarMap'))return {RadarMap:'test-sonar'};
   if(spec.endsWith('/ItemArtwork'))return {ItemArtwork:'test-item'};
   if(spec.endsWith('/WeaponControls'))return {canEquipPlayerWeapon:()=>true,equipPlayerWeapon:()=>true};
@@ -136,11 +137,12 @@ test('S3.2 revisão UI: cabine avisa risco e usa Engenheiro antes de EDEN; texto
  assert.match(devText,/A carga da nave permanece salva/);assert.match(devText,/EDEN · CONECTADA/);
 });
 
-test('S3.2 revisão UI: fallback da campanha mantém título/aviso das hordas, sem seletor/reiniciar',()=>{
+test('S3.2 revisão UI: campanha mostra Level Clear ou aviso da horda, sem seletor/reiniciar',()=>{
  const f=setup();f.expedition.setState({panel:null,session:{map:'shanghai',phase:'walking',destination:null,revision:0}});
  f.combat.setState({waves:4,wave:4,cleared:true,dead:false});
- let text=textTree(renderWithStores('src/combat/CombatHud.tsx',f,'CombatHud'));
- assert.match(text,/Hordas neutralizadas/);assert.doesNotMatch(text,/Patrulha neutralizada|Reiniciar encontro|repita|reinicie/);
+ const hud=()=>renderWithStores('src/combat/CombatHud.tsx',f,'CombatHud');
+ let text=textTree(hud());
+ assert.equal(nodes(hud(), node=>node.type==='test-level-clear').length,1);assert.doesNotMatch(text,/Patrulha neutralizada|Reiniciar encontro|repita|reinicie/);
  f.combat.setState({cleared:false,wave:1,ammo:0,reserve:0});
  text=textTree(renderWithStores('src/combat/CombatHud.tsx',f,'CombatHud'));
  assert.match(text,/próxima horda chega com reabastecimento/);assert.doesNotMatch(text,/Equipe o facão|repita|reinicie/);
@@ -285,4 +287,26 @@ test('S6.15 na S3.2: ESC mostra pausa simples, engrenagem abre opções e saída
   f.campaign.getState().setCargo({iron:0,copper:5,titanium:0,organic:0});f.campaign.getState().transferCargo({iron:0,copper:7,titanium:0,organic:0});
   exit.props.onClick();assert.equal(home,1);assert.equal(f.campaign.getState().saved.cargo.copper,5);assert.equal(f.campaign.getState().saved.profile.displayName,'UI QA');assert.equal(f.campaign.getState().inGame,false);
  }finally{globalThis.window=previousWindow;for(const[name,value]of Object.entries(previous))globalThis[name]=value;}
+});
+
+test('S3.9 UI: a escada permite embarcar e a cabine libera decolagem e marcador apenas com o mapa limpo', () => {
+    const f=setup();
+    f.campaign.getState().dispatch('finish-engineer-briefing');
+    const props={map:'shanghai',phase:'aboard',ready:true,error:null,name:'QA',onDepart(){},onExit(){},onRetry(){}};
+    const cockpit=()=>renderWithStores('src/ui/ShipCockpit.tsx',f,'ShipCockpit',props);
+    const board=()=>nodes(renderWithStores('src/interactions/WorldInteractionBubbles.tsx',f,'WorldInteractionBubbles',{map:'shanghai',world:{}}),
+        node=>node.type==='test-world-interaction'&&node.props.id==='ship:shanghai')[0];
+    const depart=()=>nodes(cockpit(),node=>node.type==='button'&&node.props.className==='cockpit-depart')[0];
+    f.combat.setState({total:4,kills:3});
+    assert.equal(board().props.label,'Entrar na aeronave');
+    assert.equal(board().props.available,undefined);
+    assert.equal(depart().props.disabled,true);
+    assert.match(textTree(cockpit()),/Inimigos restantes · 1/);
+    f.combat.setState({cleared:true,kills:4});
+    assert.equal(depart().props.disabled,false);
+    assert.match(textTree(cockpit()),/Mapa limpo.*Faltam 4 para a cota/);
+    assert.equal(board().props.alwaysVisible,false);
+    f.combat.getState().showClearMarker();
+    assert.equal(board().props.alwaysVisible,true);
+    assert.equal(board().props.label,'Embarcar para Marte');
 });

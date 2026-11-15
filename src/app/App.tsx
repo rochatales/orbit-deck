@@ -162,8 +162,9 @@ function Runtime({ onHome }: { onHome: () => void }) {
         return () => { window.removeEventListener('keydown', key); window.removeEventListener(OPEN_CARGO_EVENT, toggleCargo); };
     }, []);
     const inCockpit = s.panel === 'ship' && s.session.phase !== 'walking';
-    const objective = depositRemaining === 0 ? 'Embarque pela escada da aeronave'
-        : depositRemaining !== null && s.quotaAnnounced ? `Deposite a carga na traseira da aeronave · faltam ${depositRemaining} no porão`
+    const cleared = useCombatStore(state => state.cleared);
+    const objective = depositRemaining === 0 ? (cleared ? 'Embarque pela escada da aeronave' : 'Neutralize as ameaças restantes')
+        : depositRemaining !== null && depositRemaining > 0 && (s.quotaAnnounced || cleared) ? `Deposite a carga na traseira da aeronave · faltam ${depositRemaining} no porão`
         : progress ? campaignObjective(progress) : s.session.map === 'mars' ? 'Prepare sua expedição · Encontre EDEN' : 'Sobreviva às hordas · Recupere materiais';
     return <main className={`runtime ${combat ? 'in-combat' : 'in-hub'}${s.session.map === 'rio' ? ' in-rio' : ''}${s.panel === 'deposit' ? ' is-deposit-open' : ''}`}>
     <WeaponControls/>

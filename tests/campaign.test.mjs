@@ -162,7 +162,7 @@ test('Campanha: reload retoma perfil/carga próprios; recomeçar exige substitui
     assert.deepEqual(reloaded.ship.getState().cargo, { iron: 0, copper: 0, titanium: 0, organic: 0 });
 });
 
-test('Campanha: morte não avança; restart zera HUD da mochila, sem consolidar', () => {
+test('Campanha: derrota volta a Marte e zera o HUD da mochila sem consolidar', () => {
     const f = fixture(); f.expedition.getState().enterCampaign(profile);
     f.campaign.getState().dispatch('finish-engineer-briefing');
     const state = f.campaign.getState().saved.campaign;
@@ -174,7 +174,8 @@ test('Campanha: morte não avança; restart zera HUD da mochila, sem consolidar'
     f.campaign.getState().setCargo(cargo);
     f.combat.setState({ copper: 4 });
     assert.equal(f.combat.getState().copper, 4);
-    f.expedition.getState().restartMission();
+    f.expedition.getState().returnAfterDefeat();
+    assert.equal(f.expedition.getState().session.map,'mars');
     assert.deepEqual(f.ship.getState().cargo, cargo, 'carga de visitas anteriores preservada');
     assert.equal(f.campaign.getState().saved.campaign, state);
     assert.equal(f.combat.getState().dead, false); assert.equal(f.combat.getState().copper, 0);

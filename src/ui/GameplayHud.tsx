@@ -44,10 +44,10 @@ export function GameplayHud({ combat, map, openBackpack, openCargo }: { combat: 
   const selected = useWeaponStore(s => s.weapon), machete = selected === 'machete';
   const weight = cargoWeight(combat ? s : EMPTY_CARGO), full = weight >= BACKPACK.capacityKg - .2;
   return <>
-    {combat && <div className="beta-wave" aria-live="polite">
+    {combat && (!campaign || (!s.cleared && !s.dead)) && <div className="beta-wave" aria-live="polite">
       <span className="beta-signal"/><strong>{s.cleared ? 'ÁREA NEUTRALIZADA' : s.waves > 0 ? `${organic ? 'ONDA' : 'HORDA'} ${Math.max(1, s.wave)} / ${s.waves}` : 'CONTATO HOSTIL'}</strong>
       <span>{s.nextWave > 0 ? `CHEGADA EM ${s.nextWave} s` : `${s.alive} ATIVOS${s.queued > 0 ? ` · ${s.queued} NA FILA` : ''}`}</span>
-      <small>{s.kills} / {s.total}</small>
+      <small>{campaign ? `Restam ${Math.max(0, s.total - s.kills)}` : `${s.kills} / ${s.total}`}</small>
     </div>}
     <div className="beta-bottom">
       <aside className="beta-vitals" aria-label="Condição do explorador">

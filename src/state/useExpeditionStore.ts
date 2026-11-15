@@ -68,6 +68,7 @@ interface ExpeditionState {
     closePanel: () => void;
     send: (event: SessionEvent, outbound?: ExpeditionMapId) => void;
     restartMission: () => void;
+    returnAfterDefeat: () => void;
     setReady: (ready: boolean) => void;
     setError: (error: string | null) => void;
     setRadio: (radio: string, sender?: string, map?: MapId) => void;
@@ -202,7 +203,8 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
         if (event === 'board' && !campaignInteractionAllowed(`ship:${s.session.map}`)) return;
         if (event === 'board' && (s.panel || !isNearShip(s.session.map)))
             return;
-        if ((event === 'board' || event === 'depart') && (missionDepositRemaining(s.session.map) ?? 0) > 0) return;
+        if (event === 'depart' && s.session.map === 'shanghai' && useCampaignStore.getState().mode === 'campaign'
+            && !useCombatStore.getState().cleared) return;
         const campaign = useCampaignStore.getState();
         if (event === 'depart' && s.session.map === 'mars' && campaign.mode === 'campaign'
             && campaign.saved && campaignDepartureBlock(campaign.saved.campaign)) return;
@@ -210,6 +212,9 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
         const session = transition(s.session, event, outbound);
         if (session === s.session)
             return;
+        if (event === 'depart' && s.session.map === 'mars' && campaign.mode === 'campaign') campaign.beginAttempt();
+        if (event === 'board' && s.session.map === 'shanghai' && campaign.mode === 'campaign' && useCombatStore.getState().cleared)
+            useCombatStore.getState().showClearMarker();
         if (event === 'arrive' && session.map === 'mars' && s.session.map === 'shanghai' && useCampaignStore.getState().mode === 'campaign')
         {
             useCampaignStore.getState().consolidateExpedition(crypto.randomUUID());
@@ -233,9 +238,21 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
         respawn(spawn, session.map);
         set({ session, spawn, panel: session.phase === 'walking' ? null : 'ship', error: null, ready: event === 'depart' ? false : s.ready });
     },
+    returnAfterDefeat: () => {
+        const s = get(), campaign = useCampaignStore.getState();
+        if (campaign.mode !== 'campaign' || s.session.map !== 'shanghai' || !useCombatStore.getState().dead) return;
+        campaign.abandonAttempt();
+        combatRuntime.simulation = null;
+        const spawn = MAPS.mars.exit;
+        respawn(spawn, 'mars');
+        set({ session: { ...INITIAL_SESSION, revision: s.session.revision + 1 }, spawn, panel: null, acquisition: null,
+            ready: false, error: null, quotaAnnounced: false });
+        useCombatStore.getState().restart();
+        get().setRadio('A tentativa foi perdida. Você pode preparar outra expedição.', campaign.saved?.campaign.edenActive ? 'EDEN' : 'Engenheiro', 'mars');
+    },
     restartMission: () => {
         const s = get();
-        if (!isExpedition(s.session.map) || !s.ready || s.session.phase !== 'walking') return;
+        if (useCampaignStore.getState().mode === 'campaign' || !isExpedition(s.session.map) || !s.ready || s.session.phase !== 'walking') return;
         useCampaignStore.getState().abandonAttempt();
         useCombatStore.getState().restart();
         set({ quotaAnnounced: false });
@@ -243,8 +260,7 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
         respawn(spawn, s.session.map);
         set({ spawn, panel: null, session: { ...s.session, revision: s.session.revision + 1 } });
         const radio = 'Nova tentativa. Mova-se, mire com o mouse e use R para recarregar.';
-        if (useCampaignStore.getState().mode === 'campaign') get().setRadio(radio, 'Sistema');
-        else set({ radio });
+        set({ radio });
     },
     setReady: (ready) => set({ ready }), setError: (error) => set({ error }),
     setRadio: (radio, radioSender = 'EDEN', radioMap = get().session.map) => set(s => ({ radio, radioSender, radioMap, radioSerial: s.radioSerial + 1 }))
@@ -253,7 +269,7 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
 export function canOpenMissionDeposit() {
     const s = useExpeditionStore.getState();
     return s.ready && s.session.phase === 'walking' && !s.panel && !useGameStore.getState().isPaused
-        && !useCombatStore.getState().dead && s.quotaAnnounced && missionDepositRemaining(s.session.map) !== null
+        && !useCombatStore.getState().dead && (s.quotaAnnounced || useCombatStore.getState().cleared) && missionDepositRemaining(s.session.map) !== null
         && isNearMissionDeposit(playerPosition);
 }
 
