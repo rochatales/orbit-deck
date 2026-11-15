@@ -20,6 +20,7 @@ interface CampaignStore {
     depositExpedition: (delivery: ExpeditionDelivery) => void;
     setCargo: (cargo: ResourceCargo) => void;
     transferCargo: (cargo: ResourceCargo) => void;
+    beginAttempt: () => void;
     abandonAttempt: () => void;
     consolidateExpedition: (id: string) => void;
     setIdentity: (profile: Profile | null, briefingSeen: boolean) => void;
@@ -50,6 +51,10 @@ export const useCampaignStore = create<CampaignStore>((set, get) => {
             set({ mode: 'development', inGame: true }); return true;
         },
         leave: () => { get().abandonAttempt(); set({ mode: 'development', inGame: false }); },
+        beginAttempt: () => {
+            const saved = active();
+            if (saved && !saved.departureCargo) update({ ...saved, departureCargo: { ...saved.cargo } });
+        },
         abandonAttempt: () => {
             const saved = active(); if (!saved) return;
             set({ withdrawnCargo: { ...EMPTY_CARGO } });
@@ -80,7 +85,8 @@ export const useCampaignStore = create<CampaignStore>((set, get) => {
                 id, copper: saved.attemptDelivery.copper, organic: saved.attemptDelivery.organic
             }), saved.campaign.stage === 'expedition-organic' ? 'finish-organic-expedition' : 'finish-copper-expedition');
             // Uma única escrita: carga definitiva e entrega não podem divergir num reload.
-            update({ ...saved, campaign, attemptCargo: { ...EMPTY_CARGO }, attemptDelivery: { ...EMPTY_CARGO } }, { ...EMPTY_CARGO });
+            const { departureCargo: _departureCargo, ...rest } = saved;
+            update({ ...rest, campaign, attemptCargo: { ...EMPTY_CARGO }, attemptDelivery: { ...EMPTY_CARGO } }, { ...EMPTY_CARGO });
         },
         dispatch: event => {
             const saved = active(); if (!saved) return false;
