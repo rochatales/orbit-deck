@@ -23,6 +23,7 @@ import {
 } from './waterContact';
 
 import { RIO_ARES_POSITION } from './layout';
+import { RIO_LIGHT } from './lighting';
 
 const noRaycast = () => {};
 
@@ -266,11 +267,11 @@ function createUniformsFromConfig(config: RioWaterConfig, rippleBuffer: Float32A
         uScale: { value: config.scale },
         uIntensity: { value: config.intensity },
         uWetDecayRate: { value: config.wetDecayRate },
-        uSunDirection: { value: new Vector3(-28, 37, 40).normalize() },
-        uSunColor: { value: new Color('#ffd3a0') },
-        uSkyHorizonColor: { value: new Color('#f3dfc7') },
+        uSunDirection: { value: new Vector3(...RIO_LIGHT.sunPosition).normalize() },
+        uSunColor: { value: new Color(RIO_LIGHT.sunColor) },
+        uSkyHorizonColor: { value: new Color(RIO_LIGHT.hemisphereSky) },
         uSkyZenithColor: { value: new Color('#8ea4b2') },
-        uFogColor: { value: new Color('#e6c4a2') },
+        uFogColor: { value: new Color(RIO_LIGHT.sky) },
         uFogNear: { value: 85.0 },
         uFogFar: { value: 180.0 },
         uRipples: { value: rippleVec4s },
@@ -351,7 +352,7 @@ export function createRioBeachSeabedMaterial(uniforms: ReturnType<typeof createU
 
                 vec3 N = normalize(vWorldNormal + vec3((grain - 0.5) * 0.09 + ripple * 0.025, 0.0, (fineGrain - 0.5) * 0.045));
                 float sunlight = max(0.0, dot(N, uSunDirection)) * getShadowMask();
-                vec3 litColor = baseColor * (vec3(0.54, 0.57, 0.62) + uSunColor * sunlight * 0.83);
+                vec3 litColor = baseColor * (vec3(0.49, 0.51, 0.56) + uSunColor * sunlight * 0.73);
 
                 float currentFront = waveSwashFrontX(z, uTime);
                 float exposedWetSand = wetness * (1.0 - smoothstep(currentFront - 0.20, currentFront + 0.65, x));
@@ -495,7 +496,7 @@ export function createRioWaterSurfaceMaterial(uniforms: ReturnType<typeof create
 
                 // Iluminação difusa costeira da coluna d'água
                 float ndl = max(0.0, dot(N, uSunDirection));
-                vec3 waterLit = waterBodyColor * (0.68 + 0.34 * ndl);
+                vec3 waterLit = waterBodyColor * (0.64 + 0.31 * ndl);
 
                 // Espuma orgânica de arrebentação (crista + malha rendada com vazios internos + ondas externas)
                 float alongVar = fbm2(vec2(z * 0.18, uTime * 0.12));
@@ -639,7 +640,7 @@ export function buildRioCoastalWater(group: Group, config: RioWaterConfig = RIO_
         }
     }
 
-    return {
+    const coastalWater = {
         beachMesh,
         waterMesh,
         contactPool,
@@ -648,4 +649,6 @@ export function buildRioCoastalWater(group: Group, config: RioWaterConfig = RIO_
         getSimulationTime: () => simulationTime,
         update,
     };
+    group.userData.coastalWater = coastalWater;
+    return coastalWater;
 }

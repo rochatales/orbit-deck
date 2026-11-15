@@ -1,4 +1,4 @@
-import { Mesh } from 'three';
+import { Group, Mesh, type Material } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import mapUrl from '../../assets/rio-fase01/rio-fase01.glb';
 import limitsUrl from '../../assets/rio-fase01/rio-limites-v003.glb';
@@ -31,7 +31,22 @@ async function loadRioPreviewVisual(world: OfficeWorld) {
             object.receiveShadow = true;
         });
         world.group.userData.buildingFade = new BuildingFade(land, RIO_LAYOUT.buildings);
-        return buildRioCoastalWater(world.group);
+        const coastalWater = buildRioCoastalWater(world.group);
+        // O lote da praia já foi retirado. Todo o resto de 'areia' usa o mesmo grão em metros.
+        const replaced = new Set<Material>();
+        land.traverse(node => {
+            if (node instanceof Mesh && !Array.isArray(node.material) && node.material.name === 'areia') {
+                replaced.add(node.material);
+                node.material = coastalWater.beachMesh.material;
+            }
+        });
+        // O mapa é de uso exclusivo deste mundo. O loader recicla o material dentro dos lotes.
+        if (replaced.size) {
+            const retired = new Group();
+            retired.add(new Mesh(undefined, [...replaced]));
+            disposeWorld({ ...world, group: retired });
+        }
+        return coastalWater;
     } catch (error) {
         disposeWorld(world);
         throw error;

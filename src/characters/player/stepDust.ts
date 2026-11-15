@@ -3,12 +3,12 @@ export const STEP_DUST = {
     capacity: 96, perStep: 8, pendingCapacity: 4,
     minLife: .45, maxLife: .75, groundOffset: .025,
     initialSize: .14, growth: .3, opacity: .48, supportTolerance: .1,
-    colors: { mars: '#bd6f4c', shanghai: '#a2a5a6', rio: '#c3a77e', indoor: '#d9dde0' },
+    colors: { sand: '#dbbd92', mars: '#bd6f4c', shanghai: '#a2a5a6', rio: '#c3a77e', indoor: '#d9dde0' },
 } as const;
 interface DustParticle {
     x: number; y: number; z: number; vx: number; vy: number; vz: number;
-    life: number; duration: number; size: number; stretch: number; alpha: number;
-    /** 0 usa a cor do mapa; 1 usa a poeira clara de piso interno ligado. */
+    life: number; duration: number; size: number; stretch: number; alpha: number; sand: number;
+    /** 0 usa a cor do mapa; 1 usa a poeira interna; 2 usa areia bege. */
     tint: number;
 }
 interface Ground { surfaceHeight?: (x: number, z: number) => number; supportHeight?: (x: number, z: number) => number }
@@ -33,7 +33,7 @@ export class StepDustPool {
     private cursor = 0;
     constructor(capacity = STEP_DUST.capacity) {
         this.particles = Array.from({ length: capacity }, () => ({ x: 0, y: 0, z: 0, vx: 0, vy: 0, vz: 0,
-            life: 0, duration: 1, size: 0, stretch: 1, alpha: 0, tint: 0 }));
+            life: 0, duration: 1, size: 0, stretch: 1, alpha: 0, tint: 0, sand: 0 }));
     }
     bind(scene: Object3D) {
         this.owner = scene;
@@ -50,16 +50,17 @@ export class StepDustPool {
         this.grounded[this.pending] = grounded ? 1 : 0;
         this.sides[this.pending] = side; this.angles[this.pending++] = moveAngle;
     }
-    emit(x: number, y: number, z: number, moveAngle: number, random = Math.random, tint = 0) {
-        for (let i = 0; i < STEP_DUST.perStep; i++) {
+    emit(x: number, y: number, z: number, moveAngle: number, random = Math.random, tint = 0, sand = 0) {
+        const count = sand ? Math.round(5 + 11 * sand) : STEP_DUST.perStep;
+        for (let i = 0; i < count; i++) {
             const p = this.particles[this.cursor]; this.cursor = (this.cursor + 1) % this.particles.length;
-            const angle = random() * Math.PI * 2, radius = .035 * random(), drift = .08 + .14 * random();
+            const angle = random() * Math.PI * 2, radius = (.035 + .035 * sand) * random(), drift = (.08 + .14 * random()) * (1 + .85 * sand);
             p.x = x + Math.cos(angle) * radius; p.y = y + random() * .02; p.z = z + Math.sin(angle) * radius;
-            p.vx = Math.cos(angle) * drift - Math.sin(moveAngle) * .15;
-            p.vz = Math.sin(angle) * drift - Math.cos(moveAngle) * .15;
-            p.vy = .12 + random() * .16;
-            p.life = p.duration = STEP_DUST.minLife + random() * (STEP_DUST.maxLife - STEP_DUST.minLife);
-            p.size = STEP_DUST.initialSize; p.stretch = .8 + random() * .5; p.alpha = 0; p.tint = tint;
+            p.vx = Math.cos(angle) * drift - Math.sin(moveAngle) * (.15 + .25 * sand);
+            p.vz = Math.sin(angle) * drift - Math.cos(moveAngle) * (.15 + .25 * sand);
+            p.vy = .12 + random() * (.16 + .22 * sand);
+            p.life = p.duration = STEP_DUST.minLife + .24 * sand + random() * (STEP_DUST.maxLife - STEP_DUST.minLife);
+            p.size = STEP_DUST.initialSize + .075 * sand; p.stretch = .8 + random() * .5; p.alpha = 0; p.tint = tint; p.sand = sand;
         }
     }
     step(dt: number) {
@@ -73,8 +74,8 @@ export class StepDustPool {
             p.x += p.vx * dt; p.y += p.vy * dt; p.z += p.vz * dt;
             p.vx *= drag; p.vy *= drag; p.vz *= drag;
             const age = 1 - p.life / p.duration;
-            p.size = STEP_DUST.initialSize + STEP_DUST.growth * age;
-            p.alpha = STEP_DUST.opacity * Math.min(1, age / .08) * (1 - age) ** 2;
+            p.size = STEP_DUST.initialSize + .075 * p.sand + (STEP_DUST.growth + .24 * p.sand) * age;
+            p.alpha = (STEP_DUST.opacity + .16 * p.sand) * Math.min(1, age / .08) * (1 - age) ** 2;
         }
     }
     reset() {

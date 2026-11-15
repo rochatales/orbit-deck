@@ -1,4 +1,4 @@
-import { BoxGeometry, CylinderGeometry, Group, Mesh, MeshStandardMaterial, PlaneGeometry } from 'three';
+import { BoxGeometry, CylinderGeometry, Group, Mesh, MeshStandardMaterial, PlaneGeometry, type Material } from 'three';
 import type { RectBounds } from '../../utils/math';
 import { BuildingFade } from '../shanghai/buildingFade';
 import { box } from '../worldUtils';
@@ -18,10 +18,10 @@ function center(rect: RectBounds) {
     return { x: (rect.minX + rect.maxX) / 2, z: (rect.minZ + rect.maxZ) / 2 };
 }
 
-function floor(group: Group, rect: RectBounds, y: number, color: string, name: string) {
+function floor(group: Group, rect: RectBounds, y: number, color: string | Material, name: string) {
     const { x, z } = center(rect);
     const mesh = new Mesh(new PlaneGeometry(rect.maxX - rect.minX, rect.maxZ - rect.minZ),
-        new MeshStandardMaterial({ color, roughness: 1 }));
+        typeof color === 'string' ? new MeshStandardMaterial({ color, roughness: 1 }) : color);
     mesh.name = name;
     mesh.rotation.x = -Math.PI / 2;
     mesh.position.set(x, y, z);
@@ -120,13 +120,14 @@ export function buildRioVisual(group: Group): RioCoastalWaterRuntime {
         floor(group, rect, 0, BAND_COLORS[band.id], band.id);
     }
     const coastalWater = buildRioCoastalWater(group);
-    group.userData.coastalWater = coastalWater;
     for (const part of parts) {
         if (part.id.startsWith('travessa_')) {
             floor(group, part, .006, SIDEWALK, part.id);
             floor(group, { ...part, minZ: part.minZ + 2, maxZ: part.maxZ - 2 }, .012, ASPHALT, part.id);
         } else if (part.kind === 'praca') {
-            floor(group, part, .012, '#809274', part.id);
+            floor(group, part, .12, SIDEWALK, part.id);
+            floor(group, { minX: part.minX + .28, maxX: part.maxX - .28, minZ: part.minZ + .3, maxZ: part.maxZ - .3 },
+                .13, coastalWater.beachMesh.material as Material, part.id + '_areia');
         } else if (part.kind === 'quiosque') {
             const { x, z } = center(part);
             box(group, x, -.025, z, part.maxX - part.minX, .15, part.maxZ - part.minZ, '#a58261').name = part.id;

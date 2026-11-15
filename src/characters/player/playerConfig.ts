@@ -68,6 +68,8 @@ export interface PlayerMotionState {
   moveAngle: number;
   visualBob: number;
   bodyLean: number;
+  sandSway: number;
+  sandSettle: number;
   isGrounded: boolean;
   actionTriggerUntil: number;
   fallTriggerUntil: number;
@@ -84,6 +86,8 @@ export function createInitialPlayerMotionState(): PlayerMotionState {
     moveAngle: 0,
     visualBob: 0,
     bodyLean: 0,
+    sandSway: 0,
+    sandSettle: 0,
     isGrounded: true,
     actionTriggerUntil: 0,
     fallTriggerUntil: 0

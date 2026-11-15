@@ -41,3 +41,15 @@ A ARES foi conferida no navegador sobre a praia. Os 681 testes, o build e o diff
 | Próximas entregas | Aceite do autor, uso da arte refinada na entrada padrão e definição dos encontros e da mídia de cabine próprios do Rio. |
 
 As pendências de campanha estão detalhadas no [handoff da consolidação](level02-rio-base-consolidada-2026-11-15.md).
+
+## Iluminação de fim de tarde e passos na areia
+
+O foco frontal e seu mapa de sombras saíram do Rio. A intensidade hemisférica passou de 1,55 para 1,27, e a do sol, de 2,15 para 1,85. O sol ficou mais baixo e quente. A direção e a cor também são usadas para sombrear a praia, a água e o relevo visual das pegadas.
+
+Praia, dunas, areia sobre o calçadão e interior dos canteiros passam a usar o mesmo material em escala de mundo. A umidade altera o tom e o brilho perto da água. A aplicação ocorre na montagem do jogo.
+
+O movimento em solo arenoso tem uma transferência de peso mais marcada, com leve inclinação, balanço e compressão visual do corpo sincronizados com o ciclo dos pés. A poeira usa os contatos já amostrados após a animação. A areia seca gera uma nuvem bege maior; a úmida levanta menos poeira e guarda marcas de sola mais fortes. As pegadas têm cavidade e borda sombreadas, ficam na posição de contato e somem gradualmente em até 36 segundos. A areia da praia e dos canteiros recebe as marcas; o calçadão e os taboados usam o comportamento de piso firme. Na faixa coberta, o contato em água continua responsável pelos respingos.
+
+Verificação no navegador: luz quente sem feixe frontal, areia com grão consistente e trilha de pegadas ao andar perto da ARES. A primeira tentativa revelou um erro ao descartar o lote de pegadas. O lote foi ajustado e o reinício passou no navegador. Para avaliar, retome com **Esc**, caminhe na areia e aproxime a câmera com **+** para ler melhor o relevo. O aceite visual e de jogabilidade é do autor.
+
+Validação final: 684 testes, build e `git diff --check` passaram. Os testes cobrem o enquadramento das marcas na areia, a diferença entre areia seca e úmida, a pausa, a duração das pegadas e o material compartilhado entre praia e canteiros no blockout.

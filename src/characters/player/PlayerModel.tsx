@@ -49,7 +49,13 @@ function PlayerVariant({ motionRef, combat, variant }: PlayerModelProps & { vari
     interiorLight?.update(playerVisualPosition.x, playerVisualPosition.z, 1 - Math.exp(-8 * Math.min(.05, delta)));
   });
   const swordLight = useMemo(() => createSwordLight(), []);
-  useFrame(() => { if (bodyRef.current) bodyRef.current.rotation.y = motionRef.current.bodyYaw; }, -35);
+  useFrame(() => {
+    const body = bodyRef.current;
+    if (!body) return;
+    const motion = motionRef.current;
+    body.rotation.set(motion.bodyLean, motion.bodyYaw, motion.sandSway, 'YXZ');
+    body.position.y = -motion.sandSettle;
+  }, -35);
   const asset = PLAYER_ASSET_VARIANTS[variant];
   const color = useExpeditionStore(s=>s.profile?.color ?? asset.accentColor);
   const [scene, setScene] = useState<Object3D | null>(null);
