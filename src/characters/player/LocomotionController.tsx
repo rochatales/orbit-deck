@@ -1,3 +1,5 @@
+import { rioSandHeight } from '../../game/rio/sandSurface';
+import { useExpeditionStore } from '../../state/useExpeditionStore';
 import { useWeaponStore } from '../../state/useWeaponStore';
 import { MACHETE } from '../../combat/melee';
 import { MacheteAnimationLayers } from './macheteAnimationLayers';
@@ -35,6 +37,7 @@ interface LocomotionControllerProps {
  */
 export function LocomotionController({ motionRef, actions, asset, combat }: LocomotionControllerProps) {
   const weapon = useWeaponStore(s => s.weapon);
+  const rio = useExpeditionStore(s => s.session.map === 'rio');
   const machete = combat && weapon === 'machete';
   const swordLayers = useMemo(() => machete && asset.id === 'player-astronauta' && actions.Machete_Idle && actions.Machete_Run && actions.Sword_Combo
     ? new MacheteAnimationLayers(actions) : null, [machete, asset.id, actions]);
@@ -105,6 +108,18 @@ export function LocomotionController({ motionRef, actions, asset, combat }: Loco
     // Taxa dos ciclos in-place pela velocidade real.
     const active = currentRef.current;
     updateLocomotionRates(baseActions, active, motion.animationState, motion.planarSpeed, calibration);
+    if (!blocked && rio) {
+      const moving = motion.animationState === 'walking' || motion.animationState === 'backward';
+      const onSand = moving && motion.planarSpeed >= PLAYER_LOCOMOTION.stopSpeed && !swordLegs && active &&
+        rioSandHeight(playerPosition.x, playerPosition.z) !== null;
+      const phase = onSand ? (active.time / active.getClip().duration) * Math.PI * 2 : 0;
+      const settle = onSand ? Math.pow(.5 + .5 * Math.cos(phase * 2), 3) : 0;
+      const blend = 1 - Math.exp(-14 * Math.min(delta, .05));
+      const direction = motion.animationState === 'backward' ? -1 : 1;
+      motion.bodyLean += ((onSand ? direction * (.055 + .02 * settle) : 0) - motion.bodyLean) * blend;
+      motion.sandSway += ((onSand ? Math.sin(phase) * .042 : 0) - motion.sandSway) * blend;
+      motion.sandSettle += (settle * .04 - motion.sandSettle) * blend;
+    }
     swordLayers?.update(motion.animationState, swingLeft, simulation?.comboStage ?? 0, active, blocked);
     layers?.update(motion.animationState, simulation?.reloadLeft ?? 0, (simulation?.cooldown ?? 0) > 0, active, blocked);
     if (!blocked && !swordLegs && active && motion.planarSpeed >= PLAYER_LOCOMOTION.stopSpeed && (motion.animationState === "walking" || motion.animationState === "backward")) {

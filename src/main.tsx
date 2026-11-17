@@ -5,6 +5,6 @@ import "./styles/global.css";
 
 ReactDOM.createRoot(document.getElementById("app") as HTMLElement).render(
   <React.StrictMode>
-    <App />
+    <App rioPreview={import.meta.env.DEV && new URLSearchParams(window.location.search).has('rio-v005')} />
   </React.StrictMode>
 );

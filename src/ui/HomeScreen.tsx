@@ -60,7 +60,7 @@ export function HomeNameActions({ replacesCampaign, onClose }: { replacesCampaig
     </div>;
 }
 
-export function HomeScreen({ onEnter, onExit }: { onEnter: () => void; onExit: () => void }) {
+export function HomeScreen({ onEnter, onExit, rioPreview = false }: { onEnter: () => void; onExit: () => void; rioPreview?: boolean }) {
     const profile = useExpeditionStore(s => s.profile);
     const saved = useCampaignStore(s => s.saved);
     const [panel, setPanel] = useState<Panel | null>(null);
@@ -109,6 +109,11 @@ export function HomeScreen({ onEnter, onExit }: { onEnter: () => void; onExit: (
         <HomeBackdrop/>
         <HomeFrame/>
         <ExodenLogo/>
+        {rioPreview &&
+            <button type="button" className="secondary rio-preview-entry" style={{ position: 'absolute', zIndex: 2, left: '1rem', bottom: '1rem' }}
+                onClick={() => { if (useExpeditionStore.getState().enterDevelopment('rio')) onEnter(); }}>
+                Explorar Rio v005
+            </button>}
         <nav ref={menu} className="home-actions" aria-label="Menu principal">
             <svg className="home-action-frame" viewBox="0 0 342 322" preserveAspectRatio="none" aria-hidden="true">
                 <path d="M13 16H236L250 3H328 M1 27V21H7 M1 303V309H7 M13 314H239L246 320H328 M334 313H341V306"/>

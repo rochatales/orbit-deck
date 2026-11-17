@@ -5,6 +5,8 @@ import {
     Group,
     Mesh,
     ShaderMaterial,
+    UniformsUtils,
+    UniformsLib,
     Vector2,
     Vector3,
     Vector4,
@@ -19,6 +21,9 @@ import {
     WATER_CONTACT,
     createRioWaterContactVisual,
 } from './waterContact';
+
+import { RIO_ARES_POSITION } from './layout';
+import { RIO_LIGHT } from './lighting';
 
 const noRaycast = () => {};
 
@@ -133,6 +138,15 @@ float valueNoise(vec2 p) {
     return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
 }
 
+float grainBand(vec2 p, float footprint) {
+    // Amortece detalhe subpixel quando a câmera se afasta ou gira.
+    return mix(valueNoise(p), 0.5, smoothstep(0.35, 0.95, footprint));
+}
+
+float bell(float x) {
+    return exp(-x * x);
+}
+
 float fbm2(vec2 p) {
     float v = 0.0;
     v += 0.62 * valueNoise(p);
@@ -195,7 +209,7 @@ float seabedHeightAt(float x, float z) {
         float t = smoothstep(uSlopeStartX, uWaterlineX, x);
         return -uWaterlineDepth * t;
     }
-    float pierChannel = smoothstep(uShallowMinZ + 0.8, uShallowMinZ - 1.4, z);
+    float pierChannel = (1.0 - smoothstep(uShallowMinZ - 1.4, uShallowMinZ + 0.8, z));
     float effShallow = uShallowLimitX - pierChannel * 2.6;
     if (x <= effShallow) {
         float span = max(0.4, effShallow - uWaterlineX);
@@ -209,23 +223,23 @@ float seabedHeightAt(float x, float z) {
 
 float sandWetnessAt(float x, float z, float t) {
     float coast = coastlineOffset(z);
-    if (x <= uSwashMinX - 1.6 + coast) return 0.0;
     float currentFront = waveSwashFrontX(z, t);
-    if (x >= currentFront) return 1.0;
-
+    float damp = smoothstep(uSwashMinX - 2.5 + coast, uWaterlineX + coast, x);
+    float wash = smoothstep(currentFront - 0.74, currentFront + 0.60, x);
+    // Limites conservadores: fora da zona de espraiamento o histórico não muda o resultado.
+    if (wash >= 1.0) return 1.0;
+    float lowestFront = uWaterlineX - 0.35 + coast - uSwashAmplitude * uIntensity * 1.28;
+    if (x <= lowestFront - 0.74) return 0.42 * damp;
+    float recentReach = 0.0;
     float period = 6.2831853 / max(0.2, uSpeed);
-    float retained = 0.0;
     for (int i = 1; i <= 6; i++) {
-        float dtBack = (float(i) / 6.0) * period * 0.85;
-        float pastFront = waveSwashFrontX(z, t - dtBack);
-        float cov = smoothstep(pastFront - 0.45, pastFront + 0.12, x);
-        float decay = exp(-uWetDecayRate * dtBack);
-        retained = max(retained, cov * decay);
+        float past = (float(i) / 6.0) * period * 0.85;
+        float pastFront = waveSwashFrontX(z, t - past);
+        float coverage = smoothstep(pastFront - 0.65, pastFront + 0.38, x);
+        recentReach = max(recentReach, coverage * exp(-uWetDecayRate * past));
     }
-    float minReachX = uWaterlineX - 0.35 + coast - uSwashAmplitude * uIntensity * 1.22;
-    float frequentBand = smoothstep(minReachX - 0.9, uWaterlineX + 0.1 + coast, x) * 0.72;
-    float currentEdge = smoothstep(currentFront - 0.55, currentFront, x);
-    return clamp(max(currentEdge, max(retained, frequentBand)), 0.0, 1.0);
+    float recent = max(0.60 * recentReach, 0.42 * damp);
+    return mix(recent, 1.0, wash);
 }
 `;
 
@@ -236,6 +250,7 @@ function createUniformsFromConfig(config: RioWaterConfig, rippleBuffer: Float32A
     });
     return {
         uTime: { value: 0 },
+        uLandingOrigin: { value: new Vector2(RIO_ARES_POSITION.x, RIO_ARES_POSITION.z) },
         uWaterlineX: { value: config.waterlineX },
         uSwashMinX: { value: config.swashMinX },
         uSlopeStartX: { value: config.slopeStartX },
@@ -252,11 +267,11 @@ function createUniformsFromConfig(config: RioWaterConfig, rippleBuffer: Float32A
         uScale: { value: config.scale },
         uIntensity: { value: config.intensity },
         uWetDecayRate: { value: config.wetDecayRate },
-        uSunDirection: { value: new Vector3(-28, 37, 40).normalize() },
-        uSunColor: { value: new Color('#ffd3a0') },
-        uSkyHorizonColor: { value: new Color('#f3dfc7') },
+        uSunDirection: { value: new Vector3(...RIO_LIGHT.sunPosition).normalize() },
+        uSunColor: { value: new Color(RIO_LIGHT.sunColor) },
+        uSkyHorizonColor: { value: new Color(RIO_LIGHT.hemisphereSky) },
         uSkyZenithColor: { value: new Color('#8ea4b2') },
-        uFogColor: { value: new Color('#e6c4a2') },
+        uFogColor: { value: new Color(RIO_LIGHT.sky) },
         uFogNear: { value: 85.0 },
         uFogFar: { value: 180.0 },
         uRipples: { value: rippleVec4s },
@@ -270,19 +285,30 @@ function createUniformsFromConfig(config: RioWaterConfig, rippleBuffer: Float32A
  */
 export function createRioBeachSeabedMaterial(uniforms: ReturnType<typeof createUniformsFromConfig>) {
     return new ShaderMaterial({
-        uniforms,
+        uniforms: { ...UniformsUtils.clone(UniformsLib.lights), ...uniforms },
+        lights: true,
         vertexShader: /* glsl */ `
+            #include <common>
+            #include <shadowmap_pars_vertex>
             varying vec3 vWorldPos;
             varying vec3 vWorldNormal;
             void main() {
                 vec4 worldPosition = modelMatrix * vec4(position, 1.0);
                 vWorldPos = worldPosition.xyz;
                 vWorldNormal = normalize(mat3(modelMatrix) * normal);
+                vec3 transformedNormal = normalize(normalMatrix * normal);
+                #include <shadowmap_vertex>
                 gl_Position = projectionMatrix * viewMatrix * worldPosition;
             }
         `,
         fragmentShader: /* glsl */ `
+            #include <common>
+            #include <packing>
+            #include <shadowmap_pars_fragment>
+            uniform bool receiveShadow;
+            #include <shadowmask_pars_fragment>
             ${SHARED_COASTAL_GLSL}
+            uniform vec2 uLandingOrigin;
             uniform vec3 uSunDirection;
             uniform vec3 uSunColor;
             uniform vec3 uSkyHorizonColor;
@@ -296,55 +322,45 @@ export function createRioBeachSeabedMaterial(uniforms: ReturnType<typeof createU
             void main() {
                 float x = vWorldPos.x;
                 float z = vWorldPos.z;
-                float coast = coastlineOffset(z);
 
-                // Grão multiescala e marcas de vento/maré na areia (sem costura de UV)
-                float macroPatch = fbm2(vec2(x * 0.11, z * 0.08));
-                float grain = fbm2(vec2(x * 1.35, z * 1.15));
-                float sandBarRipple = sin((x - coast * 0.45) * 4.8 + sin(z * 0.45) * 1.4) * 0.5 + 0.5;
+                // Manchas maiores, ondulação de vento e grão fino em coordenadas do mundo.
+                vec2 sand = vWorldPos.xz;
+                float footprint = max(length(dFdx(sand)), length(dFdy(sand)));
+                float macroPatch = fbm2(sand * vec2(0.20, 0.12));
+                float grain = grainBand(sand * 4.0, footprint * 4.0);
+                float fineGrain = grainBand(sand * 16.0, footprint * 16.0);
+                float windWarp = fbm2(sand * 0.46);
+                float ripple = sin(x * 13.0 + z * 4.3 + windWarp * 6.4);
+                ripple *= (1.0 - smoothstep(0.18, 0.85, footprint * 2.4)) * windWarp;
 
-                // 1. Areia seca e 2. Areia úmida ocasional
-                vec3 drySandA = vec3(0.847, 0.733, 0.529); // #d8bb87
-                vec3 drySandB = vec3(0.796, 0.678, 0.478); // #cbac7a
-                vec3 dryAlbedo = mix(drySandA, drySandB, macroPatch) + (grain - 0.5) * 0.045;
+                vec3 drySand = mix(vec3(0.40, 0.27, 0.15), vec3(0.69, 0.51, 0.30), macroPatch);
+                float depth = max(0.0, -vWorldPos.y);
+                float wetness = sandWetnessAt(x + (windWarp - 0.5) * 0.30, z, uTime);
+                // Umidade escurece a mesma areia. O grão permanece sob a lâmina rasa.
+                vec3 sandColor = drySand * mix(vec3(1.0), vec3(0.55, 0.59, 0.66), wetness);
+                float microRelief = (grain - 0.5) * 0.17 + (fineGrain - 0.5) * 0.095 + ripple * 0.036;
+                sandColor *= 1.0 + microRelief;
+                // Compactação das quatro sapatas e areia varrida sob os propulsores.
+                vec2 landing = sand - uLandingOrigin;
+                float padDistance = length(vec2(min(abs(landing.x + 1.82), abs(landing.x - 2.43)) / 0.49,
+                                                (abs(landing.y) - 1.60) / 0.53));
+                float pressure = 1.0 - smoothstep(0.44, 1.0, padDistance + (grain - 0.5) * 0.22);
+                vec2 exhaust = vec2((landing.x - 0.8) / 2.6, (abs(landing.y) - 2.1) / 1.28);
+                float sweep = (1.0 - smoothstep(0.24, 1.0, length(exhaust))) * (0.57 + windWarp * 0.43);
+                sandColor *= 1.0 - pressure * 0.19 - sweep * 0.14;
+                vec3 baseColor = mix(sandColor, vec3(0.145, 0.255, 0.298), smoothstep(0.26, 1.15, depth));
 
-                float dampMask = smoothstep(32.2 + coast, 34.8 + coast, x);
-                vec3 dampAlbedo = vec3(0.667, 0.545, 0.369) + (grain - 0.5) * 0.035;
+                vec3 N = normalize(vWorldNormal + vec3((grain - 0.5) * 0.09 + ripple * 0.025, 0.0, (fineGrain - 0.5) * 0.045));
+                float sunlight = max(0.0, dot(N, uSunDirection)) * getShadowMask();
+                vec3 litColor = baseColor * (vec3(0.49, 0.51, 0.56) + uSunColor * sunlight * 0.73);
 
-                // 3. Areia molhada com memória temporal (histerese)
-                float wetness = sandWetnessAt(x, z, uTime);
-                vec3 wetAlbedo = vec3(0.424, 0.325, 0.216) + (grain - 0.5) * 0.025 + (sandBarRipple - 0.5) * 0.022;
-
-                // 4. Fundo submerso na faixa rasa e 5. Fundo profundo
-                float depth = max(0.0, -seabedHeightAt(x, z));
-                float shallowSubmerged = smoothstep(0.02, 0.26, depth);
-                float deepSubmerged = smoothstep(0.28, 0.95, depth);
-                vec3 shallowSeabed = vec3(0.455, 0.365, 0.251) + (sandBarRipple - 0.5) * 0.038;
-                vec3 deepSeabed = vec3(0.145, 0.255, 0.298);
-
-                vec3 baseColor = mix(dryAlbedo, dampAlbedo, dampMask * 0.65);
-                baseColor = mix(baseColor, wetAlbedo, wetness);
-                baseColor = mix(baseColor, shallowSeabed, shallowSubmerged * 0.65);
-                baseColor = mix(baseColor, deepSeabed, deepSubmerged);
-
-                // Iluminação difusa de fim de tarde
-                vec3 N = normalize(vWorldNormal + vec3((grain - 0.5) * 0.08, 0.0, (macroPatch - 0.5) * 0.08));
-                float ndl = max(0.0, dot(N, uSunDirection));
-                vec3 hemi = mix(vec3(0.55, 0.50, 0.46), uSkyHorizonColor, 0.5 + 0.5 * N.y);
-                vec3 litColor = baseColor * (hemi * 0.62 + uSunColor * ndl * 0.58);
-
-                // Resposta especular discreta e alongada na areia molhada (nunca na areia seca)
                 float currentFront = waveSwashFrontX(z, uTime);
-                float exposedWetSand = wetness * (1.0 - smoothstep(currentFront - 0.05, currentFront + 0.35, x));
-                vec3 V = normalize(cameraPosition - vWorldPos);
+                float exposedWetSand = wetness * (1.0 - smoothstep(currentFront - 0.20, currentFront + 0.65, x));
+                vec3 V = isOrthographic ? vec3(viewMatrix[0].z, viewMatrix[1].z, viewMatrix[2].z)
+                                        : normalize(cameraPosition - vWorldPos);
                 vec3 H = normalize(uSunDirection + V);
-                // Alonga o brilho especular na direção costeira
-                vec3 anisoN = normalize(N + vec3((sandBarRipple - 0.5) * 0.12, 0.0, 0.0));
-                float specPower = mix(8.0, 42.0, wetness);
-                float spec = pow(max(0.0, dot(anisoN, H)), specPower);
-                float fresnelWet = pow(1.0 - max(0.0, dot(anisoN, V)), 3.0);
-                vec3 wetReflection = mix(uSkyHorizonColor, uSunColor, 0.55) * (0.11 * fresnelWet + 0.18 * spec);
-                litColor += wetReflection * exposedWetSand;
+                float specular = pow(max(0.0, dot(N, H)), mix(14.0, 29.0, wetness));
+                litColor += uSunColor * (exposedWetSand * sunlight * specular * 0.095);
 
                 float fogDist = length(cameraPosition - vWorldPos);
                 float fogFactor = smoothstep(uFogNear, uFogFar, fogDist);
@@ -366,9 +382,6 @@ export function createRioWaterSurfaceMaterial(uniforms: ReturnType<typeof create
     return new ShaderMaterial({
         transparent: true,
         depthWrite: false,
-        polygonOffset: true,
-        polygonOffsetFactor: -1,
-        polygonOffsetUnits: -1,
         uniforms,
         vertexShader: /* glsl */ `
             ${SHARED_COASTAL_GLSL}
@@ -395,7 +408,7 @@ export function createRioWaterSurfaceMaterial(uniforms: ReturnType<typeof create
                     vec4 rp = uRipples[i];
                     if (rp.w > 0.001) {
                         float d = length(vec2(x - rp.x, z - rp.y));
-                        float ring = exp(-pow((d - rp.z) / 0.18, 2.0)) * sin((d - rp.z) * 22.0);
+                        float ring = bell((d - rp.z) / 0.18) * sin((d - rp.z) * 22.0);
                         rippleDisp += ring * rp.w * 0.014;
                     }
                 }
@@ -427,14 +440,14 @@ export function createRioWaterSurfaceMaterial(uniforms: ReturnType<typeof create
                 float z = vWorldPos.z;
 
                 float swashFront = waveSwashFrontX(z, uTime);
-                if (x < swashFront - 0.14) discard;
+                if (x < swashFront - 0.48) discard;
 
                 float seabed = seabedHeightAt(x, z);
                 float depth = max(0.0, vWorldPos.y - seabed);
                 float distFromFront = x - swashFront;
 
                 // Borda suave de entrada da lâmina de swash sobre a areia molhada
-                float swashEdgeAlpha = smoothstep(-0.10, 0.38, distFromFront);
+                float swashEdgeAlpha = smoothstep(-0.48, 0.86, distFromFront);
 
                 // Ondulações multiescala para perturbação de normal (limitadas em frequência para não cintilar)
                 float phase1 = (x * uDirection.x + z * uDirection.y) * uScale + uTime * uSpeed + 0.45 * sin(z * 0.14);
@@ -456,7 +469,7 @@ export function createRioWaterSurfaceMaterial(uniforms: ReturnType<typeof create
                     if (rp.w > 0.001) {
                         vec2 dVec = vec2(x - rp.x, z - rp.y);
                         float d = length(dVec);
-                        float ringEnv = exp(-pow((d - rp.z) / 0.15, 2.0));
+                        float ringEnv = bell((d - rp.z) / 0.15);
                         vec2 dir = d > 1e-4 ? dVec / d : vec2(1.0, 0.0);
                         dHx += dir.x * ringEnv * rp.w * 0.08;
                         dHz += dir.y * ringEnv * rp.w * 0.08;
@@ -483,33 +496,36 @@ export function createRioWaterSurfaceMaterial(uniforms: ReturnType<typeof create
 
                 // Iluminação difusa costeira da coluna d'água
                 float ndl = max(0.0, dot(N, uSunDirection));
-                vec3 waterLit = waterBodyColor * (0.68 + 0.34 * ndl);
+                vec3 waterLit = waterBodyColor * (0.64 + 0.31 * ndl);
 
                 // Espuma orgânica de arrebentação (crista + malha rendada com vazios internos + ondas externas)
                 float alongVar = fbm2(vec2(z * 0.18, uTime * 0.12));
                 float breakStrength = 0.65 + 0.35 * sin(wavePhaseAtZ(z, uTime) + 0.5);
 
                 // 1) Borda principal da arrebentação (com interrupções naturais ao longo de Z)
-                float leadingWidth = 0.38 + 0.42 * alongVar;
-                float leadingBand = exp(-pow((distFromFront - 0.18) / leadingWidth, 2.0));
-                float leadingGaps = smoothstep(0.24, 0.58, fbm2(vec2(z * 0.42 + 1.7, x * 0.65 - uTime * 0.18)));
-                float leadingFoam = leadingBand * leadingGaps * (0.72 + 0.28 * breakStrength);
+                float foamDrift = uTime * 0.20;
+                float crestWarp = fbm2(vec2(z * 0.36, x * 0.41 + foamDrift));
+                float leadingWidth = 0.32 + 0.48 * alongVar;
+                float leadingBand = bell((distFromFront - 0.28 - 0.37 * crestWarp) / leadingWidth);
+                float leadingGaps = smoothstep(0.30, 0.78, fbm2(vec2(z * 0.56 + 1.7, x * 0.56 - foamDrift)));
+                float leadingFoam = leadingBand * leadingGaps * (0.38 + 0.35 * breakStrength);
 
                 // 2) Renda traseira (foam lace) com vazios internos celulares (0.2 m a 3.1 m atrás da frente)
                 float laceZone = smoothstep(0.05, 0.45, distFromFront) * (1.0 - smoothstep(1.2, 3.2 + alongVar * 1.1, distFromFront));
-                float cellWeb = cellularFoamPattern(vec2(x * 1.35 + uTime * 0.16, z * 1.05 + 0.35 * sin(x * 0.5)));
-                float subWeb = cellularFoamPattern(vec2(x * 2.4 - uTime * 0.12, z * 2.1));
-                float laceDensity = smoothstep(0.32, 0.78, cellWeb * 0.72 + subWeb * 0.28);
-                float laceFoam = laceZone * laceDensity * 0.78;
+                vec2 laceUV = vec2(x * 1.43 + foamDrift, z * 0.87);
+                laceUV += vec2(crestWarp, fbm2(vec2(z * 0.46, x * 0.42 - foamDrift))) * 1.65;
+                float cellWeb = cellularFoamPattern(laceUV);
+                float pockets = smoothstep(0.26, 0.69, fbm2(laceUV * 0.52));
+                float laceFoam = laceZone * smoothstep(0.22, 0.8, cellWeb) * pockets * 0.55;
 
                 // 3) Cristas secundárias quebrando na borda do banco de areia raso (X ~ 37.8..44.0)
                 float crestWave = sin(phase1 - 0.55) * 0.7 + sin(phase2) * 0.3;
                 float offshoreZone = smoothstep(37.0, 38.4, x) * (1.0 - smoothstep(42.5, 48.0, x));
                 float offshoreBreak = smoothstep(0.58, 0.92, crestWave + (alongVar - 0.5) * 0.35);
-                float offshoreLace = smoothstep(0.30, 0.75, cellularFoamPattern(vec2(x * 1.1 + uTime * 0.2, z * 0.85)));
-                float offshoreFoam = offshoreZone * offshoreBreak * offshoreLace * 0.68;
+                float offshoreLace = smoothstep(0.30, 0.75, cellularFoamPattern(laceUV * 0.84));
+                float offshoreFoam = offshoreZone * offshoreBreak * offshoreLace * pockets * 0.45;
 
-                float foamMask = clamp(max(leadingFoam, max(laceFoam, offshoreFoam)) + contactFoam, 0.0, 1.0) * uIntensity;
+                float foamMask = clamp((max(leadingFoam, max(laceFoam, offshoreFoam)) + contactFoam) * uIntensity, 0.0, 1.0);
                 foamMask *= smoothstep(-0.08, 0.18, distFromFront);
 
                 // Cor da espuma: branco-quente/creme iluminado pelo fim de tarde, sem emissão
@@ -518,7 +534,8 @@ export function createRioWaterSurfaceMaterial(uniforms: ReturnType<typeof create
                 vec3 foamColor = mix(foamShadow, foamBase, 0.55 + 0.45 * ndl);
 
                 // Reflexos suaves e fragmentados (Fresnel + ondulações + sol de fim de tarde)
-                vec3 V = normalize(cameraPosition - vWorldPos);
+                vec3 V = isOrthographic ? vec3(viewMatrix[0].z, viewMatrix[1].z, viewMatrix[2].z)
+                                        : normalize(cameraPosition - vWorldPos);
                 float ndv = max(0.05, dot(N, V));
                 float fresnel = 0.03 + 0.42 * pow(1.0 - ndv, 4.0);
                 vec3 R = reflect(-V, N);
@@ -533,9 +550,9 @@ export function createRioWaterSurfaceMaterial(uniforms: ReturnType<typeof create
                 vec3 surfaceColor = mix(waterLit + reflectionColor * (1.0 - 0.65 * foamMask), foamColor, foamMask * 0.88);
 
                 // Opacidade contínua: transparente na lâmina rasa, progressivamente opaca na água profunda e na espuma
-                float baseOpacity = mix(0.24, 0.74, absorption);
+                float baseOpacity = mix(0.07, 0.74, absorption);
                 baseOpacity = mix(baseOpacity, 0.94, deepZone);
-                float finalAlpha = clamp(max(baseOpacity, foamMask * 0.90) * swashEdgeAlpha, 0.0, 0.96);
+                float finalAlpha = min(0.96, mix(baseOpacity, 0.92, foamMask) * swashEdgeAlpha);
 
                 float fogDist = length(cameraPosition - vWorldPos);
                 float fogFactor = smoothstep(uFogNear, uFogFar, fogDist);
@@ -586,9 +603,9 @@ export function buildRioCoastalWater(group: Group, config: RioWaterConfig = RIO_
     beachMesh.renderOrder = 1;
     group.add(beachMesh);
 
-    // 2. Malha da superfície costeira da água (X = 33.2..201), com subdivisão concentrada na arrebentação e faixa rasa
+    // 2. Malha da superfície costeira da água (X = 31.5..201), com subdivisão concentrada na arrebentação e faixa rasa
     const waterXStops = buildStops([
-        { from: 33.2, to: 42.5, steps: 34 },
+        { from: 31.5, to: 42.5, steps: 40 },
         { from: 42.5, to: 54, steps: 12 },
         { from: 54, to: 201, steps: 5 },
     ]);
@@ -623,7 +640,7 @@ export function buildRioCoastalWater(group: Group, config: RioWaterConfig = RIO_
         }
     }
 
-    return {
+    const coastalWater = {
         beachMesh,
         waterMesh,
         contactPool,
@@ -632,4 +649,6 @@ export function buildRioCoastalWater(group: Group, config: RioWaterConfig = RIO_
         getSimulationTime: () => simulationTime,
         update,
     };
+    group.userData.coastalWater = coastalWater;
+    return coastalWater;
 }

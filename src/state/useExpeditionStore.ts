@@ -54,7 +54,7 @@ interface ExpeditionState {
     radioMap: MapId | null;
     quotaAnnounced: boolean;
     start: (name: string, color: string) => void;
-    enterDevelopment: () => boolean;
+    enterDevelopment: (preview?: 'rio') => boolean;
     enterCampaign: (profile?: Profile, replace?: boolean) => boolean;
     returnHome: () => void;
     openEden: () => void;
@@ -102,13 +102,16 @@ export const useExpeditionStore = create<ExpeditionState>((set, get) => ({
         if (profile)
             set({ profile, saveError: save(profile, get().briefingSeen) });
     },
-    enterDevelopment: () => {
+    enterDevelopment: preview => {
         if (!useCampaignStore.getState().enterDevelopment()) return false;
         combatRuntime.simulation = null;
         useCombatStore.getState().restart();
-        respawn(INITIAL_POSITION, 'mars');
-        set({ profile: developmentIdentity.profile, briefingSeen: developmentIdentity.briefingSeen,
-            session: { ...INITIAL_SESSION }, spawn: INITIAL_POSITION, panel: null, acquisition: null, ready: false,
+        const map = preview === 'rio' ? 'rio' : 'mars';
+        const spawn = map === 'rio' ? MAPS.rio.exit : INITIAL_POSITION;
+        respawn(spawn, map);
+        const profile = developmentIdentity.profile ?? (preview ? { displayName: 'Explorador', color: '#66e6ff' } : null);
+        set({ profile, briefingSeen: developmentIdentity.briefingSeen,
+            session: { ...INITIAL_SESSION, map }, spawn, panel: null, acquisition: null, ready: false,
             error: null, saveError: developmentSaveError, radio: INITIAL_RADIO, radioSender: 'EDEN', radioSerial: 0, radioMap: null, quotaAnnounced: false });
         return true;
     },

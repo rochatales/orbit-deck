@@ -33,6 +33,61 @@ const { CombatSimulation, traceShot, validContactSpawn } = loadSource('src/comba
 const { createPhase01Terrain } = loadSource('src/game/shanghai/layout.ts');
 const { createWorld: createMarsWorld } = loadSource('src/game/marsWorld.ts');
 
+test('Rio v005: remove praia estática, piso e marcas do pouso, preservando areia decorativa e faixas da avenida', () => {
+    const { BufferGeometry, Group, Mesh, MeshStandardMaterial } = createRequire(import.meta.url)('three');
+    const { removeRioStaticCoast } = loadSource('src/game/rio/previewCoast.ts');
+    const world = createRioTerrain();
+
+    function fixture(file) {
+        const glb = readFileSync(`src/assets/rio-fase01/${file}`);
+        const data = JSON.parse(glb.toString('utf8', 20, 20 + glb.readUInt32LE(12)));
+        const materials = data.materials.map(({ name }) => Object.assign(new MeshStandardMaterial(), { name }));
+        const scene = new Group();
+        for (const node of data.nodes) {
+            const [primitive] = data.meshes[node.mesh].primitives;
+            const mesh = new Mesh(new BufferGeometry(), materials[primitive.material]);
+            mesh.name = node.name;
+            mesh.userData.bounds = data.accessors[primitive.attributes.POSITION];
+            scene.add(mesh);
+        }
+        return scene;
+    }
+
+    const land = fixture('rio-fase01.glb'), border = fixture('rio-limites-v003.glb');
+    const beach = land.getObjectByName('RIO_mapa_21_areia');
+    const pierSand = land.getObjectByName('RIO_mapa_20_areia');
+    const plazaSand = land.getObjectByName('RIO_mapa_12_areia');
+    const wetSand = border.getObjectByName('RIO_limites_11_areia_molhada');
+    const deck = land.getObjectByName('RIO_mapa_22_concreto');
+    const landingPaint = land.getObjectByName('RIO_mapa_22_faixa');
+    const roadPaint = land.getObjectByName('RIO_mapa_12_faixa');
+    const footprint = rio.parts.find(part => part.id === 'Deck_Pouso');
+    assert.deepEqual(deck.userData.bounds.max.map(x => Math.round(x * 100) / 100), [footprint.maxX, .02, footprint.maxZ]);
+    assert.equal(landingPaint.userData.bounds.count, 96, 'quatro caixas de pintura');
+    assert.equal(roadPaint.material, landingPaint.material);
+    assert.deepEqual(beach.userData.bounds.max, [36, 0, 54]);
+    assert.equal(beach.userData.bounds.min[0], 15);
+    assert.equal(beach.userData.bounds.min[2], -54);
+    assert.equal(beach.material, pierSand.material);
+    let beachDisposals = 0, sharedSandDisposals = 0;
+    beach.geometry.addEventListener('dispose', () => beachDisposals++);
+    beach.material.addEventListener('dispose', () => sharedSandDisposals++);
+
+    removeRioStaticCoast(world, land, border);
+
+    assert.equal(land.getObjectByName(beach.name), undefined);
+    assert.equal(land.getObjectByName(deck.name), undefined);
+    assert.equal(land.getObjectByName(landingPaint.name), undefined);
+    assert.equal(land.getObjectByName(roadPaint.name), roadPaint);
+    assert.equal(land.getObjectByName('RIO_mapa_11_costa_praia'), undefined);
+    assert.equal(border.getObjectByName(wetSand.name), undefined);
+    assert.equal(border.getObjectByName('RIO_limites_11_mar'), undefined);
+    assert.equal(land.getObjectByName(pierSand.name), pierSand);
+    assert.equal(land.getObjectByName(plazaSand.name), plazaSand);
+    assert.equal(beachDisposals, 1);
+    assert.equal(sharedSandDisposals, 0);
+});
+
 test('Rio água (1): igualdade byte a byte entre a planta exportada e a cópia do runtime', () => {
     const exported = readFileSync('art-source/rio-fase01/export/layout.json');
     const runtimeCopy = readFileSync('src/assets/rio-fase01/layout.json');

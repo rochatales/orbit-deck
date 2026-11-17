@@ -8,6 +8,7 @@ import { SHANGHAI_DAWN } from './lightingConfig';
 import { Suspense } from 'react';
 import { Html } from '@react-three/drei';
 import { isExpedition } from '../game/config';
+import { RioAresLanding } from './RioAresLanding';
 import { RIO_SKY, RioLighting } from './RioLighting';
 import { ShanghaiLighting } from './ShanghaiLighting';
 import { SceneReady } from './SceneReady';
@@ -62,9 +63,9 @@ export function OfficeScene({ world, map }: {
       {map === 'mars' && <EngineerScene world={world}/>}
     </PhysicsWorld>
     <PlayerStepDust key={`dust-${map}-${revision}`} world={world} map={map}/>
-    {combat && <><CombatScene world={world} map={map}/><PlayerVisorLight/></>}
+    {combat && <><CombatScene world={world} map={map}/>{!rio && <PlayerVisorLight/>}</>}
     {(phase01 || rio) && <ExpeditionAtmosphere world={world} phase01={phase01}/>}
-    {map === 'mars' ? <MarsColony world={world}/> : <Spacecraft map={map}/>}
+    {map === 'mars' ? <MarsColony world={world}/> : rio ? <RioAresLanding/> : <Spacecraft map={map}/>}
     <WorldInteractionBubbles key={`interactions-${map}-${revision}`} map={map} world={world}/>
     <PlayerReticle key={`reticle-${revision}`} world={world} combat={combat}/>
     <SceneReady world={world}/>
