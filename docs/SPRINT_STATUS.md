@@ -1,5 +1,18 @@
 # Quadro de execução — EXODEN
 
+> **Consolidação aprovada pelo autor em 17/11/2026 — base atual para novas tarefas.**
+> Publicada em `origin/rochatales/horda-survivor` sobre `fa79e37`, por fast-forward.
+> Reúne o Level 02 Rio até `5f75e92` (blockout, arte v005, píer, morros, água, ARES na
+> areia; só no modo dev, recebeu a base de 15/11 em `267db19`) e a cabine holográfica
+> da S6.16 (`claude/s6.16-cabine-holografica`: menu sem fundo, globo, painel da
+> aeronave e viagem com fumaça, estrelas e pouso; sons e efeitos provisórios),
+> juntados em `517ac82`. 687/687, build e diff-check verdes. Autor validou os dois e
+> pediu para publicar já, com os refinamentos em frentes novas:
+> **cabine (UI e mídia final)** e **Rio (acabamento 3D)**.
+> A arte v005 do Rio só aparece no servidor de desenvolvimento com `?rio-v005`.
+> Plano de ação de 17/11 no Game Wiki (`docs/wiki/index.html`, seção Sprints), fonte
+> principal do projeto. Handoff da cabine: `docs/handoffs/s6.16-cabine-holografica.md`.
+
 > **Consolidação aprovada pelo autor em 15/11/2026 — base atual para novas tarefas.**
 > Código `3105d4f`, publicado em `origin/rochatales/horda-survivor`; a publicação
 > anterior era `90e7734` (04/11). Reúne quatro blocos confirmados pelo autor:
